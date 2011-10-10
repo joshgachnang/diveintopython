@@ -1,581 +1,287 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!-- saved from url=(0086)http://web.archive.org/web/20110716181728/http://www.diveintopython.org/toc/index.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Dive Into Python</title>
-<link rel="stylesheet" href="./Dive Into Python_files/diveintopython.css" type="text/css" />
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.3.&nbsp;Case Study: Roman Numerals</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
 <link rev="made" href="mailto:f8dy@diveintopython.org" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
-<meta name="description" content=" This book lives at .  If you're reading it somewhere else, you may not have the latest version." />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
-<link rel="home" href="./Dive Into Python_files/Dive Into Python.html" title="Dive Into Python" />
-<link rel="next" href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/index.html" title="Chapter 1. Installing Python" />
-<script>_gaq=[['_setAccount','UA-7434570-5'],['_trackPageview']];(function(){var g=document.createElement('script');g.src='//www.google-analytics.com/ga.js';g.setAttribute('async','true');document.documentElement.firstChild.appendChild(g);})();</script><script src="./Dive Into Python_files/ga.js" async="true"></script>
+<link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://web.archive.org/web/20110726001300/http://diveintopython.org/regular_expressions/index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions" />
+<link rel="previous" href="http://web.archive.org/web/20110726001300/http://diveintopython.org/regular_expressions/street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses" />
+<link rel="next" href="http://www.diveintopython.net/" title="7.4.&nbsp;Using the {n,m} Syntax" />
 </head>
-<body><div id="wm-ipp" style="position: relative; padding-top: 0px; padding-right: 5px; padding-bottom: 0px; padding-left: 5px; min-height: 70px; min-width: 800px; z-index: 9000; display: block; ">
-<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
-<table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
-<td style="padding:10px;vertical-align:top;min-width:110px;">
-<a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="./Dive Into Python_files/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0" /></a>
-</td>
-<td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
-<table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
-<td style="padding:3px 0;" colspan="2">
-<form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://www.diveintopython.org/toc/index.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20110716181728" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
-</td>
-<td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
-<table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
-<!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
-<tr style="width:110px;height:16px;font-size:10px!important;">
-<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
-<a href="http://web.archive.org/web/20110514055941/http://diveintopython.org/toc/index.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="14 May 2011"><strong>MAY</strong></a>
-</td>
-<td id="displayMonthEl" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(0, 0, 0); font-size: 11px !important; font-weight: bold; text-transform: uppercase; width: 34px; height: 15px; padding-top: 1px; text-align: center; color: rgb(255, 255, 0); background-position: initial initial; background-repeat: initial initial; " title="You are here: 18:17:28 Jul 16, 2011">Jul</td>
-<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
-               
-                       Aug
-                       
-               </td>
-</tr>
-<!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
-<tr>
-<td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
-<a href="http://web.archive.org/web/20110625065328/http://diveintopython.org/toc/index.html" title="6:53:28 Jun 25, 2011" style="background-color:transparent;border:none;"><img src="./Dive Into Python_files/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
-</td>
-<td id="displayDayEl" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(0, 0, 0); width: 34px; height: 24px; padding-top: 2px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; text-align: center; font-size: 24px; font-weight: bold; color: rgb(255, 255, 0); background-position: initial initial; background-repeat: initial initial; " title="You are here: 18:17:28 Jul 16, 2011">16</td>
-<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
-<img src="./Dive Into Python_files/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0" />
-</td>
-</tr>
-<!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
-<tr style="width:110px;height:13px;font-size:9px!important;">
-<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
-<a href="http://web.archive.org/web/20100622175553/http://diveintopython.org/toc/index.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="22 Jun 2010"><strong>2010</strong></a>
-</td>
-<td id="displayYearEl" style="background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(0, 0, 0); font-size: 11px !important; font-weight: bold; padding-top: 1px; width: 34px; height: 13px; text-align: center; color: rgb(255, 255, 0); background-position: initial initial; background-repeat: initial initial; " title="You are here: 18:17:28 Jul 16, 2011">2011</td>
-<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
-               
-                       2012
-                       
-				</td>
-</tr>
-</tbody></table>
-</td>
-</tr>
-<tr>
-<td style="vertical-align:middle;padding:0!important;">
-<a href="http://wayback.archive.org/web/20110716181728*/http://www.diveintopython.org/toc/index.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>341 captures</strong></a>
-<div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">8 Oct 03 - 16 Jul 11</div>
-</td>
-<td style="padding:0!important;">
-<a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="http://web.archive.org/web/20041015000000/http://www.diveintopython.org/toc/index.html" id="wm-graph-anchor">
-<div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
-<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;" onmouseover="showTrackers('inline');" onmouseout="showTrackers('none');" onmousemove="trackMouseMove(event,this)" alt="sparklines" width="400" height="27" border="0" src="./Dive Into Python_files/graph.jsp" />
-<img id="wbMouseTrackYearImg" style="position: absolute; z-index: 9010; left: 200px; display: none; " width="25" height="27" border="0" src="./Dive Into Python_files/transp-yellow-pixel.png" />
-<img id="wbMouseTrackMonthImg" style="position: absolute; z-index: 9011; left: 219px; display: none; " width="2" height="27" border="0" src="./Dive Into Python_files/transp-red-pixel.png" />
-</div>
-</a>
-</td>
-</tr></tbody></table>
-</td>
-<td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
-<a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
-<a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
-</td>
-</tr></tbody></table>
-</div>
-</div>
-<!-- BEGIN WAYBACK TOOLBAR INSERT -->
-<script type="text/javascript" src="./Dive Into Python_files/disclaim-element.js"></script>
-<script type="text/javascript" src="./Dive Into Python_files/graph-calc.js"></script>
-<script type="text/javascript" src="./Dive Into Python_files/jquery.min.js"></script>
-<script type="text/javascript">
-//<![CDATA[
-var firstDate = 820454400000;
-var lastDate = 1325375999999;
-var wbPrefix = "http://web.archive.org/web/";
-var wbCurrentUrl = "http:\/\/www.diveintopython.org\/toc\/index.html";
-
-var curYear = -1;
-var curMonth = -1;
-var yearCount = 16;
-var firstYear = 1996;
-var imgWidth=400;
-var yearImgWidth = 25;
-var monthImgWidth = 2;
-var trackerVal = "none";
-var displayDay = "16";
-var displayMonth = "Jul";
-var displayYear = "2011";
-var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-function showTrackers(val) {
-	if(val == trackerVal) {
-		return;
-	}
-	if(val == "inline") {
-		document.getElementById("displayYearEl").style.color = "#ec008c";
-		document.getElementById("displayMonthEl").style.color = "#ec008c";
-		document.getElementById("displayDayEl").style.color = "#ec008c";		
-	} else {
-		document.getElementById("displayYearEl").innerHTML = displayYear;
-		document.getElementById("displayYearEl").style.color = "#ff0";
-		document.getElementById("displayMonthEl").innerHTML = displayMonth;
-		document.getElementById("displayMonthEl").style.color = "#ff0";
-		document.getElementById("displayDayEl").innerHTML = displayDay;
-		document.getElementById("displayDayEl").style.color = "#ff0";
-	}
-   document.getElementById("wbMouseTrackYearImg").style.display = val;
-   document.getElementById("wbMouseTrackMonthImg").style.display = val;
-   trackerVal = val;
-}
-function getElementX2(obj) {
-	var thing = jQuery(obj);
-	if((thing == undefined) 
-			|| (typeof thing == "undefined") 
-			|| (typeof thing.offset == "undefined")) {
-		return getElementX(obj);
-	}
-	return Math.round(thing.offset().left);
-}
-function trackMouseMove(event,element) {
-
-   var eventX = getEventX(event);
-   var elementX = getElementX2(element);
-   var xOff = eventX - elementX;
-	if(xOff < 0) {
-		xOff = 0;
-	} else if(xOff > imgWidth) {
-		xOff = imgWidth;
-	}
-   var monthOff = xOff % yearImgWidth;
-
-   var year = Math.floor(xOff / yearImgWidth);
-	var yearStart = year * yearImgWidth;
-   var monthOfYear = Math.floor(monthOff / monthImgWidth);
-   if(monthOfYear > 11) {
-       monthOfYear = 11;
-   }
-   // 1 extra border pixel at the left edge of the year:
-   var month = (year * 12) + monthOfYear;
-   var day = 1;
-	if(monthOff % 2 == 1) {
-		day = 15;
-	}
-	var dateString = 
-		zeroPad(year + firstYear) + 
-		zeroPad(monthOfYear+1,2) +
-		zeroPad(day,2) + "000000";
-
-	var monthString = prettyMonths[monthOfYear];
-	document.getElementById("displayYearEl").innerHTML = year + 1996;
-	document.getElementById("displayMonthEl").innerHTML = monthString;
-	// looks too jarring when it changes..
-	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
-
-	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
-	document.getElementById('wm-graph-anchor').href = url;
-
-   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
-   if(curYear != year) {
-       var yrOff = year * yearImgWidth;
-       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
-       curYear = year;
-   }
-   if(curMonth != month) {
-       var mtOff = year + (month * monthImgWidth) + 1;
-       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
-       curMonth = month;
-   }
-}
-//]]>
-</script>
+<body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
-<script type="text/javascript">
- var wmDisclaimBanner = document.getElementById("wm-ipp");
- if(wmDisclaimBanner != null) {
-   disclaimElement(wmDisclaimBanner);
- }
-</script>
-<!-- END WAYBACK TOOLBAR INSERT -->
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-<tbody><tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/index.html">Home</a>&nbsp;&gt;&nbsp;<span class="thispage">Dive Into Python</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/index.html" title="Next: “Installing Python”">&gt;&gt;</a></td>
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Case Study: Roman Numerals</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/street_addresses.html" title="Prev: “Case Study: Street Addresses”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html" title="Next: “Using the {n,m} Syntax”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
-<form id="search" method="GET" action="http://web.archive.org/web/20110716181728/http://www.google.com/custom">
+<form id="search" method="GET" action="http://www.google.com/custom">
 <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
 </form>
 </td>
 </tr>
-</tbody></table>
-<div class="book" lang="en">
+</table>
+<div class="section" lang="en">
 <div class="titlepage">
 <div>
 <div>
-<h1 class="title"><a name="d0e1"></a>Dive Into <span class="application">Python</span></h1>
-</div>
-<div>
-<p class="pubdate">20 May 2004</p>
-</div>
-<div>
-<p class="copyright">Copyright © 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
-</div>
-<div>
-<div class="abstract">
-<h3 class="title"></h3>
-<p>This book lives at <a href="http://web.archive.org/web/20110716181728/http://diveintopython.org/">http://diveintopython.org/</a>.  If you're reading it somewhere else, you may not have the latest version.
-                     </p>
-</div>
-</div>
-<div>
-<div class="legalnotice">
-<p>Permission is granted to copy, distribute, and/or modify this document under the terms of the <span class="acronym">GNU</span> Free Documentation License, Version 1.1 or any later version published by the Free Software Foundation; with no Invariant
-                        Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of the license is included in <a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl.html" title="Appendix G. GNU Free Documentation License">Appendix&nbsp;G, <i>GNU Free Documentation License</i></a>.
-                     </p>
-<p>The example programs in this book are free software; you can redistribute and/or modify them under the terms of the <span class="application">Python</span> license as published by the <span class="application">Python</span> Software Foundation. A copy of the license is included in <a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/license.html" title="Appendix H. Python license">Appendix&nbsp;H, <i>Python license</i></a>.
-                     </p>
-</div>
+<h2 class="title"><a name="re.roman"></a>7.3.&nbsp;Case Study: Roman Numerals
+                  </h2>
 </div>
 </div>
 <div></div>
 </div>
 <div class="toc">
-<p><b>Table of Contents</b></p>
 <ul>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/index.html">1. Installing Python</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/index.html#install.choosing">1.1. Which Python is right for you?</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/windows.html">1.2. Python on Windows</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/macosx.html">1.3. Python on Mac OS X</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/macos9.html">1.4. Python on Mac OS 9</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/redhat.html">1.5. Python on RedHat Linux</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/debian.html">1.6. Python on Debian GNU/Linux</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/source.html">1.7. Python Installation from Source</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/shell.html">1.8. The Interactive Shell</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/summary.html">1.9. Summary</a></span></li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#d0e17592">7.3.1. Checking for Thousands</a></span></li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#d0e17785">7.3.2. Checking for Hundreds</a></span></li>
 </ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/index.html">2. Your First Python Program</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/index.html#odbchelper.divein">2.1. Diving in</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/declaring_functions.html">2.2. Declaring Functions</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/declaring_functions.html#d0e4188">2.2.1. How Python's Datatypes Compare to Other Programming Languages</a></span></li>
+</div>
+<div class="abstract">
+<p>You've most likely seen Roman numerals, even if you didn't recognize them.  You may have seen them in copyrights of old movies
+               and television shows (&#8220;<span class="quote">Copyright <tt class="literal">MCMXLVI</tt></span>&#8221; instead of &#8220;<span class="quote">Copyright <tt class="literal">1946</tt></span>&#8221;), or on the dedication walls of libraries or universities (&#8220;<span class="quote">established <tt class="literal">MDCCCLXXXVIII</tt></span>&#8221; instead of &#8220;<span class="quote">established <tt class="literal">1888</tt></span>&#8221;).  You may also have seen them in outlines and bibliographical references.  It's a system of representing numbers that really
+               does date back to the ancient Roman empire (hence the name).
+            </p>
+</div>
+<p>In Roman numerals, there are seven characters that are repeated and combined in various ways to represent numbers.</p>
+<div class="itemizedlist">
+<ul>
+<li><tt class="literal">I</tt> = <tt class="literal">1</tt></li>
+<li><tt class="literal">V</tt> = <tt class="literal">5</tt></li>
+<li><tt class="literal">X</tt> = <tt class="literal">10</tt></li>
+<li><tt class="literal">L</tt> = <tt class="literal">50</tt></li>
+<li><tt class="literal">C</tt> = <tt class="literal">100</tt></li>
+<li><tt class="literal">D</tt> = <tt class="literal">500</tt></li>
+<li><tt class="literal">M</tt> = <tt class="literal">1000</tt></li>
 </ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/documenting_functions.html">2.3. Documenting Functions</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/everything_is_an_object.html">2.4. Everything Is an Object</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/everything_is_an_object.html#d0e4550">2.4.1. The Import Search Path</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/everything_is_an_object.html#d0e4665">2.4.2. What's an Object?</a></span></li>
+</div>
+<p>The following are some general rules for constructing Roman numerals:</p>
+<div class="itemizedlist">
+<ul>
+<li>Characters are additive.  <tt class="literal">I</tt> is <tt class="constant">1</tt>, <tt class="literal">II</tt> is <tt class="literal">2</tt>, and <tt class="literal">III</tt> is <tt class="literal">3</tt>.  <tt class="literal">VI</tt> is <tt class="literal">6</tt> (literally, &#8220;<span class="quote"><tt class="literal">5</tt> and <tt class="literal">1</tt></span>&#8221;), <tt class="literal">VII</tt> is <tt class="literal">7</tt>, and <tt class="literal">VIII</tt> is <tt class="literal">8</tt>.
+               </li>
+<li>The tens characters (<tt class="literal">I</tt>, <tt class="literal">X</tt>, <tt class="literal">C</tt>, and <tt class="literal">M</tt>) can be repeated up to three times.  At <tt class="literal">4</tt>, you need to subtract from the next highest fives character.  You can't represent <tt class="literal">4</tt> as <tt class="literal">IIII</tt>; instead, it is represented as <tt class="literal">IV</tt> (&#8220;<span class="quote"><tt class="literal">1</tt> less than <tt class="literal">5</tt></span>&#8221;).  The number <tt class="literal">40</tt> is written as <tt class="literal">XL</tt> (<tt class="literal">10</tt> less than <tt class="literal">50</tt>), <tt class="literal">41</tt> as <tt class="literal">XLI</tt>, <tt class="literal">42</tt> as <tt class="literal">XLII</tt>, <tt class="literal">43</tt> as <tt class="literal">XLIII</tt>, and then <tt class="literal">44</tt> as <tt class="literal">XLIV</tt> (<tt class="literal">10</tt> less than <tt class="literal">50</tt>, then <tt class="literal">1</tt> less than <tt class="literal">5</tt>).
+               </li>
+<li>Similarly, at <tt class="literal">9</tt>, you need to subtract from the next highest tens character: <tt class="literal">8</tt> is <tt class="literal">VIII</tt>, but <tt class="literal">9</tt> is <tt class="literal">IX</tt> (<tt class="literal">1</tt> less than <tt class="literal">10</tt>), not <tt class="literal">VIIII</tt> (since the <tt class="literal">I</tt> character can not be repeated four times).  The number <tt class="literal">90</tt> is <tt class="literal">XC</tt>, <tt class="literal">900</tt> is <tt class="literal">CM</tt>.
+               </li>
+<li>The fives characters can not be repeated.  The number <tt class="literal">10</tt> is always represented as <tt class="literal">X</tt>, never as <tt class="literal">VV</tt>.  The number <tt class="literal">100</tt> is always <tt class="literal">C</tt>, never <tt class="literal">LL</tt>.
+               </li>
+<li>Roman numerals are always written highest to lowest, and read left to right, so the order the of characters matters very much.
+                   <tt class="literal">DC</tt> is <tt class="literal">600</tt>; <tt class="literal">CD</tt> is a completely different number (<tt class="literal">400</tt>, <tt class="literal">100</tt> less than <tt class="literal">500</tt>).  <tt class="literal">CI</tt> is <tt class="literal">101</tt>; <tt class="literal">IC</tt> is not even a valid Roman numeral (because you can't subtract <tt class="literal">1</tt> directly from <tt class="literal">100</tt>; you would need to write it as <tt class="literal">XCIX</tt>, for <tt class="literal">10</tt> less than <tt class="literal">100</tt>, then <tt class="literal">1</tt> less than <tt class="literal">10</tt>).
+               </li>
 </ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/indenting_code.html">2.5. Indenting Code</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/getting_to_know_python/testing_modules.html">2.6. Testing Modules</a></span></li>
+</div>
+<div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="d0e17592"></a>7.3.1.&nbsp;Checking for Thousands
+                     </h3>
+</div>
+</div>
+<div></div>
+</div>
+<p>What would it take to validate that an arbitrary string is a valid Roman numeral?  Let's take it one digit at a time.  Since
+               Roman numerals are always written highest to lowest, let's start with the highest: the thousands place.  For numbers 1000
+               and higher, the thousands are represented by a series of <tt class="literal">M</tt> characters.
+            </p>
+<div class="example"><a name="d0e17600"></a><h3 class="title">Example&nbsp;7.3.&nbsp;Checking for Thousands</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?$'</span></span>       <a name="re.roman.1.1"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'M'</span>)</span>    <a name="re.roman.1.2"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 0106FB58&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MM'</span>)</span>   <a name="re.roman.1.3"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 0106C290&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMM'</span>)</span>  <a name="re.roman.1.4"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 0106AA38&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMMM'</span>)</span> <a name="re.roman.1.5"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">''</span>)</span>     <a name="re.roman.1.6"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 0106F4A8&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.1"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">This pattern has three parts:
+                           <div class="itemizedlist">
+<ul>
+<li><tt class="literal">^</tt> to match what follows only at the beginning of the string.  If this were not specified, the pattern would match no matter
+                                    where the <tt class="literal">M</tt> characters were, which is not what you want.  You want to make sure that the <tt class="literal">M</tt> characters, if they're there, are at the beginning of the string.
+                                 </li>
+<li><tt class="literal">M?</tt> to optionally match a single <tt class="literal">M</tt> character.  Since this is repeated three times, you're matching anywhere from zero to three <tt class="literal">M</tt> characters in a row.
+                                 </li>
+<li><tt class="literal">$</tt> to match what precedes only at the end of the string.  When combined with the <tt class="literal">^</tt> character at the beginning, this means that the pattern must match the entire string, with no other characters before or
+                                    after the <tt class="literal">M</tt> characters.
+                                 </li>
 </ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/index.html">3. Native Datatypes</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/index.html#odbchelper.dict">3.1. Introducing Dictionaries</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/index.html#d0e5174">3.1.1. Defining Dictionaries</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/index.html#d0e5269">3.1.2. Modifying Dictionaries</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/index.html#d0e5450">3.1.3. Deleting Items From Dictionaries</a></span></li>
+</div>
+</td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.2"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">The essence of the <tt class="filename">re</tt> module is the <tt class="function">search</tt> function, that takes a regular expression (<tt class="varname">pattern</tt>) and a string (<tt class="literal">'M'</tt>) to try to match against the regular expression.  If a match is found, <tt class="function">search</tt> returns an object which has various methods to describe the match; if no match is found, <tt class="function">search</tt> returns <tt class="literal">None</tt>, the <span class="application">Python</span> null value.  All you care about at the moment is whether the pattern matches, which you can tell by just looking at the return
+                           value of <tt class="function">search</tt>.  <tt class="literal">'M'</tt> matches this regular expression, because the first optional <tt class="literal">M</tt> matches and the second and third optional <tt class="literal">M</tt> characters are ignored.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.3"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="literal">'MM'</tt> matches because the first and second optional <tt class="literal">M</tt> characters match and the third <tt class="literal">M</tt> is ignored.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.4"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="literal">'MMM'</tt> matches because all three <tt class="literal">M</tt> characters match.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.5"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="literal">'MMMM'</tt> does not match.  All three <tt class="literal">M</tt> characters match, but then the regular expression insists on the string ending (because of the <tt class="literal">$</tt> character), and the string doesn't end yet (because of the fourth <tt class="literal">M</tt>).  So <tt class="function">search</tt> returns <tt class="literal">None</tt>.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.6"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Interestingly, an empty string also matches this regular expression, since all the <tt class="literal">M</tt> characters are optional.
+                        </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="d0e17785"></a>7.3.2.&nbsp;Checking for Hundreds
+                     </h3>
+</div>
+</div>
+<div></div>
+</div>
+<p>The hundreds place is more difficult than the thousands, because there are several mutually exclusive ways it could be expressed,
+               depending on its value.
+            </p>
+<div class="itemizedlist">
+<ul>
+<li><tt class="literal">100</tt> = <tt class="literal">C</tt></li>
+<li><tt class="literal">200</tt> = <tt class="literal">CC</tt></li>
+<li><tt class="literal">300</tt> = <tt class="literal">CCC</tt></li>
+<li><tt class="literal">400</tt> = <tt class="literal">CD</tt></li>
+<li><tt class="literal">500</tt> = <tt class="literal">D</tt></li>
+<li><tt class="literal">600</tt> = <tt class="literal">DC</tt></li>
+<li><tt class="literal">700</tt> = <tt class="literal">DCC</tt></li>
+<li><tt class="literal">800</tt> = <tt class="literal">DCCC</tt></li>
+<li><tt class="literal">900</tt> = <tt class="literal">CM</tt></li>
 </ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/lists.html">3.2. Introducing Lists</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/lists.html#d0e5623">3.2.1. Defining Lists</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/lists.html#d0e5887">3.2.2. Adding Elements to Lists</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/lists.html#d0e6115">3.2.3. Searching Lists</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/lists.html#d0e6277">3.2.4. Deleting List Elements</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/lists.html#d0e6392">3.2.5. Using List Operators</a></span></li>
+</div>
+<p>So there are four possible patterns:</p>
+<div class="itemizedlist">
+<ul>
+<li><tt class="literal">CM</tt></li>
+<li><tt class="literal">CD</tt></li>
+<li>Zero to three <tt class="literal">C</tt> characters (zero if the hundreds place is 0)
+                  </li>
+<li><tt class="literal">D</tt>, followed by zero to three <tt class="literal">C</tt> characters
+                  </li>
 </ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/tuples.html">3.3. Introducing Tuples</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/declaring_variables.html">3.4. Declaring variables</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/declaring_variables.html#d0e6873">3.4.1. Referencing Variables</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/declaring_variables.html#odbchelper.multiassign">3.4.2. Assigning Multiple Values at Once</a></span></li>
+</div>
+<p>The last two patterns can be combined:</p>
+<div class="itemizedlist">
+<ul>
+<li>an optional <tt class="literal">D</tt>, followed by zero to three <tt class="literal">C</tt> characters
+                  </li>
 </ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/formatting_strings.html">3.5. Formatting Strings</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/mapping_lists.html">3.6. Mapping Lists</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/joining_lists.html">3.7. Joining Lists and Splitting Strings</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/joining_lists.html#d0e7982">3.7.1. Historical Note on String Methods</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/native_data_types/summary.html">3.8. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/index.html">4. The Power Of Introspection</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/index.html#apihelper.divein">4.1. Diving In</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/optional_arguments.html">4.2. Using Optional and Named Arguments</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/built_in_functions.html">4.3. Using type, str, dir, and Other Built-In Functions</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/built_in_functions.html#d0e8510">4.3.1. The type Function</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/built_in_functions.html#d0e8609">4.3.2. The str Function</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/built_in_functions.html#d0e8958">4.3.3. Built-In Functions</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/getattr.html">4.4. Getting Object References With getattr</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/getattr.html#d0e9194">4.4.1. getattr with Modules</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/getattr.html#d0e9362">4.4.2. getattr As a Dispatcher</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/filtering_lists.html">4.5. Filtering Lists</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/and_or.html">4.6. The Peculiar Nature of and and or</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/and_or.html#d0e9975">4.6.1. Using the and-or Trick</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/lambda_functions.html">4.7. Using lambda Functions</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/lambda_functions.html#d0e10403">4.7.1. Real-World lambda Functions</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/all_together.html">4.8. Putting It All Together</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/power_of_introspection/summary.html">4.9. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/index.html">5. Objects and Object-Orientation</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/index.html#fileinfo.divein">5.1. Diving In</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/importing_modules.html">5.2. Importing Modules Using from module import</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/defining_classes.html">5.3. Defining Classes</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/defining_classes.html#d0e11720">5.3.1. Initializing and Coding Classes</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/defining_classes.html#d0e11896">5.3.2. Knowing When to Use self and __init__</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/instantiating_classes.html">5.4. Instantiating Classes</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/instantiating_classes.html#d0e12165">5.4.1. Garbage Collection</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/userdict.html">5.5. Exploring UserDict: A Wrapper Class</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/special_class_methods.html">5.6. Special Class Methods</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/special_class_methods.html#d0e12822">5.6.1. Getting and Setting Items</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/special_class_methods2.html">5.7. Advanced Special Class Methods</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/class_attributes.html">5.8. Introducing Class Attributes</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/private_functions.html">5.9. Private Functions</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/object_oriented_framework/summary.html">5.10. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/index.html">6. Exceptions and File Handling</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/index.html#fileinfo.exception">6.1. Handling Exceptions</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/index.html#d0e14344">6.1.1. Using Exceptions For Other Purposes</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/file_objects.html">6.2. Working with File Objects</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/file_objects.html#d0e14670">6.2.1. Reading Files</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/file_objects.html#d0e14800">6.2.2. Closing Files</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/file_objects.html#d0e14928">6.2.3. Handling I/O Errors</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/file_objects.html#d0e15055">6.2.4. Writing to Files</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/for_loops.html">6.3. Iterating with for Loops</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/more_on_modules.html">6.4. Using sys.modules</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/os_module.html">6.5. Working with Directories</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/all_together.html">6.6. Putting It All Together</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/file_handling/summary.html">6.7. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/index.html">7. Regular Expressions</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/index.html#re.intro">7.1. Diving In</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/street_addresses.html">7.2. Case Study: Street Addresses</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/roman_numerals.html">7.3. Case Study: Roman Numerals</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/roman_numerals.html#d0e17592">7.3.1. Checking for Thousands</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/roman_numerals.html#d0e17785">7.3.2. Checking for Hundreds</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/n_m_syntax.html">7.4. Using the {n,m} Syntax</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/n_m_syntax.html#d0e18326">7.4.1. Checking for Tens and Ones</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/verbose.html">7.5. Verbose Regular Expressions</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/phone_numbers.html">7.6. Case study: Parsing Phone Numbers</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/regular_expressions/summary.html">7.7. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/index.html">8. HTML Processing</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/index.html#dialect.divein">8.1. Diving in</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/introducing_sgmllib.html">8.2. Introducing sgmllib.py</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/extracting_data.html">8.3. Extracting data from HTML documents</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/basehtmlprocessor.html">8.4. Introducing BaseHTMLProcessor.py</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/locals_and_globals.html">8.5. locals and globals</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/dictionary_based_string_formatting.html">8.6. Dictionary-based string formatting</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/quoting_attribute_values.html">8.7. Quoting attribute values</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/dialect.html">8.8. Introducing dialect.py</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/all_together.html">8.9. Putting it all together</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/html_processing/summary.html">8.10. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/xml_processing/index.html">9. XML Processing</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/xml_processing/index.html#kgp.divein">9.1. Diving in</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/xml_processing/packages.html">9.2. Packages</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/xml_processing/parsing_xml.html">9.3. Parsing XML</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/xml_processing/unicode.html">9.4. Unicode</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/xml_processing/searching.html">9.5. Searching for elements</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/xml_processing/attributes.html">9.6. Accessing element attributes</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/xml_processing/summary.html">9.7. Segue</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/index.html">10. Scripts and Streams</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/index.html#kgp.openanything">10.1. Abstracting input sources</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/stdin_stdout_stderr.html">10.2. Standard input, output, and error</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/caching.html">10.3. Caching node lookups</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/child_nodes.html">10.4. Finding direct children of a node</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/handlers_by_node_type.html">10.5. Creating separate handlers by node type</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/command_line_arguments.html">10.6. Handling command-line arguments</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/all_together.html">10.7. Putting it all together</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/scripts_and_streams/summary.html">10.8. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/index.html">11. HTTP Web Services</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/index.html#oa.divein">11.1. Diving in</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/review.html">11.2. How not to fetch data over HTTP</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/http_features.html">11.3. Features of HTTP</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/http_features.html#d0e27596">11.3.1. User-Agent</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/http_features.html#d0e27616">11.3.2. Redirects</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/http_features.html#d0e27689">11.3.3. Last-Modified/If-Modified-Since</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/http_features.html#d0e27724">11.3.4. ETag/If-None-Match</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/http_features.html#d0e27752">11.3.5. Compression</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/debugging.html">11.4. Debugging HTTP web services</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/user_agent.html">11.5. Setting the User-Agent</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/etags.html">11.6. Handling Last-Modified and ETag</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/redirects.html">11.7. Handling redirects</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/gzip_compression.html">11.8. Handling compressed data</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/alltogether.html">11.9. Putting it all together</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/http_web_services/summary.html">11.10. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/index.html">12. SOAP Web Services</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/index.html#soap.divein">12.1. Diving In</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/install.html">12.2. Installing the SOAP Libraries</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/install.html#d0e29967">12.2.1. Installing PyXML</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/install.html#d0e30070">12.2.2. Installing fpconst</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/install.html#d0e30171">12.2.3. Installing SOAPpy</a></span></li>
-</ul>
-</li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/first_steps.html">12.3. First Steps with SOAP</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/debugging.html">12.4. Debugging SOAP Web Services</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/wsdl.html">12.5. Introducing WSDL</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/introspection.html">12.6. Introspecting SOAP Web Services with WSDL</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/google.html">12.7. Searching Google</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/troubleshooting.html">12.8. Troubleshooting SOAP Web Services</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/soap_web_services/summary.html">12.9. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/index.html">13. Unit Testing</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/index.html#roman.intro">13.1. Introduction to Roman numerals</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/diving_in.html">13.2. Diving in</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/romantest.html">13.3. Introducing romantest.py</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/testing_for_success.html">13.4. Testing for success</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/testing_for_failure.html">13.5. Testing for failure</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/testing_for_sanity.html">13.6. Testing for sanity</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/stage_1.html">14. Test-First Programming</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/stage_1.html#roman.stage1">14.1. roman.py, stage 1</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/stage_2.html">14.2. roman.py, stage 2</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/stage_3.html">14.3. roman.py, stage 3</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/stage_4.html">14.4. roman.py, stage 4</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/unit_testing/stage_5.html">14.5. roman.py, stage 5</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/refactoring/index.html">15. Refactoring</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/refactoring/index.html#roman.bugs">15.1. Handling bugs</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/refactoring/handling_changing_requirements.html">15.2. Handling changing requirements</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/refactoring/refactoring.html">15.3. Refactoring</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/refactoring/postscript.html">15.4. Postscript</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/refactoring/summary.html">15.5. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/index.html">16. Functional Programming</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/index.html#regression.divein">16.1. Diving in</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/finding_the_path.html">16.2. Finding the path</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/filtering_lists.html">16.3. Filtering lists revisited</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/mapping_lists.html">16.4. Mapping lists revisited</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/data_centric.html">16.5. Data-centric programming</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/dynamic_import.html">16.6. Dynamically importing modules</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/all_together.html">16.7. Putting it all together</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/functional_programming/summary.html">16.8. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/index.html">17. Dynamic functions</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/index.html#plural.divein">17.1. Diving in</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/stage1.html">17.2. plural.py, stage 1</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/stage2.html">17.3. plural.py, stage 2</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/stage3.html">17.4. plural.py, stage 3</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/stage4.html">17.5. plural.py, stage 4</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/stage5.html">17.6. plural.py, stage 5</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/stage6.html">17.7. plural.py, stage 6</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/dynamic_functions/summary.html">17.8. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="chapter"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/performance_tuning/index.html">18. Performance Tuning</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/performance_tuning/index.html#soundex.divein">18.1. Diving in</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/performance_tuning/timeit.html">18.2. Using the timeit Module</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/performance_tuning/regular_expressions.html">18.3. Optimizing Regular Expressions</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/performance_tuning/dictionary_lookups.html">18.4. Optimizing Dictionary Lookups</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/performance_tuning/list_operations.html">18.5. Optimizing List Operations</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/performance_tuning/string_manipulation.html">18.6. Optimizing String Manipulation</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/performance_tuning/summary.html">18.7. Summary</a></span></li>
-</ul>
-</li>
-<li><span class="appendix"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/furtherreading.html">A. Further reading</a></span></li>
-<li><span class="appendix"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/abstracts.html">B. A 5-minute review</a></span></li>
-<li><span class="appendix"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/tips.html">C. Tips and tricks</a></span></li>
-<li><span class="appendix"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/examples.html">D. List of examples</a></span></li>
-<li><span class="appendix"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/history.html">E. Revision history</a></span></li>
-<li><span class="appendix"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/about.html">F. About the book</a></span></li>
-<li><span class="appendix"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl.html">G. GNU Free Documentation License</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl.html#d0e40006">G.0. Preamble</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_applicability.html">G.1. Applicability and definitions</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_copying.html">G.2. Verbatim copying</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_copyinginquantity.html">G.3. Copying in quantity</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_modifications.html">G.4. Modifications</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_combining.html">G.5. Combining documents</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_collections.html">G.6. Collections of documents</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_aggregation.html">G.7. Aggregation with independent works</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_translation.html">G.8. Translation</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_termination.html">G.9. Termination</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_future.html">G.10. Future revisions of this license</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/fdl_howto.html">G.11. How to use this License for your documents</a></span></li>
-</ul>
-</li>
-<li><span class="appendix"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/license.html">H. Python license</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/license.html#d0e40180">H.A. History of the software</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/license_terms.html">H.B. Terms and conditions for accessing or otherwise using Python</a></span><ul>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/license_terms.html#d0e40195">H.B.1. PSF license agreement</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/license_terms.html#d0e40223">H.B.2. BeOpen Python open source license agreement version 1</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/license_terms.html#d0e40248">H.B.3. CNRI open source GPL-compatible license agreement</a></span></li>
-<li><span class="section"><a href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/appendix/license_terms.html#d0e40276">H.B.4. CWI permissions statement and disclaimer</a></span></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+</div>
+<p>This example shows how to validate the hundreds place of a Roman numeral.</p>
+<div class="example"><a name="re.roman.hundreds"></a><h3 class="title">Example&nbsp;7.4.&nbsp;Checking for Hundreds</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)$'</span></span> <a name="re.roman.2.1"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MCM'</span>)</span>            <a name="re.roman.2.2"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 01070390&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MD'</span>)</span>             <a name="re.roman.2.3"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 01073A50&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMMCCC'</span>)</span>         <a name="re.roman.2.4"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 010748A8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MCMC'</span>)</span>           <a name="re.roman.2.5"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">''</span>)</span>               <a name="re.roman.2.6"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 01071D98&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.1"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">This pattern starts out the same as the previous one, checking for the beginning of the string (<tt class="literal">^</tt>), then the thousands place (<tt class="literal">M?M?M?</tt>).  Then it has the new part, in parentheses, which defines a set of three mutually exclusive patterns, separated by vertical
+                           bars: <tt class="literal">CM</tt>, <tt class="literal">CD</tt>, and <tt class="literal">D?C?C?C?</tt> (which is an optional <tt class="literal">D</tt> followed by zero to three optional <tt class="literal">C</tt> characters).  The regular expression parser checks for each of these patterns in order (from left to right), takes the first
+                           one that matches, and ignores the rest.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.2"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="literal">'MCM'</tt> matches because the first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">CM</tt> matches (so the <tt class="literal">CD</tt> and <tt class="literal">D?C?C?C?</tt> patterns are never even considered).  <tt class="literal">MCM</tt> is the Roman numeral representation of <tt class="literal">1900</tt>.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.3"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="literal">'MD'</tt> matches because the first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">D?C?C?C?</tt> pattern matches <tt class="literal">D</tt> (each of the three <tt class="literal">C</tt> characters are optional and are ignored).  <tt class="literal">MD</tt> is the Roman numeral representation of <tt class="literal">1500</tt>.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.4"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="literal">'MMMCCC'</tt> matches because all three <tt class="literal">M</tt> characters match, and the <tt class="literal">D?C?C?C?</tt> pattern matches <tt class="literal">CCC</tt> (the <tt class="literal">D</tt> is optional and is ignored).  <tt class="literal">MMMCCC</tt> is the Roman numeral representation of <tt class="literal">3300</tt>.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.5"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="literal">'MCMC'</tt> does not match.  The first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">CM</tt> matches, but then the <tt class="literal">$</tt> does not match because you're not at the end of the string yet (you still have an unmatched <tt class="literal">C</tt> character).  The <tt class="literal">C</tt> does <span class="emphasis"><em>not</em></span> match as part of the <tt class="literal">D?C?C?C?</tt> pattern, because the mutually exclusive <tt class="literal">CM</tt> pattern has already matched.
+                        </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.6"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Interestingly, an empty string still matches this pattern, because all the <tt class="literal">M</tt> characters are optional and ignored, and the empty string matches the <tt class="literal">D?C?C?C?</tt> pattern where all the characters are optional and ignored.
+                        </td>
+</tr>
+</table>
+</div>
+</div>
+<p>Whew!  See how quickly regular expressions can get nasty?  And you've only covered the thousands and hundreds places of Roman
+               numerals.  But if you followed all that, the tens and ones places are easy, because they're exactly the same pattern.  But
+               let's look at another way to express the pattern.
+            </p>
 </div>
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-<tbody><tr>
-<td width="35%" align="left"><br /></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/regular_expressions/street_addresses.html">&lt;&lt;&nbsp;Case Study: Street Addresses</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/regular_expressions/index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://web.archive.org/web/20110716181728/http://www.diveintopython.org/installing_python/index.html">Installing Python&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html">Using the {n,m} Syntax&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>
 </tr>
-</tbody></table>
+</table>
 <div class="Footer">
-<p class="copyright">Copyright © 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
 </div>
-<!--
-     FILE ARCHIVED ON 18:17:28 Jul 16, 2011 AND RETRIEVED FROM THE
-     INTERNET ARCHIVE ON 18:35:27 Oct 5, 2011.
-     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
-
-     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
-     SECTION 108(a)(3)).
--->
-</body></html>
+</body>
+</html>
