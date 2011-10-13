@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Chapter&nbsp;5.&nbsp;Objects and Object-Orientation</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110716182024/http://www.diveintopython.org/toc/index.html" title="Dive Into Python" />
-<link rel="previous" href="http://web.archive.org/web/20110716182024/http://www.diveintopython.org/power_of_introspection/summary.html" title="4.9.&nbsp;Summary" />
+<link rel="up" href="http://www.diveintopython.net/" title="Dive Into Python" />
+<link rel="previous" href="http://www.diveintopython.net/" title="4.9.&nbsp;Summary" />
 <link rel="next" href="http://www.diveintopython.net/" title="5.2.&nbsp;Importing Modules Using from module import" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -164,12 +176,12 @@ parsing its files appropriately; see MP3FileInfo for example.
     <span class="pykeyword">return</span> [getFileInfoClass(f)(f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> fileList]                             
 
 <span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:
-    <span class="pykeyword">for</span> info <span class="pykeyword">in</span> listDirectory(<span class="pystring">"/music/_singles/"</span>, [<span class="pystring">".mp3"</span>]): <a name="fileinfo_divein.1.1"></a><img src="http://web.archive.org/web/20110716182024im_/http://www.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pykeyword">for</span> info <span class="pykeyword">in</span> listDirectory(<span class="pystring">"/music/_singles/"</span>, [<span class="pystring">".mp3"</span>]): <a name="fileinfo_divein.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
         <span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join([<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> info.items()])
         print</pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/index.html#fileinfo_divein.1.1"><img src="http://web.archive.org/web/20110716182024im_/http://www.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/index.html#fileinfo_divein.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This program's output depends on the files on your hard drive.  To get meaningful output, you'll need to change the directory
                            path to point to a directory of MP3 files on your own machine.
@@ -242,7 +254,7 @@ comment=http://mp3.com/artists/95/vxp</span></pre></div>
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

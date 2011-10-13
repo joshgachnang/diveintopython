@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>10.3.&nbsp;Caching node lookups</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110625071716/http://diveintopython.org/scripts_and_streams/index.html" title="Chapter&nbsp;10.&nbsp;Scripts and Streams" />
-<link rel="previous" href="http://web.archive.org/web/20110625071716/http://diveintopython.org/scripts_and_streams/stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;10.&nbsp;Scripts and Streams" />
+<link rel="previous" href="http://www.diveintopython.net/" title="10.2.&nbsp;Standard input, output, and error" />
 <link rel="next" href="http://www.diveintopython.net/" title="10.4.&nbsp;Finding direct children of a node" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -58,30 +70,30 @@
 <div class="example"><a name="d0e26362"></a><h3 class="title">Example&nbsp;10.14.&nbsp;<tt class="function">loadGrammar</tt></h3><pre class="programlisting">
     <span class="pykeyword">def</span><span class="pyclass"> loadGrammar</span>(self, grammar):                         
         self.grammar = self._load(grammar)                  
-        self.refs = {}                                       <a name="kgp.cache.1.1"></a><img src="http://web.archive.org/web/20110625071716im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
-        <span class="pykeyword">for</span> ref <span class="pykeyword">in</span> self.grammar.getElementsByTagName(<span class="pystring">"ref"</span>): <a name="kgp.cache.1.2"></a><img src="http://web.archive.org/web/20110625071716im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
-            self.refs[ref.attributes[<span class="pystring">"id"</span>].value] = ref      <a name="kgp.cache.1.3"></a><img src="http://web.archive.org/web/20110625071716im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /> <a name="kgp.cache.1.4"></a><img src="http://web.archive.org/web/20110625071716im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+        self.refs = {}                                       <a name="kgp.cache.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">for</span> ref <span class="pykeyword">in</span> self.grammar.getElementsByTagName(<span class="pystring">"ref"</span>): <a name="kgp.cache.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+            self.refs[ref.attributes[<span class="pystring">"id"</span>].value] = ref      <a name="kgp.cache.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /> <a name="kgp.cache.1.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/caching.html#kgp.cache.1.1"><img src="http://web.archive.org/web/20110625071716im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/caching.html#kgp.cache.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Start by creating an empty dictionary, <tt class="varname">self.refs</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/caching.html#kgp.cache.1.2"><img src="http://web.archive.org/web/20110625071716im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/caching.html#kgp.cache.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">As you saw in <a href="http://www.diveintopython.net/xml_processing/searching.html" title="9.5.&nbsp;Searching for elements">Section&nbsp;9.5, &#8220;Searching for elements&#8221;</a>, <tt class="function">getElementsByTagName</tt> returns a list of all the elements of a particular name.  You easily can get a list of all the <tt class="sgmltag-element">ref</tt> elements, then simply loop through that list.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/caching.html#kgp.cache.1.3"><img src="http://web.archive.org/web/20110625071716im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/caching.html#kgp.cache.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">As you saw in <a href="http://www.diveintopython.net/xml_processing/attributes.html" title="9.6.&nbsp;Accessing element attributes">Section&nbsp;9.6, &#8220;Accessing element attributes&#8221;</a>, you can access individual attributes of an element by name, using standard dictionary syntax.  So the keys of the <tt class="varname">self.refs</tt> dictionary will be the values of the <tt class="sgmltag-element">id</tt> attribute of each <tt class="sgmltag-element">ref</tt> element.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/caching.html#kgp.cache.1.4"><img src="http://web.archive.org/web/20110625071716im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/caching.html#kgp.cache.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The values of the <tt class="varname">self.refs</tt> dictionary will be the <tt class="sgmltag-element">ref</tt> elements themselves.  As you saw in <a href="http://www.diveintopython.net/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">Section&nbsp;9.3, &#8220;Parsing XML&#8221;</a>, each element, each node, each comment, each piece of text in a parsed <span class="acronym">XML</span> document is an object.
                      </td>
@@ -111,7 +123,7 @@
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

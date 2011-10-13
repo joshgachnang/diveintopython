@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>8.7.&nbsp;Quoting attribute values</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110726002410/http://diveintopython.org/html_processing/index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing" />
-<link rel="previous" href="http://web.archive.org/web/20110726002410/http://diveintopython.org/html_processing/dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;8.&nbsp;HTML Processing" />
+<link rel="previous" href="http://www.diveintopython.net/" title="8.6.&nbsp;Dictionary-based string formatting" />
 <link rel="next" href="http://www.diveintopython.net/" title="8.8.&nbsp;Introducing dialect.py" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -53,7 +65,7 @@
             at all.  It is this last side effect that you can take advantage of.
          </p>
 <div class="example"><a name="dialect.quoting.example"></a><h3 class="title">Example&nbsp;8.16.&nbsp;Quoting attribute values</h3><pre class="screen">
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">htmlSource = <span class="pystring">""</span>"</span>        <a name="dialect.basehtml.3.1"></a><img src="http://web.archive.org/web/20110726002410im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">htmlSource = <span class="pystring">""</span>"</span>        <a name="dialect.basehtml.3.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">...     </tt>&lt;html&gt;
 <tt class="prompt">...     </tt>&lt;head&gt;
 <tt class="prompt">...     </tt>&lt;title&gt;Test page&lt;/title&gt;
@@ -68,8 +80,8 @@
 <tt class="prompt">...     </tt><span class="userinput"><span class="pystring">""</span>"</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> BaseHTMLProcessor <span class="pykeyword">import</span> BaseHTMLProcessor</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser = BaseHTMLProcessor()</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser.feed(htmlSource)</span> <a name="dialect.basehtml.3.2"></a><img src="http://web.archive.org/web/20110726002410im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> parser.output()</span>   <a name="dialect.basehtml.3.3"></a><img src="http://web.archive.org/web/20110726002410im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser.feed(htmlSource)</span> <a name="dialect.basehtml.3.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> parser.output()</span>   <a name="dialect.basehtml.3.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;Test page&lt;/title&gt;
@@ -83,18 +95,18 @@
 &lt;/html&gt;</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.1"><img src="http://web.archive.org/web/20110726002410im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Note that the attribute values of the <tt class="literal">href</tt> attributes in the <tt class="sgmltag-element">&lt;a&gt;</tt> tags are not properly quoted.  (Also note that you're using <a href="http://www.diveintopython.net/getting_to_know_python/documenting_functions.html#odbchelper.triplequotes" title="Example&nbsp;2.2.&nbsp;Defining the buildConnectionString Function's doc string">triple quotes</a> for something other than a <tt class="literal">doc string</tt>.  And directly in the <span class="acronym">IDE</span>, no less.  They're very useful.)
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.2"><img src="http://web.archive.org/web/20110726002410im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Feed the parser.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.3"><img src="http://web.archive.org/web/20110726002410im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Using the <tt class="function">output</tt> function defined in <tt class="classname">BaseHTMLProcessor</tt>, you get the output as a single string, complete with quoted attribute values.  While this may seem anti-climactic, think
                         about how much has actually happened here: <tt class="classname">SGMLParser</tt> parsed the entire <span class="acronym">HTML</span> document, breaking it down into tags, refs, data, and so forth; <tt class="classname">BaseHTMLProcessor</tt> used those elements to reconstruct pieces of <span class="acronym">HTML</span> (which are still stored in <tt class="varname">parser.pieces</tt>, if you want to see them); finally, you called <tt class="function">parser.output</tt>, which joined all the pieces of <span class="acronym">HTML</span> into one string.
@@ -123,7 +135,7 @@
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

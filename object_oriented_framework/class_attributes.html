@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>5.8.&nbsp;Introducing Class Attributes</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110625071543/http://diveintopython.org/object_oriented_framework/index.html" title="Chapter&nbsp;5.&nbsp;Objects and Object-Orientation" />
-<link rel="previous" href="http://web.archive.org/web/20110625071543/http://diveintopython.org/object_oriented_framework/special_class_methods2.html" title="5.7.&nbsp;Advanced Special Class Methods" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;5.&nbsp;Objects and Object-Orientation" />
+<link rel="previous" href="http://www.diveintopython.net/" title="5.7.&nbsp;Advanced Special Class Methods" />
 <link rel="next" href="http://www.diveintopython.net/" title="5.9.&nbsp;Private Functions" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -57,16 +69,16 @@ class</span> MP3FileInfo(FileInfo):
                   <span class="pystring">"year"</span>    : ( 93,  97, stripnulls),
                   <span class="pystring">"comment"</span> : ( 97, 126, stripnulls),
                   <span class="pystring">"genre"</span>   : (127, 128, ord)}</pre><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> fileinfo</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo.MP3FileInfo</span>            <a name="fileinfo.classattributes.1.1"></a><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo.MP3FileInfo</span>            <a name="fileinfo.classattributes.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;class fileinfo.MP3FileInfo at 01257FDC&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo.MP3FileInfo.tagDataMap</span> <a name="fileinfo.classattributes.1.2"></a><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo.MP3FileInfo.tagDataMap</span> <a name="fileinfo.classattributes.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">{'title': (3, 33, &lt;function stripnulls at 0260C8D4&gt;), 
 'genre': (127, 128, &lt;built-in function ord&gt;), 
 'artist': (33, 63, &lt;function stripnulls at 0260C8D4&gt;), 
 'year': (93, 97, &lt;function stripnulls at 0260C8D4&gt;), 
 'comment': (97, 126, &lt;function stripnulls at 0260C8D4&gt;), 
 'album': (63, 93, &lt;function stripnulls at 0260C8D4&gt;)}</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m = fileinfo.MP3FileInfo()</span>      <a name="fileinfo.classattributes.1.3"></a><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m = fileinfo.MP3FileInfo()</span>      <a name="fileinfo.classattributes.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m.tagDataMap</span>
 <span class="computeroutput">{'title': (3, 33, &lt;function stripnulls at 0260C8D4&gt;), 
 'genre': (127, 128, &lt;built-in function ord&gt;), 
@@ -76,19 +88,19 @@ class</span> MP3FileInfo(FileInfo):
 'album': (63, 93, &lt;function stripnulls at 0260C8D4&gt;)}</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.1"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="classname">MP3FileInfo</tt> is the class itself, not any particular instance of the class.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.2"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">tagDataMap</tt> is a class attribute: literally, an attribute of the class.  It is available before creating any instances of the class.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.3"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Class attributes are available both through direct reference to the class and through any instance of the class.</td>
 </tr>
@@ -96,7 +108,7 @@ class</span> MP3FileInfo(FileInfo):
 </div>
 </div><a name="compare.classattr.java"></a><table class="note" border="0" summary="">
 <tr>
-<td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/note.png" alt="Note" title="" width="24" height="24" /></td>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/note.png" alt="Note" title="" width="24" height="24" /></td>
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Java</span>, both static variables (called class attributes in <span class="application">Python</span>) and instance variables (called data attributes in <span class="application">Python</span>) are defined immediately after the class definition (one with the <tt class="literal">static</tt> keyword, one without).  In <span class="application">Python</span>, only class attributes can be defined here; data attributes are defined in the <tt class="function">__init__</tt> method.
@@ -106,7 +118,7 @@ class</span> MP3FileInfo(FileInfo):
 <p>Class attributes can be used as class-level constants (which is how you use them in <tt class="classname">MP3FileInfo</tt>), but they are not really constants.  You can also change them.
          </p><a name="d0e13711"></a><table class="note" border="0" summary="">
 <tr>
-<td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/note.png" alt="Note" title="" width="24" height="24" /></td>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/note.png" alt="Note" title="" width="24" height="24" /></td>
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%">There are no constants in <span class="application">Python</span>.  Everything can be changed if you try hard enough.  This fits with one of the core principles of <span class="application">Python</span>: bad behavior should be discouraged but not banned.  If you really want to change the value of <tt class="literal">None</tt>, you can do it, but don't come running to me when your code is impossible to debug.
@@ -114,20 +126,20 @@ class</span> MP3FileInfo(FileInfo):
 </tr>
 </table>
 <div class="example"><a name="fileinfo.classattributes.writeable.example"></a><h3 class="title">Example&nbsp;5.18.&nbsp;Modifying Class Attributes</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">class</span><span class="pyclass"> counter</span>:</span>
-<tt class="prompt">...     </tt><span class="userinput">count = 0</span>                     <a name="fileinfo.classattributes.2.1"></a><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt><span class="userinput">count = 0</span>                     <a name="fileinfo.classattributes.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> __init__</span>(self):</span>
-<tt class="prompt">...     </tt><span class="userinput">    self.__class__.count += 1</span> <a name="fileinfo.classattributes.2.2"></a><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt><span class="userinput">    self.__class__.count += 1</span> <a name="fileinfo.classattributes.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <tt class="prompt">...     </tt>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter</span>
 <span class="computeroutput">&lt;class __main__.counter at 010EAECC&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>                     <a name="fileinfo.classattributes.2.3"></a><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>                     <a name="fileinfo.classattributes.2.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <span class="computeroutput">0</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c = counter()</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c.count</span>                           <a name="fileinfo.classattributes.2.4"></a><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c.count</span>                           <a name="fileinfo.classattributes.2.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
 <span class="computeroutput">1</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>
 <span class="computeroutput">1</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">d = counter()</span>                     <a name="fileinfo.classattributes.2.5"></a><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">d = counter()</span>                     <a name="fileinfo.classattributes.2.5"></a><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">d.count</span>
 <span class="computeroutput">2</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c.count</span>
@@ -136,32 +148,32 @@ class</span> MP3FileInfo(FileInfo):
 <span class="computeroutput">2</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.1"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">count</tt> is a class attribute of the <tt class="classname">counter</tt> class.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.2"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">__class__</tt> is a built-in attribute of every class instance (of every class).  It is a reference to the class that <tt class="varname">self</tt> is an instance of (in this case, the <tt class="classname">counter</tt> class).
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.3"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Because <tt class="varname">count</tt> is a class attribute, it is available through direct reference to the class, before you have created any instances of the
                         class.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.4"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Creating an instance of the class calls the <tt class="function">__init__</tt> method, which increments the class attribute <tt class="varname">count</tt> by <tt class="constant">1</tt>.  This affects the class itself, not just the newly created instance.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.5"><img src="http://web.archive.org/web/20110625071543im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Creating a second instance will increment the class attribute <tt class="varname">count</tt> again.  Notice how the class attribute is shared by the class and all instances of the class.
                      </td>
@@ -182,7 +194,7 @@ class</span> MP3FileInfo(FileInfo):
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

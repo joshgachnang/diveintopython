@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>11.8.&nbsp;Handling compressed data</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110625071628/http://diveintopython.org/http_web_services/index.html" title="Chapter&nbsp;11.&nbsp;HTTP Web Services" />
-<link rel="previous" href="http://web.archive.org/web/20110625071628/http://diveintopython.org/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;11.&nbsp;HTTP Web Services" />
+<link rel="previous" href="http://www.diveintopython.net/" title="11.7.&nbsp;Handling redirects" />
 <link rel="next" href="http://www.diveintopython.net/" title="11.9.&nbsp;Putting it all together" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -55,7 +67,7 @@
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> urllib2, httplib</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">httplib.HTTPConnection.debuglevel = 1</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request = urllib2.Request(<span class="pystring">'http://diveintomark.org/xml/atom.xml'</span>)</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request.add_header(<span class="pystring">'Accept-encoding'</span>, <span class="pystring">'gzip'</span>)</span>        <a name="oa.gzip.1.1"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request.add_header(<span class="pystring">'Accept-encoding'</span>, <span class="pystring">'gzip'</span>)</span>        <a name="oa.gzip.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">opener = urllib2.build_opener()</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = opener.open(request)</span>
 <span class="computeroutput">connect: (diveintomark.org, 80)
@@ -63,7 +75,7 @@ send: '
 GET /xml/atom.xml HTTP/1.0
 Host: diveintomark.org
 User-agent: Python-urllib/2.1
-Accept-encoding: gzip</span>                                    <a name="oa.gzip.1.2"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+Accept-encoding: gzip</span>                                    <a name="oa.gzip.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">'
 reply: 'HTTP/1.1 200 OK\r\n'
 header: Date: Thu, 15 Apr 2004 22:24:39 GMT
@@ -72,31 +84,31 @@ header: Last-Modified: Thu, 15 Apr 2004 19:45:21 GMT
 header: ETag: "e842a-3e53-55d97640"
 header: Accept-Ranges: bytes
 header: Vary: Accept-Encoding
-header: Content-Encoding: gzip</span>                           <a name="oa.gzip.1.3"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
-<span class="computeroutput">header: Content-Length: 6289</span>                             <a name="oa.gzip.1.4"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+header: Content-Encoding: gzip</span>                           <a name="oa.gzip.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">header: Content-Length: 6289</span>                             <a name="oa.gzip.1.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
 <span class="computeroutput">header: Connection: close
 header: Content-Type: application/atom+xml</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.1.1"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is the key: once you've created your <tt class="classname">Request</tt> object, add an <tt class="literal">Accept-encoding</tt> header to tell the server you can accept gzip-encoded data.  <tt class="literal">gzip</tt> is the name of the compression algorithm you're using.  In theory there could be other compression algorithms, but <tt class="literal">gzip</tt> is the compression algorithm used by 99% of web servers.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.1.2"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">There's your header going across the wire.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.1.3"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">And here's what the server sends back: the <tt class="literal">Content-Encoding: gzip</tt> header means that the data you're about to receive has been gzip-compressed.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.1.4"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="literal">Content-Length</tt> header is the length of the compressed data, not the uncompressed data.  As you'll see in a minute, the actual length of
                         the uncompressed data was 15955, so gzip compression cut your bandwidth by over 60%!
@@ -106,15 +118,15 @@ header: Content-Type: application/atom+xml</span>
 </div>
 </div>
 <div class="example"><a name="d0e29222"></a><h3 class="title">Example&nbsp;11.15.&nbsp;Decompressing the data</h3><pre class="screen">
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compresseddata = f.read()</span>                              <a name="oa.gzip.2.1"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compresseddata = f.read()</span>                              <a name="oa.gzip.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">len(compresseddata)</span>
 <span class="computeroutput">6289</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> StringIO</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compressedstream = StringIO.StringIO(compresseddata)</span>   <a name="oa.gzip.2.2"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compressedstream = StringIO.StringIO(compresseddata)</span>   <a name="oa.gzip.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> gzip</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">gzipper = gzip.GzipFile(fileobj=compressedstream)</span>      <a name="oa.gzip.2.3"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">data = gzipper.read()</span>                                  <a name="oa.gzip.2.4"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> data</span>                                             <a name="oa.gzip.2.5"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">gzipper = gzip.GzipFile(fileobj=compressedstream)</span>      <a name="oa.gzip.2.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">data = gzipper.read()</span>                                  <a name="oa.gzip.2.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> data</span>                                             <a name="oa.gzip.2.5"></a><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
 &lt;feed version="0.3"
   xmlns="http://purl.org/atom/ns#"
@@ -128,14 +140,14 @@ header: Content-Type: application/atom+xml</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.1"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Continuing from the previous example, <tt class="varname">f</tt> is the file-like object returned from the URL opener.  Using its <tt class="methodname">read()</tt> method would ordinarily get you the uncompressed data, but since this data has been gzip-compressed, this is just the first
                         step towards getting the data you really want.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.2"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">OK, this step is a little bit of messy workaround.  <span class="application">Python</span> has a <tt class="filename">gzip</tt> module, which reads (and actually writes) gzip-compressed files on disk.  But you don't have a file on disk, you have a gzip-compressed
                         buffer in memory, and you don't want to write out a temporary file just so you can uncompress it.  So what you're going to
@@ -143,19 +155,19 @@ header: Content-Type: application/atom+xml</span>
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.3"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Now you can create an instance of <tt class="classname">GzipFile</tt>, and tell it that its &#8220;<span class="quote">file</span>&#8221; is the file-like object <tt class="varname">compressedstream</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.4"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is the line that does all the actual work: &#8220;<span class="quote">reading</span>&#8221; from <tt class="classname">GzipFile</tt> will decompress the data.  Strange?  Yes, but it makes sense in a twisted kind of way.  <tt class="varname">gzipper</tt> is a file-like object which represents a gzip-compressed file.  That &#8220;<span class="quote">file</span>&#8221; is not a real file on disk, though; <tt class="varname">gzipper</tt> is really just &#8220;<span class="quote">reading</span>&#8221; from the file-like object you created with <tt class="filename">StringIO</tt> to wrap the compressed data, which is only in memory in the variable <tt class="varname">compresseddata</tt>.  And where did that compressed data come from?  You originally downloaded it from a remote HTTP server by &#8220;<span class="quote">reading</span>&#8221; from the file-like object you built with <tt class="function">urllib2.build_opener</tt>.  And amazingly, this all just works.  Every step in the chain has no idea that the previous step is faking it.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.5"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Look ma, real data. (15955 bytes of it, in fact.)</td>
 </tr>
@@ -165,10 +177,10 @@ header: Content-Type: application/atom+xml</span>
 <p>&#8220;<span class="quote">But wait!</span>&#8221; I hear you cry.  &#8220;<span class="quote">This could be even easier!</span>&#8221;  I know what you're thinking.  You're thinking that <tt class="varname">opener.open</tt> returns a file-like object, so why not cut out the <tt class="filename">StringIO</tt> middleman and just pass <tt class="varname">f</tt> directly to <tt class="methodname">GzipFile</tt>?  OK, maybe you weren't thinking that, but don't worry about it, because it doesn't work.
          </p>
 <div class="example"><a name="d0e29389"></a><h3 class="title">Example&nbsp;11.16.&nbsp;Decompressing the data directly from the server</h3><pre class="screen">
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = opener.open(request)</span>                  <a name="oa.gzip.3.1"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.headers.get(<span class="pystring">'Content-Encoding'</span>)</span>         <a name="oa.gzip.3.2"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = opener.open(request)</span>                  <a name="oa.gzip.3.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.headers.get(<span class="pystring">'Content-Encoding'</span>)</span>         <a name="oa.gzip.3.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">'gzip'</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">data = gzip.GzipFile(fileobj=f).read()</span>    <a name="oa.gzip.3.3"></a><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">data = gzip.GzipFile(fileobj=f).read()</span>    <a name="oa.gzip.3.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <span class="traceback">Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in ?
   File "c:\python23\lib\gzip.py", line 217, in read
@@ -179,20 +191,20 @@ AttributeError: addinfourl instance has no attribute 'tell'</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.3.1"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Continuing from the previous example, you already have a <tt class="classname">Request</tt> object set up with an <tt class="literal">Accept-encoding: gzip</tt> header.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.3.2"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Simply opening the request will get you the headers (though not download any data yet).  As you can see from the returned
                         <tt class="literal">Content-Encoding</tt> header, this data has been sent gzip-compressed.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.3.3"><img src="http://web.archive.org/web/20110625071628im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html#oa.gzip.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Since <tt class="methodname">opener.open</tt> returns a file-like object, and you know from the headers that when you read it, you're going to get gzip-compressed data,
                         why not simply pass that file-like object directly to <tt class="classname">GzipFile</tt>?  As you &#8220;<span class="quote">read</span>&#8221; from the <tt class="classname">GzipFile</tt> instance, it will &#8220;<span class="quote">read</span>&#8221; compressed data from the remote HTTP server and decompress it on the fly.  It's a good idea, but unfortunately it doesn't
@@ -216,7 +228,7 @@ AttributeError: addinfourl instance has no attribute 'tell'</span>
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

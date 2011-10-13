@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>2.4.&nbsp;Everything Is an Object</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110625070723/http://diveintopython.org/getting_to_know_python/index.html" title="Chapter&nbsp;2.&nbsp;Your First Python Program" />
-<link rel="previous" href="http://web.archive.org/web/20110625070723/http://diveintopython.org/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documenting Functions" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;2.&nbsp;Your First Python Program" />
+<link rel="previous" href="http://www.diveintopython.net/" title="2.3.&nbsp;Documenting Functions" />
 <link rel="next" href="http://www.diveintopython.net/" title="2.5.&nbsp;Indenting Code" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -58,30 +70,30 @@
 </div>
 <p>Open your favorite <span class="application">Python</span> <span class="acronym">IDE</span> and follow along:
          </p>
-<div class="example"><a name="odbchelper.import"></a><h3 class="title">Example&nbsp;2.3.&nbsp;Accessing the <tt class="function">buildConnectionString</tt> Function's <tt class="literal">doc string</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>                              <a name="odbchelper.objects.1.1"></a><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<div class="example"><a name="odbchelper.import"></a><h3 class="title">Example&nbsp;2.3.&nbsp;Accessing the <tt class="function">buildConnectionString</tt> Function's <tt class="literal">doc string</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>                              <a name="odbchelper.objects.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span>}</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> odbchelper.buildConnectionString(params)</span> <a name="odbchelper.objects.1.2"></a><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> odbchelper.buildConnectionString(params)</span> <a name="odbchelper.objects.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">server=mpilgrim;uid=sa;database=master;pwd=secret</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> odbchelper.buildConnectionString.__doc__</span> <a name="odbchelper.objects.1.3"></a><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> odbchelper.buildConnectionString.__doc__</span> <a name="odbchelper.objects.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <span class="computeroutput">Build a connection string from a dictionary
 
 Returns string.</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.1.1"><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The first line imports the <tt class="filename">odbchelper</tt> program as a module -- a chunk of code that you can use interactively, or from a larger <span class="application">Python</span> program.  (You'll see examples of multi-module <span class="application">Python</span> programs in <a href="http://www.diveintopython.net/power_of_introspection/index.html">Chapter 4</a>.)  Once you import a module, you can reference any of its public functions, classes, or attributes.  Modules can do this
                         to access functionality in other modules, and you can do it in the <span class="acronym">IDE</span> too.  This is an important concept, and you'll talk more about it later.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.1.2"><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">When you want to use functions defined in imported modules, you need to include the module name.  So you can't just say <tt class="function">buildConnectionString</tt>; it must be <tt class="function">odbchelper.buildConnectionString</tt>.  If you've used classes in <span class="application">Java</span>, this should feel vaguely familiar.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.1.3"><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Instead of calling the function as you would expect to, you asked for one of the function's attributes, <tt class="literal">__doc__</tt>.
                      </td>
@@ -90,7 +102,7 @@ Returns string.</span></pre><div class="calloutlist">
 </div>
 </div><a name="compare.import.perl"></a><table class="note" border="0" summary="">
 <tr>
-<td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/note.png" alt="Note" title="" width="24" height="24" /></td>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/note.png" alt="Note" title="" width="24" height="24" /></td>
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%"><tt class="literal">import</tt> in <span class="application">Python</span> is like <tt class="literal">require</tt> in <span class="application">Perl</span>.  Once you <tt class="literal">import</tt> a <span class="application">Python</span> module, you access its functions with <tt class="literal"><i class="replaceable">module</i>.<i class="replaceable">function</i></tt>; once you <tt class="literal">require</tt> a <span class="application">Perl</span> module, you access its functions with <tt class="literal"><i class="replaceable">module</i>::<i class="replaceable">function</i></tt>.
@@ -111,36 +123,36 @@ Returns string.</span></pre><div class="calloutlist">
                later in this chapter.)
             </p>
 <div class="example"><a name="odbchelper.objects.sys.path"></a><h3 class="title">Example&nbsp;2.4.&nbsp;Import Search Path</h3><pre class="screen">
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> sys</span>                 <a name="odbchelper.objects.2.1"></a><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.path</span>                   <a name="odbchelper.objects.2.2"></a><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> sys</span>                 <a name="odbchelper.objects.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.path</span>                   <a name="odbchelper.objects.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">['', '/usr/local/lib/python2.2', '/usr/local/lib/python2.2/plat-linux2', 
 '/usr/local/lib/python2.2/lib-dynload', '/usr/local/lib/python2.2/site-packages', 
 '/usr/local/lib/python2.2/site-packages/PIL', '/usr/local/lib/python2.2/site-packages/piddle']</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys</span>                        <a name="odbchelper.objects.2.3"></a><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys</span>                        <a name="odbchelper.objects.2.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;module 'sys' (built-in)&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.path.append(<span class="pystring">'/my/new/path'</span>)</span> <a name="odbchelper.objects.2.4"></a><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.path.append(<span class="pystring">'/my/new/path'</span>)</span> <a name="odbchelper.objects.2.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.2.1"><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Importing the <tt class="filename">sys</tt> module makes all of its functions and attributes available.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.2.2"><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">sys.path</tt> is a list of directory names that constitute the current search path.  (Yours will look different, depending on your operating
                            system, what version of <span class="application">Python</span> you're running, and where it was originally installed.)  <span class="application">Python</span> will look through these directories (in this order) for a <tt class="literal">.py</tt> file matching the module name you're trying to import.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.2.3"><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Actually, I lied; the truth is more complicated than that, because not all modules are stored as <tt class="literal">.py</tt> files.  Some, like the <tt class="filename">sys</tt> module, are "built-in modules"; they are actually baked right into <span class="application">Python</span> itself.  Built-in modules behave just like regular modules, but their <span class="application">Python</span> source code is not available, because they are not written in <span class="application">Python</span>!  (The <tt class="filename">sys</tt> module is written in <span class="application"><span class="acronym">C</span></span>.)
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.2.4"><img src="http://web.archive.org/web/20110625070723im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.objects.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You can add a new directory to <span class="application">Python</span>'s search path at runtime by appending the directory name to <tt class="varname">sys.path</tt>, and then <span class="application">Python</span> will look in that directory as well, whenever you try to import a module.  The effect lasts as long as <span class="application">Python</span> is running.  (You'll talk more about <tt class="function">append</tt> and other list methods in <a href="http://www.diveintopython.net/native_data_types/index.html">Chapter 3</a>.)
                         </td>
@@ -189,7 +201,7 @@ Returns string.</span></pre><div class="calloutlist">
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

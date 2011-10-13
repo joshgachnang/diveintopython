@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Chapter&nbsp;4.&nbsp;The Power Of Introspection</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110716181828/http://www.diveintopython.org/toc/index.html" title="Dive Into Python" />
-<link rel="previous" href="http://web.archive.org/web/20110716181828/http://www.diveintopython.org/native_data_types/summary.html" title="3.8.&nbsp;Summary" />
+<link rel="up" href="http://www.diveintopython.net/" title="Dive Into Python" />
+<link rel="previous" href="http://www.diveintopython.net/" title="3.8.&nbsp;Summary" />
 <link rel="next" href="http://www.diveintopython.net/" title="4.2.&nbsp;Using Optional and Named Arguments" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -96,7 +108,7 @@
 <div class="example"><a name="d0e8158"></a><h3 class="title">Example&nbsp;4.1.&nbsp;<tt class="filename">apihelper.py</tt></h3>
 <p>If you have not already done so, you can <a href="http://www.diveintopython.net/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
                </p><pre class="programlisting"><span class="pykeyword">
-def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"></a><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="apihelper.intro.1.2"></a><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /> <a name="apihelper.intro.1.3"></a><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="apihelper.intro.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /> <a name="apihelper.intro.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
     <span class="pystring">"""Print methods and doc strings.
     
     Takes module, class, list, dictionary, or string."""</span>
@@ -107,37 +119,37 @@ def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
                        processFunc(str(getattr(object, method).__doc__)))
                      <span class="pykeyword">for</span> method <span class="pykeyword">in</span> methodList])
 
-<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:                <a name="apihelper.intro.1.4"></a><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /> <a name="apihelper.intro.1.5"></a><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:                <a name="apihelper.intro.1.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /> <a name="apihelper.intro.1.5"></a><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
     <span class="pykeyword">print</span> info.__doc__</pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.1"><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This module has one function, <tt class="function">info</tt>.  According to its <a href="http://www.diveintopython.net/getting_to_know_python/declaring_functions.html" title="2.2.&nbsp;Declaring Functions">function declaration</a>, it takes three parameters: <tt class="varname">object</tt>, <tt class="varname">spacing</tt>, and <tt class="varname">collapse</tt>.  The last two are actually optional parameters, as you'll see shortly.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.2"><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="function">info</tt> function has a multi-line <a href="http://www.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documenting Functions"><tt class="literal">doc string</tt></a> that succinctly describes the function's purpose.  Note that no return value is mentioned; this function will be used solely
                            for its effects, rather than its value.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.3"><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Code within the function is <a href="http://www.diveintopython.net/getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indenting Code">indented</a>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.4"><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="literal"><span class="literal">if</span> <span class="literal">__name__</span></tt> <a href="http://www.diveintopython.net/getting_to_know_python/testing_modules.html#odbchelper.ifnametrick">trick</a> allows this program do something useful when run by itself, without interfering with its use as a module for other programs.
                             In this case, the program simply prints out the <tt class="literal">doc string</tt> of the <tt class="function">info</tt> function.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.5"><img src="http://web.archive.org/web/20110716181828im_/http://www.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><a href="http://www.diveintopython.net/getting_to_know_python/testing_modules.html#odbchelper.ifnametrick"><tt class="literal">if</tt> statements</a> use <tt class="literal">==</tt> for comparison, and parentheses are not required.
                         </td>
@@ -186,7 +198,7 @@ sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -&gt; -
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

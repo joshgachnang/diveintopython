@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>7.3.&nbsp;Case Study: Roman Numerals</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110726001300/http://diveintopython.org/regular_expressions/index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions" />
-<link rel="previous" href="http://web.archive.org/web/20110726001300/http://diveintopython.org/regular_expressions/street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;7.&nbsp;Regular Expressions" />
+<link rel="previous" href="http://www.diveintopython.net/" title="7.2.&nbsp;Case Study: Street Addresses" />
 <link rel="next" href="http://www.diveintopython.net/" title="7.4.&nbsp;Using the {n,m} Syntax" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -100,19 +112,19 @@
             </p>
 <div class="example"><a name="d0e17600"></a><h3 class="title">Example&nbsp;7.3.&nbsp;Checking for Thousands</h3><pre class="screen">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> re</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?$'</span></span>       <a name="re.roman.1.1"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'M'</span>)</span>    <a name="re.roman.1.2"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?$'</span></span>       <a name="re.roman.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'M'</span>)</span>    <a name="re.roman.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;SRE_Match object at 0106FB58&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MM'</span>)</span>   <a name="re.roman.1.3"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MM'</span>)</span>   <a name="re.roman.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;SRE_Match object at 0106C290&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMM'</span>)</span>  <a name="re.roman.1.4"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMM'</span>)</span>  <a name="re.roman.1.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;SRE_Match object at 0106AA38&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMMM'</span>)</span> <a name="re.roman.1.5"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">''</span>)</span>     <a name="re.roman.1.6"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMMM'</span>)</span> <a name="re.roman.1.5"></a><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">''</span>)</span>     <a name="re.roman.1.6"></a><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;SRE_Match object at 0106F4A8&gt;</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.1"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This pattern has three parts:
                            <div class="itemizedlist">
@@ -130,32 +142,32 @@
 </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.2"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The essence of the <tt class="filename">re</tt> module is the <tt class="function">search</tt> function, that takes a regular expression (<tt class="varname">pattern</tt>) and a string (<tt class="literal">'M'</tt>) to try to match against the regular expression.  If a match is found, <tt class="function">search</tt> returns an object which has various methods to describe the match; if no match is found, <tt class="function">search</tt> returns <tt class="literal">None</tt>, the <span class="application">Python</span> null value.  All you care about at the moment is whether the pattern matches, which you can tell by just looking at the return
                            value of <tt class="function">search</tt>.  <tt class="literal">'M'</tt> matches this regular expression, because the first optional <tt class="literal">M</tt> matches and the second and third optional <tt class="literal">M</tt> characters are ignored.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.3"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">'MM'</tt> matches because the first and second optional <tt class="literal">M</tt> characters match and the third <tt class="literal">M</tt> is ignored.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.4"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">'MMM'</tt> matches because all three <tt class="literal">M</tt> characters match.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.5"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">'MMMM'</tt> does not match.  All three <tt class="literal">M</tt> characters match, but then the regular expression insists on the string ending (because of the <tt class="literal">$</tt> character), and the string doesn't end yet (because of the fourth <tt class="literal">M</tt>).  So <tt class="function">search</tt> returns <tt class="literal">None</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.6"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.1.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Interestingly, an empty string also matches this regular expression, since all the <tt class="literal">M</tt> characters are optional.
                         </td>
@@ -211,19 +223,19 @@
 <p>This example shows how to validate the hundreds place of a Roman numeral.</p>
 <div class="example"><a name="re.roman.hundreds"></a><h3 class="title">Example&nbsp;7.4.&nbsp;Checking for Hundreds</h3><pre class="screen">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> re</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)$'</span></span> <a name="re.roman.2.1"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MCM'</span>)</span>            <a name="re.roman.2.2"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)$'</span></span> <a name="re.roman.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MCM'</span>)</span>            <a name="re.roman.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;SRE_Match object at 01070390&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MD'</span>)</span>             <a name="re.roman.2.3"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MD'</span>)</span>             <a name="re.roman.2.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;SRE_Match object at 01073A50&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMMCCC'</span>)</span>         <a name="re.roman.2.4"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMMCCC'</span>)</span>         <a name="re.roman.2.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;SRE_Match object at 010748A8&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MCMC'</span>)</span>           <a name="re.roman.2.5"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">''</span>)</span>               <a name="re.roman.2.6"></a><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MCMC'</span>)</span>           <a name="re.roman.2.5"></a><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">''</span>)</span>               <a name="re.roman.2.6"></a><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
 <span class="computeroutput">&lt;SRE_Match object at 01071D98&gt;</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.1"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This pattern starts out the same as the previous one, checking for the beginning of the string (<tt class="literal">^</tt>), then the thousands place (<tt class="literal">M?M?M?</tt>).  Then it has the new part, in parentheses, which defines a set of three mutually exclusive patterns, separated by vertical
                            bars: <tt class="literal">CM</tt>, <tt class="literal">CD</tt>, and <tt class="literal">D?C?C?C?</tt> (which is an optional <tt class="literal">D</tt> followed by zero to three optional <tt class="literal">C</tt> characters).  The regular expression parser checks for each of these patterns in order (from left to right), takes the first
@@ -231,31 +243,31 @@
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.2"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">'MCM'</tt> matches because the first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">CM</tt> matches (so the <tt class="literal">CD</tt> and <tt class="literal">D?C?C?C?</tt> patterns are never even considered).  <tt class="literal">MCM</tt> is the Roman numeral representation of <tt class="literal">1900</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.3"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">'MD'</tt> matches because the first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">D?C?C?C?</tt> pattern matches <tt class="literal">D</tt> (each of the three <tt class="literal">C</tt> characters are optional and are ignored).  <tt class="literal">MD</tt> is the Roman numeral representation of <tt class="literal">1500</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.4"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">'MMMCCC'</tt> matches because all three <tt class="literal">M</tt> characters match, and the <tt class="literal">D?C?C?C?</tt> pattern matches <tt class="literal">CCC</tt> (the <tt class="literal">D</tt> is optional and is ignored).  <tt class="literal">MMMCCC</tt> is the Roman numeral representation of <tt class="literal">3300</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.5"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">'MCMC'</tt> does not match.  The first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">CM</tt> matches, but then the <tt class="literal">$</tt> does not match because you're not at the end of the string yet (you still have an unmatched <tt class="literal">C</tt> character).  The <tt class="literal">C</tt> does <span class="emphasis"><em>not</em></span> match as part of the <tt class="literal">D?C?C?C?</tt> pattern, because the mutually exclusive <tt class="literal">CM</tt> pattern has already matched.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.6"><img src="http://web.archive.org/web/20110726001300im_/http://diveintopython.org/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#re.roman.2.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Interestingly, an empty string still matches this pattern, because all the <tt class="literal">M</tt> characters are optional and ignored, and the empty string matches the <tt class="literal">D?C?C?C?</tt> pattern where all the characters are optional and ignored.
                         </td>
@@ -281,7 +293,7 @@
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

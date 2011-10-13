@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>14.2.&nbsp;roman.py, stage 2</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110726001841/http://diveintopython.org/unit_testing/stage_1.html" title="Chapter&nbsp;14.&nbsp;Test-First Programming" />
-<link rel="previous" href="http://web.archive.org/web/20110726001841/http://diveintopython.org/unit_testing/stage_1.html" title="Chapter&nbsp;14.&nbsp;Test-First Programming" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;14.&nbsp;Test-First Programming" />
+<link rel="previous" href="http://www.diveintopython.net/" title="Chapter&nbsp;14.&nbsp;Test-First Programming" />
 <link rel="next" href="http://www.diveintopython.net/" title="14.3.&nbsp;roman.py, stage 3" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -62,7 +74,7 @@
 <span class="pykeyword">class</span><span class="pyclass"> InvalidRomanNumeralError</span>(RomanError): <span class="pykeyword">pass</span>
 
 <span class="pycomment">#Define digit mapping</span>
-romanNumeralMap = ((<span class="pystring">'M'</span>,  1000), <a name="roman.stage2.1.1"></a><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+romanNumeralMap = ((<span class="pystring">'M'</span>,  1000), <a name="roman.stage2.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
                    (<span class="pystring">'CM'</span>, 900),
                    (<span class="pystring">'D'</span>,  500),
                    (<span class="pystring">'CD'</span>, 400),
@@ -80,7 +92,7 @@ romanNumeralMap = ((<span class="pystring">'M'</span>,  1000), <a name="roman.st
     <span class="pystring">"""convert integer to Roman numeral"""</span>
     result = <span class="pystring">""</span>
     <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
-        <span class="pykeyword">while</span> n &gt;= integer:      <a name="roman.stage2.1.2"></a><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        <span class="pykeyword">while</span> n &gt;= integer:      <a name="roman.stage2.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
             result += numeral
             n -= integer
     <span class="pykeyword">return</span> result
@@ -91,7 +103,7 @@ romanNumeralMap = ((<span class="pystring">'M'</span>,  1000), <a name="roman.st
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.1.1"><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">romanNumeralMap</tt> is a tuple of tuples which defines three things:
                         <div class="orderedlist">
@@ -108,7 +120,7 @@ romanNumeralMap = ((<span class="pystring">'M'</span>,  1000), <a name="roman.st
 </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.1.2"><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here's where your rich data structure pays off, because you don't need any special logic to handle the subtraction rule. 
                         To convert to Roman numerals, you simply iterate through <tt class="varname">romanNumeralMap</tt> looking for the largest integer value less than or equal to the input.  Once found, you add the Roman numeral representation
@@ -140,33 +152,33 @@ subtracting 4 from input, adding IV to output
 <div class="example"><a name="d0e33236"></a><h3 class="title">Example&nbsp;14.5.&nbsp;Output of <tt class="filename">romantest2.py</tt> against <tt class="filename">roman2.py</tt></h3>
 <p>Remember to run <tt class="filename">romantest2.py</tt> with the <tt class="literal">-v</tt> command-line flag to enable verbose mode.
             </p><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... FAIL
-toRoman should always return uppercase ... ok                  </span><a name="roman.stage2.2.1"></a><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+toRoman should always return uppercase ... ok                  </span><a name="roman.stage2.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
 fromRoman should fail with malformed antecedents ... FAIL
 fromRoman should fail with repeated pairs of numerals ... FAIL
 fromRoman should fail with too many repeated numerals ... FAIL
 fromRoman should give known result with known input ... FAIL
-toRoman should give known result with known input ... ok       </span><a name="roman.stage2.2.2"></a><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
+toRoman should give known result with known input ... ok       </span><a name="roman.stage2.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
 fromRoman(toRoman(n))==n for all n ... FAIL
-toRoman should fail with non-integer input ... FAIL            </span><a name="roman.stage2.2.3"></a><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /><span class="computeroutput">
+toRoman should fail with non-integer input ... FAIL            </span><a name="roman.stage2.2.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /><span class="computeroutput">
 toRoman should fail with negative input ... FAIL
 toRoman should fail with large input ... FAIL
 toRoman should fail with 0 input ... FAIL</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.1"><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">toRoman</tt> does, in fact, always return uppercase, because <tt class="varname">romanNumeralMap</tt> defines the Roman numeral representations as uppercase.  So this test passes already.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.2"><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here's the big news: this version of the <tt class="function">toRoman</tt> function passes the <a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues">known values test</a>.  Remember, it's not comprehensive, but it does put the function through its paces with a variety of good inputs, including
                         inputs that produce every single-character Roman numeral, the largest possible input (<tt class="literal">3999</tt>), and the input that produces the longest possible Roman numeral (<tt class="literal">3888</tt>).  At this point, you can be reasonably confident that the function works for any good input value you could throw at it.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.3"><img src="http://web.archive.org/web/20110726001841im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">However, the function does not &#8220;<span class="quote">work</span>&#8221; for bad values; it fails every single <a href="http://www.diveintopython.net/unit_testing/testing_for_failure.html#roman.tobadinput.example" title="Example&nbsp;13.3.&nbsp;Testing bad input to toRoman">bad input test</a>.  That makes sense, because you didn't include any checks for bad input.  Those test cases look for specific exceptions to
                         be raised (via <tt class="function">assertRaises</tt>), and you're never raising them.  You'll do that in the next stage.
@@ -282,7 +294,7 @@ FAILED (failures=10)</span></pre></div>
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

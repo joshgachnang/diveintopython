@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>12.8.&nbsp;Troubleshooting SOAP Web Services</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110726001923/http://diveintopython.org/soap_web_services/index.html" title="Chapter&nbsp;12.&nbsp;SOAP Web Services" />
-<link rel="previous" href="http://web.archive.org/web/20110726001923/http://diveintopython.org/soap_web_services/google.html" title="12.7.&nbsp;Searching Google" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;12.&nbsp;SOAP Web Services" />
+<link rel="previous" href="http://www.diveintopython.net/" title="12.7.&nbsp;Searching Google" />
 <link rel="next" href="http://www.diveintopython.net/" title="12.9.&nbsp;Summary" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -58,8 +70,8 @@
 <div class="example"><a name="d0e31615"></a><h3 class="title">Example&nbsp;12.15.&nbsp;Calling a Method With an Incorrectly Configured Proxy</h3><pre class="screen">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> SOAPpy <span class="pykeyword">import</span> SOAPProxy</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">url = <span class="pystring">'http://services.xmethods.net:80/soap/servlet/rpcrouter'</span></span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = SOAPProxy(url)</span>                                        <a name="soap.troubleshooting.1.1"></a><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.getTemp(<span class="pystring">'27502'</span>)</span>                                        <a name="soap.troubleshooting.1.2"></a><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = SOAPProxy(url)</span>                                        <a name="soap.troubleshooting.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.getTemp(<span class="pystring">'27502'</span>)</span>                                        <a name="soap.troubleshooting.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="traceback">&lt;Fault SOAP-ENV:Server.BadTargetObjectURI:
 Unable to determine object id from call: is the method element namespaced?&gt;
 Traceback (most recent call last):
@@ -75,14 +87,14 @@ Unable to determine object id from call: is the method element namespaced?&gt;</
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.1.1"><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Did you spot the mistake?  You're creating a <tt class="classname">SOAPProxy</tt> manually, and you've correctly specified the service <span class="acronym">URL</span>, but you haven't specified the namespace.  Since multiple services may be routed through the same service <span class="acronym">URL</span>, the namespace is essential to determine which service you're trying to talk to, and therefore which method you're really
                         calling.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.1.2"><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The server responds by sending a <span class="acronym">SOAP</span> Fault, which <span class="application">SOAPpy</span> turns into a <span class="application">Python</span> exception of type <tt class="classname">SOAPpy.Types.faultType</tt>.  All errors returned from any <span class="acronym">SOAP</span> server will always be <span class="acronym">SOAP</span> Faults, so you can easily catch this exception.  In this case, the human-readable part of the <span class="acronym">SOAP</span> Fault gives a clue to the problem: the method element is not namespaced, because the original <tt class="classname">SOAPProxy</tt> object was not configured with a service namespace.
                      </td>
@@ -95,9 +107,9 @@ Unable to determine object id from call: is the method element namespaced?&gt;</
 <div class="example"><a name="d0e31701"></a><h3 class="title">Example&nbsp;12.16.&nbsp;Calling a Method With the Wrong Arguments</h3><pre class="screen">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">wsdlFile = <span class="pystring">'http://www.xmethods.net/sd/2001/TemperatureService.wsdl'</span></span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = WSDL.Proxy(wsdlFile)</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">temperature = server.getTemp(27502)</span>                                <a name="soap.troubleshooting.2.1"></a><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">temperature = server.getTemp(27502)</span>                                <a name="soap.troubleshooting.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <span class="traceback">&lt;Fault SOAP-ENV:Server: Exception while handling service request:
-services.temperature.TempService.getTemp(int) -- no signature match&gt;   <a name="soap.troubleshooting.2.2"></a><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+services.temperature.TempService.getTemp(int) -- no signature match&gt;   <a name="soap.troubleshooting.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in ?
   File "c:\python23\Lib\site-packages\SOAPpy\Client.py", line 453, in __call__
@@ -111,13 +123,13 @@ services.temperature.TempService.getTemp(int) -- no signature match&gt;</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.2.1"><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Did you spot the mistake?  It's a subtle one: you're calling <tt class="function">server.getTemp</tt> with an integer instead of a string.  As you saw from introspecting the <span class="acronym">WSDL</span> file, the <tt class="function">getTemp()</tt> <span class="acronym">SOAP</span> function takes a single argument, <tt class="varname">zipcode</tt>, which must be a string.  <tt class="classname">WSDL.Proxy</tt> will <span class="emphasis"><em>not</em></span> coerce datatypes for you; you need to pass the exact datatypes that the server expects.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.2.2"><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Again, the server returns a <span class="acronym">SOAP</span> Fault, and the human-readable part of the error gives a clue as to the problem: you're calling a <tt class="function">getTemp</tt> function with an integer value, but there is no function defined with that name that takes an integer.  In theory, <span class="acronym">SOAP</span> allows you to <span class="emphasis"><em>overload</em></span> functions, so you could have two functions in the same <span class="acronym">SOAP</span> service with the same name and the same number of arguments, but the arguments were of different datatypes.  This is why
                         it's important to match the datatypes exactly, and why <tt class="classname">WSDL.Proxy</tt> doesn't coerce datatypes for you.  If it did, you could end up calling a completely different function!  Good luck debugging
@@ -132,14 +144,14 @@ services.temperature.TempService.getTemp(int) -- no signature match&gt;</span>
 <div class="example"><a name="d0e31779"></a><h3 class="title">Example&nbsp;12.17.&nbsp;Calling a Method and Expecting the Wrong Number of Return Values</h3><pre class="screen">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">wsdlFile = <span class="pystring">'http://www.xmethods.net/sd/2001/TemperatureService.wsdl'</span></span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = WSDL.Proxy(wsdlFile)</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">(city, temperature) = server.getTemp(27502)</span>  <a name="soap.troubleshooting.3.1"></a><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">(city, temperature) = server.getTemp(27502)</span>  <a name="soap.troubleshooting.3.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <span class="traceback">Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in ?
 TypeError: unpack non-sequence</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.3.1"><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Did you spot the mistake?  <tt class="function">server.getTemp</tt> only returns one value, a float, but you've written code that assumes you're getting two values and trying to assign them
                         to two different variables.  Note that this does not fail with a <span class="acronym">SOAP</span> fault.  As far as the remote server is concerned, nothing went wrong at all.  The error only occurred <span class="emphasis"><em>after</em></span> the <span class="acronym">SOAP</span> transaction was complete, <tt class="classname">WSDL.Proxy</tt> returned a float, and your local <span class="application">Python</span> interpreter tried to accomodate your request to split it into two different variables.  Since the function only returned
@@ -153,9 +165,9 @@ TypeError: unpack non-sequence</span>
 <div class="example"><a name="d0e31834"></a><h3 class="title">Example&nbsp;12.18.&nbsp;Calling a Method With An Application-Specific Error</h3><pre class="screen">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> SOAPpy <span class="pykeyword">import</span> WSDL</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = WSDL.Proxy(r<span class="pystring">'/path/to/local/GoogleSearch.wsdl'</span>)</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results = server.doGoogleSearch(<span class="pystring">'foo'</span>, <span class="pystring">'mark'</span>, 0, 10, False, <span class="pystring">""</span>,</span> <a name="soap.troubleshooting.4.1"></a><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results = server.doGoogleSearch(<span class="pystring">'foo'</span>, <span class="pystring">'mark'</span>, 0, 10, False, <span class="pystring">""</span>,</span> <a name="soap.troubleshooting.4.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">...     </tt><span class="userinput">False, <span class="pystring">""</span>, <span class="pystring">"utf-8"</span>, <span class="pystring">"utf-8"</span>)</span>
-<span class="traceback">&lt;Fault SOAP-ENV:Server:                                              <a name="soap.troubleshooting.4.2"></a><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="traceback">&lt;Fault SOAP-ENV:Server:                                              <a name="soap.troubleshooting.4.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
  Exception from service object: Invalid authorization key: foo:
  &lt;SOAPpy.Types.structType detail at 14164616&gt;:
  {'stackTrace':
@@ -228,14 +240,14 @@ Caused by: com.google.soap.search.UserKeyInvalidException: Key was of wrong size
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.4.1"><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Can you spot the mistake?  There's nothing wrong with the calling syntax, or the number of arguments, or the datatypes.  The
                         problem is application-specific: the first argument is supposed to be my application key, but <tt class="literal">foo</tt> is not a valid Google key.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.4.2"><img src="http://web.archive.org/web/20110726001923im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html#soap.troubleshooting.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The Google server responds with a <span class="acronym">SOAP</span> Fault and an incredibly long error message, which includes a complete Java stack trace.  Remember that <span class="emphasis"><em>all</em></span> <span class="acronym">SOAP</span> errors are signified by <span class="acronym">SOAP</span> Faults: errors in configuration, errors in function arguments, and application-specific errors like this.  Buried in there
                         somewhere is the crucial piece of information: <tt class="literal">Invalid authorization key: foo</tt>.
@@ -264,7 +276,7 @@ Caused by: com.google.soap.search.UserKeyInvalidException: Key was of wrong size
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Chapter&nbsp;6.&nbsp;Exceptions and File Handling</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110726002201/http://www.diveintopython.org/toc/index.html" title="Dive Into Python" />
-<link rel="previous" href="http://web.archive.org/web/20110726002201/http://www.diveintopython.org/object_oriented_framework/summary.html" title="5.10.&nbsp;Summary" />
+<link rel="up" href="http://www.diveintopython.net/" title="Dive Into Python" />
+<link rel="previous" href="http://www.diveintopython.net/" title="5.10.&nbsp;Summary" />
 <link rel="next" href="http://www.diveintopython.net/" title="6.2.&nbsp;Working with File Objects" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -88,7 +100,7 @@
                </p>
 </div><a name="compare.exceptions.java"></a><table class="note" border="0" summary="">
 <tr>
-<td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/note.png" alt="Note" title="" width="24" height="24" /></td>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/note.png" alt="Note" title="" width="24" height="24" /></td>
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> uses <tt class="literal">try...except</tt> to handle exceptions and <tt class="literal">raise</tt> to generate them.  <span class="application">Java</span> and <span class="application"><span class="acronym">C++</span></span> use <tt class="literal">try...catch</tt> to handle exceptions, and <tt class="literal">throw</tt> to generate them.
@@ -119,38 +131,38 @@
                to a database, it might be unavailable, or you might not have the correct security credentials to access it.  If you know
                a line of code may raise an exception, you should handle the exception using a <tt class="literal">try...except</tt> block.
             </p>
-<div class="example"><a name="d0e14243"></a><h3 class="title">Example&nbsp;6.1.&nbsp;Opening a Non-Existent File</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fsock = open(<span class="pystring">"/notthere"</span>, <span class="pystring">"r"</span>)</span>      <a name="fileinfo.exceptions.1.1"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<div class="example"><a name="d0e14243"></a><h3 class="title">Example&nbsp;6.1.&nbsp;Opening a Non-Existent File</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fsock = open(<span class="pystring">"/notthere"</span>, <span class="pystring">"r"</span>)</span>      <a name="fileinfo.exceptions.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <span class="traceback">Traceback (innermost last):
   File "&lt;interactive input&gt;", line 1, in ?
 IOError: [Errno 2] No such file or directory: '/notthere'</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">try</span>:</span>
-<tt class="prompt">...     </tt><span class="userinput">fsock = open(<span class="pystring">"/notthere"</span>)</span>       <a name="fileinfo.exceptions.1.2"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
-<tt class="prompt">... </tt><span class="userinput"><span class="pykeyword">except</span> IOError:</span>                     <a name="fileinfo.exceptions.1.3"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt><span class="userinput">fsock = open(<span class="pystring">"/notthere"</span>)</span>       <a name="fileinfo.exceptions.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">... </tt><span class="userinput"><span class="pykeyword">except</span> IOError:</span>                     <a name="fileinfo.exceptions.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">"The file does not exist, exiting gracefully"</span></span>
-<tt class="prompt">... </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">"This line will always print"</span></span> <a name="fileinfo.exceptions.1.4"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">... </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">"This line will always print"</span></span> <a name="fileinfo.exceptions.1.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
 <span class="computeroutput">The file does not exist, exiting gracefully
 This line will always print</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.1.1"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Using the built-in <tt class="function">open</tt> function, you can try to open a file for reading (more on <tt class="function">open</tt> in the next section).  But the file doesn't exist, so this raises the <tt class="errorcode">IOError</tt> exception.  Since you haven't provided any explicit check for an <tt class="errorcode">IOError</tt> exception, <span class="application">Python</span> just prints out some debugging information about what happened and then gives up.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.1.2"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You're trying to open the same non-existent file, but this time you're doing it within a <tt class="literal">try...except</tt> block.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.1.3"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">When the <tt class="function">open</tt> method raises an <tt class="errorcode">IOError</tt> exception, you're ready for it.  The <tt class="literal">except IOError:</tt> line catches the exception and executes your own block of code, which in this case just prints a more pleasant error message.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.1.4"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Once an exception has been handled, processing continues normally on the first line after the <tt class="literal">try...except</tt> block.  Note that this line will always print, whether or not an exception occurs.  If you really did have a file called
                            <tt class="filename">notthere</tt> in your root directory, the call to <tt class="function">open</tt> would succeed, the <tt class="literal">except</tt> clause would be ignored, and this line would still be executed.
@@ -187,16 +199,16 @@ This line will always print</span></pre><div class="calloutlist">
 <div class="example"><a name="crossplatform.example"></a><h3 class="title">Example&nbsp;6.2.&nbsp;Supporting Platform-Specific Functionality</h3><pre class="programlisting">
   <span class="pycomment"># Bind the name getpass to the appropriate function</span>
   <span class="pykeyword">try</span>:
-      <span class="pykeyword">import</span> termios, TERMIOS                     <a name="fileinfo.exceptions.2.1"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+      <span class="pykeyword">import</span> termios, TERMIOS                     <a name="fileinfo.exceptions.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
   <span class="pykeyword">except</span> ImportError:
       <span class="pykeyword">try</span>:
-          <span class="pykeyword">import</span> msvcrt                           <a name="fileinfo.exceptions.2.2"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+          <span class="pykeyword">import</span> msvcrt                           <a name="fileinfo.exceptions.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
       <span class="pykeyword">except</span> ImportError:
           <span class="pykeyword">try</span>:
-              <span class="pykeyword">from</span> EasyDialogs <span class="pykeyword">import</span> AskPassword <a name="fileinfo.exceptions.2.3"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+              <span class="pykeyword">from</span> EasyDialogs <span class="pykeyword">import</span> AskPassword <a name="fileinfo.exceptions.2.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
           <span class="pykeyword">except</span> ImportError:
-              getpass = default_getpass           <a name="fileinfo.exceptions.2.4"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
-          <span class="pykeyword">else</span>:                                   <a name="fileinfo.exceptions.2.5"></a><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+              getpass = default_getpass           <a name="fileinfo.exceptions.2.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+          <span class="pykeyword">else</span>:                                   <a name="fileinfo.exceptions.2.5"></a><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
               getpass = AskPassword
       <span class="pykeyword">else</span>:
           getpass = win_getpass
@@ -204,26 +216,26 @@ This line will always print</span></pre><div class="calloutlist">
       getpass = unix_getpass</pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.1"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="filename">termios</tt> is a <span class="acronym">UNIX</span>-specific module that provides low-level control over the input terminal.  If this module is not available (because it's not
                               on your system, or your system doesn't support it), the import fails and <span class="application">Python</span> raises an <tt class="errorcode">ImportError</tt>, which you catch.
                            </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.2"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">OK, you didn't have <tt class="filename">termios</tt>, so let's try <tt class="filename">msvcrt</tt>, which is a Windows-specific module that provides an <span class="acronym">API</span> to many useful functions in the Microsoft <span class="application">Visual C++</span> runtime services.  If this import fails, <span class="application">Python</span> will raise an <tt class="errorcode">ImportError</tt>, which you catch.
                            </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.3"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">If the first two didn't work, you try to import a function from <tt class="filename">EasyDialogs</tt>, which is a <span class="abbrev">Mac</span> <span class="acronym">OS</span>-specific module that provides functions to pop up dialog boxes of various types.  Once again, if this import fails, <span class="application">Python</span> will raise an <tt class="errorcode">ImportError</tt>, which you catch.
                            </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.4"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">None of these platform-specific modules is available (which is possible, since <span class="application">Python</span> has been ported to a lot of different platforms), so you need to fall back on a default password input function (which is
                               defined elsewhere in the <tt class="filename">getpass</tt> module).  Notice what you're doing here: assigning the function <tt class="function">default_getpass</tt> to the variable <tt class="varname">getpass</tt>.  If you read the official <tt class="filename">getpass</tt> documentation, it tells you that the <tt class="filename">getpass</tt> module defines a <tt class="function">getpass</tt> function.  It does this by binding <tt class="varname">getpass</tt> to the correct function for your platform.  Then when you call the <tt class="function">getpass</tt> function, you're really calling a platform-specific function that this code has set up for you.  You don't need to know or
@@ -231,7 +243,7 @@ This line will always print</span></pre><div class="calloutlist">
                            </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.5"><img src="http://web.archive.org/web/20110726002201im_/http://www.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exceptions.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">A <tt class="literal">try...except</tt> block can have an <tt class="literal">else</tt> clause, like an <tt class="literal">if</tt> statement.  If no exception is raised during the <tt class="literal">try</tt> block, the <tt class="literal">else</tt> clause is executed afterwards.  In this case, that means that the <tt class="literal">from EasyDialogs import AskPassword</tt> import worked, so you should bind <tt class="varname">getpass</tt> to the <tt class="function">AskPassword</tt> function.  Each of the other <tt class="literal">try...except</tt> blocks has similar <tt class="literal">else</tt> clauses to bind <tt class="varname">getpass</tt> to the appropriate function when you find an <tt class="literal">import</tt> that works.
                            </td>
@@ -269,7 +281,7 @@ This line will always print</span></pre><div class="calloutlist">
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

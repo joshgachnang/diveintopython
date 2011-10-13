@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>14.4.&nbsp;roman.py, stage 4</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110726001911/http://diveintopython.org/unit_testing/stage_1.html" title="Chapter&nbsp;14.&nbsp;Test-First Programming" />
-<link rel="previous" href="http://web.archive.org/web/20110726001911/http://diveintopython.org/unit_testing/stage_3.html" title="14.3.&nbsp;roman.py, stage 3" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;14.&nbsp;Test-First Programming" />
+<link rel="previous" href="http://www.diveintopython.net/" title="14.3.&nbsp;roman.py, stage 3" />
 <link rel="next" href="http://www.diveintopython.net/" title="14.5.&nbsp;roman.py, stage 5" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -84,14 +96,14 @@ romanNumeralMap = ((<span class="pystring">'M'</span>,  1000),
     result = 0
     index = 0
     <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
-        <span class="pykeyword">while</span> s[index:index+len(numeral)] == numeral: <a name="roman.stage4.1.1"></a><img src="http://web.archive.org/web/20110726001911im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">while</span> s[index:index+len(numeral)] == numeral: <a name="roman.stage4.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
             result += integer
             index += len(numeral)
     <span class="pykeyword">return</span> result
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_4.html#roman.stage4.1.1"><img src="http://web.archive.org/web/20110726001911im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_4.html#roman.stage4.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The pattern here is the same as <a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.example" title="Example&nbsp;14.3.&nbsp;roman2.py"><tt class="function">toRoman</tt></a>.  You iterate through your Roman numeral data structure (a tuple of tuples), and instead of matching the highest integer
                         values as often as possible, you match the &#8220;<span class="quote">highest</span>&#8221; Roman numeral character strings as often as possible.
@@ -123,22 +135,22 @@ toRoman should always return uppercase ... ok
 fromRoman should fail with malformed antecedents ... FAIL
 fromRoman should fail with repeated pairs of numerals ... FAIL
 fromRoman should fail with too many repeated numerals ... FAIL
-fromRoman should give known result with known input ... ok </span><a name="roman.stage4.2.1"></a><img src="http://web.archive.org/web/20110726001911im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman should give known result with known input ... ok </span><a name="roman.stage4.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
 toRoman should give known result with known input ... ok
-fromRoman(toRoman(n))==n for all n ... ok                  </span><a name="roman.stage4.2.2"></a><img src="http://web.archive.org/web/20110726001911im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman(toRoman(n))==n for all n ... ok                  </span><a name="roman.stage4.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
 toRoman should fail with non-integer input ... ok
 toRoman should fail with negative input ... ok
 toRoman should fail with large input ... ok
 toRoman should fail with 0 input ... ok</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_4.html#roman.stage4.2.1"><img src="http://web.archive.org/web/20110726001911im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_4.html#roman.stage4.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Two pieces of exciting news here.  The first is that <tt class="function">fromRoman</tt> works for good input, at least for all the <a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues">known values</a> you test.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_4.html#roman.stage4.2.2"><img src="http://web.archive.org/web/20110726001911im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_4.html#roman.stage4.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The second is that the <a href="http://www.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.example" title="Example&nbsp;13.5.&nbsp;Testing toRoman against fromRoman">sanity check</a> also passed.  Combined with the known values tests, you can be reasonably sure that both <tt class="function">toRoman</tt> and <tt class="function">fromRoman</tt> work properly for all possible good values.  (This is not guaranteed; it is theoretically possible that <tt class="function">toRoman</tt> has a bug that produces the wrong Roman numeral for some particular set of inputs, <span class="emphasis"><em>and</em></span> that <tt class="function">fromRoman</tt> has a reciprocal bug that produces the same wrong integer values for exactly that set of Roman numerals that <tt class="function">toRoman</tt> generated incorrectly.  Depending on your application and your requirements, this possibility may bother you; if so, write
                         more comprehensive test cases until it doesn't bother you.)
@@ -199,7 +211,7 @@ FAILED (failures=4)</span></pre></div>
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>14.5.&nbsp;roman.py, stage 5</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110726001811/http://diveintopython.org/unit_testing/stage_1.html" title="Chapter&nbsp;14.&nbsp;Test-First Programming" />
-<link rel="previous" href="http://web.archive.org/web/20110726001811/http://diveintopython.org/unit_testing/stage_4.html" title="14.4.&nbsp;roman.py, stage 4" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;14.&nbsp;Test-First Programming" />
+<link rel="previous" href="http://www.diveintopython.net/" title="14.4.&nbsp;roman.py, stage 4" />
 <link rel="next" href="http://www.diveintopython.net/" title="Chapter&nbsp;15.&nbsp;Refactoring" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -112,11 +124,11 @@ romanNumeralMap = ((<span class="pystring">'M'</span>,  1000),
     <span class="pykeyword">return</span> result
 
 <span class="pycomment">#Define pattern to detect valid Roman numerals</span>
-romanNumeralPattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span> <a name="roman.stage5.3.1"></a><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+romanNumeralPattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span> <a name="roman.stage5.3.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 
 <span class="pykeyword">def</span><span class="pyclass"> fromRoman</span>(s):
     <span class="pystring">"""convert Roman numeral to integer"""</span>
-    <span class="pykeyword">if</span> <span class="pykeyword">not</span> re.search(romanNumeralPattern, s):                                    <a name="roman.stage5.3.2"></a><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> re.search(romanNumeralPattern, s):                                    <a name="roman.stage5.3.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
         <span class="pykeyword">raise</span> InvalidRomanNumeralError, <span class="pystring">'Invalid Roman numeral: %s'</span> % s
 
     result = 0
@@ -129,13 +141,13 @@ romanNumeralPattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.3.1"><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is just a continuation of the pattern you discussed in <a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">Section&nbsp;7.3, &#8220;Case Study: Roman Numerals&#8221;</a>.  The tens places is either <tt class="literal">XC</tt> (<tt class="literal">90</tt>), <tt class="literal">XL</tt> (<tt class="literal">40</tt>), or an optional <tt class="literal">L</tt> followed by 0 to 3 optional <tt class="literal">X</tt> characters.  The ones place is either <tt class="literal">IX</tt> (<tt class="literal">9</tt>), <tt class="literal">IV</tt> (<tt class="literal">4</tt>), or an optional <tt class="literal">V</tt> followed by 0 to 3 optional <tt class="literal">I</tt> characters.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.3.2"><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Having encoded all that logic into a regular expression, the code to check for invalid Roman numerals becomes trivial.  If
                         <tt class="function">re.search</tt> returns an object, then the regular expression matched and the input is valid; otherwise, the input is invalid.
@@ -148,10 +160,10 @@ romanNumeralPattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?
             invalid Roman numerals.  But don't take my word for it, look at the results:
          </p>
 <div class="example"><a name="d0e34080"></a><h3 class="title">Example&nbsp;14.13.&nbsp;Output of <tt class="filename">romantest5.py</tt> against <tt class="filename">roman5.py</tt></h3><pre class="screen"><span class="computeroutput">
-fromRoman should only accept uppercase input ... ok          </span><a name="roman.stage5.4.1"></a><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman should only accept uppercase input ... ok          </span><a name="roman.stage5.4.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
 toRoman should always return uppercase ... ok
-fromRoman should fail with malformed antecedents ... ok      </span><a name="roman.stage5.4.2"></a><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
-fromRoman should fail with repeated pairs of numerals ... ok </span><a name="roman.stage5.4.3"></a><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman should fail with malformed antecedents ... ok      </span><a name="roman.stage5.4.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman should fail with repeated pairs of numerals ... ok </span><a name="roman.stage5.4.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /><span class="computeroutput">
 fromRoman should fail with too many repeated numerals ... ok
 fromRoman should give known result with known input ... ok
 toRoman should give known result with known input ... ok
@@ -164,30 +176,30 @@ toRoman should fail with 0 input ... ok
 ----------------------------------------------------------------------
 Ran 12 tests in 2.864s
 
-OK                                                           </span><a name="roman.stage5.4.4"></a><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+OK                                                           </span><a name="roman.stage5.4.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.1"><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">One thing I didn't mention about regular expressions is that, by default, they are case-sensitive.  Since the regular expression
                         <tt class="varname">romanNumeralPattern</tt> was expressed in uppercase characters, the <tt class="function">re.search</tt> check will reject any input that isn't completely uppercase.  So the uppercase input test passes.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.2"><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">More importantly, the bad input tests pass.  For instance, the malformed antecedents test checks cases like <tt class="literal">MCMC</tt>.  As you've seen, this does not match the regular expression, so <tt class="function">fromRoman</tt> raises an <tt class="errorcode">InvalidRomanNumeralError</tt> exception, which is what the malformed antecedents test case is looking for, so the test passes.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.3"><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">In fact, all the bad input tests pass.  This regular expression catches everything you could think of when you made your test
                         cases.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.4"><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">And the anticlimax award of the year goes to the word &#8220;<span class="quote"><tt class="literal">OK</tt></span>&#8221;, which is printed by the <tt class="filename">unittest</tt> module when all the tests pass.
                      </td>
@@ -196,7 +208,7 @@ OK                                                           </span><a name="rom
 </div>
 </div><a name="d0e34136"></a><table class="note" border="0" summary="">
 <tr>
-<td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20110726001811im_/http://diveintopython.org/images/note.png" alt="Note" title="" width="24" height="24" /></td>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/note.png" alt="Note" title="" width="24" height="24" /></td>
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%">When all of your tests pass, stop coding.</td>
@@ -215,7 +227,7 @@ OK                                                           </span><a name="rom
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

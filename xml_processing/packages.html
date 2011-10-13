@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>9.2.&nbsp;Packages</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110625071403/http://diveintopython.org/xml_processing/index.html" title="Chapter&nbsp;9.&nbsp;XML Processing" />
-<link rel="previous" href="http://web.archive.org/web/20110625071403/http://diveintopython.org/xml_processing/index.html" title="Chapter&nbsp;9.&nbsp;XML Processing" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;9.&nbsp;XML Processing" />
+<link rel="previous" href="http://www.diveintopython.net/" title="Chapter&nbsp;9.&nbsp;XML Processing" />
 <link rel="next" href="http://www.diveintopython.net/" title="9.3.&nbsp;Parsing XML" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -51,11 +63,11 @@
 </div>
 <div class="example"><a name="d0e22925"></a><h3 class="title">Example&nbsp;9.5.&nbsp;Loading an <span class="acronym">XML</span> document (a sneak peek)
             </h3><pre class="screen">
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span> <a name="kgp.packages.1.1"></a><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span> <a name="kgp.packages.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class="pystring">'~/diveintopython/common/py/kgp/binary.xml'</span>)</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.1.1"><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is a syntax you haven't seen before.  It looks almost like the <tt class="literal">from <i class="replaceable">module</i> import</tt> you know and love, but the <tt class="literal">"."</tt> gives it away as something above and beyond a simple import.  In fact, <tt class="filename">xml</tt> is what is known as a package, <tt class="filename">dom</tt> is a nested package within <tt class="filename">xml</tt>, and <tt class="filename">minidom</tt> is a module within <tt class="filename">xml.dom</tt>.
                      </td>
@@ -82,44 +94,44 @@
             specific classes or functions from a module contained within a package.  You can also import the package itself as a module.
              The syntax is all the same; <span class="application">Python</span> figures out what you mean based on the file layout of the package, and automatically does the right thing.
          </p>
-<div class="example"><a name="d0e23025"></a><h3 class="title">Example&nbsp;9.7.&nbsp;Packages are modules, too</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span>         <a name="kgp.packages.2.1"></a><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<div class="example"><a name="d0e23025"></a><h3 class="title">Example&nbsp;9.7.&nbsp;Packages are modules, too</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span>         <a name="kgp.packages.2.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">minidom</span>
 <span class="computeroutput">&lt;module 'xml.dom.minidom' from 'C:\Python21\lib\xml\dom\minidom.pyc'&gt;</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">minidom.Element</span>
 <span class="computeroutput">&lt;class xml.dom.minidom.Element at 01095744&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom.minidom <span class="pykeyword">import</span> Element</span> <a name="kgp.packages.2.2"></a><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom.minidom <span class="pykeyword">import</span> Element</span> <a name="kgp.packages.2.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">Element</span>
 <span class="computeroutput">&lt;class xml.dom.minidom.Element at 01095744&gt;</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">minidom.Element</span>
 <span class="computeroutput">&lt;class xml.dom.minidom.Element at 01095744&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml <span class="pykeyword">import</span> dom</span>                 <a name="kgp.packages.2.3"></a><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml <span class="pykeyword">import</span> dom</span>                 <a name="kgp.packages.2.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">dom</span>
 <span class="computeroutput">&lt;module 'xml.dom' from 'C:\Python21\lib\xml\dom\__init__.pyc'&gt;</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> xml</span>                          <a name="kgp.packages.2.4"></a><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> xml</span>                          <a name="kgp.packages.2.4"></a><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xml</span>
 <span class="computeroutput">&lt;module 'xml' from 'C:\Python21\lib\xml\__init__.pyc'&gt;</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.1"><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here you're importing a module (<tt class="filename">minidom</tt>) from a nested package (<tt class="filename">xml.dom</tt>).  The result is that <tt class="filename">minidom</tt> is imported into your <a href="http://www.diveintopython.net/html_processing/locals_and_globals.html" title="8.5.&nbsp;locals and globals">namespace</a>, and in order to reference classes within the <tt class="filename">minidom</tt> module (like <tt class="classname">Element</tt>), you need to preface them with the module name.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.2"><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here you are importing a class (<tt class="classname">Element</tt>) from a module (<tt class="filename">minidom</tt>) from a nested package (<tt class="filename">xml.dom</tt>).  The result is that <tt class="classname">Element</tt> is imported directly into your namespace.  Note that this does not interfere with the previous import; the <tt class="classname">Element</tt> class can now be referenced in two ways (but it's all still the same class).
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.3"><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here you are importing the <tt class="filename">dom</tt> package (a nested package of <tt class="filename">xml</tt>) as a module in and of itself.  Any level of a package can be treated as a module, as you'll see in a moment.  It can even
                         have its own attributes and methods, just the modules you've seen before.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.4"><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here you are importing the root level <tt class="filename">xml</tt> package as a module.
                      </td>
@@ -131,7 +143,7 @@
              The answer is the magical <tt class="filename">__init__.py</tt> file.  You see, packages are not simply directories; they are directories with a specific file, <tt class="filename">__init__.py</tt>, inside.  This file defines the attributes and methods of the package.  For instance, <tt class="filename">xml.dom</tt> contains a <tt class="classname">Node</tt> class, which is defined in <tt class="filename">xml/dom/__init__.py</tt>.  When you import a package as a module (like <tt class="filename">dom</tt> from <tt class="filename">xml</tt>), you're really importing its <tt class="filename">__init__.py</tt> file.
          </p><a name="d0e23185"></a><table class="note" border="0" summary="">
 <tr>
-<td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20110625071403im_/http://diveintopython.org/images/note.png" alt="Note" title="" width="24" height="24" /></td>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/note.png" alt="Note" title="" width="24" height="24" /></td>
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%">A package is a directory with the special <tt class="filename">__init__.py</tt> file in it.  The <tt class="filename">__init__.py</tt> file defines the attributes and methods of the package.  It doesn't need to define anything; it can just be an empty file,
@@ -158,7 +170,7 @@
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>

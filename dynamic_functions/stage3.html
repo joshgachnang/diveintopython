@@ -6,15 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>17.4.&nbsp;plural.py, stage 3</title>
 <link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
-<link rev="made" href="mailto:f8dy@diveintopython.org" />
+<link rev="made" href="josh@servercobra.com" />
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
 <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://web.archive.org/web/20110625071748/http://diveintopython.org/dynamic_functions/index.html" title="Chapter&nbsp;17.&nbsp;Dynamic functions" />
-<link rel="previous" href="http://web.archive.org/web/20110625071748/http://diveintopython.org/dynamic_functions/stage2.html" title="17.3.&nbsp;plural.py, stage 2" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;17.&nbsp;Dynamic functions" />
+<link rel="previous" href="http://www.diveintopython.net/" title="17.3.&nbsp;plural.py, stage 2" />
 <link rel="next" href="http://www.diveintopython.net/" title="17.5.&nbsp;plural.py, stage 4" />
-</head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
 <body>
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -70,23 +82,23 @@ rules = \
      <span class="pykeyword">lambda</span> word: re.search(<span class="pystring">'$'</span>, word),
      <span class="pykeyword">lambda</span> word: re.sub(<span class="pystring">'$'</span>, <span class="pystring">'s'</span>, word)
     )
-   )                                           <a name="plural.stage3.1.1"></a><img src="http://web.archive.org/web/20110625071748im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+   )                                           <a name="plural.stage3.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 
 <span class="pykeyword">def</span><span class="pyclass"> plural</span>(noun):                             
-    <span class="pykeyword">for</span> matchesRule, applyRule <span class="pykeyword">in</span> rules:       <a name="plural.stage3.1.2"></a><img src="http://web.archive.org/web/20110625071748im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    <span class="pykeyword">for</span> matchesRule, applyRule <span class="pykeyword">in</span> rules:       <a name="plural.stage3.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
         <span class="pykeyword">if</span> matchesRule(noun):                 
             <span class="pykeyword">return</span> applyRule(noun)            
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/dynamic_functions/stage3.html#plural.stage3.1.1"><img src="http://web.archive.org/web/20110625071748im_/http://diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/dynamic_functions/stage3.html#plural.stage3.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is the same set of rules as you defined in stage 2.  The only difference is that instead of defining named functions
                         like <tt class="function">match_sxz</tt> and <tt class="function">apply_sxz</tt>, you have &#8220;<span class="quote">inlined</span>&#8221; those function definitions directly into the <tt class="varname">rules</tt> list itself, using <a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">lambda functions</a>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/dynamic_functions/stage3.html#plural.stage3.1.2"><img src="http://web.archive.org/web/20110625071748im_/http://diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/dynamic_functions/stage3.html#plural.stage3.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Note that the <tt class="function">plural</tt> function hasn't changed at all.  It iterates through a set of rule functions, checks the first rule, and if it returns a
                         true value, calls the second rule and returns the value.  Same as above, word for word.  The only difference is that the rule
@@ -113,7 +125,7 @@ rules = \
 </tr>
 </table>
 <div class="Footer">
-<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
 </div>
 </body>
 </html>
