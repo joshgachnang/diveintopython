@@ -1,0 +1,364 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>5.9.&nbsp;Introduzione alle espressioni regolari</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/html_processing/index.html" title="Capitolo&nbsp;5.&nbsp;Elaborare HTML" />
+<link rel="previous" href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py" />
+<link rel="next" href="http://it.diveintopython.net/html_processing/all_together.html" title="5.10.&nbsp;Mettere tutto insieme" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html">Elaborare HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">Introduzione alle espressioni regolari</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/dialect.html" title="Indietro: “Introduzione al modulo dialect.py”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/all_together.html" title="Avanti: “Mettere tutto insieme”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="dialect.re"></a>5.9.&nbsp;Introduzione alle espressioni regolari
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Le espressioni regolari sono un strumento potente (e piuttosto standardizzato)
+               	per cercare, sostituire o analizzare del testo contenente complessi schemi di
+               	caratteri. Se avete gi&agrave; usato espressioni regolari in altri linguaggi
+               	(come il <span class="application">Perl</span>), potete saltare questa sezione e leggere direttamente il
+               	sommario del <a href="http://it.diveintopython.net/doc/current/lib/module-re.html">modulo <tt class="filename">re</tt> </a> per avere una panoramica delle funzioni
+               	disponibili e dei loro argomenti.
+               
+            </p>
+</div>
+<p>
+            	I tipi stringa hanno i propri metodi di ricerca (<tt class="function">index</tt>,
+            	<tt class="function">find</tt> e <tt class="function">count</tt>),
+            	di sostituzione (<tt class="function">replace</tt>) e di analisi
+            	(<tt class="function">split</tt>), ma questi sono limitati
+            	ai casi pi&ugrave; semplici di utilizzo. Il metodi di ricerca operano con una singola
+            	sotto-stringa dal valore predefinito e sono sempre sensibili alla differenza
+            	tra maiuscole e  minuscole; per effettuare ricerche in una stringa
+            	<tt class="varname">s</tt>, volendo ignorare tale differenza, occorre chiamare i
+            	metodi <tt class="function">s.lower()</tt> o <tt class="function">s.upper()</tt> ed essere
+            	sicuri che la stringa da cercare abbia lo stesso tipo di carattere
+            	(maiuscolo/minuscolo) di <tt class="varname">s</tt>. I metodi <tt class="function">replace</tt>
+            	e <tt class="function">split</tt> hanno le stesse limitazioni. Laddove &egrave;
+            	possibile conviene usarli (sono veloci e leggibili), ma per cose pi&ugrave; complesse
+            	&egrave; necessario passare alle espressioni regolari.
+            
+         </p>
+<div class="example"><a name="d0e16087"></a><h3 class="title">Esempio&nbsp;5.19.&nbsp;Cercare corrispondenze alla fine di una stringa</h3>
+<p>
+               	Questa serie di esempi sono ispirati da un problema reale che ho
+               	avuto durante il mio lavoro ufficiale, dove dovevo adattare e
+               	standardizzare indirizzi stradali estratti da un sistema precedente,
+               	prima di inserirli in un nuovo sistema (come vedete non mi invento
+               	niente: queste cose sono utili realmente).
+               
+            </p><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class="pystring">'100 NORTH MAIN ROAD'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.replace(<span class="pystring">'ROAD'</span>, <span class="pystring">'RD.'</span>)</span>               <a name="dialect.re.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'100 NORTH MAIN RD.'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class="pystring">'100 NORTH BROAD ROAD'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.replace(<span class="pystring">'ROAD'</span>, <span class="pystring">'RD.'</span>)</span>               <a name="dialect.re.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'100 NORTH BRD. RD.'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s[:-4] + s[-4:].replace(<span class="pystring">'ROAD'</span>, <span class="pystring">'RD.'</span>)</span> <a name="dialect.re.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'100 NORTH BROAD RD.'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> re</span>                              <a name="dialect.re.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class="pystring">'ROAD$'</span>, <span class="pystring">'RD.'</span>, s)</span>              <a name="dialect.re.1.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /> <a name="dialect.re.1.6"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+<span class="computeroutput">'100 NORTH BROAD RD.'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il mio obiettivo &egrave; di standardizzare un indirizzo stradale in modo tale che
+                        	<tt class="literal">'ROAD'</tt> sia sempre abbreviato come <tt class="literal">'RD.'</tt>.
+                        	A primo acchito, avevo considerato la cosa abbastanza semplice da poter usare
+                        	il metodo <tt class="function">replace</tt>. Dopo tutto, i dati erano gi&agrave; tutti in
+                        	lettere maiuscole, in modo che la differenza tra maiuscolo e minuscolo non
+                        	sarebbe stata un problema. E la stringa di ricerca, <tt class="literal">'ROAD'</tt>,
+                        	era una costante. In effetti, in questo caso ingannevolmente
+                        	semplice, <tt class="function">s.replace</tt> funziona come ci si aspetta.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La vita, sfortunatamente, &egrave; piena di controesempi, e scoprii presto
+                        	quanto ci&ograve; sia vero. Il problema qui &egrave; che <tt class="literal">'ROAD'</tt>
+                        	appare due volte nell'indirizzo, una volta come parte del nome della
+                        	strada, <tt class="literal">'BROAD'</tt>, ed una volta come parola a s&eacute;
+                        	stante. Il metodo <tt class="function">replace</tt> trova le due occorrenze
+                        	e ciecamente le sostituisce entrambe; in questo modo, il mio indirizzo
+                        	viene distrutto.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per risolvere il problema di indirizzi con pi&ugrave; di una sottostringa
+                        	<tt class="literal">'ROAD'</tt>, potremmo ricorrere a qualcosa del genere:
+                        	cercare e sostituire <tt class="literal">'ROAD'</tt> solo negli ultimi 4
+                        	caratteri dell'indirizzo (<tt class="literal">s[-4:]</tt>), e lasciare
+                        	intatto il resto della stringa (<tt class="literal">s[-4:]</tt>). Ma potete
+                        	vedere come la cosa stia gi&agrave; diventando poco gestibile. Per esempio,
+                        	questo schema dipende dalla lunghezza della stringa che vogliamo
+                        	sostituire (se volessimo sostituire <tt class="literal">'STREET'</tt> con
+                        	<tt class="literal">'ST.'</tt>, dovremmo usare <tt class="literal">s[:-6]</tt> e
+                        	<tt class="literal">s[-6:].replace(...)</tt>). Vi piacerebbe ritornare su
+                        	questo codice dopo sei mesi per cercarvi un  &#8220;<span class="quote">baco</span>&#8221;?.
+                        	Io  so che preferirei evitarlo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	&Egrave; tempo di passare alle espressioni regolari. In <span class="application">Python</span>,
+                        	tutte le funzioni collegate alle espressioni regolari sono contenute
+                        	nel modulo <tt class="filename">re</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.1.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Date un'occhiata al primo parametro <tt class="literal">'ROAD$'</tt>. Si
+                        	tratta di una espressione regolare molto semplice, che corrisponde
+                        	a <tt class="literal">'ROAD'</tt> solo quando questa sottostringa si trova
+                        	alla fine. Il carattere <tt class="literal">$</tt> significa &#8220;<span class="quote">fine
+                           	della stringa</span>&#8221;. Esiste un carattere corrispondente, il
+                        	carattere <tt class="literal">^</tt>, che significa &#8220;<span class="quote">inizio della
+                           	stringa</span>&#8221;.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.1.6"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Usando la funzione <tt class="function">re.sub</tt>, si cerca nella stringa
+                        	<tt class="varname">s</tt> per sottostringhe corrispondenti all'espressione
+                        	regolare <tt class="literal">'ROAD$'</tt> e le si rimpiazza con
+                        	<tt class="literal">'RD.'</tt>. In questo modo si rimpiazza la sottostringa
+                        	<tt class="literal">ROAD</tt> alla fine della stringa <tt class="varname">s</tt>,
+                        	ma <span class="emphasis"><em>non</em></span> quella che &egrave; parte della parola BROAD,
+                        	perch&eacute; questa &egrave; in mezzo alla stringa <tt class="varname">s</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e16270"></a><h3 class="title">Esempio&nbsp;5.20.&nbsp;Cercare la corrispondenza con parole complete</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class="pystring">'100 BROAD'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class="pystring">'ROAD$'</span>, <span class="pystring">'RD.'</span>, s)</span>     <a name="dialect.re.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'100 BRD.'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class="pystring">'\\bROAD$'</span>, <span class="pystring">'RD.'</span>, s)</span>  <a name="dialect.re.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'100 BROAD'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(r<span class="pystring">'\bROAD$'</span>, <span class="pystring">'RD.'</span>, s)</span>  <a name="dialect.re.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'100 BROAD'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class="pystring">'100 BROAD ROAD APT. 3'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(r<span class="pystring">'\bROAD$'</span>, <span class="pystring">'RD.'</span>, s)</span>  <a name="dialect.re.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">'100 BROAD ROAD APT. 3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(r<span class="pystring">'\bROAD\b'</span>, <span class="pystring">'RD.'</span>, s)</span> <a name="dialect.re.2.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">'100 BROAD RD. APT 3'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Continuando con la mia storia degli indirizzi da aggiustare,
+                        	scoprii presto che l'esempio precedente, in cui cercavo
+                        	corrispondenze con <tt class="literal">'ROAD'</tt> alla fine della
+                        	stringa, non era abbastanza efficiente perch&eacute; non tutti gli
+                        	indirizzi includevano una designazione del tipo di strada; alcuni
+                        	terminavano con il solo nome della strada. Il pi&ugrave; delle volte,
+                        	questo mi andava bene, ma se il nome della strada era
+                        	<tt class="literal">'BROAD'</tt>, allora l'espressione regolare avrebbe
+                        	corrisposto con <tt class="literal">'ROAD'</tt> alla fine della stringa,
+                        	anche se questi era parte della parola <tt class="literal">'BROAD'</tt>,
+                        	e questo non era quello che volevo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Quello che <span class="emphasis"><em>realmente</em></span> volevo era di trovare
+                        	corrispondenze con <tt class="literal">'ROAD'</tt> quando si trovava
+                        	alla fine della stringa <span class="emphasis"><em>ed</em></span> era una parola
+                        	a se stante, non una parte di una parola pi&ugrave; grande. Per esprimere
+                        	questo con una espressione regolare, occorre usare il codice
+                        	<tt class="literal">\b</tt>, che significa &#8220;<span class="quote">in questo punto ci
+                           	deve essere un limite alla parola</span>&#8221;. In <span class="application">Python</span>, l'uso di
+                        	questo codice &egrave; complicato dal fatto che per inserire il carattere
+                        	<tt class="literal">'\'</tt> in una stringa, esso deve essere preceduto
+                        	da un altro carattere <tt class="literal">'\'</tt> (&#8220;<span class="quote">escaped</span>&#8221;
+                        	ndt). A questo fatto si fa qualche volta riferimento come alla
+                        	&#8220;<span class="quote">piaga del backslash</span>&#8221; (backslash == barra inversa, ndt),
+                        	e questa &egrave; una delle ragioni  per cui le espressioni regolari sono
+                        	pi&ugrave; facili in <span class="application">Perl</span> che in <span class="application">Python</span>. D'altra parte, <span class="application">Perl</span> mischia le
+                        	espressioni regolari con altre notazioni sintattiche, per cui se c'&egrave;
+                        	un &#8220;<span class="quote">baco</span>&#8221; pu&ograve; essere difficile stabilire se esso sia
+                        	nell'espressione regolare o negli altri componenti sintattici.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per evitare la piaga del backslash, si possono usare le cosiddette
+                        	stringe grezze, facendo precedere il <tt class="literal">'...'</tt> con
+                        	la lettera <tt class="literal">r</tt> (<tt class="literal">raw</tt> cio&egrave; grezzo,
+                        	ndt). Questo dice a <span class="application">Python</span> che niente nella stringa deve essere
+                        	interpretato come carattere speciale. La stringa <tt class="literal">'\t'</tt>
+                        	indica di solito il carattere di tabulazione, ma la stringa
+                        	<tt class="literal">r'\t'</tt> &egrave; proprio il carattere barra inversa
+                        	<tt class="literal">\</tt> seguito dalla lettera <tt class="literal">t</tt>. Io di
+                        	solito raccomando di usare sempre stringe grezze quando si ha a che fare
+                        	con le espressioni regolari, altrimenti le cose diventano subito troppo
+                        	confuse  ( e le espressioni regolari gi&agrave; di per se fanno presto a diventare
+                        	poco chiare).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<span class="emphasis"><em>*sigh*</em></span> Sfortunatamente, scoprii presto che
+                        	molti casi concreti contraddicevano la mia logica. In questo caso,
+                        	l'indirizzo conteneva la parola <tt class="literal">'ROAD'</tt> come parola
+                        	a se stante, ma non era alla fine, perch&eacute; l'indirizzo includeva il
+                        	numero di un appartamento dopo la specifica della strada. Dato che
+                        	<tt class="literal">'ROAD'</tt> non &egrave; alla fine della stringa, non
+                        	corrisponde, e quindi la chiamata a <tt class="function">re.sub</tt>
+                        	finisce per non sostituire proprio niente, e noi ci ritroviamo con
+                        	la stringa originale, che non &egrave; quello che volevamo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/regular_expressions.html#dialect.re.2.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per risolvere questo problema, ho rimosso il carattere <tt class="literal">$</tt>
+                        	ed ho aggiunto un'altro <tt class="literal">\b</tt>. Ora l'espressione regolare
+                        	si legge: &#8220;<span class="quote">corrisponde a <tt class="literal">'ROAD'</tt> quando &egrave; una
+                           	parola a se stante in qualunque punto della stringa</span>&#8221;, sia all'inizio
+                        	che alla fine che da qualche parte nel mezzo.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Questo rappresenta appena la punta estrema dell'iceberg rispetto a
+            	quello che le espressioni regolari possono fare. Si tratta di uno
+            	strumento estremamente potente e vi sono interi libri a loro
+            	dedicate. Non sono per&ograve; la soluzione migliore per ogni problema.
+            	&Egrave; importante saperne abbastanza da capire quando sono adeguate
+            	e quando invece possono causare pi&ugrave; problemi di quanti ne risolvano.
+                
+         </p>
+<div class="blockquote">
+<table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote">
+<tr>
+<td width="10%" valign="top">&nbsp;</td>
+<td width="80%" valign="top">
+<p>
+                        	    Alcune persone, quando affrontano un problema, pensano: &#8220;<span class="quote">Lo so,
+                           	    finir&ograve; per usare le espressioni regolari</span>&#8221;. A questo punto,
+                        	    hanno due problemi.
+                        	
+                     </p>
+</td>
+<td width="10%" valign="top">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">--<span class="attribution">
+                        	    Jamie Zawinski, in comp.lang.emacs
+                        	</span></td>
+<td width="10%" valign="top">&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/regex/regex.html">Regular Expression HOWTO</a> discute delle espressioni regolari e di come usarle in <span class="application">Python</span>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> riassume il <a href="http://it.diveintopython.net/doc/current/lib/module-re.html">modulo <tt class="filename">re</tt> </a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/dialect.html">&lt;&lt;&nbsp;Introduzione al modulo dialect.py</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html#dialect.divein" title="5.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html" title="5.2.&nbsp;Introduciamo sgmllib.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/extracting_data.html" title="5.3.&nbsp;Estrarre informazioni da documenti HTML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="5.4.&nbsp;Introdurre BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/locals_and_globals.html" title="5.5.&nbsp;locals e globals">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html" title="5.7.&nbsp;Virgolettare i valori degli attributi">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/all_together.html" title="5.10.&nbsp;Mettere tutto insieme">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/summary.html" title="5.11.&nbsp;Sommario">11</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/all_together.html">Mettere tutto insieme&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

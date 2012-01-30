@@ -1,0 +1,67 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables" /><link rel="next" href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Asignaci&oacute;n de m&uacute;ltiples valores de una vez</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_vardef.html" title="Anterior: “Definici&oacute;n de variables”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="Siguiente: “Formato de cadenas”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.multiassign"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.multiassign"></a>1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez</h2></div></div><div class="abstract"><p>Uno de los mejores atajos de programaci&oacute;n en Python es el uso
+de secuencias para asignar m&uacute;ltiples valores de una vez.</p></div><div class="example"><p><a name="d0e1167"></a><b>Ejemplo 1.26. Asignaci&oacute;n de m&uacute;ltiples valores de una vez</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">v = (<span class="pystring">'a'</span>, <span class="pystring">'b'</span>, <span class="pystring">'e'</span>)</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">(x, y, z) = v</span> <a name="odbchelper.multiassign.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">x</span>
+<span class="computeroutput">'a'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">y</span>
+<span class="computeroutput">'b'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">z</span>
+<span class="computeroutput">'e'</span></pre><div class="calloutlist"><a name="d0e1184"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_multiassign.html#odbchelper.multiassign.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>v</tt> es una tupla con tres elementos, y
+<tt>(x, y, z)</tt> es una tupla con tres variables. Al
+asignar una a la otra se asigna cada uno de los valores de
+<tt>v</tt> a cada una de las variables, en orden.</td></tr></table></div></div><p>Esto tiene varios usos. Con frecuencia, necesito asignar nombres
+a un rango de valores. En C, se utilizar&iacute;a <tt>enum</tt> y
+se har&iacute;a una lista a mano de cada constante y su valor asociado, lo
+cual resulta especialmente tedioso cuando los valores son
+consecutivos. En Python, puede utilizarse la funci&oacute;n incorporada
+<tt>range</tt> con asignaci&oacute;n a m&uacute;ltiples variables para asignar r&aacute;pidamente
+valores consecutivos.</p><div class="example"><p><a name="odbchelper.multiassign.range"></a><b>Ejemplo 1.27. Asignaci&oacute;n de valores consecutivos</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">range(7)</span>                                                                    <a name="odbchelper.multiassign.2.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">[0, 1, 2, 3, 4, 5, 6]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7)</span> <a name="odbchelper.multiassign.2.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">MONDAY</span>                                                                      <a name="odbchelper.multiassign.2.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">0</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">TUESDAY</span>
+<span class="computeroutput">1</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">SUNDAY</span>
+<span class="computeroutput">6</span></pre><div class="calloutlist"><a name="d0e1216"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_multiassign.html#odbchelper.multiassign.2.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">La funci&oacute;n incorporada <tt>range</tt> devuelve una lista de enteros. En
+su forma m&aacute;s simple, toma un l&iacute;mite superior y devuelve una lista que
+comienza en <tt>0</tt> y sigue hasta el l&iacute;mite superior, sin incluirlo.
+(Si le parece, puede pasar otros par&aacute;metros para especificar un origen
+distinto de <tt>0</tt> y un incremento distinto de <tt>1</tt>. Puede consultar
+<tt>range.__doc__</tt> para ver los detalles.)</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_multiassign.html#odbchelper.multiassign.2.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>MONDAY</tt>, <tt>TUESDAY</tt>,
+<tt>WEDNESDAY</tt>, <tt>THURSDAY</tt>,
+<tt>FRIDAY</tt>, <tt>SATURDAY</tt> y
+<tt>SUNDAY</tt> son las variables que vamos a definir. (Este
+ejemplo proviene del m&oacute;dulo <tt>calendar</tt>, un peque&ntilde;o y divertido m&oacute;dulo
+que imprime calendarios, como el programa <tt>cal</tt> de
+UNIX. El m&oacute;dulo <tt>calendar</tt> define constantes enteras para los d&iacute;as
+de la semana.)</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_multiassign.html#odbchelper.multiassign.2.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Ahora cada variable tiene su valor: <tt>MONDAY</tt> es
+<tt>0</tt>, <tt>TUESDAY</tt> es <tt>1</tt>, y as&iacute;
+sucesivamente.</td></tr></table></div></div><p>Tambi&eacute;n puede utilizarse la asignaci&oacute;n m&uacute;ltiple para construir
+funciones que devuelvan valores m&uacute;ltiples, simplemente devolviendo una
+tupla con todos los valores. Tras la llamada, el valor devuelto puede
+tratarse como una tupla, o asignar los valores a variables
+individuales. Muchas bibliotecas est&aacute;ndar de Python hacen esto,
+incluido el m&oacute;dulo <tt>os</tt>, que veremos en el cap&iacute;tulo 3.</p><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li><a href="http://es.diveintopython.net/obp/thinkCSpy/"><i>How to Think Like a Computer Scientist</i></a> muestra c&oacute;mo usar la asignaci&oacute;n m&uacute;ltiple
+para <a href="http://es.diveintopython.net/obp/thinkCSpy/chap10.htm">intercambiar los valores
+de dos variables</a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_vardef.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Definici&oacute;n de variables</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <b>11</b> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_stringformatting.html">Formato de cadenas&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

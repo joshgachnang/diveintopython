@@ -1,0 +1,282 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.13.&nbsp;Ancora sui moduli</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for " />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Ancora sui moduli</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="Indietro: “Cicli for ”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="Avanti: “Il modulo os”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.modules"></a>4.13.&nbsp;Ancora sui moduli
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+                       I moduli, come qualunque altra cosa in <span class="application">Python</span>, sono oggetti. Una volta
+               	importato, si pu&ograve; sempre ottenere un riferimento ad un modulo 
+               	attraverso il dizionario globale <tt class="literal"></tt><tt class="filename">sys</tt>.modules.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e12247"></a><h3 class="title">Esempio&nbsp;4.31.&nbsp;Introduzione a <tt class="literal"></tt><tt class="filename">sys</tt>.modules</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> sys</span>                          <a name="fileinfo.modules.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">'\n'</span>.join(sys.modules.keys())</span> <a name="fileinfo.modules.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">win32api
+os.path
+os
+exceptions
+__main__
+ntpath
+nt
+sys
+__builtin__
+site
+signal
+UserDict
+stat</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Il modulo <tt class="filename">sys</tt> contiene informazioni a livello di sistema, quali
+                        	la versione di <span class="application">Python</span> che si sta usando (<tt class="literal"></tt><tt class="filename">sys</tt>.version
+                        	oppure <tt class="literal"></tt><tt class="filename">sys</tt>.version_info), nonch&eacute; opzioni di sistema come
+                        	la massima profondit&agrave; di ricorsione permessa 
+                        	(<tt class="literal"></tt><tt class="filename">sys</tt>.getrecursionlimit() e 
+                        	<tt class="literal"></tt><tt class="filename">sys</tt>.setrecursionlimit()).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal"></tt><tt class="filename">sys</tt>.modules &egrave; un dizionario contenente tutti i moduli che sono stati
+                            importati sin dalla partenza di <span class="application">Python</span>, la chiave &egrave; il nome del modulo,
+                            il valore &egrave; l'oggetto-modulo. Si noti che questo dizionario non 
+                            comprende solo i moduli importati esplicitamente dal <span class="emphasis"><em>vostro</em></span>
+                            programma. <span class="application">Python</span> carica alcuni moduli alla partenza; se poi si sta usando 
+                            la <span class="acronym">IDE</span> di <span class="application">Python</span>, <tt class="literal"></tt><tt class="filename">sys</tt>.modules contiene tutti i moduli
+                            importati da tutti  i programmi che sono stati lanciati tramite
+                            l'<span class="acronym">IDE</span>. 
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e12332"></a><h3 class="title">Esempio&nbsp;4.32.&nbsp;Usare <tt class="literal"></tt><tt class="filename">sys</tt>.modules</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> fileinfo</span>         <a name="fileinfo.modules.1.3"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">'\n'</span>.join(sys.modules.keys())</span>
+<span class="computeroutput">win32api
+os.path
+os
+fileinfo
+exceptions
+__main__
+ntpath
+nt
+sys
+__builtin__
+site
+signal
+UserDict
+stat</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo</span>
+<span class="computeroutput">&lt;module 'fileinfo' from 'fileinfo.pyc'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.modules[<span class="pystring">"fileinfo"</span>]</span> <a name="fileinfo.modules.1.4"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;module 'fileinfo' from 'fileinfo.pyc'&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.1.3"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Quando vengono importati nuovi moduli, questi vengono aggiunti al dizionario
+                        	<tt class="literal"></tt><tt class="filename">sys</tt>.modules. Questo spiega perch&eacute; importare la seconda volta lo stesso 
+                        	modulo &egrave; molto veloce: <span class="application">Python</span> lo ha gi&agrave; caricato e memorizzato nel modulo
+                        	<tt class="literal"></tt><tt class="filename">sys</tt>.modules, per cui importarlo la seconda volta corrisponde semplicemente
+                        	ad una ricerca nel dizionario.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.1.4"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Dato il nome (come stringa) di ogni modulo precedentemente importato, &egrave; 
+                        	possibile ottenere un riferimento al modulo stesso attraverso il dizionario 
+                        	<tt class="literal"></tt><tt class="filename">sys</tt>.modules. 
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e12397"></a><h3 class="title">Esempio&nbsp;4.33.&nbsp;L'attributo di classe <tt class="literal">__module__</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> fileinfo <span class="pykeyword">import</span> MP3FileInfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">MP3FileInfo.__module__</span>              <a name="fileinfo.modules.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'fileinfo'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.modules[MP3FileInfo.__module__]</span> <a name="fileinfo.modules.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;module 'fileinfo' from 'fileinfo.pyc'&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Ogni classe <span class="application">Python</span> ha un <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">attributo
+                           	di classe</a>  predefinito di nome <tt class="literal">__module__</tt>, che contiene il modulo in 
+                        	cui la classe &egrave; definita.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Combinando questo, con il diziorario <tt class="literal"></tt><tt class="filename">sys</tt>.modules, si pu&ograve; ottenere
+                            un riferimento al modulo in cui una classe &egrave; definita.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e12448"></a><h3 class="title">Esempio&nbsp;4.34.&nbsp;Uso di <tt class="literal"></tt><tt class="filename">sys</tt>.modules in <tt class="filename">fileinfo.py</tt></h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> getFileInfoClass</span>(filename, module=sys.modules[FileInfo.__module__]):       <a name="fileinfo.modules.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pystring">"get file info class from filename extension"</span>                             
+        subclass = <span class="pystring">"%sFileInfo"</span> % os.path.splitext(filename)[1].upper()[1:]        <a name="fileinfo.modules.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        <span class="pykeyword">return</span> hasattr(module, subclass) <span class="pykeyword">and</span> getattr(module, subclass) <span class="pykeyword">or</span> FileInfo <a name="fileinfo.modules.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Questa &egrave; una funzione con due argomenti: il <tt class="varname">nome del 
+                           	file </tt> &egrave; richiesto, ma il parametro
+                        	<tt class="varname">module</tt> &egrave; 
+                        	<a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">opzionale</a> ed ha come
+                        	predefinito il  modulo che contiene la classe
+                        	<tt class="classname">FileInfo</tt>. 
+                        	Questo sembra inefficiente, perch&eacute; si potrebbe credere
+                        	che <span class="application">Python</span> calcoli  l'espressione con <tt class="literal"></tt><tt class="filename">sys</tt>.modules ogni
+                        	volta che la funzione &egrave; invocata. In realt&agrave;,
+                        	<span class="application">Python</span> calcola l'espressione usata come valore predefinito
+                        	solo una volta, la prima volta che il modulo viene importato.
+                        	Come si vedr&agrave; pi&ugrave; avanti, questa funzione non
+                        	viene mai chiamata con  l'argomento <tt class="varname">module</tt>,
+                        	cosicch&eacute; <tt class="varname">module</tt> &egrave;  usato come
+                        	una costante definita a livello di funzione. 
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Scaveremo su questa traccia pi&ugrave; avanti, dopo che ci saremo
+                        	immersi nell'analisi del modulo <tt class="filename">os</tt>. Per ora fidatevi, la
+                        	variabile <tt class="varname">subclass</tt> finisce per avere come
+                        	valore il nome di una classe, come
+                        	<tt class="classname">MP3FileInfo</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html#fileinfo.modules.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Si sa gi&agrave; tutto su <a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr"><tt class="function">getattr</tt></a>, 
+                        	che permette di ottenere il riferimento ad un oggetto dal suo
+                        	nome. <tt class="function">hasattr</tt> &egrave; una funzione complementare che
+                        	controlla se un oggetto ha un particolare attributo; in questo
+                        	caso, se un modulo ha una classe particolare (sebbene funzioni
+                        	per ogni oggetto ed ogni attributo, proprio come
+                        	<tt class="function">getattr</tt>). In Italiano, questa linea di codice recita: 
+                        	&#8220;<span class="quote">se questo modulo contiene una classe con lo stesso nome
+                           	di <tt class="varname">subclass</tt> allora restituisci tale classe,
+                           	altrimenti restituisci la classe base
+                           	<tt class="classname">FileInfo</tt></span>&#8221;. 
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+                          Il <a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> tratta esattamente 
+                  	<a href="http://it.diveintopython.net/doc/current/tut/node6.html#SECTION006710000000000000000">di 
+                     	come e quando gli argomenti predefiniti vengono valutati</a>.
+                  
+               </li>
+<li>
+                          Il <a href="http://it.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documenta il 
+                  	<a href="http://it.diveintopython.net/doc/current/lib/module-sys.html">modulo <tt class="filename">sys</tt></a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/for_loops.html">&lt;&lt;&nbsp;Cicli for </a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <span class="thispage">13</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/os_module.html">Il modulo os&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

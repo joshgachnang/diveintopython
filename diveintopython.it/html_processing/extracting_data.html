@@ -1,0 +1,334 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>5.3.&nbsp;Estrarre informazioni da documenti HTML</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/html_processing/index.html" title="Capitolo&nbsp;5.&nbsp;Elaborare HTML" />
+<link rel="previous" href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html" title="5.2.&nbsp;Introduciamo sgmllib.py" />
+<link rel="next" href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="5.4.&nbsp;Introdurre BaseHTMLProcessor.py" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html">Elaborare HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">Estrarre informazioni da documenti HTML</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html" title="Indietro: “Introduciamo sgmllib.py”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="Avanti: “Introdurre BaseHTMLProcessor.py”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="dialect.extract"></a>5.3.&nbsp;Estrarre informazioni da documenti <span class="acronym">HTML</span></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Per estrarre informazioni da documenti <span class="acronym">HTML</span>, create una sottoclasse
+               	<tt class="classname">SGMLParser</tt> e definite metodi per ogni tag o altro che volete catturare.
+               
+            </p>
+</div>
+<p>
+            	Il primo passo per estrarre informazioni da un documento <span class="acronym">HTML</span> &egrave; prendere
+            	del codice <span class="acronym">HTML</span>.
+            	Se avete del codice <span class="acronym">HTML</span> in giro per il vostro hard disk, potete usare
+            	delle <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">funzioni</a> per leggerlo, ma il
+            	vero divertimento inizia quando prendete l'<span class="acronym">HTML</span> direttamente da pagine web.
+            
+         </p>
+<div class="example"><a name="dialect.extract.urllib"></a><h3 class="title">Esempio&nbsp;5.5.&nbsp;Introdurre <tt class="filename">urllib</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> urllib</span>                                       <a name="dialect.extract.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sock = urllib.urlopen(<span class="pystring">"http://diveintopython.org/"</span>)</span> <a name="dialect.extract.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">htmlSource = sock.read()</span>                            <a name="dialect.extract.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sock.close()</span>                                        <a name="dialect.extract.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> htmlSource</span>                                    <a name="dialect.extract.1.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;&lt;html&gt;&lt;head&gt;
+      &lt;meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'&gt;
+   &lt;title&gt;Dive Into Python&lt;/title&gt;
+&lt;link rel='stylesheet' href='diveintopython.css' type='text/css'&gt;
+&lt;link rev='made' href='mailto:f8dy@diveintopython.org'&gt;
+&lt;meta name='keywords' content='Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free'&gt;
+&lt;meta name='description' content='a free Python tutorial for experienced programmers'&gt;
+&lt;/head&gt;
+&lt;body bgcolor='white' text='black' link='#0000FF' vlink='#840084' alink='#0000FF'&gt;
+&lt;table cellpadding='0' cellspacing='0' border='0' width='100%'&gt;
+&lt;tr&gt;&lt;td class='header' width='1%' valign='top'&gt;diveintopython.org&lt;/td&gt;
+&lt;td width='99%' align='right'&gt;&lt;hr size='1' noshade&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class='tagline' colspan='2'&gt;Python&amp;nbsp;for&amp;nbsp;experienced&amp;nbsp;programmers&lt;/td&gt;&lt;/tr&gt;</span>
+
+[...snip...]</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il modulo <tt class="filename">urllib</tt> &egrave; parte della libreria standard di <span class="application">Python</span>.
+                        	Contiene delle funzioni che consentono di ottenere e scaricare
+                        	informazioni da <span class="acronym">URL</span> internet (fondamentalmente pagine web).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il modo pi&ugrave; semplice di utilizzare le <tt class="filename">urllib</tt> &egrave; scaricare l'intero
+                        	testo di una pagina web con la funzione <tt class="function">urlopen</tt>. Aprire una <span class="acronym">URL</span>
+                        	&egrave; simile ad <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">aprire un file</a>.
+                        	Il valore di ritorno di <tt class="function">urlopen</tt> somiglia ad un oggetto
+                        	file, in quanto ha alcuni metodi propri degli oggetti file.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La cosa pi&ugrave; semplice da fare con l'oggetto ritornato da
+                        	<tt class="function">urlopen</tt> &egrave; <tt class="function">read</tt>, che legge tutto il codice <span class="acronym">HTML</span> della
+                        	pagina web in una sola stringa. L'oggetto supporta anche
+                        	<tt class="function">readlines</tt>, che legge il testo riga per riga inserendolo
+                        	in una lista.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Quando avete finito di utilizzare l'oggetto, assicuratevi di
+                        	chiuderlo (<tt class="function">close</tt>), proprio come un normale oggetto file.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Adesso abbiamo tutto il codice <span class="acronym">HTML</span> della pagina web di
+                        	<tt class="systemitem">http://diveintopython.org/</tt> in una stringa, e siamo pronti ad analizzarlo.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="dialect.extract.links"></a><h3 class="title">Esempio&nbsp;5.6.&nbsp;Introdurre <tt class="filename">urllister.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting"><span class="pykeyword">
+from</span> sgmllib <span class="pykeyword">import</span> SGMLParser
+
+<span class="pykeyword">class</span><span class="pyclass"> URLLister</span>(SGMLParser):
+    <span class="pykeyword">def</span><span class="pyclass"> reset</span>(self):                              <a name="dialect.extract.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        SGMLParser.reset(self)
+        self.urls = []
+
+    <span class="pykeyword">def</span><span class="pyclass"> start_a</span>(self, attrs):                     <a name="dialect.extract.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        href = [v <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> attrs <span class="pykeyword">if</span> k==<span class="pystring">'href'</span>] <a name="dialect.extract.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /> <a name="dialect.extract.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+        <span class="pykeyword">if</span> href:
+            self.urls.extend(href)</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">reset</tt> &egrave; chiamata dal metodo <tt class="function">__init__</tt> di
+                        	<tt class="classname">SGMLParser</tt>, e pu&ograve; essere anche chiamata manualmente non
+                        	appena &egrave; stata creata un'istanza dell'analizzatore. Quindi,
+                        	se avete bisogno di fare una qualsiasi inizializzazione,
+                        	fatela in <tt class="function">reset</tt>, non in <tt class="function">__init__</tt>, cos&igrave; che sar&agrave; adeguatamente
+                        	reinizializzata quando qualcuno riutilizza un'istanza
+                        	dell'analizzatore.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">start_a</tt> &egrave; chiamata da <tt class="classname">SGMLParser</tt> ogni qual
+                        	volta trova il tag <tt class="sgmltag-element">&lt;a&gt;</tt>. Il tag pu&ograve; contenere
+                        	un attributo <tt class="literal">href</tt>, e/o altri attributi, come
+                        	<tt class="literal">name</tt> o <tt class="literal">title</tt>. Il parametro
+                        	<tt class="varname">attrs</tt> &egrave; una lista di tuple,
+                        	<tt class="literal">[(<i class="replaceable">attributo</i>,
+                           	<i class="replaceable">valore</i>),
+                           	(<i class="replaceable">attributo</i>,
+                           	<i class="replaceable">valore</i>), ...]</tt>.
+                        	Nel caso in cui ci fosse solo <tt class="sgmltag-element">&lt;a&gt;</tt>, un valido
+                        	(ma inutile) tag <span class="acronym">HTML</span>, <tt class="varname">attrs</tt> sarebbe una lista
+                        	vuota.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Possiamo controllare se questo tag <tt class="sgmltag-element">&lt;a&gt;</tt> ha un
+                        	attributo <tt class="literal">href</tt> tramite una semplice
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html" title="2.13.&nbsp;Mappare le liste">list comprehension</a> di
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html" title="2.11.&nbsp;Assegnare valori multipli in un colpo solo">valori multipli</a>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Confronti tra stringhe quale <tt class="literal">k=='href'</tt> sono sempre
+                        	case-sensitive, ma in questo caso non c'&egrave; problema, in quanto
+                        	<tt class="classname">SGMLParser</tt> converte i nomi degli attributi in caratteri minuscoli
+                        	durante la costruzione di <tt class="varname">attrs</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="dialect.feed.example"></a><h3 class="title">Esempio&nbsp;5.7.&nbsp;Utilizzare <tt class="filename">urllister.py</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> urllib, urllister</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">usock = urllib.urlopen(<span class="pystring">"http://diveintopython.org/"</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser = urllister.URLLister()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser.feed(usock.read())</span>         <a name="dialect.extract.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">usock.close()</span>                     <a name="dialect.extract.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser.close()</span>                    <a name="dialect.extract.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">for</span> url <span class="pykeyword">in</span> parser.urls: <span class="pykeyword">print</span> url</span> <a name="dialect.extract.3.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">toc.html
+#download
+toc.html
+history.html
+download/dip_pdf.zip
+download/dip_pdf.tgz
+download/dip_pdf.hqx
+download/diveintopython.pdf
+download/diveintopython.zip
+download/diveintopython.tgz
+download/diveintopython.hqx</span>
+
+[...snip...]</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Chiama il metodo <tt class="function">feed</tt>, definito in
+                        	<tt class="classname">SGMLParser</tt>, per raggiungere il codice <span class="acronym">HTML</span> in parser.
+                        <sup>[<a name="d0e14183" href="http://it.diveintopython.net/html_processing/extracting_data.html#ftn.d0e14183">7</a>]</sup>  
+                        	Prende una stringa, che &egrave; ci&ograve; che <tt class="function">usock.read()</tt> ritorna.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come per i file, potete chiudere i vostri oggetti <span class="acronym">URL</span>
+                        	non appena avete finito di utilizzarli.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Dovreste anche <tt class="literal">chiudere</tt> il vostro oggetto parser,
+                        	ma per una ragione diversa. Non &egrave; sicuro che il metodo
+                        	<tt class="function">feed</tt> processi tutto il codice <span class="acronym">HTML</span> che gli viene
+                        	passato; potrebbe bufferizzarlo, aspettandone altro. Una volta che non
+                        	ce n'&egrave; pi&ugrave;, chiamate <tt class="function">close</tt> per svuotare il buffer e forzare l'analisi
+                        	di ogni cosa.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.3.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Una volta che parser &egrave; <tt class="literal">chiuso</tt>, l'analisi &egrave; completa
+                        	e <tt class="varname">parser.urls</tt> conterr&agrave; l'elenco di tutti i nostri
+                        	collegamenti alle <span class="acronym">URL</span> presenti nel nostro documento <span class="acronym">HTML</span>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e14183" href="http://it.diveintopython.net/html_processing/extracting_data.html#d0e14183">7</a>] </sup>
+                      Il termine tecnico per un analizzatore come <tt class="classname">SGMLParser</tt> &egrave;
+                      <span class="emphasis"><em>consumatore</em></span>: questa classe consuma codice
+                      <span class="acronym">HTML</span> e lo decompone. Presumibilmente, il nome
+                      <tt class="function">feed</tt> (nutrire, ndt) &egrave; stato scelto proprio
+                      per adattarsi all'analogia del &#8220;<span class="quote">consumatore</span>&#8221;.
+                      Personalmente, la cosa mi fa pensare ad un esemplare in uno zoo,
+                      in una gabbia scura in cui non si vedano piante o vita di alcun
+                      tipo, ma in cui, se restate immobili e guardate molto da vicino,
+                      potete scorgere due occhi piccoli e lucenti che vi osservano di
+                      rimando dall'angolo pi&ugrave; lontano, per  convincervi subito dopo
+                      che &egrave; solo uno scherzo della vostra immaginazione L'unico
+                      modo per capire che non si tratta semplicemente di
+                      una gabbia vuota &egrave; un piccolo cartello sulle sbarre, dall'aspetto
+                      innocuo, che dice &#8220;<span class="quote">Non date da mangiare al parser</span>&#8221;.
+                      Ma forse sono solo io. Ad ogni modo, &egrave; un'interessante quadretto
+                      mentale.
+                      
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html">&lt;&lt;&nbsp;Introduciamo sgmllib.py</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html#dialect.divein" title="5.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html" title="5.2.&nbsp;Introduciamo sgmllib.py">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="5.4.&nbsp;Introdurre BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/locals_and_globals.html" title="5.5.&nbsp;locals e globals">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html" title="5.7.&nbsp;Virgolettare i valori degli attributi">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="5.9.&nbsp;Introduzione alle espressioni regolari">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/all_together.html" title="5.10.&nbsp;Mettere tutto insieme">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/summary.html" title="5.11.&nbsp;Sommario">11</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html">Introdurre BaseHTMLProcessor.py&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

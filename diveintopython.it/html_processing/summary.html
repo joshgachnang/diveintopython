@@ -1,0 +1,135 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>5.11.&nbsp;Sommario</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/html_processing/index.html" title="Capitolo&nbsp;5.&nbsp;Elaborare HTML" />
+<link rel="previous" href="http://it.diveintopython.net/html_processing/all_together.html" title="5.10.&nbsp;Mettere tutto insieme" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html">Elaborare HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">Sommario</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/all_together.html" title="Indietro: “Mettere tutto insieme”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html" title="Avanti: “Elaborare XML”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="dialect.summary"></a>5.11.&nbsp;Sommario
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+<span class="application">Python</span> fornisce uno strumento potente, il modulo
+               	<tt class="filename">sgmllib.py</tt>, per manipolare codice <span class="acronym">HTML</span> trasformando la
+               	sua struttura in un oggetto modello. &Egrave; possibile usare
+               	questo strumento in molti modi diversi.
+               
+            </p>
+</div>
+<div class="itemizedlist">
+<ul>
+<li>
+                          analizzare il codice <span class="acronym">HTML</span> per cercarvi qualcosa di specifico
+                  
+               </li>
+<li>
+                          produrre da esso un risultato aggregato, come nel caso del programma 
+                  	che <a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.links" title="Esempio&nbsp;5.6.&nbsp;Introdurre urllister.py">elencava le <span class="acronym">URL</span></a>
+</li>
+<li>
+                          alterarne la struttura mentre lo si analizza, come per il 
+                  	programma che 
+                  <a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.quoting.example" title="Esempio&nbsp;5.15.&nbsp;Valori degli attributi tra virgolette">&#8220;<span class="quote">virgolettava</span>&#8221;
+                             gli attributi</a>
+</li>
+<li>
+                          trasformare il codice <span class="acronym">HTML</span> in qualcos'altro, 
+                  	elaborando il testo ma lasciando inalterati i tag, 
+                  	come nel caso del 
+                  <a href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py"><tt class="classname">Dialectizer</tt></a>
+</li>
+</ul>
+</div>
+<p>
+                    Oltre a questi questi esempi, dovreste essere 
+            	a vostro agio nell'eseguire una delle seguenti operazioni:
+            
+         </p>
+<div class="itemizedlist">
+<ul>
+<li>
+                          Usare le funzioni <a href="http://it.diveintopython.net/html_processing/locals_and_globals.html" title="5.5.&nbsp;locals e globals"><tt class="function">locals</tt>() 
+                     	e <tt class="function">globals</tt>()</a> per accedere agli spazi dei nomi
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario">Formattare stringhe</a> 
+                  	usando sostituzioni basate su dizionari
+                  
+               </li>
+<li>
+                          Usare le <a href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="5.9.&nbsp;Introduzione alle espressioni regolari">espressioni regolari</a>.
+                  	Sono una componente importante nella borsa degli 
+                  	attrezzi di ogni programmatore ed avranno un ruolo 
+                  	importante nei prossimi capitoli.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/all_together.html">&lt;&lt;&nbsp;Mettere tutto insieme</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html#dialect.divein" title="5.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html" title="5.2.&nbsp;Introduciamo sgmllib.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/extracting_data.html" title="5.3.&nbsp;Estrarre informazioni da documenti HTML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="5.4.&nbsp;Introdurre BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/locals_and_globals.html" title="5.5.&nbsp;locals e globals">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html" title="5.7.&nbsp;Virgolettare i valori degli attributi">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="5.9.&nbsp;Introduzione alle espressioni regolari">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/all_together.html" title="5.10.&nbsp;Mettere tutto insieme">10</a> <span class="divider">|</span> <span class="thispage">11</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

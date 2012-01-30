@@ -1,0 +1,171 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.10.&nbsp;Trovare i figli diretti di un nodo</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Trovare i figli diretti di un nodo</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/caching.html" title="Indietro: “Memorizzare i nodi e ricercarli”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="Avanti: “Create gestori separati per tipo di nodo”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.child"></a>6.10.&nbsp;Trovare i figli diretti di un nodo
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+                       Un'altra utile tecnica quando analiziamo documenti <span class="acronym">XML</span> consiste
+               	nel trovare tutti gli elementi figli diretti di un particolare 
+               	elemento. Per esempio, nel nostro file grammar, un elemento 
+               	<tt class="sgmltag-element">ref</tt> pu&ograve; avere alcuni elementi <tt class="sgmltag-element">p</tt>, ognuno dei quali 
+               	pu&ograve; contenere molte cose, inclusi altri elementi <tt class="sgmltag-element">p</tt>. 
+               	Vogliamo trovare gli elementi <tt class="sgmltag-element">p</tt> che sono figli del 
+               	<tt class="sgmltag-element">ref</tt>, non gli elementi <tt class="sgmltag-element">p</tt> che sono figli degli altri 
+               	elementi <tt class="sgmltag-element">p</tt>.
+               
+            </p>
+</div>
+<p>
+                    Potreste pensare che potremmo semplicemente usare 
+            	<tt class="function">getElementsByTagName</tt> per questo, ma 
+            	non possiamo. <tt class="function">getElementsByTagName</tt>
+            	ricerca ricorsivamente e ritorna una singola lista 
+            	per tutti gli elementi che trova.
+            	Dato che gli elementi <tt class="sgmltag-element">p</tt> possono contenere altri 
+            	elementi <tt class="sgmltag-element">p</tt>, non possiamo usare 
+            	<tt class="function">getElementsByTagName</tt>, visto che ritornerebbe
+            	elementi <tt class="sgmltag-element">p</tt> annidati che non vogliamo. 
+            	Per trovare unicamente elementi figli diretti, dobbiamo 
+            	farlo da soli.
+            
+         </p>
+<div class="example"><a name="d0e20527"></a><h3 class="title">Esempio&nbsp;6.39.&nbsp;Trovare elementi figli diretti</h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> randomChildElement</span>(self, node):
+        choices = [e <span class="pykeyword">for</span> e <span class="pykeyword">in</span> node.childNodes
+                   <span class="pykeyword">if</span> e.nodeType == e.ELEMENT_NODE] <a name="kgp.child.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="kgp.child.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /> <a name="kgp.child.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+        chosen = random.choice(choices)             <a name="kgp.child.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+        <span class="pykeyword">return</span> chosen                              </pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/child_nodes.html#kgp.child.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                 Come abbiamo visto nell'<a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.gettingchildnodes.example" title="Esempio&nbsp;6.9.&nbsp;Ottenere i nodi figli">Esempio&nbsp;6.9, &#8220;Ottenere i nodi figli&#8221;</a>,
+                        	 l'attributo <tt class="function">childNodes</tt> ritorna una lista di tutti
+                        	 i nodi figli di un elemento.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/child_nodes.html#kgp.child.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                 Comunque, abbiamo visto
+                        	 nell'<a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.childnodescanbetext.example" title="Esempio&nbsp;6.11.&nbsp;I nodi figli possono essere di testo">Esempio&nbsp;6.11, &#8220;I nodi figli possono essere di testo&#8221;</a>
+                        	 che la lista ritornata da <tt class="function">childNodes</tt> contiene tutti i
+                        	 differenti tipi di nodi, inclusi i nodi di testo. Non &egrave;
+                        	 quello che stiamo cercando, noi vogliamo unicamente i
+                        	 figli che sono elementi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/child_nodes.html#kgp.child.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                 Ogni nodo ha un attributo <tt class="varname">nodeType</tt>, che 
+                        	 pu&ograve; essere <tt class="literal">ELEMENT_NODE</tt>, 
+                        	 <tt class="literal">TEXT_NODE</tt>,
+                        	 <tt class="literal">COMMENT_NODE</tt>, od ogni numero di altri valori.
+                        	 La lista completa di possibili valori &egrave; nel file 
+                        	 <tt class="filename">__init__.py</tt> del package
+                        	 <tt class="classname">xml.dom</tt>. Leggete la sezione
+                        	 <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">Package</a> di questo capitolo
+                        	 per ulteriori
+                        	 informazioni sui package.
+                        	 Ma noi siamo interessati ai nodi che sono elementi, cos&igrave; 
+                        	 possiamo filtrare la lista per includere unicamente quei nodi il 
+                        	 cui <tt class="varname">nodeType</tt> &egrave; <tt class="literal">ELEMENT_NODE</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/child_nodes.html#kgp.child.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                 Una volta che abbiamo una lista di elementi reali, scegliendone uno
+                        	 casuale &egrave; facile. <span class="application">Python</span> contiene un modulo chiamato
+                        	 <tt class="filename">random</tt> che include alcune utili funzioni. La funzione 
+                        	 <tt class="function">random.choice</tt> prende una lista di qualsiasi
+                        	 numero di oggetti e ritorna un oggetto random. In questo caso la
+                        	 lista contiene elementi <tt class="sgmltag-element">p</tt>, cos&igrave; <tt class="varname">chosen</tt>
+                        	 &egrave; adesso un elemento <tt class="sgmltag-element">p</tt> selezionato casualmente dai figli
+                        	 dell'elemento <tt class="sgmltag-element">ref</tt> che abbiato fornito.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/caching.html">&lt;&lt;&nbsp;Memorizzare i nodi e ricercarli</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <span class="thispage">10</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html">Create gestori separati per tipo di nodo&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

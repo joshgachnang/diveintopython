@@ -1,0 +1,257 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>3.5. UserDict: a wrapper class</title><link rel="stylesheet" href="http://web.archive.org/web/20110709015537cs_/http://ru.diveintopython.org/diveintopython.css" type="text/css"><link rev="made" href="mailto:f8dy@diveintopython.org"><meta name="generator" content="DocBook XSL Stylesheets V"><meta name="keywords" content="Python, &#1103;&#1079;&#1099;&#1082; Python, &#1103;&#1079;&#1099;&#1082; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103; Python, Dive Into Python, &#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python, &#1091;&#1095;&#1077;&#1073;&#1085;&#1080;&#1082;, &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1099;&#1081;, &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;, &#1076;&#1086;&#1082;&#1091;&#1084;&#1077;&#1085;&#1090;&#1072;&#1094;&#1080;&#1103;, &#1082;&#1085;&#1080;&#1075;&#1072;, free, &#1089;&#1074;&#1086;&#1073;&#1086;&#1076;&#1085;&#1099;&#1081;, &#1073;&#1077;&#1089;&#1087;&#1083;&#1072;&#1090;&#1085;&#1099;&#1081;"><meta name="description" content="a free Python book for experienced programmers"><link rel="home" href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/toc.html" title="&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python"><link rel="up" href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_divein.html" title="&#1043;&#1083;&#1072;&#1074;&#1072; 3. &#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;"><link rel="previous" href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_instantiation.html" title="3.4. &#1057;&#1086;&#1079;&#1076;&#1072;&#1085;&#1080;&#1077; &#1101;&#1082;&#1079;&#1077;&#1084;&#1087;&#1083;&#1103;&#1088;&#1086;&#1074; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;"><link rel="next" href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_specialmethods.html" title="3.6. Special class methods"></head><body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/ru.diveintopython.org\/fileinfo_userdict.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "9";
+var displayMonth = "Jul";
+var displayYear = "2011";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://ru.diveintopython.org/fileinfo_userdict.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20110709015537" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100929082912/http://ru.diveintopython.org/fileinfo_userdict.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="29 Sep 2010"><strong>SEP</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 1:55:37 Jul 9, 2011">JUL</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Aug
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100929082912/http://ru.diveintopython.org/fileinfo_userdict.html" title="8:29:12 Sep 29, 2010" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 1:55:37 Jul 9, 2011">9</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100131022817/http://ru.diveintopython.org/fileinfo_userdict.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="31 Jan 2010"><strong>2010</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 1:55:37 Jul 9, 2011">2011</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2012
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20110709015537*/http://ru.diveintopython.org/fileinfo_userdict.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>24 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">13 Sep 04 - 9 Jul 11</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000001010_2005:-1:100000000001_2006:-1:000000101100_2007:-1:110001000100_2008:-1:101010500000_2009:-1:101000000000_2010:-1:100000001000_2011:6:000000100000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/index.html">&#1053;&#1072;&#1095;&#1072;&#1083;&#1086;</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/toc.html">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_divein.html">&#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;</a>&nbsp;&gt;&nbsp;<b>UserDict: a wrapper class</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_instantiation.html" title="&#1055;&#1088;&#1077;&#1076;.: &#8220;&#1057;&#1086;&#1079;&#1076;&#1072;&#1085;&#1080;&#1077; &#1101;&#1082;&#1079;&#1077;&#1084;&#1087;&#1083;&#1103;&#1088;&#1086;&#1074; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_specialmethods.html" title="&#1057;&#1083;&#1077;&#1076;.: &#8220;Special class methods&#8221;">&gt;&gt;</a></td></tr><tr><td><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/logo.png" alt="diveinto.python.ru"></td><td colspan="2"><span id="logo">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</span><br><span id="tagline">&#1044;&#1083;&#1103; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1089;&#1090;&#1086;&#1074;</span></td><td colspan="3" align="right"></td></tr></table><div class="section"><a name="fileinfo.userdict"></a><div class="titlepage"><div><h2 class="title"><a name="fileinfo.userdict"></a>3.5. <tt>UserDict</tt>: a wrapper class</h2></div></div><div class="abstract"><p>As you've seen, <tt>FileInfo</tt> is a class that acts like a dictionary.  To explore this further, let's look at the <tt>UserDict</tt> class in the <tt>UserDict</tt> module, which is the ancestor of our <tt>FileInfo</tt> class.  This is nothing special; the class is written in Python and stored in a <tt>.py</tt> file, just like our code.  In particular, it's stored in the <tt>lib</tt> directory in your Python installation.</p></div><a name="tip.locate"></a><table class="tip" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/tip.png" alt="&#1055;&#1086;&#1076;&#1089;&#1082;&#1072;&#1079;&#1082;&#1072;" width="24" height="24"></td></tr><tr><td colspan="2" align="left" valign="top">In the Python IDE on Windows, you can quickly open any module in your library path with
+File-&gt;Locate... (<b>Ctrl-L</b>).</td></tr></table><p>In Python, you can not subclass built-in datatypes like strings, lists, and dictionaries.  To compensate for this, Python comes with wrapper classes that mimic the behavior of these built-in datatypes: <tt>UserString</tt>, <tt>UserList</tt>, and <tt>UserDict</tt>.  Using a combination of normal and special methods, the <tt>UserDict</tt> class does an excellent imitation of a dictionary, but it's just a class like any other, so you can subclass it to provide custom dictionary-like classes like <tt>FileInfo</tt>.</p><div class="example"><p><a name="fileinfo.userdict.init.example"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.11. Defining the <tt>UserDict</tt> class</b></p><pre class="programlisting"><span class='pykeyword'>
+class</span> UserDict:                                <a name="fileinfo.userdict.1.1"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self, dict=None):             <a name="fileinfo.userdict.1.2"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        self.data = {}                         <a name="fileinfo.userdict.1.3"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> dict <span class='pykeyword'>is</span> <span class='pykeyword'>not</span> None: self.update(dict) <a name="fileinfo.userdict.1.4"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+</pre><div class="calloutlist"><a name="d0e3469"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.1.1"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left">Note that <tt>UserDict</tt> is a base class, not inherited from any other class.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.1.2"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left">This is the <tt>__init__</tt> method that we <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_class.html#fileinfo.class.example" title="&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.6. &#1054;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1080;&#1077; &#1082;&#1083;&#1072;&#1089;&#1089;&#1072; FileInfo">overrode in the <tt>FileInfo</tt> class</a>.  Note that the argument list in this ancestor class is different than the descendant.  That's okay; each subclass can have its own set of arguments, as long as it calls the ancestor with the correct arguments.  Here the ancestor class has a way to define initial values (by passing a dictionary in the <tt>dict</tt> argument) which our <tt>FileInfo</tt> does not take advantage of.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.1.3"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> </td><td valign="top" align="left">Python supports data attributes (called &#8220;instance variables&#8221; in Java and Powerbuilder, &#8220;member variables&#8221; in C++), which is data held by a specific instance of a class.  In this case, each instance of <tt>UserDict</tt> will have a data attribute <tt>data</tt>.  To reference this attribute from code outside the class, you would qualify it with the instance name, <tt><i>instance</i>.data</tt>, in the same way that you qualify a function with its module name.  To reference a data attribute from within the class, we use <tt>self</tt> as the qualifier.  By convention, all data attributes are initialized to reasonable values in the <tt>__init__</tt> method.  However, this is not required, since data attributes, like local variables, <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/odbchelper_vardef.html" title="1.10. &#1054;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1080;&#1077; &#1087;&#1077;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1093;">spring into existence</a> when they are first assigned a value.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.1.4"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> </td><td valign="top" align="left">This is a syntax you may not have seen before (I haven't used it in the examples in this book).  This is an <tt>if</tt> statement, but instead of having an indented block starting on the next line, there is just a single statement on the same line, after the colon.  This is perfectly legal syntax, and is just a shortcut when you have only one statement in a block.  (It's like specifying a single statement without braces in C++.)  You can use this syntax, or you can have indented code on subsequent lines, but you can't do both for the same block.</td></tr></table></div></div><a name="compare.overloading"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/note.png" alt="&#1047;&#1072;&#1084;&#1077;&#1095;&#1072;&#1085;&#1080;&#1077;" width="24" height="24"></td></tr><tr><td colspan="2" align="left" valign="top">Java and Powerbuilder support function overloading by argument list, <i>i.e.</i> one class can have multiple methods with the same name but a different number of arguments, or arguments of different types.  Other languages (most notably PL/SQL) even support function overloading by argument name; <i>i.e.</i> one class can have multiple methods with the same name and the same number of arguments of the same type but different argument names.  Python supports neither of these; it has no form of function overloading whatsoever.  An <tt>__init__</tt> method is an <tt>__init__</tt> method is an <tt>__init__</tt> method, regardless of its arguments.  There can be only one <tt>__init__</tt> method per class, and if a descendant class has an <tt>__init__</tt> method, it always overrides the ancestor <tt>__init__</tt> method, even if the descendant defines it with a different argument list.</td></tr></table><a name="note.dataattributes"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/note.png" alt="&#1047;&#1072;&#1084;&#1077;&#1095;&#1072;&#1085;&#1080;&#1077;" width="24" height="24"></td></tr><tr><td colspan="2" align="left" valign="top">Always assign an initial value to all of an instance's data attributes in the <tt>__init__</tt> method.  It will save you hours of debugging later.</td></tr></table><div class="example"><p><a name="fileinfo.userdict.normalmethods"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.12. <tt>UserDict</tt> normal methods</b></p><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> clear</span>(self): self.data.clear()          <a name="fileinfo.userdict.2.1"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> copy</span>(self):                             <a name="fileinfo.userdict.2.2"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> self.__class__ <span class='pykeyword'>is</span> UserDict:          <a name="fileinfo.userdict.2.3"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+            <span class='pykeyword'>return</span> UserDict(self.data)         
+        <span class='pykeyword'>import</span> copy                             <a name="fileinfo.userdict.2.4"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> copy.copy(self)                 
+    <span class='pykeyword'>def</span><span class='pyclass'> keys</span>(self): <span class='pykeyword'>return</span> self.data.keys()     <a name="fileinfo.userdict.2.5"></a><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> items</span>(self): <span class='pykeyword'>return</span> self.data.items()  
+    <span class='pykeyword'>def</span><span class='pyclass'> values</span>(self): <span class='pykeyword'>return</span> self.data.values()
+</pre><div class="calloutlist"><a name="d0e3535"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.2.1"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>clear</tt> is a normal class method; it is publicly available to be called by anyone at any time.  Note that <tt>clear</tt>, like all class methods, has <tt>self</tt> as its first argument.  (Remember, you <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_class.html#tip.whenself">don't include <tt>self</tt></a> when you call the method; it's something that Python adds for you.)  Also note the basic technique of this wrapper class: store a real dictionary (<tt>data</tt>) as a data attribute, define all the methods that a real dictionary has, and have each class method redirect to the corresponding method on the real dictionary.  (In case you'd forgotten, a dictionary's <tt>clear</tt> method <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/odbchelper_dict.html#odbchelper.dict.del" title="&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 1.12. &#1059;&#1076;&#1072;&#1083;&#1077;&#1085;&#1080;&#1077; &#1079;&#1072;&#1087;&#1080;&#1089;&#1077;&#1081; &#1080;&#1079; &#1089;&#1083;&#1086;&#1074;&#1072;&#1088;&#1077;&#1081;">deletes all of its keys</a> and their associated values.)</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.2.2"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left">The <tt>copy</tt> method of a real dictionary returns a new dictionary that is an exact duplicate of the original (all the same key-value pairs).  But <tt>UserDict</tt> can't simply redirect to <tt>self.data.copy</tt>, because that method returns a real dictionary, and what we want is to return a new instance that is the same class as <tt>self</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.2.3"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> </td><td valign="top" align="left">We use the <tt>__class__</tt> attribute to see if <tt>self</tt> is a <tt>UserDict</tt>; if so, we're golden, because we know how to copy a <tt>UserDict</tt>: just create a new <tt>UserDict</tt> and give it the real dictionary that we've squirreled away in <tt>self.data</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.2.4"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> </td><td valign="top" align="left">If <tt>self.__class__</tt> is not <tt>UserDict</tt>, then <tt>self</tt> must be some subclass of <tt>UserDict</tt> (like maybe <tt>FileInfo</tt>), in which case life gets trickier.  <tt>UserDict</tt> doesn't know how to make an exact copy of one of its descendants; there could, for instance, be other data attributes defined in the subclass, so we would have to iterate through them and make sure to copy all of them.  Luckily, Python comes with a module to do exactly this, and it's called <tt>copy</tt>.  I won't go into the details here (though it's a wicked cool module, if you're ever inclined to dive into it on your own).  Suffice to say that <tt>copy</tt> can copy arbitrary Python objects, and that's how we're using it here.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_userdict.html#fileinfo.userdict.2.5"><img src="http://web.archive.org/web/20110709015537im_/http://ru.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> </td><td valign="top" align="left">The rest of the methods are straightforward, redirecting the calls to the built-in methods on <tt>self.data</tt>.</td></tr></table></div></div><div class="furtherreading"><p><b>Further reading</b></p><ul><li><a href="http://web.archive.org/web/20110709015537/http://www.python.org/doc/current/lib/"><i>Python Library Reference</i></a> documents the <a href="http://web.archive.org/web/20110709015537/http://www.python.org/doc/current/lib/module-UserDict.html"><tt>UserDict</tt> module</a> and the <a href="http://web.archive.org/web/20110709015537/http://www.python.org/doc/current/lib/module-copy.html"><tt>copy</tt> module</a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_instantiation.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;&#1057;&#1086;&#1079;&#1076;&#1072;&#1085;&#1080;&#1077; &#1101;&#1082;&#1079;&#1077;&#1084;&#1087;&#1083;&#1103;&#1088;&#1086;&#1074; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;</a></td><td width="30%" align="center"><br>&nbsp;<a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_divein.html#fileinfo.divein" title="3.1. &#1042; &#1075;&#1083;&#1091;&#1073;&#1100;">1</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_fromimport.html" title="3.2. &#1048;&#1084;&#1087;&#1086;&#1088;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1084;&#1086;&#1076;&#1091;&#1083;&#1077;&#1081; &#1080;&#1085;&#1089;&#1090;&#1088;&#1091;&#1082;&#1094;&#1080;&#1077;&#1081; from module import">2</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_class.html" title="3.3. &#1054;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1080;&#1077; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;">3</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_instantiation.html" title="3.4. &#1057;&#1086;&#1079;&#1076;&#1072;&#1085;&#1080;&#1077; &#1101;&#1082;&#1079;&#1077;&#1084;&#1087;&#1083;&#1103;&#1088;&#1086;&#1074; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;">4</a> <b>5</b> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_specialmethods.html" title="3.6. Special class methods">6</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_morespecial.html" title="3.7. Advanced special class methods">7</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_classattributes.html" title="3.8. Class attributes">8</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_private.html" title="3.9. Private functions">9</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_exception.html" title="3.10. Handling exceptions">10</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_files.html" title="3.11. File objects">11</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_for.html" title="3.12. for loops">12</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_modules.html" title="3.13. More on modules">13</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_os.html" title="3.14. The os module">14</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_alltogether.html" title="3.15. Putting it all together">15</a> <a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_summary.html" title="3.16. Summary">16</a>&nbsp;</td><td width="35%" align="right"><br><a href="http://web.archive.org/web/20110709015537/http://ru.diveintopython.org/fileinfo_specialmethods.html">Special class methods&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br></td></tr></table><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="left"><p class="copyright">Copyright &copy; 2000, 2001, 2002 <a href="mailto:f8dy@diveintopython.org">&#1052;&#1072;&#1088;&#1082; &#1055;&#1080;&#1083;&#1075;&#1088;&#1080;&#1084;</a></p><p class="copyright">Copyright &copy; 2001, 2002, 2003 &#1055;&#1077;&#1088;&#1077;&#1074;&#1086;&#1076;, <a href="mailto:ods@strana.ru">&#1044;&#1077;&#1085;&#1080;&#1089; &#1054;&#1090;&#1082;&#1080;&#1076;&#1072;&#1095;</a></p></td><td align="left">&nbsp;</td></tr></table></body></html>
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 1:55:37 Jul 9, 2011 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:32:37 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

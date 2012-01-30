@@ -1,0 +1,297 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.11.&nbsp;Create gestori separati per tipo di nodo</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Create gestori separati per tipo di nodo</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="Indietro: “Trovare i figli diretti di un nodo”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="Avanti: “Gestire gli argomenti da riga di comando”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.handler"></a>6.11.&nbsp;Create gestori separati per tipo di nodo
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+                        Il terzo suggerimento utile per processare gli <span class="acronym">XML</span> comporta la 
+               	 separazione del vostro codice in funzioni logiche, basate sui tipi 
+               	 di nodi e nomi di elementi.
+               	 I documenti <span class="acronym">XML</span> analizzati sono fatti di vari tipi di nodi, di cui 
+               	 ognuno rappresenta un oggetto <span class="application">Python</span>. Il livello base del 
+               	 documento stesso &egrave; rappresentato da un oggetto 
+               	 <tt class="classname">Document</tt>. <tt class="classname">Document</tt>
+               	 contiene uno o pi&ugrave; oggetti <tt class="classname">Element</tt> (per i 
+               	 tags <span class="acronym">XML</span> reali), ognuno dei quali pu&ograve; contenere altri oggetti
+               	 <tt class="classname">Element</tt>, oggetti <tt class="classname">Text</tt>
+               	 (per parti di testo), od oggetti <tt class="classname">Comment</tt>
+               	 (per commenti incorporati). Python rende semplice scrivere uno 
+               	 smistatore per separare la logica per ciascun tipo di nodo.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e20649"></a><h3 class="title">Esempio&nbsp;6.40.&nbsp;Nomi di classi di oggetti <span class="acronym">XML</span> analizzati
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class="pystring">'kant.xml'</span>)</span> <a name="kgp.handler.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc</span>
+<span class="computeroutput">&lt;xml.dom.minidom.Document instance at 0x01359DE8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.__class__</span>                   <a name="kgp.handler.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;class xml.dom.minidom.Document at 0x01105D40&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.__class__.__name__</span>          <a name="kgp.handler.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'Document'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                 Pensate per un momento che <tt class="filename">kant.xml</tt> si trovi 
+                        	 nella directory corrente.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                 Come abbiamo visto nella sezione
+                        	 <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">Package</a>,
+                        	 l'oggetto ritornato dall'analisi di un documento <span class="acronym">XML</span>
+                        	 &egrave; un oggetto <tt class="classname">Document</tt>, come definito
+                        	 in <tt class="filename">minidom.py</tt> del package
+                        	 <tt class="filename">xml.dom</tt>.  Come abbiamo visto nella sezione
+                        	 <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">Istanziare classi</a>,
+                        	 <tt class="literal">__class__</tt> &egrave; un attributo built-in
+                        	 di ogni oggetto <span class="application">Python</span>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                 Inoltre, <tt class="literal">__name__</tt> &egrave; un attributo
+                        	 built-in di ogni classe <span class="application">Python</span>, ed &egrave; una
+                        	 stringa. Questa stringa non &egrave; misteriosa; &egrave; la
+                        	 stessa del nome della classe che inserite quando definite una
+                        	 classe da voi. (Ritornate eventualmente alla sezione 
+                        	 <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">Definire classi</a>.)
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Bene, cos&igrave; adesso possiamo ottenere il nome della classe
+            	di ogni particolare nodo <span class="acronym">XML</span> (dato che ogni nodo <span class="acronym">XML</span> viene
+            	rappresentato come un oggetto <span class="application">Python</span>).
+            	Come possiamo utilizzare ci&ograve; a nostro vantaggio per separare la
+            	logica dell'analisi di ogni tipo di nodo? La risposta &egrave;
+            	<tt class="function">getattr</tt>, che abbiamo visto precedentemente nella sezione
+            	<a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr">Ottenere riferimenti
+               	agli oggetti usando <tt class="function">getattr</tt></a>.
+            
+         </p>
+<div class="example"><a name="d0e20761"></a><h3 class="title">Esempio&nbsp;6.41.&nbsp;<tt class="function">analizzare</tt>, un generico smistatore di nodi <span class="acronym">XML</span>
+</h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> parse</span>(self, node):         
+        parseMethod = getattr(self, <span class="pystring">"parse_%s"</span> % node.__class__.__name__) <a name="kgp.handler.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="kgp.handler.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        parseMethod(node) <a name="kgp.handler.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Prima cosa, notate che stiamo costruendo una larga stringa
+                        	basata sul nome della classe del nodo che abbiamo passato
+                        	(nell'argomento <tt class="varname">node</tt>). Cos&igrave;, se passiamo
+                        	un nodo <tt class="classname">Document</tt>, stiamo costruendo
+                        	la stringa <tt class="literal">'parse_Document'</tt>, e cos&igrave; via.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Adesso possiamo trattare la stringa come un nome di funzione
+                        	ed ottenere un riferimento alla funzione stessa usando
+                        	<tt class="function">getattr</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Infine, possiamo chiamare quella funzione e passare il nodo
+                        	stesso come un argomento. Il prossimo esempio mostra le
+                        	definizioni di ognuna di queste funzioni.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e20798"></a><h3 class="title">Esempio&nbsp;6.42.&nbsp;Funzioni chiamate dall'<tt class="function">analizzatore</tt> di smistamento
+            </h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> parse_Document</span>(self, node): <a name="kgp.handler.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        self.parse(node.documentElement)
+
+    <span class="pykeyword">def</span><span class="pyclass"> parse_Text</span>(self, node):    <a name="kgp.handler.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        text = node.data
+        <span class="pykeyword">if</span> self.capitalizeNextWord:
+            self.pieces.append(text[0].upper())
+            self.pieces.append(text[1:])
+            self.capitalizeNextWord = 0
+        <span class="pykeyword">else</span>:
+            self.pieces.append(text)
+
+    <span class="pykeyword">def</span><span class="pyclass"> parse_Comment</span>(self, node): <a name="kgp.handler.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+        <span class="pykeyword">pass</span>
+
+    <span class="pykeyword">def</span><span class="pyclass"> parse_Element</span>(self, node): <a name="kgp.handler.3.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+        handlerMethod = getattr(self, <span class="pystring">"do_%s"</span> % node.tagName)
+        handlerMethod(node)</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">parse_Document</tt> &egrave; chiamato solo una volta,
+                        	dato che c'&egrave; solo un nodo <tt class="classname">Document</tt> in un
+                        	documento <span class="acronym">XML</span> e solo un oggetto
+                        	<tt class="classname">Document</tt> nella rappresentazione <span class="acronym">XML</span>
+                        	analizzata. Semplicemente il programma gira intorno ed
+                        	analizza l'elemento radice del file grammar.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">parse_Text</tt> &egrave; chiamato sui nodi che
+                        	rappresentano parti di testo. La funzione stessa fa alcune
+                        	speciali operazioni per gestire automaticamente la conversione
+                        	in maiuscolo delle prime lettere di una frase,
+                        	ed aggiunge il testo rappresentato ad una lista.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">parse_Comment</tt> &egrave; solo un <tt class="literal">pass</tt>, dato che
+                        	non teniamo conto dei commenti incorporati nei nostri file
+                        	grammar. Notate, comunque, che necessitiamo ancora di definire
+                        	la funzione e non fargli fare esplicitamente nulla.
+                        	Se la funzione non esistesse, la nostra generica funzione
+                        	<tt class="function">parse</tt> fallirebbe nel momento in cui
+                        	giungerebbe su un commento, perch&eacute; cercherebbe di trovare la
+                        	funzione inesistente <tt class="function">parse_Comment</tt>.
+                        	Definire una funzione separata per ogni tipo di nodo, anche
+                        	quelli che non usiamo, permette alla funzione generica
+                        	<tt class="function">parse</tt> di essere semplice e muta.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html#kgp.handler.3.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	L'elemento <tt class="function">parse_Element</tt> &egrave; realmente esso
+                        	stesso uno smistatore, basato sul nome dell'etichetta
+                        	dell'elemento. L'idea di base &egrave; la stessa: prendere ci&ograve; che
+                        	distingue gli elementi uno dall'altro (i nomi delle loro
+                        	etichette) e smistare in funzioni separate per ognuno di loro.
+                        	Costruire una stringa come <tt class="literal">'do_xref'</tt>
+                        	(per una etichetta <tt class="sgmltag-element">&lt;xref&gt;</tt>), trovare
+                        	una funzione di quel nome e chiamarla. E cos&igrave; via per ognuno
+                        	degli altri nomi delle etichette che potrebbero essere trovate
+                        	nel corso dell'analisi di un file grammar (etichetta
+                        	<tt class="sgmltag-element">&lt;p&gt;</tt>, etichetta
+                        	<tt class="sgmltag-element">&lt;choice&gt;</tt>).
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	In questo esempio, le funzioni di smistamento
+            	<tt class="function">parse</tt> e
+            	<tt class="function">parse_Element</tt> trovano semplicemente altri
+            	metodi nella stessa classe. Se il vostro processo &egrave; molto
+            	complesso (o avete nomi di etichette differenti), potreste
+            	spezzare il vostro codice in moduli separati ed usare
+            	l'importazione dinamica per importare ogni modulo e chiamare
+            	qualsiasi funzione di cui abbiate bisogno.
+            	L'import dinamico sar&agrave; discusso nel capitolo sulla
+            	<a href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati">Programmazione orientata ai dati</a>.
+            
+         </p>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/child_nodes.html">&lt;&lt;&nbsp;Trovare i figli diretti di un nodo</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <span class="thispage">11</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/command_line_arguments.html">Gestire gli argomenti da riga di comando&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

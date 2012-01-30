@@ -1,0 +1,407 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.3.&nbsp;Analizzare XML</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Analizzare XML</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/packages.html" title="Indietro: “Package”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/unicode.html" title="Avanti: “Unicode”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.parse"></a>6.3.&nbsp;Analizzare <span class="acronym">XML</span></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Come stavo dicendo, analizzare un documento <span class="acronym">XML</span> &egrave; molto
+               	semplice: una riga di codice. Dove andare poi, dipende
+               	da voi.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e17380"></a><h3 class="title">Esempio&nbsp;6.8.&nbsp;Caricare un documento <span class="acronym">XML</span> (questa volta per davvero)
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span>                                          <a name="kgp.parse.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class="pystring">'~/diveintopython/common/py/kgp/binary.xml'</span>)</span>  <a name="kgp.parse.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc</span>                                                               <a name="kgp.parse.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;xml.dom.minidom.Document instance at 010BE87C&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> xmldoc.toxml()</span>                                                 <a name="kgp.parse.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto nella <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">sezione
+                           	precedente</a>, questo importa il modulo
+                        	<tt class="filename">minidom</tt> dal package <tt class="filename">xml.dom</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Questa &egrave; la riga di codice che fa tutto il lavoro: 
+                        	<tt class="function">minidom.parse</tt> prende un argomento e ritorna la 
+                        	rappresentazione analizzata del documento <span class="acronym">XML</span>. L'argomento 
+                        	pu&ograve; essere di vario tipo; in questo caso, &egrave; semplicemente un
+                        	nome di file di un documento <span class="acronym">XML</span> nel mio disco (per
+                        	seguirmi, occorre che cambiate il percorso del file
+                        	in modo che punti
+                        	alla directory dove avete scaricato gli esempi). Ma potete
+                        	anche passare un <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">oggetto di 
+                           	tipo file </a> o anche un
+                        	<a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.urllib" title="Esempio&nbsp;5.5.&nbsp;Introdurre urllib">oggetto 
+                           	che si comporta come un file</a>. Ci avvantaggeremo di 
+                        	questa flessibilit&agrave; pi&ugrave; avanti nel capitolo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                L'oggetto ritornato da <tt class="function">minidom.parse</tt> &egrave; un 
+                        	oggetto di tipo <tt class="classname">Document</tt>, un discendente della 
+                        	classe <tt class="classname">Node</tt>. Questo oggetto <tt class="classname">Document</tt> 
+                        	&egrave; la radice di una struttura ad albero piuttosto complessa 
+                        	di oggetti <span class="application">Python</span> interconnessi, che rappresenta per intero
+                        	il documento <span class="acronym">XML</span> che abbiamo passato a 
+                        	<tt class="function">minidom.parse</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">toxml</tt> &egrave; un metodo della classe <tt class="classname">Node</tt>
+                        	(ed &egrave; dunque disponibile nell'oggetto <tt class="classname">Document</tt>
+                        	ottenuto da <tt class="function">minidom.parse</tt>). <tt class="function">toxml</tt>
+                        	stampa l'<span class="acronym">XML</span> rappresentato da questo <tt class="classname">Node</tt>. Per
+                        	il nodo <tt class="classname">Document</tt>, viene stampato l'intero 
+                        	documento <span class="acronym">XML</span>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+                    Ora che abbiamo un documento <span class="acronym">XML</span> in memoria, possiamo
+            	iniziare ad elaborarlo.
+            
+         </p>
+<div class="example"><a name="kgp.parse.gettingchildnodes.example"></a><h3 class="title">Esempio&nbsp;6.9.&nbsp;Ottenere i nodi figli</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.childNodes</span>    <a name="kgp.parse.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">[&lt;DOM Element: grammar at 17538908&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.childNodes[0]</span> <a name="kgp.parse.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;DOM Element: grammar at 17538908&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.firstChild</span>    <a name="kgp.parse.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;DOM Element: grammar at 17538908&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Ogni <tt class="classname">Node</tt> ha un attributo <tt class="function">childNodes</tt>, che 
+                        	&egrave; una lista di oggetti <tt class="classname">Node</tt>. Un 
+                        	<tt class="classname">Document</tt> ha sempre solo un nodo figlio, 
+                        	l'elemento radice del documento <span class="acronym">XML</span> (in questo caso,
+                        	l'elemento <tt class="sgmltag-element">grammar</tt>).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Per ottenere il primo (ed in questo caso, il solo) nodo
+                        	figlio, usate la solita sintassi vista per le liste.
+                        	Ricordate,
+                        	non c'&egrave; nulla di speciale qui; &egrave; soltanto una normale 
+                        	lista <span class="application">Python</span> di normali oggetti <span class="application">Python</span>.
+                        
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Siccome ottenere il primo nodo figlio di un nodo &egrave;
+                        	un'attivit&agrave; utile e comune, la classe <tt class="classname">Node</tt> ha 
+                        	un attributo <tt class="function">firstChild</tt>, che &egrave; sinonimo di 
+                        	<tt class="literal">childNodes[0]</tt>.
+                        	C'&egrave; anche l'attributo <tt class="function">lastChild</tt>, che &egrave; sinonimo di 
+                        	<tt class="literal">childNodes[-1]</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e17594"></a><h3 class="title">Esempio&nbsp;6.10.&nbsp;<tt class="function">toxml</tt> funziona su ogni nodo
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">grammarNode = xmldoc.firstChild</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> grammarNode.toxml()</span> <a name="kgp.parse.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Siccome il metodo <tt class="function">toxml</tt> &egrave; definito nella
+                        	classe <tt class="classname">Node</tt>, &egrave; disponibile in ogni nodo
+                        	<span class="acronym">XML</span>, non solo nell'elemento <tt class="classname">Document</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="kgp.parse.childnodescanbetext.example"></a><h3 class="title">Esempio&nbsp;6.11.&nbsp;I nodi figli possono essere di testo</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">grammarNode.childNodes</span>                  <a name="kgp.parse.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">[&lt;DOM Text node "\n"&gt;, &lt;DOM Element: ref at 17533332&gt;, \
+&lt;DOM Text node "\n"&gt;, &lt;DOM Element: ref at 17549660&gt;, &lt;DOM Text node "\n"&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> grammarNode.firstChild.toxml()</span>    <a name="kgp.parse.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">
+
+</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> grammarNode.childNodes[1].toxml()</span> <a name="kgp.parse.4.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> grammarNode.childNodes[3].toxml()</span> <a name="kgp.parse.4.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> grammarNode.lastChild.toxml()</span>     <a name="kgp.parse.4.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">
+
+</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Guardando l'<span class="acronym">XML</span> in <tt class="filename">binary.xml</tt>, potreste pensare
+                        	che il nodo <tt class="sgmltag-element">grammar</tt> ha solo due nodi figli, i due
+                        	elementi <tt class="sgmltag-element">ref</tt>. Ma vi state perdendo qualcosa: le
+                        	andate a capo! Dopo il <tt class="literal">'&lt;grammar&gt;'</tt> e
+                        	prima del primo <tt class="literal">'&lt;ref&gt;'</tt> c'&egrave; un'andata
+                        	a capo e questo testo viene considerato
+                        	come nodo figlio dell'elemento
+                        	<tt class="sgmltag-element">grammar</tt>. Analogamente, ci sono delle andate a capo dopo
+                        	ogni <tt class="literal">'&lt;/ref&gt;'</tt>; anche queste vengono
+                        	considerate nodi. Dunque <tt class="literal">grammar.childNodes</tt>
+                        	&egrave; una lista di 5 oggetti: 3 oggetti di tipo <tt class="classname">Text</tt>
+                        	e 2 oggetti di tipo <tt class="classname">Element</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Il primo figlio &egrave; un oggetto di tipo <tt class="classname">Text</tt>
+                        	rappresentante l'andata a capo dopo il tag
+                        	<tt class="literal">'&lt;grammar&gt;'</tt> e prima del primo tag
+                        	<tt class="literal">'&lt;ref&gt;'</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.4.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Il secondo figlio &egrave; un oggetto di tipo <tt class="classname">Element</tt>
+                        	rappresentante il primo elemento <tt class="sgmltag-element">ref</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.4.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Il quarto figlio &egrave; un oggetto di tipo <tt class="classname">Element</tt> 
+                        	rappresentante il secondo elemento <tt class="sgmltag-element">ref</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.4.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                L'ultimo figlio &egrave; un oggetto di tipo <tt class="classname">Text</tt> 
+                        	rappresentante l'andata a capo dopo il tag di chiusura 
+                        	<tt class="literal">'&lt;/ref&gt;'</tt> e prima del tag di chiusura 
+                        	<tt class="literal">'&lt;/grammar&gt;'</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e17764"></a><h3 class="title">Esempio&nbsp;6.12.&nbsp;Tirare fuori tutti i nodi di testo</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">grammarNode</span>
+<span class="computeroutput">&lt;DOM Element: grammar at 19167148&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">refNode = grammarNode.childNodes[1]</span> <a name="kgp.parse.5.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">refNode</span>
+<span class="computeroutput">&lt;DOM Element: ref at 17987740&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">refNode.childNodes</span>                  <a name="kgp.parse.5.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">[&lt;DOM Text node "\n"&gt;, &lt;DOM Text node "  "&gt;, &lt;DOM Element: p at 19315844&gt;, \
+&lt;DOM Text node "\n"&gt;, &lt;DOM Text node "  "&gt;, \
+&lt;DOM Element: p at 19462036&gt;, &lt;DOM Text node "\n"&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pNode = refNode.childNodes[2]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pNode</span>
+<span class="computeroutput">&lt;DOM Element: p at 19315844&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> pNode.toxml()</span>                 <a name="kgp.parse.5.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;p&gt;0&lt;/p&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pNode.firstChild</span>                    <a name="kgp.parse.5.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;DOM Text node "0"&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pNode.firstChild.data</span>               <a name="kgp.parse.5.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">u'0'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.5.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Come abbiamo visto nell'esempio precedente, il primo 
+                        	elemento <tt class="sgmltag-element">ref</tt> &egrave; 
+                        	<tt class="literal">grammarNode.childNodes[1]</tt>, in quanto 
+                        	childNodes[0] &egrave; un nodo di tipo <tt class="classname">Text</tt> per 
+                        	l'andata a capo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.5.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                L'elemento <tt class="sgmltag-element">ref</tt> ha il suo insieme di 
+                        	nodi figli, uno per l'andata a capo, un altro per gli
+                        	spazi, uno per l'elemento <tt class="sgmltag-element">p</tt>, e cos&igrave; via.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.5.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Puoi sempre usare il metodo <tt class="function">toxml</tt> qui, 
+                        	profondamente annidato nel documento.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.5.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                L'elemento <tt class="sgmltag-element">p</tt> ha solo un nodo figlio 
+                        	(non potete dirlo da questo esempio, ma guardate 
+                        	<tt class="literal">pNode.childNodes</tt> se non mi credete)
+                        	ed &egrave; un nodo di tipo <tt class="classname">Text</tt> contenente il solo 
+                        	carattere <tt class="literal">'0'</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.5.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                L'attributo <tt class="literal">.data</tt> di un nodo di tipo 
+                        	<tt class="classname">Text</tt> restituisce la stringa rappresentata 
+                        	dal nodo. Ma che cos'&egrave; la <tt class="literal">'u'</tt> davanti 
+                        	la stringa? La risposta merita di avere una propria
+                        	sezione.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/packages.html">&lt;&lt;&nbsp;Package</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/unicode.html">Unicode&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

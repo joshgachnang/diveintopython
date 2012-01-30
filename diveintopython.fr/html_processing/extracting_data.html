@@ -1,0 +1,540 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.3. Extraction de donn&eacute;es de documents HTML</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20100528151838cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/index.html" title="Chapitre 8. Traitement du HTML">
+      <link rel="previous" href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" title="8.2. Pr&eacute;sentation de sgmllib.py">
+      <link rel="next" href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/basehtmlprocessor.html" title="8.4. Pr&eacute;sentation de BaseHTMLProcessor.py">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/html_processing\/extracting_data.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "28";
+var displayMonth = "May";
+var displayYear = "2010";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/html_processing/extracting_data.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20100528151838" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090614123200/http://diveintopython.adrahon.org/html_processing/extracting_data.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="14 Jun 2009"><strong>JUN</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 15:18:38 May 28, 2010">MAY</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Jun
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090614123200/http://diveintopython.adrahon.org/html_processing/extracting_data.html" title="12:32:00 Jun 14, 2009" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 15:18:38 May 28, 2010">28</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090206015124/http://diveintopython.adrahon.org/html_processing/extracting_data.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="6 Feb 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 15:18:38 May 28, 2010">2010</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2011
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20100528151838*/http://diveintopython.adrahon.org/html_processing/extracting_data.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>24 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">10 Oct 06 - 28 May 10</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000100_2007:-1:010011000211_2008:-1:111111132010_2009:-1:010001000000_2010:4:000010000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/index.html">Traitement du HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">Extraction de donn&eacute;es de documents HTML</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" title="Pr&eacute;c&eacute;dent: &laquo;Pr&eacute;sentation de sgmllib.py&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/basehtmlprocessor.html" title="Suivant: &laquo;Pr&eacute;sentation de BaseHTMLProcessor.py&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.extract"></a>8.3. Extraction de donn&eacute;es de documents <span class="acronym">HTML</span></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Pour extraire des donn&eacute;es de documents <span class="acronym">HTML</span>,
+                       on d&eacute;rive une classe de <tt class="classname">SGMLParser</tt> et on
+                       d&eacute;finit des m&eacute;thodes pour chaque balise ou entit&eacute; que l&#8217;on souhaite
+                       traiter.
+            </p>
+         </div>
+         <p>La premi&egrave;re &eacute;tape pour extraire des donn&eacute;es d&#8217;un document
+                  <span class="acronym">HTML</span> est d&#8217;obtenir le <span class="acronym">HTML</span>. Si
+                  vous avez un fichier HTML, vous pouvez le lire &agrave; l&#8217;aide des <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/file_handling/file_objects.html" title="6.2. Les objets-fichier">fonctions de fichier</a>, mais le plus
+                  int&eacute;ressant est d&#8217;obtenir le <span class="acronym">HTML</span> depuis des sites
+                  web.
+         </p>
+         <div class="example"><a name="dialect.extract.urllib"></a><h3 class="title">Exemple 8.5. Pr&eacute;sentation de <tt class="filename">urllib</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib</span>                                       <a name="dialect.extract.1.1"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sock = urllib.urlopen(<span class='pystring'>"http://diveintopython.org/"</span>)</span> <a name="dialect.extract.1.2"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">htmlSource = sock.read()</span>                            <a name="dialect.extract.1.3"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sock.close()</span>                                        <a name="dialect.extract.1.4"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> htmlSource</span>                                    <a name="dialect.extract.1.5"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;&lt;html&gt;&lt;head&gt;
+      &lt;meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'&gt;
+   &lt;title&gt;Dive Into Python&lt;/title&gt;
+&lt;link rel='stylesheet' href='diveintopython.css' type='text/css'&gt;
+&lt;link rev='made' href='mailto:mark@diveintopython.org'&gt;
+&lt;meta name='keywords' content='Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free'&gt;
+&lt;meta name='description' content='a free Python tutorial for experienced programmers'&gt;
+&lt;/head&gt;
+&lt;body bgcolor='white' text='black' link='#0000FF' vlink='#840084' alink='#0000FF'&gt;
+&lt;table cellpadding='0' cellspacing='0' border='0' width='100%'&gt;
+&lt;tr&gt;&lt;td class='header' width='1%' valign='top'&gt;diveintopython.org&lt;/td&gt;
+&lt;td width='99%' align='right'&gt;&lt;hr size='1' noshade&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class='tagline' colspan='2'&gt;Python&amp;nbsp;for&amp;nbsp;experienced&amp;nbsp;programmers&lt;/td&gt;&lt;/tr&gt;</span>
+
+[...coup&eacute;...]</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.1.1"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le module <tt class="filename">urllib</tt>
+                                    fait partie de la biblioth&egrave;que standard de
+                                    <span class="application">Python</span>. Il comprend des fonctions
+                                    permettant d&#8217;obtenir des information et des donn&eacute;es &agrave; partir
+                                    d&#8217;<span class="acronym">URL</span>s (principalement des pages web).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.1.2"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">L&#8217;usage le plus simple de <tt class="filename">urllib</tt> est de lire le texte complet
+                                    d&#8217;une page web &agrave; l&#8217;aide de la fonction
+                                    <tt class="function">urlopen</tt>. L&#8217;ouverture d&#8217;une
+                                    <span class="acronym">URL</span> est semblable &agrave; <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/file_handling/file_objects.html" title="6.2. Les objets-fichier">l&#8217;ouverture d&#8217;un fichier</a>. La
+                                    valeur de retour de <tt class="function">urlopen</tt> est un objet
+                                    semblable &agrave; un objet-fichier et dont certaines m&eacute;thodes sont les
+                                    m&ecirc;mes que celles d&#8217;un objet-fichier.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.1.3"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">La chose la plus simple &agrave; faire avec l&#8217;objet retourn&eacute; par
+                                    <tt class="function">urlopen</tt> est d&#8217;appeler
+                                    <tt class="function">read</tt>, qui lit l&#8217;ensemble du code
+                                    <span class="acronym">HTML</span> de la page web en une cha&icirc;ne unique.
+                                    L&#8217;objet permet &eacute;galement l&#8217;emploi de
+                                    <tt class="function">readlines</tt>, qui lit le code ligne par ligne et
+                                    le stocke dans une liste.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.1.4"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Quand vous n&#8217;en avez plus besoin, assurez vous de fermer
+                                    l&#8217;objet par un <tt class="function">close</tt>, comme pour un objet
+                                    fichier.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.1.5"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Nous avons maintenant l&#8217;ensemble du code
+                                    <span class="acronym">HTML</span> de la page d&#8217;accueil de <tt class="systemitem">http://diveintopython.org/</tt> dans
+                                    une cha&icirc;ne et nous sommes pr&ecirc;ts &agrave; l&#8217;analyser.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="dialect.extract.links"></a><h3 class="title">Exemple 8.6. Pr&eacute;sentation de <tt class="filename">urllister.py</tt></h3>
+            <p>Si vous ne l&#8217;avez pas d&eacute;j&agrave; fait, vous pouvez <a href="http://web.archive.org/web/20100528151838/http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="T&eacute;l&eacute;charger les exemples de scripts">t&eacute;l&eacute;charger cet exemple ainsi que les autres exemples</a> du livre.
+            </p><pre class="programlisting"><span class='pykeyword'>
+from</span> sgmllib <span class='pykeyword'>import</span> SGMLParser
+
+<span class='pykeyword'>class</span><span class='pyclass'> URLLister</span>(SGMLParser):
+    <span class='pykeyword'>def</span><span class='pyclass'> reset</span>(self):                              <a name="dialect.extract.2.1"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        SGMLParser.reset(self)
+        self.urls = []
+
+    <span class='pykeyword'>def</span><span class='pyclass'> start_a</span>(self, attrs):                     <a name="dialect.extract.2.2"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        href = [v <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> attrs <span class='pykeyword'>if</span> k==<span class='pystring'>'href'</span>] <a name="dialect.extract.2.3"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"> <a name="dialect.extract.2.4"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> href:
+            self.urls.extend(href)</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.2.1"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">reset</tt> est appel&eacute; par la m&eacute;thode
+                                    <tt class="function">__init__</tt> de <tt class="classname">SGMLParser</tt>
+                                    et peut &eacute;galement &ecirc;tre appel&eacute; manuellement quand une instance de
+                                    l&#8217;analyseur a &eacute;t&eacute; cr&eacute;&eacute;e. Donc, si vous avez une quelconque
+                                    initialisation &agrave; faire, faites la dans <tt class="function">reset</tt>
+                                    et pas dans <tt class="function">__init__</tt>, de mani&egrave;re &agrave; ce que la
+                                    r&eacute;initialisation se fasse correctement lorsque quelqu&#8217;un r&eacute;utilise
+                                    une instance de l&#8217;analyseur.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.2.2"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">start_a</tt> est appel&eacute; par
+                                    <tt class="classname">SGMLParser</tt> &agrave; chaque fois qu&#8217;il trouve une
+                                    balise <tt class="sgmltag-element">&lt;a&gt;</tt>. La balise peut contenir un
+                                    attribut <tt class="literal">href</tt> et/ou d&#8217;autres attributs comme
+                                    <tt class="literal">name</tt> ou <tt class="literal">title</tt>. Le param&egrave;tre
+                                    <tt class="varname">attrs</tt> est une liste de tuples,
+                                    <tt class="literal">[(<i class="replaceable">attribut</i>,
+                                       <i class="replaceable">valeur</i>),
+                                       (<i class="replaceable">attribut</i>,
+                                       <i class="replaceable">valeur</i>), ...]</tt>. La balise peut
+                                    aussi &ecirc;tre un simple <tt class="sgmltag-element">&lt;a&gt;</tt>, ce qui est une
+                                    balise <span class="acronym">HTML</span> valide (bien qu&#8217;inutile), dans ce
+                                    cas <tt class="varname">attrs</tt> sera une liste vide.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.2.3"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Nous pouvons savoir si la balise
+                                    <tt class="sgmltag-element">&lt;a&gt;</tt> a un attribut <tt class="literal">href</tt>
+                                    &agrave; l&#8217;aide d&#8217;une simple <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/native_data_types/mapping_lists.html" title="3.6. Mutation de listes">mutation de
+                                       liste</a> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/native_data_types/declaring_variables.html#odbchelper.multiassign" title="3.4.2. Assignation simultan&eacute;e de plusieurs valeurs">multi-variable</a>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.2.4"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Les comparaisons de cha&icirc;nes comme
+                                    <tt class="literal">k=='href'</tt> sont toujours sensibles &agrave; la casse,
+                                    mais &ccedil;a ne pose pas de probl&egrave;me ici car
+                                    <tt class="classname">SGMLParser</tt> convertit les noms d&#8217;attributs
+                                    en minuscules lors de la cr&eacute;ation de
+                                    <tt class="varname">attrs</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="dialect.feed.example"></a><h3 class="title">Exemple 8.7. Utilisation de <tt class="filename">urllister.py</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib, urllister</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">usock = urllib.urlopen(<span class='pystring'>"http://diveintopython.org/"</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser = urllister.URLLister()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser.feed(usock.read())</span>         <a name="dialect.extract.3.1"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">usock.close()</span>                     <a name="dialect.extract.3.2"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser.close()</span>                    <a name="dialect.extract.3.3"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> url <span class='pykeyword'>in</span> parser.urls: <span class='pykeyword'>print</span> url</span> <a name="dialect.extract.3.4"></a><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">toc/index.html
+#download
+#languages
+toc/index.html
+appendix/history.html
+download/diveintopython-html-5.0.zip
+download/diveintopython-pdf-5.0.zip
+download/diveintopython-word-5.0.zip
+download/diveintopython-text-5.0.zip
+download/diveintopython-html-flat-5.0.zip
+download/diveintopython-xml-5.0.zip
+download/diveintopython-common-5.0.zip
+</span>
+
+... nous coupons la suite pour rester bref ...</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.3.1"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Appelez la m&eacute;thode <tt class="function">feed</tt>, d&eacute;finie dans
+                                    <tt class="classname">SGMLParser</tt>, pour charger le code
+                                    <span class="acronym">HTML</span> dans l&#8217;analyseur.<sup>[<a name="d0e20506" href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#ftn.d0e20506">3</a>]</sup> La m&eacute;thode prend une cha&icirc;ne en argument, ce qui est
+                                    ce que <tt class="function">usock.read()</tt> retourne.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.3.2"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Comme pour les fichiers, vous devez fermer vos objets
+                                    <span class="acronym">URL</span> par <tt class="function">close</tt> d&egrave;s que vous
+                                    n&#8217;en avez plus besoin.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.3.3"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Vous devez &eacute;galement fermer l&#8217;objet analyseur par
+                                    <tt class="function">close</tt>, mais pour une raison diff&eacute;rente. La
+                                    m&eacute;thode <tt class="function">feed</tt> ne garantit pas qu&#8217;elle traite
+                                    tout le code <span class="acronym">HTML</span> que vous lui passez, elle
+                                    peut la garder dans un tampon en attendant que vous lui en passiez
+                                    plus. Quand il n&#8217;y en a plus, appelez <tt class="function">close</tt>
+                                    pour vider le tampon et forcer l&#8217;analyse de tout le code.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#dialect.extract.3.4"><img src="http://web.archive.org/web/20100528151838im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Une fois le parser ferm&eacute; par <tt class="function">close</tt>,
+                                    l&#8217;analyse est compl&egrave;te et <tt class="varname">parser.urls</tt> contient
+                                    une liste de toutes les <span class="acronym">URL</span>s pour lesquelles il
+                                    y a un lien dans le document <span class="acronym">HTML</span>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footnotes">
+            <h3 class="footnotetitle">Footnotes</h3>
+            <div class="footnote">
+               <p><sup>[<a name="ftn.d0e20506" href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/extracting_data.html#d0e20506">3</a>] </sup>Le terme technique pour un analyseur comme
+                                  <tt class="classname">SGMLParser</tt> est
+                                  <span class="emphasis"><em>consommateur</em></span>: il consomme du
+                                  <span class="acronym">HTML</span> est le d&eacute;compose. On peut penser que
+                                  le nom de <tt class="function">feed</tt> (nourrir) a &eacute;t&eacute; choisi
+                                  pour cadrer avec ce mod&egrave;le du &laquo;<span class="quote">consommateur</span>&raquo;.
+                                  Personnellement, &ccedil;a me fait penser &agrave; une cage sombre dans un
+                                  zoo, sans arbres ni plantes ni trace de vie d&#8217;aucune sorte,
+                                  mais o&ugrave; vous pouvez deviner, si vous vous tenez tout &agrave; fait
+                                  immobile, deux yeux en vrilles qui vous regardent en retour
+                                  dans le coin du fond &agrave; gauche, mais vous arrivez &agrave; vous
+                                  convaincre que c&#8217;est votre esprit qui vous joue des tours et
+                                  la seule chose qui vous permet de dire que ce n&#8217;est pas une
+                                  cage vide est une petite pancarte sur la rambarde sur laquelle
+                                  est &eacute;crit &laquo;<span class="quote">Ne pas nourrir l&#8217;analyseur.</span>&raquo; Mais
+                                  peut-&ecirc;tre que j&#8217;ai trop d&#8217;imagination. De toute mani&egrave;re, c&#8217;est
+                                  une image mentale int&eacute;ressante.
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html">&lt;&lt;&nbsp;Pr&eacute;sentation de sgmllib.py</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/index.html#dialect.divein" title="8.1. Plonger">1</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" title="8.2. Pr&eacute;sentation de sgmllib.py">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/basehtmlprocessor.html" title="8.4. Pr&eacute;sentation de BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/locals_and_globals.html" title="8.5. locals et globals">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html" title="8.6. Formatage de cha&icirc;nes &agrave; l&#8217;aide d&#8217;un dictionnaire">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/quoting_attribute_values.html" title="8.7. Mettre les valeurs d&#8217;attributs entre guillemets">7</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/dialect.html" title="8.8. Pr&eacute;sentation de dialect.py">8</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/all_together.html" title="8.9. Assembler les pi&egrave;ces">9</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/summary.html" title="8.10. R&eacute;sum&eacute;">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100528151838/http://diveintopython.adrahon.org/html_processing/basehtmlprocessor.html">Pr&eacute;sentation de BaseHTMLProcessor.py&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 15:18:38 May 28, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:25:17 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

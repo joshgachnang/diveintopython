@@ -1,0 +1,155 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>&#1043;&#1083;&#1072;&#1074;&#1072; 3. &#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, язык Python, язык программирования Python, Dive Into Python, В глубь языка Python, учебник, объектно-ориентированный, программирование, документация, книга, free, свободный, бесплатный" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://ru.diveintopython.net/" title="В глубь языка Python" /><link rel="up" href="http://ru.diveintopython.net/" title="В глубь языка Python" /><link rel="previous" href="http://ru.diveintopython.net/" title="2.9. Заключение" /><link rel="next" href="http://ru.diveintopython.net/" title="3.2. Импортирование модулей инструкцией from module import" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://ru.diveintopython.net/index.html">&#1053;&#1072;&#1095;&#1072;&#1083;&#1086;</a>&nbsp;&gt;&nbsp;<a href="http://ru.diveintopython.net/toc.html">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</a>&nbsp;&gt;&nbsp;<b>&#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://ru.diveintopython.net/apihelper_summary.html" title="Пред.: “Заключение”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://ru.diveintopython.net/fileinfo_fromimport.html" title="След.: “Импортирование модулей инструкцией from module import”">&gt;&gt;</a></td></tr><tr><td><img src="http://ru.diveintopython.net/images/logo.png" alt="diveinto.python.ru" /></td><td colspan="2"><span id="logo">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</span><br /><span id="tagline">&#1044;&#1083;&#1103; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1089;&#1090;&#1086;&#1074;</span></td><td colspan="3" align="right"></td></tr></table><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="fileinfo"></a>&#1043;&#1083;&#1072;&#1074;&#1072; 3. &#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;</h2></div></div><div class="toc"><p><b>&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;</b></p><ul><li>3.1. <a href="http://ru.diveintopython.net/fileinfo_divein.html#fileinfo.divein">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100;</a></li><li>3.2. <a href="http://ru.diveintopython.net/fileinfo_fromimport.html">&#1048;&#1084;&#1087;&#1086;&#1088;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1084;&#1086;&#1076;&#1091;&#1083;&#1077;&#1081; &#1080;&#1085;&#1089;&#1090;&#1088;&#1091;&#1082;&#1094;&#1080;&#1077;&#1081; <tt>from <i>module</i> import</tt></a></li><li>3.3. <a href="http://ru.diveintopython.net/fileinfo_class.html">&#1054;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1080;&#1077; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;</a></li><li>3.4. <a href="http://ru.diveintopython.net/fileinfo_instantiation.html">&#1057;&#1086;&#1079;&#1076;&#1072;&#1085;&#1080;&#1077; &#1101;&#1082;&#1079;&#1077;&#1084;&#1087;&#1083;&#1103;&#1088;&#1086;&#1074; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;</a></li><li>3.5. <a href="http://ru.diveintopython.net/fileinfo_userdict.html"><tt>UserDict</tt>: a wrapper class</a></li><li>3.6. <a href="http://ru.diveintopython.net/fileinfo_specialmethods.html">Special class methods</a></li><li>3.7. <a href="http://ru.diveintopython.net/fileinfo_morespecial.html">Advanced special class methods</a></li><li>3.8. <a href="http://ru.diveintopython.net/fileinfo_classattributes.html">Class attributes</a></li><li>3.9. <a href="http://ru.diveintopython.net/fileinfo_private.html">Private functions</a></li><li>3.10. <a href="http://ru.diveintopython.net/fileinfo_exception.html">Handling exceptions</a></li><li>3.11. <a href="http://ru.diveintopython.net/fileinfo_files.html">File objects</a></li><li>3.12. <a href="http://ru.diveintopython.net/fileinfo_for.html"><tt>for</tt> loops</a></li><li>3.13. <a href="http://ru.diveintopython.net/fileinfo_modules.html">More on modules</a></li><li>3.14. <a href="http://ru.diveintopython.net/fileinfo_os.html">The <tt>os</tt> module</a></li><li>3.15. <a href="http://ru.diveintopython.net/fileinfo_alltogether.html">Putting it all together</a></li><li>3.16. <a href="http://ru.diveintopython.net/fileinfo_summary.html">Summary</a></li></ul></div><div class="section"><a name="fileinfo.divein"></a><div class="titlepage"><div><h2 class="title"><a name="fileinfo.divein"></a>3.1. &#1042; &#1075;&#1083;&#1091;&#1073;&#1100;</h2></div></div><p>&#1053;&#1072;&#1095;&#1080;&#1085;&#1072;&#1103; &#1089; &#1101;&#1090;&#1086;&#1081; &#1075;&#1083;&#1072;&#1074;&#1099; &#1084;&#1099; &#1073;&#1091;&#1076;&#1077;&#1084; &#1080;&#1084;&#1077;&#1090;&#1100; &#1076;&#1077;&#1083;&#1086; &#1089; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086; &#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1099;&#1084;
+&#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;&#1084; &#1085;&#1072; &#1103;&#1079;&#1099;&#1082;&#1077; Python.  &#1055;&#1086;&#1084;&#1085;&#1080;&#1090;&#1077;, &#1103; &#1075;&#1086;&#1074;&#1086;&#1088;&#1080;&#1083;, &#1095;&#1090;&#1086; &#1074;&#1072;&#1084; &#1085;&#1077;&#1086;&#1073;&#1093;&#1086;&#1076;&#1080;&#1084;&#1086;
+<a href="http://ru.diveintopython.net/preface.html" title="Предисловие">&#1079;&#1085;&#1072;&#1090;&#1100; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1099;&#1081; &#1103;&#1079;&#1099;&#1082;</a> &#1076;&#1083;&#1103; &#1095;&#1090;&#1077;&#1085;&#1080;&#1103;
+&#1101;&#1090;&#1086;&#1081; &#1082;&#1085;&#1080;&#1075;&#1080;?  &#1058;&#1072;&#1082; &#1103; &#1085;&#1077; &#1096;&#1091;&#1090;&#1080;&#1083;.</p><div class="abstract"><p>&#1047;&#1076;&#1077;&#1089;&#1100; &#1087;&#1088;&#1080;&#1074;&#1077;&#1076;&#1077;&#1085;&#1072; &#1087;&#1086;&#1083;&#1085;&#1086;&#1094;&#1077;&#1085;&#1085;&#1072;&#1103; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1072; &#1085;&#1072; &#1103;&#1079;&#1099;&#1082;&#1077; Python.  &#1055;&#1088;&#1086;&#1095;&#1080;&#1090;&#1072;&#1081;&#1090;&#1077;
+<a href="http://ru.diveintopython.net/odbchelper_docstring.html" title="1.3. Документирование функций">&#1089;&#1090;&#1088;&#1086;&#1082;&#1080; &#1076;&#1086;&#1082;&#1091;&#1084;&#1077;&#1085;&#1090;&#1072;&#1094;&#1080;&#1080;</a> &#1084;&#1086;&#1076;&#1091;&#1083;&#1103;, &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;
+&#1080; &#1092;&#1091;&#1085;&#1082;&#1094;&#1080;&#1081; &#1076;&#1083;&#1103; &#1087;&#1086;&#1083;&#1091;&#1077;&#1085;&#1080;&#1103; &#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1080; &#1086; &#1090;&#1086;&#1084;, &#1095;&#1090;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1072; &#1076;&#1077;&#1083;&#1072;&#1077;&#1090; &#1080; &#1082;&#1072;&#1082; &#1086;&#1085;&#1072;
+&#1088;&#1072;&#1073;&#1086;&#1090;&#1072;&#1077;&#1090;.  &#1050;&#1072;&#1082; &#1086;&#1073;&#1099;&#1095;&#1085;&#1086;, &#1085;&#1077; &#1086;&#1073;&#1077;&#1089;&#1087;&#1086;&#1082;&#1086;&#1081;&#1090;&#1077;&#1089;&#1100;, &#1077;&#1089;&#1083;&#1080; &#1095;&#1090;&#1086;-&#1083;&#1080;&#1073;&#1086; &#1074;&#1099; &#1085;&#1077; &#1087;&#1086;&#1085;&#1080;&#1084;&#1072;&#1077;&#1090;&#1077;: &#1076;&#1083;&#1103;
+&#1101;&#1090;&#1086;&#1075;&#1086; &#1080; &#1087;&#1088;&#1077;&#1076;&#1085;&#1072;&#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1072; &#1086;&#1089;&#1090;&#1072;&#1074;&#1096;&#1072;&#1103;&#1089;&#1103; &#1095;&#1072;&#1089;&#1090;&#1100; &#1075;&#1083;&#1072;&#1074;&#1099;.</p></div><div class="example"><p><a name="d0e2949"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.1. <tt>fileinfo.py</tt></b></p><p>&#1045;&#1089;&#1083;&#1080; &#1074;&#1099; &#1077;&#1097;&#1077; &#1101;&#1090;&#1086;&#1075;&#1086; &#1085;&#1077; &#1089;&#1076;&#1077;&#1083;&#1072;&#1083;&#1080;, &#1084;&#1086;&#1078;&#1077;&#1090;&#1077; <a href="http://ru.diveintopython.net/download/diveintopython-examples-ru-0.1-1.zip" title="Download example scripts">&#1079;&#1072;&#1075;&#1088;&#1091;&#1079;&#1080;&#1090;&#1100; &#1101;&#1090;&#1086;&#1090; &#1080; &#1076;&#1088;&#1091;&#1075;&#1080;&#1077; &#1087;&#1088;&#1080;&#1084;&#1077;&#1088;&#1099;</a>, &#1080;&#1089;&#1087;&#1086;&#1083;&#1100;&#1079;&#1091;&#1077;&#1084;&#1099;&#1077; &#1074; &#1082;&#1085;&#1080;&#1075;&#1077;.</p><pre class="programlisting">
+<span class="pystring">"""&#1055;&#1086;&#1083;&#1091;&#1095;&#1077;&#1085;&#1080;&#1077; &#1084;&#1077;&#1090;&#1072;&#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1080;, &#1089;&#1087;&#1077;&#1094;&#1080;&#1092;&#1080;&#1095;&#1085;&#1086;&#1081; &#1076;&#1083;&#1103; &#1092;&#1072;&#1081;&#1083;&#1072; &#1076;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1090;&#1080;&#1087;&#1072;.
+
+&#1057;&#1086;&#1079;&#1076;&#1072;&#1081;&#1090;&#1077; &#1101;&#1082;&#1079;&#1077;&#1084;&#1087;&#1083;&#1103;&#1088; &#1089;&#1086;&#1086;&#1090;&#1074;&#1077;&#1090;&#1089;&#1090;&#1074;&#1091;&#1102;&#1097;&#1077;&#1075;&#1086; &#1082;&#1083;&#1072;&#1089;&#1089;&#1072;, &#1087;&#1077;&#1088;&#1077;&#1076;&#1072;&#1074; &#1082;&#1086;&#1085;&#1089;&#1090;&#1088;&#1091;&#1082;&#1090;&#1086;&#1088;&#1091; &#1080;&#1084;&#1103; &#1092;&#1072;&#1081;&#1083;&#1072;.
+&#1042;&#1086;&#1079;&#1074;&#1088;&#1072;&#1097;&#1072;&#1077;&#1084;&#1099;&#1081; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090; &#1074;&#1077;&#1076;&#1077;&#1090; &#1089;&#1077;&#1073;&#1103; &#1072;&#1085;&#1072;&#1083;&#1086;&#1075;&#1080;&#1095;&#1085;&#1086; &#1089;&#1083;&#1086;&#1074;&#1072;&#1088;&#1102; &#1089; &#1087;&#1072;&#1088;&#1072;&#1084;&#1080; &#1082;&#1083;&#1102;&#1095;-&#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1080;&#1077; &#1076;&#1083;&#1103;
+&#1082;&#1072;&#1078;&#1076;&#1086;&#1081; &#1095;&#1072;&#1089;&#1090;&#1080; &#1084;&#1077;&#1090;&#1072;&#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1080;.
+    import fileinfo
+    info = fileinfo.MP3FileInfo("/music/ap/mahadeva.mp3")
+    print "\\n".join(["%s=%s" % (k, v) for k, v in info.items()])
+
+&#1048;&#1083;&#1080; &#1080;&#1089;&#1087;&#1086;&#1083;&#1100;&#1079;&#1091;&#1081;&#1090;&#1077; &#1092;&#1091;&#1085;&#1082;&#1094;&#1080;&#1102; listDirectory &#1076;&#1083;&#1103; &#1087;&#1086;&#1083;&#1091;&#1095;&#1077;&#1085;&#1080;&#1103; &#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1080; &#1086;&#1073;&#1086; &#1074;&#1089;&#1077;&#1093; &#1092;&#1072;&#1081;&#1083;&#1086;&#1074;
+&#1074; &#1076;&#1080;&#1088;&#1077;&#1082;&#1090;&#1086;&#1088;&#1080;&#1080;
+    for info in fileinfo.listDirectory("/music/ap/", [".mp3"]):
+        ...
+
+&#1052;&#1086;&#1076;&#1091;&#1083;&#1100; &#1084;&#1086;&#1078;&#1077;&#1090; &#1073;&#1099;&#1090;&#1100; &#1088;&#1072;&#1089;&#1096;&#1080;&#1088;&#1077;&#1085; &#1087;&#1091;&#1090;&#1077;&#1084; &#1076;&#1086;&#1102;&#1072;&#1074;&#1083;&#1077;&#1085;&#1080;&#1103; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074; &#1076;&#1083;&#1103; &#1076;&#1088;&#1091;&#1075;&#1080;&#1093; &#1090;&#1080;&#1087;&#1086;&#1074; &#1092;&#1072;&#1081;&#1083;&#1086;&#1074;,
+&#1085;&#1072;&#1087;&#1088;&#1080;&#1084;&#1077;&#1088; HTMLFileInfo, MPGFileInfo, DOCFileInfo.  &#1050;&#1072;&#1078;&#1076;&#1099;&#1081; &#1082;&#1083;&#1072;&#1089;&#1089; &#1087;&#1086;&#1083;&#1085;&#1086;&#1089;&#1090;&#1100;&#1102;
+&#1086;&#1090;&#1074;&#1077;&#1095;&#1072;&#1077;&#1090; &#1079;&#1072; &#1072;&#1085;&#1072;&#1083;&#1080;&#1079; &#1092;&#1072;&#1081;&#1083;&#1086;&#1074; &#1089;&#1086;&#1086;&#1090;&#1074;&#1077;&#1090;&#1089;&#1090;&#1074;&#1091;&#1102;&#1097;&#1077;&#1075;&#1086; &#1090;&#1080;&#1087;&#1072;; &#1080;&#1089;&#1087;&#1086;&#1083;&#1100;&#1079;&#1091;&#1081;&#1090;&#1077; MP3FileInfo &#1074;
+&#1082;&#1072;&#1095;&#1077;&#1089;&#1090;&#1074;&#1077; &#1087;&#1088;&#1080;&#1084;&#1077;&#1088;&#1072;.
+"""</span>
+<span class="pykeyword">import</span> os
+<span class="pykeyword">import</span> sys
+<span class="pykeyword">from</span> UserDict <span class="pykeyword">import</span> UserDict
+
+<span class="pykeyword">def</span><span class="pyclass"> stripnulls</span>(data):
+    <span class="pystring">"&#1086;&#1095;&#1080;&#1097;&#1072;&#1077;&#1090; &#1089;&#1090;&#1088;&#1086;&#1082;&#1091; &#1086;&#1090; &#1089;&#1080;&#1084;&#1074;&#1086;&#1083;&#1086;&#1074; &#1087;&#1088;&#1086;&#1087;&#1091;&#1089;&#1082;&#1072; &#1080; &#1085;&#1091;&#1083;&#1077;&#1074;&#1099;&#1093; &#1089;&#1080;&#1084;&#1074;&#1086;&#1083;&#1086;&#1074;"</span>
+    <span class="pykeyword">return</span> data.replace(<span class="pystring">"\00"</span>, <span class="pystring">""</span>).strip()
+
+<span class="pykeyword">class</span><span class="pyclass"> FileInfo</span>(UserDict):
+    <span class="pystring">"&#1093;&#1088;&#1072;&#1085;&#1080;&#1090; &#1084;&#1077;&#1090;&#1072;&#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1102; &#1086; &#1092;&#1072;&#1081;&#1083;&#1077;"</span>   
+    <span class="pykeyword">def</span><span class="pyclass"> __init__</span>(self, filename=None):
+        UserDict.__init__(self)
+        self[<span class="pystring">"name"</span>] = filename
+
+<span class="pykeyword">class</span><span class="pyclass"> MP3FileInfo</span>(FileInfo):
+    <span class="pystring">"&#1093;&#1088;&#1072;&#1085;&#1080;&#1090; ID3v1.0 MP3 &#1090;&#1077;&#1075;&#1080;"</span>
+    tagDataMap = {<span class="pystring">"title"</span>   : (  3,  33, stripnulls),
+                  <span class="pystring">"artist"</span>  : ( 33,  63, stripnulls),
+                  <span class="pystring">"album"</span>   : ( 63,  93, stripnulls),
+                  <span class="pystring">"year"</span>    : ( 93,  97, stripnulls),
+                  <span class="pystring">"comment"</span> : ( 97, 126, stripnulls),
+                  <span class="pystring">"genre"</span>   : (127, 128, ord)}
+
+    <span class="pykeyword">def</span><span class="pyclass"> __parse</span>(self, filename):
+        <span class="pystring">"&#1072;&#1085;&#1072;&#1083;&#1080;&#1079; ID3v1.0 &#1090;&#1077;&#1075;&#1086;&#1074; &#1080;&#1079; MP3 &#1092;&#1072;&#1081;&#1083;&#1072;"</span>
+        self.clear()
+        <span class="pykeyword">try</span>:                               
+            fsock = open(filename, <span class="pystring">"rb"</span>, 0)
+            <span class="pykeyword">try</span>:                           
+                fsock.seek(-128, 2)        
+                tagdata = fsock.read(128)  
+            <span class="pykeyword">finally</span>:                       
+                fsock.close()              
+            <span class="pykeyword">if</span> tagdata[:3] == <span class="pystring">"TAG"</span>:
+                <span class="pykeyword">for</span> tag, (start, end, parseFunc) <span class="pykeyword">in</span> self.tagDataMap.items():
+                    self[tag] = parseFunc(tagdata[start:end])               
+        <span class="pykeyword">except</span> IOError:                    
+            <span class="pykeyword">pass</span>                           
+
+    <span class="pykeyword">def</span><span class="pyclass"> __setitem__</span>(self, key, item):
+        <span class="pykeyword">if</span> key == <span class="pystring">"name"</span> <span class="pykeyword">and</span> item:
+            self.__parse(item)
+        FileInfo.__setitem__(self, key, item)
+
+<span class="pykeyword">def</span><span class="pyclass"> listDirectory</span>(directory, fileExtList):                                        
+    <span class="pystring">"""&#1074;&#1086;&#1079;&#1074;&#1088;&#1072;&#1097;&#1072;&#1077;&#1090; &#1089;&#1087;&#1080;&#1089;&#1086;&#1082; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1086;&#1074; &#1089; &#1084;&#1077;&#1090;&#1072;&#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1077;&#1081; &#1076;&#1083;&#1103; &#1074;&#1089;&#1077;&#1093; &#1092;&#1072;&#1081;&#1083;&#1086;&#1074; &#1089;
+&#1091;&#1082;&#1072;&#1079;&#1072;&#1085;&#1085;&#1099;&#1084; &#1088;&#1072;&#1089;&#1096;&#1080;&#1088;&#1077;&#1085;&#1080;&#1077;&#1084;"""</span>                       
+    fileList = [os.path.normcase(f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> os.listdir(directory)]               
+    fileList = [os.path.join(directory, f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> fileList \
+                <span class="pykeyword">if</span> os.path.splitext(f)[1] <span class="pykeyword">in</span> fileExtList]                         
+    <span class="pykeyword">def</span><span class="pyclass"> getFileInfoClass</span>(filename, module=sys.modules[FileInfo.__module__]):      
+        <span class="pystring">"&#1086;&#1088;&#1077;&#1076;&#1077;&#1083;&#1103;&#1077;&#1090; &#1082;&#1083;&#1072;&#1089;&#1089;, &#1087;&#1088;&#1077;&#1076;&#1085;&#1072;&#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1099;&#1081; &#1076;&#1083;&#1103; &#1086;&#1073;&#1088;&#1072;&#1073;&#1086;&#1090;&#1082;&#1080; &#1092;&#1072;&#1081;&#1083;&#1072;, &#1087;&#1086; &#1088;&#1072;&#1089;&#1096;&#1080;&#1088;&#1077;&#1085;&#1080;&#1102;"</span>      
+        subclass = <span class="pystring">"%sFileInfo"</span> % os.path.splitext(filename)[1].upper()[1:]       
+        <span class="pykeyword">return</span> hasattr(module, subclass) <span class="pykeyword">and</span> getattr(module, subclass) <span class="pykeyword">or</span> FileInfo
+    <span class="pykeyword">return</span> [getFileInfoClass(f)(f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> fileList]                             
+
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:
+    <span class="pykeyword">for</span> info <span class="pykeyword">in</span> listDirectory(<span class="pystring">"/music/_singles/"</span>, [<span class="pystring">".mp3"</span>]): <a name="fileinfo_divein.1.1"></a><img src="http://ru.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join([<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> info.items()])
+        print</pre><div class="calloutlist"><a name="d0e2956"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://ru.diveintopython.net/fileinfo_divein.html#fileinfo_divein.1.1"><img src="http://ru.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">&#1042;&#1099;&#1074;&#1086;&#1076; &#1101;&#1090;&#1086;&#1081; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1099; &#1079;&#1072;&#1074;&#1080;&#1089;&#1080;&#1090; &#1086;&#1090; &#1092;&#1072;&#1081;&#1083;&#1086;&#1074; &#1085;&#1072; &#1074;&#1072;&#1096;&#1077;&#1084; &#1076;&#1080;&#1089;&#1082;&#1077;.  &#1063;&#1090;&#1086;&#1073;&#1099; &#1087;&#1086;&#1083;&#1091;&#1095;&#1080;&#1090;&#1100;
+&#1086;&#1089;&#1084;&#1099;&#1089;&#1083;&#1077;&#1085;&#1085;&#1091;&#1102; &#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1102;, &#1085;&#1077;&#1086;&#1073;&#1093;&#1086;&#1076;&#1080;&#1084;&#1086; &#1080;&#1079;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100; &#1087;&#1091;&#1090;&#1100; &#1085;&#1072; &#1082;&#1072;&#1090;&#1072;&#1083;&#1086;&#1075;, &#1089;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1097;&#1080;&#1081; MP3
+&#1092;&#1072;&#1081;&#1083;&#1099; &#1085;&#1072; &#1074;&#1072;&#1096;&#1077;&#1081; &#1084;&#1072;&#1096;&#1080;&#1085;&#1077;.</td></tr></table></div></div><div class="example"><p><a name="d0e2959"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.2. &#1042;&#1099;&#1074;&#1086;&#1076; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1099; <tt>fileinfo.py</tt></b></p><p>&#1042;&#1086;&#1090; &#1088;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090;, &#1087;&#1086;&#1083;&#1091;&#1095;&#1077;&#1085;&#1085;&#1099;&#1081; &#1085;&#1072; &#1084;&#1086;&#1077;&#1081; &#1084;&#1072;&#1096;&#1080;&#1085;&#1077;.  &#1042;&#1072;&#1096; &#1088;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090; &#1073;&#1091;&#1076;&#1077;&#1090; &#1076;&#1088;&#1091;&#1075;&#1080;&#1084;,
+&#1077;&#1089;&#1083;&#1080; &#1090;&#1086;&#1083;&#1100;&#1082;&#1086; &#1074;&#1072;&#1096;&#1080; &#1084;&#1091;&#1079;&#1099;&#1082;&#1072;&#1083;&#1100;&#1085;&#1099;&#1077; &#1074;&#1082;&#1091;&#1089;&#1099; &#1087;&#1086;&#1083;&#1085;&#1086;&#1089;&#1090;&#1100; &#1085;&#1077; &#1089;&#1086;&#1074;&#1087;&#1072;&#1076;&#1072;&#1102;&#1090; &#1089; &#1084;&#1086;&#1080;&#1084;&#1080;.</p><pre class="screen"><span class="computeroutput">album=
+artist=Ghost in the Machine
+title=A Time Long Forgotten (Concept
+genre=31
+name=/music/_singles/a_time_long_forgotten_con.mp3
+year=1999
+comment=http://mp3.com/ghostmachine
+
+album=Rave Mix
+artist=***DJ MARY-JANE***
+title=HELLRAISER****Trance from Hell
+genre=31
+name=/music/_singles/hellraiser.mp3
+year=2000
+comment=http://mp3.com/DJMARYJANE
+
+album=Rave Mix
+artist=***DJ MARY-JANE***
+title=KAIRO****THE BEST GOA
+genre=31
+name=/music/_singles/kairo.mp3
+year=2000
+comment=http://mp3.com/DJMARYJANE
+
+album=Journeys
+artist=Masters of Balance
+title=Long Way Home
+genre=31
+name=/music/_singles/long_way_home1.mp3
+year=2000
+comment=http://mp3.com/MastersofBalan
+
+album=
+artist=The Cynic Project
+title=Sidewinder
+genre=18
+name=/music/_singles/sidewinder.mp3
+year=2000
+comment=http://mp3.com/cynicproject
+
+album=Digitosis@128k
+artist=VXpanded
+title=Spinning
+genre=255
+name=/music/_singles/spinning.mp3
+year=2000
+comment=http://mp3.com/artists/95/vxp</span></pre></div></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://ru.diveintopython.net/apihelper_summary.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;&#1047;&#1072;&#1082;&#1083;&#1102;&#1095;&#1077;&#1085;&#1080;&#1077;</a></td><td width="30%" align="center"><br />&nbsp;<b>1</b> <a href="http://ru.diveintopython.net/fileinfo_fromimport.html" title="3.2. Импортирование модулей инструкцией from module import">2</a> <a href="http://ru.diveintopython.net/fileinfo_class.html" title="3.3. Определение классов">3</a> <a href="http://ru.diveintopython.net/fileinfo_instantiation.html" title="3.4. Создание экземпляров классов">4</a> <a href="http://ru.diveintopython.net/fileinfo_userdict.html" title="3.5. UserDict: a wrapper class">5</a> <a href="http://ru.diveintopython.net/fileinfo_specialmethods.html" title="3.6. Special class methods">6</a> <a href="http://ru.diveintopython.net/fileinfo_morespecial.html" title="3.7. Advanced special class methods">7</a> <a href="http://ru.diveintopython.net/fileinfo_classattributes.html" title="3.8. Class attributes">8</a> <a href="http://ru.diveintopython.net/fileinfo_private.html" title="3.9. Private functions">9</a> <a href="http://ru.diveintopython.net/fileinfo_exception.html" title="3.10. Handling exceptions">10</a> <a href="http://ru.diveintopython.net/fileinfo_files.html" title="3.11. File objects">11</a> <a href="http://ru.diveintopython.net/fileinfo_for.html" title="3.12. for loops">12</a> <a href="http://ru.diveintopython.net/fileinfo_modules.html" title="3.13. More on modules">13</a> <a href="http://ru.diveintopython.net/fileinfo_os.html" title="3.14. The os module">14</a> <a href="http://ru.diveintopython.net/fileinfo_alltogether.html" title="3.15. Putting it all together">15</a> <a href="http://ru.diveintopython.net/fileinfo_summary.html" title="3.16. Summary">16</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://ru.diveintopython.net/fileinfo_fromimport.html">&#1048;&#1084;&#1087;&#1086;&#1088;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1084;&#1086;&#1076;&#1091;&#1083;&#1077;&#1081; &#1080;&#1085;&#1089;&#1090;&#1088;&#1091;&#1082;&#1094;&#1080;&#1077;&#1081; from module import&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="left"><p class="copyright">Copyright &copy; 2000, 2001, 2002 <a href="mailto:josh@servercobra.com">&#1052;&#1072;&#1088;&#1082; &#1055;&#1080;&#1083;&#1075;&#1088;&#1080;&#1084;</a></p><p class="copyright">Copyright &copy; 2001, 2002, 2003 &#1055;&#1077;&#1088;&#1077;&#1074;&#1086;&#1076;, <a href="mailto:josh@servercobra.com">&#1044;&#1077;&#1085;&#1080;&#1089; &#1054;&#1090;&#1082;&#1080;&#1076;&#1072;&#1095;</a></p></td><td align="left">&nbsp;</td></tr></table></body></html>

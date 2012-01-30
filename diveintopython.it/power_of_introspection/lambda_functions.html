@@ -1,0 +1,287 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3.7.&nbsp;Usare le funzioni lambda</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/power_of_introspection/index.html" title="Capitolo&nbsp;3.&nbsp;La potenza dell'introspezione" />
+<link rel="previous" href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="3.6.&nbsp;Le particolarit&agrave; degli
+operatori and e or" />
+<link rel="next" href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="3.8.&nbsp;Unire il tutto" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html">La potenza dell'introspezione</a>&nbsp;&gt;&nbsp;<span class="thispage">Usare le funzioni lambda</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="Indietro: “Le particolarit&agrave; degli
+operatori and e or”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="Avanti: “Unire il tutto”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="apihelper.lambda"></a>3.7.&nbsp;Usare le funzioni <tt class="literal">lambda</tt></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+<span class="application">Python</span> supporta un'interessante sintassi che vi permette di
+               	definire al volo delle piccole funzioni di una sola riga.
+               	Derivate dal <span class="application">Lisp</span>, queste funzioni <tt class="literal">lambda</tt> possono
+               	essere usate ovunque sia richiesta una funzione.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e7209"></a><h3 class="title">Esempio&nbsp;3.21.&nbsp;Introduzione alle funzioni <tt class="literal">lambda</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> f</span>(x):</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">return</span> x*2</span>
+<tt class="prompt">...     </tt><span class="userinput"></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f(3)</span>
+<span class="computeroutput">6</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">g = <span class="pykeyword">lambda</span> x: x*2</span>  <a name="apihelper.lambda.1.2"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">g(3)</span>
+<span class="computeroutput">6</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">(lambda</span> x: x*2)(3)</span> <a name="apihelper.lambda.1.3"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">6</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html#apihelper.lambda.1.2"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; una funzione <tt class="literal">lambda</tt> equivalente alla
+                        	funzione <tt class="literal">f()</tt>. Notare la sintassi
+                        	abbreviata: non ci sono parentesi attorno alla lista degli
+                        	argomenti e la parola chiave <tt class="literal">return</tt> &egrave;
+                        	mancante (implicita, poich&eacute; l'intera funzione pu&ograve; essere
+                        	solamente composta da una espressione). Inoltre, la
+                        	funzione <tt class="literal">lambda</tt> non ha nome, ma pu&ograve; essere chiamata
+                        	attraverso la variabile a cui &egrave; stata assegnata.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html#apihelper.lambda.1.3"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potete usare anche una funzione <tt class="literal">lambda</tt> senza
+                        	assegnarla ad una variabile.
+                        	Non &egrave; la cosa pi&ugrave; utile del mondo, ma dimostra che una
+                        	funzione <tt class="literal">lambda</tt> equivale ad una funzione
+                        	&#8220;<span class="quote">inline</span>&#8221; del linguaggio <span class="application"><span class="acronym">C</span></span>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Per generalizzare, una funzione <tt class="literal">lambda</tt> &egrave; una
+            	funzione che prende qualunque numero di argomenti (inclusi
+            	<a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">quelli opzionali</a>) e
+            	ritorna il valore di una singola espressione. Le funzioni
+            	<tt class="literal">lambda</tt> non possono contenere comandi e neppure
+            	possono contenere pi&ugrave; di una espressione. Non cercate di
+            	metterci dentro troppa roba: se avete bisogno di uno strumento
+            	pi&ugrave; complesso, definite una funzione normale e fatela lunga
+            	quanto volete.
+            
+         </p><a name="tip.lambda"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	l'utilizzo o meno delle funzioni <tt class="literal">lambda</tt> &egrave; questione
+                  	di stile. Usarle non &egrave; mai necessario; in ogni caso in cui
+                  	vengono usate &egrave; possibile definire una funzione normale e
+                  	usarla al posto della funzione <tt class="literal">lambda</tt>.
+                  	Le funzioni <tt class="literal">lambda</tt> sono comode, ad esempio, nei
+                  	casi in cui si voglia incapsulare codice specifico, non
+                  	riutilizzato, senza riempire il programma di piccolissime
+                  	funzioni.
+                  
+               </td>
+</tr>
+</table>
+<div class="example"><a name="d0e7320"></a><h3 class="title">Esempio&nbsp;3.22.&nbsp;funzioni lambda <tt class="literal">lambda</tt> in <tt class="filename">apihelper.py</tt></h3><pre class="programlisting">
+    processFunc = collapse <span class="pykeyword">and</span> (<span class="pykeyword">lambda</span> s: <span class="pystring">" "</span>.join(s.split())) <span class="pykeyword">or</span> (<span class="pykeyword">lambda</span> s: s)</pre></div>
+<p>
+            	Notiamo alcune cose in questo esempio. Primo, stiamo usando la
+            	forma pi&ugrave; semplice del trucco
+            	<a href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="3.6.&nbsp;Le particolarit&agrave; degli
+operatori and e or"><tt class="literal">and-or</tt></a>, il che va bene,
+            	perch&eacute; una funzione <tt class="literal">lambda</tt> &egrave; sempre vera
+            	<a href="http://it.diveintopython.net/getting_to_know_python/lists.html#tip.boolean">in un contesto booleano</a>.
+            	Ci&ograve; non significa che una funzione <tt class="literal">lambda</tt> non possa
+            	ritornare un valore falso. La funzione &egrave; sempre vera; &egrave; il suo
+            	valore di ritorno, il risultato, che pu&ograve; essere qualunque cosa.
+            
+         </p>
+<p>
+            	Secondo, stiamo usando la funzione <tt class="function">split</tt> senza argomenti.
+            	L'avete gi&agrave; vista usare con
+            	<a href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html#odbchelper.split.example" title="Esempio&nbsp;2.37.&nbsp;Suddividere una stringa">1 o 2
+               	argomenti</a>, ma senza argomenti spezza la stringa sui
+            	caratteri di spazio.
+            
+         </p>
+<div class="example"><a name="d0e7353"></a><h3 class="title">Esempio&nbsp;3.23.&nbsp;<tt class="function">split</tt> senza argomenti
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class="pystring">"this   is\na\ttest"</span></span>  <a name="apihelper.split.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> s</span>
+<span class="computeroutput">this   is
+a	test</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> s.split()</span>           <a name="apihelper.split.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['this', 'is', 'a', 'test']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">" "</span>.join(s.split())</span> <a name="apihelper.split.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'this is a test'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html#apihelper.split.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; una stringa su pi&ugrave; linee, definita da caratteri di
+                        	escape anzich&eacute;
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html#odbchelper.triplequotes" title="Esempio&nbsp;2.4.&nbsp;Definire la doc string della funzione buildConnectionString ">triple
+                           	virgolette</a>.
+                        	<tt class="literal">\n</tt> &egrave; il ritorno a capo;
+                        	<tt class="literal">\t</tt> &egrave; il carattere tab.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html#apihelper.split.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">split</tt> senza argomenti spezza negli spazi vuoti. Cos&igrave; tre
+                        	spazi, un ritorno a capo e un carattere di tabulazione vengono
+                        	trattati nello stesso modo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html#apihelper.split.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potete collassare gli spazi dividendo una stringa e
+                        	riattaccandola con un carattere di spazio come
+                        	delimitatore. Questo &egrave; ci&ograve; che fa la funzione <tt class="function">help</tt>
+                        	per collassare una stringa di pi&ugrave; linee in una linea sola.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Cosa fa quindi la funzione <tt class="function">help</tt> con queste funzioni
+            	<tt class="literal">lambda</tt>, <tt class="function">split</tt> e trucchi <tt class="literal">and-or</tt>?
+            
+         </p>
+<div class="example"><a name="apihelper.funcassign"></a><h3 class="title">Esempio&nbsp;3.24.&nbsp;Assegnare una funzione a una variabile</h3><pre class="programlisting">
+    processFunc = collapse <span class="pykeyword">and</span> (<span class="pykeyword">lambda</span> s: <span class="pystring">" "</span>.join(s.split())) <span class="pykeyword">or</span> (<span class="pykeyword">lambda</span> s: s)</pre></div>
+<p>
+<tt class="varname">processFunc</tt> adesso &egrave; una funzione, ma quale
+            	funzione sia dipende dal valore della variabile
+            	<tt class="varname">collapse</tt>. Se <tt class="varname">collapse</tt> &egrave;
+            	vera,
+            <tt class="literal"></tt><tt class="varname">processFunc</tt>(<i class="replaceable">string</i>)
+            	collasser&agrave; gli spazi vuoti, altrimenti
+            <tt class="literal"></tt><tt class="varname">processFunc</tt>(<i class="replaceable">string</i>)
+            	ritorner&agrave; il suo argomento senza alcuna modifica.
+            
+         </p>
+<p>
+            	Per fare la stessa cosa in un linguaggio meno robusto,
+            	come <span class="application">Visual Basic</span>, dovremmo probabilmente creare una funzione
+            	che riceve una stringa e l'argomento
+            	<i class="parameter"><tt>collapse</tt></i>, usa un'istruzione <tt class="literal">if</tt> per
+            	decidere se collassare gli spazi vuoti o no, quindi ritorna
+            	il valore appropriato. Ci&ograve; sarebbe inefficiente, perch&eacute; la
+            	funzione dovrebbe gestire ogni possibile caso; ogni volta che
+            	viene chiamata, dovrebbe decidere se collassare gli spazi
+            	prima di restituire il valore desiderato. In <span class="application">Python</span>, potete
+            	prendere questa logica di decisione e portarla fuori dalla
+            	funzione, definendo una funzione <tt class="literal">lambda</tt> cucita
+            	su misura per fare ci&ograve; che volete e soltanto quello. Il
+            	sistema &egrave; pi&ugrave; efficiente, pi&ugrave; elegante e meno portato al genere
+            	di errore dovuto all'errata disposizione degli argomenti
+            	di chiamata.
+            
+         </p>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> discute l'utilizzo delle funzioni <tt class="literal">lambda</tt>
+                      per <a href="http://it.diveintopython.net/knowledge-base/view.phtml/aid/6081/fid/241">chiamare
+                         le funzioni indirettamente</a>.
+                      
+               </li>
+<li>
+<a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> mostra come
+                      <a href="http://it.diveintopython.net/doc/current/tut/node6.html#SECTION006740000000000000000">accedere
+                         alle variabili esterne dall'interno di una funzione <tt class="literal">lambda</tt> </a>.
+                      La <a href="http://it.diveintopython.net/peps/pep-0227.html"><span class="acronym">PEP</span> 227</a>
+                      spiega come questo cambier&agrave; nelle future versioni di <span class="application">Python</span>.
+                      
+               </li>
+<li><a href="http://it.diveintopython.net/doc/FAQ.html"><i class="citetitle">The Whole <span class="application">Python</span> <span class="acronym">FAQ</span></i></a> ha esempi di
+                  <a href="http://it.diveintopython.net/cgi-bin/faqw.py?query=4.15&amp;querytype=simple&amp;casefold=yes&amp;req=search">codice
+                         offuscato, composto da una funzione <tt class="literal">lambda</tt></a>.
+                      
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/and_or.html">&lt;&lt;&nbsp;Le particolarit&agrave; degli
+                  operatori and e or</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html#apihelper.divein" title="3.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html" title="3.3.&nbsp;type, str, dir, ed altre funzioni built-in">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="3.6.&nbsp;Le particolarit&agrave; degli
+operatori and e or">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="3.8.&nbsp;Unire il tutto">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/summary.html" title="3.9.&nbsp;Sommario">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/all_together.html">Unire il tutto&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,464 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.8.&nbsp;Standard input, output, ed error</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Standard input, output, ed error</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="Indietro: “Astrarre le sorgenti di ingresso”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/caching.html" title="Avanti: “Memorizzare i nodi e ricercarli”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.stdio"></a>6.8.&nbsp;Standard input, output, ed error
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Gli utenti <span class="acronym">UNIX</span> hanno gi&agrave; familiarit&agrave; con i concetti di
+               	standard input, standard output e standard error. Questa
+               	sezione &egrave; per il resto di voi.
+               
+            </p>
+</div>
+<p>
+            	Lo standard output e lo standard error (comunemente abbreviati
+            	come <tt class="literal">stdout</tt> e <tt class="literal">stderr</tt>) sono pipe integrate in ogni sistema
+            	<span class="acronym">UNIX</span>. Quando stampate qualcosa, essa va alla pipe <tt class="literal">stdout</tt>;
+            	quando il vostro programma crasha e stampa informazioni di
+            	debug (come un traceback in <span class="application">Python</span>), esse vanno alla pipe
+            	<tt class="literal">stderr</tt>. Entrambe queste pipe sono solitamente connesse al
+            	terminale video dove state lavorando, cos&igrave; quando un programma
+            	stampa, vedete l'output e quando un programma crasha, vedete
+            	informazioni di debug. Se state lavorando su un sistema con
+            	un <span class="acronym">IDE</span> <span class="application">Python</span> basato su finestra, <tt class="literal">stdout</tt> e <tt class="literal">stderr</tt> vanno
+            	direttamente alla vostra &#8220;<span class="quote">Finestra interattiva</span>&#8221;.
+            
+         </p>
+<div class="example"><a name="d0e19846"></a><h3 class="title">Esempio&nbsp;6.32.&nbsp;Introduzione a <tt class="literal">stdout</tt> e <tt class="literal">stderr</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">for</span> i <span class="pykeyword">in</span> range(3):</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">'Dive in'</span></span>             <a name="kgp.stdio.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">Dive in
+Dive in
+Dive in</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> sys</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">for</span> i <span class="pykeyword">in</span> range(3):</span>
+<tt class="prompt">...     </tt><span class="userinput">sys.stdout.write(<span class="pystring">'Dive in'</span>)</span> <a name="kgp.stdio.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">Dive inDive inDive in</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">for</span> i <span class="pykeyword">in</span> range(3):</span>
+<tt class="prompt">...     </tt><span class="userinput">sys.stderr.write(<span class="pystring">'Dive in'</span>)</span> <a name="kgp.stdio.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">Dive inDive inDive in</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto
+                        	nell'<a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html#fileinfo.for.counter" title="Esempio&nbsp;4.28.&nbsp;Semplici contatori">Esempio&nbsp;4.28, &#8220;Semplici contatori&#8221;</a>, possiamo
+                        	usare la funzione built-in  <tt class="function">range</tt> di <span class="application">Python</span> per
+                        	costruire semplici cicli contatori che ripetono qualcosa
+                        	un certo numero di volte.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal">stdout</tt> &egrave; un oggetto simile a quello di un file; chiamando
+                        	la sua funzione <tt class="function">write</tt> stamper&agrave; qualsiasi stringa che voi
+                        	gli diate. In effetti, questo &egrave; ci&ograve; che la funzione <tt class="function">print</tt>
+                        	fa realmente; aggiunge un ritorno di carrello
+                        	(<tt class="function">\r</tt>) alla fine della stringa che state
+                        	stampando e chiama <tt class="function">sys.stdout.write</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Nel caso pi&ugrave; semplice, <tt class="literal">stdout</tt> ed <tt class="literal">stderr</tt> mandano il loro
+                        	output nello stesso posto: l'<span class="acronym">IDE</span> <span class="application">Python</span> (se la state
+                        	usando) o ad un terminale (se state usando <span class="application">Python</span>
+                        	dalla linea di comando). Come <tt class="literal">stdout</tt>, <tt class="literal">stderr</tt> non aggiunge
+                        	i ritorni di carrello per voi; se li volete, dovete
+                        	aggiungerli da soli.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+<tt class="literal">stdout</tt> e <tt class="literal">stderr</tt> sono entrambi oggetti di tipo file, come
+            	quelli discussi nella sezione
+            	<a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">Astrarre le sorgenti di ingresso</a>,
+            	ma sono entrambi di sola
+            	scrittura. Non hanno un metodo <tt class="function">read</tt> ma solo quello <tt class="function">write</tt>.
+            	Inoltre,
+            	sono oggetti di tipo file, potete assegnargli qualunque altro
+            	oggetto file o simile a file per redirigere i loro output.
+            
+         </p>
+<div class="example"><a name="d0e19976"></a><h3 class="title">Esempio&nbsp;6.33.&nbsp;Redigere l'output</h3><pre class="screen">
+<tt class="prompt">[f8dy@oliver kgp]$ </tt><span class="userinput">python stdout.py</span>
+<span class="computeroutput">Dive in</span>
+<tt class="prompt">[f8dy@oliver kgp]$ </tt><span class="userinput">cat out.log</span>
+<span class="computeroutput">This message will be logged instead of displayed</span></pre><p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pycomment">#stdout.py</span>
+<span class="pykeyword">import</span> sys
+
+<span class="pykeyword">print</span> <span class="pystring">'Dive in'</span>                                          <a name="kgp.stdio.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+saveout = sys.stdout                                     <a name="kgp.stdio.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+fsock = open(<span class="pystring">'out.log'</span>, <span class="pystring">'w'</span>)                             <a name="kgp.stdio.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+sys.stdout = fsock                                       <a name="kgp.stdio.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /><span class="pykeyword">
+print</span> <span class="pystring">'This message will be logged instead of displayed'</span> <a name="kgp.stdio.2.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+sys.stdout = saveout                                     <a name="kgp.stdio.2.6"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+fsock.close()                                            <a name="kgp.stdio.2.7"></a><img src="http://it.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo stamper&agrave; nella &#8220;<span class="quote">finestra interattiva</span>&#8221;
+                        	dell'<span class="acronym">IDE</span> (o del terminale, se lo script gira dalla
+                        	linea di comando).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Salvate sempre l'<tt class="literal">stdout</tt> prima di redirigerlo, cos&igrave; da poter
+                        	reimpostarlo alla normalit&agrave; pi&ugrave; tardi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Aprite un nuovo file in scrittura.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Redirigete tutto l'ulteriore output
+                        	al nuovo file appena aperto.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.2.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo sar&agrave; &#8220;<span class="quote">stampato</span>&#8221; solo nel file di log;
+                        	non sar&agrave; visibile nella finestra dell'<span class="acronym">IDE</span> o sullo schermo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.2.6"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Reimpostate <tt class="literal">stdout</tt> come si
+                        	trovava prima che lo modificassimo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.2.7"><img src="http://it.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Chiudete il file di log.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Redirigere <tt class="literal">stderr</tt> funziona esattamente allo stesso modo,
+            	usando <tt class="function">sys.stderr</tt> invece di
+            	<tt class="function">sys.stdout</tt>.
+            
+         </p>
+<div class="example"><a name="d0e20068"></a><h3 class="title">Esempio&nbsp;6.34.&nbsp;Redirigere le informazioni di errore</h3><pre class="screen">
+<tt class="prompt">[f8dy@oliver kgp]$ </tt><span class="userinput">python stderr.py</span>
+<tt class="prompt">[f8dy@oliver kgp]$ </tt><span class="userinput">cat error.log</span>
+<span class="computeroutput">Traceback (most recent line last):
+  File "stderr.py", line 5, in ?
+    raise Exception, 'this error will be logged'
+Exception: this error will be logged</span></pre><p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pycomment">#stderr.py</span>
+<span class="pykeyword">import</span> sys
+
+fsock = open(<span class="pystring">'error.log'</span>, <span class="pystring">'w'</span>)               <a name="kgp.stdio.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+sys.stderr = fsock                           <a name="kgp.stdio.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="pykeyword">
+raise</span> Exception, <span class="pystring">'this error will be logged'</span> <a name="kgp.stdio.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /> <a name="kgp.stdio.3.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Aprite il file di log dove volevamo
+                        	immagazzinare le informazioni di debug.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Redirigete lo standar error assegnando l'oggetto file del
+                        	nostro file di log appena aperto ad <tt class="literal">stderr</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Sollevate un'eccezione. Notate dall'output dello schermo
+                        	che tutto ci&ograve; <span class="emphasis"><em>non</em></span> stampa nulla sullo
+                        	schermo. Tutte le usuali informazioni di traceback sono state
+                        	scritte in <tt class="filename">error.log</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.3.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Notate anche che non stiamo chiudendo esplicitamente il
+                        	nostro file di log, e nemmeno settando <tt class="literal">stderr</tt> al suo
+                        	valore originale. Questo va bene, dato che una volta che
+                        	il programmma &egrave; crashato (a causa della nostra eccezione),
+                        	<span class="application">Python</span> canceller&agrave; e chiuder&agrave; il file per noi, non fa
+                        	alcuna differenza che <tt class="literal">stderr</tt> non venga mai reimpostato,
+                        	visto che, come ho detto, il programma crasha e <span class="application">Python</span>
+                        	termina. Reimpostare l'originale &egrave; molto importante per
+                        	<tt class="literal">stdout</tt> se prevedete di fare altre modifiche
+                        	con lo stesso script pi&ugrave; tardi.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Standard input, per altri versi, &egrave; un oggetto file di sola
+            	lettura, rappresenta i dati che scorrono nel programma da
+            	qualche altro programma precedente. Questo non avr&agrave; molto
+            	senso per gli utenti del classico <span class="abbrev">Mac</span> <span class="acronym">OS</span>, o anche agli utenti
+            	Windows che non hanno mai avuto a che fare con la linea di
+            	comando dell'<span class="acronym">MS-DOS</span>. Il suo funzionamento consiste nel
+            	costruire una catena di comandi in una singola linea, cos&igrave;
+            	che l'output di un programma diventi l'input del prossimo
+            	programma della catena. Il primo programma si limita a
+            	scrivere sullo standard output (senza fare alcuna redirezione,
+            	solo normali istruzioni <tt class="function">print</tt> o altro), il secondo
+            	programma legge dallo standard input ed il sistema operativo
+            	si prende cura di connettere l'output di un programma con
+            	l'input del seguente.
+            
+         </p>
+<div class="example"><a name="d0e20151"></a><h3 class="title">Esempio&nbsp;6.35.&nbsp;Concatenare comandi</h3><pre class="screen">
+<tt class="prompt">[f8dy@oliver kgp]$ </tt><span class="userinput">python kgp.py -g binary.xml</span>         <a name="kgp.stdio.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">01100111</span>
+<tt class="prompt">[f8dy@oliver kgp]$ </tt><span class="userinput">cat binary.xml</span>                      <a name="kgp.stdio.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE grammar PUBLIC "-//diveintopython.org//DTD Kant Generator Pro v1.0//EN" "kgp.dtd"&gt;
+&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span>
+<tt class="prompt">[f8dy@oliver kgp]$ </tt><span class="userinput">cat binary.xml | python kgp.py -g -</span> <a name="kgp.stdio.4.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /> <a name="kgp.stdio.4.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">10110001</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto nella sezione
+                        	<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">Immergersi</a>,
+                        	in questo capitolo,
+                        	questo codice stamper&agrave; una stringa di otto bit
+                        	casuali, <tt class="constant">0</tt> o <tt class="constant">1</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo codice stampa semplicemente l'intero contenuto di
+                        	<tt class="filename">binary.xml</tt>. Gli utenti Windows dovrebbero
+                        	usare <tt class="literal">type</tt> invece
+                        	di <tt class="literal">cat</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.4.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo codice stampa il contenuto di <tt class="filename">binary.xml</tt>,
+                        	ma il carattere &#8220;<span class="quote"><tt class="literal">|</tt></span>&#8221;,
+                        	chiamato carattere &#8220;<span class="quote">pipe</span>&#8221;, significa che il
+                        	contenuto non verr&agrave; stampato sullo schermo. Al contrario
+                        	diventer&agrave; input per il comando seguente, che in questo caso
+                        	rappresenta il nostro script <span class="application">Python</span>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.4.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Invece di specificare un modulo (come <tt class="filename">binary.xml</tt>),
+                        	specifichiamo &#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;, che
+                        	far&agrave; caricare al nostro script la grammatica dallo standard
+                        	input invece che da un file sul disco (di pi&ugrave; su come
+                        	accade nel prossimo esempio). Cos&igrave; l'effetto &egrave; lo stesso
+                        	della prima sintassi, dove specificammo il nome del file
+                        	grammar direttamente, ma pensate alle possibile espansioni.
+                        	Invece di fare semplicemente <tt class="literal">cat
+                           	binary.xml</tt>, potremmo lanciare uno script che generi
+                        	dinamicamente la grammatica, per poi redirigerlo nel
+                        	nostro script. Pu&ograve; provenire da ovunque: un database,
+                        	da meta-script generatori di grammatica o altro ancora.
+                        	Il punto &egrave; che non dobbiamo cambiare il nostro
+                        	script <tt class="filename">kgp.py</tt> completamente, per incorporare ognuna
+                        	di queste funzionalit&agrave;.
+                        	Tutto quello che dobbiamo fare &egrave; essere capaci di prendere i
+                        	file di grammatica dallo standard input, e separare tutta
+                        	l'altra logica in un altro programma.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Perci&ograve; come fa il nostro script &#8220;<span class="quote">know</span>&#8221; per
+            	leggere dallo standard input quando il file di grammatica
+            	&egrave; &#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;? Non &egrave; magia, &egrave; solo
+            	codice.
+            
+         </p>
+<div class="example"><a name="d0e20253"></a><h3 class="title">Esempio&nbsp;6.36.&nbsp;Leggere dallo standard input in <tt class="filename">kgp.py</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> openAnything(source):
+    <span class="pykeyword">if</span> source == <span class="pystring">"-"</span>:    <a name="kgp.stdio.5.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">import</span> sys
+        <span class="pykeyword">return</span> sys.stdin
+
+    <span class="pycomment"># try to open with urllib (if source is http, ftp, or file URL)</span>
+    <span class="pykeyword">import</span> urllib
+    <span class="pykeyword">try</span>:
+
+[... snip ...]</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html#kgp.stdio.5.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; la funzione <tt class="function">openAnything</tt> da
+                        	<tt class="filename">toolbox.py</tt>, che abbiamo esaminato nella sezione
+                        	<a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">Astrarre le sorgenti di ingresso</a>.
+                        	Tutto quello che abbiamo
+                        	fatto &egrave; stato aggiungere tre linee di codice all'inizio della
+                        	funzione per controllare se il sorgente &egrave;
+                        	&#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;; se si, ritorniamo
+                        	<tt class="literal">sys.stdin</tt>. Veramente, avviene proprio
+                        	questo! Ricordate, <tt class="literal">stdin</tt> &egrave; un oggetto simile ad un file con
+                        	un metodo <tt class="function">read</tt>, cos&igrave; il resto del nostro
+                        	codice (in <tt class="filename">kgp.py</tt>, dove abbiamo chiamato
+                        	<tt class="function">openAnything</tt>) non viene modificato di
+                        	un bit.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/input_sources.html">&lt;&lt;&nbsp;Astrarre le sorgenti di ingresso</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/caching.html">Memorizzare i nodi e ricercarli&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

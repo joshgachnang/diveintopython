@@ -1,0 +1,558 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.4.&nbsp;Unicode</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Unicode</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="Indietro: “Analizzare XML”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/searching.html" title="Avanti: “Ricercare elementi”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.unicode"></a>6.4.&nbsp;Unicode
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Unicode &egrave; un sistema per rappresentare i caratteri di tutti
+               	i differenti linguaggi del mondo. Quando <span class="application">Python</span>
+               	analizza un documento <span class="acronym">XML</span>, tutti i dati sono immagazzinati
+               	in memoria sottoforma di unicode.
+               
+            </p>
+</div>
+<p>
+            	Sar&agrave; spiegato tutto fra un minuto, ma prima, una piccola
+            	introduzione.
+            
+         </p>
+<p><b>Nota storica.&nbsp;</b>
+            	Prima dell'unicode, esistevano sistemi di
+            	codifica dei caratteri separati per ogni linguaggio,
+            	ognuno usava gli stessi numeri (0-255) per rappresentare
+            	i caratteri di quel linguaggio. Alcuni (come il russo)
+            	avevano multipli standard, in conflitto sul modo di
+            	rappresentare lo stesso carattere; altri linguaggi
+            	(come il giapponese) avevano cos&igrave; tanti caratteri che
+            	richiedevano numerosi set di caratteri. Lo scambio di
+            	documenti fra i sistemi era difficile perch&eacute; non c'era
+            	modo per un computer di dire quale schema di codifica
+            	dei caratteri avesse usato l'autore del documento; il
+            	computer vedeva solo numeri ed i numeri potevano
+            	significare cose differenti. Perci&ograve; pensate di porre
+            	questi documenti nel medesimo luogo (ad esempio la stessa
+            	tabella di un database); avreste bisogno di registrare
+            	la codica dei caratteri per ogni parte del testo ed
+            	essere sicuri di fornirla insieme allo stesso. Quindi
+            	pensate a documenti multilingue, con caratteri provenienti
+            	da vari linguaggi nello stesso documento. Solitamente
+            	questi utilizzano caratteri di escape per cambiare il
+            	modo di codifica; usiamo il modo russo koi8-r, perci&ograve;
+            	il carattere 241 indica questo; adesso usiamo il Greco
+            	del Mac, perci&ograve; il carattere 241 indica qualcos'altro. E
+            	cos&igrave; via. Questi sono i problemi per i quali l'unicode
+            	&egrave; stato ideato.
+            
+         </p>
+<p>
+            	Per risolvere questi problemi, l'unicode rappresenta ogni
+            	carattere come un numero di 2 byte, da 0 a 65535.
+            
+            <sup>[<a name="d0e17922" href="http://it.diveintopython.net/xml_processing/unicode.html#ftn.d0e17922">11</a>]</sup>
+            	Ogni numero di 2 byte rappresenta un unico carattere usato in
+            	almeno uno dei linguaggi del mondo. Caratteri che sono usati
+            	in molteplici linguaggi hanno lo stesso codice numerico. C'&egrave;
+            	esattamente 1 numero per carattere ed esattamente un
+            	carattere per numero. I dati unicode non sono mai ambigui.
+            
+         </p>
+<p>
+            	Ovviamente c'&egrave; ancora il problema di tutte queste eredit&agrave; dei
+            	sistemi di codifica. L'<span class="acronym">ASCII</span> a 7 bit, per esempio,
+            	registra i caratteri inglesi come numeri da 0 a 127. (65 &egrave;
+            	la &#8220;<span class="quote"><tt class="literal">A</tt></span>&#8221; maiuscola, 97 &egrave; la
+            	&#8220;<span class="quote"><tt class="literal">a</tt> minuscola</span>&#8221; e cos&igrave; via.)
+            	L'inglese ha un alfabeto molto semplice, perci&ograve; pu&ograve; essere
+            	espresso completamente tramite l'<span class="acronym">ASCII</span> a 7 bit. I linguaggi
+            	dell'ovest europeo come il francese, lo spagnolo e il
+            	tedesco (e l'italiano N.d.T.) usano tutti una codifica dei
+            	caratteri chiamata ISO-8859-1 (&#8220;<span class="quote">latin-1</span>&#8221;), per
+            	i numeri da 0 al 127 ma vengono estesi nel gruppo di
+            	caratteri dal 128 al 255 come la &#8220;<span class="quote">n con la tilde
+               	sopra</span>&#8221;(241), o la &#8220;<span class="quote">u con due punti
+               	sopra</span>&#8221;(252). L'unicode utilizza gli stessi caratteri
+            	dell'<span class="acronym">ASCII</span> a 7 bit per i numeri dallo 0 al 127 e gli stessi
+            	caratteri dell'ISO-8859-1 per i numeri da 128 a 255,
+            	estende da quel punto in poi, tutti i caratteri per gli altri
+            	linguaggi con i numeri rimanenti, da 256 a 65535.
+            
+         </p>
+<p>
+            	Quando vi occupate dei dati unicode, potreste aver bisogno,
+            	in alcuni punti, di convertire i dati in una delle
+            	altre codifiche dei caratteri descritte.
+            	Per esempio, per integrarli
+            	con qualche altro sistema che si aspetta dei dati in uno
+            	schema di codifica specifico ad 1 byte o stamparlo da un
+            	terminale o da una stampante non unicode.
+            	Oppure immagazzinarli
+            	in un documento <span class="acronym">XML</span> che esplicita specificatamente lo
+            	schema di codifica.
+            
+         </p>
+<p>
+            	E dopo questa nota, torniamo al <span class="application">Python</span>.
+            
+         </p>
+<p>
+<span class="application">Python</span> supporta l'unicode nativamente
+            	sin dalla versione 2.0.
+            <sup>[<a name="d0e17976" href="http://it.diveintopython.net/xml_processing/unicode.html#ftn.d0e17976">12</a>]</sup>
+            	Il pacchetto <span class="acronym">XML</span> usa l'unicode per registrare tutti i
+            	dati <span class="acronym">XML</span> analizzati, ma potete usare l'unicode ovunque.
+            
+         </p>
+<div class="example"><a name="d0e17995"></a><h3 class="title">Esempio&nbsp;6.13.&nbsp;Introduzione sull'unicode</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = u<span class="pystring">'Dive in'</span></span>            <a name="kgp.unicode.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s</span>
+<span class="computeroutput">u'Dive in'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> s</span>                   <a name="kgp.unicode.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">Dive in</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per creare una stringa unicode, invece di una regolare stringa
+                        	<span class="acronym">ASCII</span>, aggiungete la lettera
+                        	&#8220;<span class="quote"><tt class="literal">u</tt></span>&#8221; prima della stringa.
+                        	Notate che questa particolare stringa non contiene nessun
+                        	carattere non-<span class="acronym">ASCII</span>. Questo &egrave; bene; unicode &egrave; un superset
+                        	dell'<span class="acronym">ASCII</span> (un superset molto grande in realt&agrave;), cos&igrave; che
+                        	ogni stringa regolare <span class="acronym">ASCII</span> possa essere registrata come
+                        	unicode.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Quando stampiamo una stringa, <span class="application">Python</span> si preoccupa di
+                        	convertirla nel vostra codifica di default, che solitamente
+                        	&egrave; l'<span class="acronym">ASCII</span> (vi dir&ograve; di pi&ugrave; fra un minuto). Dato che
+                        	questa stringa unicode &egrave; formata da caratteri che sono anche
+                        	caratteri <span class="acronym">ASCII</span>, stamparla ha lo stesso risultato di
+                        	stampare una normale stringa <span class="acronym">ASCII</span>; la conversione &egrave; senza
+                        	cuciture e se non sapeste che <tt class="varname">s</tt> era una
+                        	stringa unicode, non notereste mai la differenza.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e18062"></a><h3 class="title">Esempio&nbsp;6.14.&nbsp;immagazzinare caratteri non-<span class="acronym">ASCII</span></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = u<span class="pystring">'La Pe\xf1a'</span></span>         <a name="kgp.unicode.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> s</span>                   <a name="kgp.unicode.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+UnicodeError: ASCII encoding error: ordinal not in range(128)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> s.encode(<span class="pystring">'latin-1'</span>)</span> <a name="kgp.unicode.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">La Pe&ntilde;a</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il vero vantaggio dell'unicode &egrave;, ovviamente, la sua abilit&agrave;
+                        	di immagazzinare caratteri non-<span class="acronym">ASCII</span>, come la spagnola
+                        	&#8220;<span class="quote"><tt class="literal">&ntilde;</tt></span>&#8221;
+                        	(<tt class="literal">n</tt> con una tilde sopra). Il carattere
+                        	unicode per la tilde-n &egrave; <tt class="literal">0xf1</tt> in
+                        	esadecimale (241 in decimale), perci&ograve; potete digitarla in
+                        	questo modo: <tt class="literal">\xf1</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ricordate che dissi che la funzione <tt class="function">print</tt> tenta di
+                        	convertire una stringa unicode in <span class="acronym">ASCII</span> in modo da
+                        	poterla stampare? Bene, non funzioner&agrave; qui, visto che la
+                        	nostra stringa unicode contiene caratteri non-<span class="acronym">ASCII</span>, perci&ograve;
+                        	<span class="application">Python</span> solleva un errore
+                        	<tt class="errorname">UnicodeError</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ecco dove avviene la conversione dall'unicode ad altri schemi
+                        	di codifica. <tt class="varname">s</tt> &egrave; una stringa unicode ma
+                        	<tt class="function">print</tt> pu&ograve; stampare solo stringhe regolari. Per risolvere
+                        	questo problema, chiamiamo il metodo
+                        	<tt class="function">encode</tt>, disponibile in ogni stringa
+                        	unicode, per convertire una stringa unicode in una stringa
+                        	regolare nello schema di codifica dato, che passiamo come
+                        	parametro. In questo caso, stiamo usando
+                        	<tt class="literal">latin-1</tt> (anche conosciuto come
+                        	<tt class="literal">iso-8859-1</tt>), che include la tilde-n
+                        	(che invece l'<span class="acronym">ASCII</span> non include, dato che include unicamente
+                        	i caratteri numerati da 0 a 127).
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Ricordate quando dissi che <span class="application">Python</span> solitamente convertiva
+            	unicode in <span class="acronym">ASCII</span>, ovunque occorresse creare una stringa
+            	regolare da una unicode? Bene, questo schema di codifica
+            	predefinito &egrave; un'opzione che potete personalizzare.
+            
+         </p>
+<div class="example"><a name="d0e18162"></a><h3 class="title">Esempio&nbsp;6.15.&nbsp;<tt class="filename">sitecustomize.py</tt></h3><pre class="programlisting">
+<span class="pycomment"># sitecustomize.py                   </span><a name="kgp.unicode.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="pycomment"># this file can be anywhere in your Python path,</span>
+<span class="pycomment"># but it usually goes in ${pythondir}/lib/site-packages/</span>
+
+<span class="pykeyword">import</span> sys
+
+sys.setdefaultencoding(<span class="pystring">'iso-8859-1'</span>) <a name="kgp.unicode.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="filename">sitecustomize.py</tt> &egrave; uno script speciale;
+                        	<span class="application">Python</span> tenter&agrave; di importarlo all'avvio, cos&igrave; ogni codice
+                        	al suo interno partir&agrave; automaticamente. Come menzionato dal
+                        	commento, pu&ograve; essere posto ovunque (fin dove <tt class="literal">import</tt> lo
+                        	possa trovare), ma solitamente viene messo nella directory
+                        	<tt class="filename">lib/site-packages</tt> della vostra
+                        	distribuzione <span class="application">Python</span>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La funzione <tt class="function">setdefaultencoding</tt> imposta,
+                        	quindi, la codifica predefinita. Questo &egrave; lo schema di
+                        	codifica che <span class="application">Python</span> prover&agrave; ad usare, ogniqualvolta
+                        	occorresse automatizzare la conversione da una
+                        	stringa unicode ad una stringa regolare.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e18200"></a><h3 class="title">Esempio&nbsp;6.16.&nbsp;Effetti dell'impostazione di una codifica predefinita</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> sys</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.getdefaultencoding()</span> <a name="kgp.unicode.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'iso-8859-1'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = u<span class="pystring">'La Pe\xf1a'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> s</span>                  <a name="kgp.unicode.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">La Pe&ntilde;a</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo esempio richiede che voi abbiate fatto le modifiche
+                        	elencate nell'esempio precedente al vostro file
+                        	<tt class="filename">sitecustomize.py</tt> e che abbiate riavviato
+                        	<span class="application">Python</span>. Se la vostra codifica predefinita &egrave; ancora
+                        	<tt class="literal">'ascii'</tt>, vuol dire che non avete impostato
+                        	correttamente il vostro <tt class="filename">sitecustomize.py</tt>
+                        	o che non avete riavviato <span class="application">Python</span>. La codifica predefinita
+                        	pu&ograve; essere modificata unicamente durante l'avvio di <span class="application">Python</span>;
+                        	non potete farlo dopo. Grazie ad alcuni trucchi di
+                        	programmazione che non voglio mostrare adesso, potete chiamare
+                        	anche  <tt class="function">sys.setdefaultencoding</tt> dopo che
+                        	<span class="application">Python</span> &egrave; stato avviato.
+                        	Scavate in <tt class="filename">site.py</tt>
+                        	e cercate &#8220;<span class="quote"><tt class="literal">setdefaultencoding</tt></span>&#8221;
+                        	per maggiori approfondimenti.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Adesso che lo schema di codifica predefinito include
+                        	tutti i caratteri usati nella nostra stringa, <span class="application">Python</span>
+                        	non ha problemi ad auto-convertire la stringa ed a stamparla.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	E riguardo l'<span class="acronym">XML</span>? Bene, ogni documento <span class="acronym">XML</span> contiene una
+            	codifica specifica. ISO-8859-1 &egrave; una popolare codifica per
+            	dati nei linguaggi dell'ovest europeo. KOI8-R &egrave; comune nei
+            	testi russi. La codifica, se specificata, si trova nell'header
+            	del documento <span class="acronym">XML</span>.
+            
+         </p>
+<div class="example"><a name="d0e18286"></a><h3 class="title">Esempio&nbsp;6.17.&nbsp;<tt class="filename">russiansample.xml</tt></h3><pre class="screen"><span class="computeroutput">
+&lt;?xml version="1.0" encoding="koi8-r"?&gt;       </span><a name="kgp.unicode.5.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+&lt;preface&gt;
+&lt;title&gt;&#1055;&#1088;&#1077;&#1076;&#1080;&#1089;&#1083;&#1086;&#1074;&#1080;&#1077;&lt;/title&gt;                    </span><a name="kgp.unicode.5.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
+&lt;/preface&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.5.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo esempio &egrave; estratto da un reale documento <span class="acronym">XML</span>
+                        	in russo; &Egrave; parte della traduzione di questo libro,
+                        	notate che la codifica, <tt class="literal">koi8-r</tt>, &egrave;
+                        	specificata nell'header.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.5.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questi sono i caratteri cirillici che, per quanto ne so,
+                        	esprimono in russo la parola &#8220;<span class="quote">Prefazione</span>&#8221;.
+                        	Se aprite questo file con un normale editor di testi, i
+                        	caratteri sembreranno incomprensibili, visto che sono
+                        	codificati usando lo schema di codifica
+                        	<tt class="literal">koi8-r</tt>, ma vengono mostrati in
+                        	<tt class="literal">iso-8859-1</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e18321"></a><h3 class="title">Esempio&nbsp;6.18.&nbsp;Analizzare <tt class="filename">russiansample.xml</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class="pystring">'russiansample.xml'</span>)</span> <a name="kgp.unicode.6.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">title = xmldoc.getElementsByTagName(<span class="pystring">'title'</span>)[0].firstChild.data</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">title</span>                                       <a name="kgp.unicode.6.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">u'\u041f\u0440\u0435\u0434\u0438\u0441\u043b\u043e\u0432\u0438\u0435'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> title</span>                                 <a name="kgp.unicode.6.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+UnicodeError: ASCII encoding error: ordinal not in range(128)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">convertedtitle = title.encode(<span class="pystring">'koi8-r'</span>)</span>     <a name="kgp.unicode.6.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">convertedtitle</span>
+<span class="computeroutput">'\xf0\xd2\xc5\xc4\xc9\xd3\xcc\xcf\xd7\xc9\xc5'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> convertedtitle</span>                        <a name="kgp.unicode.6.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">&#1055;&#1088;&#1077;&#1076;&#1080;&#1089;&#1083;&#1086;&#1074;&#1080;&#1077;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Assunto che abbiate salvato l'esempio precedente come
+                        	<tt class="filename">russiansample.xml</tt> nella directory
+                        	corrente ed inoltre, per completezza, che abbiate
+                        	riportato la vostra codifica predefinita di nuovo in
+                        	<tt class="literal">'ascii'</tt>, rimuovendo il file
+                        	<tt class="filename">sitecustomize.py</tt> o almeno
+                        	commentando la linea <tt class="function">setdefaultencoding</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Notate i dati testo della etichetta del
+                        	<tt class="sgmltag-element">titolo</tt> ... ora nella variabile
+                        	<tt class="varname">title</tt>, grazie a quella lunga concatenazione
+                        	di funzioni <span class="application">Python</span> che ho precipitosamente saltato e,
+                        	fastidiosamente, non spiegher&ograve; fino alla prossima sezione
+                        	... i dati di testo nel <tt class="sgmltag-element">titolo</tt> del
+                        	documento <span class="acronym">XML</span> sono registrati come unicode.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Stampare il titolo non &egrave; possible, perch&eacute; questa stringa
+                        	unicode contiene caratteri non-<span class="acronym">ASCII</span>, e <span class="application">Python</span> non
+                        	pu&ograve; convertirli in <span class="acronym">ASCII</span> perch&eacute; non hanno significato.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Possiamo, comunque, convertirlo esplicitamente in
+                        	<tt class="literal">koi8-r</tt> ed otterremmo una
+                        	(regolare, non unicode) stringa di caratteri ad un byte
+                        	(<tt class="literal">f0</tt>, <tt class="literal">d2</tt>,
+                        	<tt class="literal">c5</tt> e cos&igrave; via) che sono la vesione
+                        	<tt class="literal">koi8-r</tt>-encoded dei caratteri nella
+                        	stringa unicode originale.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Stampare la stringa codificata in <tt class="literal">koi8-r</tt>
+                        	probabilmente mostrer&agrave; insensatezze sul vostro schermo, dato
+                        	che il vostro <span class="acronym">IDE</span> <span class="application">Python</span> sta interpretando questi
+                        	caratteri come <tt class="literal">iso-8859-1</tt>, non
+                        	<tt class="literal">koi8-r</tt>. Ma almeno le stampa. Se
+                        	osservate attentamente, &egrave; la stessa roba che avete visto
+                        	quando avete aperto il documento originale <span class="acronym">XML</span> in un
+                        	editor non unicode. <span class="application">Python</span> lo convert&igrave; da
+                        	<tt class="literal">koi8-r</tt> in unicode quando analizz&ograve; il
+                        	documento <span class="acronym">XML</span> ed ora lo abbiamo appena riconvertito.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Per riassumere, unicode stesso &egrave; un p&ograve; intimidente se non
+            	lo avete mai visto prima, ma i dati unicode sono veramente
+            	facili da gestire in <span class="application">Python</span>. Se i vostri documenti <span class="acronym">XML</span>
+            	sono tutti in <span class="acronym">ASCII</span> a 7 bit (come gli esempi in questo
+            	capitolo) non avrete mai bisogno di pensare all'unicode.
+            	<span class="application">Python</span> convertir&agrave; i dati <span class="acronym">ASCII</span> nel documento <span class="acronym">XML</span> in
+            	unicode, durante il parsing, ed auto-convertir&agrave; in <span class="acronym">ASCII</span>
+            	ogniqualvolta sar&agrave; necessario, non ve ne accorgerete neanche.
+            	Ma se avete bisogno di occuparvi di dati in altre lingue,
+            	<span class="application">Python</span> &egrave; pronto.
+            
+         </p>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/">Unicode.org</a> &egrave; la home page dello standard unicode,
+                  inclusa una breve <a href="http://it.diveintopython.net/standard/principles.html">introduzione tecnica</a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/i18n/python_unicode_tutorial.html">Unicode Tutorial</a> ha alcuni esempi su come usare le
+                  funzioni unicode di <span class="application">Python</span>, incluso come forzare <span class="application">Python</span> a coercizzare l'unicode in <span class="acronym">ASCII</span>
+                  anche quando non lo vuole.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/files/python/unicode-proposal.txt">Unicode Proposal</a> &egrave; l'originale specifica tecnica
+                  per le funzionalit&agrave; unicode di <span class="application">Python</span>. Solo per per programmatori esperti dell'unicode.
+                  
+               </li>
+</ul>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e17922" href="http://it.diveintopython.net/xml_processing/unicode.html#d0e17922">11</a>] </sup>
+                  	Questo, tristemente, <span class="emphasis"><em>&egrave; ancora</em></span> una
+                  	semplificazione. Unicode ora &egrave; stato esteso per gestire
+                  	testi in Cinese antico, in Coreano ed in Giapponese,
+                  	che hanno talmente tanti caratteri diversi che il
+                  	sistema unicode a 2 byte non li potrebbe rappresentare
+                  	tutti. Ma <span class="application">Python</span> attualmente non supporta tutto questo,
+                  	e non so se ci sia qualche progetto che permetta di
+                  	estenderlo in tale senso. Spiacente, avete raggiunto i
+                  	limiti della mia conoscenza.
+                  	
+               </p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e17976" href="http://it.diveintopython.net/xml_processing/unicode.html#d0e17976">12</a>] </sup>
+<span class="application">Python</span> ha il supporto per unicode dalla versione 1.6, ma
+                  	la versione 1.6 era un obbligo contrattuale di cui nessuno
+                  	ama parlare, un figliastro da dimenticare.
+                  	Anche la documentazione ufficiale di <span class="application">Python</span> dichiara che
+                  	unicode &egrave; &#8220;<span class="quote">nuovo nella versione 2.0</span>&#8221;. &Egrave; una
+                  	bugia ma, come le bugie dei presidenti che dicono di aver
+                  	fumato ma che non gli &egrave; piaciuto, scegliamo di crederci perch&eacute;
+                  	ricordiamo la nostra giovinezza mal spesa in maniera fin
+                  	troppo vivida.
+                  	
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/parsing_xml.html">&lt;&lt;&nbsp;Analizzare XML</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/searching.html">Ricercare elementi&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

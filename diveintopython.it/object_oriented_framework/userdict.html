@@ -1,0 +1,389 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.5.&nbsp;UserDict: una classe wrapper</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">UserDict: una classe wrapper</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="Indietro: “Istanziare classi”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="Avanti: “Metodi speciali per le classi”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.userdict"></a>4.5.&nbsp;<tt class="classname">UserDict</tt>: una classe wrapper
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Come avete visto, <tt class="classname">FileInfo</tt> &egrave; una classe che
+               	agisce come un dizionario. Per esplorare ulteriormente
+               	questo aspetto, diamo uno sguardo alla classe
+               	<tt class="classname">UserDict</tt> nel modulo <tt class="filename">UserDict</tt>, che &egrave;
+               	l'antenato della nostra classe <tt class="classname">FileInfo</tt>.
+               	Non &egrave; nulla di speciale; la classe &egrave; scritta in
+               	<span class="application">Python</span> e memorizzata in un file <tt class="literal">.py</tt>,
+               	proprio come il nostro codice. In particolare, &egrave;
+               	memorizzata nella directory
+               	<tt class="filename">lib</tt> della vostra
+               	installazione di <span class="application">Python</span>.
+               
+            </p>
+</div><a name="tip.locate"></a><table class="tip" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/tip.png" alt="Suggerimento" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Nella <span class="acronym">IDE</span> di <span class="application">Python</span> su Windows, potete aprire
+                          rapidamente qualunque modulo nel vostro library path usando
+                  <span class="guimenu">File</span>-&gt;<span class="guimenuitem"><span class="accel">L</span>ocate...</span> (<span><b class="shortcut"><span></span></b><b class="keycap">Ctrl</b></span>-<span class="keysym">L</span>).
+               </td>
+</tr>
+</table>
+<p><b>Nota storica.&nbsp;</b>
+            	Nelle versioni di <span class="application">Python</span> antecedenti la 2.2, non potevate
+            	ereditare direttamente dai tipi built-in come stringhe,
+            	liste e dizionari. Per compensare a tale mancanza, <span class="application">Python</span>
+            	viene rilasciato con delle classi wrapper che mimano il
+            	comportamento di questi tipi built-in:
+            	<tt class="classname">UserString</tt>,
+            	<tt class="classname">UserList</tt> e <tt class="classname">UserDict</tt>.
+            	Usando una combinazione di metodi normali e speciali, la
+            	classe <tt class="classname">UserDict</tt> fa un'eccellente imitazione di un
+            	dizionario, ma &egrave; semplicemente una classe come qualunque
+            	altra, cos&igrave; potete ereditare da essa per creare delle classi
+            	personalizzate che si comportano come dizionari, come abbiamo
+            	fatto con <tt class="classname">FileInfo</tt>. In <span class="application">Python</span> 2.2 o superiore,
+            	potreste riscrivere l'esempio di questo capitolo in modo che
+            	<tt class="classname">FileInfo</tt> erediti direttamente da
+            	<tt class="classname">dict</tt> invece che da
+            	<tt class="classname">UserDict</tt>. Comunque dovreste lo stesso leggere
+            	come funziona <tt class="classname">UserDict</tt>, nel caso abbiate bisogno
+            	di implementare questo genere di oggetto wrapper o nel caso
+            	abbiate bisogno di supportare versioni di <span class="application">Python</span> antecedenti
+            	alla 2.2.
+            
+         </p>
+<div class="example"><a name="fileinfo.userdict.init.example"></a><h3 class="title">Esempio&nbsp;4.11.&nbsp;Definire la classe <tt class="classname">UserDict</tt></h3><pre class="programlisting"><span class="pykeyword">
+class</span> UserDict:                                <a name="fileinfo.userdict.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pykeyword">def</span><span class="pyclass"> __init__</span>(self, dict=None):             <a name="fileinfo.userdict.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        self.data = {}                         <a name="fileinfo.userdict.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+        <span class="pykeyword">if</span> dict <span class="pykeyword">is</span> <span class="pykeyword">not</span> None: self.update(dict) <a name="fileinfo.userdict.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /> <a name="fileinfo.userdict.1.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Notate che <tt class="classname">UserDict</tt> &egrave; una classe base,
+                        	non eredita da nessun'altra classe.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo &egrave; il metodo <tt class="function">__init__</tt> che andiamo a
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html#fileinfo.class.example" title="Esempio&nbsp;4.6.&nbsp;Definire la classe FileInfo ">sovrascrivere
+                           	nella classe <tt class="classname">FileInfo</tt></a>.
+                        	Notate che la lista degli argomenti in questa classe
+                        	antenato &egrave; diversa dai suoi discendenti. Va bene; ogni
+                        	sottoclasse pu&ograve; avere il suo insieme di argomenti,
+                        	finch&eacute; chiama l'antenato con gli argomenti esatti. Qui
+                        	la classe antenato ha un modo per definire i valori iniziali
+                        	(passando un dizionario nell'argomento
+                        	<tt class="varname">dict</tt>) di cui la nostra
+                        	<tt class="classname">FileInfo</tt> non si avvantaggia.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<span class="application">Python</span> supporta gli attributi  (chiamati
+                        	&#8220;<span class="quote">variabili d'istanza</span>&#8221; in <span class="application">Java</span> ed in
+                        	<span class="application">Powerbuilder</span>, &#8220;<span class="quote">variabili membro</span>&#8221; in <span class="application"><span class="acronym">C++</span></span>),
+                        	cio&egrave; dati mantenuti da una specifica istanza di una classe.
+                        	In questo caso, ogni istanza di <tt class="classname">UserDict</tt> avr&agrave; un
+                        	attributo <tt class="varname">data</tt>. Per referenziare questo
+                        	attributo dal codice esterno alla classe, lo dovrete
+                        	qualificare usando il suo nome di istanza,
+                        	<tt class="literal"><i class="replaceable">instance</i>.data</tt>,
+                        	nello stesso modo in cui qualificate una funzione con il nome
+                        	del suo modulo. Per referenziare un attributo all'interno
+                        	della classe, usiamo <tt class="literal">self</tt> come qualificatore.
+                        	Per convenzione, tutti gli attributi sono inizializzati con
+                        	dei valori ragionevoli nel metodo <tt class="function">__init__</tt>. Ad ogni modo, questo
+                        	non &egrave; richiesto, in quanto gli attributi, cos&igrave; come le
+                        	variabili locali, <a href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html" title="2.10.&nbsp;Definire le variabili">cominciano
+                           	ad esistere</a> nel momento in cui viene loro assegnato un
+                        	valore.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il metodo <tt class="function">update</tt> &egrave; un duplicatore di dizionario: copia tutte
+                        	le chiavi ed i valori da un dizionario ad un altro. Questo
+                        	metodo <span class="emphasis"><em>non</em></span> cancella il dizionario di
+                        	destinazione, se il dizionario di destinazione ha gi&agrave; alcune
+                        	delle chiavi, il loro valore sar&agrave; sovrascritto, ma gli altri
+                        	dati rimarranno invariati. Pensate al metodo <tt class="function">update</tt> come ad
+                        	una funzione di fusione e non di copia.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.1.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; una sintassi che potreste non aver ancora
+                        	visto (non l'ho usata negli esempi di questo libro). Si tratta 
+                        	di una istruzione <tt class="literal">if</tt>, ma invece di avere un blocco
+                        	indentato nella riga successiva, c'&egrave; semplicemente una
+                        	singola istruzione sulla stessa riga, dopo i due punti.
+                        	&Egrave; una sintassi perfettamente legale ed &egrave;
+                        	semplicemente una scorciatoia quando avete una sola istruzione
+                        	in un blocco. (&Egrave; come specificare una singola
+                        	istruzione senza graffe in <span class="application"><span class="acronym">C++</span></span>). Potete usare questa
+                        	sintassi o potete usare il codice indentato in righe
+                        	successive, ma non potete fare entrambe le cose per lo stesso
+                        	blocco. 
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="compare.overloading"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Java</span> e <span class="application">Powerbuilder</span> supportano l'overload di funzioni per
+                  	lista di argomenti, cio&egrave; una classe pu&ograve; avere pi&ugrave; metodi con
+                  	lo stesso nome, ma diverso numero di argomenti o argomenti di
+                  	tipo diverso. Altri linguaggi (principalmente <span class="acronym">PL/SQL</span>)
+                  	supportano l'overload di funzioni per nome di argomento; cio&egrave;
+                  	una classe pu&ograve; avere pi&ugrave; metodi con lo stesso nome e lo
+                  	stesso numero di argomenti dello stesso tipo, ma i nomi degli
+                  	argomenti sono diversi. <span class="application">Python</span> non supporta nessuno di
+                  	questi; non ha nessuna forma di overload di funzione. I metodi
+                  	sono definiti solamente dal loro nome e ci pu&ograve; essere
+                  	solamente un metodo per ogni classe con un dato nome. Cos&igrave;, se
+                  	una classe discendente ha un metodo <tt class="function">__init__</tt>, questo sovrascrive
+                  	<span class="emphasis"><em>sempre</em></span> il metodo <tt class="function">__init__</tt> dell'antenato,
+                  	anche se il discendente lo definisce con una lista di
+                  	argomenti diversa. La stessa regola si applica ad ogni altro
+                  	metodo.
+                  
+               </td>
+</tr>
+</table><a name="fileinfo.derivedclasses"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Guido, l'autore originale di <span class="application">Python</span>, spiega l'override dei
+                  	metodi in questo modo: "Classi derivate possono sovrascrivere
+                  	i metodi delle loro classi base. Siccome i metodi non hanno
+                  	privilegi speciali quando chiamano altri metodi dello stesso
+                  	oggetto, un metodo di una classe base che chiama un altro
+                  	metodo definito nella stessa classe base, pu&ograve; infatti finire
+                  	per chiamare un metodo di una classe derivata che lo
+                  	sovrascrive. (Per i programmatori <span class="application"><span class="acronym">C++</span></span> tutti i metodi in
+                  	<span class="application">Python</span> sono effettivamente virtual.)" Se questo per voi non
+                  	ha senso (confonde un sacco pure me), sentitevi liberi di
+                  	ignorarlo. Penso che lo capir&ograve; pi&ugrave; avanti.
+                  
+               </td>
+</tr>
+</table><a name="note.dataattributes"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Assegnate sempre un valore iniziale a tutti gli attributi
+                  	di un'istanza nel metodo <tt class="function">__init__</tt>. Vi risparmier&agrave; ore di
+                  	debugging pi&ugrave; tardi, spese a tracciare tutte le eccezioni
+                  	<tt class="classname">AttributeError</tt> che genera il
+                  	programma perch&eacute; state referenziando degli attributi non
+                  	inizializzati (e quindi inesistenti).
+                  
+               </td>
+</tr>
+</table>
+<div class="example"><a name="fileinfo.userdict.normalmethods"></a><h3 class="title">Esempio&nbsp;4.12.&nbsp;Metodi comuni di <tt class="classname">UserDict</tt></h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> clear</span>(self): self.data.clear()          <a name="fileinfo.userdict.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pykeyword">def</span><span class="pyclass"> copy</span>(self):                             <a name="fileinfo.userdict.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        <span class="pykeyword">if</span> self.__class__ <span class="pykeyword">is</span> UserDict:          <a name="fileinfo.userdict.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+            <span class="pykeyword">return</span> UserDict(self.data)         
+        <span class="pykeyword">import</span> copy                             <a name="fileinfo.userdict.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+        <span class="pykeyword">return</span> copy.copy(self)                 
+    <span class="pykeyword">def</span><span class="pyclass"> keys</span>(self): <span class="pykeyword">return</span> self.data.keys()     <a name="fileinfo.userdict.2.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+    <span class="pykeyword">def</span><span class="pyclass"> items</span>(self): <span class="pykeyword">return</span> self.data.items()  
+    <span class="pykeyword">def</span><span class="pyclass"> values</span>(self): <span class="pykeyword">return</span> self.data.values()
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">clear</tt> &egrave; un normale metodo della classe; &egrave; pubblicamente
+                        	disponibile per essere chiamato da chiunque in qualunque
+                        	momento. Notate che <tt class="function">clear</tt>, come tutti gli altri metodi
+                        	della classe, ha <tt class="literal">self</tt> come primo argomento (ricordate,
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html#tip.whenself">non siete voi ad
+                           	includere <tt class="literal">self</tt></a> quando chiamate un metodo; &egrave;
+                        	qualcosa che <span class="application">Python</span> fa gi&agrave; per voi). Notate inoltre la
+                        	tecnica base di questa classe wrapper: memorizza un vero
+                        	dizionario (<tt class="varname">data</tt>) come attributo,
+                        	definisce tutti i metodi che ha un vero dizionario e
+                        	redireziona tutti questi metodi verso i loro corrispondenti
+                        	del vero dizionario (nel caso lo aveste dimenticato, il
+                        	metodo <tt class="function">clear</tt> di un dizionario
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html#odbchelper.dict.del" title="Esempio&nbsp;2.13.&nbsp;Cancellare elementi da un dizionario">cancella tutte le
+                           	sue chiavi</a> ed i valori ad esse associati).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il metodo <tt class="filename">copy</tt> di un vero dizionario restituisce un nuovo
+                        	dizionario che &egrave; un esatto duplicato di quello originale
+                        	(tutte le stesse coppie chiave-valore). Ma
+                        	<tt class="classname">UserDict</tt> non pu&ograve; semplicemente redirezionare il
+                        	metodo a <tt class="function">self.data.copy</tt>, perch&eacute; quel
+                        	metodo ritorna un vero dizionario e noi vogliamo che ritorni
+                        	un'istanza della stessa classe di <tt class="literal">self</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Usiamo l'attributo <tt class="literal">__class__</tt> per vedere se <tt class="literal">self</tt> &egrave; uno
+                        	<tt class="classname">UserDict</tt>; nel caso, siamo fortunati perch&eacute;
+                        	sappiamo come copiare uno <tt class="classname">UserDict</tt>: basta creare
+                        	una nuova istanza di <tt class="classname">UserDict</tt> e passarle il vero
+                        	dizionario che abbiamo ricavato da
+                        	<tt class="varname">self.data</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se <tt class="literal"><span class="literal">self</span>.<span class="literal">__class__</span></tt> non &egrave; uno
+                        	<tt class="classname">UserDict</tt>, allora <tt class="literal">self</tt> deve essere una
+                        	sottoclasse di <tt class="classname">UserDict</tt> (come
+                        	<tt class="classname">FileInfo</tt>), nel quale caso la vita si
+                        	complica un po'. <tt class="classname">UserDict</tt> non sa come
+                        	fare una copia di uno dei suoi discendenti; ci potrebbero,
+                        	per esempio, essere altri attributi definiti nella
+                        	sottoclasse, cos&igrave; dovremmo iterare attraverso ognuno di
+                        	essi ed essere sicuri di copiarli tutti. Fortunatamente,
+                        	<span class="application">Python</span> viene rilasciato con un modulo che fa esattamente
+                        	questo ed &egrave; chiamato <tt class="filename">copy</tt>. Non scender&ograve; in dettaglio
+                        	(per quanto si tratti di un modulo davvero interessante,
+                        	se vi interessa potete esplorarlo pi&ugrave; a fondo da soli), &egrave;
+                        	sufficiente dire che <tt class="filename">copy</tt>, pu&ograve; copiare oggetti arbitrari
+                        	<span class="application">Python</span> ed &egrave; cos&igrave; che noi lo usiamo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.2.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	I rimanenti metodi sono semplici, redirezionano le chiamate
+                        	ai metodi built-in di <tt class="varname">self.data</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a>
+<a href="http://it.diveintopython.net/doc/current/lib/module-UserDict.html">documenta
+                     il modulo <tt class="filename">UserDict</tt> </a> ed il modulo
+                  <a href="http://it.diveintopython.net/doc/current/lib/module-copy.html"><tt class="filename">copy</tt></a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html">&lt;&lt;&nbsp;Istanziare classi</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html">Metodi speciali per le classi&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

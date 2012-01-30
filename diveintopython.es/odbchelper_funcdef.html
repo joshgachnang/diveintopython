@@ -1,0 +1,65 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.2. Declaraci&oacute;n de funciones</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="next" href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Declaraci&oacute;n de funciones</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html" title="Anterior: “Conozcamos Python”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_docstring.html" title="Siguiente: “Documentaci&oacute;n de funciones”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.funcdef"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.funcdef"></a>1.2. Declaraci&oacute;n de funciones</h2></div></div><div class="abstract"><p>Python, como la mayor&iacute;a de los lenguajes, tiene funciones, pero no
+utiliza ficheros de cabecera independientes como C++ o secciones 
+<tt>interface</tt>/<tt>implementation</tt> como Pascal.
+Cuando necesite una funci&oacute;n, simplemente decl&aacute;rela e incluya el
+c&oacute;digo.</p></div><div class="example"><p><a name="d0e135"></a><b>Ejemplo 1.3. Declaraci&oacute;n de la funci&oacute;n <tt>buildConnectionString</tt></b></p><pre class="programlisting"><span class="pykeyword">
+def</span> buildConnectionString(params):</pre></div><p>Aqu&iacute; hay que indicar varias cosas. En primer lugar, la palabra clave
+<tt>def</tt> inicia la declaraci&oacute;n de la funci&oacute;n, seguida por el nombre de la
+funci&oacute;n, seguido por los argumentos entre par&eacute;ntesis. Si hay m&aacute;s de un
+argumento (aqu&iacute; no ocurre) se separan con comas.</p><p>En segundo lugar, la funci&oacute;n no define el tipo del valor de
+retorno.  Las funciones de Python no especifican el tipo de su valor
+de retorno; ni siquiera especifican si devuelven o no un valor. De
+hecho, todas las funciones de Python devuelven un valor; si la
+funci&oacute;n incluye una sentencia <tt>return</tt>, devolver&aacute; ese valor; en otro
+caso devolver&aacute; <tt>None</tt>, el valor nulo de Python.</p><a name="compare.funcdef.vb"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En Visual Basic, las funciones (que devuelven un valor) empiezan con
+<tt>function</tt>, y las subrutinas (que no devuelven un
+valor) empiezan con <tt>sub</tt>. En Python no hay
+subrutinas. Todo son funciones, todas las funciones devuelven un valor
+(incluso si este es <tt>None</tt>), y todas las funciones empiezan con
+<tt>def</tt>.</td></tr></table><p>En tercer lugar, el argumento, <tt>params</tt>, no
+especifica el tipo de dato. En Python, las variables o tienen nunca
+un tipo expl&iacute;cito. Python supone de qu&eacute; tipo es una variable y lo
+guarda internamente.</p><a name="compare.funcdef.java"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En Java, C++ y otros lenguajes de tipos est&aacute;ticos, se debe
+especificar el tipo de valor de retorno de una funci&oacute;n y de cada
+argumento. En Python, nunca se especifica expl&iacute;citamente el tipo de
+nada. Seg&uacute;n el valor que se le asigne, Python almacena el tipo de
+dato internamente.</td></tr></table><p><b>A&ntilde;adido:&nbsp;</b>Un erudito lector me envi&oacute; esta exposici&oacute;n comparando Python
+con otros lenguajes de programaci&oacute;n:</p><div class="variablelist"><dl><dt><a name="d0e177"></a><span class="term">Lenguaje de tipos est&aacute;ticos</span></dt><dd>Un lenguaje en el que los tipos deben declararse.
+Java y C son lenguajes de tipos est&aacute;ticos, porque cada declaraci&oacute;n
+de variable debe incluir un tipo de dato.</dd><dt><a name="d0e184"></a><span class="term">Lenguaje de tipos din&aacute;micos</span></dt><dd>Un lenguaje en el que los tipos se descubren en el
+momento de ejecuci&oacute;n; lo contrario de tipos est&aacute;ticos. VBScript y
+Python son lenguajes de tipos din&aacute;micos, porque suponen de qu&eacute; tipo
+es una variable cuando se le asigna un valor por primera
+vez.</dd><dt><a name="d0e190"></a><span class="term">Lenguaje fuertemente tipado</span></dt><dd>Un lenguaje en el que los tipos se mantienen siempre.
+Java y Python son fuertemente tipados. Si se tiene un entero, no
+se le puede tratar como una cadena sin convertirlo expl&iacute;citamente
+(veremos m&aacute;s sobre como hacerlo en este cap&iacute;tulo).</dd><dt><a name="d0e196"></a><span class="term">Lenguaje d&eacute;bilmente tipado</span></dt><dd>Un lenguaje en el que los tipos pueden ignorarse; lo
+contrario de fuertemente tipado. VBScript es d&eacute;bilmente tipado. En
+VBScript, se puede concatenar la cadena <tt>'12'</tt> con
+el entero <tt>3</tt> para obtener la cadena
+<tt>'123'</tt>, y despu&eacute;s tratarla como el entero
+<tt>123</tt>, todo ello sin conversi&oacute;n
+expl&iacute;cita.</dd></dl></div><p>De modo que Python es un lenguaje de <span class="emphasis"><i>tipos
+din&aacute;micos</i></span> (ya que no utiliza declaraciones expl&iacute;citas de
+tipos) y <span class="emphasis"><i>fuertemente tipado</i></span> (ya que cuando se ha
+dado un tipo a una variable, permanece).</p></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_divein.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Conozcamos Python</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <b>2</b> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_docstring.html">Documentaci&oacute;n de funciones&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

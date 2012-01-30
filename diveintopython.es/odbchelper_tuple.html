@@ -1,0 +1,81 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.9. Todo sobre las tuplas</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas" /><link rel="next" href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Todo sobre las tuplas</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_list.html" title="Anterior: “Todo sobre las listas”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_vardef.html" title="Siguiente: “Definici&oacute;n de variables”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.tuple"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.tuple"></a>1.9. Todo sobre las tuplas</h2></div></div><div class="abstract"><p>Una tupla es una lista inmutable. Una tupla no puede modificarse
+de ning&uacute;n modo despu&eacute;s de su creaci&oacute;n.</p></div><div class="example"><p><a name="d0e999"></a><b>Ejemplo 1.22. Defining a tuple</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">t = (<span class="pystring">"a"</span>, <span class="pystring">"b"</span>, <span class="pystring">"mpilgrim"</span>, <span class="pystring">"z"</span>, <span class="pystring">"example"</span>)</span> <a name="odbchelper.tuple.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">t</span>
+<span class="computeroutput">('a', 'b', 'mpilgrim', 'z', 'example')</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">t[0]</span>                                       <a name="odbchelper.tuple.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'a'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">t[-1]</span>                                      <a name="odbchelper.tuple.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'example'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">t[1:3]</span>                                     <a name="odbchelper.tuple.1.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">('b', 'mpilgrim')</span></pre><div class="calloutlist"><a name="d0e1020"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuple.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Una tupla se define del mismo modo que una lista, salvo que el
+conjunto se encierra entre par&eacute;ntesis en lugar de entre
+corchetes.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuple.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Los elementos de una tupla tienen un orden definido, como los de
+una lista. Las tuplas tienen primer &iacute;ndice 0, como las listas, de modo
+que el primer elemento de una tupla no vac&iacute;a es siempre
+<tt>t[0]</tt>,</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuple.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Los &iacute;ndices negativos cuentan desde el final de la tupla, como
+en las listas.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuple.1.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Las porciones funcionan como en las listas. Advierta que al
+extraer una porci&oacute;n de una lista, se obtiene una lista nueva; al
+extraerla de una tupla, se obtiene una tupla nueva.</td></tr></table></div></div><div class="example"><p><a name="odbchelper.tuplemethods"></a><b>Ejemplo 1.23. Las tuplas no tienen m&eacute;todos</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">t</span>
+<span class="computeroutput">('a', 'b', 'mpilgrim', 'z', 'example')</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">t.append(<span class="pystring">"new"</span>)</span>    <a name="odbchelper.tuple.2.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'append'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">t.remove(<span class="pystring">"z"</span>)</span>      <a name="odbchelper.tuple.2.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'remove'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">t.index(<span class="pystring">"example"</span>)</span> <a name="odbchelper.tuple.2.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'index'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">"z"</span> <span class="pykeyword">in</span> t</span>           <a name="odbchelper.tuple.2.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">1</span></pre><div class="calloutlist"><a name="d0e1052"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuple.2.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">No pueden a&ntilde;adirse elementos a una tupla. Las tuplas no tienen
+los m&eacute;todos <tt>append</tt> ni
+<tt>extend</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuple.2.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">No pueden eliminarse elementos de una tupla. Las tuplas no
+tienen los m&eacute;todos <tt>remove</tt> ni
+<tt>pop</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuple.2.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">No pueden buscarse elementos en una tupla. Las tuplas no tienen
+el m&eacute;todo <tt>index</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuple.2.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Se puede, no obstante, usar <tt>in</tt> para ver si
+un elemento existe en la tupla.</td></tr></table></div></div><p>Entonces, &iquest;para qu&eacute; sirven las tuplas?</p><div class="itemizedlist"><ul><li>Las tuplas son m&aacute;s r&aacute;pidas que las listas. Si est&aacute;
+usted definiendo un conjunto constante de valores y todo lo que va a
+hacer con &eacute;l es recorrerla, utilice una tupla en lugar de una 
+lista.</li><li>&iquest;Recuerda que dije que <a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dictionarytypes" title="Ejemplo 1.11. Mezcla de tipos de datos en un diccionario">las claves de un
+diccionario</a> pueden ser enteros, cadenas y 
+&#8220;algunos otros tipos&#8221;? Las tuplas son uno de estos tipos.
+Las tuplas pueden utilizarse como claves en un diccionario, pero las
+listas no.<sup>[<a name="d0e1075" href="http://es.diveintopython.net/odbchelper_tuple.html#ftn.d0e1075">2</a>]</sup></li><li>Las tuplas se utilizan para formatear cadenas, como
+veremos en seguida.</li></ul></div><a name="tip.tuple"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Las tuplas pueden convertirse en listas, y viceversa. La funci&oacute;n
+incorporada <tt>tuple</tt> toma una lista y devuelve una tupla con los mismos
+elementos, y la funci&oacute;n <tt>list</tt> toma  una tupla y devuelve una lista.
+En la pr&aacute;ctica, <tt>tuple</tt> congela una lista, y <tt>list</tt> descongela una
+tupla.</td></tr></table><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li><a href="http://es.diveintopython.net/obp/thinkCSpy/"><i>How to Think Like a Computer Scientist</i></a> trata de tuplas y muestra c&oacute;mo 
+<a href="http://es.diveintopython.net/obp/thinkCSpy/chap10.htm">concatenar 
+tuplas</a>.</li><li><a href="http://es.diveintopython.net/knowledge-base/index.phtml/fid/199/">Python Knowledge Base</a> muestra c&oacute;mo 
+<a href="http://es.diveintopython.net/knowledge-base/view.phtml/aid/4553/fid/587">ordenar
+una tupla</a>.</li><li>El <a href="http://es.diveintopython.net/doc/current/tut/tut.html"><i>Tutorial de Python</i></a> muestra c&oacute;mo<a href="http://es.diveintopython.net/doc/current/tut/node7.html#SECTION007300000000000000000">definir 
+una tupla con un solo elemento</a>.</li></ul></div><div class="footnotes"><p class="footnotetitle">Footnotes</p><div class="footnote"><p><sup>[<a name="ftn.d0e1075" href="http://es.diveintopython.net/odbchelper_tuple.html#d0e1075">2</a>] </sup>Realmente, es m&aacute;s complicado. Las claves de
+los diccionarios deben ser inmutables. Las tuplas son inmutables, pero
+si se trata de una tupla de listas, se considera mutable y no es
+seguro utilizarla como clave de diccionario. S&oacute;lo las tuplas de
+cadenas, n&uacute;meros u otras tuplas seguras pueden utilizarse como claves
+en un diccionario.</p></div></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_list.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Todo sobre las listas</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <b>9</b> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_vardef.html">Definici&oacute;n de variables&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

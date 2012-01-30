@@ -1,0 +1,137 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Capitolo&nbsp;1.&nbsp;Installare Python</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/toc/index.html" title="Dive Into Python" />
+<link rel="previous" href="http://it.diveintopython.net/toc/index.html" title="Dive Into Python" />
+<link rel="next" href="http://it.diveintopython.net/installing_python/windows.html" title="1.2.&nbsp;Python su Windows" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Installare Python</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/toc/index.html" title="Indietro: “Dive Into Python”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/installing_python/windows.html" title="Avanti: “Python su Windows”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="chapter" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="install"></a>Capitolo&nbsp;1.&nbsp;Installare <span class="application">Python</span></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="toc">
+<ul>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/index.html#install.choosing">1.1. Qual &egrave; il Python giusto per te?</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/windows.html">1.2. Python su Windows</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/macosx.html">1.3. Python su Mac OS X</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/macos9.html">1.4. Python su Mac OS 9</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/redhat.html">1.5. Python su RedHat Linux</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/debian.html">1.6. Python su Debian GNU/Linux</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/source.html">1.7. Installare dai sorgenti</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/shell.html">1.8. La shell interattiva</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/installing_python/summary.html">1.9. Sommario</a></span></li>
+</ul>
+</div>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="install.choosing"></a>1.1.&nbsp;Qual &egrave; il <span class="application">Python</span> giusto per te?
+                     </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>Benvenuto in <span class="application">Python</span>. Immergiamoci.
+               </p>
+</div>
+<p>La prima cosa che dovete fare con <span class="application">Python</span> &egrave;
+                     installarlo. O no? Se state utilizzando un account in un server
+                     in hosting, il vostro ISP potrebbe avere gi&agrave; installato
+                     <span class="application">Python</span>.
+                     Le pi&ugrave; importanti distribuzioni Linux installano <span class="application">Python</span>
+                     in modo predefinito.
+                     <span class="abbrev">Mac</span> <span class="acronym">OS</span> X 10.2 e successivi includono una versione a riga di
+                     comando di <span class="application">Python</span>, tuttavia vorrete probabilmente installare
+                     una versione che include un'interfaccia grafica pi&ugrave;
+                     consona a Mac.
+            </p>
+<p>Windows non installa in modo predefinito alcuna versione di
+                     <span class="application">Python</span>. Ma non disperate! Ci sono diversi modi per
+                     puntare-e-cliccare il vostro <span class="application">Python</span> su Windows.
+            </p>
+<p>Come potete gi&agrave; notare, <span class="application">Python</span> gira su molti sistemi
+                     operativi. La lista completa comprende Windows, <span class="abbrev">Mac</span> <span class="acronym">OS</span>,
+                     <span class="abbrev">Mac</span> <span class="acronym">OS</span> X e tutte le varianti dei sistemi liberi compatibili
+                     con <span class="acronym">UNIX</span>, come Linux. Vi sono anche versioni che girano su
+                     Sun Solaris AS/400, Amiga, OS/2, BeOS ed una vasta gamma di
+                     altre piattaforme che probabilmente non avrete mai sentito 
+                     nominare.
+            </p>
+<p>Inoltre, programmi <span class="application">Python</span> scritti su una piattaforma, con un
+                     minimo di accortezza, girano su <span class="emphasis"><em>ogni</em></span> altra
+                     piattaforma supportata. Per esempio, sviluppo regolarmente
+                     programmi <span class="application">Python</span> su Windows ed in seguito li rilascio su
+                     Linux.
+            </p>
+<p>Quindi tornando alla domanda che inizi&ograve; questa sezione:
+                     &#8220;<span class="quote">qual &egrave; il <span class="application">Python</span> giusto per te?</span>&#8221; La
+                     risposta &egrave; &#8220;<span class="quote">qualunque giri sul computer che
+                        avete</span>&#8221;.
+            </p>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/toc/index.html">&lt;&lt;&nbsp;Dive Into Python</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/windows.html" title="1.2.&nbsp;Python su Windows">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/macosx.html" title="1.3.&nbsp;Python su Mac OS X">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/macos9.html" title="1.4.&nbsp;Python su Mac OS 9">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/redhat.html" title="1.5.&nbsp;Python su RedHat Linux">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/debian.html" title="1.6.&nbsp;Python su Debian GNU/Linux">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/source.html" title="1.7.&nbsp;Installare dai sorgenti">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/shell.html" title="1.8.&nbsp;La shell interattiva">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/summary.html" title="1.9.&nbsp;Sommario">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/installing_python/windows.html">Python su Windows&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

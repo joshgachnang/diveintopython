@@ -1,0 +1,210 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.13.&nbsp;Mettere tutto assieme</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Mettere tutto assieme</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="Indietro: “Gestire gli argomenti da riga di comando”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/summary.html" title="Avanti: “Sommario”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.alltogether"></a>6.13.&nbsp;Mettere tutto assieme
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Abbiamo coperto una buona distanza. Facciamo un passo indietro
+               	e vediamo come si mettono assieme tutti i pezzi.
+               
+            </p>
+</div>
+<p>
+            	Per cominciare, questo &egrave; uno script che
+            	<a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">prende i suoi argomenti da
+               	riga di comando</a>, usando il modulo <tt class="filename">getopt</tt>.
+            
+         </p>
+<div class="informalexample"><pre class="programlisting"><span class="pykeyword">
+def</span> main(argv):                         
+...
+    <span class="pykeyword">try</span>:                                
+        opts, args = getopt.getopt(argv, <span class="pystring">"hg:d"</span>, [<span class="pystring">"help"</span>, <span class="pystring">"grammar="</span>])
+    <span class="pykeyword">except</span> getopt.GetoptError:          
+...
+    <span class="pykeyword">for</span> opt, arg <span class="pykeyword">in</span> opts:               
+...</pre></div>
+<p>
+            	Creiamo una nuova istanza della classe
+            	<tt class="classname">KantGenerator</tt> e passiamole il file di
+            	grammatica ed il sorgente, che pu&ograve;, o meno, essere stato
+            	specificato nella riga di comando.
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    k = KantGenerator(grammar, source)</pre></div>
+<p>
+            	L'istanza di <tt class="classname">KantGenerator</tt> carica
+            	automaticamente la grammatica, che &egrave; un file <span class="acronym">XML</span>.
+            	Utilizziamo la nostra funzione personalizzata
+            	<tt class="function">openAnything</tt> per aprire il file (che
+            	<a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">potrebbe essere in un
+               	file locale o in un web server remoto</a>), quindi
+            	usiamo le funzioni di analisi built-in del modulo
+            	<tt class="filename">minidom</tt> per <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">inserire
+               	l'<span class="acronym">XML</span> in un albero di oggetti <span class="application">Python</span></a>.
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> _load</span>(self, source):
+        sock = toolbox.openAnything(source)
+        xmldoc = minidom.parse(sock).documentElement
+        sock.close()</pre></div>
+<p>
+            	Gi&agrave; che ci siamo, avvantaggiamoci della nostra conoscenza
+            	della struttura di un documento <span class="acronym">XML</span> per
+            	<a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">impostare una piccola cache di
+               	riferimenti</a>, che sono semplicemente gli elementi
+            	nel documento <span class="acronym">XML</span>.
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> loadGrammar</span>(self, grammar):                         
+        <span class="pykeyword">for</span> ref <span class="pykeyword">in</span> self.grammar.getElementsByTagName(<span class="pystring">"ref"</span>):
+            self.refs[ref.attributes[<span class="pystring">"id"</span>].value] = ref     </pre></div>
+<p>
+            	Se avessimo specificato del sorgente nella riga di comando,
+            	avremmo usato questo; in caso contrario dovremmo cercare
+            	nella grammatica il riferimento al &#8220;<span class="quote">top-level</span>&#8221;
+            	(che non &egrave; puntato da nient'altro) ed usarlo come punto di
+            	partenza.
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> getDefaultSource</span>(self):
+        xrefs = {}
+        <span class="pykeyword">for</span> xref <span class="pykeyword">in</span> self.grammar.getElementsByTagName(<span class="pystring">"xref"</span>):
+            xrefs[xref.attributes[<span class="pystring">"id"</span>].value] = 1
+        xrefs = xrefs.keys()
+        standaloneXrefs = [e <span class="pykeyword">for</span> e <span class="pykeyword">in</span> self.refs.keys() <span class="pykeyword">if</span> e <span class="pykeyword">not</span> <span class="pykeyword">in</span> xrefs]
+        <span class="pykeyword">return</span> <span class="pystring">'&lt;xref id="%s"/&gt;'</span> % random.choice(standaloneXrefs)</pre></div>
+<p>
+            	Ora attraversiamo il sorgente. Anche il sorgente &egrave; in <span class="acronym">XML</span>,
+            	e lo analizziamo un nodo per volta. Per mantenere il nostro
+            	codice separato e maggiormente manutenibile, usiamo
+            	<a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">diversi gestori per ogni tipo di
+               	nodo</a>.
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> parse_Element</span>(self, node): 
+        handlerMethod = getattr(self, <span class="pystring">"do_%s"</span> % node.tagName)
+        handlerMethod(node)</pre></div>
+<p>
+            	Percorriamo tutta la grammatica,
+            	<a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">analizzando tutti i figli</a>
+            	di ogni elemento <tt class="sgmltag-element">p</tt>,
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> do_p</span>(self, node):
+...
+        <span class="pykeyword">if</span> doit:
+            <span class="pykeyword">for</span> child <span class="pykeyword">in</span> node.childNodes: self.parse(child)</pre></div>
+<p>
+            	sostituendo gli elementi <tt class="sgmltag-element">choice</tt> con un figlio a caso,
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> do_choice</span>(self, node):
+        self.parse(self.randomChildElement(node))</pre></div>
+<p>
+            	e sostituendo gli elementi <tt class="sgmltag-element">xref</tt> con un figlio a caso
+            	del corrispondente elemento <tt class="sgmltag-element">ref</tt>, che abbiamo
+            	precedentemente messo nella cache.
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> do_xref</span>(self, node):
+        id = node.attributes[<span class="pystring">"id"</span>].value
+        self.parse(self.randomChildElement(self.refs[id]))</pre></div>
+<p>
+            	Nel caso, trasformiamo il tutto in testo semplice,
+            
+         </p>
+<div class="informalexample"><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> parse_Text</span>(self, node):    
+        text = node.data
+...
+            self.pieces.append(text)</pre></div>
+<p>
+            	che poi stampiamo.
+            
+         </p>
+<div class="informalexample"><pre class="programlisting"><span class="pykeyword">
+def</span> main(argv):                         
+...
+    k = KantGenerator(grammar, source)
+    <span class="pykeyword">print</span> k.output()</pre></div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/command_line_arguments.html">&lt;&lt;&nbsp;Gestire gli argomenti da riga di comando</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <span class="thispage">13</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/summary.html">Sommario&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

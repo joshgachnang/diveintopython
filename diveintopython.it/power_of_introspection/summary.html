@@ -1,0 +1,160 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3.9.&nbsp;Sommario</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/power_of_introspection/index.html" title="Capitolo&nbsp;3.&nbsp;La potenza dell'introspezione" />
+<link rel="previous" href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="3.8.&nbsp;Unire il tutto" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html">La potenza dell'introspezione</a>&nbsp;&gt;&nbsp;<span class="thispage">Sommario</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="Indietro: “Unire il tutto”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Avanti: “Una struttura orientata agli oggetti”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="apihelper.summary"></a>3.9.&nbsp;Sommario
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Il programma <tt class="filename">apihelper.py</tt> ed il suo output ora dovrebbero essere chiari.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e7958"></a><h3 class="title">Esempio&nbsp;3.31.&nbsp;<tt class="filename">apihelper.py</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> help(object, spacing=10, collapse=1):
+    <span class="pystring">"""Print methods and doc strings.
+    
+    Takes module, class, list, dictionary, or string."""</span>
+    methodList = [method <span class="pykeyword">for</span> method <span class="pykeyword">in</span> dir(object) <span class="pykeyword">if</span> callable(getattr(object, method))]
+    processFunc = collapse <span class="pykeyword">and</span> (<span class="pykeyword">lambda</span> s: <span class="pystring">" "</span>.join(s.split())) <span class="pykeyword">or</span> (<span class="pykeyword">lambda</span> s: s)
+    <span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join([<span class="pystring">"%s %s"</span> %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     <span class="pykeyword">for</span> method <span class="pykeyword">in</span> methodList])
+
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:
+    <span class="pykeyword">print</span> help.__doc__</pre></div>
+<div class="example"><a name="d0e7964"></a><h3 class="title">Esempio&nbsp;3.32.&nbsp;Output di <tt class="filename">apihelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> apihelper <span class="pykeyword">import</span> help</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">help(li)</span>
+<span class="computeroutput">append     L.append(object) -- append object to end
+count      L.count(value) -&gt; integer -- return number of occurrences of value
+extend     L.extend(list) -- extend list by appending list elements
+index      L.index(value) -&gt; integer -- return index of first occurrence of value
+insert     L.insert(index, object) -- insert object before index
+pop        L.pop([index]) -&gt; item -- remove and return item at index (default last)
+remove     L.remove(value) -- remove first occurrence of value
+reverse    L.reverse() -- reverse *IN PLACE*
+sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -&gt; -1, 0, 1</span></pre></div>
+<div class="highlights">
+<p>
+               	Prima di immergerci nel prossimo capitolo, assicuratevi di
+               	essere a vostro agio con i seguenti argomenti:
+               
+            </p>
+<div class="itemizedlist">
+<ul>
+<li>
+                     	Definire e chiamare funzioni con
+                     	<a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">argomenti
+                        	opzionali e con nome</a>
+</li>
+<li>
+                     	Usare <a href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html#apihelper.str.intro" title="Esempio&nbsp;3.7.&nbsp;Introduzione a str"><tt class="function">str</tt></a>
+                     	per forzare ogni valore arbitrario in una rappresentazione
+                     	in stringa
+                     	
+                  </li>
+<li>
+                     	Usare <a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr"><tt class="function">getattr</tt></a>
+                     	per ottenere riferimenti a funzioni ed altri attributi
+                     	dinamicamente
+                     	
+                  </li>
+<li>
+                     	Estendere la sintassi delle list comprehension per
+                     	<a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste">filtrare una lista</a>
+</li>
+<li>
+                     	Riconoscere <a href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="3.6.&nbsp;Le particolarit&agrave; degli
+operatori and e or">il trucchetto
+                        	<tt class="literal">and-or</tt> </a> ed usarlo in maniera sicura
+                     	
+                  </li>
+<li>
+                     	Definire <a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda">funzioni
+                        	<tt class="literal">lambda</tt> </a>
+</li>
+<li>
+<a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html#apihelper.funcassign" title="Esempio&nbsp;3.24.&nbsp;Assegnare una funzione a una variabile">Assegnare funzioni a
+                        	variabili</a> e chiamare la funzione referenziando la
+                     	variabile. Non posso sottolinearlo abbastanza: questo modo
+                     	di pensare &egrave; vitale per migliorare la vostra comprensione
+                     	di <span class="application">Python</span>. Vedrete applicazioni pi&ugrave; complesse di questo
+                     	concetto nel corso del libro.
+                     	
+                  </li>
+</ul>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/all_together.html">&lt;&lt;&nbsp;Unire il tutto</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html#apihelper.divein" title="3.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html" title="3.3.&nbsp;type, str, dir, ed altre funzioni built-in">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="3.6.&nbsp;Le particolarit&agrave; degli
+operatori and e or">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="3.8.&nbsp;Unire il tutto">8</a> <span class="divider">|</span> <span class="thispage">9</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

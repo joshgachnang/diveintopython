@@ -1,0 +1,503 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Dive Into Python</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20110726001217cs_/http://it.diveintopython.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="description" content=" &#xA;Questo libro &egrave; disponibile all'indirizzo web &#xA;        .&#xA;Potreste anche trovarlo da qualche altra parte, ma potrebbe non essere &#xA;        l'ultima versione rilasciata dall'autore.&#xA;&#xA;">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/toc/index.html" title="Dive Into Python">
+      <link rel="next" href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/index.html" title="Capitolo&nbsp;1.&nbsp;Installare Python">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/it.diveintopython.org\/toc\/index.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "26";
+var displayMonth = "Jul";
+var displayYear = "2011";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://it.diveintopython.org/toc/index.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20110726001217" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100213045229/http://it.diveintopython.org/toc/index.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="13 Feb 2010"><strong>FEB</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 0:12:17 Jul 26, 2011">JUL</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Aug
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20110716160940/http://it.diveintopython.org/toc/index.html" title="16:09:40 Jul 16, 2011" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 0:12:17 Jul 26, 2011">26</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100213045229/http://it.diveintopython.org/toc/index.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="13 Feb 2010"><strong>2010</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 0:12:17 Jul 26, 2011">2011</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2012
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20110726001217*/http://it.diveintopython.org/toc/index.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>64 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">9 Apr 04 - 26 Jul 11</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000101000101_2005:-1:010100000003_2006:-1:010102310206_2007:-1:630113110611_2008:-1:201121011000_2009:-1:010000000000_2010:-1:020000000000_2011:6:000000300000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/index.html">Partenza</a>&nbsp;&gt;&nbsp;<span class="thispage">Dive Into Python</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/index.html" title="Avanti: &#8220;Installare Python&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python per programmatori esperti</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://web.archive.org/web/20110726001217/http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="book" lang="it">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title"><a name="d0e1"></a>Dive Into <span class="application">Python</span></h1>
+               </div>
+               <div>
+                  <p class="pubdate">30 gennaio 2003</p>
+               </div>
+               <div>
+                  <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:f8dy@diveintopython.org">Mark Pilgrim</a></p>
+               </div>
+               <div>
+                  <p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+               </div>
+               <div>
+                  <div class="abstract">
+                     <h3 class="title"></h3>
+                     <p>
+                        	Questo libro &egrave; disponibile all'indirizzo web 
+                                <a href="http://web.archive.org/web/20110726001217/http://diveintopython.org/">http://diveintopython.org/</a>.
+                        	Potreste anche trovarlo da qualche altra parte, ma potrebbe non essere 
+                                l'ultima versione rilasciata dall'autore.
+                        
+                        
+                     </p>
+                  </div>
+               </div>
+               <div>
+                  <div class="legalnotice">
+                     <p>
+                        	&Egrave; permessa la copia, la distribuzione, e/o la modifica di
+                        	questo documento seguendo i termini della
+                        	<span class="acronym">GNU</span> Free Documentation License, Versione
+                        	1.1 o ogni versione successiva, pubblicata dalla Free Software
+                        	Foundation; senza sezioni non modificabili, con nessun testo
+                                di copertina e nessun testo di retro copertina.
+                                Una copia della licenza &egrave; acclusa nella sezione intitolata
+                                <a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl.html" title="Appendice&nbsp;G.&nbsp;GNU Free Documentation License"><span class="acronym">GNU</span> Free
+                                   Documentation License</a>.
+                        
+                     </p>
+                     <p>
+                        	I programmi di esempio presenti in questo libro sono software
+                        	libero; potete ridistribuirli e/o modificarli sotto i termini
+                        	della <span class="application">Python</span> license come pubblicato dalla <span class="application">Python</span>
+                        	Software Foundation. Una copia della licenza &egrave; inclusa 
+                                nella sezione intitolata
+                        	<a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/license.html" title="Appendice&nbsp;H.&nbsp;Python 2.1.1 license"><span class="application">Python</span> 2.1.1 license</a>.
+                        
+                     </p>
+                  </div>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <p><b>Sommario</b></p>
+            <ul>
+               <li><span class="chapter"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/index.html">1. Installare Python</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/index.html#install.choosing">1.1. Qual &egrave; il Python giusto per te?</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/windows.html">1.2. Python su Windows</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/macosx.html">1.3. Python su Mac OS X</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/macos9.html">1.4. Python su Mac OS 9</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/redhat.html">1.5. Python su RedHat Linux</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/debian.html">1.6. Python su Debian GNU/Linux</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/source.html">1.7. Installare dai sorgenti</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/shell.html">1.8. La shell interattiva</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/summary.html">1.9. Sommario</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/index.html">2. Conoscere Python</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/index.html#odbchelper.divein">2.1. Immergersi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/declaring_functions.html">2.2. Dichiarare le funzioni</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/documenting_functions.html">2.3. Documentare le funzioni</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/everything_is_an_object.html">2.4. Tutto &egrave; un oggetto</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/indenting_code.html">2.5. Indentare il codice</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/testing_modules.html">2.6. Testare i moduli</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/dictionaries.html">2.7. Introduzione ai dizionari</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/lists.html">2.8. Introduzione alle liste</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/tuples.html">2.9. Introduzione alle tuple</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/declaring_variables.html">2.10. Definire le variabili</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/multiple_values.html">2.11. Assegnare valori multipli in un colpo solo</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/formatting_strings.html">2.12. Formattare le stringhe</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/mapping_lists.html">2.13. Mappare le liste</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/joining_lists.html">2.14. Concatenare liste e suddividere stringhe</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/getting_to_know_python/summary.html">2.15. Sommario</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/index.html">3. La potenza dell'introspezione</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/index.html#apihelper.divein">3.1. Immergersi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/optional_arguments.html">3.2. Argomenti opzionali ed argomenti con nome</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/built_in_functions.html">3.3. type, str, dir, ed altre funzioni built-in</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/getattr.html">3.4. Ottenere riferimenti agli oggetti usando getattr</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/filtering_lists.html">3.5. Filtrare le liste</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/and_or.html">3.6. Le particolarit&agrave; degli
+                              operatori and e or</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/lambda_functions.html">3.7. Usare le funzioni lambda</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/all_together.html">3.8. Unire il tutto</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/power_of_introspection/summary.html">3.9. Sommario</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/index.html">4. Una struttura orientata agli oggetti</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/index.html#fileinfo.divein">4.1. Immergersi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/importing_modules.html">4.2. Importare i moduli usando from module import</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/defining_classes.html">4.3. Definire classi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/instantiating_classes.html">4.4. Istanziare classi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/userdict.html">4.5. UserDict: una classe wrapper</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/special_class_methods.html">4.6. Metodi speciali per le classi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/special_class_methods2.html">4.7. Metodi speciali di classe avanzati</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/class_attributes.html">4.8. Attributi di classe</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/private_functions.html">4.9. Funzioni private</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/handling_exceptions.html">4.10. Gestire le eccezioni</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/file_objects.html">4.11. Oggetti file</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/for_loops.html">4.12. Cicli for </a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/more_on_modules.html">4.13. Ancora sui moduli</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/os_module.html">4.14. Il modulo os</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/all_together.html">4.15. Mettere tutto insieme</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/object_oriented_framework/summary.html">4.16. Sommario</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/index.html">5. Elaborare HTML</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/index.html#dialect.divein">5.1. Immergersi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/introducing_sgmllib.html">5.2. Introduciamo sgmllib.py</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/extracting_data.html">5.3. Estrarre informazioni da documenti HTML</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/basehtmlprocessor.html">5.4. Introdurre BaseHTMLProcessor.py</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/locals_and_globals.html">5.5. locals e globals</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/dictionary_based_string_formatting.html">5.6. Formattazione di stringhe basata su dizionario</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/quoting_attribute_values.html">5.7. Virgolettare i valori degli attributi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/dialect.html">5.8. Introduzione al modulo dialect.py</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/regular_expressions.html">5.9. Introduzione alle espressioni regolari</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/all_together.html">5.10. Mettere tutto insieme</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/html_processing/summary.html">5.11. Sommario</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/index.html">6. Elaborare XML</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/index.html#kgp.divein">6.1. Immergersi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/packages.html">6.2. Package</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/parsing_xml.html">6.3. Analizzare XML</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/unicode.html">6.4. Unicode</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/searching.html">6.5. Ricercare elementi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/attributes.html">6.6. Accedere agli attributi di un elemento</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/input_sources.html">6.7. Astrarre le sorgenti di ingresso</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/stdin_stdout_stderr.html">6.8. Standard input, output, ed error</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/caching.html">6.9. Memorizzare i nodi e ricercarli</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/child_nodes.html">6.10. Trovare i figli diretti di un nodo</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/handlers_by_node_type.html">6.11. Create gestori separati per tipo di nodo</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/command_line_arguments.html">6.12. Gestire gli argomenti da riga di comando</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/all_together.html">6.13. Mettere tutto assieme</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/xml_processing/summary.html">6.14. Sommario</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/index.html">7. Test delle unit&agrave; di codice</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/index.html#roman.divein">7.1. Immergersi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/romantest.html">7.2. Introduzione al modulo romantest.py</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/testing_for_success.html">7.3. Verificare i casi di successo</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/testing_for_failure.html">7.4. Verificare i casi di errore</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/testing_for_sanity.html">7.5. Verificare la consistenza</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/stage_1.html">7.6. roman.py, fase 1</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/stage_2.html">7.7. roman.py, fase 2</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/stage_3.html">7.8. roman.py, fase 3</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/stage_4.html">7.9. roman.py, fase 4</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/stage_5.html">7.10. roman.py, fase 5</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/handling_bugs.html">7.11. Come gestire gli errori di programmazione</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/handling_changing_requirements.html">7.12. Gestire il cambiamento di requisiti</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/refactoring.html">7.13. Rifattorizzazione</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/postscript.html">7.14. Postscritto</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/unit_testing/summary.html">7.15. Sommario</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/index.html">8. Programmazione orientata ai dati</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/index.html#regression.divein">8.1. Immergersi</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/finding_the_path.html">8.2. Trovare il percorso</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/filtering_lists.html">8.3. Filtrare liste rivisitate</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/mapping_lists.html">8.4. Rivisitazione della mappatura delle liste</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/data_centric.html">8.5. Programmazione data-centrica</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/dynamic_import.html">8.6. Importare dinamicamente i moduli</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/all_together_part_1.html">8.7. Mettere assieme il tutto (parte 1)</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/regression_testing/inside_pyunit.html">8.8. Dentro PyUnit</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="appendix"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/furtherreading.html">A. Ulteriori letture</a></span></li>
+               <li><span class="appendix"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/abstracts.html">B. Recensione in 5 minuti</a></span></li>
+               <li><span class="appendix"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/tips.html">C. Consigli e trucchi</a></span></li>
+               <li><span class="appendix"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/examples.html">D. Elenco degli esempi</a></span></li>
+               <li><span class="appendix"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/history.html">E. Storia delle revisioni</a></span></li>
+               <li><span class="appendix"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/about.html">F. Circa questo libro</a></span></li>
+               <li><span class="appendix"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl.html">G. GNU Free Documentation License</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl.html#d0e26958">G.0. Preamble</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_applicability.html">G.1. Applicability and definitions</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_copying.html">G.2. Verbatim copying</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_copyinginquantity.html">G.3. Copying in quantity</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_modifications.html">G.4. Modifications</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_combining.html">G.5. Combining documents</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_collections.html">G.6. Collections of documents</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_aggregation.html">G.7. Aggregation with independent works</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_translation.html">G.8. Translation</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_termination.html">G.9. Termination</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_future.html">G.10. Future revisions of this license</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/fdl_howto.html">G.11. How to use this License for your documents</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="appendix"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/license.html">H. Python 2.1.1 license</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/license.html#d0e27132">H.A. History of the software</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/license_terms.html">H.B. Terms and conditions for accessing or otherwise using Python</a></span><ul>
+                           <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/license_terms.html#d0e27147">H.B.1. PSF license agreement</a></span></li>
+                           <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/license_terms.html#d0e27175">H.B.2. BeOpen Python open source license agreement version 1</a></span></li>
+                           <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/license_terms.html#d0e27200">H.B.3. CNRI open source GPL-compatible license agreement</a></span></li>
+                           <li><span class="section"><a href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/appendix/license_terms.html#d0e27228">H.B.4. CWI permissions statement and disclaimer</a></span></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20110726001217/http://it.diveintopython.org/installing_python/index.html">Installare Python&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:f8dy@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 0:12:17 Jul 26, 2011 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 20:18:00 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

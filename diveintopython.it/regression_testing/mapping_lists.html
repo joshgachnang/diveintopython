@@ -1,0 +1,230 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>8.4.&nbsp;Rivisitazione della mappatura delle liste</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati" />
+<link rel="previous" href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="8.3.&nbsp;Filtrare liste rivisitate" />
+<link rel="next" href="http://it.diveintopython.net/regression_testing/data_centric.html" title="8.5.&nbsp;Programmazione data-centrica" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html">Programmazione orientata ai dati</a>&nbsp;&gt;&nbsp;<span class="thispage">Rivisitazione della mappatura delle liste</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="Indietro: “Filtrare liste rivisitate”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/data_centric.html" title="Avanti: “Programmazione data-centrica”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="regression.map"></a>8.4.&nbsp;Rivisitazione della mappatura delle liste
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Siete gi&agrave; abituati ad usare la
+               	<a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html" title="2.13.&nbsp;Mappare le liste">list comprehensions</a>
+               	per mappare una lista in un altra. C'&egrave; un altro modo per fare
+               	la stessa cosa, usando la funzione built-in <tt class="function">map</tt>.
+               	Funziona in modo molto simile alla funzione
+               	<a href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="8.3.&nbsp;Filtrare liste rivisitate"><tt class="function">filter</tt></a>.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e26030"></a><h3 class="title">Esempio&nbsp;8.10.&nbsp;Introducendo <tt class="function">map</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> double</span>(n):</span>
+<tt class="prompt">...     </tt>return n*2
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [1, 2, 3, 5, 9, 10, 256, -3]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">map(double, li)</span>                       <a name="regression.map.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">[2, 4, 6, 10, 18, 20, 512, -6]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[double(n) <span class="pykeyword">for</span> n <span class="pykeyword">in</span> li]</span>               <a name="regression.map.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">[2, 4, 6, 10, 18, 20, 512, -6]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">newlist = []</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">for</span> n <span class="pykeyword">in</span> li:</span>                          <a name="regression.map.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt><span class="userinput">newlist.append(double(n))</span>
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">newlist</span>
+<span class="computeroutput">[2, 4, 6, 10, 18, 20, 512, -6]</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/mapping_lists.html#regression.map.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">map</tt> richiede una funzione ed una lista
+                        
+                        <sup>[<a name="d0e26107" href="http://it.diveintopython.net/regression_testing/mapping_lists.html#ftn.d0e26107">15</a>]</sup>
+                        	e restituisce una nuova lista chiamando la funzione ed
+                        	ordinandola per ogni elemento della lista.
+                        	In questo caso la funzione
+                        	moltiplica semplicemente ogni elemento per 2.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/mapping_lists.html#regression.map.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potreste arrivare allo stesso risultato con una list
+                        	comprehension. La list comprehension &egrave; stata introdotta
+                        	in <span class="application">Python</span> 2.0; <tt class="function">map</tt> esiste da sempre.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/mapping_lists.html#regression.map.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potreste, se insistete a pensare come un programmatore
+                        	di <span class="application">Visual Basic</span>, usare un ciclo <tt class="literal">for</tt> per fare lo stesso lavoro.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e26135"></a><h3 class="title">Esempio&nbsp;8.11.&nbsp;<tt class="function">map</tt> con liste di tipi di dato diversi
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [5, <span class="pystring">'a'</span>, (2, <span class="pystring">'b'</span>)]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">map(double, li)</span>                       <a name="regression.map.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">[10, 'aa', (2, 'b', 2, 'b')]</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/mapping_lists.html#regression.map.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come nota a margine, preferisco sottolineare che
+                        	<tt class="function">map</tt> funziona bene anche con liste di tipi di dato
+                        	diversi, almeno finch&eacute; la funzione che state usando gestisce
+                        	bene i vari tipi di dato.
+                        	In questo caso, la nostra funzione <tt class="function">double</tt>
+                        	moltiplica semplicemente l'argomento ricevuto per 2, <span class="application">Python</span>
+                        	fa La Cosa Giusta a seconda del tipo di dato dell'argomento.
+                        	Per gli interi, significa proprio moltiplicare per 2; per le
+                        	stringhe, significa concatenare la stringa con se stessa; per
+                        	le tuple, significa creare una nuova tupla che ha tutti gli
+                        	elementi dell'originale e ancora, a seguire, un suo duplicato.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Bene, abbiamo giocato abbastanza. Diamo un'occhiata ad un po'
+            	di codice vero.
+            
+         </p>
+<div class="example"><a name="d0e26171"></a><h3 class="title">Esempio&nbsp;8.12.&nbsp;<tt class="function">map</tt> in <tt class="filename">regression.py</tt></h3><pre class="programlisting">
+    filenameToModuleName = <span class="pykeyword">lambda</span> f: os.path.splitext(f)[0] <a name="regression.map.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    moduleNames = map(filenameToModuleName, files)          <a name="regression.map.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/mapping_lists.html#regression.map.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto nella sezione
+                        	<a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda">Usare le
+                           	funzioni <tt class="literal">lambda</tt></a>, <tt class="literal">lambda</tt>
+                        	definisce una funzione inline.
+                        	Come abbiamo visto
+                        	nell'<a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#splittingpathnames.example" title="Esempio&nbsp;4.36.&nbsp;Dividere i pathnames">Esempio&nbsp;4.36, &#8220;Dividere i pathnames&#8221;</a>,
+                        	<tt class="function">os.path.splitext</tt> riceve come parametro un nome di file e
+                        	restituisce una tupla
+                        	<tt class="literal">(<i class="replaceable">nome</i>,
+                           	<i class="replaceable">estensione</i>)</tt>.
+                        	Quindi <tt class="function">filenameToModuleName</tt> &egrave; una
+                        	funzione che ricever&agrave; un nome di file, toglier&agrave;
+                        	l'estensione e ne restituir&agrave; solamente il nome.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/mapping_lists.html#regression.map.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Chiama <tt class="function">map</tt> per ogni nome di file elencato in files,
+                        	passa il <tt class="varname">nome-file</tt> alla nostra funzione
+                        	<tt class="function">filenameToModuleName</tt> e restituisce una
+                        	lista di valori risultante da ogni chiamata della funzione.
+                        	In altre parole, eliminiamo l'estensione di ogni nome di file
+                        	e conserviamo la lista di tutte queste parti di nomi in
+                        	<tt class="varname">moduleNames</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Come vedremo nel resto del capitolo, possiamo estendere questo
+            	atteggiamento di pensiero data-centrico adattandolo al nostro
+            	scopo, che in definitiva &egrave; eseguire un singolo test che
+            	contenga tutti quei singoli test che ci servono.
+            
+         </p>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e26107" href="http://it.diveintopython.net/regression_testing/mapping_lists.html#d0e26107">15</a>] </sup>
+                      Ancora, devo sottolineare che <tt class="function">map</tt> pu&ograve; ricevere una
+                      lista, una tupla, o un qualsiasi oggetto simile ad una sequenza.
+                      Controllate la nota precedente riguardo a <tt class="function">filter</tt>.
+                      
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/filtering_lists.html">&lt;&lt;&nbsp;Filtrare liste rivisitate</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html#regression.divein" title="8.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="8.3.&nbsp;Filtrare liste rivisitate">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/data_centric.html" title="8.5.&nbsp;Programmazione data-centrica">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="8.6.&nbsp;Importare dinamicamente i moduli">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html" title="8.7.&nbsp;Mettere assieme il tutto (parte 1)">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/inside_pyunit.html" title="8.8.&nbsp;Dentro PyUnit">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/data_centric.html">Programmazione data-centrica&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

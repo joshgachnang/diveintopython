@@ -1,0 +1,266 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>&#1055;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1077; B. Python 2.1.1 license</title><link rel="stylesheet" href="http://web.archive.org/web/20110709015206cs_/http://ru.diveintopython.org/diveintopython.css" type="text/css"><link rev="made" href="mailto:f8dy@diveintopython.org"><meta name="generator" content="DocBook XSL Stylesheets V"><meta name="keywords" content="Python, &#1103;&#1079;&#1099;&#1082; Python, &#1103;&#1079;&#1099;&#1082; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103; Python, Dive Into Python, &#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python, &#1091;&#1095;&#1077;&#1073;&#1085;&#1080;&#1082;, &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1099;&#1081;, &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;, &#1076;&#1086;&#1082;&#1091;&#1084;&#1077;&#1085;&#1090;&#1072;&#1094;&#1080;&#1103;, &#1082;&#1085;&#1080;&#1075;&#1072;, free, &#1089;&#1074;&#1086;&#1073;&#1086;&#1076;&#1085;&#1099;&#1081;, &#1073;&#1077;&#1089;&#1087;&#1083;&#1072;&#1090;&#1085;&#1099;&#1081;"><meta name="description" content="a free Python book for experienced programmers"><link rel="home" href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/toc.html" title="&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python"><link rel="up" href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/toc.html" title="&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python"><link rel="previous" href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/fdl_howto.html" title="A.11. How to use this License for your documents"><link rel="next" href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html" title="B.B. Terms and conditions for accessing or otherwise using Python"></head><body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/ru.diveintopython.org\/license.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "9";
+var displayMonth = "Jul";
+var displayYear = "2011";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://ru.diveintopython.org/license.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20110709015206" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100912220527/http://ru.diveintopython.org/license.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="12 Sep 2010"><strong>SEP</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 1:52:06 Jul 9, 2011">JUL</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Aug
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100912220527/http://ru.diveintopython.org/license.html" title="22:05:27 Sep 12, 2010" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 1:52:06 Jul 9, 2011">9</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20091028044937/http://ru.diveintopython.org/license.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="28 Oct 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 1:52:06 Jul 9, 2011">2011</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2012
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20110709015206*/http://ru.diveintopython.org/license.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>18 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">18 Oct 04 - 9 Jul 11</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000100_2005:-1:110000000000_2006:-1:000000111100_2007:-1:110001000100_2008:-1:100010100000_2009:-1:100000000100_2010:-1:000000001000_2011:6:000000100000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/index.html">&#1053;&#1072;&#1095;&#1072;&#1083;&#1086;</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/toc.html">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</a>&nbsp;&gt;&nbsp;<b>Python 2.1.1 license</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/fdl_howto.html" title="&#1055;&#1088;&#1077;&#1076;.: &#8220;How to use this License for your documents&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html" title="&#1057;&#1083;&#1077;&#1076;.: &#8220;Terms and conditions for accessing or otherwise using Python&#8221;">&gt;&gt;</a></td></tr><tr><td><img src="http://web.archive.org/web/20110709015206im_/http://ru.diveintopython.org/images/logo.png" alt="diveinto.python.ru"></td><td colspan="2"><span id="logo">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</span><br><span id="tagline">&#1044;&#1083;&#1103; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1089;&#1090;&#1086;&#1074;</span></td><td colspan="3" align="right"></td></tr></table><div class="appendix"><div class="titlepage"><div><h2 class="title"><a name="license"></a>&#1055;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1077; B. Python 2.1.1 license</h2></div></div><div class="toc"><p><b>&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;</b></p><ul><li>B.A. <a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license.html#d0e5284">History of the software</a></li><li>B.B. <a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html">Terms and conditions for accessing or otherwise using Python</a><ul><li>B.B.1. <a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html#d0e5292">PSF license agreement</a></li><li>B.B.2. <a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html#d0e5311">BeOpen Python open source license agreement version 1</a></li><li>B.B.3. <a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html#d0e5328">CNRI open source GPL-compatible license agreement</a></li><li>B.B.4. <a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html#d0e5347">CWI permissions statement and disclaimer</a></li></ul></li></ul></div><div class="section"><a name="d0e5284"></a><div class="titlepage"><div><h2 class="title"><a name="d0e5284"></a>B.A. History of the software</h2></div></div><p>Python was created in the early 1990s by Guido van Rossum at Stichting
+Mathematisch Centrum (CWI) in the Netherlands as a successor of a
+language called ABC.  Guido is Python's principal author, although it
+includes many contributions from others.  The last version released
+from CWI was Python 1.2.  In 1995, Guido continued his work on Python
+at the Corporation for National Research Initiatives (CNRI) in Reston,
+Virginia where he released several versions of the software.  Python
+1.6 was the last of the versions released by CNRI.  In 2000, Guido and
+the Python core development team moved to BeOpen.com to form the
+BeOpen PythonLabs team.  Python 2.0 was the first and only release
+from BeOpen.com.</p><p>Following the release of Python 1.6, and after Guido van Rossum left
+CNRI to work with commercial software developers, it became clear that
+the ability to use Python with software available under the GNU Public
+License (GPL) was very desirable.  CNRI and the Free Software
+Foundation (FSF) interacted to develop enabling wording changes to the
+Python license.  Python 1.6.1 is essentially the same as Python 1.6,
+with a few minor bug fixes, and with a different license that enables
+later versions to be GPL-compatible.  Python 2.1 is a derivative work
+of Python 1.6.1, as well as of Python 2.0.</p><p>After Python 2.0 was released by BeOpen.com, Guido van Rossum and the
+other PythonLabs developers joined Digital Creations.  All
+intellectual property added from this point on, starting with Python
+2.1 and its alpha and beta releases, is owned by the Python Software
+Foundation (PSF), a non-profit modeled after the Apache Software
+Foundation.  See http://www.python.org/psf/ for more information about
+the PSF.</p><p>Thanks to the many outside volunteers who have worked under Guido's
+direction to make these releases possible.</p></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br><a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/fdl_howto.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;How to use this License for your documents</a></td><td width="30%" align="center"><br>&nbsp;<b>1</b> <a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html" title="B.B. Terms and conditions for accessing or otherwise using Python">2</a>&nbsp;</td><td width="35%" align="right"><br><a href="http://web.archive.org/web/20110709015206/http://ru.diveintopython.org/license_terms.html">Terms and conditions for accessing or otherwise using Python&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br></td></tr></table><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="left"><p class="copyright">Copyright &copy; 2000, 2001, 2002 <a href="mailto:f8dy@diveintopython.org">&#1052;&#1072;&#1088;&#1082; &#1055;&#1080;&#1083;&#1075;&#1088;&#1080;&#1084;</a></p><p class="copyright">Copyright &copy; 2001, 2002, 2003 &#1055;&#1077;&#1088;&#1077;&#1074;&#1086;&#1076;, <a href="mailto:ods@strana.ru">&#1044;&#1077;&#1085;&#1080;&#1089; &#1054;&#1090;&#1082;&#1080;&#1076;&#1072;&#1095;</a></p></td><td align="left">&nbsp;</td></tr></table></body></html>
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 1:52:06 Jul 9, 2011 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:32:15 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

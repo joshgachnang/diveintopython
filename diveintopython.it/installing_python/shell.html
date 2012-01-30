@@ -1,0 +1,132 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.8.&nbsp;La shell interattiva</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/installing_python/index.html" title="Capitolo&nbsp;1.&nbsp;Installare Python" />
+<link rel="previous" href="http://it.diveintopython.net/installing_python/source.html" title="1.7.&nbsp;Installare dai sorgenti" />
+<link rel="next" href="http://it.diveintopython.net/installing_python/summary.html" title="1.9.&nbsp;Sommario" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/installing_python/index.html">Installare Python</a>&nbsp;&gt;&nbsp;<span class="thispage">La shell interattiva</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/installing_python/source.html" title="Indietro: “Installare dai sorgenti”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/installing_python/summary.html" title="Avanti: “Sommario”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="install.shell"></a>1.8.&nbsp;La shell interattiva
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>Adesso che abbiamo <span class="application">Python</span>, che cos'&egrave; questa shell
+                     interattiva che abbiamo lanciato?
+            </p>
+</div>
+<p>Ecco cos'&egrave;: <span class="application">Python</span> conduce una vita doppia. &Egrave; sia un
+            interprete per gli script che potete lanciare -- o dalla linea di 
+            comando o con un doppio clic sugli script, lanciandoli come
+                  applicazioni. Ma &egrave; anche una shell interattiva, che
+                  pu&ograve; valutare dichiarazioni ed espressioni
+                  arbitrarie. Ci&ograve; &egrave; estremamente utile per il
+                  debugging, l'hacking rapido ed il testing. Conosco persino delle
+                  persone che utilizzano la shell interattiva di <span class="application">Python</span> come
+                  calcolatore!
+         </p>
+<p>Lanciate la shell interattiva di <span class="application">Python</span> in qualunque modo
+                  funzioni la vostra piattaforma ed immergetevi.
+         </p>
+<div class="example"><a name="d0e1217"></a><h3 class="title">Esempio&nbsp;1.10.&nbsp;Primi passi nella shell interattiva</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">1 + 1</span>               <a name="install.shell.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">'hello world'</span></span> <a name="install.shell.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">hello world</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">x = 1</span>               <a name="install.shell.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">y = 2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">x + y</span>
+<span class="computeroutput">3</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/installing_python/shell.html#install.shell.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">La shell interattiva di <span class="application">Python</span> pu&ograve; valutare espressioni
+                              <span class="application">Python</span> arbitrarie, inclusa qualsiasi espressione aritmetica di
+                              base.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/installing_python/shell.html#install.shell.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">La shell interattiva pu&ograve; eseguire istruzioni <span class="application">Python</span>
+                              arbitrarie, inclusa l'istruzione
+                              <span><b class="command">print</b></span>.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/installing_python/shell.html#install.shell.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Potete inoltre assegnare valori alle variabili, e i valori
+                              saranno ricordati finch&eacute; la shell rimane aperta (ma non
+                              oltre).
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/installing_python/source.html">&lt;&lt;&nbsp;Installare dai sorgenti</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/installing_python/index.html#install.choosing" title="1.1.&nbsp;Qual &egrave; il Python giusto per te?">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/windows.html" title="1.2.&nbsp;Python su Windows">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/macosx.html" title="1.3.&nbsp;Python su Mac OS X">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/macos9.html" title="1.4.&nbsp;Python su Mac OS 9">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/redhat.html" title="1.5.&nbsp;Python su RedHat Linux">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/debian.html" title="1.6.&nbsp;Python su Debian GNU/Linux">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/source.html" title="1.7.&nbsp;Installare dai sorgenti">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/installing_python/summary.html" title="1.9.&nbsp;Sommario">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/installing_python/summary.html">Sommario&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

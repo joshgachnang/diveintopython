@@ -1,0 +1,516 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>7.4. Utilisation de la syntaxe {n,m}</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20090206232556cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/index.html" title="Chapitre 7. Expressions r&eacute;guli&egrave;res">
+      <link rel="previous" href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" title="7.3. Exemple : chiffres romains">
+      <link rel="next" href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/verbose.html" title="7.5. Expressions r&eacute;guli&egrave;res d&eacute;taill&eacute;es">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/regular_expressions\/n_m_syntax.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "6";
+var displayMonth = "Feb";
+var displayYear = "2009";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20090206232556" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081208145556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="8 Dec 2008"><strong>DEC</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 23:25:56 Feb 6, 2009">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Mar
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081208145556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" title="14:55:56 Dec 8, 2008" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 23:25:56 Feb 6, 2009">6</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20080103183433/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="3 Jan 2008"><strong>2008</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 23:25:56 Feb 6, 2009">2009</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2010
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20090206232556*/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>18 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">10 Oct 06 - 6 Feb 09</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000100_2007:-1:110012000110_2008:-1:101020003101_2009:1:010000000000_2010:-1:000000000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/index.html">Expressions r&eacute;guli&egrave;res</a>&nbsp;&gt;&nbsp;<span class="thispage">Utilisation de la syntaxe {n,m}</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" title="Pr&eacute;c&eacute;dent: &laquo;Exemple : chiffres romains&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/verbose.html" title="Suivant: &laquo;Expressions r&eacute;guli&egrave;res d&eacute;taill&eacute;es&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="re.nm"></a>7.4. Utilisation de la syntaxe <tt class="literal">{n,m}</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#d0e18325">7.4.1. Rechercher les dizaines et les unit&eacute;s</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Dans <a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" title="7.3. Exemple : chiffres romains">la section pr&eacute;c&eacute;dente</a>, nous avons vu un motif dans lequel le m&ecirc;me caract&egrave;re pouvait &ecirc;tre r&eacute;p&eacute;t&eacute; jusqu&#8217;&agrave; trois fois. Il y a une autre mani&egrave;re d&#8217;exprimer
+               cela dans les expressions r&eacute;guli&egrave;re, que certaines personnes trouvent plus lisible. D&#8217;abord, revenons sur la m&eacute;thode que nous
+               avons utilis&eacute; dans l&#8217;exemple pr&eacute;c&eacute;dent.
+            </p>
+         </div>
+         <div class="example"><a name="d0e18112"></a><h3 class="title">Exemple 7.5. L&#8217;ancienne m&eacute;thode : chaque caract&egrave;re est optionnel</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'M'</span>)</span>    <a name="re.nm.1.1"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EE090&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MM'</span>)</span>   <a name="re.nm.1.2"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMM'</span>)</span>  <a name="re.nm.1.3"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EE090&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMM'</span>)</span> <a name="re.nm.1.4"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.1.1"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Cette cha&icirc;ne est reconnue : le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis le premier <tt class="literal">M</tt> optionnel, mais pas de second ni de troisi&egrave;me <tt class="literal">M</tt> (ce qui est correct puisqu'ils sont optionnels), puis la fin de la cha&icirc;ne.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.1.2"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis le premier et le second <tt class="literal">M</tt> optionnels, mais pas de troisi&egrave;me <tt class="literal">M</tt> (ce qui est correct puisqu'il est optionnel), puis la fin de la cha&icirc;ne.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.1.3"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis les trois <tt class="literal">M</tt> optionnels, puis la fin de la cha&icirc;ne.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.1.4"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis les trois <tt class="literal">M</tt> optionnels, mais pas la fin de la cha&icirc;ne (puisqu'il reste un <tt class="literal">M</tt>), la cha&icirc;ne n'est donc pas reconnue et <tt class="literal">None</tt> est retourn&eacute;.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e18214"></a><h3 class="title">Exemple 7.6. La nouvelle m&eacute;thode : de <tt class="literal">n</tt> &agrave; <tt class="literal">m</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M{0,3}$'</span></span>       <a name="re.nm.2.0"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'M'</span>)</span>    <a name="re.nm.2.1"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MM'</span>)</span>   <a name="re.nm.2.2"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EE090&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMM'</span>)</span>  <a name="re.nm.2.3"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEDA8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMM'</span>)</span> <a name="re.nm.2.4"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.2.0"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Ce motifie signifie : &laquo;<span class="quote">reconna&icirc;tre le d&eacute;but de la cha&icirc;ne, puis de z&eacute;ro &agrave; trois caract&egrave;res <tt class="literal">M</tt>, puis la fin de la cha&icirc;ne.</span>&raquo; Le 0 et le 3 peuvent &ecirc;tre n&#8217;importe quel nombre, si nous voulons reconna&icirc;tre au moins un, mais pas plus de trois caract&egrave;res
+                        <tt class="literal">M</tt>, nous pouvons &eacute;crire <tt class="literal">M{1,3}</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.2.1"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis un <tt class="literal">M</tt> sur trois possibles, puis la fin de la cha&icirc;ne.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.2.2"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis deux <tt class="literal">M</tt> sur trois possibles, puis la fin de la cha&icirc;ne.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.2.3"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis trois <tt class="literal">M</tt> sur trois possibles, puis la fin de la cha&icirc;ne.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.2.4"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis trois <tt class="literal">M</tt> sur trois possibles, puis <span class="emphasis"><em>ne reconna&icirc;t pas</em></span> la fin de la cha&icirc;ne. L&#8217;expression r&eacute;guli&egrave;re permet jusqu'&agrave; trois caract&egrave;res <tt class="literal">M</tt> avant la fin de la cha&icirc;ne, mais il y en a quatre, donc la cha&icirc;ne n'est pas reconnue et <tt class="literal">None</tt> est retourn&eacute;.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e18320"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/note.png" alt="NOTE" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Il n&#8217;y a aucun moyen de d&eacute;terminer par un programme que deux expressions r&eacute;guli&egrave;res sont &eacute;quivalentes. Le mieux que vous puissiez
+                  faire est d&#8217;&eacute;crire de nombreux cas de test pour v&eacute;rifier que leur comportements sont identiques pour les entr&eacute;es pertinentes.
+                  Nous discuterons plus en d&eacute;tail l&#8217;&eacute;criture de cas de tests plus loin dans le livre.
+               </td>
+            </tr>
+         </table>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e18325"></a>7.4.1. Rechercher les dizaines et les unit&eacute;s
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Maintenant, nous allons &eacute;tendre l&#8217;expression r&eacute;guli&egrave;re pour prendre en compte les dizaines et les unit&eacute;s. L&#8217;exemple suivant
+               montre la recherche des dizaines.
+            </p>
+            <div class="example"><a name="re.tens.example"></a><h3 class="title">Exemple 7.7. Rechercher les dizaines</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMXL'</span>)</span>    <a name="re.nm.3.3"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCML'</span>)</span>     <a name="re.nm.3.4"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMLX'</span>)</span>    <a name="re.nm.3.5"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMLXXX'</span>)</span>  <a name="re.nm.3.7"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMLXXXX'</span>)</span> <a name="re.nm.3.8"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.3.3"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, le premier <tt class="literal">M</tt> optionnel, puis <tt class="literal">CM</tt>, puis <tt class="literal">XL</tt>, puis la fin de la cha&icirc;ne. Rappelez-vous que la syntaxe <tt class="literal">(A|B|C)</tt> signifie &laquo;<span class="quote">reconna&icirc;tre un seul parmi A, B et C</span>&raquo;. <tt class="literal">XL</tt> est reconnu, donc <tt class="literal">XC</tt> et <tt class="literal">L?X?X?X?</tt> sont ignor&eacute;s, puis la find de la cha&icirc;ne est reconnue. <tt class="literal">MCML</tt> est la repr&eacute;sentation en chiffres romains de <tt class="literal">1940</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.3.4"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, le premier <tt class="literal">M</tt> optionnel, puis <tt class="literal">CM</tt>, puis <tt class="literal">L?X?X?X?</tt>. Pour <tt class="literal">L?X?X?X?</tt>, il reconna&icirc;t <tt class="literal">L</tt> et saute les trois caract&egrave;res <tt class="literal">X</tt> optionnels. Il reconna&icirc;t ensuite la fin de la cha&icirc;ne. <tt class="literal">MCML</tt> est la repr&eacute;sentation en chiffres romains de <tt class="literal">1950</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.3.5"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, le premier <tt class="literal">M</tt> optionnel, puis <tt class="literal">CM</tt>, puis le <tt class="literal">L</tt> optionnel et le premier <tt class="literal">X</tt> optionnel, saute les trois caract&egrave;res <tt class="literal">X</tt> optionnels, puis reconna&icirc;t la fin de la cha&icirc;ne. <tt class="literal">MCMLX</tt> est la repr&eacute;sentation en chiffres romains de <tt class="literal">1960</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.3.7"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, le premier <tt class="literal">M</tt> optionnel, puis <tt class="literal">CM</tt>, puis le <tt class="literal">L</tt> optionnel et les trois caract&egrave;res <tt class="literal">X</tt>, puis la fin de la cha&icirc;ne.  <tt class="literal">MCMLXXX</tt> est la repr&eacute;sentation en chiffres romains de <tt class="literal">1980</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.3.8"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, le premier <tt class="literal">M</tt> optionnel, puis <tt class="literal">CM</tt>, puis le <tt class="literal">L</tt> optionnel et les trois caract&egrave;res <tt class="literal">X</tt>, puis <span class="emphasis"><em>ne reconna&icirc;t pas</em></span> la fin de la cha&icirc;ne puisqu'il y a encore un <tt class="literal">X</tt> non pris en charge. Donc la cha&icirc;ne n'est pas reconnue et <tt class="literal">None</tt> est retourn&eacute;. <tt class="literal">MCMLXXXX</tt> n'est pas un repr&eacute;sentation en chiffres romains valide.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>L&#8217;expression pour les unit&eacute;s suit le m&ecirc;me motif. Je vous &eacute;pargne les d&eacute;tails et ne vous montre que le r&eacute;sultat final.</p>
+            <div class="informalexample"><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span></span>
+</pre></div>
+            <p>A quoi est-ce que &ccedil;a resemble en utilisant la syntaxe alternative avec <tt class="literal">{n,m}</tt> ? L&#8217;exemple suivant montre la nouvelle syntaxe.
+            </p>
+            <div class="example"><a name="re.nm.example"></a><h3 class="title">Exemple 7.8. Validation des chiffres romains avec <tt class="literal">{n,m}</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MDLV'</span>)</span>             <a name="re.nm.4.1"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMDCLXVI'</span>)</span>         <a name="re.nm.4.2"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMMDCCCLXXXVIII'</span>)</span> <a name="re.nm.4.3"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'I'</span>)</span>                <a name="re.nm.4.4"></a><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.4.1"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis un sur un maximum de quatre caract&egrave;res <tt class="literal">M</tt>, puis <tt class="literal">D?C{0,3}</tt>. Pour cette expression il reconna&icirc;t le <tt class="literal">D</tt> optionnel et z&eacute;ro sur un maximum de trois caract&egrave;res <tt class="literal">C</tt>. Ensuite il reconna&icirc;t <tt class="literal">L?X{0,3}</tt> avec le <tt class="literal">L</tt> optionnel et z&eacute;ro sur un maximum de trois caract&egrave;res <tt class="literal">X</tt>. Puis il reconna&icirc;t <tt class="literal">V?I{0,3}</tt> avec le <tt class="literal">V</tt> optionnel et z&eacute;ro sur un maximum de trois caract&egrave;res <tt class="literal">I</tt>, puis la fin de la cha&icirc;ne. <tt class="literal">MDLV</tt> est la repr&eacute;sentation en chiffres romains de <tt class="literal">1555</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.4.2"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis deux sur un maximum de quatre caract&egrave;res <tt class="literal">M</tt>, puis <tt class="literal">D?C{0,3}</tt> avec un <tt class="literal">D</tt> et un sur un maximum de trois caract&egrave;res <tt class="literal">C</tt>. Ensuite il reconna&icirc;t <tt class="literal">L?X{0,3}</tt> avec un <tt class="literal">L</tt> et un sur un maximum de trois caract&egrave;res <tt class="literal">X</tt>. Puis il reconna&icirc;t <tt class="literal">V?I{0,3}</tt> avec un <tt class="literal">V</tt> and et un sur un maximum de trois caract&egrave;res <tt class="literal">I</tt>, puis la fin de la cha&icirc;ne. <tt class="literal">MMDCLXVI</tt> est la repr&eacute;sentation en chiffres romains de <tt class="literal">2666</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.4.3"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis quatre sur un maximum de quatre caract&egrave;res <tt class="literal">M</tt>, puis <tt class="literal">D?C{0,3}</tt> avec un <tt class="literal">D</tt> et trois sur un maximum de trois caract&egrave;res <tt class="literal">C</tt>. Ensuite il reconna&icirc;t <tt class="literal">L?X{0,3}</tt> avec un <tt class="literal">L</tt> et trois sur un maximum de trois caract&egrave;res <tt class="literal">X</tt>. Puis il reconna&icirc;t <tt class="literal">V?I{0,3}</tt> avec un <tt class="literal">V</tt> et trois sur un maximum de trois caract&egrave;res <tt class="literal">I</tt>, puis la fin de la cha&icirc;ne. <tt class="literal">MMMMDCCCLXXXVIII</tt> est la repr&eacute;sentation en chiffres romains de <tt class="literal">3888</tt> et c'est le chiffre romain le plus long que vous pouvez &eacute;crire sans syntaxe &eacute;tendue.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html#re.nm.4.4"><img src="http://web.archive.org/web/20090206232556im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Regardez bien. Le motif reconna&icirc;t le d&eacute;but de la cha&icirc;ne, puis z&eacute;ro sur un maximum de quatre <tt class="literal">M</tt>, puis <tt class="literal">D?C{0,3}</tt> en sautant le <tt class="literal">D</tt> optionnel et z&eacute;ro sur un maximum de trois <tt class="literal">C</tt>. Ensuite il reconna&icirc;t <tt class="literal">L?X{0,3}</tt> en sautant le <tt class="literal">L</tt> optionnel et z&eacute;ro sur un maximum de trois <tt class="literal">X</tt>. Puis il reconna&icirc;t <tt class="literal">V?I{0,3}</tt> en sautant le <tt class="literal">V</tt> optionnel et un sur un maximum de trois <tt class="literal">I</tt>, puis la fin de la cha&icirc;ne.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Si vous avez suivi tout cela et que vous l'avez compris du premier coup, vous vous en sortez mieux que moi au d&eacute;but. Maintenant,
+               imaginez devoir comprendre une expression r&eacute;guli&egrave;re &eacute;crite par quelqu'un d'autre au mileu d'un fonction critique d'un programme
+               de grande taille. Ou imaginez simplement de devoir revenir sur une de vos propres expressions r&eacute;guli&egrave;res quelques mois plus
+               tard. Je l'ai fait et ce n'est pas une partie de plaisir.
+            </p>
+            <p>Dans la prochaine section vous explorerez une syntaxe alternative qui rendra possible la maintenance de vos expressions r&eacute;guli&egrave;res.</p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html">&lt;&lt;&nbsp;Exemple : chiffres romains</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/index.html#re.intro" title="7.1. Plonger">1</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" title="7.2. Exemple : adresses postales">2</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" title="7.3. Exemple : chiffres romains">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/verbose.html" title="7.5. Expressions r&eacute;guli&egrave;res d&eacute;taill&eacute;es">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/phone_numbers.html" title="7.6. Etude de cas : reconnaissance de num&eacute;ros de t&eacute;l&eacute;phone">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/summary.html" title="7.7. R&eacute;sum&eacute;">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090206232556/http://diveintopython.adrahon.org/regular_expressions/verbose.html">Expressions r&eacute;guli&egrave;res d&eacute;taill&eacute;es&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 23:25:56 Feb 6, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:25:12 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

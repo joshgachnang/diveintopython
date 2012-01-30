@@ -1,0 +1,52 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.6. Prueba de m&oacute;dulos</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo" /><link rel="next" href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Prueba de m&oacute;dulos</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_indenting.html" title="Anterior: “Sangrado del c&oacute;digo”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_dict.html" title="Siguiente: “Todo sobre los diccionarios”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.testing"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.testing"></a>1.6. Prueba de m&oacute;dulos</h2></div></div><div class="abstract"><p>Los m&oacute;dulos en Python son objetos y tienen varios atributos
+&uacute;tiles. Estos pueden utilizarse para probar los m&oacute;dulos mientras se
+escriben.</p></div><div class="example"><p><a name="odbchelper.ifnametrick"></a><b>Ejemplo 1.7. El truco <tt>if</tt> <tt>__name__</tt></b></p><pre class="programlisting"><span class="pykeyword">
+if</span> __name__ == <span class="pystring">"__main__"</span>:</pre></div><p>Unas observaciones breves antes de meternos en materia. En
+primer lugar, no son necesarios los par&eacute;ntesis en la condici&oacute;n del
+<tt>if</tt>. En segundo lugar, la sentencia <tt>if</tt> termina con dos puntos, y le
+sigue <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">c&oacute;digo sangrado</a>.</p><a name="compare.equals.c"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Al igual que C, Python usa <tt>==</tt> para comparar
+y <tt>=</tt> para asignar. Pero a diferencia de C, Python
+no admite la asignaci&oacute;n en l&iacute;nea, de modo que no hay posibilidad de
+asignar accidentalmente el valor con el que se piensa que se est&aacute;
+comparando.</td></tr></table><p>&iquest;Por qu&eacute; esta sentencia <tt>if</tt> en concreto es un truco? Los
+m&oacute;dulos son objetos, y todos los m&oacute;dulos tienen un atributo <tt>__name__</tt>
+incorporado. El atributo <tt>__name__</tt> de un m&oacute;dulo depende de c&oacute;mo se
+utiliza el m&oacute;dulo. Si se importa con import, <tt>__name__</tt> es el nombre del
+fichero del m&oacute;dulo, sin la ruta al directorio ni la extensi&oacute;n. Pero
+tambi&eacute;n puede ejecutarse un m&oacute;dulo directamente como programa
+independiente, y en este caso <tt>__name__</tt> adquiere un valor especial,
+<tt>__main__</tt>.</p><div class="example"><p><a name="d0e404"></a><b>Ejemplo 1.8. <tt>__name__</tt> en un m&oacute;dulo importado</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">odbchelper.<tt>__name__</tt></span>
+<span class="computeroutput">'odbchelper'</span></pre></div><p>Sabiendo esto, se puede dise&ntilde;ar una serie de pruebas para un
+m&oacute;dulo dentro del propio m&oacute;dulo, incluy&eacute;ndola en esta sentencia <tt>if</tt>.
+Cuando se ejecuta el m&oacute;dulo directamente, <tt>__name__</tt> es <tt>__main__</tt>, por lo que
+la serie de pruebas se ejecuta. Cuando se importa el m&oacute;dulo, <tt>__name__</tt> es
+otra cosa, por lo que la serie de pruebas se ignora. Esto hace m&aacute;s
+f&aacute;cil desarrollar y depurar nuevos m&oacute;dulos antes de integrarlos en un
+programa mayor.</p><a name="tip.mac.runasmain"></a><table class="tip" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/tip.png" alt="Sugerencia" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En MacPython, hay que a&ntilde;adir un paso m&aacute;s para que funcione el
+truco <tt>if</tt> <tt>__name__</tt>. Mostrar el men&uacute; de opciones del m&oacute;dulo pulsando en
+el tri&aacute;ngulo negro de la esquina superior derecha de la ventana, y 
+asegurarse de que Run as
+__main__ est&aacute; seleccionado.</td></tr></table><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li>La <a href="http://es.diveintopython.net/doc/current/ref/"><i>Referencia del lenguaje Python</i></a> expone detalles de bajo
+nivel sobre <a href="http://es.diveintopython.net/doc/current/ref/import.html">la 
+importaci&oacute;n de m&oacute;dulos</a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_indenting.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Sangrado del c&oacute;digo</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <b>6</b> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_dict.html">Todo sobre los diccionarios&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

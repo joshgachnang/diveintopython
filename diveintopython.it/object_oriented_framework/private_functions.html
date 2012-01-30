@@ -1,0 +1,203 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.9.&nbsp;Funzioni private</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Funzioni private</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="Indietro: “Attributi di classe”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="Avanti: “Gestire le eccezioni”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.private"></a>4.9.&nbsp;Funzioni private
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Come molti linguaggi, anche <span class="application">Python</span> ha il concetto di
+               	funzioni private, che non possono essere chiamate
+               	dall'esterno del loro modulo; metodi privati di una classe,
+               	che non possono essere chiamati dall'esterno della loro
+               	classe ed attributi privati, che non possono essere
+               	referenziati
+               	dall'esterno della loro classe. Al contrario di molti
+               	linguaggi, il fatto che una funzione, metodo o attributo in
+               	<span class="application">Python</span> sia pubblico o privato viene determinato interamente
+               	dal suo nome.
+               
+            </p>
+</div>
+<p>
+            	In <tt class="classname">MP3FileInfo</tt> vi sono due metodi: 
+            	<tt class="function">__parse</tt> e <tt class="function">__setitem__</tt>.
+            	Come abbiamo gi&agrave; detto, <tt class="function">__setitem__</tt> &egrave; un
+            	<a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.setitem.example" title="Esempio&nbsp;4.14.&nbsp;Il metodo speciale __setitem__">metodo
+               	speciale</a>; normalmente, lo chiamereste indirettamente
+            	usando la sintassi del dizionario su un'istanza di classe ma
+            	&egrave; pubblico e potreste chiamarlo direttamente (anche
+            	dall'esterno del modulo <tt class="filename">fileinfo</tt>) se avete una
+            	buona ragione. Comunque, <tt class="function">__parse</tt> &egrave;
+            	privato, visto che ha due underscore all'inizio del suo nome.
+            
+         </p><a name="tip.private"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Se il nome di una funzione, metodo di classe o attributo in
+                  	<span class="application">Python</span> inizia con (ma non finisce con) due underscore, &egrave;
+                  	privato; ogni altra cosa &egrave; pubblica.
+                  
+               </td>
+</tr>
+</table><a name="tip.specialmethodnames"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	In <span class="application">Python</span>, tutti i metodi speciali (come
+                  <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.setitem.example" title="Esempio&nbsp;4.14.&nbsp;Il metodo speciale __setitem__"><tt class="function">__setitem__</tt></a>)
+                  	e gli attributi built-in (come
+                  	<a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Esempio&nbsp;2.5.&nbsp;Accedere alla doc string della funzione buildConnectionString"><tt class="literal">__doc__</tt></a>)
+                  	seguono una convenzione standard sui nomi: iniziano e
+                  	finiscono con due underscore. Non nominate i vostri metodi e
+                  	attributi in questa maniera, servir&agrave; solo a confondervi.
+                  	Inoltre, in futuro, potrebbe anche confondere altri che
+                  	leggeranno il vostro codice.
+                  
+               </td>
+</tr>
+</table><a name="tip.protected"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> non ha il concetto di metodi protetti di classe
+                  	(accessibili solo nella loro stessa classe ed in quelle
+                  	discendenti). I metodi di classe sono o privati (accessibili
+                  	unicamente nella loro stessa classe) o pubblici (accessibili
+                  	ovunque).
+                  
+               </td>
+</tr>
+</table>
+<div class="example"><a name="d0e10737"></a><h3 class="title">Esempio&nbsp;4.20.&nbsp;Provare ad invocare un metodo privato</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> fileinfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m = fileinfo.MP3FileInfo()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m.__parse(<span class="pystring">"/music/_singles/kairo.mp3"</span>)</span> <a name="fileinfo.private.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'MP3FileInfo' instance has no attribute '__parse'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html#fileinfo.private.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se provate a chiamare un metodo privato, <span class="application">Python</span> sollever&agrave;
+                        	un'eccezione un po' ingannevole, dicendo che il metodo non
+                        	esiste. Ovviamente esiste, ma &egrave; privato, quindi non
+                        	accessibile al di fuori della classe.
+                           <sup>[<a name="d0e10767" href="http://it.diveintopython.net/object_oriented_framework/private_functions.html#ftn.d0e10767">5</a>]</sup>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+                  	Nel <a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> troverete informazioni difficilmente
+                  	rintracciabili altrove sulle
+                  <a href="http://it.diveintopython.net/doc/current/tut/node11.html#SECTION0011600000000000000000">variabili
+                     	private</a>.
+                  
+               </li>
+</ul>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e10767" href="http://it.diveintopython.net/object_oriented_framework/private_functions.html#d0e10767">5</a>] </sup>
+                     Parlando rigorosamente, i metodi privati sono accessibili al di
+                     fuori dalla loro classe, ma non <span class="emphasis"><em>facilmente</em></span>.
+                     Nulla in <span class="application">Python</span> &egrave; realmente privato, internamente i nomi dei
+                     metodi e degli attributi privati vengono
+                     cambiati al volo per farli
+                     sembrare inaccessibili attraverso i nomi che li identificano.
+                     Potete
+                     accedere al metodo <tt class="function">__parse</tt> della classe
+                     <tt class="classname">MP3FileInfo</tt> con il nome
+                     <tt class="function">_MP3FileInfo__parse</tt>. Ammesso che sia
+                     interessante, promettete di non farlo mai e poi mai nel codice
+                     reale. I metodi privati sono tali per una ragione, ma come
+                     per altre cose in <span class="application">Python</span>, se sono privati &egrave; soprattutto
+                     per una questione di convezioni, non di imposizione.
+                     
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html">&lt;&lt;&nbsp;Attributi di classe</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html">Gestire le eccezioni&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

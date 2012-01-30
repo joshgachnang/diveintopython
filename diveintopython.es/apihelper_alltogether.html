@@ -1,0 +1,112 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.8. Todo junto</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/apihelper_divein.html" title="Cap&iacute;tulo 2. El poder de la introspecci&oacute;n" /><link rel="previous" href="http://es.diveintopython.net/apihelper_lambda.html" title="2.7. Utilizaci&oacute;n de las funciones lambda" /><link rel="next" href="http://es.diveintopython.net/apihelper_summary.html" title="2.9. Resumen" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html">El poder de la introspecci&oacute;n</a>&nbsp;&gt;&nbsp;<b>Todo junto</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_lambda.html" title="Anterior: “Utilizaci&oacute;n de las funciones lambda”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_summary.html" title="Siguiente: “Resumen”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="apihelper.alltogether"></a><div class="titlepage"><div><h2 class="title"><a name="apihelper.alltogether"></a>2.8. Todo junto</h2></div></div><div class="abstract"><p>La &uacute;ltima l&iacute;nea de c&oacute;digo, la &uacute;nica que no hemos desmenuzado
+todav&iacute;a, es la que hace todo el trabajo. Pero el trabajo ya es f&aacute;cil,
+porque todo lo que necesitamos ya est&aacute; dispuesto de la manera en que
+lo necesitamos. Las fichas del domin&oacute; est&aacute;n en su sitio; lo que queda
+es golpear la primera.</p></div><div class="example"><p><a name="d0e2689"></a><b>Ejemplo 2.25. El meollo de <tt>apihelper.py</tt></b></p><pre class="programlisting">
+    <span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join([<span class="pystring">"%s %s"</span> %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     <span class="pykeyword">for</span> method <span class="pykeyword">in</span> methodList])</pre></div><p>Advierta que esto es una sola orden, dividida en varias l&iacute;neas,
+pero sin utilizar el car&aacute;cter de continuaci&oacute;n de l&iacute;nea
+(&#8220;<tt>\</tt>&#8221;). &iquest;Recuerda cuando dije que
+<a href="http://es.diveintopython.net/odbchelper_vardef.html#tip.implicitmultiline">algunas expresiones pueden
+dividirse en varias l&iacute;neas</a> sin usar la contrabarra? Una lista
+por comprensi&oacute;n es una de estas expresiones, ya que la expresi&oacute;n
+completa est&aacute; entre corchetes.</p><p>Vamos a tomarlo por el final y recorrerlo hacia atr&aacute;s. El
+fragmento </p><pre class="programlisting"><span class="pykeyword">
+for</span> method <span class="pykeyword">in</span> methodList</pre><p>nos muestra que esto es
+una <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">lista por comprensi&oacute;n</a>. Como
+ya sabe, <tt>methodList</tt> es una lista de <a href="http://es.diveintopython.net/apihelper_filter.html#apihelper.filter.care" title="Ejemplo 2.15. Filtrado de una lista en apihelper.py">todos los m&eacute;todos que nos
+interesan</a> en <tt>object</tt>. De modo que estamos
+recorriendo esta lista con la variable <tt>method</tt>.</p><div class="example"><p><a name="d0e2705"></a><b>Ejemplo 2.26. Obtenci&oacute;n de una cadena de documentaci&oacute;n de forma din&aacute;mica</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">object = odbchelper</span>                   <a name="apihelper.alltogether.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">method = <span class="pystring">'buildConnectionString'</span></span>      <a name="apihelper.alltogether.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">getattr(object, method)</span>               <a name="apihelper.alltogether.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;function buildConnectionString at 010D6D74&gt;</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> getattr(object, method).__doc__</span> <a name="apihelper.alltogether.1.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">Build a connection string from a dictionary of parameters.
+
+    Returns string.</span></pre><div class="calloutlist"><a name="d0e2724"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">En la funci&oacute;n <tt>help</tt>, <tt>object</tt> es el objeto
+sobre el que pedimos ayuda, pasado como argumento.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Cuando recorremos <tt>methodList</tt>,
+<tt>method</tt> es el nombre del m&eacute;todo actual.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Usando la funci&oacute;n <a href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr"><tt>getattr</tt></a>, obtenemos una referencia
+a la funci&oacute;n <i><tt>m&eacute;todo</tt></i> del m&oacute;dulo
+<i><tt>objeto</tt></i>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.1.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Ahora, mostrar la cadena de documentaci&oacute;n del m&eacute;todo es f&aacute;cil.</td></tr></table></div></div><p>La siguiente pieza del puzzle es el uso de <tt>str</tt> con la
+cadena de documentaci&oacute;n. Como recordar&aacute; usted, <tt>str</tt> es una funci&oacute;n incorporada
+que <a href="http://es.diveintopython.net/apihelper_builtin.html" title="2.3. type, str, dir, y otras funciones incorporadas">convierte datos en
+cadenas</a>. Pero una cadena de documentaci&oacute;n es siempre una cadena, luego &iquest;por
+qu&eacute; molestarse en usar la funci&oacute;n <tt>str</tt>? La respuesta es que no todas las
+funciones tienen una cadena de documentaci&oacute;n, y en este caso su atributo <tt>__doc__</tt> es
+<tt>None</tt>.</p><div class="example"><p><a name="d0e2748"></a><b>Ejemplo 2.27. &iquest;Por qu&eacute; usar <tt>str</tt> con una cadena de documentaci&oacute;n?</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">{}.keys.__doc__</span>         <a name="apihelper.alltogether.2.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">{}.keys.__doc__ == None</span> <a name="apihelper.alltogether.2.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">1</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">str({}.keys.__doc__)</span>    <a name="apihelper.alltogether.2.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'None'</span>
+</pre><div class="calloutlist"><a name="d0e2763"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.2.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">La funci&oacute;n <tt>keys</tt> de un diccionario no tiene cadena de documentaci&oacute;n, luego
+su atributo <tt>__doc__</tt> es <tt>None</tt>. Para m&aacute;s confusi&oacute;n, si se eval&uacute;a
+directamente el atributo <tt>__doc__</tt>, el entorno de programaci&oacute;n Python no muestra nada en
+absoluto, lo cual tiene sentido si se piensa bien, pero es poco
+pr&aacute;ctico.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.2.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Se puede verificar que el valor del atributo <tt>__doc__</tt> es realmente
+<tt>None</tt> compar&aacute;ndolo directamente.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.2.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Con el uso de la funci&oacute;n <tt>str</tt> se toma el valor nulo y se
+devuelve su representaci&oacute;n como cadena,
+<tt>'None'</tt>.</td></tr></table></div></div><a name="compare.isnull.sql"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En sql, se utiliza <tt>IS NULL</tt> en vez de
+<tt>= NULL</tt> para comparar un valor nulo. En Python no
+hay una sintaxis especial; se usa <tt>== None</tt> como en
+cualquier otra comparaci&oacute;n.</td></tr></table><p>Ahora que estamos seguros de tener una cadena, podemos pasarla a
+<tt>processFunc</tt>, que <a href="http://es.diveintopython.net/apihelper_lambda.html" title="2.7. Utilizaci&oacute;n de las funciones lambda">hemos definido</a> como una
+funci&oacute;n que unifica o no el espacio en blanco. Ahora se ve por qu&eacute; es
+importante utilizar <tt>str</tt> para convertir el valor <tt>None</tt> en su
+representaci&oacute;n como cadena. <tt>processFunc</tt> asume que
+su argumento es una cadena y llama a su m&eacute;todo <tt>split</tt>, el cual
+fallar&iacute;a si le pasamos <tt>None</tt>, ya que <tt>None</tt> no tiene un m&eacute;todo
+<tt>split</tt>.</p><p>Yendo m&aacute;s atr&aacute;s, vemos que estamos utilizando el formato de
+cadenas de nuevo para concatenar el valor de retorno de
+<tt>processFunc</tt> con el valor de retorno del m&eacute;todo
+<tt>ljust</tt> de <tt>method</tt>. Este es un nuevo m&eacute;todo de
+cadena que no hemos visto antes.</p><div class="example"><p><a name="d0e2802"></a><b>Ejemplo 2.28. Presentaci&oacute;n del m&eacute;todo <tt>ljust</tt></b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">s = <span class="pystring">'buildConnectionString'</span></span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">s.ljust(30)</span> <a name="apihelper.alltogether.3.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'buildConnectionString         '</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">s.ljust(20)</span> <a name="apihelper.alltogether.3.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'buildConnectionString'</span></pre><div class="calloutlist"><a name="d0e2816"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.3.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>ljust</tt> rellena la cadena con espacios hasta la longitud
+indicada. Esto lo usa la funci&oacute;n <tt>help</tt> para hacer
+dos columnas y alinear todas las cadenas de documentaci&oacute;n en la segunda
+columna.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.3.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Si la longitud indicada es menor que la longitud de la cadena,
+<tt>ljust</tt> devuelve simplemente la cadena sin cambios. Nunca corta la
+cadena.</td></tr></table></div></div><p>Casi hemos terminado. Dados el nombre del m&eacute;todo (relleno con
+espacios con el m&eacute;todo <tt>ljust</tt>) y la cadena de documentaci&oacute;n (posiblemente con el
+espacio blanco unificado), que result&oacute; de la llamada a
+<tt>processFunc</tt>, concatenamos las dos y obtenemos una
+&uacute;nica cadena. Como estamos recorriendo <tt>methodList</tt>,
+terminamos con una lista de cadenas. Utilizando el m&eacute;todo <tt>join</tt> de la
+cadena <tt>"\n"</tt>, unimos esta lista en una &uacute;nica cadena,
+con cada elemento de la lista en una l&iacute;nea diferente, y mostramos el
+resultado.</p><div class="example"><p><a name="d0e2830"></a><b>Ejemplo 2.29. Muestra de una lista</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">'a'</span>, <span class="pystring">'b'</span>, <span class="pystring">'c'</span>]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join(li)</span> <a name="apihelper.alltogether.4.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">a
+b
+c</span></pre><div class="calloutlist"><a name="d0e2839"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_alltogether.html#apihelper.alltogether.4.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Este es tambi&eacute;n un &uacute;til truco de depuraci&oacute;n cuando se trabaja
+con listas. Y en Python, siempre se trabaja con listas.</td></tr></table></div></div><p>Esta es la &uacute;ltima pieza del puzzle. Este c&oacute;digo deber&iacute;a ahora
+entenderse perfectamente.</p><div class="example"><p><a name="d0e2844"></a><b>Ejemplo 2.30. Otra vez el meollo de <tt>apihelper.py</tt></b></p><pre class="programlisting">
+    <span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join([<span class="pystring">"%s %s"</span> %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     <span class="pykeyword">for</span> method <span class="pykeyword">in</span> methodList])</pre></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/apihelper_lambda.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Utilizaci&oacute;n de las funciones lambda</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.divein" title="2.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/apihelper_optional.html" title="2.2. Argumentos opcionales y con nombre">2</a> <a href="http://es.diveintopython.net/apihelper_builtin.html" title="2.3. type, str, dir, y otras funciones incorporadas">3</a> <a href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr">4</a> <a href="http://es.diveintopython.net/apihelper_filter.html" title="2.5. Filtrado de listas">5</a> <a href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or">6</a> <a href="http://es.diveintopython.net/apihelper_lambda.html" title="2.7. Utilizaci&oacute;n de las funciones lambda">7</a> <b>8</b> <a href="http://es.diveintopython.net/apihelper_summary.html" title="2.9. Resumen">9</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/apihelper_summary.html">Resumen&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

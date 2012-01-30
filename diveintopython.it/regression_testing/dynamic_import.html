@@ -1,0 +1,219 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>8.6.&nbsp;Importare dinamicamente i moduli</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati" />
+<link rel="previous" href="http://it.diveintopython.net/regression_testing/data_centric.html" title="8.5.&nbsp;Programmazione data-centrica" />
+<link rel="next" href="http://it.diveintopython.net/regression_testing/all_together_part_1.html" title="8.7.&nbsp;Mettere assieme il tutto (parte 1)" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html">Programmazione orientata ai dati</a>&nbsp;&gt;&nbsp;<span class="thispage">Importare dinamicamente i moduli</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/data_centric.html" title="Indietro: “Programmazione data-centrica”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html" title="Avanti: “Mettere assieme il tutto (parte 1)”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="regression.import"></a>8.6.&nbsp;Importare dinamicamente i moduli
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>Ok, abbiamo filosofeggiato abbastanza. Vediamo come si
+                     importano dinamicamente i moduli.
+            </p>
+</div>
+<p>Per cominciare osservate come vengono importati normalmente i
+                  moduli. La sintassi <tt class="literal">import <i class="replaceable">module</i></tt> rimanda al percorso di
+                  ricerca per trovare un modulo e lo importa per nome. Si possono
+                  anche importare pi&ugrave; moduli contemporaneamente usando una
+                  lista separata da virgole, &egrave; stato fatto nella prima riga
+                  di codice di questo capitolo.
+         </p>
+<div class="example"><a name="d0e26347"></a><h3 class="title">Esempio&nbsp;8.13.&nbsp;Importare contemporaneamente pi&ugrave; moduli</h3><pre class="programlisting"><span class="pykeyword">
+import</span> sys, os, re, unittest <a name="regression.import.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/dynamic_import.html#regression.import.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Questa riga importa quattro moduli in una istruzione: 
+                              <tt class="filename">sys</tt> (per funzioni di
+                              sistema ed accesso ai parametri della riga di comando), 
+                              <tt class="filename">os</tt> (per operazioni
+                              legate al sistema operativo, come ad esempio elencare
+                              directory), <tt class="filename">re</tt> (per le
+                              espressioni regolari) e 
+                              <tt class="filename">unittest</tt> (per i test
+                              delle unit&agrave; di codice).
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>Adesso facciamo la stessa cosa, per&ograve; con l'importazione
+                  dinamica.
+         </p>
+<div class="example"><a name="d0e26372"></a><h3 class="title">Esempio&nbsp;8.14.&nbsp;Importare moduli dinamicamente</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys = __import__(<span class="pystring">'sys'</span>)</span>           <a name="regression.import.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os = __import__(<span class="pystring">'os'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re = __import__(<span class="pystring">'re'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">unittest = __import__(<span class="pystring">'unittest'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys</span>                               <a name="regression.import.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="computeroutput">&lt;module 'sys' (built-in)&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="computeroutput">&lt;module 'os' from '/usr/local/lib/python2.2/os.pyc'&gt;</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/dynamic_import.html#regression.import.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">La funzione built-in <tt class="function">__import__</tt> ha lo stesso obiettivo
+                              dell'istruzione <tt class="literal">import</tt>, per&ograve; &egrave; una vera funzione
+                              ed accetta una stringa come argomento.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/dynamic_import.html#regression.import.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">La variabile <tt class="varname">sys</tt> adesso &egrave; il modulo 
+                              <tt class="filename">sys</tt>, come se avessimo
+                              fatto <tt class="literal">import sys</tt>. La variabile
+                              <tt class="varname">os</tt> adesso &egrave; il modulo 
+                              <tt class="filename">os</tt>, e cos&igrave; via.
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>Quindi <tt class="function">__import__</tt> importa moduli, per&ograve; con una
+                  stringa come argomento. In questo caso il modulo che abbiamo
+                  importato era un parametro statico, ma poteva essere una
+                  variabile o anche il risultato di una chiamata a
+                  funzione. Inoltre la variabile a cui assegnamo il modulo
+                  pu&ograve; avere un nome qualsiasi o anche essere un elemento di
+                  una lista.
+         </p>
+<div class="example"><a name="d0e26454"></a><h3 class="title">Esempio&nbsp;8.15.&nbsp;Importare dinamicamente una lista di moduli</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">moduleNames = [<span class="pystring">'sys'</span>, <span class="pystring">'os'</span>, <span class="pystring">'re'</span>, <span class="pystring">'unittest'</span>]</span> <a name="regression.import.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">moduleNames</span>
+<span class="computeroutput">['sys', 'os', 're', 'unittest']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules = map(__import__, moduleNames)</span>        <a name="regression.import.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules</span>                                       <a name="regression.import.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">[&lt;module 'sys' (built-in)&gt;,
+&lt;module 'os' from 'c:\Python22\lib\os.pyc'&gt;,
+&lt;module 're' from 'c:\Python22\lib\re.pyc'&gt;,
+&lt;module 'unittest' from 'c:\Python22\lib\unittest.pyc'&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules[0].version</span>                            <a name="regression.import.3.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">'2.2.2 (#37, Nov 26 2002, 10:24:37) [MSC 32 bit (Intel)]'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> sys</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.version</span>
+<span class="computeroutput">'2.2.2 (#37, Nov 26 2002, 10:24:37) [MSC 32 bit (Intel)]'</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/dynamic_import.html#regression.import.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="varname">moduleNames</tt> &egrave; una semplice
+                              lista di stinghe. Niente di strano, eccetto che le stringhe
+                              potrebbero essere nomi di moduli che, nel caso serva, possiamo
+                              importare.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/dynamic_import.html#regression.import.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Sorpresa, volevamo importarli, e lo abbiamo fatto mappando la
+                              funzione <tt class="function">__import__</tt> sulla lista. Ricordate, <tt class="function">map</tt>
+                              prende ogni elemento della lista
+                              (<tt class="varname">moduleNames</tt>) e chiama la funzione
+                              (<tt class="function">__import__</tt>) una volta per ogni elemento della lista,
+                              compone una lista con i risultati e la restituisce.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/dynamic_import.html#regression.import.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Adesso da una lista di stringhe abbiamo creato una lista di veri
+                              e propri moduli. (Gli indirizzi potrebbero essere diversi,
+                              dipendono dal sistema operativo dove &egrave; installato
+                              <span class="application">Python</span>, dalle fasi della luna, etc.)
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/dynamic_import.html#regression.import.3.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Per aver conferma che sono moduli veri, andiamo a vedere alcuni
+                              attributi. Ricodate, <tt class="varname">modules[0]</tt>
+<span class="emphasis"><em>&egrave;</em></span> il modulo <tt class="filename">sys</tt> ed infatti
+                              <tt class="varname">modules[0].version</tt>
+<span class="emphasis"><em>&egrave;</em></span> identico a
+                              <tt class="varname">sys.version</tt>. Ovviamente sono disponibili
+                              anche tutti gli attributi ed i metodi degli altri moduli della
+                              lista. Ma non c'&egrave; niente di magico n&eacute;
+                              nell'istruzione <tt class="literal">import</tt>, n&eacute; nei moduli. Infatti anche i
+                              moduli sono oggetti. Tutto &egrave; un oggetto.
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>Ora dovremmo essere in grado di comprendere il significato della
+                  maggior parte degli esempi di questo capitolo.
+         </p>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/data_centric.html">&lt;&lt;&nbsp;Programmazione data-centrica</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html#regression.divein" title="8.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="8.3.&nbsp;Filtrare liste rivisitate">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="8.4.&nbsp;Rivisitazione della mappatura delle liste">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/data_centric.html" title="8.5.&nbsp;Programmazione data-centrica">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html" title="8.7.&nbsp;Mettere assieme il tutto (parte 1)">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/inside_pyunit.html" title="8.8.&nbsp;Dentro PyUnit">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/all_together_part_1.html">Mettere assieme il tutto (parte 1)&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

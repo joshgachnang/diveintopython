@@ -1,0 +1,383 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>2.5. Indentation du code</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20090206231429cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/index.html" title="Chapitre 2. Votre premier programme Python">
+      <link rel="previous" href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/everything_is_an_object.html" title="2.4. Tout est objet">
+      <link rel="next" href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/testing_modules.html" title="2.6. Test des modules">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/getting_to_know_python\/indenting_code.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "6";
+var displayMonth = "Feb";
+var displayYear = "2009";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20090206231429" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081014214917/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="14 Oct 2008"><strong>OCT</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 23:14:29 Feb 6, 2009">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Mar
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081014214917/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html" title="21:49:17 Oct 14, 2008" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 23:14:29 Feb 6, 2009">6</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20080110182326/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="10 Jan 2008"><strong>2008</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 23:14:29 Feb 6, 2009">2009</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2010
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20090206231429*/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>16 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">12 May 06 - 6 Feb 09</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000011000101_2007:-1:010010000201_2008:-1:111010001100_2009:1:010000000000_2010:-1:000000000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/index.html">Votre premier programme Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Indentation du code</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/everything_is_an_object.html" title="Pr&eacute;c&eacute;dent: &laquo;Tout est objet&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/testing_modules.html" title="Suivant: &laquo;Test des modules&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.indenting"></a>2.5. Indentation du code
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Les fonctions <span class="application">Python</span>
+                          n'ont pas de <tt class="literal">begin</tt> ou <tt class="literal">end</tt>
+                          explicites, ni d'accolades qui pourraient marquer l&agrave; ou commence et ou
+                          se termine le code de la fonction. Le seul d&eacute;limiteur est les deux
+                          points (&laquo;<span class="quote"><tt class="literal">:</tt></span>&raquo;) et l'indentation du code
+                          lui-m&ecirc;me.</span></p>
+         </div>
+         <div class="example"><a name="d0e4788"></a><h3 class="title">Exemple 2.5. Indentation de la fonction <tt class="function">buildConnectionString</tt></h3><pre class="programlisting"><span class='pykeyword'>
+def</span> buildConnectionString(params):
+    <span class='pystring'>"""Build a connection string from a dictionary of parameters.
+
+    Returns string."""</span>
+    <span class='pykeyword'>return</span> <span class='pystring'>";"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()])</pre></div>
+         <p>Les blocs de code (fonctions, instructions <tt class="literal">if</tt>,
+                  boucles <tt class="literal">for</tt> ou <tt class="literal">while</tt> etc.) sont d&eacute;finis par leur indentation.
+                  L'indentation d&eacute;marre le bloc et la d&eacute;sindendation le termine. Il n'y a
+                  pas d'accolades, de crochets ou de mots cl&eacute;s sp&eacute;cifiques. Cela
+                  signifie que les espaces blancs sont significatifs et qu'ils doivent
+                  &ecirc;tre coh&eacute;rents. Dans cet exemple, le code de la fonction (y compris sa
+                  <tt class="literal">doc string</tt>) sont indent&eacute;s de 4 espaces. Cela ne doit
+                  pas &ecirc;tre forc&eacute;ment 4 espaces, mais il faut que ce soit coh&eacute;rent. La
+                  premi&egrave;re ligne non indent&eacute;e est en dehors de la fonction.
+         </p>
+         <p>L'<a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html#odbchelper.indenting.if" title="Exemple 2.6. Instructions if">Exemple&nbsp;2.6, &laquo;Instructions if&raquo;</a> montre un exemple d'indentation du code avec des instructions <tt class="literal">if</tt>.
+         </p>
+         <div class="example"><a name="odbchelper.indenting.if"></a><h3 class="title">Exemple 2.6. Instructions <tt class="literal">if</tt></h3><pre class="programlisting"><span class='pykeyword'>
+def</span> fib(n):                   <a name="odbchelper.indenting.2.1"></a><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>print</span> <span class='pystring'>'n ='</span>, n            <a name="odbchelper.indenting.2.2"></a><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>if</span> n &gt; 1:                 <a name="odbchelper.indenting.2.3"></a><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> n * fib(n - 1)
+    <span class='pykeyword'>else</span>:                     <a name="odbchelper.indenting.2.4"></a><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        <span class='pykeyword'>print</span> <span class='pystring'>'end of the line'</span>
+        <span class='pykeyword'>return</span> 1
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html#odbchelper.indenting.2.1"><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Voici une fonction nomm&eacute;e <tt class="function">fib</tt> qui prend un argument, <tt class="varname">n</tt>.  Tout le code de cette fonction est indent&eacute;.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html#odbchelper.indenting.2.2"><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Afficher une sortie &agrave; l'&eacute;cran est tr&egrave;s facile en <span class="application">Python</span>, il suffit d'utiliser <tt class="function">print</tt>. Les instructions <tt class="function">print</tt> peuvent prendre n'importe quel type de donn&eacute;es, y compris les cha&icirc;nes, les entiers et d'autres types pr&eacute;d&eacute;finis comme les
+                        dictionnaires et les listes, que vous d&eacute;couvrirez dans le prochain chapitre. Vous pouvez m&ecirc;me m&eacute;langer les types pour imprimer
+                        plusieurs &eacute;l&eacute;ments sur la m&ecirc;me ligne en utilisant une liste de valeurs s&eacute;par&eacute;es par des virgules. Chaque valeur est affich&eacute;e
+                        sur la m&ecirc;me ligne, s&eacute;par&eacute;e par des espaces (les virgules ne sont pas imprim&eacute;es). Donc, lorsque <tt class="function">fib</tt> est appel&eacute; avec <tt class="literal">5</tt>, cette ligne affichera "n = 5".
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html#odbchelper.indenting.2.3"><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Les instructions <tt class="literal">if</tt> sont un type de bloc de code. Si l'expression <tt class="literal">if</tt> est &eacute;valu&eacute;e &agrave; vrai, le bloc de code indent&eacute; est ex&eacute;cut&eacute;, sinon on saute au bloc <tt class="literal">else</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/indenting_code.html#odbchelper.indenting.2.4"><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Bien s&ucirc;r, les blocs <tt class="literal">if</tt> et <tt class="literal">else</tt> peuvent contenir des lignes multiples, tant qu'elles sont toutes indent&eacute;es au m&ecirc;me niveau. Ce bloc <tt class="literal">else</tt> contient deux lignes de code. Il n'y a pas d'autre syntaxe pour les blocs de codes multilignes. Indentez et c'est tout.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Apr&egrave;s quelques protestations initiales et des analogies m&eacute;prisantes &agrave; <span class="application">Fortran</span>, vous vous en accomoderez et commencerez &agrave; en voir les b&eacute;n&eacute;fices. Un des b&eacute;n&eacute;fices majeurs est que tous les programmes <span class="application">Python</span> ont la m&ecirc;me apparence puisque l'indentation est une caract&eacute;ristique du langage et non une question de style. Cela rend plus
+            simple &agrave; comprendre le code <span class="application">Python</span> des autres.
+         </p><a name="compare.lineend.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20090206231429im_/http://diveintopython.adrahon.org/images/note.png" alt="NOTE" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> utilise le retour chariot pour s&eacute;parer les instructions, deux points et l'indentation pour s&eacute;parer les blocs de code. <span class="application"><span class="acronym">C++</span></span> et <span class="application">Java</span> utilisent des points-virgules pour s&eacute;parer les instructions et des accolades pour s&eacute;parer les blocs de code.
+               </td>
+            </tr>
+         </table>
+         <div class="furtherreading">
+            <h3>Pour en savoir plus sur l'indentation du code</h3>
+            <ul>
+               <li>La <a href="http://web.archive.org/web/20090206231429/http://www.python.org/doc/current/ref/"><i class="citetitle"><span class="application">Python</span> Reference Manual</i></a> discute des aspects
+                            multiplate-formes de l'indentation et <a href="http://web.archive.org/web/20090206231429/http://www.python.org/doc/current/ref/indentation.html">pr&eacute;sente diverses erreurs d'indentation</a>.
+               </li>
+               <li>Le <a href="http://web.archive.org/web/20090206231429/http://www.python.org/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> discute du bon usage de l'indentation.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/everything_is_an_object.html">&lt;&lt;&nbsp;Tout est objet</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/index.html#odbchelper.divein" title="2.1. Plonger">1</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/declaring_functions.html" title="2.2. D&eacute;claration de fonctions">2</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/documenting_functions.html" title="2.3. Documentation des fonctions">3</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/everything_is_an_object.html" title="2.4. Tout est objet">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/testing_modules.html" title="2.6. Test des modules">6</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090206231429/http://diveintopython.adrahon.org/getting_to_know_python/testing_modules.html">Test des modules&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 23:14:29 Feb 6, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:24:44 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

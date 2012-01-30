@@ -1,0 +1,376 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>8.2.&nbsp;Trovare il percorso</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati" />
+<link rel="previous" href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati" />
+<link rel="next" href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="8.3.&nbsp;Filtrare liste rivisitate" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html">Programmazione orientata ai dati</a>&nbsp;&gt;&nbsp;<span class="thispage">Trovare il percorso</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html" title="Indietro: “Programmazione orientata ai dati”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="Avanti: “Filtrare liste rivisitate”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="regression.path"></a>8.2.&nbsp;Trovare il percorso
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Quando lanciate gli script <span class="application">Python</span> da linea di comando,
+               	qualche volta torna utile sapere dov'&egrave; localizzato lo
+               	script corrente sul disco fisso.
+               
+            </p>
+</div>
+<p>
+            	Questo &egrave; uno degli oscuri e piccoli trucchi che sono
+            	virtualmente impossibili da imparare da soli, ma semplici
+            	da ricordare una volta visti. La chiave &egrave; nel
+            	<tt class="literal">sys.argv</tt>. Come abbiamo visto in
+            	<a href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML">Elaborare XML</a>,
+            	<tt class="literal">sys.argv</tt> &egrave; una lista contenente gli
+            	argomenti da linea di comando. Comunque, contiene anche
+            	il nome dello script corrente, esattamente come se fosse
+            	chiamato da linea di comando, e questa &egrave; un'informazione
+            	sufficiente per determinarne la locazione.
+            
+         </p>
+<div class="example"><a name="d0e25401"></a><h3 class="title">Esempio&nbsp;8.3.&nbsp;<tt class="filename">fullpath.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting"><span class="pykeyword">
+import</span> sys, os
+
+<span class="pykeyword">print</span> <span class="pystring">'sys.argv[0] ='</span>, sys.argv[0]             <a name="regression.path.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+pathname = os.path.dirname(sys.argv[0])        <a name="regression.path.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="pykeyword">
+print</span> <span class="pystring">'path ='</span>, pathname
+<span class="pykeyword">print</span> <span class="pystring">'full path ='</span>, os.path.abspath(pathname) <a name="regression.path.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Senza curarsi di come lanciate lo script, <tt class="literal">sys.argv[0]</tt> conterr&agrave;
+                        	sempre il nome dello script, esattamente come appare da
+                        	linea di comando. Questo pu&ograve; o meno includere informazioni
+                        	sul percorso, come vedremo fra breve.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">os.path.dirname</tt> prende un filename come stringa e ritorna
+                        	la porzione di percorso della directory. Se il filename
+                        	dato non include informazioni sul percorso,
+                        	<tt class="function">os.path.dirname</tt> ritorna una stringa vuota.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">os.path.abspath</tt> &egrave; il pezzo forte. Prende un percorso, che pu&ograve;
+                        	essere parziale o anche vuoto, e ritorna un percorso completo.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+<tt class="function">os.path.abspath</tt> richiede ulteriori spiegazioni. &Egrave; molto
+            	flessibile; pu&ograve; prendere ogni tipo di percorso.
+            
+         </p>
+<div class="example"><a name="d0e25444"></a><h3 class="title">Esempio&nbsp;8.4.&nbsp;Ulteriori spiegazioni su <tt class="function">os.path.abspath</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> os</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.getcwd()</span>                        <a name="regression.path.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">/home/f8dy</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.abspath(<span class="pystring">''</span>)</span>                <a name="regression.path.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">/home/f8dy</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.abspath(<span class="pystring">'.ssh'</span>)</span>            <a name="regression.path.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">/home/f8dy/.ssh</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.abspath(<span class="pystring">'/home/f8dy/.ssh'</span>)</span> <a name="regression.path.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">/home/f8dy/.ssh</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.abspath(<span class="pystring">'.ssh/../foo/'</span>)</span>    <a name="regression.path.2.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">/home/f8dy/foo</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">os.getcwd()</tt> ritorna
+                        	la directory di lavoro corrente.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Chiamando <tt class="function">os.path.abspath</tt> con una stringa vuota ritorna la
+                        	directory corrente, come <tt class="function">os.getcwd()</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Chiamando <tt class="function">os.path.abspath</tt> con un percorso parziale viene
+                        	costruito un percorso completo, basato sulla directory
+                        	corrente.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Chiamando <tt class="function">os.path.abspath</tt> con un percorso
+                        	completo semplicemente restituisce s&eacute; stesso.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.2.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">os.path.abspath</tt> si occupa anche di
+                        	<span class="emphasis"><em>normalizzare</em></span> i percorsi che ritorna.
+                        	Notate che questo esempio funziona anche se non avete
+                        	realmente una diretory 'foo'. <tt class="function">os.path.abspath</tt> non controlla
+                        	mai il vostro disco locale; &egrave; solo una manipolazione di
+                        	stringhe.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="os.path.abspath.exist.note"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	I percorsi e i nomi di file che passate a <tt class="function">os.path.abspath</tt>
+                  	non &egrave; necessario che esistano.
+                  
+               </td>
+</tr>
+</table><a name="os.path.normpath.note"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="function">os.path.abspath</tt> non realizza solo percorsi completi, si occupa
+                  	anche di normalizzarli. Se siete nella directory
+                  	<tt class="filename">/usr/</tt>,
+                  	<tt class="literal">os.path.abspath('bin/../local/bin')</tt>
+                  	ritorner&agrave; <tt class="filename">/usr/local/bin</tt>. Se volete solo
+                  	normalizzare un percorso senza trasformarlo in un percorso
+                  	completo, usate invece <tt class="function">os.path.normpath</tt>.
+                  
+               </td>
+</tr>
+</table>
+<div class="example"><a name="d0e25575"></a><h3 class="title">Esempio&nbsp;8.5.&nbsp;Esempio di output di <tt class="filename">fullpath.py</tt></h3><pre class="screen">
+<tt class="prompt">[f8dy@oliver py]$ </tt><span class="userinput">python /home/f8dy/diveintopython/common/py/fullpath.py</span> <a name="regression.path.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">sys.argv[0] = /home/f8dy/diveintopython/common/py/fullpath.py
+path = /home/f8dy/diveintopython/common/py
+full path = /home/f8dy/diveintopython/common/py</span>
+<tt class="prompt">[f8dy@oliver diveintopython]$ </tt><span class="userinput">python common/py/fullpath.py</span>               <a name="regression.path.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">sys.argv[0] = common/py/fullpath.py
+path = common/py
+full path = /home/f8dy/diveintopython/common/py</span>
+<tt class="prompt">[f8dy@oliver diveintopython]$ </tt><span class="userinput">cd common/py</span>
+<tt class="prompt">[f8dy@oliver py]$ </tt><span class="userinput">python fullpath.py</span>                                     <a name="regression.path.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">sys.argv[0] = fullpath.py
+path = 
+full path = /home/f8dy/diveintopython/common/py</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Nel primo caso, <tt class="literal">sys.argv[0]</tt> include il percorso completo dello
+                        	script. Possiamo poi usare la funzione <tt class="function">os.path.dirname</tt> per
+                        	rimuovere il nome dello script e ritornare il nome completo
+                        	della directory, e <tt class="function">os.path.abspath</tt> ritorna semplicemente
+                        	ci&ograve; che gli diamo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se lo script lavora usando un percorso parziale, <tt class="literal">sys.argv[0]</tt>
+                        	conterr&agrave; ancora esattamente quello che appare sulla linea
+                        	di comando. <tt class="function">os.path.dirname</tt> poi ci restituir&agrave; un percorso
+                        	parziale (relativo alla directory corrente), mentre
+                        	<tt class="function">os.path.abspath</tt> costruir&agrave; un percorso completo dal percorso
+                        	parziale.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se lo script viene lanciato dalla directory corrente senza
+                        	dargli alcun percorso, <tt class="function">os.path.dirname</tt> restituir&agrave;
+                        	semplicemente una stringa vuota. Con una stringa vuota,
+                        	<tt class="function">os.path.abspath</tt> ritorna la directory corrente, che &egrave; ci&ograve;
+                        	che vogliamo, dato che lo script &egrave; stato lanciato proprio
+                        	dalla directory corrente.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="os.path.abspath.crossplatform.note"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Come altre funzioni nei moduli <tt class="filename">os</tt> e <tt class="filename">os.path</tt>, anche
+                  	<tt class="function">os.path.abspath</tt> &egrave; multi-piattaforma. I vostri risultati
+                  	sembreranno leggermente differenti dai miei esempi se
+                  	state lavorando su Windows (che usa i backslash come
+                  	separatori di percorso) o sul <span class="abbrev">Mac</span> <span class="acronym">OS</span> (che usa due punti),
+                  	ma funzionano comunque. Questo &egrave; il punto cruciale del
+                  	modulo <tt class="filename">os</tt>.
+                  
+               </td>
+</tr>
+</table>
+<p><b>Appendice.&nbsp;</b>
+            	Un lettore era insodddisfatto di questa soluzione, voleva
+            	poter lanciare tutti i test delle unit&agrave; di codice nella
+            	directory corrente, non in quella dove si trovava
+            	<tt class="filename">regression.py</tt>. Sugger&igrave; quest'altro approccio:
+            
+         </p>
+<div class="example"><a name="regression.path.cwd.example"></a><h3 class="title">Esempio&nbsp;8.6.&nbsp;Lanciare script nella directory corrente</h3><pre class="programlisting"><span class="pykeyword">import</span> sys, os, re, unittest
+
+<span class="pykeyword">def</span><span class="pyclass"> regressionTest</span>():
+    path = os.getcwd()       <a name="regression.path.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    sys.path.append(path)    <a name="regression.path.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    files = os.listdir(path) <a name="regression.path.4.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Invece di impostare <tt class="varname">path</tt> alla directory
+                        	dove sta girando lo script, lo impostiamo invece alla
+                        	corrente directory di lavoro. Questa sar&agrave; qualunque directory
+                        	in cui vi trovavate prima di lanciare lo script, che non &egrave;
+                        	necessariamente la stessa dove si trova lo script.
+                        	(Leggete questa frase un po' di volte fino a che non
+                        	l'avete capita.)
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Aggiungete questa directory alla libreria di ricerca dei
+                        	percorsi di <span class="application">Python</span>, cos&igrave; quando importiamo dinamicamente
+                        	i moduli di test delle unit&agrave; di codice, pi&ugrave; tardi, <span class="application">Python</span>
+                        	potr&agrave; trovarli. Noi non avevamo bisogno di farlo quando
+                        	<tt class="varname">path</tt> era la directory dello script,
+                        	perch&eacute; Python cerca sempre in quella directory.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/finding_the_path.html#regression.path.4.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il resto della funzione rimane invariato.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+<p>
+               	Questa tecnica vi permetter&agrave; di riutilizzare questo script
+               	<tt class="filename">regression.py</tt> in pi&ugrave; progetti. &Egrave; sufficiente che
+               	mettiate lo script in una directory comune e poi anche nella
+               	directory del progetto prima di lanciarlo. Tutti quei test
+               	delle unit&agrave; di codice del progetto saranno trovati e provati,
+               	invece di quelli ubicati nella directory comune dove si trova
+               	<tt class="filename">regression.py</tt>.
+               
+            </p>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/index.html">&lt;&lt;&nbsp;Programmazione orientata ai dati</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html#regression.divein" title="8.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="8.3.&nbsp;Filtrare liste rivisitate">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="8.4.&nbsp;Rivisitazione della mappatura delle liste">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/data_centric.html" title="8.5.&nbsp;Programmazione data-centrica">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="8.6.&nbsp;Importare dinamicamente i moduli">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html" title="8.7.&nbsp;Mettere assieme il tutto (parte 1)">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/inside_pyunit.html" title="8.8.&nbsp;Dentro PyUnit">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/filtering_lists.html">Filtrare liste rivisitate&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

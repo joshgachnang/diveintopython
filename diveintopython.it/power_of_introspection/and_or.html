@@ -1,0 +1,368 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3.6.&nbsp;Le particolarit&agrave; degli
+         operatori and e or
+      </title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/power_of_introspection/index.html" title="Capitolo&nbsp;3.&nbsp;La potenza dell'introspezione" />
+<link rel="previous" href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste" />
+<link rel="next" href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html">La potenza dell'introspezione</a>&nbsp;&gt;&nbsp;<span class="thispage">Le particolarit&agrave; degli
+                  operatori and e or</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="Indietro: “Filtrare le liste”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="Avanti: “Usare le funzioni lambda”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="apihelper.andor"></a>3.6.&nbsp;Le particolarit&agrave; degli
+                     operatori <tt class="literal">and</tt> e <tt class="literal">or</tt></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	In <span class="application">Python</span>, gli operatori <tt class="literal">and</tt> e <tt class="literal">or</tt>
+               	eseguono le operazioni di logica booleane che ci si aspetta
+               	dal loro nome, ma non restituiscono valori booleani; essi
+               	restituiscono invece il valore di uno degli elementi che
+               	si stanno confrontando.
+               
+            </p>
+</div>
+<div class="example"><a name="apihelper.andor.intro.example"></a><h3 class="title">Esempio&nbsp;3.16.&nbsp;Introduzione all'operatore <tt class="literal">and</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">'a'</span> <span class="pykeyword">and</span> <span class="pystring">'b'</span></span>         <a name="apihelper.andor.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'b'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">''</span> <span class="pykeyword">and</span> <span class="pystring">'b'</span></span>          <a name="apihelper.andor.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">''</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">'a'</span> <span class="pykeyword">and</span> <span class="pystring">'b'</span> <span class="pykeyword">and</span> <span class="pystring">'c'</span></span> <a name="apihelper.andor.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'c'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Quando si usa l'operatore <tt class="literal">and</tt>, gli elementi
+                        	dell'espressione vengono valutati in un contesto booleano
+                        	da sinistra a destra. I valori <tt class="constant">0</tt>, <tt class="literal">''</tt>,
+                        	<tt class="literal">[]</tt>, <tt class="literal">()</tt>,
+                        	<tt class="literal">{}</tt>, e <tt class="literal">None</tt> sono considerati falsi in un
+                        	contesto booleano; ogni altro valore &egrave; considerato vero.
+                        
+                        <sup>[<a name="d0e6681" href="http://it.diveintopython.net/power_of_introspection/and_or.html#ftn.d0e6681">3</a>]</sup>
+                        	Se tutti gli elementi hanno valore vero in contesto booleano,
+                        	l'operatore <tt class="literal">and</tt> restituisce il valore dell'ultimo
+                        	elemento. In questo caso, l'operatore <tt class="literal">and</tt> valuta
+                        	<tt class="literal">'a'</tt>, che &egrave; vero, quindi valuta
+                        	<tt class="literal">'b'</tt>, che &egrave;  vero, ed infine
+                        	ritorna <tt class="literal">'b'</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se uno degli elementi ha valore falso in contesto booleano,
+                        	l'operatore <tt class="literal">and</tt> restituisce il valore del primo di
+                        	tali elementi. In questo caso, <tt class="literal">''</tt>
+                        	&egrave; il primo valore falso.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Tutti gli elementi hanno valore vero, per cui l'operatore
+                        	<tt class="literal">and</tt> restituisce il valore dell'ultimo elemento,
+                        	<tt class="literal">'c'</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e6718"></a><h3 class="title">Esempio&nbsp;3.17.&nbsp;Introduzione all'operatore <tt class="literal">or</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">'a'</span> <span class="pykeyword">or</span> <span class="pystring">'b'</span></span>          <a name="apihelper.andor.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'a'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">''</span> <span class="pykeyword">or</span> <span class="pystring">'b'</span></span>           <a name="apihelper.andor.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'b'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">''</span> <span class="pykeyword">or</span> [] <span class="pykeyword">or</span> {}</span>      <a name="apihelper.andor.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">{}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> sidefx</span>():</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">"in sidefx()"</span></span>
+<tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">return</span> 1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">'a'</span> <span class="pykeyword">or</span> sidefx()</span>     <a name="apihelper.andor.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">'a'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Quando si usa l'operatore <tt class="literal">or</tt>, gli elementi sono
+                        	valutati in contesto booleano da sinistra a destra, come
+                        	per l'operatore <tt class="literal">and</tt>. Se uno degli elementi ha
+                        	valore vero, l'operarore <tt class="literal">or</tt> ritorna immediatamente
+                        	quel valore. Nel nostro caso, <tt class="literal">'a'</tt>
+                        	&egrave; il primo elemento con valore vero.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	L'operatore <tt class="literal">or</tt> valuta <tt class="literal">''</tt>, che &egrave;
+                        	falso, quindi <tt class="literal">'b'</tt>, che &egrave; vero e restituisce
+                        	<tt class="literal">'b'</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se tutti gli elementi hanno valore falso, l'operatore
+                        	<tt class="literal">or</tt> restituisce l'ultimo valore. L'operatore
+                        	<tt class="literal">or</tt> valuta <tt class="literal">''</tt>, che &egrave; falso,
+                        	quindi <tt class="literal">[]</tt>, che &egrave; falso, quindi
+                        	<tt class="literal">{}</tt>, che &egrave; falso e restituisce
+                        	<tt class="literal">{}</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Si noti che l'operatore <tt class="literal">or</tt> elabora gli elementi
+                        	solamente finch&eacute; non ne trova uno che sia vero in contesto
+                        	booleano ed ignora i rimanenti. Questa distinzione &egrave;
+                        	importante se alcuni elementi dell'espressione hanno effetti
+                        	collaterali. Nel nostro caso, la funzione
+                        	<tt class="function">sidefx</tt> non &egrave; mai chiamata, perch&eacute;
+                        	l'operatore <tt class="literal">or</tt> valuta <tt class="literal">'a'</tt>, che
+                        	&egrave; vero e restituisce immediatamente <tt class="literal">'a'</tt>.
+                        	
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Gli hakers del linguggio <span class="application"><span class="acronym">C</span></span> hanno sicuramente familiarit&agrave; con
+            	il costrutto <tt class="literal"><i class="replaceable">bool</i> ? </tt><tt class="varname">a</tt> : <tt class="varname">b</tt>, che restituisce il valore
+            	<tt class="varname">a</tt> se <i class="replaceable"><tt>bool</tt></i> &egrave;
+            	vero, altrimenti restituisce <tt class="varname">b</tt>.  In ragione
+            	del modo in cui <tt class="literal">and</tt> ed <tt class="literal">or</tt> funzionano in
+            	<span class="application">Python</span>, &egrave; possibile ottenere lo stesso risultato.
+            
+         </p>
+<div class="example"><a name="apihelper.andortrick.intro"></a><h3 class="title">Esempio&nbsp;3.18.&nbsp;Introduzione al trucchetto <tt class="literal">and-or</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a = <span class="pystring">"first"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">b = <span class="pystring">"second"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">1 <span class="pykeyword">and</span> a <span class="pykeyword">or</span> b</span> <a name="apihelper.andor.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'first'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">0 <span class="pykeyword">and</span> a <span class="pykeyword">or</span> b</span> <a name="apihelper.andor.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'second'</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa sintassi sembra molto simile al costrutto <tt class="literal"><i class="replaceable">bool</i> ? </tt><tt class="varname">a</tt> : <tt class="varname">b</tt> in
+                        	<span class="application"><span class="acronym">C</span></span>. L'espressione nella sua globalit&agrave; &egrave; valutata da sinistra
+                        	a destra, quindi l'operatore <tt class="literal">and</tt> &egrave; valutato per
+                        	primo.  L'espressione <tt class="literal">1 and 'first'</tt>
+                        	restituisce <tt class="literal">'first'</tt>, quindi l'espressione
+                        	<tt class="literal">'first' or 'second'</tt> restituisce
+                        	<tt class="literal">'second'</tt>.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	L'espressione <tt class="literal">0 and 'first'</tt> restituisce
+                        	<tt class="constant">0</tt>, quindi l'espressione <tt class="literal">0 or 'second'</tt>
+                        	restituisce <tt class="literal">'second'</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Tuttavia, visto che questa espressione in <span class="application">Python</span> &egrave; semplice
+            	logica booleana, non un costrutto speciale del linguaggio,
+            	vi &egrave; una differenza molto ma molto ma molto importante tra
+            	questo trucchetto <tt class="literal">and-or</tt> e l'espressione <tt class="literal"><i class="replaceable">bool</i> ? </tt><tt class="varname">a</tt> : <tt class="varname">b</tt> in <span class="application"><span class="acronym">C</span></span>.
+            	Se il valore di <tt class="varname">a</tt> &egrave; falso, l'espressione
+            	non funzioner&agrave; come ci si aspetta. (Si capisce che ci sono
+            	cascato? Pi&ugrave; di una volta?)
+            
+         </p>
+<div class="example"><a name="d0e6991"></a><h3 class="title">Esempio&nbsp;3.19.&nbsp;Quando il trucchetto <tt class="literal">and-or</tt> fallisce
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a = <span class="pystring">""</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">b = <span class="pystring">"second"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">1 <span class="pykeyword">and</span> a <span class="pykeyword">or</span> b</span> <a name="apihelper.andor.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'second'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Dato che <tt class="varname">a</tt> &egrave;  una stringa vuota, che
+                        	<span class="application">Python</span> considera falsa in un contesto booleano,
+                        	<tt class="literal">1 and ''</tt> restituisce <tt class="literal">''</tt>,
+                        	quindi <tt class="literal">'' or 'second'</tt> restituisce
+                        	<tt class="literal">'second'</tt>.  Oops!  non &egrave; quello che si
+                        	voleva.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="tip.andor"></a><table class="important" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/important.png" alt="Importante" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Il trucchetto <tt class="literal">and-or</tt>, cio&egrave;
+                  	<tt class="literal"><i class="replaceable">bool</i> and
+                     	</tt><tt class="varname">a</tt> or <tt class="varname">b</tt>,
+                  	non funziona come il costrutto <span class="application"><span class="acronym">C</span></span> <tt class="literal"><i class="replaceable">bool</i> ? </tt><tt class="varname">a</tt> : <tt class="varname">b</tt> quando
+                  	<tt class="varname">a</tt> ha un valore falso in un contesto booleano.
+                  
+               </td>
+</tr>
+</table>
+<p>
+            	Dunque la parte veramente complicata del trucchetto
+            	<tt class="literal">and-or</tt> &egrave; essere sicuri che il valore di
+            	<tt class="varname">a</tt> non sia
+            	falso.  Un modo comune per constatarlo &egrave; trasformare
+            	<tt class="varname">a</tt> in
+            	<tt class="literal">[</tt><tt class="varname">a</tt>] e
+            	<tt class="varname">b</tt> in
+            	<tt class="literal">[</tt><tt class="varname">b</tt>] e poi considerare il
+            	primo elemento della lista risultante, che sar&agrave; 
+            	<tt class="varname">a</tt> oppure <tt class="varname">b</tt>.
+            
+         </p>
+<div class="example"><a name="d0e7109"></a><h3 class="title">Esempio&nbsp;3.20.&nbsp;Usare il trucchetto <tt class="literal">and-or</tt> in modo sicuro
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a = <span class="pystring">""</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">b = <span class="pystring">"second"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">(1 <span class="pykeyword">and</span> [a] <span class="pykeyword">or</span> [b])[0]</span> <a name="apihelper.andor.5.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">''</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/and_or.html#apihelper.andor.5.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Dato che <tt class="literal">[</tt><tt class="varname">a</tt>] non &egrave; una
+                        	lista vuota, il suo valore non &egrave; mai falso. Anche se
+                        	<tt class="varname">a</tt> vale <tt class="constant">0</tt> oppure
+                        	<tt class="literal">''</tt> o un altro valore falso, la lista
+                        	<tt class="literal">[</tt><tt class="varname">a</tt>] ha valore vero
+                        	perch&eacute; ha un elemento.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	A questo punto, questo trucco sembra troppo complicato per
+            	quello che vale. Si potrebbe dopotutto ottenere la stessa
+            	cosa con un'istruzione <tt class="literal">if</tt>, perci&ograve; perch&eacute; darsi
+            	tutto questo daffare? 
+            	Bene, in molti casi si dovr&agrave; scegliere tra due valori
+            	costanti, per cui si pu&ograve; usare la versione pi&ugrave;
+            	semplice del trucco senza preoccupazione, perch&eacute; si sa
+            	che un elemento avr&agrave; sempre valore vero. Anche nel caso
+            	si debba usare la versione pi&ugrave; complicata, ci sono
+            	buone ragioni per farlo; ci sono alcuni casi in <span class="application">Python</span> in
+            	cui le istruzioni <tt class="literal">if</tt> non  sono consentite, come per esempio
+            	in una funzione <tt class="literal">lambda</tt>.
+            
+         </p>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li><a href="http://it.diveintopython.net/ASPN/Python/Cookbook/" title="growing archive of annotated code samples"><span class="application">Python</span> Cookbook</a> tratta
+                  <a href="http://it.diveintopython.net/ASPN/Python/Cookbook/Recipe/52310">di
+                     alternative al trucchetto <tt class="literal">and-or</tt> </a>.
+               </li>
+</ul>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e6681" href="http://it.diveintopython.net/power_of_introspection/and_or.html#d0e6681">3</a>] </sup>
+                  	Beh, quasi ogni cosa. In modo predefinito le istanze di una classe
+                  	corrispondono a true in un contesto booleano, ma potete
+                  	definire metodi speciali nella vostra classe per far valutare
+                  	un'istanza in false. Imparerete tutto a proposito delle classi
+                  	e dei loro metodi speciali nel capitolo 4.
+                  	
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html">&lt;&lt;&nbsp;Filtrare le liste</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html#apihelper.divein" title="3.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html" title="3.3.&nbsp;type, str, dir, ed altre funzioni built-in">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="3.8.&nbsp;Unire il tutto">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/summary.html" title="3.9.&nbsp;Sommario">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html">Usare le funzioni lambda&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

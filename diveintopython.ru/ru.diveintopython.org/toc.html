@@ -1,0 +1,3076 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+
+
+
+
+<!-- HEADER -->
+<html>
+	<head>
+		<title>Internet Archive Wayback Machine</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="http://staticweb.archive.org/css/styles.css" />
+		<base target="_top" />
+	</head>
+	<body>
+<!-- /HEADER -->
+
+<script type="text/javascript">
+function SetCookie(cookieName,cookieValue,nDays) {
+  var today = new Date();
+  var expire = new Date();
+  if (nDays==null || nDays==0) nDays=1;
+  expire.setTime(today.getTime() + 86400000*nDays);
+  document.cookie = cookieName+"="+escape(cookieValue)
+    + ";expires="+expire.toGMTString() + ";path=/";
+}
+function SetAnchorDate(date) {
+  SetCookie("request.anchordate",date,365);
+}
+function SetAnchorWindow(maxSeconds) {
+  SetCookie("request.anchorwindow",maxSeconds,365);
+}
+</script>
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/excanvas.compiled.js"></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/jquery.bt.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/jquery.hoverintent.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<!-- More ugly JS to manage the highlight over the graph -->
+<script type="text/javascript">
+
+
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/ru.diveintopython.org\/toc.html";
+
+var curYear = 15;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var startYear = 15;
+var imgWidth = 784;
+var yearImgWidth = 49;
+var monthImgWidth = 4;
+var trackerVal = "none";
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+
+    document.getElementById("wbMouseTrackYearImg").style.display = val;
+    trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function setActiveYear(year) {
+    if(curYear != year) {
+        var yrOff = year * yearImgWidth;
+        document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+        if(curYear != -1) {
+        	document.getElementById("highlight-"+curYear).setAttribute("class","inactiveHighlight");
+        }
+        document.getElementById("highlight-"+year).setAttribute("class","activeHighlight");
+        curYear = year;
+    }
+}
+function trackMouseMove(event,element) {
+
+    var eventX = getEventX(event);
+    var elementX = getElementX2(element);
+    var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+    var monthOff = xOff % yearImgWidth;
+
+    var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+    var monthOfYear = Math.floor(monthOff / monthImgWidth);
+    if(monthOfYear > 11) {
+        monthOfYear = 11;
+    }
+    var month = (year * 12) + monthOfYear;
+    var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var url = "http://wayback.archive.org/web/" + dateString + '*/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+	setActiveYear(year);
+}
+</script>
+
+<script type="text/javascript">
+$().ready(function(){
+    $(".date").each(function(i){
+        var actualsize = $(this).find(".hidden").text();
+        var size = actualsize * 12;
+        var offset = size / 2;
+        if (actualsize == 1) {size = 30, offset = 15;}
+        else if (actualsize == 2) {size = 40, offset = 20;}
+        else if (actualsize == 3) {size = 50, offset = 25;}
+        else if (actualsize == 4) {size = 60, offset = 30;}
+        else if (actualsize == 5) {size = 70, offset = 35;}
+        else if (actualsize == 6) {size = 80, offset = 40;}
+        else if (actualsize == 7) {size = 90, offset = 45;}
+        else if (actualsize == 8) {size = 100, offset = 50;}
+        else if (actualsize == 9) {size = 110, offset = 55;}
+        else if (actualsize >= 10) {size = 120, offset = 60;}
+        $(this).find("img").attr("src","http://staticweb.archive.org/images/blueblob-dk.png");
+        $(this).find(".measure").css({'width':+size+'px','height':+size+'px','top':'-'+offset+'px','left':'-'+offset+'px'});
+    });
+    $(".day a").each(function(i){
+        var dateClass = $(this).attr("class");
+        var dateId = "#"+dateClass;
+        $(this).hover(
+            function(){$(dateId).removeClass("opacity20");},
+            function(){$(dateId).addClass("opacity20");}
+        );
+    });
+    $(".tooltip").bt({
+        positions: ['top','right','left','bottom'],
+        contentSelector: "$(this).find('.pop').html()",
+        padding: 0, 
+        width: '130px',
+        spikeGirth: 8, 
+        spikeLength: 8,
+        overlap: 0,
+        cornerRadius: 5,
+        fill: '#efefef',
+        strokeWidth: 1,
+        strokeStyle: '#efefef',
+        shadow: true, 
+        shadowColor: '#333',
+        shadowBlur: 5,
+        shadowOffsetX: 0,
+        shadowOffsetY: 0, 
+        noShadowOpts: {strokeStyle:'#ccc'},
+        hoverIntentOpts: {interval:60,timeout:3500}, 
+        clickAnywhereToClose: true,
+        closeWhenOthersOpen: true,
+        windowMargin: 30,
+        cssStyles: {
+            fontSize: '12px',
+            fontFamily: '"Arial","Helvetica Neue","Helvetica",sans-serif',
+            lineHeight: 'normal',
+            padding: '10px',
+            color: '#333'
+        }
+    });
+
+    var yrCount = $(".wbChartThisContainer").size();
+    var yrTotal = 49 * yrCount;
+//    var yrPad = (930 - yrTotal) / 2;
+    var yrPad = 16 / 2;
+    $("#wbChartThis").css("padding-left",yrPad+"px");
+});
+</script>
+
+<div id="position">
+
+
+    <div id="wbSearch">
+    
+        <div id="logo">
+            <a href="/index.jsp"><img src="http://staticweb.archive.org/images/logo_WM.png" alt="logo: Internet Archive's Wayback Machine" width="183" height="65" /></a>
+        </div>
+
+        <div id="form">
+        
+            <form name="form1" method="get" action="http://wayback.archive.org/web/form-submit.jsp">
+			<input type="hidden" name="type" value="urlquery">
+			<input type="text" name="url" value="http://ru.diveintopython.org/toc.html" size="40" onfocus="javascript:this.focus();this.select();" >
+            <input type="submit" name="Submit" value="Go Wayback!"/>
+            </form>
+    
+            <div id="wbMeta">
+                <p class="wbThis"><a href="http://ru.diveintopython.org/toc.html">http://ru.diveintopython.org/toc.html</a> has been crawled <strong>69 times</strong> going all the way back to <a href="http://web.archive.org/web/20030217035413/http://ru.diveintopython.org/toc.html">February 17, 2003</a>.</p>
+                <p class="wbNote">A crawl can be a duplicate of the last one. It happens about 25% of the time across 420,000,000 websites. <a href="http://faq.web.archive.org/">FAQ</a></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="clearfix"></div>
+
+    <div id="wbChart" onmouseout="showTrackers('none'); setActiveYear(startYear);">
+    
+  <div id="wbChartThis">
+        <a style="position:relative; white-space:nowrap; width:784px;height:75px;" href="http://wayback.archive.org/web/" id="wm-graph-anchor">
+        <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:784px;height:75px;background: #f3f3f3 -moz-linear-gradient(top,#ffffff,#f3f3f3);background: #f3f3f3 -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f3f3f3), color-stop(1.0, #f3f3f3));background-color: #f3f3f3;filter: progid:DXImageTransform.Microsoft.Gradient(enabled='true',startColorstr=#FFFFFFFF, endColorstr=#FFF3F3F3);cursor:pointer;border: 1px solid #ccc;border-left:none;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute;z-index:9012;top:0;left:0;"
+				onmouseover="showTrackers('inline');" 
+				
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="784"
+				height="75"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?nomonth=1&graphdata=784_75_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:010100101001_2004:-1:010101001101_2005:-1:010100000101_2006:-1:001000343205_2007:-1:530213111211_2008:-1:101130001100_2009:-1:120000000000_2010:-1:010000000000_2011:6:000000300000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="49" 
+				height="75"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="4"
+				height="75" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-black-pixel.png"></img>
+        </div>
+        </a>
+        	
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/19960101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-0"
+						onmouseover="showTrackers('inline'); setActiveYear(0)" 
+	                	class="inactiveHighlight">1996</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/19970101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-1"
+						onmouseover="showTrackers('inline'); setActiveYear(1)" 
+	                	class="inactiveHighlight">1997</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/19980101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-2"
+						onmouseover="showTrackers('inline'); setActiveYear(2)" 
+	                	class="inactiveHighlight">1998</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/19990101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-3"
+						onmouseover="showTrackers('inline'); setActiveYear(3)" 
+	                	class="inactiveHighlight">1999</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20000101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-4"
+						onmouseover="showTrackers('inline'); setActiveYear(4)" 
+	                	class="inactiveHighlight">2000</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20010101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-5"
+						onmouseover="showTrackers('inline'); setActiveYear(5)" 
+	                	class="inactiveHighlight">2001</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20020101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-6"
+						onmouseover="showTrackers('inline'); setActiveYear(6)" 
+	                	class="inactiveHighlight">2002</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20030101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-7"
+						onmouseover="showTrackers('inline'); setActiveYear(7)" 
+	                	class="inactiveHighlight">2003</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20040101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-8"
+						onmouseover="showTrackers('inline'); setActiveYear(8)" 
+	                	class="inactiveHighlight">2004</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20050101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-9"
+						onmouseover="showTrackers('inline'); setActiveYear(9)" 
+	                	class="inactiveHighlight">2005</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20060101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-10"
+						onmouseover="showTrackers('inline'); setActiveYear(10)" 
+	                	class="inactiveHighlight">2006</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20070101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-11"
+						onmouseover="showTrackers('inline'); setActiveYear(11)" 
+	                	class="inactiveHighlight">2007</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20080101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-12"
+						onmouseover="showTrackers('inline'); setActiveYear(12)" 
+	                	class="inactiveHighlight">2008</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20090101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-13"
+						onmouseover="showTrackers('inline'); setActiveYear(13)" 
+	                	class="inactiveHighlight">2009</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20100101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-14"
+						onmouseover="showTrackers('inline'); setActiveYear(14)" 
+	                	class="inactiveHighlight">2010</div>
+	                </a>
+	            </div>
+            
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="http://wayback.archive.org/web/20110101000000*/http:\/\/ru.diveintopython.org\/toc.html">
+	                
+	                	<div id="highlight-15"
+						onmouseover="showTrackers('inline'); setActiveYear(15)" 
+	                	class="activeHighlight">2011</div>
+	                </a>
+	            </div>
+            
+  </div>
+</div>
+<div class="clearfix"></div>
+
+<div id="wbCalendar">
+    
+  <div id="calUnder" class="calPosition">
+
+    
+
+
+
+    <div class="month" id="2011-0">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-1">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-2">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-3">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-4">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-5">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-6">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+                    <div class="date">
+                        <div class="position">
+                           <div class="hidden">1</div>
+                           <div class="measure opacity20" id="Jul-9-2011"><img width="100%" height="100%"/></div>
+                        </div>
+                    </div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+                    <div class="date">
+                        <div class="position">
+                           <div class="hidden">1</div>
+                           <div class="measure opacity20" id="Jul-16-2011"><img width="100%" height="100%"/></div>
+                        </div>
+                    </div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+                    <div class="date">
+                        <div class="position">
+                           <div class="hidden">1</div>
+                           <div class="measure opacity20" id="Jul-26-2011"><img width="100%" height="100%"/></div>
+                        </div>
+                    </div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td></td><td></td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-7">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-8">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-9">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-10">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+    <div class="month" id="2011-11">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td><td>
+	                <div class="date"></div>
+				</td></tr><tr>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+    
+
+  </div>
+  <div id="calOver" class="calPosition">
+
+    <div class="month" id="2011-0">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Jan</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>31</span></div>
+		            </div>
+				</td><td></td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-1">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Feb</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td></td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-2">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Mar</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>31</span></div>
+		            </div>
+				</td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-3">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Apr</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td></tr><tr>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-4">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">May</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>31</span></div>
+		            </div>
+				</td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-5">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Jun</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-6">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Jul</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+                    <div class="date tooltip">
+                        <div class="pop">
+                            <h3>July 9, 2011</h3>
+                            <p>1 snapshot</p>
+                            <ul>
+							
+								<li><a href="http://web.archive.org/web/20110709015027/http://ru.diveintopython.org/toc.html">01:50:27</a></li>
+								
+                            </ul>
+                        </div>
+                        <div class="day">
+
+                            <a href="http://web.archive.org/web/20110709015027/http://ru.diveintopython.org/toc.html" title="1 snapshots" class="Jul-9-2011">9</a>
+                        </div>
+                    </div>
+			      </td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+                    <div class="date tooltip">
+                        <div class="pop">
+                            <h3>July 16, 2011</h3>
+                            <p>1 snapshot</p>
+                            <ul>
+							
+								<li><a href="http://web.archive.org/web/20110716155642/http://ru.diveintopython.org/toc.html">15:56:42</a></li>
+								
+                            </ul>
+                        </div>
+                        <div class="day">
+
+                            <a href="http://web.archive.org/web/20110716155642/http://ru.diveintopython.org/toc.html" title="1 snapshots" class="Jul-16-2011">16</a>
+                        </div>
+                    </div>
+			      </td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+                    <div class="date tooltip">
+                        <div class="pop">
+                            <h3>July 26, 2011</h3>
+                            <p>1 snapshot</p>
+                            <ul>
+							
+								<li><a href="http://web.archive.org/web/20110726000611/http://ru.diveintopython.org/toc.html">00:06:11</a></li>
+								
+                            </ul>
+                        </div>
+                        <div class="day">
+
+                            <a href="http://web.archive.org/web/20110726000611/http://ru.diveintopython.org/toc.html" title="1 snapshots" class="Jul-26-2011">26</a>
+                        </div>
+                    </div>
+			      </td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>31</span></div>
+		            </div>
+				</td><td></td><td></td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-7">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Aug</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>31</span></div>
+		            </div>
+				</td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-8">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Sep</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-9">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Oct</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>31</span></div>
+		            </div>
+				</td><td></td><td></td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-10">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Nov</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td></td><td></td><td></td>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    <div class="month" id="2011-11">
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label">Dec</span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
+<td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td><div class="date"></div></td><td>
+	                <div class="date">
+	    	            <div class="day"><span>1</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>2</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>3</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>4</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>5</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>6</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>7</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>8</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>9</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>10</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>11</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>12</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>13</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>14</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>15</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>16</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>17</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>18</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>19</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>20</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>21</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>22</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>23</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>24</span></div>
+		            </div>
+				</td></tr><tr><td>
+	                <div class="date">
+	    	            <div class="day"><span>25</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>26</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>27</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>28</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>29</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>30</span></div>
+		            </div>
+				</td><td>
+	                <div class="date">
+	    	            <div class="day"><span>31</span></div>
+		            </div>
+				</td></tr><tr>
+			   </tr>
+			</tbody>
+		</table>    
+      </div>
+
+    </div>
+  </div>
+  <div id="wbCalNote">
+    <h2>Note</h2>
+    <p>This calendar view maps the number of times http://ru.diveintopython.org/toc.html was crawled by the Wayback Machine, <em>not</em> how many times the site was actually updated. More info in the <a href="http://faq.web.archive.org/">FAQ</a>.</p>
+  </div>
+</div>
+  
+
+
+
+
+<!-- FOOTER -->
+            <footer>
+            <div id="footerHome">
+                <p>The Wayback Machine is an initiative of the <a href="http://www.archive.org/">Internet Archive</a>, a 501(c)(3) non-profit, building a digital library of Internet sites and other cultural artifacts in digital form.<br/>Other <a href="http://www.archive.org/projects/">projects</a> include <a href="http://www.openlibrary.org/">Open Library</a>, </a><a href="http://www.nasaimages.org/">nasaimages.org</a> &amp; <a href="http://www.archive-it.org">archive-it.org</a>.</p>
+                <p>Your use of the Wayback Machine is subject to the Internet Archive's <a href="http://www.archive.org/about/terms.php">Terms of Use</a>.</p>
+            </div>
+            </section>
+        </div>
+    </body>
+</html>
+<!-- /FOOTER -->

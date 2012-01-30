@@ -1,0 +1,221 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.14.&nbsp;Postscritto</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">Postscritto</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="Indietro: “Rifattorizzazione”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/summary.html" title="Avanti: “Sommario”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.postscript"></a>7.14.&nbsp;Postscritto
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Un lettore intelligente dopo aver letto la
+               	<a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">sezione precedente</a>
+               	ha subito fatto il passo successivo. Il pi&ugrave; grosso grattacapo
+               	(e peggioratore delle prestazioni) nel programma com'&egrave; scritto al
+               	momento &egrave; l'espressione regolare, che &egrave; necessaria perch&eacute; non
+               	abbiamo altro modo di decomporre un numero romano. Ma ci sono
+               	solo 5000 numeri romani: perch&eacute; non ci costruiamo all'inizio
+               	una tavola di riferimento e non usiamo quella? Questa idea &egrave;
+               	ancora migliore una volta capito che &egrave; possibile rimuovere
+               	del tutto l'uso delle espressioni regolari. Una volta
+               	costruita la tavola di riferimento per convertire interi in
+               	numeri romani, &egrave; possibile costruire la tavola inversa per
+               	convertire i numeri romani in interi.
+               
+            </p>
+</div>
+<p>
+            	Ma la cosa migliore &egrave; che questo lettore aveva gi&agrave; un set
+            	completo di test delle unit&agrave; di codice. Anche se ha cambiato
+            	met&agrave; del codice nel modulo <tt class="filename">roman.py</tt>, i test delle
+            	unit&agrave; di codice rimanevano gli stessi, cosicch&eacute; ha potuto
+            	verificare che il nuovo codice funzionasse altrettando
+            	bene dell'originale.
+            
+         </p>
+<div class="example"><a name="d0e25117"></a><h3 class="title">Esempio&nbsp;7.38.&nbsp;<tt class="filename">roman9.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pycomment">#Define exceptions</span>
+<span class="pykeyword">class</span><span class="pyclass"> RomanError</span>(Exception): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> OutOfRangeError</span>(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> NotIntegerError</span>(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> InvalidRomanNumeralError</span>(RomanError): <span class="pykeyword">pass</span>
+
+<span class="pycomment">#Roman numerals must be less than 5000</span>
+MAX_ROMAN_NUMERAL = 4999
+
+<span class="pycomment">#Define digit mapping</span>
+romanNumeralMap = ((<span class="pystring">'M'</span>,  1000),
+                   (<span class="pystring">'CM'</span>, 900),
+                   (<span class="pystring">'D'</span>,  500),
+                   (<span class="pystring">'CD'</span>, 400),
+                   (<span class="pystring">'C'</span>,  100),
+                   (<span class="pystring">'XC'</span>, 90),
+                   (<span class="pystring">'L'</span>,  50),
+                   (<span class="pystring">'XL'</span>, 40),
+                   (<span class="pystring">'X'</span>,  10),
+                   (<span class="pystring">'IX'</span>, 9),
+                   (<span class="pystring">'V'</span>,  5),
+                   (<span class="pystring">'IV'</span>, 4),
+                   (<span class="pystring">'I'</span>,  1))
+
+<span class="pycomment">#Create tables for fast conversion of roman numerals.</span>
+<span class="pycomment">#See fillLookupTables() below.</span>
+toRomanTable = [ None ]  <span class="pycomment"># Skip an index since Roman numerals have no zero</span>
+fromRomanTable = {}
+
+<span class="pykeyword">def</span><span class="pyclass"> toRoman</span>(n):
+    <span class="pystring">"""convert integer to Roman numeral"""</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> (0 &lt; n &lt;= MAX_ROMAN_NUMERAL):
+        <span class="pykeyword">raise</span> OutOfRangeError, <span class="pystring">"number out of range (must be 1..%s)"</span> % MAX_ROMAN_NUMERAL
+    <span class="pykeyword">if</span> int(n) &lt;&gt; n:
+        <span class="pykeyword">raise</span> NotIntegerError, <span class="pystring">"decimals can not be converted"</span>
+    <span class="pykeyword">return</span> toRomanTable[n]
+
+<span class="pykeyword">def</span><span class="pyclass"> fromRoman</span>(s):
+    <span class="pystring">"""convert Roman numeral to integer"""</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> s:
+        <span class="pykeyword">raise</span> InvalidRomanNumeralError, <span class="pystring">"Input can not be blank"</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> fromRomanTable.has_key(s):
+        <span class="pykeyword">raise</span> InvalidRomanNumeralError, <span class="pystring">"Invalid Roman numeral: %s"</span> % s
+    <span class="pykeyword">return</span> fromRomanTable[s]
+
+<span class="pykeyword">def</span><span class="pyclass"> toRomanDynamic</span>(n):
+    <span class="pystring">"""convert integer to Roman numeral using dynamic programming"""</span>
+    result = <span class="pystring">""</span>
+    <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
+        <span class="pykeyword">if</span> n &gt;= integer:
+            result = numeral
+            n -= integer
+            <span class="pykeyword">break</span>
+    <span class="pykeyword">if</span> n &gt; 0:
+        result += toRomanTable[n]
+    <span class="pykeyword">return</span> result
+
+<span class="pykeyword">def</span><span class="pyclass"> fillLookupTables</span>():
+    <span class="pystring">"""compute all the possible roman numerals"""</span>
+    <span class="pycomment">#Save the values in two global tables to convert to and from integers.</span>
+    <span class="pykeyword">for</span> integer <span class="pykeyword">in</span> range(1, MAX_ROMAN_NUMERAL + 1):
+        romanNumber = toRomanDynamic(integer)
+        toRomanTable.append(romanNumber)
+        fromRomanTable[romanNumber] = integer
+
+fillLookupTables()
+</pre></div>
+<p>
+            	E allora, quanto &egrave; pi&ugrave; veloce?
+            
+         </p>
+<div class="example"><a name="d0e25130"></a><h3 class="title">Esempio&nbsp;7.39.&nbsp;Output di <tt class="filename">romantest9.py</tt> a fronte di <tt class="filename">roman9.py</tt></h3><pre class="screen">
+<span class="computeroutput">
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.791s
+
+OK
+</span>
+</pre></div>
+<p>
+            	Ricordate, le migliori prestazioni mai ottenute nella versione
+            	originale erano 13 test in 3.315 secondi. Ovviamente, questo
+            	non &egrave; un paragone onesto, perch&eacute; questa versione richieder&agrave;
+            	pi&ugrave; tempo per essere importata (dato che &egrave; allora che vengono
+            	riempite le tavole di riferimento). Ma dato che il modulo &egrave;
+            	importato una sola volta, questo tempo &egrave; trascurabile in
+            	confronto a tutta l'esecuzione del programma.
+            
+         </p>
+<p>
+            	La morale della favola?
+            
+         </p>
+<div class="itemizedlist">
+<ul>
+<li>
+                  	La semplicit&agrave; &egrave; una virt&ugrave;.
+                  
+               </li>
+<li>
+                  	Specialmente quando ci sono di mezzo le espressioni regolari.
+                  
+               </li>
+<li>
+                  	I test delle unit&agrave; di codice possono darvi la confidenza
+                  	necessaria per effettuare rifattorizzazioni su larga
+                  	scala ... anche se non siete stati voi a scrivere il
+                  	codice originale.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/refactoring.html">&lt;&lt;&nbsp;Rifattorizzazione</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <span class="thispage">14</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/summary.html">Sommario&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

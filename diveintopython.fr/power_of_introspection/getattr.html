@@ -1,0 +1,535 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>4.4. Obtenir des r&eacute;f&eacute;rences objet avec getattr</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20100330052023cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/index.html" title="Chapitre 4. Le pouvoir de l&#8217;introspection">
+      <link rel="previous" href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/built_in_functions.html" title="4.3. Utilisation de type, str, dir et autres fonction pr&eacute;d&eacute;finies">
+      <link rel="next" href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/filtering_lists.html" title="4.5. Filtrage de listes">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/power_of_introspection\/getattr.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "30";
+var displayMonth = "Mar";
+var displayYear = "2010";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/power_of_introspection/getattr.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20100330052023" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090408081952/http://diveintopython.adrahon.org/power_of_introspection/getattr.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="8 Apr 2009"><strong>APR</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 5:20:23 Mar 30, 2010">MAR</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Apr
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090408081952/http://diveintopython.adrahon.org/power_of_introspection/getattr.html" title="8:19:52 Apr 8, 2009" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 5:20:23 Mar 30, 2010">30</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090206015211/http://diveintopython.adrahon.org/power_of_introspection/getattr.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="6 Feb 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 5:20:23 Mar 30, 2010">2010</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2011
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20100330052023*/http://diveintopython.adrahon.org/power_of_introspection/getattr.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>20 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">20 May 06 - 30 Mar 10</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000010000100_2007:-1:110012300110_2008:-1:101020001000_2009:-1:010100000000_2010:2:001000000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/index.html">Le pouvoir de l&#8217;introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">Obtenir des r&eacute;f&eacute;rences objet avec getattr</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/built_in_functions.html" title="Pr&eacute;c&eacute;dent: &laquo;Utilisation de type, str, dir et autres fonction pr&eacute;d&eacute;finies&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/filtering_lists.html" title="Suivant: &laquo;Filtrage de listes&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="apihelper.getattr"></a>4.4. Obtenir des r&eacute;f&eacute;rences objet avec <tt class="function">getattr</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#d0e9241">4.4.1. getattr et les modules</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#d0e9408">4.4.2. getattr comme s&eacute;lecteur</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Vous savez d&eacute;j&agrave; que <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/getting_to_know_python/everything_is_an_object.html" title="2.4. Tout est objet">les
+                          fonctions <span class="application">Python</span> sont des objets</a>. Ce
+                       que vous ne savez pas, c&#8217;est que vous pouvez obtenir une r&eacute;f&eacute;rence &agrave;
+                       une fonction sans conna&icirc;tre son nom avant l&#8217;ex&eacute;cution, &agrave; l&#8217;aide de la
+                       fonction <tt class="function">getattr</tt>.
+            </p>
+         </div>
+         <div class="example"><a name="apihelper.getattr.intro"></a><h3 class="title">Exemple 4.10. Pr&eacute;sentation de <tt class="function">getattr</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>"Larry"</span>, <span class='pystring'>"Curly"</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.pop</span>                       <a name="apihelper.getattr.1.1"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;built-in method pop of list object at 010DF884&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(li, <span class='pystring'>"pop"</span>)</span>           <a name="apihelper.getattr.1.2"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;built-in method pop of list object at 010DF884&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(li, <span class='pystring'>"append"</span>)(<span class='pystring'>"Moe"</span>)</span> <a name="apihelper.getattr.1.3"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">["Larry", "Curly", "Moe"]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr({}, <span class='pystring'>"clear"</span>)</span>         <a name="apihelper.getattr.1.4"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;built-in method clear of dictionary object at 00F113D4&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr((), <span class='pystring'>"pop"</span>)</span>           <a name="apihelper.getattr.1.5"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'pop'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.1.1"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Ceci retourne une r&eacute;f&eacute;rence &agrave; la m&eacute;thode
+                                    <tt class="function">pop</tt> de la liste. Ce n&#8217;est pas un appel &agrave; la
+                                    m&eacute;thode <tt class="function">pop</tt>, un appel se ferait par
+                                    <tt class="literal">li.pop()</tt>. C&#8217;est la m&eacute;thode elle-m&ecirc;me.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.1.2"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Ceci retourne &eacute;galement une r&eacute;f&eacute;rence &agrave; la m&eacute;thode
+                                    <tt class="function">pop</tt>, mais cette fois ci le nom de la m&eacute;thode
+                                    est pass&eacute; comme argument de la fonction
+                                    <tt class="function">getattr</tt>. <tt class="function">getattr</tt> est une
+                                    fonction pr&eacute;d&eacute;finie extr&egrave;mement utile qui retourne n&#8217;importe quel
+                                    attribut de n&#8217;importe quel objet. Ici, l&#8217;objet est une liste et
+                                    l&#8217;attribut est la m&eacute;thode <tt class="function">pop</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.1.3"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Au cas o&ugrave; vous ne voyez pas &agrave; quel point c&#8217;est utile, regardez
+                                    ceci : la valeur de retour de <tt class="function">getattr</tt>
+                                    <span class="emphasis"><em>est</em></span> la m&eacute;thode, que vous pouvez alors appeler
+                                    comme si vous aviez tap&eacute; <tt class="literal">li.append("Moe")</tt>
+                                    directement. Mais vous n&#8217;avez pas appel&eacute; la fonction directement,
+                                    vous avez pass&eacute; le nom de la fonction comme param&egrave;tre sous forme
+                                    de cha&icirc;ne.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.1.4"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">getattr</tt> fonctionne aussi avec les dictionnaires.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.1.5"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">En th&eacute;orie, <tt class="function">getattr</tt> pourrait
+                                    fonctionner avec les tuples, mais <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/native_data_types/tuples.html#odbchelper.tuplemethods" title="Exemple 3.16. Les tuples n'ont pas de m&eacute;thodes">les tuples n&#8217;ont pas de
+                                       m&eacute;thodes</a> et <tt class="function">getattr</tt> d&eacute;clenchera une
+                                    exception quel que soit le nom d&#8217;attribut que vous lui
+                                    donnez.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e9241"></a>4.4.1. <tt class="function">getattr</tt> et les modules
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p><tt class="function">getattr</tt> n&#8217;est pas seulement fait pour les
+                     types pr&eacute;d&eacute;finis, il fonctionne aussi avec les modules.
+            </p>
+            <div class="example"><a name="apihelper.getattr.example"></a><h3 class="title">Exemple 4.11. <tt class="function">getattr</tt> dans <tt class="filename">apihelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> odbchelper</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">odbchelper.buildConnectionString</span>             <a name="apihelper.getattr.2.1"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;function buildConnectionString at 00D18DD4&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(odbchelper, <span class='pystring'>"buildConnectionString"</span>)</span> <a name="apihelper.getattr.2.2"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;function buildConnectionString at 00D18DD4&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">object = odbchelper</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">method = <span class='pystring'>"buildConnectionString"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(object, method)</span>                      <a name="apihelper.getattr.2.3"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;function buildConnectionString at 00D18DD4&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">type(getattr(object, method))</span>                <a name="apihelper.getattr.2.4"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;type 'function'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> types</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">type(getattr(object, method)) == types.FunctionType</span>
+<span class="computeroutput">True</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callable(getattr(object, method))</span>            <a name="apihelper.getattr.2.5"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">True</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.2.1"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Ceci retourne une r&eacute;f&eacute;rence &agrave; la fonction
+                                       <tt class="function">buildConnectionString</tt> du module <tt class="filename">odbchelper</tt>, que nous avons &eacute;tudi&eacute;
+                                       au <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/getting_to_know_python/index.html" title="Chapitre 2. Votre premier programme Python">Chapitre&nbsp;2, <i>Votre premier programme Python</i></a>. (L&#8217;adresse hexad&eacute;cimale qui
+                                       s&#8217;affiche est sp&eacute;cifique &agrave; ma machine, votre sortie sera
+                                       diff&eacute;rente.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.2.2"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">A l&#8217;aide de <tt class="function">getattr</tt>, nous pouvons
+                                       obtenir la m&ecirc;me r&eacute;f&eacute;rence &agrave; la m&ecirc;me fonction. En g&eacute;n&eacute;ral,
+                                       <tt class="literal"><tt class="function">
+                                             getattr</tt>(<i class="replaceable">objet</i>,
+                                          "<i class="replaceable">attribut</i>")</tt> est &eacute;quivalent &agrave;
+                                       <tt class="literal"><i class="replaceable">objet</i>.<i class="replaceable">attribut</i></tt>.
+                                       Si <i class="replaceable"><tt>objet</tt></i> est un module, alors
+                                       <i class="replaceable"><tt>attribut</tt></i> peut &ecirc;tre toute chose d&eacute;finie
+                                       dans le module : une fonction, une classe ou une variable
+                                       globale.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.2.3"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Voici ce que nous utilisons dans la fonction
+                                       <tt class="function">info</tt>. <tt class="varname">object</tt> est pass&eacute; en
+                                       argument &agrave; la fonction, <tt class="varname">method</tt> est une cha&icirc;ne,
+                                       le nom de la m&eacute;thode ou de la fonction.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.2.4"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Dans ce cas, <tt class="varname">method</tt> est le nom d&#8217;une
+                                       fonction, ce que nous prouvons en obtenant son <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/built_in_functions.html#apihelper.type.intro" title="Exemple 4.5. Pr&eacute;sentation de type"><tt class="function">type</tt></a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.2.5"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Puisque <tt class="varname">method</tt> est une fonction, elle est
+                                       <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/built_in_functions.html#apihelper.builtin.callable" title="Exemple 4.8. Pr&eacute;sentation de callable">callable</a>
+                                       (appelable).
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e9408"></a>4.4.2. <tt class="function">getattr</tt> comme s&eacute;lecteur
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Une utilisation usuelle de <tt class="function">getattr</tt> est dans le r&ocirc;le de s&eacute;lecteur. Par exemple, si vous avez un programme qui peut produire des donn&eacute;es dans diff&eacute;rents formats,
+               vous pouvez d&eacute;finir des fonctions diff&eacute;rentes pour chaque format de sortie et utiliser une fonction de s&eacute;lection pour appeler
+               celle qui convient.
+            </p>
+            <p>Par exemple, imaginons un programme qui affiche des statistiques de consultations d'un site Web aux formats <span class="acronym">HTML</span>, <span class="acronym">XML</span> et texte simple. Le choix du format de sortie peut &ecirc;tre sp&eacute;cifi&eacute; depuis la ligne de commande ou stock&eacute; dans un fichier de
+               configuration. Un module <tt class="filename">statsout</tt> d&eacute;finit trois fonctions, <tt class="function">output_html</tt>, <tt class="function">output_xml</tt> et <tt class="function">output_text</tt>. Ensuite, le programme principal d&eacute;finit une fonction de sortie unique, comme ceci :
+            </p>
+            <div class="example"><a name="apihelper.getattr.dispatch"></a><h3 class="title">Exemple 4.12. Cr&eacute;ation d'un s&eacute;lecteur avec <tt class="function">getattr</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> statsout
+
+<span class='pykeyword'>def</span><span class='pyclass'> output</span>(data, format=<span class='pystring'>"text"</span>):                              <a name="apihelper.getattr.3.1"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    output_function = getattr(statsout, <span class='pystring'>"output_%s"</span> % format) <a name="apihelper.getattr.3.2"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>return</span> output_function(data)                              <a name="apihelper.getattr.3.3"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+</pre></div>
+            <div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.3.1"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">La fonction <tt class="function">output</tt> prend un argument obligatoire, <tt class="varname">data</tt> et un argument optionnel, <tt class="varname">format</tt>. Si <tt class="varname">format</tt> n'est pas sp&eacute;cifi&eacute;, il a la valeur par d&eacute;faut <tt class="literal">text</tt> ce qui appelera la fonction de sortie en texte simple.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.3.2"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Nous concat&eacute;nons l'argument <tt class="varname">format</tt> &agrave; "output_" pour produire un nom de fonction et allons chercher cette fonction dans le module <tt class="filename">statsout</tt>. Cela nous permet d'&eacute;tendre simplement le programme plus tard pour supporter d'autres formats de sortie, sans changer la
+                        fonction de s&eacute;lection. Il suffit d'ajouter une autre fonction &agrave; <tt class="filename">statsout</tt> nomm&eacute;e, par exemple, <tt class="function">output_pdf</tt> et de passer "pdf" comme <tt class="varname">format</tt> &agrave; la fonction <tt class="function">output</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.3.3"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Maintenant, nous pouvons simplement appeler la fonction de sortie comme toute autre fonction. La variable <tt class="varname">output_function</tt> est une r&eacute;f&eacute;rence &agrave; la fonction appropri&eacute;e du module <tt class="filename">statsout</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p>Avez vous vu le probl&egrave;me dans l'exemple pr&eacute;c&eacute;dent ? Il y a un couplage tr&egrave;s l&acirc;che entre cha&icirc;nes et fonctions et il n'y a aucune
+               v&eacute;rification d'erreur. Que se passe-t-il si l'utilisateur passe un format pour lequel aucune fonction correspondante n'est
+               d&eacute;finie dans le module <tt class="filename">statsout</tt>? Et bien, <tt class="function">getattr</tt> retournera <tt class="literal">None</tt>, qui sera assign&eacute; &agrave; <tt class="varname">output_function</tt> au lieu d'une fonction valide et &agrave; la ligne suivante, qui tente d'appeler cette fonction inexistante, plantera et d&eacute;clenchera
+               une exception. C'est un probl&egrave;me.
+            </p>
+            <p>Heureusement <tt class="function">getattr</tt> prend un troisi&egrave;me argument optionnel, une valeurpar d&eacute;faut.
+            </p>
+            <div class="example"><a name="apihelper.getattr.default"></a><h3 class="title">Exemple 4.13. Valeurs par d&eacute;faut de <tt class="function">getattr</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> statsout
+
+<span class='pykeyword'>def</span><span class='pyclass'> output</span>(data, format=<span class='pystring'>"text"</span>):
+    output_function = getattr(statsout, <span class='pystring'>"output_%s"</span> % format, statsout.output_text)
+    <span class='pykeyword'>return</span> output_function(data) <a name="apihelper.getattr.4.1"></a><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/getattr.html#apihelper.getattr.4.1"><img src="http://web.archive.org/web/20100330052023im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Cet appel de fonction est assur&eacute; de fonctionner puisque nous avons ajout&eacute; un troisi&egrave;me argument &agrave; l'appel &agrave; <tt class="function">getattr</tt>. Le troisi&egrave;me argument est une valeur par d&eacute;faut qui est retourn&eacute;e si l'attribut ou la m&eacute;thode sp&eacute;cifi&eacute; par le second argument
+                           n'est pas trouv&eacute;.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Comme vous pouvez le voir, <tt class="function">getattr</tt> est tr&egrave;s puissant. C'est le coeur m&ecirc;me de l'introspection et vous en verrez des exemples encore plus puissants dans des prochains
+               chapitres.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/built_in_functions.html">&lt;&lt;&nbsp;Utilisation de type, str, dir et autres fonction pr&eacute;d&eacute;finies</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/index.html#apihelper.divein" title="4.1. Plonger">1</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/optional_arguments.html" title="4.2. Arguments optionnels et nomm&eacute;s">2</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/built_in_functions.html" title="4.3. Utilisation de type, str, dir et autres fonction pr&eacute;d&eacute;finies">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/filtering_lists.html" title="4.5. Filtrage de listes">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/and_or.html" title="4.6. Particularit&eacute;s de and et or">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/lambda_functions.html" title="4.7. Utiliser des fonctions lambda">7</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/all_together.html" title="4.8. Assembler les pi&egrave;ces">8</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/summary.html" title="4.9. R&eacute;sum&eacute;">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100330052023/http://diveintopython.adrahon.org/power_of_introspection/filtering_lists.html">Filtrage de listes&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 5:20:23 Mar 30, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:24:53 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

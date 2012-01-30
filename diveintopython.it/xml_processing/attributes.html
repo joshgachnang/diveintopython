@@ -1,0 +1,257 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.6.&nbsp;Accedere agli attributi di un elemento</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Accedere agli attributi di un elemento</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/searching.html" title="Indietro: “Ricercare elementi”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="Avanti: “Astrarre le sorgenti di ingresso”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.attributes"></a>6.6.&nbsp;Accedere agli attributi di un elemento
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+                       Gli elementi <span class="acronym">XML</span> possono avere uno o pi&ugrave; 
+                       attributi ed &egrave; incredibilmente semplice
+                       accedervi una volta che avete analizzato il 
+                       documento <span class="acronym">XML</span>.
+               
+            </p>
+</div>
+<p>
+                    Per questa sezione, useremo il file di grammatica 
+                    <tt class="filename">binary.xml</tt> che abbiamo visto nella
+                    <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">sezione precedente</a>.
+            
+         </p><a name="d0e18882"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                          Questa sezione potrebbe risultare un po' confusa a causa
+                  	della sovrapposizione nella terminologia. Gli elementi in 
+                  	un documento <span class="acronym">XML</span> hanno degli attributi ed anche gli
+                  	oggetti <span class="application">Python</span> hanno degli attributi. Quando analizziamo 
+                  	un documento <span class="acronym">XML</span>, otteniamo un gruppo di oggetti 
+                  	<span class="application">Python</span> che rappresentano tutti i pezzi del documento 
+                  	<span class="acronym">XML</span> ed alcuni di questi oggetti rappresentano gli
+                  	attributi degli elementi <span class="acronym">XML</span>. Ma anche gli oggetti 
+                  	(<span class="application">Python</span>) che rappresentano gli attributi (<span class="acronym">XML</span>) hanno 
+                  	attributi, che vengono utilizzati per accedere alle varie
+                  	parti degli attributi (<span class="acronym">XML</span>) che l'oggetto rappresenta. 
+                  	Ve l'ho detto che vi avrebbe confuso. Sono aperto a 
+                  	suggerimenti su come distinguere le due cose in maniera 
+                  	pi&ugrave; chiara.
+                  
+               </td>
+</tr>
+</table>
+<div class="example"><a name="d0e18919"></a><h3 class="title">Esempio&nbsp;6.23.&nbsp;Accedere agli attributi di un elemento</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class="pystring">'binary.xml'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">reflist = xmldoc.getElementsByTagName(<span class="pystring">'ref'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">bitref = reflist[0]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> bitref.toxml()</span>
+<span class="computeroutput">&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">bitref.attributes</span>          <a name="kgp.attributes.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;xml.dom.minidom.NamedNodeMap instance at 0x81e0c9c&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">bitref.attributes.keys()</span>   <a name="kgp.attributes.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /> <a name="kgp.attributes.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">[u'id']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">bitref.attributes.values()</span> <a name="kgp.attributes.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">[&lt;xml.dom.minidom.Attr instance at 0x81d5044&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">bitref.attributes[<span class="pystring">"id"</span>]</span>    <a name="kgp.attributes.1.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;xml.dom.minidom.Attr instance at 0x81d5044&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/attributes.html#kgp.attributes.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    Ogni oggetto di tipo <tt class="classname">Element</tt> ha un attributo
+                        	    chiamato <tt class="literal">attributes</tt>, che &egrave; un oggetto 
+                        	    <tt class="classname">NamedNodeMap</tt>. Suona spaventoso, ma non lo &egrave;, 
+                        	    perch&eacute; una <tt class="classname">NamedNodeMap</tt> &egrave; un oggetto che si
+                        	    <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">comporta come un 
+                           	    dizionario</a>, dunque gi&agrave; sapete come usarla.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/attributes.html#kgp.attributes.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    Trattando la <tt class="classname">NamedNodeMap</tt> come un dizionario, 
+                        	    possiamo ottenere una lista dei nomi degli attributi di 
+                        	    questo elemento usando
+                        	    <tt class="function">attributes.keys()</tt>. Questo elemento 
+                        	    ha un solo attributo, <tt class="literal">'id'</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/attributes.html#kgp.attributes.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                I nomi degli attributi, come tutti gli altri testi in un 
+                        	documento <span class="acronym">XML</span>, sono memorizzati in 
+                        	<a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">unicode</a>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/attributes.html#kgp.attributes.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Ancora, trattando la <tt class="classname">NamedNodeMap</tt> come un
+                        	dizionario, possiamo ottenere una lista dei valori degli 
+                        	attributi utilizzando 
+                                <tt class="function">attributes.values()</tt>. I valori sono 
+                        	essi stessi degli oggetti, di tipo <tt class="classname">Attr</tt>. 
+                                Vedremo come ottenere utili informazioni da questi oggetti 
+                                nel prossimo esempio.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/attributes.html#kgp.attributes.1.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    Continuando a trattare la <tt class="classname">NamedNodeMap</tt> come 
+                        	    un dizionario, possiamo accedere ad un singolo attributo 
+                        	    tramite il nome, usando la normale sintassi dei 
+                        	    dizionari. I lettori che hanno prestato estrema
+                        	    attenzione gi&agrave; sapranno come la classe
+                        	    <tt class="classname">NamedNodeMap</tt> riesce a fare questo trucco:
+                        	    definendo il
+                        	    <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">metodo speciale
+                           	    <tt class="function">__getitem__</tt></a>.
+                        	    Gli altri lettori si possono tranquillizzare perch&eacute;
+                        	    non hanno bisogno di sapere come funzioni per usarla.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e19054"></a><h3 class="title">Esempio&nbsp;6.24.&nbsp;Accedere agli attributi individuali</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a = bitref.attributes[<span class="pystring">"id"</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a</span>
+<span class="computeroutput">&lt;xml.dom.minidom.Attr instance at 0x81d5044&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a.name</span>  <a name="kgp.attributes.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">u'id'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a.value</span> <a name="kgp.attributes.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">u'bit'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/attributes.html#kgp.attributes.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    L'oggetto <tt class="classname">Attr</tt> rappresenta completamente un 
+                        	    singolo attributo <span class="acronym">XML</span> di un singolo elemento <span class="acronym">XML</span>. Il 
+                        	    nome dell'attributo (lo stesso nome che abbiamo usato 
+                        	    per trovare questo oggetto nello pseudo-dizionario 
+                        	    <tt class="classname">NamedNodeMap</tt>
+<tt class="literal">bitref.attributes</tt>) &egrave; memorizzato in 
+                        	    <tt class="literal">a.name</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/attributes.html#kgp.attributes.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    Il valore di testo dell'attributo <span class="acronym">XML</span> &egrave; memorizzato 
+                        	    in <tt class="literal">a.value</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="d0e19122"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Come un dizionario, gli attributi di un elemento <span class="acronym">XML</span> 
+                  	non hanno ordinamento. Gli attributi <span class="emphasis"><em>possono 
+                        	essere</em></span> elencati in un certo ordine nel 
+                  	documento <span class="acronym">XML</span> originale e gli oggetti
+                  	<tt class="classname">Attr</tt> <span class="emphasis"><em>possono essere</em></span> elencati
+                  	in un certo  
+                  	ordine quando il documento <span class="acronym">XML</span> viene interpretato 
+                  	in oggetti <span class="application">Python</span>, ma questi ordinamenti sono 
+                  	arbitrari e non dovrebbero avere alcun significato 
+                  	particolare. Dovreste sempre accedere agli attributi 
+                  	in base al nome, come nel caso delle chiavi di un dizionario.
+                  
+               </td>
+</tr>
+</table>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/searching.html">&lt;&lt;&nbsp;Ricercare elementi</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/input_sources.html">Astrarre le sorgenti di ingresso&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

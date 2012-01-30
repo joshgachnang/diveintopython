@@ -1,0 +1,499 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.2. Pr&eacute;sentation de sgmllib.py</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20090206014648cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/index.html" title="Chapitre 8. Traitement du HTML">
+      <link rel="previous" href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/index.html" title="Chapitre 8. Traitement du HTML">
+      <link rel="next" href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/extracting_data.html" title="8.3. Extraction de donn&eacute;es de documents HTML">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/html_processing\/introducing_sgmllib.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "6";
+var displayMonth = "Feb";
+var displayYear = "2009";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20090206014648" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081121093247/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="21 Nov 2008"><strong>NOV</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 1:46:48 Feb 6, 2009">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Mar
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081121093247/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" title="9:32:47 Nov 21, 2008" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 1:46:48 Feb 6, 2009">6</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20071215143053/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="15 Dec 2007"><strong>2007</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 1:46:48 Feb 6, 2009">2009</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2010
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20090206014648*/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>20 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">19 Jun 06 - 6 Feb 09</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000001000120_2007:-1:010211000201_2008:-1:010101020110_2009:1:010000000000_2010:-1:000000000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/index.html">Traitement du HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">Pr&eacute;sentation de sgmllib.py</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/index.html" title="Pr&eacute;c&eacute;dent: &laquo;Traitement du HTML&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/extracting_data.html" title="Suivant: &laquo;Extraction de donn&eacute;es de documents HTML&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.sgmllib"></a>8.2. Pr&eacute;sentation de <tt class="filename">sgmllib.py</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Le traitement du <span class="acronym">HTML</span> est divis&eacute; en trois &eacute;tapes : diviser le <span class="acronym">HTML</span> en &eacute;l&eacute;ments, modifier les &eacute;l&eacute;ments et reconstruire le <span class="acronym">HTML</span> &agrave; partir des &eacute;l&eacute;ments. La premi&egrave;re &eacute;tape est r&eacute;alis&eacute;e par <tt class="filename">sgmllib.py</tt>, qui fait partie de la biblioth&egrave;que standard de <span class="application">Python</span>.
+            </p>
+            <p>La cl&eacute; de la compr&eacute;hension de ce chapitre est de r&eacute;aliser que le
+                     <span class="acronym">HTML</span> n&#8217;est pas seulement du texte, c&#8217;est du texte
+                     structur&eacute;. La structure est d&eacute;riv&eacute;e de la s&eacute;quence plus ou moins
+                     hi&eacute;rarchique de balises de d&eacute;but et de fin. Habituellement, on ne
+                     travaille pas de cette mani&egrave;re sur du <span class="acronym">HTML</span>, on
+                     travaille <span class="emphasis"><em>textuellement</em></span> dans un &eacute;diteur de texte ou
+                     <span class="emphasis"><em>visuellement</em></span> dans un navigateur ou un &eacute;diteur de
+                     pages web. <tt class="filename">sgmllib.py</tt> pr&eacute;sente
+                     le <span class="acronym">HTML</span> de mani&egrave;re
+                     <span class="emphasis"><em>structurelle</em></span>.
+            </p>
+         </div>
+         <p><tt class="filename">sgmllib.py</tt> contient une
+                  classe principale : <tt class="classname">SGMLParser</tt>.
+                  <tt class="classname">SGMLParser</tt> analyse le <span class="acronym">HTML</span> et
+                  le d&eacute;compose en &eacute;l&eacute;ments utiles, comme des balises de d&eacute;but et de fin.
+                  D&egrave;s qu&#8217;il parvient &agrave; extraire des donn&eacute;es un &eacute;l&eacute;ment utile, il appelle
+                  une de ses propres m&eacute;thodes en fonction de l&#8217;&eacute;l&eacute;ment trouv&eacute;. Pour
+                  utiliser l&#8217;analyseur, on d&eacute;rive une classe de
+                  <tt class="classname">SGMLParser</tt> et on red&eacute;finit ces m&eacute;thodes. C&#8217;est ce
+                  que j&#8217;entendais par pr&eacute;sentation du <span class="acronym">HTML</span> de mani&egrave;re
+                  <span class="emphasis"><em>structurelle</em></span> : la structure du code
+                  <span class="acronym">HTML</span> d&eacute;termine la s&eacute;quence d&#8217;appels de m&eacute;thodes et
+                  les arguments pass&eacute;s &agrave; chaque m&eacute;thode.
+         </p>
+         <p><tt class="classname">SGMLParser</tt> d&eacute;compose le
+                  <span class="acronym">HTML</span> en 8 sortes de donn&eacute;es et appelle une m&eacute;thode
+                  diff&eacute;rente pour chacune d&#8217;entre elles :
+         </p>
+         <div class="variablelist">
+            <dl>
+               <dt><span class="term">Balise de d&eacute;but</span></dt>
+               <dd>Une balise <span class="acronym">HTML</span> qui ouvre un bloc, comme
+                              <tt class="sgmltag-element">&lt;html&gt;</tt>, <tt class="sgmltag-element">&lt;head&gt;</tt>,
+                              <tt class="sgmltag-element">&lt;body&gt;</tt> ou <tt class="sgmltag-element">&lt;pre&gt;</tt>,
+                              ou une balise autonome comme <tt class="sgmltag-element">&lt;br&gt;</tt> ou
+                              <tt class="sgmltag-element">&lt;img&gt;</tt>. Lorsqu&#8217;il trouve une balise de
+                              d&eacute;but <i class="replaceable"><tt>tagname</tt></i>,
+                              <tt class="classname">SGMLParser</tt> cherche une m&eacute;thode nomm&eacute;e
+                              <tt class="function">start_<i class="replaceable"><tt>tagname</tt></i></tt> ou
+                              <tt class="function">do_<i class="replaceable"><tt>tagname</tt></i></tt>. Par
+                              exemple, lorsqu&#8217;il trouve une balise
+                              <tt class="sgmltag-element">&lt;pre&gt;</tt>, il cherche une m&eacute;thode nomm&eacute;e
+                              <tt class="function">start_pre</tt> ou <tt class="function">do_pre</tt>.
+                              S&#8217;il la trouve, <tt class="classname">SGMLParser</tt> l&#8217;appelle avec
+                              une liste des attributs de la balise en param&egrave;tre, sinon il
+                              appelle <tt class="function">unknown_starttag</tt> avec le nom de la
+                              balise et la liste de ses attributs en param&egrave;tre.
+               </dd>
+               <dt><span class="term">Balise de fin</span></dt>
+               <dd>Une balise <span class="acronym">HTML</span> qui ferme un bloc, comme
+                              <tt class="sgmltag-element">&lt;/html&gt;</tt>,
+                              <tt class="sgmltag-element">&lt;/head&gt;</tt>, <tt class="sgmltag-element">&lt;/body&gt;</tt>
+                              ou <tt class="sgmltag-element">&lt;/pre&gt;</tt>. Lorsqu&#8217;il trouve une balise de
+                              fin, <tt class="classname">SGMLParser</tt> cherche une m&eacute;thode nomm&eacute;e
+                              <tt class="function">end_<i class="replaceable"><tt>tagname</tt></i></tt>. S&#8217;il
+                              la trouve, <tt class="classname">SGMLParser</tt> appelle cette
+                              m&eacute;thode, sinon il appelle <tt class="function">unknown_endtag</tt> avec
+                              le nom de la balise.
+               </dd>
+               <dt><span class="term">R&eacute;f&eacute;rence de caract&egrave;re</span></dt>
+               <dd>Un caract&egrave;re r&eacute;f&eacute;renc&eacute; par son &eacute;quivalent d&eacute;cimal ou
+                              hexad&eacute;cimal, comme <tt class="literal">&amp;#160;</tt>. Lorsqu&#8217;il en
+                              trouve une, <tt class="classname">SGMLParser</tt> appelle
+                              <tt class="function">handle_charref</tt> avec le texte de l&#8217;&eacute;quivalent
+                              d&eacute;cimal ou hexad&eacute;cimal.
+               </dd>
+               <dt><span class="term">R&eacute;f&eacute;rence d&#8217;entit&eacute;</span></dt>
+               <dd>Une entit&eacute; <span class="acronym">HTML</span>, comme
+                              <tt class="literal">&amp;copy;</tt>. Lorsqu&#8217;il en trouve une,
+                              <tt class="classname">SGMLParser</tt> appelle
+                              <tt class="function">handle_entityref</tt> avec le nom de l&#8217;entit&eacute;
+                              <span class="acronym">HTML</span>.
+               </dd>
+               <dt><span class="term">Commentaire</span></dt>
+               <dd>Un commentaire <span class="acronym">HTML</span>, encadr&eacute; par
+                              <tt class="literal">&lt;!-- ... --&gt;</tt>. Lorsqu&#8217;il en trouve un,
+                              <tt class="classname">SGMLParser</tt> appelle
+                              <tt class="function">handle_comment</tt> avec le corps du
+                              commentaire.
+               </dd>
+               <dt><span class="term">Instruction de traitement</span></dt>
+               <dd>Une instruction de traitement <span class="acronym">HTML</span>,
+                              encadr&eacute;e par <tt class="literal">&lt;? ... &gt;</tt>. Lorsqu&#8217;il en
+                              trouve une, <tt class="classname">SGMLParser</tt> appelle
+                              <tt class="function">handle_pi</tt> avec le corps de
+                              l&#8217;instruction.
+               </dd>
+               <dt><span class="term">D&eacute;claration</span></dt>
+               <dd>Une d&eacute;claration <span class="acronym">HTML</span>, comme un
+                              <tt class="sgmltag-element">DOCTYPE</tt>, encadr&eacute;e par <tt class="literal">&lt;! ...
+                                 &gt;</tt>. Lorsqu&#8217;il en trouve une,
+                              <tt class="classname">SGMLParser</tt> appelle
+                              <tt class="function">handle_decl</tt> avec le corps de la
+                              d&eacute;claration
+               </dd>
+               <dt><span class="term">Donn&eacute;es texte</span></dt>
+               <dd>Un bloc de texte. Tout ce qui n&#8217;entre dans aucune des 7
+                              cat&eacute;gories pr&eacute;c&eacute;dentes. Lorsqu&#8217;il en trouve un,
+                              <tt class="classname">SGMLParser</tt> appelle
+                              <tt class="function">handle_data</tt> avec le texte.
+               </dd>
+            </dl>
+         </div><a name="d0e20030"></a><table class="important" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20090206014648im_/http://diveintopython.adrahon.org/images/important.png" alt="Important" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> 2.0 avait un bogue qui
+                          emp&ecirc;chait <tt class="classname">SGMLParser</tt> de reconna&icirc;tre les
+                          d&eacute;clarations (<tt class="function">handle_decl</tt> n&#8217;&eacute;tait jamais appel&eacute;),
+                          ce qui veut dire que les <tt class="sgmltag-element">DOCTYPE</tt>s &eacute;taient ignor&eacute;s
+                          silencieusement. Ce bogue est corrig&eacute; dans
+                          <span class="application">Python</span> 2.1.
+               </td>
+            </tr>
+         </table>
+         <p><tt class="filename">sgmllib.py</tt> est accompagn&eacute; d'une suite de tests pour illustrer cela. Si on ex&eacute;cute <tt class="filename">sgmllib.py</tt> en lui passant le nom d&#8217;un
+                  fichier <span class="acronym">HTML</span> en argument de ligne de commande, il
+                  affichera les balises et les autres &eacute;l&eacute;ments au fur et &agrave; mesure qu&#8217;il
+                  analyse le fichier. Il fait cela en d&eacute;rivant une classe de
+                  <tt class="classname">SGMLParser</tt> et en d&eacute;finissant des m&eacute;thodes comme
+                  <tt class="function">unknown_starttag</tt>,
+                  <tt class="function">unknown_endtag</tt>, <tt class="function">handle_data</tt> et
+                  autres qui ne font qu&#8217;afficher leur argument.
+         </p><a name="tip.commandline.windows"></a><table class="tip" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20090206014648im_/http://diveintopython.adrahon.org/images/tip.png" alt="ASTUCE" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Dans l&#8217;<span class="acronym">IDE</span> <span class="application">ActivePython</span>
+                          sous Windows, vous pouvez sp&eacute;cifier des arguments de ligne de commande
+                          dans la bo&icirc;te de dialogue &laquo;<span class="quote">Run script</span>&raquo;. S&eacute;parez les
+                          diff&eacute;rents arguments par des espaces.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="d0e20087"></a><h3 class="title">Exemple 8.4. Exemple de test de <tt class="filename">sgmllib.py</tt></h3>
+            <p>Voici un extrait de la table des mati&egrave;res de la version <span class="acronym">HTML</span> de ce livre. Bien s&ucirc;r, les chemins peuvent &ecirc;tre diff&eacute;rents. Si vous n'avez pas t&eacute;l&eacute;charg&eacute; la version <span class="acronym">HTML</span> du livre, vous pouvez le faire &agrave; l'adresse suivante : <a href="http://web.archive.org/web/20090206014648/http://diveintopython.org/">http://diveintopython.org/</a>.
+            </p><pre class="screen">
+<tt class="prompt">c:\python23\lib&gt;</tt> <span class="userinput">type <span class='pystring'>"c:\downloads\diveintopython\html\toc\index.html"</span></span>
+<tt class="literal">
+&lt;!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;
+&lt;html lang="en"&gt;
+   &lt;head&gt;
+      &lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"&gt;
+   
+      &lt;title&gt;Dive Into Python&lt;/title&gt;
+      &lt;link rel="stylesheet" href="diveintopython.css" type="text/css"&gt;
+
+... nous coupons la suite pour rester bref ...
+</tt></pre><p>En l&#8217;utilisant avec la suite de tests de <tt class="filename">sgmllib.py</tt>, on obtient la sortie suivante :
+            </p><pre class="screen">
+<tt class="prompt">c:\python23\lib&gt;</tt> <span class="userinput">python sgmllib.py <span class='pystring'>"c:\downloads\diveintopython\html\toc\index.html"</span></span>
+<span class="computeroutput">data: '\n\n'
+start tag: &lt;html lang="en" &gt;
+data: '\n   '
+start tag: &lt;head&gt;
+data: '\n      '
+start tag: &lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" &gt;
+data: '\n   \n      '
+start tag: &lt;title&gt;
+data: 'Dive Into Python'
+end tag: &lt;/title&gt;
+data: '\n      '
+start tag: &lt;link rel="stylesheet" href="diveintopython.css" type="text/css" &gt;
+data: '\n      '
+
+... nous coupons la suite pour rester bref ...
+</span></pre></div>
+         <p>Voici le plan du reste de ce chapitre :</p>
+         <div class="itemizedlist">
+            <ul>
+               <li>D&eacute;rivation de <tt class="classname">SGMLParser</tt> pour cr&eacute;er des
+                            classes qui extraient des donn&eacute;es int&eacute;ressantes de documents
+                            <span class="acronym">HTML</span>.
+               </li>
+               <li>D&eacute;rivation de <tt class="classname">SGMLParser</tt> pour cr&eacute;er
+                            <tt class="classname">BaseHTMLProcessor</tt>, qui red&eacute;finit les 8
+                            m&eacute;thodes de gestion et les utilise pour reconstruire le code
+                            <span class="acronym">HTML</span> &agrave; partir de ses &eacute;l&eacute;ments.
+               </li>
+               <li>D&eacute;rivation de <tt class="classname">BaseHTMLProcessor</tt> pour
+                            cr&eacute;er <tt class="classname">Dialectizer</tt>, qui ajoute des m&eacute;thodes
+                            traitant des balises <span class="acronym">HTML</span> sp&eacute;cifiques et
+                            red&eacute;finit la m&eacute;thode <tt class="function">handle_data</tt> pour fournir
+                            une structure de traitement de blocs de tests entre les balises
+                            <span class="acronym">HTML</span>.
+               </li>
+               <li>D&eacute;rivation de <tt class="classname">Dialectizer</tt> pour cr&eacute;er
+                            des classes qui d&eacute;finissent des r&egrave;gles de traitement du texte
+                            utilis&eacute;es par <tt class="function">Dialectizer.handle_data</tt>.
+               </li>
+               <li>Ecriture d&#8217;une suite de tests qui r&eacute;cup&egrave;re une v&eacute;ritable page
+                            web de <tt class="systemitem">http://diveintopython.org/</tt> et en traite le contenu.
+               </li>
+            </ul>
+         </div>
+         <p>En cours de route, vous apprendrez &eacute;galement <tt class="function">locals</tt>, <tt class="function">globals</tt> et le formatage de cha&icirc;nes &agrave; l'aide de dictionnaire.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/index.html">&lt;&lt;&nbsp;Traitement du HTML</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/index.html#dialect.divein" title="8.1. Plonger">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/extracting_data.html" title="8.3. Extraction de donn&eacute;es de documents HTML">3</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/basehtmlprocessor.html" title="8.4. Pr&eacute;sentation de BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/locals_and_globals.html" title="8.5. locals et globals">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html" title="8.6. Formatage de cha&icirc;nes &agrave; l&#8217;aide d&#8217;un dictionnaire">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/quoting_attribute_values.html" title="8.7. Mettre les valeurs d&#8217;attributs entre guillemets">7</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/dialect.html" title="8.8. Pr&eacute;sentation de dialect.py">8</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/all_together.html" title="8.9. Assembler les pi&egrave;ces">9</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/summary.html" title="8.10. R&eacute;sum&eacute;">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090206014648/http://diveintopython.adrahon.org/html_processing/extracting_data.html">Extraction de donn&eacute;es de documents HTML&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 1:46:48 Feb 6, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:25:16 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

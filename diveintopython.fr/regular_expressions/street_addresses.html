@@ -1,0 +1,495 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>7.2. Exemple : adresses postales</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20090324043159cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/index.html" title="Chapitre 7. Expressions r&eacute;guli&egrave;res">
+      <link rel="previous" href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/index.html" title="Chapitre 7. Expressions r&eacute;guli&egrave;res">
+      <link rel="next" href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" title="7.3. Exemple : chiffres romains">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/regular_expressions\/street_addresses.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "24";
+var displayMonth = "Mar";
+var displayYear = "2009";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20090324043159" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081208145616/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="8 Dec 2008"><strong>DEC</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 4:31:59 Mar 24, 2009">MAR</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Apr
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090226190102/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" title="19:01:02 Feb 26, 2009" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 4:31:59 Mar 24, 2009">24</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20080214010727/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="14 Feb 2008"><strong>2008</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 4:31:59 Mar 24, 2009">2009</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2010
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20090324043159*/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>20 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">12 May 06 - 24 Mar 09</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000011000100_2007:-1:110011000201_2008:-1:010111010201_2009:2:011000000000_2010:-1:000000000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/index.html">Expressions r&eacute;guli&egrave;res</a>&nbsp;&gt;&nbsp;<span class="thispage">Exemple : adresses postales</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/index.html" title="Pr&eacute;c&eacute;dent: &laquo;Expressions r&eacute;guli&egrave;res&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" title="Suivant: &laquo;Exemple : chiffres romains&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="re.matching"></a>7.2. Exemple : adresses postales
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Cette s&eacute;rie d&#8217;exemples est inspir&eacute;e d&#8217;un probl&egrave;me r&eacute;el que j&#8217;ai
+               eu au cours de mon travail, l&#8217;extraction et la standardisation
+               d&#8217;adresses postales export&eacute;es d&#8217;un ancien syst&egrave;me avant de les importer
+                       dans un nouveau syst&egrave;me (vous voyez, je n&#8217;invente rien, c&#8217;est
+                       r&eacute;ellement utile). L&#8217;exemple suivant montre comment j&#8217;ai abord&eacute; ce probl&egrave;me.
+            </p>
+         </div>
+         <div class="example"><a name="d0e16984"></a><h3 class="title">Exemple 7.1. Reconna&icirc;tre la fin d&#8217;une cha&icirc;ne</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class='pystring'>'100 NORTH MAIN ROAD'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.replace(<span class='pystring'>'ROAD'</span>, <span class='pystring'>'RD.'</span>)</span>               <a name="re.matching.1.1"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'100 NORTH MAIN RD.'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class='pystring'>'100 NORTH BROAD ROAD'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.replace(<span class='pystring'>'ROAD'</span>, <span class='pystring'>'RD.'</span>)</span>               <a name="re.matching.1.2"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'100 NORTH BRD. RD.'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s[:-4] + s[-4:].replace(<span class='pystring'>'ROAD'</span>, <span class='pystring'>'RD.'</span>)</span> <a name="re.matching.1.3"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'100 NORTH BROAD RD.'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>                              <a name="re.matching.1.4"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'ROAD$'</span>, <span class='pystring'>'RD.'</span>, s)</span>              <a name="re.matching.1.5"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"> <a name="re.matching.1.6"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/6.png" alt="6" border="0" width="12" height="12">
+<span class="computeroutput">'100 NORTH BROAD RD.'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.1.1"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Mon but &eacute;tait de standardiser les adresses de mani&egrave;re &agrave; ce
+                                    que <tt class="literal">'ROAD'</tt> soit toujours abr&eacute;g&eacute; en
+                                    <tt class="literal">'RD.'</tt>. Au premier abord, je pensais que ce
+                                    serait assez simple pour utiliser uniquement la m&eacute;thode de cha&icirc;ne
+                                    <tt class="function">replace</tt>. Apr&egrave;s tout, toutes les donn&eacute;es
+                                    &eacute;taient d&eacute;j&agrave; en majuscules, donc les erreurs de casses ne seraient
+                                    pas un probl&egrave;me. De plus, la cha&icirc;ne de recherche,
+                                    <tt class="literal">'ROAD'</tt>, &eacute;tait une constante. Pour cet exemple
+                                    trompeusement simple, <tt class="function">s.replace</tt> fonctionne
+                                    effectivement.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.1.2"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Malheureusement, la vie est pleine de contre-exemples et je
+                                    d&eacute;couvrais assez rapidemment celui-ci. Le probl&egrave;me ici est que
+                                    <tt class="literal">'ROAD'</tt> appara&icirc;t deux fois dans l&#8217;adresse,
+                                    d&#8217;abord comme partie du nom de la rue <tt class="literal">'BROAD'</tt>
+                                    et ensuite comme mot isol&eacute;. La m&eacute;thode <tt class="function">replace</tt>
+                                    trouve ces deux occurences et les remplace aveugl&eacute;ment, rendant
+                                    l&#8217;adresse illisible.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.1.3"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Pour r&eacute;soudre le probl&egrave;me des adresses comprenant plus d&#8217;une
+                                    sous-cha&icirc;ne <tt class="literal">'ROAD'</tt>, nous pourrions recourir &agrave;
+                                    quelque chose de ce genre : ne rechercher et remplacer
+                                    <tt class="literal">'ROAD'</tt> que dans les 4 derniers caract&egrave;res de
+                                    l&#8217;adresse (<tt class="literal">s[-4:]</tt>) et ignorer le d&eacute;but de la
+                                    cha&icirc;ne (<tt class="literal">s[:-4]</tt>). Mais on voit bien que &ccedil;a
+                                    commence &agrave; &ecirc;tre embrouill&eacute;. Par exemple, le motif d&eacute;pend de la
+                                    longueur de la cha&icirc;ne que nous rempla&ccedil;ons (si nous rempla&ccedil;ons
+                                    <tt class="literal">'STREET'</tt> par <tt class="literal">'ST.'</tt>, nous
+                                    devons &eacute;crire <tt class="literal">s[:-6]</tt> et
+                                    <tt class="literal">s[-6:].replace(...)</tt>). Aimeriez-vous revenir &agrave;
+                                    ce code dans six mois et devoir le d&eacute;bugger ? En ce qui me
+                                    concerne, certainement pas.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.1.4"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Il est temps de recourir aux expressions r&eacute;guli&egrave;res. En
+                                    <span class="application">Python</span>, toutes les fonctionalit&eacute;s en
+                                    rapport aux expressions r&eacute;guli&egrave;res sont contenues dans le module
+                                    <tt class="filename">re</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.1.5"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Regardez le premier param&egrave;tre, <tt class="literal">'ROAD$'</tt>.
+                                    C&#8217;est une expression r&eacute;guli&egrave;re tr&egrave;s simple qui ne reconna&icirc;t
+                                    <tt class="literal">'ROAD'</tt> que s&#8217;il appara&icirc;t &agrave; la fin d&#8217;une cha&icirc;ne.
+                                    Le symbole <tt class="literal">$</tt> signifie &laquo;<span class="quote">fin de la
+                                       cha&icirc;ne</span>&raquo; (il y a un caract&egrave;re correspondant, l&#8217;accent
+                                    circonflexe <tt class="literal">^</tt>, qui signifie &laquo;<span class="quote">d&eacute;but de la
+                                       cha&icirc;ne</span>&raquo;).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.1.6"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">A l&#8217;aide de la fonction <tt class="function">re.sub</tt>, nous
+                                    recherchons dans la cha&icirc;ne <tt class="varname">s</tt> l&#8217;expression
+                                    r&eacute;guli&egrave;re <tt class="literal">'ROAD$'</tt> et la rempla&ccedil;ons par
+                                    <tt class="literal">'RD.'</tt>. Cela correspond &agrave;
+                                    <tt class="literal">ROAD</tt> &agrave; la fin de la cha&icirc;ne
+                                    <tt class="varname">s</tt>, mais ne correspond <span class="emphasis"><em>pas</em></span>
+                                    au <tt class="literal">ROAD</tt> faisant partie du mot
+                                    <tt class="literal">BROAD</tt>, puisqu&#8217;il est au milieu de
+                                    <tt class="varname">s</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>En continuant mon travail de reformatage d&#8217;adresses, je
+                        decouvrais bient&ocirc;t que le mod&egrave;le pr&eacute;c&eacute;dent, reconna&icirc;tre
+                        <tt class="literal">'ROAD'</tt> &agrave; la fin de l&#8217;adresse, ne suffisait pas,
+                        car toutes les adresses n&#8217;incluaient pas d&#8217;identifiant pour la
+                        rue. Certaines finissaient simplement par le nom de la rue. La
+                        plupart du temps, je m&#8217;en sortais sans probl&egrave;me, mais si le nom de
+                        la rue &eacute;tait <tt class="literal">'BROAD'</tt>, alors l&#8217;expression
+                        r&eacute;guli&egrave;re reconnaissait <tt class="literal">'ROAD'</tt> &agrave; la fin de la
+                        cha&icirc;ne dans le mot <tt class="literal">'BROAD'</tt>. Ce n&#8217;&eacute;tait pas ce
+                        que je voulais.
+         </p>
+         <div class="example"><a name="d0e17182"></a><h3 class="title">Exemple 7.2. Reconna&icirc;tre des mots entiers</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class='pystring'>'100 BROAD'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'ROAD$'</span>, <span class='pystring'>'RD.'</span>, s)</span>
+<span class="computeroutput">'100 BRD.'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'\\bROAD$'</span>, <span class='pystring'>'RD.'</span>, s)</span>  <a name="re.matching.2.2"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'100 BROAD'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(r<span class='pystring'>'\bROAD$'</span>, <span class='pystring'>'RD.'</span>, s)</span>  <a name="re.matching.2.3"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'100 BROAD'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class='pystring'>'100 BROAD ROAD APT. 3'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(r<span class='pystring'>'\bROAD$'</span>, <span class='pystring'>'RD.'</span>, s)</span>  <a name="re.matching.2.4"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'100 BROAD ROAD APT. 3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(r<span class='pystring'>'\bROAD\b'</span>, <span class='pystring'>'RD.'</span>, s)</span> <a name="re.matching.2.5"></a><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'100 BROAD RD. APT 3'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.2.2"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Ce que je voulais <span class="emphasis"><em>vraiment</em></span> &eacute;tait de
+                                    reconna&icirc;tre <tt class="literal">'ROAD'</tt> quand il &eacute;tait &agrave; la fin de
+                                    la cha&icirc;ne <span class="emphasis"><em>et</em></span> qu&#8217;il &eacute;tait un mot isol&eacute;, pas
+                                    une partie de mot. Pour exprimer cela dans une expressions
+                                    r&eacute;guli&egrave;re, on utilise <tt class="literal">\b</tt>, qui signifie
+                                    &laquo;<span class="quote">une limite de mot doit appara&icirc;tre ici</span>&raquo;. En
+                                    <span class="application">Python</span>, c'est rendu plus compliqu&eacute;
+                                    par le fait que le caract&egrave;re <tt class="literal">'\'</tt>, qui est le
+                                    caract&egrave;re d&#8217;&eacute;chappement, doit lui-m&ecirc;me &ecirc;tre pr&eacute;c&eacute;d&eacute; du caract&egrave;re
+                                    d&#8217;&eacute;chappement (c'est ce qui est parfois appel&eacute; la
+                                    <span class="foreignphrase"><i class="foreignphrase">backslash plague</i></span> et c&#8217;est une des
+                                    raison pour lesquelles les expressions r&eacute;guli&egrave;res sont plus
+                                    faciles &agrave; utliser en <span class="application">Perl</span> qu&#8217;en
+                                    <span class="application">Python</span>. Par contre,
+                                    <span class="application">Perl</span> m&eacute;lange les expressions r&eacute;guli&egrave;res
+                                    et la syntaxe du langage, donc si vous avez un bogue, il peut &ecirc;tre
+                                    difficile de savoir si c&#8217;est une erreur dans la syntaxe ou dans
+                                    l&#8217;expression r&eacute;guli&egrave;re).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.2.3"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Pour &eacute;viter la <span class="foreignphrase"><i class="foreignphrase">backslash
+                                          plague</i></span>, vous pouvez utiliser ce qu&#8217;on appelle une
+                                    cha&icirc;ne brute, en pr&eacute;fixant la cha&icirc;ne  par
+                                    la lettre <tt class="literal">r</tt>. Cela signale &agrave;
+                                    <span class="application">Python</span> que cette cha&icirc;ne doit &ecirc;tre
+                                    trait&eacute;e sans &eacute;chappement, <tt class="literal">'\t'</tt> est un caract&egrave;re
+                                    de tabulation, mais <tt class="literal">r'\t'</tt> est r&eacute;ellement un
+                                    caract&egrave;re <span class="foreignphrase"><i class="foreignphrase">backslash</i></span>
+                                    <tt class="literal">\</tt> suivi de la lettre <tt class="literal">t</tt>. Je
+                                    vous conseille de toujours utiliser des cha&icirc;nes brutes lorsque
+                                    vous employez des expressions r&eacute;guli&egrave;res, sinon cela devient
+                                    confus tr&egrave;s vite (et les expressions r&eacute;guli&egrave;res peuvent devenir
+                                    suffisament confuses par elles-m&ecirc;mes).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.2.4"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><span class="emphasis"><em>*soupir*</em></span> Malheureusement, je d&eacute;couvrais
+                                    rapidement d&#8217;autres cas qui contredisaient mon raisonnement. Dans
+                                    le cas pr&eacute;sent, l&#8217;adresse contenait le mot isol&eacute;
+                                    <tt class="literal">'ROAD'</tt> mais il n&#8217;&eacute;tait pas &agrave; la fin de la
+                                    cha&icirc;ne, car l&#8217;adresse avait un num&eacute;ro d&#8217;appartement apr&egrave;s
+                                    l&#8217;identifiant de la rue. Comme <tt class="literal">'ROAD'</tt> n&#8217;&eacute;tait
+                                    pas tout &agrave; la fin de la cha&icirc;ne, il n&#8217;&eacute;tait pas identifi&eacute;, donc
+                                    l&#8217;appel de <tt class="function">re.sub</tt> s&#8217;ach&egrave;vait sans rien
+                                    remplacer, j&#8217;obtenais en retour la cha&icirc;ne d&#8217;origine, ce qui
+                                    n&#8217;&eacute;tait pas le but recherch&eacute;.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html#re.matching.2.5"><img src="http://web.archive.org/web/20090324043159im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Pour r&eacute;soudre ce probl&egrave;me, j&#8217;enlevais le caract&egrave;re
+                                    <tt class="literal">$</tt>et ajoutais un deuxi&egrave;me <tt class="literal">\b</tt>.
+                                    L&#8217;expression r&eacute;guli&egrave;re signifiait alors &laquo;<span class="quote">reconna&icirc;tre
+                                       <tt class="literal">'ROAD'</tt> lorsqu&#8217;il est un mot isol&eacute;, n&#8217;importe o&ugrave;
+                                       dans la cha&icirc;ne</span>&raquo;, que ce soit &agrave; la fin, au d&eacute;but ou quelque
+                                    part au milieu.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/index.html">&lt;&lt;&nbsp;Expressions r&eacute;guli&egrave;res</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/index.html#re.intro" title="7.1. Plonger">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" title="7.3. Exemple : chiffres romains">3</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" title="7.4. Utilisation de la syntaxe {n,m}">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/verbose.html" title="7.5. Expressions r&eacute;guli&egrave;res d&eacute;taill&eacute;es">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/phone_numbers.html" title="7.6. Etude de cas : reconnaissance de num&eacute;ros de t&eacute;l&eacute;phone">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/summary.html" title="7.7. R&eacute;sum&eacute;">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090324043159/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html">Exemple : chiffres romains&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 4:31:59 Mar 24, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:25:11 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

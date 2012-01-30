@@ -1,0 +1,199 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.9.&nbsp;Memorizzare i nodi e ricercarli</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Memorizzare i nodi e ricercarli</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="Indietro: “Standard input, output, ed error”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="Avanti: “Trovare i figli diretti di un nodo”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.cache"></a>6.9.&nbsp;Memorizzare i nodi e ricercarli
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+<tt class="filename">kgp.py</tt> impiega alcuni trucchi che potrebbero
+               	esservi utili nella elaborazione <span class="acronym">XML</span>. Il primo trucco
+               	consiste nel trarre vantaggio dalla consistente struttura
+               	dei documenti in input per costruire una cache di nodi.
+               
+            </p>
+</div>
+<p>
+            	Un file grammar definisce una serie di elementi <tt class="sgmltag-element">ref</tt>.
+            	Ogni <tt class="sgmltag-element">ref</tt> contiene uno o pi&ugrave; elementi <tt class="sgmltag-element">p</tt>, che
+            	possono contenere molte cose differenti, inclusi gli
+            	<tt class="sgmltag-element">xref</tt>s.
+            	Ogni volta che incontriamo un <tt class="sgmltag-element">xref</tt>, cerchiamo un
+            	elemento <tt class="sgmltag-element">ref</tt> corrispondente con lo stesso attributo
+            	<tt class="sgmltag-element">id</tt>, scegliamo uno degli elementi <tt class="sgmltag-element">ref</tt> figli
+            	e lo analizziamo. Vedremo come questa scelta venga fatta
+            	nella prossima sezione.
+            
+         </p>
+<p>
+            	Ecco come costruiamo il nostro file grammar: definiamo
+            	elementi <tt class="sgmltag-element">ref</tt> per il pi&ugrave; piccolo pezzo, poi definiamo
+            	elementi <tt class="sgmltag-element">ref</tt> che &#8220;<span class="quote">includono</span>&#8221; il primi
+            	elementi <tt class="sgmltag-element">ref</tt> usando <tt class="sgmltag-element">xref</tt> e cos&igrave; via. Quindi
+            	analizziamo il pi&ugrave; &#8220;<span class="quote">largo</span>&#8221; riferimento e seguiamo
+            	ogni <tt class="sgmltag-element">xref</tt> ed eventualmente stampiamo il testo reale.
+            	Il testo che stampiamo dipende dalla decisione (casuale) che
+            	facciamo ogni volta che riempiamo un <tt class="sgmltag-element">xref</tt>, perci&ograve;
+            	l'output &egrave; differente ogni volta.
+            
+         </p>
+<p>
+            	Tutto ci&ograve; &egrave; molto flessibile, ma c'&egrave; una contropartita: le
+            	performance. Quando troviamo un <tt class="sgmltag-element">xref</tt> dobbiamo trovare il
+            	corrispondente elemento <tt class="sgmltag-element">ref</tt>, ed incappiamo in un problema.
+            	<tt class="sgmltag-element">xref</tt> ha un attributo <tt class="sgmltag-element">id</tt>, noi vogliamo trovare
+            	l'elemento <tt class="sgmltag-element">ref</tt> che ha lo stesso attributo <tt class="sgmltag-element">id</tt>,
+            	ma non esiste un modo facile per farlo. La via lenta consiste
+            	nel considerare l'intera lista degli elementi <tt class="sgmltag-element">ref</tt> ogni
+            	volta, e analizzare l'attributo <tt class="sgmltag-element">id</tt> di ognuno di essi
+            	manualmente attraverso un ciclo. La via veloce consiste nel
+            	fare ci&ograve; una sola volta e costruire una cache, nella forma
+            	di un dizionario.
+            
+         </p>
+<div class="example"><a name="d0e20386"></a><h3 class="title">Esempio&nbsp;6.37.&nbsp;<tt class="function">loadGrammar</tt></h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> loadGrammar</span>(self, grammar):                         
+        self.grammar = self._load(grammar)                  
+        self.refs = {}                                       <a name="kgp.cache.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">for</span> ref <span class="pykeyword">in</span> self.grammar.getElementsByTagName(<span class="pystring">"ref"</span>): <a name="kgp.cache.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+            self.refs[ref.attributes[<span class="pystring">"id"</span>].value] = ref      <a name="kgp.cache.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /> <a name="kgp.cache.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/caching.html#kgp.cache.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Iniziate a creare un dizionario vuoto, <tt class="varname">self.refs</tt>.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/caching.html#kgp.cache.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto nella sezione
+                        	<a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">Ricercare elementi</a>,
+                        	<tt class="function">getElementsByTagName</tt>
+                        	ritorna una lista di tutti gli elementi di un particolare
+                        	nome. Possiamo facilmente ottenere una lista di tutti gli
+                        	elementi <tt class="sgmltag-element">ref</tt> e poi semplicemente eseguire un ciclo
+                        	in quella lista.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/caching.html#kgp.cache.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto nella sezione
+                        	<a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">Accedere agli attributi di
+                           	un elemento</a>, possiamo accedere ad
+                        	attributi individuali di un elemento per nome, usando la
+                        	sintassi standard dei dizionari. Cos&igrave; le chiavi del
+                        	nostro dizionario <tt class="varname">self.refs</tt> saranno i valori dell'attributo
+                        	<tt class="sgmltag-element">id</tt> di ogni elemento <tt class="sgmltag-element">ref</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/caching.html#kgp.cache.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                I valori del nostro dizionario <tt class="varname">self.refs</tt> saranno gli stessi 
+                        	elementi <tt class="sgmltag-element">ref</tt>. Come abbiamo visto nell'analisi effettuata
+                        	nella sezione
+                        	<a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">Analizzare XML</a>,
+                        	ogni elemento, ogni nodo, ogni
+                        	commento, ogni pezzo di testo in un documento <span class="acronym">XML</span> analizzato &egrave; 
+                        	un oggetto.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+                    Una volta che abbiamo costruito questa cache, ogni volta che
+            	passiamo su un <tt class="sgmltag-element">xref</tt> e cerchiamo di trovare l'elemento
+            	<tt class="sgmltag-element">ref</tt> con lo stesso attributo <tt class="sgmltag-element">id</tt>, possiamo 
+            	semplicemente leggerlo in <tt class="varname">self.refs</tt>.
+            
+         </p>
+<div class="example"><a name="d0e20462"></a><h3 class="title">Esempio&nbsp;6.38.&nbsp;Usare gli elementi <tt class="sgmltag-element">ref</tt> in memoria
+            </h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> do_xref</span>(self, node):
+        id = node.attributes[<span class="pystring">"id"</span>].value
+        self.parse(self.randomChildElement(self.refs[id]))</pre></div>
+<p>
+                     Esploreremo la funzione <tt class="function">randomChildElement</tt>
+            	 nella prossima sezione.
+            
+         </p>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html">&lt;&lt;&nbsp;Standard input, output, ed error</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/child_nodes.html">Trovare i figli diretti di un nodo&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

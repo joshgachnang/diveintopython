@@ -1,0 +1,103 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.7. Utilizaci&oacute;n de las funciones lambda</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/apihelper_divein.html" title="Cap&iacute;tulo 2. El poder de la introspecci&oacute;n" /><link rel="previous" href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or" /><link rel="next" href="http://es.diveintopython.net/apihelper_alltogether.html" title="2.8. Todo junto" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html">El poder de la introspecci&oacute;n</a>&nbsp;&gt;&nbsp;<b>Utilizaci&oacute;n de las funciones lambda</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_andor.html" title="Anterior: “La peculiar naturaleza de and y or”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_alltogether.html" title="Siguiente: “Todo junto”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="apihelper.lambda"></a><div class="titlepage"><div><h2 class="title"><a name="apihelper.lambda"></a>2.7. Utilizaci&oacute;n de las funciones <tt>lambda</tt></h2></div></div><div class="abstract"><p>Python admite una interesante sintaxis que permite definir
+funciones m&iacute;nimas, de una l&iacute;nea, sobre la marcha. Tomada de Lisp, se
+trata de las denominadas funciones <tt>lambda</tt>, que pueden
+utilizarse en cualquier lugar donde se necesite una funci&oacute;n.</p></div><div class="example"><p><a name="d0e2546"></a><b>Ejemplo 2.21. Presentaci&oacute;n de las funciones <tt>lambda</tt></b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> f</span>(x):</span>
+<tt>...     </tt><span class="userinput"><span class="pykeyword">return</span> x*2</span>
+<tt>...     </tt><span class="userinput"></span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">f(3)</span>
+<span class="computeroutput">6</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">g = <span class="pykeyword">lambda</span> x: x*2</span>  <a name="apihelper.lambda.1.2"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">g(3)</span>
+<span class="computeroutput">6</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">(lambda</span> x: x*2)(3)</span> <a name="apihelper.lambda.1.3"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">6</span></pre><div class="calloutlist"><a name="d0e2569"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_lambda.html#apihelper.lambda.1.2"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Esta es una funci&oacute;n <tt>lambda</tt> que consigue el mismo
+efecto que la funci&oacute;n anterior. Advierta aqu&iacute; la sintaxis abreviada:
+la lista de argumentos no est&aacute; entre par&eacute;ntesis, y falta la palabra
+reservada <tt>return</tt> (est&aacute; impl&iacute;cita, ya que la funci&oacute;n
+entera debe ser una &uacute;nica expresi&oacute;n). Igualmente, la funci&oacute;n no tiene
+nombre, pero puede ser llamada mediante la variable a que se ha
+asignado.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_lambda.html#apihelper.lambda.1.3"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Se puede utilizar una funci&oacute;n <tt>lambda</tt> incluso sin
+asignarla a una variable. No es lo m&aacute;s &uacute;til del mundo, pero sirve para
+mostrar que una <tt>lambda</tt> es s&oacute;lo una funci&oacute;n en l&iacute;nea.</td></tr></table></div></div><p>En general, una funci&oacute;n <tt>lambda</tt> es una funci&oacute;n que toma
+cualquier n&uacute;mero de argumentos (incluso <a href="http://es.diveintopython.net/apihelper_optional.html" title="2.2. Argumentos opcionales y con nombre">argumentos opcionales</a>) y devuelve
+el valor de una expresi&oacute;n simple. Las funciones <tt>lambda</tt> no
+pueden contener &oacute;rdenes, y no pueden contener tampoco m&aacute;s de una
+expresi&oacute;n. No intente exprimir demasiado una funci&oacute;n <tt>lambda</tt>;
+si necesita algo m&aacute;s complejo, defina en su lugar una funci&oacute;n normal y
+h&aacute;gala tan larga como quiera.</p><a name="tip.lambda"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Las funciones <tt>lambda</tt> son una cuesti&oacute;n de estilo. Su
+uso nunca es necesario. En cualquier lugar en que puedan utilizarse,
+se puede definir una funci&oacute;n normal separada y utilizarla en su lugar.
+Yo las utilizo en lugares donde deseo encapsulaci&oacute;n, c&oacute;digo no
+reutilizable que no ensucie mi propio c&oacute;digo con un mont&oacute;n de peque&ntilde;as
+funciones de una sola l&iacute;nea.</td></tr></table><div class="example"><p><a name="d0e2588"></a><b>Ejemplo 2.22. Las funciones <tt>lambda</tt> en <tt>apihelper.py</tt></b></p><pre class="programlisting">
+    processFunc = collapse <span class="pykeyword">and</span> (<span class="pykeyword">lambda</span> s: <span class="pystring">" "</span>.join(s.split())) <span class="pykeyword">or</span> (<span class="pykeyword">lambda</span> s: s)</pre></div><p>Hay varias cosas que advertir de paso. En primer lugar, estamos
+utilizando la forma simple del truco <a href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or"><tt>and-or</tt></a>, lo cual es v&aacute;lido, porque
+una funci&oacute;n <tt>lambda</tt> siempre es verdadera <a href="http://es.diveintopython.net/odbchelper_list.html#tip.boolean">en contexto booleano</a>. (Esto no significa
+que una funci&oacute;n <tt>lambda</tt> no pueda devolver un valor falso. La
+funci&oacute;n siempre es verdadera; su valor de retorno puede ser cualquier
+cosa).</p><p>En segundo lugar, estamos utilizando la funci&oacute;n <tt>split</tt> sin
+argumentos. Ya se ha visto su uso con <a href="http://es.diveintopython.net/odbchelper_join.html#odbchelper.split.example" title="Ejemplo 1.36. Divisi&oacute;n de una cadena">uno o dos argumentos</a>, pero
+sin argumentos divide en los espacios en blanco.</p><div class="example"><p><a name="d0e2602"></a><b>Ejemplo 2.23. <tt>split</tt> sin argumentos</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">s = <span class="pystring">"this   is\na\ttest"</span></span>  <a name="apihelper.split.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> s</span>
+<span class="computeroutput">this   is
+a	test</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> s.split()</span>           <a name="apihelper.split.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['this', 'is', 'a', 'test']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">" "</span>.join(s.split())</span> <a name="apihelper.split.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'this is a test'</span></pre><div class="calloutlist"><a name="d0e2620"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_lambda.html#apihelper.split.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Esta es una cadena de varias l&iacute;neas, definida por los caracteres
+de escape en lugar de<a href="http://es.diveintopython.net/odbchelper_docstring.html#odbchelper.triplequotes" title="Ejemplo 1.4. Definici&oacute;n de la cadena de documentaci&oacute;n de la funci&oacute;n buildConnectionString">triples
+comillas</a>. <tt>\n</tt> es el retorno de carro;
+<tt>\t</tt> es el car&aacute;cter de tabulaci&oacute;n.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_lambda.html#apihelper.split.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>split</tt> sin argumentos divide en los espacios en blanco. De modo
+que tres espacios, un retorno de carro y un car&aacute;cter de tabulaci&oacute;n son
+lo mismo.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_lambda.html#apihelper.split.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Se puede normalizar el espacio en blanco dividiendo una cadena
+con <tt>split</tt> y volvi&eacute;ndola a unir con <tt>join</tt> con un espacio simple como
+delimitador. Esto es lo que hace la funci&oacute;n <tt>help</tt> para unificar las
+cadenas de documentaci&oacute;n de varias l&iacute;neas en una sola l&iacute;nea.</td></tr></table></div></div><p>Entonces, &iquest;qu&eacute; hace realmente la funci&oacute;n <tt>help</tt> con estas
+funciones <tt>lambda</tt>, con <tt>split</tt> y con los trucos
+<tt>and-or</tt>?</p><div class="example"><p><a name="apihelper.funcassign"></a><b>Ejemplo 2.24. Asignaci&oacute;n de una funci&oacute;n a una variable</b></p><pre class="programlisting">
+    processFunc = collapse <span class="pykeyword">and</span> (<span class="pykeyword">lambda</span> s: <span class="pystring">" "</span>.join(s.split())) <span class="pykeyword">or</span> (<span class="pykeyword">lambda</span> s: s)</pre></div><p> <tt>processFunc</tt> es ahora una funci&oacute;n, pero qu&eacute;
+funci&oacute;n sea depende del valor de la variable
+<tt>collapse</tt>. Si <tt>collapse</tt> es
+verdadera,
+<tt></tt><tt>processFunc</tt>(<i>cadena</i>)
+unificar&aacute; el espacio en blanco; en caso contrario,
+<tt></tt><tt>processFunc</tt>(<i>cadena</i>) devolver&aacute; su argumento sin cambios.</p><p>Para hacer esto con un lenguaje menos robusto, como Visual Basic,
+probablemente crear&iacute;a usted una funci&oacute;n que tomara una cadena y un
+argumento <i><tt>collapse</tt></i> y utilizara una sentencia
+<tt>if</tt> para decidir si unificar o no el espacio en blanco, para devolver
+despu&eacute;s el valor apropiado. Esto ser&iacute;a ineficaz, porque la funci&oacute;n
+tendr&iacute;a que considerar todos los casos posibles; cada vez que se le
+llamara, tendr&iacute;a que decidir si unificar o no el espacio en blanco
+antes de devolver el valor deseado. En Python, puede tomarse esta
+decisi&oacute;n fuera de la funci&oacute;n y definir una funci&oacute;n <tt>lambda</tt>
+adaptada para devolver exactamente (y &uacute;nicamente) lo que se busca.
+Esto es m&aacute;s eficaz, m&aacute;s elegante, y menos propenso a esos errores del
+tipo &laquo;Uy, cre&iacute;a que esos argumentos estaban al
+rev&eacute;s&raquo;.</p><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li><a href="http://es.diveintopython.net/knowledge-base/index.phtml/fid/199/">Python Knowledge Base</a> explica el uso de funciones
+<tt>lambda</tt> para <a href="http://es.diveintopython.net/knowledge-base/view.phtml/aid/6081/fid/241">llamar
+funciones indirectamente.</a>.</li><li>El <a href="http://es.diveintopython.net/doc/current/tut/tut.html"><i>Tutorial de Python</i></a> muestra c&oacute;mo <a href="http://es.diveintopython.net/doc/current/tut/node6.html#SECTION006740000000000000000">
+acceder a variables externas desde dentro de una funci&oacute;n
+<tt>lambda</tt></a>.  (<a href="http://es.diveintopython.net/peps/pep-0227.html">PEP 227</a> 
+expone c&oacute;mo puede cambiar esto en futuras versiones de 
+Python.)</li><li><a href="http://es.diveintopython.net/doc/FAQ.html"><i>The Whole Python FAQ</i></a> tiene ejemplos de <a href="http://es.diveintopython.net/cgi-bin/faqw.py?query=4.15&amp;querytype=simple&amp;casefold=yes&amp;req=search">c&oacute;digos confusos de una l&iacute;nea que utilizan 
+funciones <tt>lambda</tt></a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/apihelper_andor.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;La peculiar naturaleza de and y or</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.divein" title="2.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/apihelper_optional.html" title="2.2. Argumentos opcionales y con nombre">2</a> <a href="http://es.diveintopython.net/apihelper_builtin.html" title="2.3. type, str, dir, y otras funciones incorporadas">3</a> <a href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr">4</a> <a href="http://es.diveintopython.net/apihelper_filter.html" title="2.5. Filtrado de listas">5</a> <a href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or">6</a> <b>7</b> <a href="http://es.diveintopython.net/apihelper_alltogether.html" title="2.8. Todo junto">8</a> <a href="http://es.diveintopython.net/apihelper_summary.html" title="2.9. Resumen">9</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/apihelper_alltogether.html">Todo junto&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

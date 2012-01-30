@@ -1,0 +1,282 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.3.&nbsp;Verificare i casi di successo</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">Verificare i casi di successo</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/romantest.html" title="Indietro: “Introduzione al modulo romantest.py”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="Avanti: “Verificare i casi di errore”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.success"></a>7.3.&nbsp;Verificare i casi di successo
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	La parte fondamentale della verifica delle unit&agrave; di codice
+               	&egrave; costruire i singoli test. Un test risponde ad una singola
+               	domanda sul codice che si sta verificando.
+               
+            </p>
+</div>
+<p>
+            	Un singolo test dovrebbe essere capace di ...
+            
+         </p>
+<div class="itemizedlist">
+<ul>
+<li>
+                  	... essere eseguito in modo autonomo, senza input
+                  	dall'operatore. La verifica delle unit&agrave; di codice
+                  	deve essere un processo automatico.
+                  
+               </li>
+<li>
+                  	... stabilire in modo autonomo se la funzione sotto verifica
+                  	ha passato o meno il test, senza che l'operatore debba
+                  	interpretarne il risultato.
+                  
+               </li>
+<li>
+                  	... essere eseguito in modo isolato, indipendente da altri
+                  	test (anche se essi verificano la stessa funzione). Ogni
+                  	test &egrave; un'isola.
+                  
+               </li>
+</ul>
+</div>
+<p>
+            	Detto tutto questo, costruiamo il nostro primo test.
+            	Abbiamo il seguente
+            <a href="http://it.diveintopython.net/unit_testing/index.html#roman.requirements">requisito</a>:
+            
+         </p>
+<div class="orderedlist">
+<ol type="1">
+<li>
+                  	La funzione <tt class="function">toRoman</tt> dovrebbe restituire la rappresentazione
+                  	in numeri romani di qualsiasi numero arabo da <tt class="constant">1</tt> a
+                  	<tt class="literal">3999</tt>.
+                  
+               </li>
+</ol>
+</div>
+<div class="example"><a name="roman.testtoromanknownvalues.example"></a><h3 class="title">Esempio&nbsp;7.2.&nbsp;<tt class="function">testToRomanKnownValues</tt></h3><pre class="programlisting"><span class="pykeyword">
+class</span> KnownValues(unittest.TestCase):                           <a name="roman.success.1.0"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    knownValues = ( (1, <span class="pystring">'I'</span>),
+                    (2, <span class="pystring">'II'</span>),
+                    (3, <span class="pystring">'III'</span>),
+                    (4, <span class="pystring">'IV'</span>),
+                    (5, <span class="pystring">'V'</span>),
+                    (6, <span class="pystring">'VI'</span>),
+                    (7, <span class="pystring">'VII'</span>),
+                    (8, <span class="pystring">'VIII'</span>),
+                    (9, <span class="pystring">'IX'</span>),
+                    (10, <span class="pystring">'X'</span>),
+                    (50, <span class="pystring">'L'</span>),
+                    (100, <span class="pystring">'C'</span>),
+                    (500, <span class="pystring">'D'</span>),
+                    (1000, <span class="pystring">'M'</span>),
+                    (31, <span class="pystring">'XXXI'</span>),
+                    (148, <span class="pystring">'CXLVIII'</span>),
+                    (294, <span class="pystring">'CCXCIV'</span>),
+                    (312, <span class="pystring">'CCCXII'</span>),
+                    (421, <span class="pystring">'CDXXI'</span>),
+                    (528, <span class="pystring">'DXXVIII'</span>),
+                    (621, <span class="pystring">'DCXXI'</span>),
+                    (782, <span class="pystring">'DCCLXXXII'</span>),
+                    (870, <span class="pystring">'DCCCLXX'</span>),
+                    (941, <span class="pystring">'CMXLI'</span>),
+                    (1043, <span class="pystring">'MXLIII'</span>),
+                    (1110, <span class="pystring">'MCX'</span>),
+                    (1226, <span class="pystring">'MCCXXVI'</span>),
+                    (1301, <span class="pystring">'MCCCI'</span>),
+                    (1485, <span class="pystring">'MCDLXXXV'</span>),
+                    (1509, <span class="pystring">'MDIX'</span>),
+                    (1607, <span class="pystring">'MDCVII'</span>),
+                    (1754, <span class="pystring">'MDCCLIV'</span>),
+                    (1832, <span class="pystring">'MDCCCXXXII'</span>),
+                    (1993, <span class="pystring">'MCMXCIII'</span>),
+                    (2074, <span class="pystring">'MMLXXIV'</span>),
+                    (2152, <span class="pystring">'MMCLII'</span>),
+                    (2212, <span class="pystring">'MMCCXII'</span>),
+                    (2343, <span class="pystring">'MMCCCXLIII'</span>),
+                    (2499, <span class="pystring">'MMCDXCIX'</span>),
+                    (2574, <span class="pystring">'MMDLXXIV'</span>),
+                    (2646, <span class="pystring">'MMDCXLVI'</span>),
+                    (2723, <span class="pystring">'MMDCCXXIII'</span>),
+                    (2892, <span class="pystring">'MMDCCCXCII'</span>),
+                    (2975, <span class="pystring">'MMCMLXXV'</span>),
+                    (3051, <span class="pystring">'MMMLI'</span>),
+                    (3185, <span class="pystring">'MMMCLXXXV'</span>),
+                    (3250, <span class="pystring">'MMMCCL'</span>),
+                    (3313, <span class="pystring">'MMMCCCXIII'</span>),
+                    (3408, <span class="pystring">'MMMCDVIII'</span>),
+                    (3501, <span class="pystring">'MMMDI'</span>),
+                    (3610, <span class="pystring">'MMMDCX'</span>),
+                    (3743, <span class="pystring">'MMMDCCXLIII'</span>),
+                    (3844, <span class="pystring">'MMMDCCCXLIV'</span>),
+                    (3888, <span class="pystring">'MMMDCCCLXXXVIII'</span>),
+                    (3940, <span class="pystring">'MMMCMXL'</span>),
+                    (3999, <span class="pystring">'MMMCMXCIX'</span>))                        <a name="roman.success.1.1"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+
+    <span class="pykeyword">def</span><span class="pyclass"> testToRomanKnownValues</span>(self):                           <a name="roman.success.1.2"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+        <span class="pystring">"""toRoman should give known result with known input"""</span>
+        <span class="pykeyword">for</span> integer, numeral <span class="pykeyword">in</span> self.knownValues:              
+            result = roman.toRoman(integer)                     <a name="roman.success.1.3"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /> <a name="roman.success.1.4"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+            self.assertEqual(numeral, result)                   <a name="roman.success.1.5"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.0"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per scrivere un test, occorre per prima cosa specializzare la
+                        	classe <tt class="classname">TestCase</tt> del modulo <tt class="filename">unittest</tt>.
+                        	Questa classe fornisce molti utili metodi che si possono usare
+                        	nei test per verificare condizioni specifiche.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.1"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; una lista di coppie numeri di interi/numeri romani
+                        	che ho verificato manualmente. Comprende i dieci numeri pi&ugrave;
+                        	bassi, i dieci numeri pi&ugrave; alti, tutti i numeri arabi che si
+                        	traducono in un numero romano con singolo carattere. Il
+                        	concetto di un test delle unit&agrave; di codice non &egrave; quello di
+                        	verificare ogni possibile input, ma di verificare un campione
+                        	rappresentativo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.2"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ogni test individuale consiste in un metodo dedicato, che non
+                        	deve accettare parametri n&eacute; restituire valori. Se il metodo
+                        	termina senza sollevare eccezioni, il test ha avuto successo;
+                        	se il metodo solleva un'eccezione, il test &egrave; fallito.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.3"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Qui viene chiamata la funzione <tt class="function">toRoman</tt> (beh, la funzione
+                        	non &egrave; stata ancora scritta, ma una volta pronta, questa
+                        	sar&agrave; la linea che la chiama). Da notare che ora abbiamo definito
+                        	l'interfaccia di programma (<span class="acronym">API</span>) della funzione <tt class="function">toRoman</tt>:
+                        	deve prendere in input un intero (il numero da convertire) e
+                        	deve restituire una stringa (la rappresentazione in numeri
+                        	romani). Se l'interfaccia della funzione risulta diversa da
+                        	questa, il test &egrave; considerato fallito.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.4"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Da notare anche che non si cerca di intercettare eventuali
+                        	eccezioni sollevate dalla chiamata, alla funzione <tt class="function">toRoman</tt>.
+                        	Questo &egrave; intenzionale: <tt class="function">toRoman</tt> non dovrebbe sollevare
+                        	eccezioni quando &egrave; chiamata con input valido, ed i valori
+                        	di input usati sono validi. Se la funzione <tt class="function">toRoman</tt> solleva
+                        	un eccezione, il test &egrave; considerato fallito.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.5"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Assumendo che la funzione <tt class="function">toRoman</tt> sia stata definita
+                        	correttamente, chiamata correttamente, abbia completato
+                        	con successo la sua esecuzione ed abbia restituito un valore,
+                        	l'ultimo passo &egrave; controllare se ha restituito il valore
+                        	<span class="emphasis"><em>giusto</em></span>. Questa &egrave; un caso comune, per
+                        	cui la classe <tt class="classname">TestCase</tt> fornisce un metodo,
+                        	<tt class="function">assertEqual</tt>, per controllare se due valori sono uguali.
+                        	Se il valore restituito dalla funzione <tt class="function">toRoman</tt>
+                        	(<tt class="varname">result</tt>) non corrisponde al valore noto
+                        	che ci si aspetta (<tt class="varname">numeral</tt>), il metodo
+                        	<tt class="function">assertEqual</tt> solleva un'eccezione ed il test fallisce.
+                        	Se i due valori sono uguali, <tt class="function">assertEqual</tt> non fa nulla.
+                        	Se ogni valore restituito da <tt class="function">toRoman</tt> corrisponde al valore
+                        	atteso, <tt class="function">assertEqual</tt> non solleva mai  eccezioni, per cui
+                        	<tt class="function">testToRomanKnownValues</tt> alla fine termina
+                        	normalmente, il che significa che <tt class="function">toRoman</tt> ha superato
+                        	questo test.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/romantest.html">&lt;&lt;&nbsp;Introduzione al modulo romantest.py</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/testing_for_failure.html">Verificare i casi di errore&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

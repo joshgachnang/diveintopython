@@ -1,0 +1,345 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/toc/index.html" title="Dive Into Python" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Test delle unit&agrave; di codice</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/summary.html" title="Indietro: “Sommario”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/romantest.html" title="Avanti: “Introduzione al modulo romantest.py”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="chapter" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman"></a>Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="toc">
+<ul>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein">7.1. Immergersi</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/romantest.html">7.2. Introduzione al modulo romantest.py</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/testing_for_success.html">7.3. Verificare i casi di successo</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html">7.4. Verificare i casi di errore</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html">7.5. Verificare la consistenza</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/stage_1.html">7.6. roman.py, fase 1</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/stage_2.html">7.7. roman.py, fase 2</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/stage_3.html">7.8. roman.py, fase 3</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/stage_4.html">7.9. roman.py, fase 4</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/stage_5.html">7.10. roman.py, fase 5</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/handling_bugs.html">7.11. Come gestire gli errori di programmazione</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html">7.12. Gestire il cambiamento di requisiti</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/refactoring.html">7.13. Rifattorizzazione</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/postscript.html">7.14. Postscritto</a></span></li>
+<li><span class="section"><a href="http://it.diveintopython.net/unit_testing/summary.html">7.15. Sommario</a></span></li>
+</ul>
+</div>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.divein"></a>7.1.&nbsp;Immergersi
+                     </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+                  	Nei capitoli precedenti, ci si &egrave; &#8220;<span class="quote">tuffati</span>&#8221;
+                  	immediatamente nell'analisi del codice, cercando poi di
+                  	capirlo il pi&ugrave; velocemente possibile. Ora che avete
+                  	immagazzinato un po' di <span class="application">Python</span>, faremo un passo
+                  	indietro e analizzeremo ci&ograve; che si fa
+                  	<span class="emphasis"><em>prima</em></span> di scrivere il codice.
+                  
+               </p>
+</div>
+<p>
+               	In questo capitolo scriveremo una serie di funzioni utili per
+               	convertire da numeri arabi a numeri romani e viceversa. Molto
+               	probabilmente avete gi&agrave; visto dei numeri romani, anche se
+               	spesso non li avete riconosciuti. Potete averli visti nella
+               	nota di copyright di vecchi film e spettacoli televisivi
+               	(&#8220;<span class="quote">Copyright <tt class="literal">MCMXLVI</tt></span>&#8221; invece
+               	di &#8220;<span class="quote">Copyright <tt class="literal">1946</tt></span>&#8221;), oppure
+               	nelle targhe di dedica di biblioteche e universit&agrave;
+               	(&#8220;<span class="quote">fondata <tt class="literal">MDCCCLXXXVIII</tt></span>&#8221; invece
+               	di &#8220;<span class="quote">fondata <tt class="literal">1888</tt></span>&#8221;). Potete
+               	averli visti in sommari e riferimenti bibliografici. &Egrave; un
+               	sistema di rappresentare numeri che effettivamente risale
+               	all'antico Impero Romano (da cui il nome).
+               
+            </p>
+<p>
+               	Nei numeri romani, ci sono sette caratteri che sono ripetuti
+               	e combinati in vari modi per rappresentare i numeri:
+               
+            </p>
+<div class="orderedlist">
+<ol type="1">
+<li><tt class="literal">I</tt> = <tt class="literal">1</tt></li>
+<li><tt class="literal">V</tt> = <tt class="literal">5</tt></li>
+<li><tt class="literal">X</tt> = <tt class="literal">10</tt></li>
+<li><tt class="literal">L</tt> = <tt class="literal">50</tt></li>
+<li><tt class="literal">C</tt> = <tt class="literal">100</tt></li>
+<li><tt class="literal">D</tt> = <tt class="literal">500</tt></li>
+<li><tt class="literal">M</tt> = <tt class="literal">1000</tt></li>
+</ol>
+</div>
+<p>
+               	Ecco alcune regole generali per costruire numeri romani:
+               
+            </p>
+<div class="orderedlist">
+<ol type="1">
+<li>
+                     	Il valore del numero &egrave; la somma dei valori dei caratteri.
+                     	<tt class="literal">I</tt> &egrave; <tt class="constant">1</tt>, <tt class="literal">II</tt>
+                     	&egrave; <tt class="literal">2</tt>, e <tt class="literal">III</tt>
+                     	&egrave; <tt class="literal">3</tt>.  <tt class="literal">VI</tt>
+                     	&egrave; <tt class="literal">6</tt> (letteralmente, &#8220;<span class="quote"><tt class="literal">5</tt>
+                        	e <tt class="literal">1</tt></span>&#8221;), <tt class="literal">VII</tt>
+                     	&egrave; <tt class="literal">7</tt> e <tt class="literal">VIII</tt>
+                     	&egrave; <tt class="literal">8</tt>.
+                     
+                  </li>
+<li>
+                     	I &#8220;<span class="quote">caratteri di decina</span>&#8221;
+                     	(<tt class="literal">I</tt>, <tt class="literal">X</tt>,
+                     	<tt class="literal">C</tt>, e <tt class="literal">M</tt>)
+                     	possono esere ripetuti fino a tre volte.
+                     	Alla quarta, si deve sottrarre uno dal piu vicino
+                     	&#8220;<span class="quote">carattere di quintina</span>&#8221;
+                     	(<tt class="literal">V</tt>, <tt class="literal">L</tt>,
+                     	<tt class="literal">D</tt>). Non si pu&ograve; rappresentare
+                     	<tt class="literal">4</tt> come <tt class="literal">IIII</tt>;,
+                     	lo si deve rappresentare con <tt class="literal">IV</tt>
+                     	(&#8220;<span class="quote"><tt class="literal">1</tt> in meno di
+                        	<tt class="literal">5</tt></span>&#8221;). <tt class="literal">40</tt> &egrave;
+                     	scritto come <tt class="literal">XL</tt>, <tt class="literal">41</tt>
+                     	come <tt class="literal">XLI</tt>, <tt class="literal">42</tt> come
+                     	<tt class="literal">XLII</tt>, <tt class="literal">43</tt> come
+                     	<tt class="literal">XLIII</tt> ed infine <tt class="literal">44</tt>
+                     	come <tt class="literal">XLIV</tt> (&#8220;<span class="quote"><tt class="literal">10</tt>
+                        	in meno di <tt class="literal">50</tt>, pi&ugrave; uno in meno di
+                        	<tt class="literal">5</tt></span>&#8221;).
+                     
+                  </li>
+<li>
+                     	Similmente, arrivati al <tt class="literal">9</tt>, si deve
+                     	sottrarre dal carattere di decina immediatamente
+                     	superiore: <tt class="literal">8</tt> &egrave; <tt class="literal">VIII</tt>,
+                     	ma <tt class="literal">9</tt> &egrave; <tt class="literal">IX</tt>
+                     	(&#8220;<span class="quote">uno in meno di dieci</span>&#8221;), non
+                     	<tt class="literal">VIIII</tt> (giacch&eacute; il carattere
+                     	<tt class="literal">I</tt> non pu&ograve; essere ripetuto quattro volte).
+                     	<tt class="literal">90</tt> &egrave; <tt class="literal">XC</tt>,
+                     	<tt class="literal">900</tt> &egrave; <tt class="literal">CM</tt>.
+                     
+                  </li>
+<li>
+                     	I caratteri di quintina non possono essere ripetuti.
+                     	<tt class="literal">10</tt> &egrave; sempre rappresentato come
+                     	<tt class="literal">X</tt>, mai come <tt class="literal">VV</tt>.
+                     	<tt class="literal">100</tt> &egrave; sempre <tt class="literal">C</tt>,
+                     	mai <tt class="literal">LL</tt>.
+                     
+                  </li>
+<li>
+                     	I numeri romani sono sempre scritti dal pi&ugrave; grande al pi&ugrave;
+                     	piccolo e letti da sinistra a destra. per cui l'ordine dei
+                     	caratteri &egrave; molto importante. <tt class="literal">DC</tt> &egrave;
+                     	<tt class="literal">600</tt>; <tt class="literal">CD</tt> &egrave; un numero
+                     	completamente diverso (<tt class="literal">400</tt>,
+                     	&#8220;<span class="quote"><tt class="literal">100</tt> meno di
+                        	<tt class="literal">500</tt></span>&#8221;).
+                     	<tt class="literal">CI</tt> &egrave; <tt class="literal">101</tt>;
+                     	<tt class="literal">IC</tt> non &egrave; neppure un numero romano valido
+                     	(perch&eacute; non si pu&ograve; sottrarre <tt class="literal">1</tt> direttamente
+                     	da <tt class="literal">100</tt>; <tt class="literal">99</tt> si deve
+                     	scrivere <tt class="literal">XCIX</tt>, &#8220;<span class="quote"><tt class="literal">10</tt>
+                        	in meno di <tt class="literal">100</tt> e poi <tt class="literal">1</tt>
+                        	in meno di <tt class="literal">10</tt></span>&#8221;).
+                     
+                  </li>
+</ol>
+</div>
+<p>
+               	Queste regole conducono ad alcune interessanti osservazioni:
+               
+            </p>
+<div class="orderedlist">
+<ol type="1">
+<li>
+                     	C'&egrave; solo un modo corretto di rappresentare
+                     	una quantit&agrave; come numero romano.
+                     
+                  </li>
+<li>
+                     	Il viceversa &egrave; anche vero: se una sequenza di caratteri &egrave;
+                     	un valido numero romano, essa rappresenta una quantit&agrave; univoca
+                     	(<span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> pu&ograve; essere letto in una sola maniera)
+                     
+                  </li>
+<li>
+                     	C'&egrave; un numero finito di numeri arabi che possono essere
+                     	espressi come numeri romani, specificatamente da
+                     	<tt class="literal">1</tt> a <tt class="literal">3999</tt>.
+                     	I romani avevano diversi modi di esprimere quantit&agrave;
+                     	pi&ugrave; grandi, per esempio mettendo una barra su un numero
+                     	per indicare che la sua quantit&agrave; doveva essere moltiplicata
+                     	per <tt class="literal">1000</tt>, ma non tratteremo questi casi.
+                     	Per lo scopo di questo capitolo, i numerali romani vanno
+                     	da <tt class="literal">1</tt> a <tt class="literal">3999</tt>.
+                     
+                  </li>
+<li>
+                     	Non c'&egrave; modo di rappresentare lo <tt class="constant">0</tt> in numeri romani
+                     	(Incredibilmente, gli antichi romani non avevano il concetto
+                     	di <tt class="constant">0</tt> come numero. I numeri servivano a contare quello
+                     	che si aveva; come si fa a contare quello che non si ha?).
+                     
+                  </li>
+<li>
+                     	Non c'&egrave; modo di rappresentare quantit&agrave;
+                     	negative in numeri romani.
+                     
+                  </li>
+<li>
+                     	Non c'&egrave; modo di rappresentare decimali
+                     	o frazioni con i numeri romani.
+                     
+                  </li>
+</ol>
+</div>
+<p>
+               	Dato tutto questo, cosa si pu&ograve; chiedere ad una libreria di
+               	funzioni per convertire da numeri romani a numeri arabi e
+               	viceversa?
+               
+            </p>
+<div class="orderedlist"><a name="roman.requirements"></a><h3 class="title"><tt class="filename">roman.py</tt> requisiti
+               </h3>
+<ol type="1">
+<li>
+                     	La funzione <tt class="function">toRoman</tt> dovrebbe restituire la rappresentazione
+                     	in numeri romani di qualsiasi numero arabo da <tt class="constant">1</tt> a
+                     	<tt class="literal">3999</tt>.
+                     
+                  </li>
+<li>
+                     	La funzione <tt class="function">toRoman</tt> dovrebbe andare in errore per un intero
+                     	fuori dall'intervallo da <tt class="constant">1</tt> a <tt class="literal">3999</tt>.
+                     
+                  </li>
+<li>
+                     	La funzione <tt class="function">toRoman</tt> dovrebbe andare in errore
+                     	con un numero non intero.
+                     
+                  </li>
+<li>
+                     	La funzione <tt class="function">fromRoman</tt> dovrebbe accettare in input un valido
+                     	numero romano e restituire il numero arabo corrispondente.
+                     
+                  </li>
+<li>
+                     	La funzione <tt class="function">fromRoman</tt> dovrebbe andare in errore con un
+                     	numero romano non valido.
+                     
+                  </li>
+<li>
+                     	Se si prende un numero arabo, lo si converte in numero romano
+                     	e poi lo si riconverte in numero romano, si dovrebbe riavere
+                     	il numero di partenza. Vale a dire
+                     	<tt class="literal">fromRoman(toRoman(n)) == n</tt> per tutti i
+                     	numeri da <tt class="literal">1</tt> a <tt class="literal">3999</tt>.
+                     
+                  </li>
+<li>
+                     	la funzione <tt class="function">toRoman</tt> dovrebbe sempre restituire un numero
+                     	romano formato da lettere maiuscole.
+                     
+                  </li>
+<li>
+                     	La funzione <tt class="function">fromRoman</tt> dovrebbe accettare solamente numeri
+                     	romani (<span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> dovrebbe andare in errore con un input
+                     	espresso a lettere minuscole).
+                     
+                  </li>
+</ol>
+</div>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/roman/front.htm">Questo sito</a>
+                         fornisce ulteriori
+                         informazioni sui numeri romani, incluso un affascinante
+                     <a href="http://it.diveintopython.net/roman/intro.htm">resoconto</a> su come i Romani ed
+                         altre civilt&agrave; li usavano nella vita reale
+                         (breve resoconto: in modo approssimativo ed inconsistente).
+                     
+                  </li>
+</ul>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/summary.html">&lt;&lt;&nbsp;Sommario</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/romantest.html">Introduzione al modulo romantest.py&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

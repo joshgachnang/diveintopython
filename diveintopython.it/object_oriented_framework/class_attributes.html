@@ -1,0 +1,260 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.8.&nbsp;Attributi di classe</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Attributi di classe</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="Indietro: “Metodi speciali di classe avanzati”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="Avanti: “Funzioni private”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.classattributes"></a>4.8.&nbsp;Attributi di classe
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Conoscete gi&agrave; gli
+               	<a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.init.example" title="Esempio&nbsp;4.11.&nbsp;Definire la classe UserDict">attributi
+                  	dato</a>, che sono variabili di una specifica
+               	istanza di una classe. <span class="application">Python</span> supporta anche gli attributi
+               	di classe, che sono variabili riferite alla classe stessa.
+               
+            </p>
+</div>
+<div class="example"><a name="fileinfo.classattributes.intro"></a><h3 class="title">Esempio&nbsp;4.18.&nbsp;Introdurre gli attributi di classe</h3><pre class="programlisting"><span class="pykeyword">
+class</span> MP3FileInfo(FileInfo):
+    <span class="pystring">"store ID3v1.0 MP3 tags"</span>
+    tagDataMap = {<span class="pystring">"title"</span>   : (  3,  33, stripnulls),
+                  <span class="pystring">"artist"</span>  : ( 33,  63, stripnulls),
+                  <span class="pystring">"album"</span>   : ( 63,  93, stripnulls),
+                  <span class="pystring">"year"</span>    : ( 93,  97, stripnulls),
+                  <span class="pystring">"comment"</span> : ( 97, 126, stripnulls),
+                  <span class="pystring">"genre"</span>   : (127, 128, ord)}</pre><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> fileinfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo.MP3FileInfo</span>            <a name="fileinfo.classattributes.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;class fileinfo.MP3FileInfo at 01257FDC&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo.MP3FileInfo.tagDataMap</span> <a name="fileinfo.classattributes.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">{'title': (3, 33, &lt;function stripnulls at 0260C8D4&gt;),
+'genre': (127, 128, &lt;built-in function ord&gt;), 
+'artist': (33, 63, &lt;function stripnulls at 0260C8D4&gt;), 
+'year': (93, 97, &lt;function stripnulls at 0260C8D4&gt;), 
+'comment': (97, 126, &lt;function stripnulls at 0260C8D4&gt;),
+'album': (63, 93, &lt;function stripnulls at 0260C8D4&gt;)}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m = fileinfo.MP3FileInfo()</span>      <a name="fileinfo.classattributes.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m.tagDataMap</span>
+<span class="computeroutput">{'title': (3, 33, &lt;function stripnulls at 0260C8D4&gt;), 
+'genre': (127, 128, &lt;built-in function ord&gt;), 
+'artist': (33, 63, &lt;function stripnulls at 0260C8D4&gt;), 
+'year': (93, 97, &lt;function stripnulls at 0260C8D4&gt;), 
+'comment': (97, 126, &lt;function stripnulls at 0260C8D4&gt;),
+'album': (63, 93, &lt;function stripnulls at 0260C8D4&gt;)}</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="classname">MP3FileInfo</tt> &egrave; la classe stessa, non una
+                        	particolare istanza della classe.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="varname">tagDataMap</tt> &egrave; un "class attribute": letteralmente, un
+                        	attributo della classe. &Egrave; disponibile prima di ogni
+                        	istanza della classe.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Gli attributi di classe sono disponibili sia attraverso un
+                        	riferimento diretto alla classe che attraverso qualunque
+                        	istanza della classe.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="compare.classattr.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	In <span class="application">Java</span>, sia le variabili statiche (chiamate attributi di
+                  	classe in <span class="application">Python</span>) che le variabili di istanza (chiamate
+                  	attributi dato in <span class="application">Python</span>), sono definite immediatamente dopo
+                  	la definizione della classe (il primo con la parola chiave
+                  	<tt class="literal">static</tt>, il secondo senza). In <span class="application">Python</span>,
+                  	solo gli attributi di classe posso essere definiti cos&igrave;; gli
+                  	attributi dato sono definiti nel metodo <tt class="function">__init__</tt>.
+                  
+               </td>
+</tr>
+</table>
+<p>
+            	Gli attributi di classe possono essere usati come costanti a
+            	livello di classe (cio&egrave; il modo in cui li usiamo in
+            	<tt class="classname">MP3FileInfo</tt>), ma non sono realmente costanti.
+               <sup>[<a name="d0e10504" href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#ftn.d0e10504">4</a>]</sup>
+            	Potete anche modificarli.
+            
+         </p>
+<div class="example"><a name="fileinfo.classattributes.writeable.example"></a><h3 class="title">Esempio&nbsp;4.19.&nbsp;Modificare gli attributi di classe</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">class</span><span class="pyclass"> counter</span>:</span>
+<tt class="prompt">...     </tt><span class="userinput">count = 0</span>                     <a name="fileinfo.classattributes.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> __init__</span>(self):</span>
+<tt class="prompt">...     </tt><span class="userinput">    self.__class__.count += 1</span> <a name="fileinfo.classattributes.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter</span>
+<span class="computeroutput">&lt;class __main__.counter at 010EAECC&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>                     <a name="fileinfo.classattributes.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">0</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c = counter()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c.count</span>                           <a name="fileinfo.classattributes.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>
+<span class="computeroutput">1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">d = counter()</span>                     <a name="fileinfo.classattributes.2.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">d.count</span>
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c.count</span>
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>
+<span class="computeroutput">2</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="varname">count</tt> &egrave; un attributo di classe della classe
+                        	<tt class="classname">counter</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal">__class__</tt> &egrave; un attributo built-in di ogni
+                        	istanza della classe (di ogni classe). &Egrave; un riferimento alla
+                        	classe di cui <tt class="varname">self</tt> &egrave; un'istanza (in questo
+                        	caso, la classe <tt class="classname">counter</tt>).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Dato che <tt class="varname">count</tt> &egrave; un attributo di classe, &egrave;
+                        	quindi disponibile attraverso un riferimento diretto, prima
+                        	di aver creato una qualunque istanza della classe.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Creando un'istanza della classe viene chiamato il metodo
+                        	<tt class="function">__init__</tt>, che incrementa l'attributo di classe
+                        	<tt class="varname">count</tt> di <tt class="constant">1</tt>.  Questo ha effetto sulla
+                        	classe stessa, non solo sull'istanza appena creata.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.2.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Creando una seconda istanza della classe verr&agrave; incrementato
+                        	di nuovo l'attributo di classe <tt class="varname">count</tt>.
+                        	Notate come l'attributo di classe venga condiviso dalla classe
+                        	e da tutte le sue istanze.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e10504" href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#d0e10504">4</a>] </sup>
+                     Non ci sono costanti in <span class="application">Python</span>. Ogni cosa pu&ograve; essere modificata
+                     se provate abbastanza. Questo fa parte di uno dei principali
+                     concetti di <span class="application">Python</span>: cattivi comportamenti dovrebbero essere
+                     scoraggiati, ma non impediti. Se volete veramente modificare il
+                     valore di <tt class="literal">None</tt>, potete farlo, ma non venite correndo da me se il
+                     vostro codice diventa impossibile da debuggare.
+                     
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html">&lt;&lt;&nbsp;Metodi speciali di classe avanzati</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/private_functions.html">Funzioni private&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

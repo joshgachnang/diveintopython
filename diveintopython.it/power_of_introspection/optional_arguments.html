@@ -1,0 +1,203 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3.2.&nbsp;Argomenti opzionali ed argomenti con nome</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/power_of_introspection/index.html" title="Capitolo&nbsp;3.&nbsp;La potenza dell'introspezione" />
+<link rel="previous" href="http://it.diveintopython.net/power_of_introspection/index.html" title="Capitolo&nbsp;3.&nbsp;La potenza dell'introspezione" />
+<link rel="next" href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html" title="3.3.&nbsp;type, str, dir, ed altre funzioni built-in" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html">La potenza dell'introspezione</a>&nbsp;&gt;&nbsp;<span class="thispage">Argomenti opzionali ed argomenti con nome</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html" title="Indietro: “La potenza dell'introspezione”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html" title="Avanti: “type, str, dir, ed altre funzioni built-in”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="apihelper.optional"></a>3.2.&nbsp;Argomenti opzionali ed argomenti con nome
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+<span class="application">Python</span> permette agli argomenti delle funzioni di avere un
+               	valore predefinito; se la funzione &egrave; chiamata senza
+               	l'argomento, l'argomento prende il suo valore predefinito.
+               	Inoltre gli argomenti possono essere specificati in qualunque
+               	ordine usando gli argomenti con nome. Le stored procedure in
+               	<span class="application">SQL Server</span> Transact/<span class="acronym">SQL</span> possono farlo; se siete dei guru nella
+               	programmazione via script di <span class="application">SQL Server</span> potete saltare questa
+               	parte.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e5394"></a><h3 class="title">Esempio&nbsp;3.4.&nbsp;<tt class="function">help</tt>, una funzione con due argomenti opzionali
+            </h3><pre class="programlisting"><span class="pykeyword">
+def</span> help(object, spacing=10, collapse=1):</pre></div>
+<p>
+<tt class="varname">spacing</tt> e <tt class="varname">collapse</tt> sono
+            	opzionali perch&eacute; hanno un valore predefinito.
+            	<tt class="varname">object</tt> &egrave; richiesto perch&eacute; non ha alcun
+            	valore predefinito.
+            	Se <tt class="function">help</tt> viene chiamata con un solo argomento,
+            	<tt class="varname">spacing</tt> assumer&agrave; il valore
+            	<tt class="constant">10</tt> e <tt class="varname">collapse</tt>
+            	assumer&agrave; valore <tt class="constant">1</tt>.
+            	Se <tt class="function">help</tt> viene chiamata con due argomenti,
+            	<tt class="varname">collapse</tt> continuer&agrave; a valere <tt class="constant">1</tt>.
+            
+         </p>
+<p>
+            	Diciamo che volete specificare un valore per
+            	<tt class="varname">collapse</tt>, ma volete accettare il valore
+            	predefinito per <tt class="varname">spacing</tt>.
+            	Nella maggior parte dei linguaggi sareste sfortunati, perch&eacute;
+            	dovreste chiamare la funzione con tre argomenti. Ma in
+            	<span class="application">Python</span> gli argomenti possono essere specificati per nome,
+            	in qualsiasi ordine.
+            
+         </p>
+<div class="example"><a name="d0e5447"></a><h3 class="title">Esempio&nbsp;3.5.&nbsp;Chiamate valide per <tt class="function">help</tt></h3><pre class="programlisting">
+help(odbchelper)                    <a name="apihelper_args.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+help(odbchelper, 12)                <a name="apihelper_args.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+help(odbchelper, collapse=0)        <a name="apihelper_args.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+help(spacing=15, object=odbchelper) <a name="apihelper_args.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html#apihelper_args.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Con un solo argomento, <tt class="varname">spacing</tt> prende il
+                        	suo valore predefinito pari a <tt class="literal">10</tt> e
+                        	<tt class="varname">collapse</tt> prende il suo valore predefinito
+                        	che &egrave; <tt class="constant">1</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html#apihelper_args.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Con due argomenti, <tt class="varname">collapse</tt> prende il suo
+                        	valore predefinito che &egrave; <tt class="constant">1</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html#apihelper_args.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Qui state nominando l'argomento <tt class="varname">collapse</tt>
+                        	esplicitamente e specificando il suo valore.
+                        	<tt class="varname">spacing</tt> continua ad avere il suo valore
+                        	predefinito <tt class="literal">10</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html#apihelper_args.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Anche gli argomenti richiesti (come <tt class="varname">object</tt>,
+                        	che non ha un valore predefinito) possono essere nominati e
+                        	gli argomenti con nome possono apparire in qualsiasi ordine.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Pu&ograve; sembrare estremamente forzato fino a che non realizzate
+            	che gli argomenti sono semplicemente un dizionario.
+            	Il meccanismo &#8220;<span class="quote">normale</span>&#8221;, di chiamata a funzione
+            	senza nomi di argomenti &egrave; solamente una scorciatoia in cui &egrave;
+            	<span class="application">Python</span> ad abbinare i valori con i nomi degli argomenti,
+            	nell'ordine in cui sono stati specificati nella dichiarazione.
+            	Nella maggior parte dei casi, chiamerete le funzioni nel modo
+            	&#8220;<span class="quote">normale</span>&#8221;, ma avrete sempre a disposizione questa
+            	flessibilit&agrave; aggiuntiva se ne avrete bisogno.
+            
+         </p><a name="tip.arguments"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	L'unica cosa che dovete fare per chiamare una funzione &egrave;
+                  	specificare un valore (in qualche modo) per ogni argomento
+                  	richiesto; il modo e l'ordine in cui lo fate &egrave; a vostra
+                  	discrezione.
+                  
+               </td>
+</tr>
+</table>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discute esattamente
+                  <a href="http://it.diveintopython.net/doc/current/tut/node6.html#SECTION006710000000000000000">quando
+                     e come argomenti predefiniti vengano valutati</a>, che ha importanza quando il valore
+                  predefinito &egrave; una lista o un'espressione con effetti collaterali.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/index.html">&lt;&lt;&nbsp;La potenza dell'introspezione</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html#apihelper.divein" title="3.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html" title="3.3.&nbsp;type, str, dir, ed altre funzioni built-in">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="3.6.&nbsp;Le particolarit&agrave; degli
+operatori and e or">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="3.8.&nbsp;Unire il tutto">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/summary.html" title="3.9.&nbsp;Sommario">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html">type, str, dir, ed altre funzioni built-in&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

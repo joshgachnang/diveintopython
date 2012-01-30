@@ -1,0 +1,425 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>1.3. Python sous Mac OS X</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20100420043509cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/index.html" title="Chapitre 1. Installation de Python">
+      <link rel="previous" href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/windows.html" title="1.2. Python sous Windows">
+      <link rel="next" href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/macos9.html" title="1.4. Python sous Mac OS 9">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/installing_python\/macosx.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "20";
+var displayMonth = "Apr";
+var displayYear = "2010";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/installing_python/macosx.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20100420043509" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090206010713/http://diveintopython.adrahon.org/installing_python/macosx.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="6 Feb 2009"><strong>FEB</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 4:35:09 Apr 20, 2010">APR</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       May
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090206010713/http://diveintopython.adrahon.org/installing_python/macosx.html" title="1:07:13 Feb 6, 2009" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 4:35:09 Apr 20, 2010">20</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090206010713/http://diveintopython.adrahon.org/installing_python/macosx.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="6 Feb 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 4:35:09 Apr 20, 2010">2010</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2011
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20100420043509*/http://diveintopython.adrahon.org/installing_python/macosx.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>27 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">20 May 06 - 20 Apr 10</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000011000100_2007:-1:121221000201_2008:-1:111121002100_2009:-1:010000000000_2010:3:000100000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/index.html">Installation de Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Python sous Mac OS X</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/windows.html" title="Pr&eacute;c&eacute;dent: &laquo;Python sous Windows&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/macos9.html" title="Suivant: &laquo;Python sous Mac OS 9&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="install.macosx"></a>1.3. <span class="application">Python</span> sous <span class="abbrev">Mac</span> <span class="acronym">OS</span> X
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Sous <span class="abbrev">Mac</span> <span class="acronym">OS</span> X, vous avez deux possibilit&eacute;s, garder la version pr&eacute;install&eacute;e ou installer une nouvelle version. Vous pr&eacute;f&egrave;rerez sans doute
+               cette derni&egrave;re solution.
+            </p>
+         </div>
+         <p><span class="abbrev">Mac</span> <span class="acronym">OS</span> X 10.2 et les version
+                  ult&eacute;rieures contiennent une version en ligne de commande de
+                  <span class="application">Python</span>. Si vous &ecirc;tes &agrave; l'aise avec la ligne
+                  de commande, vous pouvez utiliser cette version pour le premier tiers du
+                  livre. Par contre, la version pr&eacute;install&eacute;e ne contient pas
+                  d'analyseur pour le <span class="acronym">XML</span>, vous devrez donc installer
+                  la version compl&egrave;te lorsque vous arriverez au chapitre traitant du
+                  <span class="acronym">XML</span>.
+         </p>
+         <p>Installer la derni&egrave;re version pr&eacute;sente &eacute;galement l'avantage d'une
+                  interface graphique interactive.
+         </p>
+         <div class="procedure">
+            <h3 class="title">Proc&eacute;dure 1.3. Ex&eacute;cuter la version pr&eacute;install&eacute;e de <span class="application">Python</span> sous <span class="abbrev">Mac</span> <span class="acronym">OS</span> X
+            </h3>
+            <p>Pour utiliser la version pr&eacute;install&eacute;e de
+                       <span class="application">Python</span>, suivez ces &eacute;tapes :
+            </p>
+            <ol type="1">
+               <li>
+                  <p>Ouvrez le dossier <tt class="filename">/Applications</tt>.
+                  </p>
+               </li>
+               <li>
+                  <p>Ouvrez le dossier <tt class="filename">Utilitaires</tt>.
+                  </p>
+               </li>
+               <li>
+                  <p>Double-cliquez sur <tt class="filename">Terminal</tt> pour ouvrir
+                               une fen&ecirc;tre de terminal et acc&eacute;der &agrave; la ligne de commande.
+                  </p>
+               </li>
+               <li>
+                  <p>Tapez <b class="userinput"><tt>python</tt></b> sur la ligne de
+                               commande.
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>Essayez :</p>
+         <div class="informalexample"><pre class="screen">
+<span class="computeroutput">Welcome to Darwin!</span>
+<tt class="prompt">[localhost:~] you% </tt><span class="userinput">python</span>
+<span class="computeroutput">Python 2.2 (#1, 07/14/02, 23:25:09)
+[GCC Apple cpp-precomp 6.14] on darwin
+Type "help", "copyright", "credits", or "license" for more information.</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[press Ctrl+D to get back to the command prompt]</span>
+<tt class="prompt">[localhost:~] you% </tt>
+</pre></div>
+         <div class="procedure">
+            <h3 class="title">Proc&eacute;dure 1.4. Installation de la derni&egrave;re version de <span class="application">Python</span> sous <span class="abbrev">Mac</span> <span class="acronym">OS</span> X
+            </h3>
+            <p>Suivez ces &eacute;tapes pour t&eacute;l&eacute;charger et installer la derni&egrave;re
+                       version de <span class="application">Python</span>:
+            </p>
+            <ol type="1">
+               <li>
+                  <p>T&eacute;l&eacute;chargez l'image disque <tt class="filename">MacPython-OSX</tt>
+                               depuis <a href="http://web.archive.org/web/20100420043509/http://www.cwi.nl/~jack/macpython.html">http://www.cwi.nl/~jack/macpython.html</a>.
+                  </p>
+                  <p>Si votre navigateur n'a pas mont&eacute; l'image, double-cliquez sur
+                               <tt class="filename">MacPython-OSX-2.3-1.dmg</tt> pour la monter sur le
+                               bureau.
+                  </p>
+               </li>
+               <li>
+                  <p>Double-cliquer sur le programme d'installation, 
+                               <tt class="filename">MacPython-OSX.pkg</tt>.
+                  </p>
+               </li>
+               <li>
+                  <p>Le programme d'installation vous demandera votre nom et mot de
+                               passe d'administrateur.
+                  </p>
+               </li>
+               <li>
+                  <p>Suivez les &eacute;tapes du programme d'installation.</p>
+               </li>
+               <li>
+                  <p>Lorsque l'installation est termin&eacute;e, fermez le programme
+                               d'installation et ouvrez le dossier
+                               <tt class="filename">/Applications</tt>.
+                  </p>
+               </li>
+               <li>
+                  <p>Ouvrez le dossier <tt class="filename">MacPython-2.3</tt>.
+                  </p>
+               </li>
+               <li>
+                  <p>Double-cliquez sur <tt class="filename">PythonIDE</tt> pour lancer
+                               <span class="application">Python</span>.
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>L'<span class="acronym">IDE</span> <span class="application">MacPython</span> devrait afficher un &eacute;cran d'accueil, puis vous amener &agrave; l'interface interactive. Si l'interface n'appara&icirc;t pas, s&eacute;lectionnez
+            <span class="guimenu">Window</span>-&gt;<span class="guimenuitem">Python Interactive</span> (<span><b class="shortcut"><span><b class="keycap">Cmd</b></span>-<span class="keysym">0</span></b></span>). La fen&ecirc;tre qui s'ouvre ressemblera &agrave; l'&eacute;cran suivant
+                  :
+         </p>
+         <div class="informalexample"><pre class="screen">
+<span class="computeroutput">Python 2.3 (#2, Jul 30 2003, 11:45:28)
+[GCC 3.1 20020420 (prerelease)]
+Type "copyright", "credits" or "license" for more information.
+MacPython IDE 1.0.1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre></div>
+         <p>Notez qu'une fois que vous installez la derni&egrave;re version, la
+                  version pr&eacute;install&eacute;e est toujours pr&eacute;sente. Si vous ex&eacute;cutez des scripts
+                  depuis la ligne de commande, vous devez savoir quelle version de
+                  <span class="application">Python</span> vous utilisez.
+         </p>
+         <div class="example"><a name="d0e3370"></a><h3 class="title">Exemple 1.1. Deux versions de <span class="application">Python</span></h3><pre class="screen">
+<tt class="prompt">[localhost:~] you% </tt><span class="userinput">python</span>
+<span class="computeroutput">Python 2.2 (#1, 07/14/02, 23:25:09)
+[GCC Apple cpp-precomp 6.14] on darwin
+Type "help", "copyright", "credits", or "license" for more information.</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[press Ctrl+D to get back to the command prompt]</span>
+<tt class="prompt">[localhost:~] you% </tt><span class="userinput">/usr/local/bin/python</span>
+<span class="computeroutput">Python 2.3 (#2, Jul 30 2003, 11:45:28)
+[GCC 3.1 20020420 (prerelease)] on darwin
+Type "help", "copyright", "credits", or "license" for more information.</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[press Ctrl+D to get back to the command prompt]</span>
+<tt class="prompt">[localhost:~] you% </tt>
+</pre></div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/windows.html">&lt;&lt;&nbsp;Python sous Windows</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/index.html#install.choosing" title="1.1. Quel Python vous faut-il ?">1</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/windows.html" title="1.2. Python sous Windows">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/macos9.html" title="1.4. Python sous Mac OS 9">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/redhat.html" title="1.5. Python sous RedHat Linux">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/debian.html" title="1.6. Python sous Debian GNU/Linux">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/source.html" title="1.7. Installation de Python &agrave; partir du source">7</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/shell.html" title="1.8. L'interface interactive">8</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/summary.html" title="1.9. R&eacute;sum&eacute;">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100420043509/http://diveintopython.adrahon.org/installing_python/macos9.html">Python sous Mac OS 9&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 4:35:09 Apr 20, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:24:37 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

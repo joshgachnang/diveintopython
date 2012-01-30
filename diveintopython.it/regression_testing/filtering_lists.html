@@ -1,0 +1,267 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>8.3.&nbsp;Filtrare liste rivisitate</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati" />
+<link rel="previous" href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso" />
+<link rel="next" href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="8.4.&nbsp;Rivisitazione della mappatura delle liste" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html">Programmazione orientata ai dati</a>&nbsp;&gt;&nbsp;<span class="thispage">Filtrare liste rivisitate</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="Indietro: “Trovare il percorso”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="Avanti: “Rivisitazione della mappatura delle liste”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="regression.filter"></a>8.3.&nbsp;Filtrare liste rivisitate
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Avete gi&agrave; familiarit&agrave; con <a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste">l'utilizzo delle list
+                  	comprehensions per filtrare le liste</a>. C'&egrave; un'altro
+               	modo per raggiungere lo stesso risultato, che alcune persone
+               	considerano pi&ugrave; espressivo.
+               
+            </p>
+</div>
+<p>
+<span class="application">Python</span> ha una funzione built-in chiamata <tt class="function">filter</tt>
+            	che prende due argomenti, una funzione ed una lista, e
+            	ritorna una lista.
+            <sup>[<a name="d0e25743" href="http://it.diveintopython.net/regression_testing/filtering_lists.html#ftn.d0e25743">14</a>]</sup>
+            	La funzione passata come primo argomento a
+            	<tt class="function">filter</tt> deve essa stessa prendere un argomento,
+            	e la lista che <tt class="function">filter</tt> ritorna conterr&agrave; tutti
+            	gli elementi dalla lista passati a <tt class="function">filter</tt> per i
+            	quali la funzione elaborata ritorna true.
+            
+         </p>
+<p>
+            	Capito tutto? Non &egrave; difficile come sembra.
+            
+         </p>
+<div class="example"><a name="d0e25767"></a><h3 class="title">Esempio&nbsp;8.7.&nbsp;Introdurre <tt class="function">filter</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> odd</span>(n):</span>           <a name="regression.filter.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">return</span> n%2</span>
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [1, 2, 3, 5, 9, 10, 256, -3]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filter(odd, li)</span>       <a name="regression.filter.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">[1, 3, 5, 9, -3]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filteredList = []</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">for</span> n <span class="pykeyword">in</span> li:</span>          <a name="regression.filter.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">if</span> odd(n):</span>
+<tt class="prompt">...     </tt><span class="userinput">    filteredList.append(n)</span>
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filteredList</span>
+<span class="computeroutput">[1, 3, 5, 9, -3]</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/filtering_lists.html#regression.filter.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">odd</tt> usa la funzione built-in mod
+                        	&#8220;<span class="quote"><tt class="literal">%</tt></span>&#8221; per ritornare <tt class="constant">1</tt> se
+                        	<tt class="varname">n</tt> &egrave; dispari e <tt class="constant">0</tt> se
+                        	<tt class="varname">n</tt> &egrave; pari.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/filtering_lists.html#regression.filter.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">filter</tt> prende due argomenti, una funzione
+                        	(<tt class="function">odd</tt>) e una lista
+                        	(<tt class="varname">li</tt>).  Esegue un ciclo nella lista e
+                        	chiama <tt class="function">odd</tt> con ogni elemento. Se
+                        	<tt class="function">odd</tt> ritorna un valore vero (ricordate,
+                        	ogni valore diverso da zero &egrave; vero in <span class="application">Python</span>),
+                        	l'elemento &egrave; incluso nella lista ritornata, altrimenti ne &egrave;
+                        	fuori, nello stesso ordine in cui appare nell'originale.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/filtering_lists.html#regression.filter.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potreste raggiungere lo stesso risultato con un ciclo <tt class="literal">for</tt>.
+                        	A seconda del vostro stile di programmazione, ci&ograve; pu&ograve; sembrare
+                        	pi&ugrave; &#8220;<span class="quote">diretto</span>&#8221;, ma funzioni come <tt class="function">filter</tt>
+                        	sono molto pi&ugrave; espressive. Non solo sono pi&ugrave; facili da
+                        	scrivere, ma anche da leggere. Leggere il ciclo <tt class="literal">for</tt> &egrave; come
+                        	stare troppo vicino ad un dipinto; vedete tutti i dettagli, ma
+                        	ci vogliono alcuni secondi per fare un passo indietro e vedere
+                        	l'intera opera: &#8220;<span class="quote">Ehi, stavamo semplicemente filtrando una
+                           	lista!</span>&#8221;.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e25898"></a><h3 class="title">Esempio&nbsp;8.8.&nbsp;<tt class="function">filter</tt> in <tt class="filename">regression.py</tt></h3><pre class="programlisting">
+    files = os.listdir(path)                                <a name="regression.filter.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    test = re.compile(<span class="pystring">"test\.py$"</span>, re.IGNORECASE)           <a name="regression.filter.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    files = filter(test.search, files)                      <a name="regression.filter.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/filtering_lists.html#regression.filter.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto nella sezione
+                        	<a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso">Trovare il percorso</a>,
+                        	<tt class="varname">path</tt> pu&ograve; contenere il percorso completo o
+                        	parziale della directory dello script corrente, o pu&ograve;
+                        	contenere una stringa vuota se lo script &egrave; stato lanciato
+                        	dalla directory corrente. D'altra parte,
+                        	<tt class="varname">files</tt> finir&agrave; con i nomi dei file nella
+                        	stessa directory dalla quale lo script &egrave; stato lanciato.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/filtering_lists.html#regression.filter.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; una espressione regolare compilata. Come abbiamo
+                        	visto nella sezione
+                        	<a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">Rifattorizzazione</a>,
+                        	se userete la stessa espressione regolare pi&ugrave; e pi&ugrave; volte,
+                        	dovreste compilarla per una migliore performance. L'oggetto
+                        	compile ha un metodo <tt class="function">search</tt> che prende
+                        	un singolo elemento, la stringa da cercare, se l'espressione
+                        	regolare rispecchia la stringa. Il metodo
+                        	<tt class="function">search</tt> ritorna un oggetto
+                        	<tt class="classname">Match</tt> contenente informazioni sul
+                        	confronto dell'espressione regolare; altrimenti ritorna
+                        	<tt class="literal">None</tt>, il valore nullo di <span class="application">Python</span>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/filtering_lists.html#regression.filter.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per ogni elemento nella lista <tt class="varname">files</tt>,
+                        	chiameremo il metodo <tt class="function">search</tt> dell'oggetto
+                        	compilato dell'espressione regolare, <tt class="varname">test</tt>.
+                        	Se l'espressione regolare coincide, il metodo ritorner&agrave; un
+                        	oggetto <tt class="classname">Match</tt>, che <span class="application">Python</span> considera
+                        	essere vero, cos&igrave; l'elemento sar&agrave; incluso nella lista
+                        	ritornata da <tt class="function">filter</tt>. Se l'espressione regolare non
+                        	coincide, il metodo <tt class="function">search</tt> ritorner&agrave;
+                        	<tt class="literal">None</tt>, che <span class="application">Python</span> cosidera essere falso, cos&igrave; l'elemento
+                        	non sar&agrave; incluso.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p><b>Nota storica.&nbsp;</b>
+            	Le versioni di <span class="application">Python</span> anteriori alla 2.0 non hanno le
+            	<a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html" title="2.13.&nbsp;Mappare le liste">list comprehensions</a>,
+            	perci&ograve; non potevate <a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste">filtrare
+               	usando le list comprehensions</a>; la funzione
+            	<tt class="function">filter</tt> era l'unica possibilit&agrave;. Anche con
+            	l'introduzione delle list comprehensions dalla versione 2.0, alcune
+            	persone preferiscono ancora la vecchia <tt class="function">filter</tt> (e
+            	la sua funzione gemella, <tt class="function">map</tt>, che vedremo nella
+            	prossima sezione). Entrambe queste tecniche funzionano, e
+            	nessuna scomparir&agrave;, quindi &egrave; solo una questione di stile.
+            
+         </p>
+<div class="example"><a name="d0e25999"></a><h3 class="title">Esempio&nbsp;8.9.&nbsp;Filtrare usando le list comprehensions</h3><pre class="programlisting">
+    files = os.listdir(path)                               
+    test = re.compile(<span class="pystring">"test\.py$"</span>, re.IGNORECASE)          
+files = [f <span class="pykeyword">for</span> f <span class="pykeyword">in</span> files <span class="pykeyword">if</span> test.search(f)] <a name="regression.filter.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/filtering_lists.html#regression.filter.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo raggiunger&agrave; lo stesso risultato della funzione
+                        	<tt class="function">filter</tt>. Qual'&egrave; la pi&ugrave; espressiva? A voi
+                        	la scelta.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e25743" href="http://it.diveintopython.net/regression_testing/filtering_lists.html#d0e25743">14</a>] </sup>
+                      Tecnicamente, il secondo argomento di <tt class="function">filter</tt>
+                      pu&ograve; essere una qualsiasi sequenza, incluse liste, tuple
+                      e classi che si comportano come liste, definendo il
+                      metodo speciale _<tt class="function">__getitem__</tt>.
+                      Se possibile, <tt class="function">filter</tt> restituir&agrave; lo stesso
+                      tipo di dato che ha ricevuto, quindi filtrando una lista si
+                      ottiene una lista, invece filtrando una tupla si ottiene
+                      una tupla.
+                      
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/finding_the_path.html">&lt;&lt;&nbsp;Trovare il percorso</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html#regression.divein" title="8.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="8.4.&nbsp;Rivisitazione della mappatura delle liste">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/data_centric.html" title="8.5.&nbsp;Programmazione data-centrica">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="8.6.&nbsp;Importare dinamicamente i moduli">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html" title="8.7.&nbsp;Mettere assieme il tutto (parte 1)">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/inside_pyunit.html" title="8.8.&nbsp;Dentro PyUnit">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/mapping_lists.html">Rivisitazione della mappatura delle liste&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

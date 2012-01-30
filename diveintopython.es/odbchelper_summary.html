@@ -1,0 +1,52 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.15. Resumen</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas" /><link rel="next" href="http://es.diveintopython.net/apihelper_divein.html" title="Cap&iacute;tulo 2. El poder de la introspecci&oacute;n" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Resumen</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_join.html" title="Anterior: “Uni&oacute;n y divisi&oacute;n de cadenas”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html" title="Siguiente: “El poder de la introspecci&oacute;n”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.summary"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.summary"></a>1.15. Resumen</h2></div></div><div class="abstract"><p>El programa <tt>odbchelper.py</tt> y su salida deber&iacute;an tener
+ahora sentido.</p></div><div class="example"><p><a name="d0e1629"></a><b>Ejemplo 1.37. <tt>odbchelper.py</tt></b></p><pre class="programlisting"><span class="pykeyword">
+def</span> buildConnectionString(params):
+    <span class="pystring">"""Build a connection string from a dictionary of parameters.
+
+    Returns string."""</span>
+    <span class="pykeyword">return</span> <span class="pystring">";"</span>.join([<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()])
+
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:
+    myParams = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, \
+                <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, \
+                <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, \
+                <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span> \
+                }
+    <span class="pykeyword">print</span> buildConnectionString(myParams)</pre></div><div class="example"><p><a name="d0e1633"></a><b>Ejemplo 1.38. Salida de <tt>odbchelper.py</tt></b></p><pre class="screen"><span class="computeroutput">server=mpilgrim;uid=sa;database=master;pwd=secret</span></pre></div><div class="highlights"><a name="d0e1638"></a><p>Antes de sumergirnos en el siguiente cap&iacute;tulo, aseg&uacute;rese de que
+est&aacute; c&oacute;modo haciendo todo esto:</p><div class="itemizedlist"><ul><li>Usar el entorno de programaci&oacute;n Python para probar expresiones de
+forma interactiva</li><li>Escribir m&oacute;dulos Python que puedan <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">funcionar como programas independientes,
+al menos para realizar pruebas</a></li><li><a href="http://es.diveintopython.net/odbchelper_objects.html#odbchelper.import" title="Ejemplo 1.5. Acceso a la cadena de documentaci&oacute;n de buildConnectionString">Importar m&oacute;dulos</a> 
+y llamar a sus funciones</li><li><a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">Deckarar 
+funciones</a> y usar <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">sus 
+cadenas de documentaci&oacute;n</a>, <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">variables 
+locales</a>, y <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">el sangrado
+adecuado</a></li><li>Definir <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">diccionarios</a>, 
+<a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">tuplas</a>, y 
+<a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">listas</a></li><li>Acceder a los atributos y m&eacute;todos de
+<a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">cualquier objeto</a>, 
+incluidas cadenas, listas, diccionarios, funciones y 
+m&oacute;dulos.</li><li>Concatenar valores con el <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">formato de 
+cadenas</a></li><li><a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">Crear listas</a> 
+a partir de otras usando relaciones</li><li><a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">Dividir
+cadenas</a> formando listas y unir listas para formar 
+cadenas</li></ul></div></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_join.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Uni&oacute;n y divisi&oacute;n de cadenas</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <b>15</b>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/apihelper_divein.html">El poder de la introspecci&oacute;n&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

@@ -1,0 +1,428 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.11.&nbsp;Oggetti file</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for " />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Oggetti file</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="Indietro: “Gestire le eccezioni”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="Avanti: “Cicli for ”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.files"></a>4.11.&nbsp;Oggetti file
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+<span class="application">Python</span> ha una funzione built-in, <tt class="function">open</tt>, 
+               	per aprire un file su disco. <tt class="function">open</tt> ritorna
+               	un oggetto di tipo file, che dispone di metodi 
+               	e attributi per ottenere informazioni sul file 
+               	aperto e manipolarlo.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e11304"></a><h3 class="title">Esempio&nbsp;4.23.&nbsp;Aprire un file</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = open(<span class="pystring">"/music/_singles/kairo.mp3"</span>, <span class="pystring">"rb"</span>)</span> <a name="fileinfo.files.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>                                           <a name="fileinfo.files.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;open file '/music/_singles/kairo.mp3', mode 'rb' at 010E3988&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.mode</span>                                      <a name="fileinfo.files.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'rb'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.name</span>                                      <a name="fileinfo.files.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">'/music/_singles/kairo.mp3'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    Il metodo <tt class="function">open</tt> pu&ograve; prendere fino a tre parametri: il
+                        	    nome del file, una modalit&agrave; di apertura e una dimensione
+                        	    di buffer. Solo il primo, il nome, &egrave; obbligatorio; gli 
+                        	    altri due sono 
+                        	    <a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">opzionali</a>.
+                        	    Se non &egrave; specificato, il file &egrave; aperto per la lettura in 
+                        	    modo testo. In questo esempio apriamo il file per la 
+                        	    lettura in binario (<tt class="literal">print open.__doc__</tt>
+                        	    visualizza la spiegazione completa di tutte le modalit&agrave; 
+                        	    possibili).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    La funzione <tt class="function">open</tt> ritorna un oggetto (a questo punto 
+                        	    <a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Tutto &egrave; un oggetto">non dovrebbe pi&ugrave; essere
+                           	    una sorpresa per voi</a>). 
+                        	    Un oggetto file ha molti utili attributi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    L'attributo <tt class="varname">mode</tt> di un oggetto file 
+                        	    ritorna la modalit&agrave; di apertura del file.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	    L'attributo <tt class="varname">name</tt> di un oggetto file 
+                        	    ritorna il nome del file con cui &egrave; stato aperto.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e11378"></a><h3 class="title">Esempio&nbsp;4.24.&nbsp;Leggere un file</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">&lt;open file '/music/_singles/kairo.mp3', mode 'rb' at 010E3988&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.tell()</span>              <a name="fileinfo.files.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">0</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.seek(-128, 2)</span>       <a name="fileinfo.files.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.tell()</span>              <a name="fileinfo.files.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">7542909</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">tagData = f.read(128)</span> <a name="fileinfo.files.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">tagData</span>
+<span class="computeroutput">'TAGKAIRO****THE BEST GOA         ***DJ MARY-JANE***            Rave Mix                      2000http://mp3.com/DJMARYJANE     \037'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.tell()</span>              <a name="fileinfo.files.2.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">7543037</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        
+                        	    Un oggetto file contiene lo stato del file con 
+                        	    cui &egrave; stato creato. Il metodo <tt class="function">tell</tt> ritorna la 
+                        	    posizione corrente all'interno del file. Poich&eacute;
+                        	    non abbiamo ancora fatto nulla con questo file, 
+                        	    la posizione corrente &egrave; <tt class="constant">0</tt>, ovvero l'inizio 
+                        	    del file.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        
+                        	    Il metodo <tt class="function">seek</tt> di un oggetto file sposta la 
+                        	    posizione corrente all'interno del file. Il 
+                        	    secondo parametro specifica il significato del 
+                        	    primo; <tt class="constant">0</tt> significa &#8220;<span class="quote">spostati a una 
+                           	    posizione assoluta</span>&#8221; (contando dall'inizio 
+                        	    del file), <tt class="constant">1</tt> significa che il primo parametro 
+                        	    &egrave; relativo alla posizione attuale, e 
+                        	    <tt class="literal">2</tt> significa &#8220;<span class="quote">spostati
+                           	    relativamente dalla fine del file</span>&#8221;.
+                        	    Poich&eacute; i tag <span class="abbrev">MP3</span> che stiamo cercando sono 
+                        	    memorizzati alla fine del file, usiamo 
+                        	    <tt class="literal">2</tt> e diciamo all'oggetto file di
+                        	    spostare la posizione attuale a 
+                        	    <tt class="literal">128</tt> byte prima della fine del file.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Il metodo <tt class="function">tell</tt> conferma che la posizione corrente 
+                        	all'interno del file &egrave; cambiata.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Il metodo <tt class="function">read</tt> legge un numero specificato di byte dal file aperto e
+                            ritorna una stringa contenente i dati che sono stati letti. Il parametro
+                            opzionale specifica il massimo numero di byte da leggere. In assenza di
+                            questo parametro, il metodo <tt class="function">read</tt> legge il file fino alla fine. 
+                            (Avremmo potuto scrivere semplicemente <tt class="literal">read()</tt>
+                            qui, poich&eacute; sappiamo esattamente
+                            qual'&egrave; la posizione corrente nel file e stiamo, in effetti, leggendo gli
+                            ultimi 128 byte.) I dati letti sono assegnati alla variabile
+                            <tt class="varname">tagData</tt> e
+                            la posizione corrente viene aggiornata.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.2.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Il metodo <tt class="function">tell</tt> conferma che la posizione corrente &egrave; stata aggiornata.
+                            Se fate i calcoli, vedrete che dopo aver letto 128 byte, la posizione &egrave;
+                            avanzata di 128.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e11509"></a><h3 class="title">Esempio&nbsp;4.25.&nbsp;Chiudere un file</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">&lt;open file '/music/_singles/kairo.mp3', mode 'rb' at 010E3988&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.closed</span>  <a name="fileinfo.files.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">0</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.close()</span> <a name="fileinfo.files.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">&lt;closed file '/music/_singles/kairo.mp3', mode 'rb' at 010E3988&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.closed</span>
+<span class="computeroutput">1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.seek(0)</span> <a name="fileinfo.files.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: I/O operation on closed file</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.tell()</span>
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: I/O operation on closed file</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.read()</span>
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: I/O operation on closed file</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.close()</span> <a name="fileinfo.files.3.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            L'attributo <tt class="varname">closed</tt> di un oggetto file 
+                            indica se l'oggetto ha un file aperto
+                            oppure no. In questo caso, il file &egrave; ancora aperto 
+                            (<tt class="varname">closed</tt> vale <tt class="constant">0</tt>). I file
+                            aperti consumano risorse di sistema e a seconda della
+                            modalit&agrave; di apertura, gli altri programmi potrebbero non 
+                            essere in grado di accedervi. &Egrave; importante
+                            chiudere i file appena avete finito di usarli.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                             Per chiudere un file, chiamate il metodo <tt class="function">close</tt> dell'oggetto file.
+                             Questo metodo libera il lock (se presente) che state tenendo sul 
+                             file, svuota i buffer di scrittura (se presenti) che il sistema 
+                             non ha ancora scritto su disco e rilascia le risorse di sistema.
+                             L'attributo <tt class="varname">closed</tt> conferma che il file &egrave; stato 
+                             chiuso.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Solo perch&eacute; il file &egrave; stato chiuso, non significa che l'oggetto file
+                            non esista pi&ugrave;. La variabile <tt class="varname">f</tt> continua ad 
+                            esistere finch&eacute; <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html#fileinfo.scope" title="Esempio&nbsp;4.10.&nbsp;Proviamo ad implementare un memory leak">non esce dallo
+                               scope corrente</a> o &egrave; cancellata manualmente. 
+                            In ogni caso, nessuno dei metodi
+                            che manipolano un file funzioner&agrave; una volta che il file &egrave; stato chiuso,
+                            ma solleveranno un'eccezione.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.3.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Chiamare <tt class="function">close</tt> su un oggetto il cui file &egrave; gi&agrave; stato chiuso 
+                            <span class="emphasis"><em>non</em></span> genera un'eccezione; fallisce silenziosamente.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="fileinfo.files.incode"></a><h3 class="title">Esempio&nbsp;4.26.&nbsp;Oggetti file in <tt class="classname">MP3FileInfo</tt></h3><pre class="programlisting">
+        <span class="pykeyword">try</span>:                                <a name="fileinfo.files.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+            fsock = open(filename, <span class="pystring">"rb"</span>, 0) <a name="fileinfo.files.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+            <span class="pykeyword">try</span>:                           
+                fsock.seek(-128, 2)         <a name="fileinfo.files.4.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+                tagdata = fsock.read(128)   <a name="fileinfo.files.4.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+            <span class="pykeyword">finally</span>:                        <a name="fileinfo.files.4.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+                fsock.close()              
+            .
+            .
+            .
+        <span class="pykeyword">except</span> IOError:                     <a name="fileinfo.files.4.6"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+            <span class="pykeyword">pass</span>                           </pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Poich&eacute; aprire e leggere un file &egrave; un'operazione che potrebbe generare
+                            un'eccezione, tutto il codice &egrave; racchiuso in un blocco <tt class="literal">try...except</tt> (e qui
+                            dovreste cominciare ad apprezzare le
+                            <a href="http://it.diveintopython.net/getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indentare il codice">indentazioni standard </a>
+                            di <span class="application">Python</span>...).
+                        
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            La funzione <tt class="function">open</tt> pu&ograve; generare un <tt class="errorcode">IOError</tt>
+                            (forse il file non esiste).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.4.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Il metodo <tt class="function">seek</tt> pu&ograve; generare un <tt class="errorcode">IOError</tt>
+                            (forse il file &egrave; pi&ugrave; piccolo di 128 byte).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.4.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Il metodo <tt class="function">read</tt> pu&ograve; generare un <tt class="errorcode">IOError</tt> (forse il disco ha un settore
+                            illeggibile, o &egrave; un disco di rete e la rete non &egrave; disponibile).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.4.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Questo &egrave; nuovo: un blocco <tt class="literal">try...finally</tt>. Una volta che il file &egrave; stato
+                            aperto con successo dalla funzione <tt class="function">open</tt>, vogliamo essere assolutamente
+                            sicuri che lo chiuderemo, anche se venisse generata un'eccezione dai
+                            metodi <tt class="function">seek</tt> o <tt class="function">read</tt>. A questo serve il blocco <tt class="literal">try...finally</tt>:
+                            il codice nel blocco <tt class="literal">finally</tt> verr&agrave; 
+                            <span class="emphasis"><em>sempre</em></span> eseguito, anche se qualcosa nel blocco 
+                            <tt class="literal">try</tt> generasse un'eccezione. Pensate al blocco 
+                            <tt class="literal">finally</tt> come a codice che viene eseguito 
+                            &#8220;<span class="quote">all'uscita</span>&#8221;, indipendentemente da ci&ograve; che &egrave; successo prima.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html#fileinfo.files.4.6"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                            Infine, gestiamo la nostra eccezione <tt class="errorcode">IOError</tt> che potrebbe essere
+                            generata dalla chiamata a <tt class="function">open</tt>, <tt class="function">seek</tt>, o <tt class="function">read</tt>. Qui non fa 
+                            differenza, perch&eacute; ci limitiamo ad ignorarla e continuare.
+                            Ricordate, <tt class="literal">pass</tt> &egrave; un comando <span class="application">Python</span> che 
+                            <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html#fileinfo.class.simplest" title="Esempio&nbsp;4.5.&nbsp;La pi&ugrave; semplice classe Python">non fa nulla</a>. 
+                            Questo &egrave; perfettamente lecito; &#8220;<span class="quote">gestire</span>&#8221;
+                            un'eccezione pu&ograve; significare esplicitamente non fare nulla. L'eccezione
+                            verr&agrave; comunque considerata gestita e il programma continuer&agrave; normalmente
+                            con la riga di codice successiva al blocco <tt class="literal">try...except</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discute della lettura e della scrittura dei file, come
+                  <a href="http://it.diveintopython.net/doc/current/tut/node9.html#SECTION009210000000000000000">la
+                     lettura una riga per volta in una lista</a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/guides/">eff-bot</a> discute l'efficienza e le prestazioni di 
+                  <a href="http://it.diveintopython.net/guides/readline-performance.htm">alcuni sistemi di lettura 
+                     di file</a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> risponde
+                  <a href="http://it.diveintopython.net/knowledge-base/index.phtml/fid/552">alle 
+                     domande pi&ugrave; frequenti sui file</a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> riassume
+                  <a href="http://it.diveintopython.net/doc/current/lib/bltin-file-objects.html">tutti i metodi
+                     degli oggetti file</a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html">&lt;&lt;&nbsp;Gestire le eccezioni</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <span class="thispage">11</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/for_loops.html">Cicli for &nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

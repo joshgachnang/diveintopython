@@ -1,0 +1,604 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.10.&nbsp;roman.py, fase 5</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">roman.py, fase 5</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="Indietro: “roman.py, fase 4”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="Avanti: “Come gestire gli errori di programmazione”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.stage5"></a>7.10.&nbsp;<tt class="filename">roman.py</tt>, fase 5
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Ora che <tt class="function">fromRoman</tt> funziona correttamente con input validi,
+               	&egrave; tempo di far combaciare l'ultimo pezzo del puzzle: farla
+               	funzionare con input non validi.
+               	Senza troppi giri di parole cerchiamo di osservare una
+               	stringa e di determinare se &egrave; un numero romano valido.
+               	Questo &egrave; ancor pi&ugrave; difficoltoso se paragonato agli
+               	<a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">input validi</a> in <tt class="function">toRoman</tt>,
+               	ma noi abbiamo a disposizione un potente strumento a disposizione:
+               	le espressioni regolari
+               
+            </p>
+</div>
+<p>
+            	Se non avete familiarit&agrave; con le espressioni regolari e non
+            	avete letto il capitolo sulle
+            	<a href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="5.9.&nbsp;Introduzione alle espressioni regolari">Espressioni regolari</a>,
+            	questo &egrave; il momento opportuno per farlo.
+            
+         </p>
+<p>
+            	Come abbiamo visto all'<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">inizio
+               	di questo capitolo</a>, ci sono diverse semplici regole per
+            	comporre un numero romano. La prima di tali regole &egrave; che le
+            	migliaia, ammesso che ve ne siano, sono rappresentate da una serie di
+            	caratteri <tt class="literal">M</tt>.
+            
+         </p>
+<div class="example"><a name="d0e23573"></a><h3 class="title">Esempio&nbsp;7.18.&nbsp;Controllare la presenza delle migliaia</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?$'</span></span>       <a name="roman.stage5.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'M'</span>)</span>    <a name="roman.stage5.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 0106FB58&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MM'</span>)</span>   <a name="roman.stage5.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 0106C290&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMM'</span>)</span>  <a name="roman.stage5.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 0106AA38&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMMM'</span>)</span> <a name="roman.stage5.1.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">''</span>)</span>     <a name="roman.stage5.1.6"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 0106F4A8&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        
+                        Questo pattern ha tre parti:
+                        
+                        <div class="orderedlist">
+<ol type="1">
+<li>
+<tt class="literal">^</tt> - che fa in modo che quello che segue
+                                 	corrisponda solo se &egrave; all'inizio della stringa. Se dopo non
+                                 	venisse specificato nient'altro, qualunque stringa
+                                 	corrisponderebbe con questo pattern, non importa dove si
+                                 	trovino i caratteri <tt class="literal">M</tt>, che non &egrave;
+                                 	quello che vogliamo. Noi vogliamo essere sicuri che i
+                                 	caratteri <tt class="literal">M</tt>, se ci sono, siano
+                                 	all'inizio della stringa.
+                                 
+                              </li>
+<li>
+<tt class="literal">M?</tt> -  che corrisponde  ad un singolo
+                                 	carattere <tt class="literal">M</tt>, opzionale.
+                                 	Dato che <tt class="literal">M?</tt> viene ripetuto tre volte,
+                                 	abbiamo un pattern che corrisponde a qualunque stringa
+                                 	contenente da 0 a 3 caratteri <tt class="literal">M</tt> di seguito.
+                                 
+                              </li>
+<li>
+<tt class="literal">$</tt> - che corrisponde  solamente con ci&ograve; che
+                                 	precede la fine di una stringa. Quando combinato con il
+                                 	carattere <tt class="literal">^</tt> all'inizio, fa in modo che
+                                 	il pattern specificato debba corrispondere con l'intera
+                                 	stringa, senza altri caratteri prima o dopo i caratteri
+                                 	<tt class="literal">M</tt>.
+                                 
+                              </li>
+</ol>
+</div>
+</td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	L'essenza del modulo <tt class="filename">re</tt> &egrave; la funzione di ricerca
+                        	<tt class="function">search</tt> che prende una espresione regolare
+                        	(<tt class="varname">pattern</tt>) e una stringa
+                        	(<tt class="literal">'M'</tt>) per cercare di confrontarle
+                        	l'una con l'altra. Se si trova una corrispondenza, la
+                        	funzione <tt class="function">search</tt> restituisce un oggetto che ha vari
+                        	metodi che danno i dettagli sulla corrispondenza; se
+                        	non c'&egrave; una corrispondenza, la funzione <tt class="function">search</tt>
+                        	restituisce <tt class="literal">None</tt>, il valore nullo in <span class="application">Python</span>.
+                        	Non entreremo nei dettagli sull'oggetto restituito
+                        	dalla funzione (sebbene sia un argomento interessante),
+                        	perch&eacute; tutto ci&ograve; che ci importa al momento &egrave; sapere se c'&egrave;
+                        	corrispondenza, cosa che possiamo stabilire semplicemente
+                        	dal valore restituito dalla funzione <tt class="function">search</tt>. La
+                        	stringa <tt class="literal">'M'</tt> corrisponde alla
+                        	nostra espressione regolare, perch&eacute; il primo carattere
+                        	opzionale <tt class="literal">M</tt>  corrisponde ed il
+                        	secondo ed il terzo carattere opzionale
+                        	<tt class="literal">M</tt> vengono ignorati.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La stringa <tt class="literal">'MM'</tt> corrisponde perch&eacute;
+                        	il primo ed il secondo carattere <tt class="literal">M</tt>
+                        	opzionali corrispondono ed il terzo &egrave; ignorato.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal">'MMM'</tt> corrisponde perch&eacute; tutti e tre
+                        	i caratteri <tt class="literal">M</tt> corrispondono.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.1.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal">'MMMM'</tt> non corrisponde. Tutti e tre i
+                        	caratteri <tt class="literal">M</tt> corrispondono, ma poi
+                        	l'espressione regolare richiede che la stringa finisca
+                        	(a causa del caratterer <tt class="literal">$</tt>) mentre la
+                        	stringa non &egrave; ancora finita (a causa della quarta
+                        	<tt class="literal">M</tt>) . Quindi la funzione <tt class="function">search</tt>
+                        	restituisce <tt class="literal">None</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.1.6"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	&Egrave; interessante notare che la stringa vuota ha corrispondenza
+                        	con la nostra espressione regolare perch&eacute; tutti i caratteri
+                        	<tt class="literal">M</tt> richiesti sono opzionali. Tenetelo a
+                        	mente, risulter&agrave; importante nella prossima sezione.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Trattare le centinaia &egrave; pi&ugrave; difficile che trattare le
+            	migliaia, perch&eacute; ci sono diversi modi mutualmente esclusivi
+            	in cui possono essere espresse, a seconda del valore
+            	da considerare.
+            
+         </p>
+<div class="itemizedlist">
+<ul>
+<li><tt class="literal">100</tt> = <tt class="literal">C</tt></li>
+<li><tt class="literal">200</tt> = <tt class="literal">CC</tt></li>
+<li><tt class="literal">300</tt> = <tt class="literal">CCC</tt></li>
+<li><tt class="literal">400</tt> = <tt class="literal">CD</tt></li>
+<li><tt class="literal">500</tt> = <tt class="literal">D</tt></li>
+<li><tt class="literal">600</tt> = <tt class="literal">DC</tt></li>
+<li><tt class="literal">700</tt> = <tt class="literal">DCC</tt></li>
+<li><tt class="literal">800</tt> = <tt class="literal">DCCC</tt></li>
+<li><tt class="literal">900</tt> = <tt class="literal">CM</tt></li>
+</ul>
+</div>
+<p>
+            
+            Dunque ci sono quattro possibili schemi:
+            
+         </p>
+<div class="orderedlist">
+<ol type="1">
+<li><tt class="literal">CM</tt></li>
+<li><tt class="literal">CD</tt></li>
+<li>
+                  
+                  	da 0 a 3 caratteri <tt class="literal">C</tt> (0 se non
+                  	ci sono centinaia)
+                  
+               </li>
+<li>
+<tt class="literal">D</tt>, seguito da 0 a 3 caratteri
+                  	<tt class="literal">C</tt>
+</li>
+</ol>
+</div>
+<p>
+            
+            	Gli ultimi due schemi possone essere riassunti in uno:
+            
+         </p>
+<div class="itemizedlist">
+<ul>
+<li>
+                  
+                  	una <tt class="literal">D</tt>, opzionale, seguita da 0
+                  	a 3 caratteri <tt class="literal">C</tt>
+</li>
+</ul>
+</div>
+<div class="example"><a name="roman.stage5.hundreds"></a><h3 class="title">Esempio&nbsp;7.19.&nbsp;Controllare la presenza delle centinaia</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)$'</span></span> <a name="roman.stage5.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MCM'</span>)</span>            <a name="roman.stage5.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 01070390&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MD'</span>)</span>             <a name="roman.stage5.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 01073A50&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MMMCCC'</span>)</span>         <a name="roman.stage5.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 010748A8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'MCMC'</span>)</span>           <a name="roman.stage5.2.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">''</span>)</span>               <a name="roman.stage5.2.6"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 01071D98&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo pattern comincia come il precedente, controllando
+                        	che dall'inizio della stringa (<tt class="literal">^</tt>) ci
+                        	siano fino a tre caratteri di migliaia
+                        	(<tt class="literal">M?M?M?</tt>). Quindi c'&egrave; la parte nuova,
+                        	tra parentesi, che definisce un insieme di tre pattern
+                        	mutualmente esclusivi, separati da barre verticali:
+                        	<tt class="literal">CM</tt>, <tt class="literal">CD</tt>, e
+                        	<tt class="literal">D?C?C?C?</tt> (quest'ultimo &egrave; una
+                        	<tt class="literal">D</tt> opzionale seguita da 0 a 3 caratteri
+                        	<tt class="literal">C</tt> opzionali). Il parser delle
+                        	espressioni regolari cerca una corrispondenza per ciascuno
+                        	di questi tre pattern, nell'ordine (da sinistra a destra),
+                        	prendendo il primo pattern che corrisponde ed ignorando il
+                        	resto.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal">'MCM'</tt> corrisponde, perch&eacute; il primo pattern
+                        	<tt class="literal">M</tt> corrisponde, il secondo ed il terzo
+                        	<tt class="literal">M</tt> sono ignorati, il pattern
+                        	<tt class="literal">CM</tt> corrisponde (cosicch&eacute; i patterns
+                        	alternativi
+                        	<tt class="literal">CD</tt> e <tt class="literal">D?C?C?C?</tt>
+                        	non sono mai nemmeno considerati).
+                        	<tt class="literal">MCM</tt> &egrave; la rappresentazione in
+                        	numeri romani di <tt class="literal">1900</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal">'MD'</tt> corrisponde perch&eacute; il primo pattern
+                        	<tt class="literal">M</tt> corrisponde, il secondo ed il terzo
+                        	<tt class="literal">M</tt> sono ignorati ed il pattern
+                        	<tt class="literal">D?C?C?C?</tt> corrisponde con la stringa
+                        	<tt class="literal">D</tt> (ciascuno dei 3 caratteri
+                        	<tt class="literal">C</tt> nel pattern &egrave; opzionale ed in questo caso
+                        	sono ignorati).  <tt class="literal">MD</tt> &egrave; la rappresentazione in
+                        	numeri romani di <tt class="literal">1500</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal">'MMMCCC'</tt> corrisponde perch&eacute;
+                        	tutti e 3 i pattern <tt class="literal">M</tt>
+                        	corrispondono, ed il pattern
+                        	<tt class="literal">D?C?C?C?</tt> corrisponde con
+                        	<tt class="literal">CCC</tt> (la <tt class="literal">D</tt> &egrave; opzionale
+                        	ed &egrave; ignorata).  <tt class="literal">MMMCCC</tt>
+                        	&egrave; la rappresentazione in numeri romani di
+                        	<tt class="literal">3300</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.2.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="literal">'MCMC'</tt> non corrisponde. Il primo pattern
+                        	<tt class="literal">M</tt> corrisponde, il secondo ed il terzo
+                        	<tt class="literal">M</tt> sono ignorati, il pattern
+                        	<tt class="literal">CM</tt> corrisponde, ma poi
+                        	<tt class="literal">$</tt> non corrisponde perch&eacute;
+                        	non siamo ancora alla fine della stringa (abbiamo
+                        	ancora un carattere <tt class="literal">C</tt>
+                        	che non corrisponde a niente). Il carattere
+                        	<tt class="literal">C</tt>
+<span class="emphasis"><em>non</em></span> non corrisponde come parte
+                        	del pattern
+                        	<tt class="literal">D?C?C?C?</tt> perch&eacute; &egrave; gi&agrave; stata trovata
+                        	una corrispondenza con il  pattern <tt class="literal">CM</tt>,
+                        	che &egrave; mutualmente esclusivo rispetto al pattern
+                        	<tt class="literal">D?C?C?C?</tt>
+</td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.2.6"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	&Egrave; interessante notare che la stringa vuota continua a
+                        	corrispondere a questo pattern, perch&eacute; tutti i caratteri
+                        	<tt class="literal">M</tt> sono opzionali ed ignorati, e la
+                        	stringa vuota corrisponde al pattern
+                        	<tt class="literal">D?C?C?C?</tt> in cui tutti i caratteri
+                        	sono opzionali e possono essere ignorati.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Wow! Vedete quanto rapidamente un'espressione regolare pu&ograve;
+            	diventare maligna? Ed abbiamo solo coperto le migliaia e le
+            	centinaia. (Pi&ugrave; tardi, in questa sezione, vedremo una sintassi
+            	leggermente diversa per scrivere le espressioni regolari;
+            	questa sintassi, pur essendo altrettanto complicata, perlomeno
+            	ci permette di documentare sul posto le differenti
+            	componenti delle espressioni.) Fortunatamente, se avete
+            	seguito fino ad ora, le decine e le unit&agrave; sono facili,
+            	perch&eacute; seguono esattamente lo stesso pattern.
+            
+         </p>
+<div class="example"><a name="d0e24081"></a><h3 class="title">Esempio&nbsp;7.20.&nbsp;<tt class="filename">roman5.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pystring">"""Convert to and from Roman numerals"""</span>
+<span class="pykeyword">import</span> re
+
+<span class="pycomment">#Define exceptions</span>
+<span class="pykeyword">class</span><span class="pyclass"> RomanError</span>(Exception): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> OutOfRangeError</span>(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> NotIntegerError</span>(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> InvalidRomanNumeralError</span>(RomanError): <span class="pykeyword">pass</span>
+
+<span class="pycomment">#Define digit mapping</span>
+romanNumeralMap = ((<span class="pystring">'M'</span>,  1000),
+                   (<span class="pystring">'CM'</span>, 900),
+                   (<span class="pystring">'D'</span>,  500),
+                   (<span class="pystring">'CD'</span>, 400),
+                   (<span class="pystring">'C'</span>,  100),
+                   (<span class="pystring">'XC'</span>, 90),
+                   (<span class="pystring">'L'</span>,  50),
+                   (<span class="pystring">'XL'</span>, 40),
+                   (<span class="pystring">'X'</span>,  10),
+                   (<span class="pystring">'IX'</span>, 9),
+                   (<span class="pystring">'V'</span>,  5),
+                   (<span class="pystring">'IV'</span>, 4),
+                   (<span class="pystring">'I'</span>,  1))
+
+<span class="pykeyword">def</span><span class="pyclass"> toRoman</span>(n):
+    <span class="pystring">"""convert integer to Roman numeral"""</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> (0 &lt; n &lt; 4000):
+        <span class="pykeyword">raise</span> OutOfRangeError, <span class="pystring">"number out of range (must be 1..3999)"</span>
+    <span class="pykeyword">if</span> int(n) &lt;&gt; n:
+        <span class="pykeyword">raise</span> NotIntegerError, <span class="pystring">"decimals can not be converted"</span>
+
+    result = <span class="pystring">""</span>
+    <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
+        <span class="pykeyword">while</span> n &gt;= integer:
+            result += numeral
+            n -= integer
+    <span class="pykeyword">return</span> result
+
+<span class="pycomment">#Define pattern to detect valid Roman numerals</span>
+romanNumeralPattern = <span class="pystring">'^M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span> <a name="roman.stage5.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+
+<span class="pykeyword">def</span><span class="pyclass"> fromRoman</span>(s):
+    <span class="pystring">"""convert Roman numeral to integer"""</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> re.search(romanNumeralPattern, s):                                    <a name="roman.stage5.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        <span class="pykeyword">raise</span> InvalidRomanNumeralError, <span class="pystring">'Invalid Roman numeral: %s'</span> % s
+
+    result = 0
+    index = 0
+    <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
+        <span class="pykeyword">while</span> s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    <span class="pykeyword">return</span> result
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; solo la continuazione del pattern che abbiamo
+                        	costruito per gestire le migliaia e le centinaia. Le
+                        	decine sono rappresentate o da <tt class="literal">XC</tt>
+                        	(<tt class="literal">90</tt>), <tt class="literal">XL</tt>
+                        	(<tt class="literal">40</tt>), oppure da un opzionale
+                        	<tt class="literal">L</tt> seguito da zero a tre opzionali
+                        	<tt class="literal">X</tt>. Le unit&agrave; sono rappresentate o da
+                        	<tt class="literal">IX</tt> (<tt class="literal">9</tt>),
+                        	<tt class="literal">IV</tt> (<tt class="literal">4</tt>) o da un
+                        	opzionale <tt class="literal">V</tt> seguito da zero a tre
+                        	opzionali <tt class="literal">I</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Avendo codificato tutta questa logica nella nostra espressione
+                        	regolare, il codice per controllare numeri romani non validi
+                        	diventa banale. Se <tt class="function">re.search</tt> restituisce
+                        	un oggetto, vuol dire che &egrave; stata trovata una corrispondenza
+                        	con la nostra espressione regolare ed il nostro input &egrave;
+                        	valido; altrimenti, il nostro input non &egrave; valido.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	A questo punto, siete autorizzati ad essere scettici sul fatto
+            	che quella orribile espressione regolare possa filtrare tutti
+            	i tipi di numeri romani non validi. Ma non dovete prendere per
+            	buona la mia parola; osservate i risultati:
+            
+         </p>
+<div class="example"><a name="d0e24144"></a><h3 class="title">Esempio&nbsp;7.21.&nbsp;Output di <tt class="filename">romantest5.py</tt> a confronto con <tt class="filename">roman5.py</tt></h3><pre class="screen"><span class="computeroutput">
+fromRoman should only accept uppercase input ... ok          </span><a name="roman.stage5.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+toRoman should always return uppercase ... ok
+fromRoman should fail with malformed antecedents ... ok      </span><a name="roman.stage5.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman should fail with repeated pairs of numerals ... ok </span><a name="roman.stage5.4.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ok
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.864s
+
+OK                                                           </span><a name="roman.stage5.4.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Una cosa che non ho detto a proposito delle espressioni
+                        	regolari &egrave; che, di norma, trattano diversamente maiuscole
+                        	e minuscole. Dato che la nostra espressione regolare
+                        	<tt class="varname">romanNumeralPattern</tt> era espressa in
+                        	caratteri maiuscoli, il  controllo fatto con
+                        	<tt class="function">re.search</tt> rigetta ogni input che non
+                        	sia completamente in lettere maiuscole. Quindi il nostro
+                        	test sugli input in lettere maiuscole passa con succcesso.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Cosa ancora pi&ugrave; importante, tutti i nostri test con valori non
+                        	validi passano con successo. Per esempio, il test sull'ordine
+                        	erroneo delle cifre controlla casi come
+                        	<tt class="literal">MCMC</tt>.
+                        	<a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.hundreds" title="Esempio&nbsp;7.19.&nbsp;Controllare la presenza delle centinaia">Come abbiamo
+                           	visto</a>, questa stringa non corrisponde alla nostra
+                        	espressione regolare, per cui la funzione <tt class="function">fromRoman</tt> solleva
+                        	una eccezione <tt class="errorcode">InvalidRomanNumeralError</tt>,
+                        	che &egrave; quello che il nostro test si aspetta, per cui il test ha
+                        	successo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	In effetti, tutti i nostri test con input non validi hanno
+                        	successo. Questa nostra espressione regolare individua tutti i
+                        	casi a cui avevamo pensato quando abbiamo preparato i nostri
+                        	test.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_5.html#roman.stage5.4.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il premio dell'anno per il termine pi&ugrave; eccitante
+                        	va alla parola
+                        	&#8220;<span class="quote"><tt class="literal">OK</tt></span>&#8221;, che &egrave; stampata dal
+                        	modulo <tt class="filename">unittest</tt> quando tutti i test hanno successo.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="d0e24203"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Quando tutti i test passano con successo,
+                  	smettete di scrivere codice.
+                  
+               </td>
+</tr>
+</table>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/stage_4.html">&lt;&lt;&nbsp;roman.py, fase 4</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <span class="thispage">10</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/handling_bugs.html">Come gestire gli errori di programmazione&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

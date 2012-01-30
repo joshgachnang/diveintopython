@@ -1,0 +1,489 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapitre 5. Les objets et l'orient&eacute; objet</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20100827142911cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="previous" href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/power_of_introspection/summary.html" title="4.9. R&eacute;sum&eacute;">
+      <link rel="next" href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/importing_modules.html" title="5.2. Importation de modules avec from module import">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/object_oriented_framework\/index.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "27";
+var displayMonth = "Aug";
+var displayYear = "2010";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/object_oriented_framework/index.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20100827142911" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100413203056/http://diveintopython.adrahon.org/object_oriented_framework/index.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="13 Apr 2010"><strong>APR</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 14:29:11 Aug 27, 2010">AUG</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Sep
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100413203056/http://diveintopython.adrahon.org/object_oriented_framework/index.html" title="20:30:56 Apr 13, 2010" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 14:29:11 Aug 27, 2010">27</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090428033047/http://diveintopython.adrahon.org/object_oriented_framework/index.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="28 Apr 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 14:29:11 Aug 27, 2010">2010</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2011
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20100827142911*/http://diveintopython.adrahon.org/object_oriented_framework/index.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>27 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">12 May 06 - 27 Aug 10</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000010000130_2007:-1:110212000210_2008:-1:102111001000_2009:-1:010100000001_2010:7:000100010000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Les objets et l'orient&eacute; objet</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/power_of_introspection/summary.html" title="Pr&eacute;c&eacute;dent: &laquo;R&eacute;sum&eacute;&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/importing_modules.html" title="Suivant: &laquo;Importation de modules avec from module import&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo"></a>Chapitre 5. Les objets et l'orient&eacute; objet
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/index.html#fileinfo.divein">5.1. Plonger</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/importing_modules.html">5.2. Importation de modules avec from module import</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/defining_classes.html">5.3. D&eacute;finition de classes</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/defining_classes.html#d0e11779">5.3.1. Initialisation et &eacute;criture de classes</a></span></li>
+                     <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/defining_classes.html#d0e11951">5.3.2. Quand utiliser self et __init__</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/instantiating_classes.html">5.4. Instantiation de classes</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/instantiating_classes.html#d0e12218">5.4.1. Ramasse-miettes</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/userdict.html">5.5. UserDict : une classe enveloppe</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/special_class_methods.html">5.6. M&eacute;thodes de classe sp&eacute;ciales</a></span><ul>
+                     <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/special_class_methods.html#d0e12873">5.6.1. Lire et &eacute;crire des &eacute;l&eacute;ments</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/special_class_methods2.html">5.7. M&eacute;thodes sp&eacute;ciales avanc&eacute;es</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/class_attributes.html">5.8. Attributs de classe</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/private_functions.html">5.9. Fonctions priv&eacute;es</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/summary.html">5.10. R&eacute;sum&eacute;</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Ce chapitre, comme la plupart de ceux qui le suivent, a trait &agrave; la
+                     programmation orient&eacute;e objet en <span class="application">Python</span>.
+            </p>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="fileinfo.divein"></a>5.1. Plonger
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>Voici un programme <span class="application">Python</span> complet et
+                          fonctionnel. Lisez les <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/getting_to_know_python/documenting_functions.html" title="2.3. Documentation des fonctions"><tt class="literal">doc string</tt></a>
+                          du module, des classes et des fonctions pour avoir un aper&ccedil;u de ce que
+                          ce programme fait et de son fonctionnement. Comme d'habitude ne vous
+                          inqui&eacute;tez pas de ce que vous ne comprenez pas, la suite du chapitre
+                  		est l&agrave; pour vous l'expliquer.
+               </p>
+            </div>
+            <div class="example"><a name="d0e11241"></a><h3 class="title">Exemple 5.1. <tt class="filename">fileinfo.py</tt></h3>
+               <p>Si vous ne l&#8217;avez pas d&eacute;j&agrave; fait, vous pouvez <a href="http://web.archive.org/web/20100827142911/http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="T&eacute;l&eacute;charger les exemples de scripts">t&eacute;l&eacute;charger cet exemple ainsi que les autres exemples</a> du livre.
+               </p><pre class="programlisting">
+<span class='pystring'>"""Framework for getting filetype-specific metadata.
+
+Instantiate appropriate class with filename.  Returned object acts like a
+dictionary, with key-value pairs for each piece of metadata.
+    import fileinfo
+    info = fileinfo.MP3FileInfo("/music/ap/mahadeva.mp3")
+    print "\\n".join(["%s=%s" % (k, v) for k, v in info.items()])
+
+Or use listDirectory function to get info on all files in a directory.
+    for info in fileinfo.listDirectory("/music/ap/", [".mp3"]):
+        ...
+
+Framework can be extended by adding classes for particular file types, e.g.
+HTMLFileInfo, MPGFileInfo, DOCFileInfo.  Each class is completely responsible for
+parsing its files appropriately; see MP3FileInfo for example.
+"""</span>
+<span class='pykeyword'>import</span> os
+<span class='pykeyword'>import</span> sys
+<span class='pykeyword'>from</span> UserDict <span class='pykeyword'>import</span> UserDict
+
+<span class='pykeyword'>def</span><span class='pyclass'> stripnulls</span>(data):
+    <span class='pystring'>"strip whitespace and nulls"</span>
+    <span class='pykeyword'>return</span> data.replace(<span class='pystring'>"\00"</span>, <span class='pystring'>""</span>).strip()
+
+<span class='pykeyword'>class</span><span class='pyclass'> FileInfo</span>(UserDict):
+    <span class='pystring'>"store file metadata"</span>
+    <span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self, filename=None):
+        UserDict.__init__(self)
+        self[<span class='pystring'>"name"</span>] = filename
+
+<span class='pykeyword'>class</span><span class='pyclass'> MP3FileInfo</span>(FileInfo):
+    <span class='pystring'>"store ID3v1.0 MP3 tags"</span>
+    tagDataMap = {<span class='pystring'>"title"</span>   : (  3,  33, stripnulls),
+                  <span class='pystring'>"artist"</span>  : ( 33,  63, stripnulls),
+                  <span class='pystring'>"album"</span>   : ( 63,  93, stripnulls),
+                  <span class='pystring'>"year"</span>    : ( 93,  97, stripnulls),
+                  <span class='pystring'>"comment"</span> : ( 97, 126, stripnulls),
+                  <span class='pystring'>"genre"</span>   : (127, 128, ord)}
+
+    <span class='pykeyword'>def</span><span class='pyclass'> __parse</span>(self, filename):
+        <span class='pystring'>"parse ID3v1.0 tags from MP3 file"</span>
+        self.clear()
+        <span class='pykeyword'>try</span>:                               
+            fsock = open(filename, <span class='pystring'>"rb"</span>, 0)
+            <span class='pykeyword'>try</span>:                           
+                fsock.seek(-128, 2)        
+                tagdata = fsock.read(128)  
+            <span class='pykeyword'>finally</span>:                       
+                fsock.close()              
+            <span class='pykeyword'>if</span> tagdata[:3] == <span class='pystring'>"TAG"</span>:
+                <span class='pykeyword'>for</span> tag, (start, end, parseFunc) <span class='pykeyword'>in</span> self.tagDataMap.items():
+                    self[tag] = parseFunc(tagdata[start:end])               
+        <span class='pykeyword'>except</span> IOError:                    
+            <span class='pykeyword'>pass</span>                           
+
+    <span class='pykeyword'>def</span><span class='pyclass'> __setitem__</span>(self, key, item):
+        <span class='pykeyword'>if</span> key == <span class='pystring'>"name"</span> <span class='pykeyword'>and</span> item:
+            self.__parse(item)
+        FileInfo.__setitem__(self, key, item)
+
+<span class='pykeyword'>def</span><span class='pyclass'> listDirectory</span>(directory, fileExtList):                                        
+    <span class='pystring'>"get list of file info objects for files of particular extensions"</span>
+    fileList = [os.path.normcase(f)
+                <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> os.listdir(directory)]           
+    fileList = [os.path.join(directory, f) 
+               <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> fileList
+                <span class='pykeyword'>if</span> os.path.splitext(f)[1] <span class='pykeyword'>in</span> fileExtList] 
+    <span class='pykeyword'>def</span><span class='pyclass'> getFileInfoClass</span>(filename, module=sys.modules[FileInfo.__module__]):      
+        <span class='pystring'>"get file info class from filename extension"</span>                             
+        subclass = <span class='pystring'>"%sFileInfo"</span> % os.path.splitext(filename)[1].upper()[1:]       
+        <span class='pykeyword'>return</span> hasattr(module, subclass) <span class='pykeyword'>and</span> getattr(module, subclass) <span class='pykeyword'>or</span> FileInfo
+    <span class='pykeyword'>return</span> [getFileInfoClass(f)(f) <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> fileList]                             
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:
+    <span class='pykeyword'>for</span> info <span class='pykeyword'>in</span> listDirectory(<span class='pystring'>"/music/_singles/"</span>, [<span class='pystring'>".mp3"</span>]): <a name="fileinfo_divein.1.1"></a><img src="http://web.archive.org/web/20100827142911im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> info.items()])
+        print</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/index.html#fileinfo_divein.1.1"><img src="http://web.archive.org/web/20100827142911im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">La sortie de ce programme d&eacute;pend des fichiers qui se
+                                       trouvent sur votre disque dur. Pour avoir une sortie pertinente,
+                                       vous devrez changer le chemin pour qu'il pointe vers un r&eacute;pertoire
+                                       de fichiers MP3 sur votre machine.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="informalexample">
+               <p>Voici la sortie que j'ai obtenu sur ma machine. Votre sortie
+                          sera diff&eacute;rente, sauf si, par une surprenante co&iuml;ncidence, vous
+                          partagez exactement mes go&ucirc;ts musicaux..
+               </p><pre class="screen"><span class="computeroutput">album=
+artist=Ghost in the Machine
+title=A Time Long Forgotten (Concept
+genre=31
+name=/music/_singles/a_time_long_forgotten_con.mp3
+year=1999
+comment=http://mp3.com/ghostmachine
+
+album=Rave Mix
+artist=***DJ MARY-JANE***
+title=HELLRAISER****Trance from Hell
+genre=31
+name=/music/_singles/hellraiser.mp3
+year=2000
+comment=http://mp3.com/DJMARYJANE
+
+album=Rave Mix
+artist=***DJ MARY-JANE***
+title=KAIRO****THE BEST GOA
+genre=31
+name=/music/_singles/kairo.mp3
+year=2000
+comment=http://mp3.com/DJMARYJANE
+
+album=Journeys
+artist=Masters of Balance
+title=Long Way Home
+genre=31
+name=/music/_singles/long_way_home1.mp3
+year=2000
+comment=http://mp3.com/MastersofBalan
+
+album=
+artist=The Cynic Project
+title=Sidewinder
+genre=18
+name=/music/_singles/sidewinder.mp3
+year=2000
+comment=http://mp3.com/cynicproject
+
+album=Digitosis@128k
+artist=VXpanded
+title=Spinning
+genre=255
+name=/music/_singles/spinning.mp3
+year=2000
+comment=http://mp3.com/artists/95/vxp</span></pre></div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/power_of_introspection/summary.html">&lt;&lt;&nbsp;R&eacute;sum&eacute;</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/importing_modules.html" title="5.2. Importation de modules avec from module import">2</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/defining_classes.html" title="5.3. D&eacute;finition de classes">3</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/instantiating_classes.html" title="5.4. Instantiation de classes">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/userdict.html" title="5.5. UserDict : une classe enveloppe">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/special_class_methods.html" title="5.6. M&eacute;thodes de classe sp&eacute;ciales">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/special_class_methods2.html" title="5.7. M&eacute;thodes sp&eacute;ciales avanc&eacute;es">7</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/class_attributes.html" title="5.8. Attributs de classe">8</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/private_functions.html" title="5.9. Fonctions priv&eacute;es">9</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/summary.html" title="5.10. R&eacute;sum&eacute;">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100827142911/http://diveintopython.adrahon.org/object_oriented_framework/importing_modules.html">Importation de modules avec from module import&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 14:29:11 Aug 27, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:24:58 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

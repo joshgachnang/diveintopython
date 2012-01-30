@@ -1,0 +1,392 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.14.&nbsp;Il modulo os</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Il modulo os</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="Indietro: “Ancora sui moduli”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="Avanti: “Mettere tutto insieme”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.os"></a>4.14.&nbsp;Il modulo <tt class="filename">os</tt></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Il modulo <tt class="filename">os</tt> ha molte funzioni utili per manipolare file
+               	e processi e <tt class="filename">os.path</tt> ha molte funzioni per manipolare
+               	percorsi di file e directory.
+               
+            </p>
+</div>
+<div class="example"><a name="fileinfo.os.path.join.example"></a><h3 class="title">Esempio&nbsp;4.35.&nbsp;Costruire pathnames</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> os</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.join(<span class="pystring">"c:\\music\\ap\\"</span>, <span class="pystring">"mahadeva.mp3"</span>)</span> <a name="fileinfo.os.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="fileinfo.os.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'c:\\music\\ap\\mahadeva.mp3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.join(<span class="pystring">"c:\\music\\ap"</span>, <span class="pystring">"mahadeva.mp3"</span>)</span>   <a name="fileinfo.os.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'c:\\music\\ap\\mahadeva.mp3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.expanduser(<span class="pystring">"~"</span>)</span>                         <a name="fileinfo.os.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">'c:\\Documents and Settings\\mpilgrim\\My Documents'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.join(os.path.expanduser(<span class="pystring">"~"</span>), <span class="pystring">"Python"</span>)</span> <a name="fileinfo.os.1.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">'c:\\Documents and Settings\\mpilgrim\\My Documents\\Python'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="filename">os.path</tt> &egrave; un riferimento ad un modulo che dipende
+                        	dalla piattaforma sulla quale lavorate.
+                        	Proprio come
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html#crossplatform.example" title="Esempio&nbsp;4.22.&nbsp;Supportare le funzionalit&agrave; specifiche per piattaforma"><tt class="filename">getpass</tt></a>
+                        	considera le differenze fra le
+                        	piattaforme, impostando
+                        	<tt class="varname">getpass</tt> ad una funzione specifica,
+                        	anche <tt class="filename">os</tt> ne tiene conto impostando
+                        	<tt class="varname">path</tt> come un modulo specifico
+                        	per piattaforma in uso.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La funzione <tt class="function">join</tt> di <tt class="filename">os.path</tt> costruisce un pathname a
+                        	partire da uno o pi&ugrave; pathname parziali. In questo semplice
+                        	caso, si limita a concatenare delle stringhe. (Notate che
+                        	occuparsi di pathname su Windows &egrave; odioso a causa del
+                        	fatto che il carattere backslash deve essere escapato.)
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il questo esempio un po' banale, <tt class="function">join</tt> aggiunger&agrave; un
+                        	backslash extra al pathname prima di unirlo al nome del
+                        	file. Ero contentissimo quando lo scoprii, dato che
+                        	<tt class="function">addSlashIfNecessary</tt> &egrave; una
+                        	delle piccole e stupide funzioni che devo sempre
+                        	scrivere, quando
+                        	costruisco la mia toolbox in un nuovo linguaggio.
+                        	<span class="emphasis"><em>Non</em></span> scrivete queste piccole e stupide
+                        	funzioni in <span class="application">Python</span>; qualcun altro se ne &egrave; gi&agrave; occupato
+                        	per voi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">expanduser</tt> espander&agrave; un pathname che
+                        	usa <tt class="literal">~</tt> per rappresentare la home directory
+                        	dell'utente attuale. Questo funziona su ogni piattaforma ove
+                        	gli utenti hanno una home directory, come Windows, <span class="acronym">UNIX</span>
+                        	e <span class="abbrev">Mac</span> <span class="acronym">OS</span> X, non ha effetto su <span class="abbrev">Mac</span> <span class="acronym">OS</span>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.1.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Combinando queste tecniche, potete facilmente costruire
+                        	percorsi per directory e file sotto la home directory
+                        	dell'utente.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="splittingpathnames.example"></a><h3 class="title">Esempio&nbsp;4.36.&nbsp;Dividere i pathnames</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.split(<span class="pystring">"c:\\music\\ap\\mahadeva.mp3"</span>)</span>                        <a name="fileinfo.os.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">('c:\\music\\ap', 'mahadeva.mp3')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">(filepath, filename) = os.path.split(<span class="pystring">"c:\\music\\ap\\mahadeva.mp3"</span>)</span> <a name="fileinfo.os.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filepath</span>                                                            <a name="fileinfo.os.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'c:\\music\\ap'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filename</span>                                                            <a name="fileinfo.os.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">'mahadeva.mp3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">(shortname, extension) = os.path.splitext(filename)</span>                 <a name="fileinfo.os.2.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">shortname</span>
+<span class="computeroutput">'mahadeva'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">extension</span>
+<span class="computeroutput">'.mp3'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La funzione <tt class="function">split</tt> divide un pathname completo e ritorna
+                        	una tupla contenente il percorso ed il nome del file.
+                        	Ricordate quando dissi che potevate usare
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html" title="2.11.&nbsp;Assegnare valori multipli in un colpo solo">assegnamenti
+                           	multi-variabile</a> per ritornare valori multipli da una
+                        	funzione? Bene, <tt class="function">split</tt> &egrave; una di queste funzioni.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Assegnamo il valore di ritorno della funzione <tt class="function">split</tt> ad una
+                        	tupla di due variabili. Ogni variabile riceve il valore
+                        	dell'elemento corrispondente dalla tupla ritornata.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La prima variabile, <tt class="varname">filepath</tt>, riceve
+                        	il valore del primo elemento della tupla ritornata da
+                        	<tt class="function">split</tt>, il percorso del file.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La seconda variabile, <tt class="varname">filename</tt>, riceve
+                        	il valore del secondo elemento della tupla ritornata da
+                        	<tt class="function">split</tt>, il nome del file.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.2.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="filename">os.path</tt> contiene anche una funzione <tt class="function">splitext</tt>, che divide
+                        	il nome di un file e ritorna una tupla contenente il nome
+                        	del file e la sua estensione. Usiamo la stessa tecnica per
+                        	assegnare ognuno di questi a variabili separate.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="fileinfo.listdir.example"></a><h3 class="title">Esempio&nbsp;4.37.&nbsp;Elencare directory</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.listdir(<span class="pystring">"c:\\music\\_singles\\"</span>)</span>                                          <a name="fileinfo.os.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['a_time_long_forgotten_con.mp3', 'hellraiser.mp3', 'kairo.mp3',
+'long_way_home1.mp3', 'sidewinder.mp3', 'spinning.mp3']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">dirname = <span class="pystring">"c:\\"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.listdir(dirname)</span>                                                          <a name="fileinfo.os.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['AUTOEXEC.BAT', 'boot.ini', 'CONFIG.SYS', 'cygwin', 'docbook',
+'Documents and Settings', 'Incoming', 'Inetpub', 'IO.SYS', 'MSDOS.SYS', 'Music',
+'NTDETECT.COM', 'ntldr', 'pagefile.sys', 'Program Files', 'Python20', 'RECYCLER',
+'System Volume Information', 'TEMP', 'WINNT']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[f <span class="pykeyword">for</span> f <span class="pykeyword">in</span> os.listdir(dirname) <span class="pykeyword">if</span> os.path.isfile(os.path.join(dirname, f))]</span> <a name="fileinfo.os.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['AUTOEXEC.BAT', 'boot.ini', 'CONFIG.SYS', 'IO.SYS', 'MSDOS.SYS',
+'NTDETECT.COM', 'ntldr', 'pagefile.sys']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[f <span class="pykeyword">for</span> f <span class="pykeyword">in</span> os.listdir(dirname) <span class="pykeyword">if</span> os.path.isdir(os.path.join(dirname, f))]</span>  <a name="fileinfo.os.3.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">['cygwin', 'docbook', 'Documents and Settings', 'Incoming',
+'Inetpub', 'Music', 'Program Files', 'Python20', 'RECYCLER',
+'System Volume Information', 'TEMP', 'WINNT']</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La funzione <tt class="function">listdir</tt> prende un pathname e ritorna una
+                        	lista del contenuto della directory.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">listdir</tt> ritorna sia file che directory, senza
+                        	indicare quale sia.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potete usare il <a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html" title="3.5.&nbsp;Filtrare le liste">list
+                           	filtering</a> e la funzione <tt class="function">isfile</tt>
+                        	del modulo <tt class="filename">os.path</tt> per separare i file dalle directory.
+                        	<tt class="function">isfile</tt> prende un pathname e ritorna 1, nel caso in cui il
+                        	percorso rappresenti un file e 0 altrimenti. Qui stiamo
+                        	usando <tt class="literal"></tt><tt class="filename">os.path</tt>.<tt class="function">join</tt> per assicurarci
+                        	un pathname completo, ma <tt class="function">isfile</tt> funziona anche con un
+                        	percorso parziale, relativo alla directory corrente.
+                        	Potete usare <tt class="literal">os.getcwd()</tt> per ottenere
+                        	la directory corrente.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#fileinfo.os.3.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="filename">os.path</tt> ha anche una funzione <tt class="function">isdir</tt>
+                        	che ritorna 1 se il percorso rappresenta una directory
+                        	e 0 altrimenti. Potete usarla per ottenere la lista delle
+                        	sottodirectory di un percorso.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e12905"></a><h3 class="title">Esempio&nbsp;4.38.&nbsp;Elencare directory in <tt class="filename">fileinfo.py</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> listDirectory(directory, fileExtList):                                        
+    <span class="pystring">"get list of file info objects for files of particular extensions"</span>
+    fileList = [os.path.normcase(f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> os.listdir(directory)]               
+    fileList = [os.path.join(directory, f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> fileList \
+                <span class="pykeyword">if</span> os.path.splitext(f)[1] <span class="pykeyword">in</span> fileExtList]                         </pre><p>
+               	Queste due linee di codice fanno tutto ci&ograve; che abbiamo
+               	imparato finora sul modulo <tt class="filename">os</tt> e anche qualcos'altro.
+               
+            </p>
+<div class="orderedlist">
+<ol type="1">
+<li>
+<tt class="literal">os.listdir(directory)</tt> ritorna una lista
+                     	di tutti i file compresi in <tt class="varname">directory</tt>.
+                     
+                  </li>
+<li>
+                     	Iterando nella lista con <tt class="varname">f</tt>, usiamo
+                     	<tt class="literal">os.path.normcase(f)</tt> per normalizzare
+                     	il nome del file o della directory, in accordo al
+                     	comportamento predefinito del sistema operativo in uso.
+                     	<tt class="function">normcase</tt> &egrave; una piccola ed utile
+                     	funzione che rimedia al fatto che i sistemi operativi
+                     	case-insensitive pensino che
+                     	<tt class="filename">mahadeva.mp3</tt> e
+                     	<tt class="filename">mahadeva.MP3</tt> siano lo stesso file. Per
+                     	esempio, su Windows e <span class="abbrev">Mac</span> <span class="acronym">OS</span>, <tt class="function">normcase</tt>
+                     	convertir&agrave; l'intero filename in caratteri minuscoli; sui
+                     	sistemi UNIX-compatibili, ritorner&agrave; il nome del file
+                     	invariato.
+                     
+                  </li>
+<li>
+                     	Iterando attraverso la lista normalizzata, ancora con
+                     	<tt class="varname">f</tt>, usiamo
+                     	<tt class="literal">os.path.splitext(f)</tt> per dividere
+                     	ogni nome di file dalla sua estensione.
+                     
+                  </li>
+<li>
+                     	Per ogni file, vediamo se l'estensione &egrave; presente nella
+                     	lista delle estensioni di cui stiamo tenendo conto
+                     	(<tt class="varname">fileExtList</tt>, che &egrave; stata passata alla
+                     	funzione <tt class="function">listDirectory</tt>).
+                     
+                  </li>
+<li>
+                     	Per ogni file trovato, usiamo
+                     	<tt class="literal">os.path.join(directory, f)</tt> per costruire
+                     	il percorso completo del file e ritornare una lista dei
+                     	percorsi completi.
+                     
+                  </li>
+</ol>
+</div>
+</div><a name="tip.os"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Ogniqualvolta sia possibile, dovreste usare le funzioni in
+                  	<tt class="filename">os</tt> e <tt class="filename">os.path</tt> per file, directory e manipolazione dei
+                  	percorsi. Questi moduli sono dei wrapper ai moduli specifici
+                  	per piattaforma, per cui funzioni come
+                  	<tt class="function">os.path.split</tt> funzionano su <span class="acronym">UNIX</span>,
+                  	Windows, <span class="abbrev">Mac</span> <span class="acronym">OS</span> ed ogni altra possibile piattaforma
+                  	supportata da <span class="application">Python</span>.
+                  
+               </td>
+</tr>
+</table>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> risponde a
+                  	<a href="http://it.diveintopython.net/knowledge-base/index.phtml/fid/240">domande
+                     	sul modulo <tt class="filename">os</tt> </a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documenta il modulo
+                  <a href="http://it.diveintopython.net/doc/current/lib/module-os.html"><tt class="filename">os</tt></a>
+                  	ed anche il modulo
+                  <a href="http://it.diveintopython.net/doc/current/lib/module-os.path.html"><tt class="filename">os.path</tt></a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html">&lt;&lt;&nbsp;Ancora sui moduli</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <span class="thispage">14</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/all_together.html">Mettere tutto insieme&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

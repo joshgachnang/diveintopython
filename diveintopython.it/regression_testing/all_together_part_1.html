@@ -1,0 +1,263 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>8.7.&nbsp;Mettere assieme il tutto (parte 1)</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati" />
+<link rel="previous" href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="8.6.&nbsp;Importare dinamicamente i moduli" />
+<link rel="next" href="http://it.diveintopython.net/regression_testing/inside_pyunit.html" title="8.8.&nbsp;Dentro PyUnit" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html">Programmazione orientata ai dati</a>&nbsp;&gt;&nbsp;<span class="thispage">Mettere assieme il tutto (parte 1)</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="Indietro: “Importare dinamicamente i moduli”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/inside_pyunit.html" title="Avanti: “Dentro PyUnit”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="regression.alltogether1"></a>8.7.&nbsp;Mettere assieme il tutto (parte 1)
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>Ora abbiamo imparato abbastanza da poter scomporre le prime
+                     sette linee dell'esempio di questo capitolo: leggere una
+                     directory ed importare alcuni dei moduli che vi sono contenuti.
+            </p>
+</div>
+<div class="example"><a name="d0e26575"></a><h3 class="title">Esempio&nbsp;8.16.&nbsp;La funzione <tt class="function">regressionTest</tt>, parte 1
+            </h3><pre class="programlisting"><span class="pykeyword">
+def</span> regressionTest():
+    path = os.path.abspath(os.path.dirname(sys.argv[0]))   
+    files = os.listdir(path)                               
+    test = re.compile(<span class="pystring">"test\.py$"</span>, re.IGNORECASE)          
+    files = filter(test.search, files)                     
+    filenameToModuleName = <span class="pykeyword">lambda</span> f: os.path.splitext(f)[0]
+    moduleNames = map(filenameToModuleName, files)         
+    modules = map(__import__, moduleNames)                 
+</pre></div>
+<p>Osserviamolo linea per linea, interattivamente. Assumendo che la
+                  directory corrente sia
+                  <tt class="filename">c:\diveintopython\py</tt>, che contiene gli
+                  esempi di questo libro, compreso lo script di questo
+                  capitolo. Come abbiamo visto in 
+                  <a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso"><i>Trovare il percorso</i></a>, la directory degli script
+                  sar&agrave; contenuta nella variabile <tt class="varname">path</tt>, per cui
+                  ne assegnamo il valore e procediamo.
+         </p>
+<div class="example"><a name="d0e26593"></a><h3 class="title">Esempio&nbsp;8.17.&nbsp;Passo 1: Leggere i nomi dei file</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> sys, os, re, unittest</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">path = r<span class="pystring">'c:\diveintopython\py'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">files = os.listdir(path)                               </span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">files</span> <a name="regression.import.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['BaseHTMLProcessor.py', 'LICENSE.txt', 'apihelper.py', 'apihelpertest.py',
+'argecho.py', 'autosize.py', 'builddialectexamples.py', 'dialect.py',
+'fileinfo.py', 'fullpath.py', 'kgptest.py', 'makerealworddoc.py',
+'odbchelper.py', 'odbchelpertest.py', 'parsephone.py', 'piglatin.py',
+'plural.py', 'pyfontify.py', 'regression.py', 'roman.py', 'romantest.py',
+'uncurly.py', 'unicode2koi8r.py', 'urllister.py', 'kgp', 'roman',
+'colorize.py']</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="varname">files</tt> &egrave; una lista di tutti i file e le 
+                              directory nella directory degli script. (Se avete gi&agrave; eseguito
+                              alcuni degli esempi, potrete anche notare, tra gli altri, anche
+                              qualche file <tt class="filename">.pyc</tt>.)
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e26632"></a><h3 class="title">Esempio&nbsp;8.18.&nbsp;Passo 2: Filtrare per trovare i file necessari</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">test = re.compile(<span class="pystring">"test\.py$"</span>, re.IGNORECASE)          </span> <a name="regression.import.5.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">files = filter(test.search, files)                     </span> <a name="regression.import.5.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">files</span>                                                   <a name="regression.import.5.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['apihelpertest.py', 'kgptest.py', 'odbchelpertest.py', 'romantest.py']</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.5.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Questa espressione regolare corrisponder&agrave; ad ogni stringa che
+                              termina con <tt class="literal">test.py</tt>. &Egrave; importante
+                              notare che &egrave; necessario far precedere il punto dal
+                              carattere escape ("\"), visto che un punto, all'interno di una
+                              espressione regolare, normalmente significa &#8220;<span class="quote">corrisponde
+                                 ad ogni singolo carattere</span>&#8221;.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.5.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">L'espressione regolare compilata agisce come una funzione,
+                              cos&igrave; pu&ograve; essere usata per filtrare la grande lista
+                              di file e directory, per trovare quelli che corrispondono
+                              all'espressione regolare.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.5.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">In questo modo &egrave; rimasta solo la lista degli script di
+                              test, poich&eacute; questi sono i soli con nomi del tipo
+                              <tt class="filename">QUALCOSAtest.py</tt>.
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e26680"></a><h3 class="title">Esempio&nbsp;8.19.&nbsp;Passo 3:Trasformare i nomi dei file in nomi di moduli</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filenameToModuleName = <span class="pykeyword">lambda</span> f: os.path.splitext(f)[0]</span> <a name="regression.import.6.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filenameToModuleName(<span class="pystring">'romantest.py'</span>)</span>                    <a name="regression.import.6.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'romantest'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filenameToModuleName(<span class="pystring">'odchelpertest.py'</span>)</span>
+<span class="computeroutput">'odbchelpertest'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">moduleNames = map(filenameToModuleName, files)         </span> <a name="regression.import.6.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">moduleNames</span>                                             <a name="regression.import.6.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">['apihelpertest', 'kgptest', 'odbchelpertest', 'romantest']</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.6.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Come si &egrave; visto in <a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda"><i>Usare le funzioni lambda</i></a>,
+                              <tt class="literal">lambda</tt> &egrave; un modo veloce, anche se poco elegante, per
+                              creare delle semplici funzioni su una sola riga. Questa accetta
+                              come argomento un nome di file con estensione e restituisce solo
+                              il nome vero e proprio, grazie all'uso della funzione standard
+                              di libreria <tt class="function">os.path.splitext</tt> vista
+                              nell'<a href="http://it.diveintopython.net/object_oriented_framework/os_module.html#splittingpathnames.example" title="Esempio&nbsp;4.36.&nbsp;Dividere i pathnames">Esempio&nbsp;4.36, &#8220;Dividere i pathnames&#8221;</a>.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.6.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="varname">filenameToModuleName</tt> &egrave; una
+                              funzione. Non c'&egrave; niente di magico nelle funzioni <tt class="literal">lambda</tt>
+                              rispetto alle normali funzioni definite con l'istruzione
+                              <tt class="literal">def</tt>. <tt class="varname">filenameToModuleName</tt>
+                              pu&ograve; essere chiamata come ogni altra funzione e fa
+                              esattamente ci&ograve; che si desiderava: rimuove l'estensione
+                              dal suo argomento.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.6.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Ora la funzione pu&ograve; essere applicata ad ogni file della
+                              lista dei file di test delle unit&agrave;, utilizzando
+                              <tt class="function">map</tt>.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.6.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Il risultato &egrave; proprio quello cercato: una lista di
+                              moduli, sotto forma di stringhe.
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e26764"></a><h3 class="title">Esempio&nbsp;8.20.&nbsp;Passo 4: Trasformare i nomi di moduli in moduli</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules = map(__import__, moduleNames)                 </span> <a name="regression.import.7.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules</span>                                                 <a name="regression.import.7.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">[&lt;module 'apihelpertest' from 'apihelpertest.py'&gt;,
+&lt;module 'kgptest' from 'kgptest.py'&gt;,
+&lt;module 'odbchelpertest' from 'odbchelpertest.py'&gt;,
+&lt;module 'romantest' from 'romantest.py'&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules[-1]</span>                                             <a name="regression.import.7.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;module 'romantest' from 'romantest.py'&gt;</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.7.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Come si &egrave; visto in <a href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="8.6.&nbsp;Importare dinamicamente i moduli"><i>Importare dinamicamente i moduli</i></a>, si
+                              possono utilizzare <tt class="function">map</tt> ed <tt class="function">__import__</tt> insieme
+                              per trasformare una lista di nomi di moduli (sotto forma di
+                              stringhe) in veri moduli (ai quali si pu&ograve; accedere come
+                              ad ogni altro modulo).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.7.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left"><tt class="varname">modules</tt> &egrave; una lista di moduli, alla
+                              quale si pu&ograve; accedere come ad ogni altro modulo.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html#regression.import.7.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">L'ultimo modulo nella lista <span class="emphasis"><em>&egrave;</em></span> il
+                              modulo <tt class="filename">romantest</tt>, proprio come se si fosse utilizzato
+                              <tt class="literal">import romantest</tt>. Come si vedr&agrave; nella
+                              sezione successiva, non solo si pu&ograve; accedere a questo
+                              modulo, istanziare le classi contenute in esso e chiamarne le
+                              funzioni, si pu&ograve; fare introspezione nel modulo per
+                              scoprire quali classi e funzioni contiene.
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/dynamic_import.html">&lt;&lt;&nbsp;Importare dinamicamente i moduli</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html#regression.divein" title="8.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="8.3.&nbsp;Filtrare liste rivisitate">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="8.4.&nbsp;Rivisitazione della mappatura delle liste">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/data_centric.html" title="8.5.&nbsp;Programmazione data-centrica">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="8.6.&nbsp;Importare dinamicamente i moduli">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/inside_pyunit.html" title="8.8.&nbsp;Dentro PyUnit">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/inside_pyunit.html">Dentro PyUnit&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

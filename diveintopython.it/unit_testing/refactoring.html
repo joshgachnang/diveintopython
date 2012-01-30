@@ -1,0 +1,518 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.13.&nbsp;Rifattorizzazione</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">Rifattorizzazione</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="Indietro: “Gestire il cambiamento di requisiti”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/postscript.html" title="Avanti: “Postscritto”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.refactoring"></a>7.13.&nbsp;Rifattorizzazione
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	La cosa migliore  nel fare test esaustivi delle unit&agrave; di
+               	codice non &egrave; la sensazione piacevole che si ha quando
+               	tutti i test hanno finalmente successo, e neanche la
+               	soddisfazione di quando qualcun altro ti rimprovera di
+               	aver scombinato il loro codice e tu puoi effettivamente
+               	<span class="emphasis"><em>provare</em></span> che non &egrave; vero.
+               	La cosa migliore nell'effettuare i test delle unit&agrave; di codice
+               	&egrave; la sensazione che ti lascia la libert&agrave; di
+               	rifattorizzare senza provare rimorsi.
+               
+            </p>
+</div>
+<p>
+            	La rifattorizzazione &egrave; il procedimento con il quale si prende del
+            	codice funzionante e lo si modifica in modo che funzioni
+            	meglio. Di solito, &#8220;<span class="quote">meglio</span>&#8221; significa
+            	&#8220;<span class="quote">pi&ugrave; velocemente</span>&#8221;, sebbene possa anche significare
+            	&#8220;<span class="quote">che usa meno memoria</span>&#8221; oppure &#8220;<span class="quote">che usa meno
+               	spazio su disco</span>&#8221; o semplicemente &#8220;<span class="quote">in modo pi&ugrave;
+               	elegante</span>&#8221;. Qualunque sia il significato per voi, per il
+            	vostro progetto e per il vostro ambiente, la
+            	rifattorizzazione &egrave; importante per la salute a lungo termine
+            	di ogni programma.
+            
+         </p>
+<p>
+            	Nel nostro caso, &#8220;<span class="quote">meglio</span>&#8221; significa
+            	&#8220;<span class="quote">pi&ugrave; veloce</span>&#8221;. In particolar modo, la funzione
+            	<tt class="function">fromRoman</tt> &egrave; pi&ugrave; lenta del necessario, a causa di quella
+            	lunga e ostica espressione regolare che viene usata per
+            	verificare i numeri romani. Probabilmente non vale la pena
+            	di cercare di fare a meno completamente delle espressioni
+            	regolari (sarebbe difficile, e potrebbe risultare niente
+            	affatto pi&ugrave; veloce), ma possiamo velocizzare la funzione
+            	precompilando l'espressione regolare.
+            
+         </p>
+<div class="example"><a name="d0e24693"></a><h3 class="title">Esempio&nbsp;7.31.&nbsp;Compilare le espressioni regolari</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class="pystring">'^M?M?M?$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class="pystring">'M'</span>)</span>               <a name="roman.refactoring.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 01090490&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compiledPattern = re.compile(pattern)</span> <a name="roman.refactoring.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compiledPattern</span>
+<span class="computeroutput">&lt;SRE_Pattern object at 00F06E28&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">dir(compiledPattern)</span>                  <a name="roman.refactoring.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['findall', 'match', 'scanner', 'search', 'split', 'sub', 'subn']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compiledPattern.search(<span class="pystring">'M'</span>)</span>           <a name="roman.refactoring.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;SRE_Match object at 01104928&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; la sintassi che abbiamo visto in precedenza:
+                        	<tt class="function">re.search</tt> prende un'espressione
+                        	regolare in forma di stringa (<tt class="varname">pattern</tt>)
+                        	e una stringa con cui confrontarla (<tt class="literal">'M'</tt>).
+                        	Se il pattern corrisponde, la funzione restituisce un
+                        	oggetto corrispondenza, che pu&ograve; essere analizzato per capire
+                        	essattamente cosa corrisponde a cosa ed in che modo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; la nuova sintassi: <tt class="function">re.compile</tt>
+                        	prende un'espressione regolare come stringa e restituisce
+                        	un oggetto di tipo pattern. Si noti che non c'&egrave; nessuna
+                        	stringa da confrontare in questo caso. Compilare
+                        	un'espressione regolare non ha niente a che vedere con il fare
+                        	il confronto tra l'espressione ed una stringa specifica
+                        	(come <tt class="literal">'M'</tt>); la compilazione coinvolge
+                        	solamente l'espressione regolare.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	L'oggetto pattern compilato, restituito da
+                        	<tt class="function">re.compile</tt>, ha diverse funzioni
+                        	che sembrano utili, incluse alcune (come
+                        	<tt class="function">search</tt> e <tt class="function">sub</tt>)
+                        	che sono disponibili direttamente nel modulo <tt class="filename">re</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Chiamare la funzione <tt class="function">search</tt> dell'oggetto
+                        	pattern compilato, passandogli la stringa
+                        	<tt class="literal">'M'</tt> produce lo stesso risultato di una
+                        	chiamata a <tt class="function">re.search</tt> passandogli come
+                        	argomenti sia l'espressione regolare che la stringa
+                        	<tt class="literal">'M'</tt>. Solo che &egrave; molto, molto pi&ugrave; veloce.
+                        	(In effetti, la funzione <tt class="function">re.search</tt>
+                        	semplicemente compila l'espressione regolare di input e chiama
+                        	al posto nostro il metodo <tt class="function">search</tt>
+                        	del risultante oggetto pattern compilato.)
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="d0e24810"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Ogni qualvolta si ha intenzione di usare pi&ugrave; di una volta
+                  	una espressione regolare, la si dovrebbe prima compilare
+                  	per ottenerne il corrispondente oggetto pattern, e quindi
+                  	chiamare direttamente i metodi di tale oggetto.
+                  
+               </td>
+</tr>
+</table>
+<div class="example"><a name="d0e24815"></a><h3 class="title">Esempio&nbsp;7.32.&nbsp;Uso di un espressione regolare compilata in <tt class="filename">roman81.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pycomment"># toRoman and rest of module omitted for clarity</span>
+
+romanNumeralPattern = \
+    re.compile(<span class="pystring">'^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span>) <a name="roman.refactoring.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+
+<span class="pykeyword">def</span><span class="pyclass"> fromRoman</span>(s):
+    <span class="pystring">"""convert Roman numeral to integer"""</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> s:
+        <span class="pykeyword">raise</span> InvalidRomanNumeralError, <span class="pystring">'Input can not be blank'</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> romanNumeralPattern.search(s):                                    <a name="roman.refactoring.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        <span class="pykeyword">raise</span> InvalidRomanNumeralError, <span class="pystring">'Invalid Roman numeral: %s'</span> % s
+
+    result = 0
+    index = 0
+    <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
+        <span class="pykeyword">while</span> s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    <span class="pykeyword">return</span> result
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa sembra molto simile alla precedente, ma in effetti
+                        	sono cambiate molte cose.
+                        	<tt class="varname">romanNumeralPattern</tt> non &egrave; pi&ugrave; una stringa;
+                        	&egrave; l'oggetto patter restituito da
+                        	<tt class="function">re.compile</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo significa che possiamo chiamare direttamente i metodi di
+                        	<tt class="varname">romanNumeralPattern</tt>. Questo risulter&agrave; molto,
+                        	molto pi&ugrave; veloce che chiamare ogni volta
+                        	<tt class="function">re.search</tt>. L'espressione regolare &egrave;
+                        	compilata una volta e poi memorizzata in
+                        	<tt class="varname">romanNumeralPattern</tt> quando il modulo &egrave;
+                        	importato per la prima volta; poi, ogni volta che viene chiamata
+                        	<tt class="function">fromRoman</tt>, &egrave; immediatamente possibile confrontare la stringa
+                        	di input con l'espressione regolare, senza che nessun passaggio
+                        	intermedio sia eseguito in modo implicito.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	E allora, quanto abbiamo guadagnato in velocit&agrave; compilando
+            	l'espressione regolare? Osservate voi stessi:
+            
+         </p>
+<div class="example"><a name="roman.stage8.1.output"></a><h3 class="title">Esempio&nbsp;7.33.&nbsp;Output di <tt class="filename">romantest81.py</tt> a fronte di <tt class="filename">roman81.py</tt></h3><pre class="screen"><span class="computeroutput">.............          </span><a name="roman.refactoring.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 13 tests in 3.385s </span><a name="roman.refactoring.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
+
+OK</span>                     <a name="roman.refactoring.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Solo una nota di passaggio: questa volta, ho eseguito i test
+                        	<span class="emphasis"><em>senza</em></span> l'opzione <tt class="option">-v</tt>,
+                        	cosicch&eacute; invece della completa stringa di documentazione, per
+                        	ogni test che ha successo &egrave; stampato solo un carattere punto.
+                        	(Se un test fallisce, &egrave; stampata una <tt class="literal">F</tt>,
+                        	se ha un errore, &egrave; stampata una <tt class="literal">E</tt>.
+                        	Viene sempre stampato il traceback completo per ogni
+                        	fallimento od errore, cosicch&eacute; possiamo risalire a qual'era
+                        	il problema.)
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Abbiamo eseguito <tt class="literal">13</tt> test in
+                        	<tt class="literal">3.385</tt> secondi, a fronte dei
+                        <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html#roman.roman72.output" title="Esempio&nbsp;7.30.&nbsp;Output di romantest72.py a fronte di roman72.py"><tt class="literal">3.685</tt>
+                           	secondi</a> ottenuti senza precompilare l'espressione
+                        	regolare. Questo &egrave; un miglioramento complessivo
+                        	dell'<tt class="literal">8%</tt>, senza contare che che la
+                        	maggior parte del tempo speso durante i test &egrave; stato
+                        	utilizzato facendo altre cose. (Separatamente, ho misurato
+                        	il tempo occorso all'elaborazione delle espressioni regolari
+                        	a s&eacute; stanti, separate
+                        	dal resto dei test, e ho trovato che compilare l'espressione
+                        	regolare accellera l'esecuzione della ricerca di una media
+                        	del <tt class="literal">54%</tt>.) Non male, per una modifica cos&igrave;
+                        	semplice.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Oh, e nel caso ve lo stesse chiedendo, precompilare la nostra
+                        	espressione regolare non ha scombinato niente, lo
+                        	abbiamo appena dimostrato.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	C'&egrave; un'altra ottimizzazione di prestazioni che voglio provare.
+            	Data la complessit&agrave; della sintassi delle espressioni regolari,
+            	non dovrebbe sorprendere il fatto che spesso ci sia pi&ugrave; di un
+            	modo per scrivere la stessa espressione. Dopo qualche
+            	discussione circa questo modulo nel newsgroup <a href="http://it.diveintopython.net/groups?group=comp.lang.python">comp.lang.python</a>, qualcuno
+            	mi ha suggerito di provare ad usare la sintassi
+            <tt class="literal">{<i class="replaceable">m</i>,<i class="replaceable">n</i>}
+               	</tt> per i caratteri opzionali ripetuti.
+            
+         </p>
+<div class="example"><a name="d0e24930"></a><h3 class="title">Esempio&nbsp;7.34.&nbsp;<tt class="filename">roman82.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pycomment"># rest of program omitted for clarity</span>
+
+<span class="pycomment">#old version</span>
+<span class="pycomment">#romanNumeralPattern = \</span>
+<span class="pycomment">#   re.compile('^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$')</span>
+
+<span class="pycomment">#new version</span>
+romanNumeralPattern = \
+    re.compile(<span class="pystring">'^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$'</span>) <a name="roman.refactoring.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Abbiamo rimpiazzato <tt class="literal">M?M?M?M?</tt> con
+                        	<tt class="literal">M{0,4}</tt>. Entrambi significano la stessa
+                        	cosa: &#8220;<span class="quote">corrisponde con una stringa formata da 0 a 4
+                           	caratteri <tt class="literal">M</tt></span>&#8221;. Allo stesso modo,
+                        	<tt class="literal">C?C?C?</tt> diventa <tt class="literal">C{0,3}</tt>
+                        	(&#8220;<span class="quote">corrisponde con  una stringa formata da 0 a 3 caratteri
+                           	<tt class="literal">C</tt></span>&#8221;) e lo stesso &egrave; fatto per le
+                        	<tt class="literal">X</tt> e le <tt class="literal">I</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Questa forma dell'espressione regolare &egrave; un po'
+            	pi&ugrave; corta (sebbene non certo pi&ugrave;
+            	leggibile). Veniamo alla grande domanda: &egrave; pi&ugrave;
+            	veloce? 
+            
+         </p>
+<div class="example"><a name="d0e24977"></a><h3 class="title">Esempio&nbsp;7.35.&nbsp;Output di <tt class="filename">romantest82.py</tt> a fronte di <tt class="filename">roman82.py</tt></h3><pre class="screen"><span class="computeroutput">.............
+----------------------------------------------------------------------
+Ran 13 tests in 3.315s </span><a name="roman.refactoring.5.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+
+OK</span>                     <a name="roman.refactoring.5.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.5.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Nel complesso, i test girano il <tt class="literal">2%</tt> pi&ugrave;
+                        	veloci con questa forma della nostra espressione regolare.
+                        	Questo non suona particolarmente eccitante, ma tenete
+                        	presente che la funzione <tt class="function">search</tt> &egrave; una piccola parte di
+                        	tutto il test; la maggior parte del tempo &egrave; spesa facendo
+                        	altre cose. (Separatamente, ho misurato il tempo impiegato
+                        	solo dalle espressioni regolari, ed ho trovato che la funzione
+                        	di ricerca &egrave; l'<tt class="literal">11%</tt> pi&ugrave; veloce con questa
+                        	sintassi.) Precompilando l'espressione regolare e riscrivendo
+                        	parte di essa per usare questa nuova sintassi, abbiamo
+                        	migliorato le prestazioni dell'espressione regolare di pi&ugrave;
+                        	del <tt class="literal">60%</tt> e le prestazioni generali di tutto
+                        	il test di oltre il <tt class="literal">10%</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.5.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Pi&ugrave; importante di ogni aumento di prestazioni &egrave; il fatto che
+                        	il modulo continui a funzionare perfettamente. Questa &egrave; la
+                        	libert&agrave; di cui vi parlavo in precedenza: la liberta di
+                        	ritoccare, cambiare o riscrivere qualunque parte del codice
+                        	e poter poi verificare di non aver combinato guai nel farlo.
+                        	Questa non &egrave; una licenza a ritoccare all'infinito il vostro
+                        	codice giusto per il piacere di farlo; noi avevamo un
+                        	obbiettivo molto specifico (&#8220;<span class="quote">rendere <tt class="function">fromRoman</tt> pi&ugrave;
+                           	veloce</span>&#8221;), e siamo stati capaci di raggiungerlo senza
+                        	l'angoscia latente di avere introdotto nuovi bachi con le
+                        	modifiche fatte.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	C'&egrave; un altro ritocco che vorrei fare, e quindi prometto che poi
+            	smetter&ograve; di rifattorizzare questo modulo e lo metter&ograve; a nanna.
+            	Come abbiamo visto pi&ugrave; volte, le espressioni regolari possono
+            	rapidamente diventare piuttosto rognose ed illeggibili. Non mi
+            	piacerebbe tornare su questo modulo fra sei mesi e cercare di
+            	fargli delle modifiche. Certo, i test hanno successo, per cui
+            	so che il modulo funziona, ma se non sono in grado di capire
+            	<span class="emphasis"><em>come</em></span> funziona non sar&ograve; capace di
+            	aggiungere nuove caratteristiche, eliminare nuovi bachi,
+            	oppure manutenerlo in altro modo. La documentazione &egrave; un
+            	fattore critico per la manutenibilit&agrave; del codice, e <span class="application">Python</span>
+            	fornisce un modo di documentare in modo esteso le espressioni
+            	regolari.
+            
+         </p>
+<div class="example"><a name="d0e25029"></a><h3 class="title">Esempio&nbsp;7.36.&nbsp;<tt class="filename">roman83.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pycomment"># rest of program omitted for clarity</span>
+
+<span class="pycomment">#old version</span>
+<span class="pycomment">#romanNumeralPattern = \</span>
+<span class="pycomment">#   re.compile('^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$')</span>
+
+<span class="pycomment">#new version</span>
+romanNumeralPattern = re.compile(<span class="pystring">'''
+    ^                   # beginning of string
+    M{0,4}              # thousands - 0 to 4 M's
+    (CM|CD|D?C{0,3})    # hundreds - 900 (CM), 400 (CD), 0-300 (0 to 3 C's),
+                        #            or 500-800 (D, followed by 0 to 3 C's)
+    (XC|XL|L?X{0,3})    # tens - 90 (XC), 40 (XL), 0-30 (0 to 3 X's),
+                        #        or 50-80 (L, followed by 0 to 3 X's)
+    (IX|IV|V?I{0,3})    # ones - 9 (IX), 4 (IV), 0-3 (0 to 3 I's),
+                        #        or 5-8 (V, followed by 0 to 3 I's)
+    $                   # end of string
+    '''</span>, re.VERBOSE) <a name="roman.refactoring.6.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.6.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La funzione <tt class="function">re.compile</tt> pu&ograve; prendere un
+                        	secondo argomento opzionale, che &egrave; un insieme di uno o pi&ugrave;
+                        	flag che controllano varie opzioni sull'espressione regolare
+                        	compilata. Qui stiamo specificando il flag
+                        	<tt class="literal">re.VERBOSE</tt>, che dice a <span class="application">Python</span> che
+                        	all'interno dell'espressione regolare  vi sono commenti.
+                        	I commenti e i caratteri vuoti prima e dopo di essi
+                        	<span class="emphasis"><em>non</em></span> vengono considerati come parte
+                        	dell'espressione regolare; la funzione
+                        	<tt class="function">re.compile</tt> si limita a rimuoverli prima
+                        	di compilare l'espressione. Questa nuova,
+                        	&#8220;<span class="quote">prolissa</span>&#8221; (ndt: &#8220;<span class="quote">verbose</span>&#8221;)
+                        	versione dell'espressione regolare &egrave; identica a quella
+                        	vecchia, ma &egrave; infinitamente pi&ugrave; leggibile.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e25067"></a><h3 class="title">Esempio&nbsp;7.37.&nbsp;Output di <tt class="filename">romantest83.py</tt> a fronte di <tt class="filename">roman83.py</tt></h3><pre class="screen"><span class="computeroutput">.............
+----------------------------------------------------------------------
+Ran 13 tests in 3.315s </span><a name="roman.refactoring.7.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+
+OK</span>                     <a name="roman.refactoring.7.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.7.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa nuova versione &#8220;<span class="quote">prolissa</span>&#8221; gira esattamente
+                        	alla stessa velocit&agrave; della vecchia. In effetti, gli oggetti
+                        	pattern compilati sono identici, visto che la funzione
+                        	<tt class="function">re.compile</tt> rimuove tutta la roba che
+                        	abbiamo aggiunto.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.refactoring.7.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa nuova versione &#8220;<span class="quote">prolissa</span>&#8221; supera gli
+                        	stessi test della vecchia versione. Niente &egrave; cambiato,
+                        	eccetto che il programmatore che ritorna su questo modulo
+                        	dopo sei mesi ha pi&ugrave; possibilit&agrave; di capire come lavora la
+                        	funzione.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html">&lt;&lt;&nbsp;Gestire il cambiamento di requisiti</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <span class="thispage">13</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/postscript.html">Postscritto&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

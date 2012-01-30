@@ -1,0 +1,285 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.13.&nbsp;Mappare le liste</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/getting_to_know_python/index.html" title="Capitolo&nbsp;2.&nbsp;Conoscere Python" />
+<link rel="previous" href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="2.12.&nbsp;Formattare le stringhe" />
+<link rel="next" href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="2.14.&nbsp;Concatenare liste e suddividere stringhe" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/index.html">Conoscere Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Mappare le liste</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="Indietro: “Formattare le stringhe”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="Avanti: “Concatenare liste e suddividere stringhe”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="odbchelper.map"></a>2.13.&nbsp;Mappare le liste
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Una delle pi&ugrave; potenti caratteristiche di <span class="application">Python</span> sono le
+               	list comprehension (descrizioni di lista), che utilizzano
+               	una tecnica compatta per mappare una lista in un'altra,
+               	applicando una funzione ad ognuno degli elementi della lista.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e4456"></a><h3 class="title">Esempio&nbsp;2.31.&nbsp;Introduzione alle list comprehension</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [1, 9, 8, 4]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[elem*2 <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li]</span>      <a name="odbchelper.map.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">[2, 18, 16, 8]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>                           <a name="odbchelper.map.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">[1, 9, 8, 4]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [elem*2 <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li]</span> <a name="odbchelper.map.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">[2, 18, 16, 8]</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per fare luce su questo costrutto guardatelo da destra verso
+                        	sinistra. <tt class="varname"> li</tt> &egrave; la lista che state mappando.
+                        	<span class="application">Python</span> esegue un ciclo su <tt class="varname">li</tt> un'elemento
+                        	alla volta, assegnando temporaneamente il valore di ogni
+                        	elemento alla variabile <tt class="varname">elem</tt>. Dopodich&eacute;
+                        	<span class="application">Python</span> applica la funzione
+                        	<tt class="literal"></tt><tt class="varname">elem</tt>*2 ed aggiunge il
+                        	risultato alla lista di ritorno (usando il metodo
+                        	&#8220;<span class="quote">append()</span>&#8221; n.d.T.).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Osservate che la list comprehension non modifica la lista
+                        	originale.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	&Egrave; perfettamente sicuro assegnare il risultato di una
+                        	list comprehension alla variabile che state mappando.
+                        	Non ci sono particolari condizioni od altre stranezze di cui
+                        	tener conto; <span class="application">Python</span> crea la nuova lista in memoria e quando
+                        	la descrizione di lista &egrave; completa, assegna il
+                        	risultato alla nuova variabile.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e4535"></a><h3 class="title">Esempio&nbsp;2.32.&nbsp;List comprehension in <tt class="function">buildConnectionString</tt></h3><pre class="programlisting">
+[<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()]</pre></div>
+<p>
+            	Notate che state chiamando la funzione
+            	<tt class="function">items</tt> del dizionario
+            	<tt class="varname">params</tt>.
+            	Questa funzione ritorna una lista di tuple
+            	di tutti i dati del dizionario.
+            
+         </p>
+<div class="example"><a name="odbchelper.items"></a><h3 class="title">Esempio&nbsp;2.33.&nbsp;<tt class="function">chiavi</tt>, <tt class="function">valori</tt> ed <tt class="function">elementi</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span>}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params.keys()</span>   <a name="odbchelper.map.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['server', 'uid', 'database', 'pwd']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params.values()</span> <a name="odbchelper.map.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['mpilgrim', 'sa', 'master', 'secret']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params.items()</span>  <a name="odbchelper.map.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">[('server', 'mpilgrim'), ('uid', 'sa'), ('database', 'master'), ('pwd', 'secret')]</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il metodo <tt class="function">keys</tt> di un dizionario ritorna una lista di tutte
+                        	le sue chiavi.
+                        	La lista non &egrave; nell'ordine di come il dizionario &egrave; stato
+                        	definito (ricordate, gli elementi di un dizionario non hanno
+                        	un ordine), ma &egrave; una lista.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il metodo <tt class="function">values</tt> ritorna una lista di tutti i valori. La
+                        	lista &egrave; nello stesso ordine della lista ritornata da <tt class="function">keys</tt>,
+                        	cos&igrave; che
+                        	<tt class="literal">params.values()[n]
+                           	== params[params.keys()[n]]</tt> per tutti i valori di
+                        	<tt class="varname">n</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il metodo <tt class="function">items</tt> ritorna una lista di tuple nella forma
+                        	<tt class="literal">(<i class="replaceable">key</i>,
+                           	<i class="replaceable">value</i>)</tt>.
+                        	La lista contiene tutti i dati del dizionario.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Adesso guardiamo cosa fa la funzione <tt class="function">buildConnectionString</tt>.
+            	Prende una lista,
+            	<tt class="literal"></tt><tt class="varname">params</tt>.<tt class="function">items</tt>()
+            	e la mappa in una nuova lista applicando la formattazione
+            	delle stringhe ad ogni elemento.
+            	La nuova lista avr&agrave; lo stesso numero di elementi di
+            	<tt class="literal"></tt><tt class="varname">params</tt>.<tt class="function">items</tt>(),
+            	ma ogni elemento della nuova lista sar&agrave; una stringa
+            	che contiene una chiave ed il relativo valore associato,
+            	proveniente dal dizionario <tt class="varname">params</tt>.
+            
+         </p>
+<div class="example"><a name="d0e4656"></a><h3 class="title">Esempio&nbsp;2.34.&nbsp;List comprehension in <tt class="function">buildConnectionString</tt>, passo per passo
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span>}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params.items()</span>
+<span class="computeroutput">[('server', 'mpilgrim'), ('uid', 'sa'), ('database', 'master'), ('pwd', 'secret')]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[k <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()]</span>                <a name="odbchelper.map.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['server', 'uid', 'database', 'pwd']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[v <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()]</span>                <a name="odbchelper.map.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['mpilgrim', 'sa', 'master', 'secret']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()]</span> <a name="odbchelper.map.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Notate che stiamo usando due variabili per iterare attraverso
+                        	la lista <tt class="literal">params.items()</tt>.
+                        	Questo &egrave; un altro uso dell'assegnamento
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html" title="2.11.&nbsp;Assegnare valori multipli in un colpo solo">multi-variabile</a>.
+                        	Il primo elemento di <tt class="literal">params.items()</tt> &egrave;
+                        	<tt class="literal">('server', 'mpilgrim')</tt>, perci&ograve; nella prima
+                        	iterazione della list comprehension, <tt class="varname">k</tt>
+                        	otterr&agrave; il valore <tt class="literal">'server'</tt> e
+                        	<tt class="varname">v</tt> otterr&agrave; <tt class="literal">'mpilgrim'</tt>.
+                        	In questo caso, ignorando il valore di <tt class="varname">v</tt>
+                        	ed includendo solo il valore di <tt class="varname">k</tt> nella
+                        	lista di ritorno, questa descrizione di lista finir&agrave; per
+                        	essere equivalente a
+                        	<tt class="literal"></tt><tt class="varname">params</tt>.<tt class="function">keys</tt>().
+                        	(Voi non usereste mai una descrizione di lista come questa in
+                        	codice reale; &egrave; solo un semplice esempio per farvi capire
+                        	ci&ograve; che avviene.)
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Qui stiamo facendo la stessa cosa, ma ignorando il valore di
+                        	<tt class="varname">k</tt>, cos&igrave; che questa list comprehension
+                        	diventi equivalente a
+                        <tt class="literal"></tt><tt class="varname">params</tt>.<tt class="function">values</tt>().
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html#odbchelper.map.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Combinando i due esempi precedenti con qualche semplice
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="2.12.&nbsp;Formattare le stringhe">formattazione di
+                           	stringa</a>, otteniamo una lista di stringhe che includono
+                        	sia la chiave che il valore di ogni elemento del dizionario.
+                        	Questo pare sospetto, come
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/index.html#odbchelper.output" title="Esempio&nbsp;2.2.&nbsp;Output di odbchelper.py">l'output</a>
+                        	del programma; tutto quello che rimane &egrave; unire gli elementi
+                        	di questa lista in una singola stringa.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discute di un altro modo per mappare le liste
+                  <a href="http://it.diveintopython.net/doc/current/tut/node7.html#SECTION007130000000000000000">usando la funzione
+                     built-in <tt class="function">map</tt></a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> mostra come
+                  <a href="http://it.diveintopython.net/doc/current/tut/node7.html#SECTION007140000000000000000">annidare le list comprehensions</a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html">&lt;&lt;&nbsp;Formattare le stringhe</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/index.html#odbchelper.divein" title="2.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/declaring_functions.html" title="2.2.&nbsp;Dichiarare le funzioni">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documentare le funzioni">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Tutto &egrave; un oggetto">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indentare il codice">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html" title="2.6.&nbsp;Testare i moduli">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html" title="2.7.&nbsp;Introduzione ai dizionari">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/lists.html" title="2.8.&nbsp;Introduzione alle liste">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/tuples.html" title="2.9.&nbsp;Introduzione alle tuple">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html" title="2.10.&nbsp;Definire le variabili">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html" title="2.11.&nbsp;Assegnare valori multipli in un colpo solo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="2.12.&nbsp;Formattare le stringhe">12</a> <span class="divider">|</span> <span class="thispage">13</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="2.14.&nbsp;Concatenare liste e suddividere stringhe">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/summary.html" title="2.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html">Concatenare liste e suddividere stringhe&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

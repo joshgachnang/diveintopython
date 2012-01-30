@@ -41,7 +41,7 @@
                   </div>
                   <div></div>
                </div>
-               <p><i class="citetitle">Dive Into <span class="application">Python</span></i> is a free <span class="application">Python</span> book for experienced programmers. It was originally hosted at DiveIntoPython.org, but the author has pulled down all copies. It is being mirrored here. You can <a href="toc/index.html">read the book</a> online, or (coming soon) <a href="#download" title="Download Dive Into Python">download it</a> in a variety of formats.  It is also available (coming soon) in <a href="#languages" title="Dive Into Python in your language">multiple languages</a>.
+               <p><i class="citetitle">Dive Into <span class="application">Python</span></i> is a free <span class="application">Python</span> book for experienced programmers. It was originally hosted at DiveIntoPython.org, but the author has pulled down all copies. It is being mirrored here. You can <a href="toc/index.html">read the book</a> online, or <a href="#download" title="Download Dive Into Python">download it</a> in a variety of formats.  It is also available in <a href="#languages" title="Dive Into Python in your language">multiple languages</a>.
                </p>
             </div>
             <div class="section" lang="en">
@@ -92,15 +92,15 @@
                   like to be listed here, just <a href="mailto:josh@djazzee.com">let me know</a>.
                </p>
                <div class="itemizedlist">
-                  <p>I haven't found copies of the translations yet. If you have them, please <a href="mailto:josh@djazzee.com">email me</a> and I'll add them here.</p>
-                  <!--<ul>
-                     <li><a href="http://it.diveintopython.org/">Italian</a></li>
-                     <li><a href="http://fr.diveintopython.org/">French</a></li>
-                     <li><a href="http://es.diveintopython.org/">Spanish</a></li>
-                     <li><a href="http://cn.diveintopython.org/">Chinese</a></li>
-                     <li><a href="http://kr.diveintopython.org/">Korean</a></li>
-                     <li><a href="http://ru.diveintopython.org/">Russian</a></li>
-                  </ul>-->
+<!--                  <p>I haven't found copies of the translations yet. If you have them, please <a href="mailto:josh@djazzee.com">email me</a> and I'll add them here.</p>-->
+                  <ul>
+                     <li><a href="http://it.diveintopython.net/">Italian</a></li>
+                     <li><a href="http://diveintopython.adrahon.org/">French</a></li>
+                     <li><a href="http://es.diveintopython.net/">Spanish</a></li>
+                     <li><a href="http://woodpecker.org.cn/diveintopython/">Chinese</a></li>
+                     <li><a href="http://kr.diveintopython.net/">Korean</a></li>
+                     <li><a href="http://ru.diveintopython.net/">Russian</a></li>
+                  </ul>
                </div>
             </div>
             <div class="section" lang="en">

@@ -1,0 +1,430 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>3.7. Jointure de listes et d&eacute;coupage de cha&icirc;nes</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20090415131702cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/index.html" title="Chapitre 3. Types pr&eacute;d&eacute;finis">
+      <link rel="previous" href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/mapping_lists.html" title="3.6. Mutation de listes">
+      <link rel="next" href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/summary.html" title="3.8. R&eacute;sum&eacute;">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/native_data_types\/joining_lists.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "15";
+var displayMonth = "Apr";
+var displayYear = "2009";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/native_data_types/joining_lists.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20090415131702" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090213100526/http://diveintopython.adrahon.org/native_data_types/joining_lists.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="13 Feb 2009"><strong>FEB</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 13:17:02 Apr 15, 2009">APR</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       May
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090213100526/http://diveintopython.adrahon.org/native_data_types/joining_lists.html" title="10:05:26 Feb 13, 2009" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 13:17:02 Apr 15, 2009">15</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20080327191610/http://diveintopython.adrahon.org/native_data_types/joining_lists.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="27 Mar 2008"><strong>2008</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 13:17:02 Apr 15, 2009">2009</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2010
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20090415131702*/http://diveintopython.adrahon.org/native_data_types/joining_lists.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>26 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">10 Oct 06 - 15 Apr 09</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000121_2007:-1:511022000110_2008:-1:102111001000_2009:3:010100000000_2010:-1:000000000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/index.html">Types pr&eacute;d&eacute;finis</a>&nbsp;&gt;&nbsp;<span class="thispage">Jointure de listes et d&eacute;coupage de cha&icirc;nes</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/mapping_lists.html" title="Pr&eacute;c&eacute;dent: &laquo;Mutation de listes&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/summary.html" title="Suivant: &laquo;R&eacute;sum&eacute;&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.join"></a>3.7. Jointure de listes et d&eacute;coupage de cha&icirc;nes
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/joining_lists.html#d0e8030">3.7.1. Note historique sur les m&eacute;thodes de cha&icirc;nes</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Nous avons une liste de paires cl&eacute;-valeur sous la forme
+                       <tt class="literal">cl&eacute;=valeur</tt> et nous voulons les assembler au sein
+                       d'une m&ecirc;me cha&icirc;ne. Pour joindre une liste de cha&icirc;nes en une seule,
+                       nous pouvons utiliser la m&eacute;thode <tt class="function">join</tt> d'un objet cha&icirc;ne.
+            </p>
+         </div>
+         <div class="informalexample">
+            <p>Voici un exemple de jointure de liste provenant de la fonction <tt class="function">buildConnectionString</tt> :
+            </p><pre class="programlisting">
+    <span class='pykeyword'>return</span> <span class='pystring'>";"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()])</pre></div>
+         <p>Une remarque int&eacute;ressante avant de continuer. Je ne cesse de
+                  r&eacute;p&eacute;ter que les fonctions sont des objets, que les cha&icirc;nes sont des
+                  objets, que tout est objet. Vous pourriez penser que seules les
+                  <span class="emphasis"><em>variables</em></span> de type cha&icirc;ne sont des objets. Mais ce
+                  n'est pas le cas, regardez de plus pr&egrave;s cet exemple et vous verrez que
+                  la cha&icirc;ne <tt class="literal">";"</tt> est elle m&ecirc;me un objet dont vous
+                  appelez la m&eacute;thode <tt class="function">join</tt>.
+         </p>
+         <p>La m&eacute;thode <tt class="function">join</tt> assemble les &eacute;l&eacute;ments d'une
+                  liste pour former une cha&icirc;ne unique, chaque &eacute;l&eacute;ment &eacute;tant s&eacute;par&eacute; par un
+                  point virgule. Le s&eacute;parateur n'est pas forc&eacute;ment un point-virgule, il
+                  n'est m&ecirc;me pas forc&eacute;ment un caract&egrave;re unique. Il peut &ecirc;tre n'importe
+                  quelle cha&icirc;ne.
+         </p><a name="tip.join"></a><table class="caution" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20090415131702im_/http://diveintopython.adrahon.org/images/caution.png" alt="Attention" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">La m&eacute;thode <tt class="function">join</tt> ne fonctionne qu'avec des
+                          listes de cha&icirc;nes; elle n'applique pas la conversion de types. La
+                          <tt class="function">join</tt>ture d'une liste comprenant au moins un
+                          &eacute;l&eacute;ment non-cha&icirc;ne d&eacute;clenchera une exception.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="odbchelper.join.example"></a><h3 class="title">Exemple 3.27. Sortie de <tt class="filename">odbchelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class='pystring'>"server"</span>:<span class='pystring'>"mpilgrim"</span>, <span class='pystring'>"database"</span>:<span class='pystring'>"master"</span>, <span class='pystring'>"uid"</span>:<span class='pystring'>"sa"</span>, <span class='pystring'>"pwd"</span>:<span class='pystring'>"secret"</span>}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()]</span>
+<span class="computeroutput">['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>";"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()])</span>
+<span class="computeroutput">'server=mpilgrim;uid=sa;database=master;pwd=secret'</span></pre></div>
+         <p>La cha&icirc;ne est alors retourn&eacute;e de la fonction <tt class="function">odbchelper</tt> et affich&eacute;e par le bloc appelant, ce qui vous donne la sortie qui vous a tant &eacute;merveill&eacute; quand vous avez d&eacute;but&eacute; la lecture
+            de ce chapitre.
+         </p>
+         <p>Vous vous demandez probablement s'il existe une m&eacute;thode analogue
+                  permettant de d&eacute;couper une cha&icirc;ne en liste. Et bien sur elle existe,
+                  elle porte le nom de <tt class="function">split</tt>.
+         </p>
+         <div class="example"><a name="odbchelper.split.example"></a><h3 class="title">Exemple 3.28. D&eacute;coupage d'une cha&icirc;ne</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'server=mpilgrim'</span>, <span class='pystring'>'uid=sa'</span>, <span class='pystring'>'database=master'</span>, <span class='pystring'>'pwd=secret'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class='pystring'>";"</span>.join(li)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s</span>
+<span class="computeroutput">'server=mpilgrim;uid=sa;database=master;pwd=secret'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.split(<span class='pystring'>";"</span>)</span>    <a name="odbchelper.join.1.1"></a><img src="http://web.archive.org/web/20090415131702im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.split(<span class='pystring'>";"</span>, 1)</span> <a name="odbchelper.join.1.2"></a><img src="http://web.archive.org/web/20090415131702im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['server=mpilgrim', 'uid=sa;database=master;pwd=secret']</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/joining_lists.html#odbchelper.join.1.1"><img src="http://web.archive.org/web/20090415131702im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">split</tt> fait l'inverse de <tt class="function">join</tt> en d&eacute;coupant une cha&icirc;ne en une liste de plusieurs &eacute;l&eacute;ments. Notez que le d&eacute;limiteur (&laquo;<span class="quote"><tt class="literal">;</tt></span>&raquo;) est totalement supprim&eacute;, il n'appara&icirc;t dans aucun des &eacute;l&eacute;ments de la liste retourn&eacute;e.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/joining_lists.html#odbchelper.join.1.2"><img src="http://web.archive.org/web/20090415131702im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">split</tt> prend en deuxi&egrave;me argument optionnel le nombre de d&eacute;coupages &agrave; effectuer (&laquo;<span class="quote">Des arguments optionnels ?</span>&raquo; Vous apprendrez &agrave; en d&eacute;finir dans vos propres fonctions au prochain chapitre.)
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="tip.split"></a><table class="tip" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20090415131702im_/http://diveintopython.adrahon.org/images/tip.png" alt="ASTUCE" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><tt class="literal"><i class="replaceable">une_cha&icirc;ne</i>.<tt class="function">split</tt>(<i class="replaceable">delimiteur</i>, 1)</tt> est une technique utile pour chercher une sous-cha&icirc;ne dans une cha&icirc;ne et utiliser tout ce qui pr&eacute;c&egrave;de cette sous-cha&icirc;ne (le
+                  premier &eacute;l&eacute;ment de la liste retourn&eacute;e) et tout ce qui la suit (le second &eacute;l&eacute;ment de la liste retourn&eacute;e).
+               </td>
+            </tr>
+         </table>
+         <div class="furtherreading">
+            <h3>Pour en savoir plus sur les m&eacute;thodes de cha&icirc;nes</h3>
+            <ul>
+               <li>La <a href="http://web.archive.org/web/20090415131702/http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> r&eacute;pond aux <a href="http://web.archive.org/web/20090415131702/http://www.faqts.com/knowledge-base/index.phtml/fid/480">questions courantes &agrave; propose des cha&icirc;nes</a> et dispose de nombreux <a href="http://web.archive.org/web/20090415131702/http://www.faqts.com/knowledge-base/index.phtml/fid/539">exemples de code utilisant des cha&icirc;nes</a>.
+               </li>
+               <li>La <a href="http://web.archive.org/web/20090415131702/http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> r&eacute;capitule <a href="http://web.archive.org/web/20090415131702/http://www.python.org/doc/current/lib/string-methods.html">toutes les m&eacute;thodes de cha&icirc;nes</a>.
+               </li>
+               <li>La <a href="http://web.archive.org/web/20090415131702/http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documente le <a href="http://web.archive.org/web/20090415131702/http://www.python.org/doc/current/lib/module-string.html">module <tt class="filename">string</tt></a>.
+               </li>
+               <li><a href="http://web.archive.org/web/20090415131702/http://www.python.org/doc/FAQ.html"><i class="citetitle">The Whole <span class="application">Python</span> <span class="acronym">FAQ</span></i></a> explique <a href="http://web.archive.org/web/20090415131702/http://www.python.org/cgi-bin/faqw.py?query=4.96&querytype=simple&casefold=yes&req=search">pourquoi <tt class="function">join</tt> est une m&eacute;thode de cha&icirc;nes</a> et non une m&eacute;thode de liste.
+               </li>
+            </ul>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e8030"></a>3.7.1. Note historique sur les m&eacute;thodes de cha&icirc;nes
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Lorsque j'ai d&eacute;but&eacute; l'apprentissage de
+                       <span class="application">Python</span>, je m'attendais &agrave; ce que
+                       <tt class="function">join</tt> soit une m&eacute;thode de liste qui aurait pris un
+                       s&eacute;parateur comme argument. Beaucoup de gens pensent la m&ecirc;me chose et
+                       il y a une v&eacute;ritable histoire derri&egrave;re la m&eacute;thode
+                       <tt class="function">join</tt>. Avant <span class="application">Python</span>
+                       1.6, les cha&icirc;nes n'&eacute;taient pas pourvue de toutes ces m&eacute;thodes si
+                       utiles. Il y avait un module <tt class="filename">string</tt> s&eacute;par&eacute; qui contenait toutes les
+                       fonctions de manipulation de cha&icirc;nes de caract&egrave;res, chacune prenant
+                       une cha&icirc;ne comme premier argument. Ces fonctions ont &eacute;t&eacute; consid&eacute;r&eacute;es
+                       assez importantes pour &ecirc;tre int&eacute;gr&eacute;es dans les cha&icirc;nes elles m&ecirc;me, ce
+                       qui semblait logique pour des fonctions comme
+                       <tt class="function">lower</tt>, <tt class="function">upper</tt> et
+                       <tt class="function">split</tt>. Mais beaucoup de programmeurs
+                       <span class="application">Python</span> issus du noyau dur &eacute;mirent des
+                       objections quant &agrave; la m&eacute;thode <tt class="function">join</tt> en arguant du
+                       fait qu'elle devrait &ecirc;tre plut&ocirc;t une m&eacute;thode de liste ou tout
+                       simplement rester une fonction du module <tt class="filename">string</tt> (qui contient encore bien des
+                       choses utiles). J'utilise exclusivement la nouvelle m&eacute;thode
+                       <tt class="function">join</tt> mais vous verrez du code &eacute;crit des deux
+                       fa&ccedil;ons et si cela vous pose un r&eacute;el probl&egrave;me, vous pouvez toujours
+                       opter pour l'ancienne fonction
+                       <tt class="function">string.join</tt>.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/mapping_lists.html">&lt;&lt;&nbsp;Mutation de listes</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/index.html#odbchelper.dict" title="3.1. Pr&eacute;sentation des dictionnaires">1</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/lists.html" title="3.2. Pr&eacute;sentation des listes">2</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/tuples.html" title="3.3. Pr&eacute;sentation des tuples">3</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/declaring_variables.html" title="3.4. D&eacute;finitions de variables">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/formatting_strings.html" title="3.5. Formatage de cha&icirc;nes">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/mapping_lists.html" title="3.6. Mutation de listes">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/summary.html" title="3.8. R&eacute;sum&eacute;">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090415131702/http://diveintopython.adrahon.org/native_data_types/summary.html">R&eacute;sum&eacute;&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 13:17:02 Apr 15, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:24:50 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

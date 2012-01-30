@@ -1,0 +1,845 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>3.2. Pr&eacute;sentation des listes</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20100505124652cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/index.html" title="Chapitre 3. Types pr&eacute;d&eacute;finis">
+      <link rel="previous" href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/index.html" title="Chapitre 3. Types pr&eacute;d&eacute;finis">
+      <link rel="next" href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/tuples.html" title="3.3. Pr&eacute;sentation des tuples">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/native_data_types\/lists.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "5";
+var displayMonth = "May";
+var displayYear = "2010";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/native_data_types/lists.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20100505124652" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090206232445/http://diveintopython.adrahon.org/native_data_types/lists.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="6 Feb 2009"><strong>FEB</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 12:46:52 May 5, 2010">MAY</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Jun
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090206232445/http://diveintopython.adrahon.org/native_data_types/lists.html" title="23:24:45 Feb 6, 2009" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 12:46:52 May 5, 2010">5</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090206232445/http://diveintopython.adrahon.org/native_data_types/lists.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="6 Feb 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 12:46:52 May 5, 2010">2010</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2011
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20100505124652*/http://diveintopython.adrahon.org/native_data_types/lists.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>19 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">10 Oct 06 - 5 May 10</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000101_2007:-1:010122000211_2008:-1:110011001000_2009:-1:010000000000_2010:4:000010000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/index.html">Types pr&eacute;d&eacute;finis</a>&nbsp;&gt;&nbsp;<span class="thispage">Pr&eacute;sentation des listes</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/index.html" title="Pr&eacute;c&eacute;dent: &laquo;Types pr&eacute;d&eacute;finis&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/tuples.html" title="Suivant: &laquo;Pr&eacute;sentation des tuples&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.list"></a>3.2. Pr&eacute;sentation des listes
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#d0e5656">3.2.1. Definition d'une liste</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#d0e5921">3.2.2. Ajout d'&eacute;l&eacute;ments &agrave; une liste</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#d0e6152">3.2.3. Recherche dans une liste</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#d0e6311">3.2.4. Suppression d'&eacute;l&eacute;ments d'une liste</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#d0e6423">3.2.5. Utilisation des op&eacute;rateurs de listes</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Les listes sont le type de donn&eacute;es &agrave; tout faire de
+                       <span class="application">Python</span>. Si votre seule exp&eacute;rience des
+                       listes sont les tableaux de <span class="application">Visual Basic</span> ou
+                       (&agrave; Dieu ne plaise) les datastores de
+                       <span class="application">Powerbuilder</span>, accrochez-vous pour les
+                       listes <span class="application">Python</span>.
+            </p>
+         </div><a name="compare.list.perl"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/note.png" alt="NOTE" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Une liste en <span class="application">Python</span> est comme un
+                          tableau <span class="application">Perl</span>. En
+                          <span class="application">Perl</span>, les variables qui stockent des
+                          tableaux d&eacute;butent toujours par le caract&egrave;re <tt class="literal">@</tt>, en
+                          <span class="application">Python</span> vous pouvez nommer votre variable
+                          comme bon vous semble et <span class="application">Python</span> se chargera
+                          de la gestion du typage.
+               </td>
+            </tr>
+         </table><a name="compare.list.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/note.png" alt="NOTE" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Une liste <span class="application">Python</span> est bien plus qu'un
+                          tableau en Java (m&ecirc;me s'il peut &ecirc;tre utilis&eacute; comme tel si vous
+                          n'attendez vraiment rien de mieux de la vie). Une meilleure analogie
+                          serait la classe <tt class="classname">ArrayList</tt>, qui peut contenir
+                          n'importe quels objets et qui cro&icirc;t dynamiquement au fur et &agrave; mesure
+                          que de nouveaux &eacute;l&eacute;ments y sont ajout&eacute;s.
+               </td>
+            </tr>
+         </table>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e5656"></a>3.2.1. Definition d'une liste
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="d0e5659"></a><h3 class="title">Exemple 3.6. Definition d'une liste</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>"a"</span>, <span class='pystring'>"b"</span>, <span class='pystring'>"mpilgrim"</span>, <span class='pystring'>"z"</span>, <span class='pystring'>"example"</span>]</span> <a name="odbchelper.list.1.1"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[0]</span>                                       <a name="odbchelper.list.1.2"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'a'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[4]</span>                                       <a name="odbchelper.list.1.3"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'example'</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.1.1"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Premi&egrave;rement, nous d&eacute;finissons une liste de 5 &eacute;l&eacute;ments.
+                                       Notez qu'ils conservent leur ordre d'origine. Ce n'est pas un
+                                       accident. Une liste est un ensemble ordonn&eacute; d'&eacute;l&eacute;ments entour&eacute; par
+                                       des crochets.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.1.2"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Une liste peut &ecirc;tre utilis&eacute;e comme un tableau dont l'indice
+                                       de base est z&eacute;ro. Le premier &eacute;l&eacute;ment de toute liste non vide est
+                                       toujours <tt class="literal">li[0]</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.1.3"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le dernier &eacute;l&eacute;ment de cette liste de 5 &eacute;l&eacute;ments est
+                                       <tt class="literal">li[4]</tt> car les listes sont toujours indic&eacute;es &agrave;
+                                       partir de z&eacute;ro.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="odbchelper.negative.example"></a><h3 class="title">Exemple 3.7. Indices de liste n&eacute;gatifs</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-1]</span> <a name="odbchelper.list.2.1"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'example'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-3]</span> <a name="odbchelper.list.2.2"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'mpilgrim'</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.2.1"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Un indice n&eacute;gatif permet d'acc&eacute;der aux &eacute;l&eacute;ments &agrave; partir de
+                                       la fin de la liste en comptant &agrave; rebours. Le dernier &eacute;l&eacute;ment de
+                                       toute liste non vide est toujours
+                                       <tt class="literal">li[-1]</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.2.2"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Si vous trouvez que les indices n&eacute;gatifs pr&ecirc;tent &agrave; confusion, voyez-les comme suit : <tt class="literal">li[n] == li[n - len(li)]</tt>. Donc dans cette liste, <tt class="literal">li[-3] == li[5 - 3] == li[2]</tt>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="odbchelper.list.slice"></a><h3 class="title">Exemple 3.8. D&eacute;coupage d'une liste</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[1:3]</span>  <a name="odbchelper.list.3.1"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['b', 'mpilgrim']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[1:-1]</span> <a name="odbchelper.list.3.2"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['b', 'mpilgrim', 'z']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[0:3]</span>  <a name="odbchelper.list.3.3"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.3.1"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Vous pouvez obtenir un sous-ensemble d'une liste, appel&eacute; une
+                                       &laquo;<span class="quote">tranche</span>&raquo; (<span class="foreignphrase"><i class="foreignphrase">slice</i></span>), en
+                                       sp&eacute;cifiant deux indices. La valeur de retour est une nouvelle
+                                       liste contenant les &eacute;l&eacute;ments de la liste, dans l'ordre, en
+                                       d&eacute;marrant du premier indice de la tranche (dans ce cas
+                                       <tt class="literal">li[1]</tt>), jusqu'&agrave; au second indice de la tranche
+                                       non inclu (ici <tt class="literal">li[3]</tt>).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.3.2"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Le d&eacute;coupage fonctionne si un ou les deux indices sont
+                                       n&eacute;gatifs. Pour vous aider, vous pouvez les voir commer ceci : en
+                                       lisant la liste de gauche &agrave; droite, le premier indice sp&eacute;cifie le
+                                       premier &eacute;l&eacute;ment que vous d&eacute;sirez et le second indice sp&eacute;cifie le
+                                       premier &eacute;l&eacute;ment dont vous ne voulez pas. La valeur de retour est
+                                       tout ce qui se trouve entre les deux.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.3.3"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Les listes sont indic&eacute;es &agrave; partir de z&eacute;ro, donc
+                                       <tt class="literal">li[0:3]</tt> retourne les trois premiers &eacute;l&eacute;ments de
+                                       la liste, en d&eacute;marrant &agrave; <tt class="literal">li[0]</tt> jusqu'&agrave;
+                                       <tt class="literal">li[3]</tt> non inclu.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="odbchelper.list.slicing.example"></a><h3 class="title">Exemple 3.9. Raccourci pour le d&eacute;coupage</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[:3]</span> <a name="odbchelper.list.4.1"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[3:]</span> <a name="odbchelper.list.4.2"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="odbchelper.list.4.3"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[:]</span>  <a name="odbchelper.list.4.4"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.4.1"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Si l'indice de tranche de gauche est 0, vous pouvez
+                                       l'omettre et 0 sera implicite. Donc <tt class="literal">li[:3]</tt> est
+                                       la m&ecirc;me chose que <tt class="literal">li[0:3]</tt> dans le premier
+                                       exemple.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.4.2"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">De la m&ecirc;me mani&egrave;re, si l'indice de tranche de droite est la
+                                       longueur de la liste, vous pouvez l'omettre. Donc
+                                       <tt class="literal">li[3:]</tt> est pareil que
+                                       <tt class="literal">li[3:5]</tt>, puisque la liste a 5 &eacute;l&eacute;ments.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.4.3"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Remarquez la sym&eacute;trie. Dans cette liste de 5 &eacute;l&eacute;ments,
+                                       <tt class="literal">li[:3]</tt> retourne les 3 premiers &eacute;l&eacute;ments et
+                                       <tt class="literal">li[3:]</tt> retourne les deux derniers. En fait
+                                       <tt class="literal">li[:n]</tt> retournera toujours les
+                                       <tt class="literal">n</tt> premiers &eacute;l&eacute;ments et
+                                       <tt class="literal">li[n:]</tt> le reste, quelle que soit la longueur de
+                                       la liste.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.4.4"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Si les deux indices sont omis, tous les &eacute;l&eacute;ments de la liste
+                                       sont inclus dans la tranche. Mais ce n'est pas la m&ecirc;me chose que
+                                       la liste <tt class="varname">li</tt>; c'est une nouvelle liste qui
+                                       contient les m&ecirc;me &eacute;l&eacute;ments. <tt class="literal">li[:]</tt> est un
+                                       raccourci permettant d'effectuer une copie compl&egrave;te de la
+                                       liste.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e5921"></a>3.2.2. Ajout d'&eacute;l&eacute;ments &agrave; une liste
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="d0e5924"></a><h3 class="title">Exemple 3.10. Ajout d'&eacute;l&eacute;ments &agrave; une liste</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.append(<span class='pystring'>"new"</span>)</span>               <a name="odbchelper.list.5.1"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.insert(2, <span class='pystring'>"new"</span>)</span>            <a name="odbchelper.list.5.2"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.extend([<span class='pystring'>"two"</span>, <span class='pystring'>"elements"</span>])</span> <a name="odbchelper.list.5.3"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.5.1"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">append</tt> ajoute un &eacute;l&eacute;ment &agrave; la fin de la
+                                       liste.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.5.2"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">insert</tt> ins&egrave;re un &eacute;l&eacute;ment dans la liste.
+                                       L'argument num&eacute;rique est l'indice du premier &eacute;l&eacute;ment qui sera
+                                       d&eacute;cal&eacute;. Notez que les &eacute;l&eacute;ments de la liste ne sont pas
+                                       obligatoirement uniques ; il y a maintenant 2 &eacute;l&eacute;ments distincts
+                                       avec la valeur <tt class="literal">'new'</tt>, <tt class="literal">li[2]</tt>
+                                       and <tt class="literal">li[6]</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.5.3"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">extend</tt> concat&egrave;ne des listes. Notez que
+                                       vous n'appelez pas <tt class="function">extend</tt> avec plusieurs
+                                       arguments mais bien avec un seul argument qui est une liste. Dans
+                                       le cas pr&eacute;sent, la liste est compos&eacute;e de deux &eacute;l&eacute;ments.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="odbchelper.list.append.vs.extend"></a><h3 class="title">Exemple 3.11. Diff&eacute;rence entre <tt class="function">extend</tt> et <tt class="function">append</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'a'</span>, <span class='pystring'>'b'</span>, <span class='pystring'>'c'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.extend([<span class='pystring'>'d'</span>, <span class='pystring'>'e'</span>, <span class='pystring'>'f'</span>])</span> <a name="odbchelper.list.5.4"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'c', 'd', 'e', 'f']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">len(li)</span>                    <a name="odbchelper.list.5.5"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">6</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-1]</span>
+<span class="computeroutput">'f'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'a'</span>, <span class='pystring'>'b'</span>, <span class='pystring'>'c'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.append([<span class='pystring'>'d'</span>, <span class='pystring'>'e'</span>, <span class='pystring'>'f'</span>])</span> <a name="odbchelper.list.5.6"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'c', ['d', 'e', 'f']]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">len(li)</span>                    <a name="odbchelper.list.5.7"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">4</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-1]</span>
+<span class="computeroutput">['d', 'e', 'f']</span>
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.5.4"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Les listes ont deux m&eacute;thodes, <tt class="function">extend</tt> et <tt class="function">append</tt>, qui semblent faire la m&ecirc;me chose, mais sont en fait compl&egrave;tement diff&eacute;rentes. <tt class="function">extend</tt> prend un seul argument, qui est toujours une liste et ajoute chacun des &eacute;l&eacute;ments de cette liste &agrave; la liste originelle.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.5.5"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Ici nous avons une liste de trois &eacute;l&eacute;ments (<tt class="literal">'a'</tt>, <tt class="literal">'b'</tt> et <tt class="literal">'c'</tt>) et nous utilisons <tt class="function">extended</tt> pour lui ajouter une liste de trois autres &eacute;l&eacute;ments (<tt class="literal">'d'</tt>, <tt class="literal">'e'</tt> et <tt class="literal">'f'</tt>), ce qui nous donne une liste de six &eacute;l&eacute;ments.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.5.6"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Par contre, <tt class="function">append</tt> prend un argument, qui peut &ecirc;tre de n'importe quel type et l'ajoute simplement &agrave; la fin de la liste. Ici, nous appelons <tt class="function">append</tt> avec un argument, qui est une liste de trois &eacute;l&eacute;ments.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.5.7"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Maintenant, la liste originelle qui avait trois &eacute;l&eacute;ments en contient quatre. Pourquoi quatre ? Parce que le dernier &eacute;l&eacute;ment
+                           que nous venons d'ajouter <span class="emphasis"><em>est lui-m&ecirc;me une liste</em></span>. Les listes peuvent contenir n'importe quel type de donn&eacute;es, y compris d'autres listes. En fonction du but recherch&eacute;, faites
+                           attention de ne pas utiliser <tt class="function">append</tt> si vous pensez en fait &agrave; <tt class="function">extend</tt>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e6152"></a>3.2.3. Recherche dans une liste
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="odbchelper.list.search"></a><h3 class="title">Exemple 3.12. Recherche dans une liste</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class='pystring'>"example"</span>)</span> <a name="odbchelper.list.6.1"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">5</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class='pystring'>"new"</span>)</span>     <a name="odbchelper.list.6.2"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class='pystring'>"c"</span>)</span>       <a name="odbchelper.list.6.3"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.index(x): x not in list</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"c"</span> <span class='pykeyword'>in</span> li</span>           <a name="odbchelper.list.6.4"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">False</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.6.1"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">index</tt> trouve la premi&egrave;re occurrence
+                                       d'une valeur dans la liste et retourne son indice.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.6.2"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">index</tt> trouve la
+                                       <span class="emphasis"><em>premi&egrave;re</em></span> occurrence d'une valeur dans la
+                                       liste. Dans ce cas, new appara&icirc;t &agrave; deux reprises dans la liste,
+                                       <tt class="literal">li[2]</tt> et <tt class="literal">li[6]</tt>, mais
+                                       <tt class="function">index</tt> ne retourne que le premier indice,
+                                       <tt class="literal">2</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.6.3"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Si la valeur est introuvable dans la liste,
+                                       <span class="application">Python</span> d&eacute;clenche une exception. C'est
+                                       sensiblement diff&eacute;rent de la plupart des autres langages qui
+                                       retournent un indice invalide. Si cela peut sembler g&ecirc;nant, c'est
+                                       en fait une bonne chose car cela signifie que votre programme se plantera
+                                       &agrave; la source m&ecirc;me du probl&egrave;me plut&ocirc;t qu'au moment ou vous tenterez
+                                       de manipuler l'indice non valide.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.6.4"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Pour tester la pr&eacute;sence d'une valeur dans la liste, utilisez
+                                       <tt class="function">in</tt>, qui retourne <tt class="constant">True</tt> si la
+                                       valeur a &eacute;t&eacute; trouv&eacute;e et <tt class="constant">False</tt> dans le cas
+                                       contraire.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div><a name="tip.boolean"></a><table class="note" border="0" summary="">
+               <tr>
+                  <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/note.png" alt="NOTE" title="" width="24" height="24"></td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="left" valign="top" width="99%">Avant la version 2.2.1, <span class="application">Python</span>
+                             n'avait pas de type bool&eacute;en. Pour compenser cela,
+                             <span class="application">Python</span> acceptait pratiquement n'importe
+                             quoi dans un contexte requ&eacute;rant un bool&eacute;en (comme une instruction
+                             <tt class="literal">if</tt>), en fonction des r&egrave;gles suivantes :
+                     <div class="itemizedlist">
+                        <ul>
+                           <li><tt class="constant">0</tt> est faux, tous les autres nombres sont vrai.
+                           </li>
+                           <li>Une cha&icirc;ne vide (<tt class="literal">""</tt>) est faux, toutes les autres cha&icirc;nes sont vrai.
+                           </li>
+                           <li>Une liste vide (<tt class="literal">[]</tt>) est faux, toutes les autres listes sont vrai.
+                           </li>
+                           <li>Un tuple vide (<tt class="literal">()</tt>) est faux, tous les autres tuples sont vrai.
+                           </li>
+                           <li>Un dictionnaire vide (<tt class="literal">{}</tt>) est faux, tous les autres dictionnaires sont vrai.
+                           </li>
+                        </ul>
+                     </div>Ces r&egrave;gles sont toujours valides en <span class="application">Python</span> 2.3.3 et au-del&agrave;, mais vous pouvez maintenant utiliser un v&eacute;ritable bool&eacute;en, qui a pour valeur <tt class="literal">True</tt> ou <tt class="literal">False</tt>. Notez la majuscule, ces valeurs comme tout le reste en <span class="application">Python</span>, sont sensibles &agrave; la casse.
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e6311"></a>3.2.4. Suppression d'&eacute;l&eacute;ments d'une liste
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="odbchelper.list.removingelements"></a><h3 class="title">Exemple 3.13. Enlever des &eacute;l&eacute;ments d'une liste</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class='pystring'>"z"</span>)</span>   <a name="odbchelper.list.7.1"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class='pystring'>"new"</span>)</span> <a name="odbchelper.list.7.2"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class='pystring'>"c"</span>)</span>   <a name="odbchelper.list.7.3"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.remove(x): x not in list</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.pop()</span>         <a name="odbchelper.list.7.4"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'elements'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.7.1"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">remove</tt> enl&egrave;ve la premi&egrave;re occurrence de
+                                       la valeur de la liste.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.7.2"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">remove</tt> enl&egrave;ve
+                                       <span class="emphasis"><em>uniquement</em></span> la premi&egrave;re occurence de la
+                                       valeur. Dans ce cas, <tt class="literal">new</tt> appara&icirc;t &agrave; deux
+                                       reprises dans la liste mais <tt class="literal">li.remove("new")</tt> a
+                                       seulement retir&eacute; la premi&egrave;re occurrence.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.7.3"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Si la valeur est introuvable dans la liste,
+                                       <span class="application">Python</span> d&eacute;clenche une exception. Ce
+                                       comportement est identique &agrave; celui de la m&eacute;thode
+                                       <tt class="function">index</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.7.4"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">pop</tt> est un sp&eacute;cimen int&eacute;ressant. Il
+                                       fait deux choses : il enl&egrave;ve le dernier &eacute;l&eacute;ment de la liste et il
+                                       retourne la valeur qui a &eacute;t&eacute; enlev&eacute;. Notez que cela diff&egrave;re de
+                                       <tt class="literal">li[-1]</tt> qui retourne une valeur mais ne modifie
+                                       pas la liste et de <tt class="literal">li.remove(valeur)</tt> qui
+                                       alt&egrave;re la liste mais ne retourne pas de valeur.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e6423"></a>3.2.5. Utilisation des op&eacute;rateurs de listes
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="odbchelper.list.operators"></a><h3 class="title">Exemple 3.14. Op&eacute;rateurs de listes</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'a'</span>, <span class='pystring'>'b'</span>, <span class='pystring'>'mpilgrim'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = li + [<span class='pystring'>'example'</span>, <span class='pystring'>'new'</span>]</span> <a name="odbchelper.list.8.1"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li += [<span class='pystring'>'two'</span>]</span>                <a name="odbchelper.list.8.2"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [1, 2] * 3</span>              <a name="odbchelper.list.8.3"></a><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">[1, 2, 1, 2, 1, 2]</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.8.1"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Les listes peuvent &ecirc;tre concat&eacute;n&eacute;es &agrave; l'aide de l'op&eacute;rateur
+                                       <tt class="literal">+</tt>. <tt class="literal">liste = liste +
+                                          autreliste</tt> est &eacute;quivalent &agrave;
+                                       <tt class="literal">list.extend(autreliste)</tt>. Mais l'op&eacute;rateur
+                                       <tt class="literal">+</tt> retourne une nouvelle liste concat&eacute;n&eacute;e comme
+                                       une valeur alors que extend modifie une liste existante. Cela
+                                       implique que <tt class="function">extend</tt> est plus rapide, surtout
+                                       pour de grandes listes.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.8.2"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><span class="application">Python</span> supporte l'op&eacute;rateur
+                                       <tt class="literal">+=</tt>. <tt class="literal">li += ['two']</tt> est
+                                       &eacute;quivalent &agrave; <tt class="literal">li = li + ['two']</tt>. L'op&eacute;rateur
+                                       <tt class="literal">+=</tt> fonctionne pour les listes, les cha&icirc;nes et
+                                       les entiers. Il peut &ecirc;tre surcharg&eacute; pour fonctionner &eacute;galement
+                                       avec des classes d&eacute;finies par l'utilisateur (nous en apprendrons
+                                       plus sur les classes au <a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/object_oriented_framework/index.html">Chapitre 5</a>).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/lists.html#odbchelper.list.8.3"><img src="http://web.archive.org/web/20100505124652im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">L'op&eacute;rateur <tt class="literal">*</tt> agit sur les liste comme un
+                                       r&eacute;p&eacute;teur. <tt class="literal">li = [1, 2] * 3</tt> est &eacute;quivalent &agrave;
+                                       <tt class="literal">li = [1, 2] + [1, 2] + [1, 2]</tt>, qui concat&egrave;ne
+                                       les trois listes en une seule.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="furtherreading">
+               <h3>Pour en savoir plus sur les listes</h3>
+               <ul>
+                  <li><a href="http://web.archive.org/web/20100505124652/http://www.ibiblio.org/obp/thinkCSpy/" title="Python book for computer science majors"><i class="citetitle">How to Think Like a Computer Scientist</i></a> explique les listes et expose le
+                               sujet important du <a href="http://web.archive.org/web/20100505124652/http://www.ibiblio.org/obp/thinkCSpy/chap08.htm">passage de
+                                  listes comme arguments de fonction</a>.
+                  </li>
+                  <li>Le <a href="http://web.archive.org/web/20100505124652/http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> montre comment <a href="http://web.archive.org/web/20100505124652/http://www.python.org/doc/current/tut/node7.html#SECTION007110000000000000000">utiliser des listes comme des piles ou des files</a>.
+                  </li>
+                  <li>La <a href="http://web.archive.org/web/20100505124652/http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> r&eacute;pond aux <a href="http://web.archive.org/web/20100505124652/http://www.faqts.com/knowledge-base/index.phtml/fid/534">questions courantes &agrave; propos des listes</a> et fourni de nombreux <a href="http://web.archive.org/web/20100505124652/http://www.faqts.com/knowledge-base/index.phtml/fid/540">exemples de code utilisant des listes</a>.
+                  </li>
+                  <li>La <a href="http://web.archive.org/web/20100505124652/http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> r&eacute;sume <a href="http://web.archive.org/web/20100505124652/http://www.python.org/doc/current/lib/typesseq-mutable.html">toutes les m&eacute;thodes des listes</a>.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/index.html">&lt;&lt;&nbsp;Types pr&eacute;d&eacute;finis</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/index.html#odbchelper.dict" title="3.1. Pr&eacute;sentation des dictionnaires">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/tuples.html" title="3.3. Pr&eacute;sentation des tuples">3</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/declaring_variables.html" title="3.4. D&eacute;finitions de variables">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/formatting_strings.html" title="3.5. Formatage de cha&icirc;nes">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/mapping_lists.html" title="3.6. Mutation de listes">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/joining_lists.html" title="3.7. Jointure de listes et d&eacute;coupage de cha&icirc;nes">7</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/summary.html" title="3.8. R&eacute;sum&eacute;">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20100505124652/http://diveintopython.adrahon.org/native_data_types/tuples.html">Pr&eacute;sentation des tuples&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 12:46:52 May 5, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:24:46 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

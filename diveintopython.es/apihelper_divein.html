@@ -1,0 +1,87 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Cap&iacute;tulo 2. El poder de la introspecci&oacute;n</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/toc.html" title="Inmersi&oacute;n en Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen" /><link rel="next" href="http://es.diveintopython.net/apihelper_optional.html" title="2.2. Argumentos opcionales y con nombre" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<b>El poder de la introspecci&oacute;n</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_summary.html" title="Anterior: “Resumen”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_optional.html" title="Siguiente: “Argumentos opcionales y con nombre”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="apihelper"></a>Cap&iacute;tulo 2. El poder de la introspecci&oacute;n</h2></div></div><div class="toc"><p><b>Tabla de contenidos</b></p><ul><li>2.1. <a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.divein">Inmersi&oacute;n</a></li><li>2.2. <a href="http://es.diveintopython.net/apihelper_optional.html">Argumentos opcionales y con nombre</a></li><li>2.3. <a href="http://es.diveintopython.net/apihelper_builtin.html"><tt>type</tt>, <tt>str</tt>, <tt>dir</tt>, y otras funciones incorporadas</a></li><li>2.4. <a href="http://es.diveintopython.net/apihelper_getattr.html">Obtenci&oacute;n de referencias a objetos con <tt>getattr</tt></a></li><li>2.5. <a href="http://es.diveintopython.net/apihelper_filter.html">Filtrado de listas</a></li><li>2.6. <a href="http://es.diveintopython.net/apihelper_andor.html">La peculiar naturaleza de <tt>and</tt> y <tt>or</tt></a></li><li>2.7. <a href="http://es.diveintopython.net/apihelper_lambda.html">Utilizaci&oacute;n de las funciones <tt>lambda</tt></a></li><li>2.8. <a href="http://es.diveintopython.net/apihelper_alltogether.html">Todo junto</a></li><li>2.9. <a href="http://es.diveintopython.net/apihelper_summary.html">Resumen</a></li></ul></div><div class="section"><a name="apihelper.divein"></a><div class="titlepage"><div><h2 class="title"><a name="apihelper.divein"></a>2.1. Inmersi&oacute;n</h2></div></div><p>Este cap&iacute;tulo trata uno de los puntos fuertes de Python: la
+introspecci&oacute;n. Como usted sabe, <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">todo en Python es un objeto</a>, y
+la introspecci&oacute;n es c&oacute;digo que examina como objetos otros m&oacute;dulos y 
+funciones en memoria, obtiene informaci&oacute;n sobre ellos y los maneja. De
+paso, definiremos funciones sin nombre, llamaremos a funciones con
+argumentos sin orden, y haremos referencia a funciones cuyos nombres
+desconocemos.</p><div class="abstract"><p>Aqu&iacute; hay un programa Python completo y funcional. Deber&iacute;a
+usted comprenderlo s&oacute;lo observ&aacute;ndolo. Las l&iacute;neas numeradas ilustran
+conceptos cubiertos en <a href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python"><i>Conozcamos Python</i></a>. No se preocupe si
+el resto del c&oacute;digo le parece inquietante; aprender&aacute; todo sobre &eacute;l en
+este cap&iacute;tulo.</p></div><div class="example"><p><a name="d0e1687"></a><b>Ejemplo 2.1. <tt>apihelper.py</tt></b></p><p>Si a&uacute;n no lo ha hecho, puede <a href="http://es.diveintopython.net/download/diveintopython-examples-es-0.1-1.zip" title="Download example scripts (69 KB)">descargar este y otros ejemplos</a> de este libro.</p><pre class="programlisting"><span class="pykeyword">
+def</span> help(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="apihelper.intro.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /> <a name="apihelper.intro.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+    <span class="pystring">"""Print methods and doc strings.
+    
+    Takes module, class, list, dictionary, or string."""</span>
+    methodList = [method <span class="pykeyword">for</span> method <span class="pykeyword">in</span> dir(object) <span class="pykeyword">if</span> callable(getattr(object, method))]
+    processFunc = collapse <span class="pykeyword">and</span> (<span class="pykeyword">lambda</span> s: <span class="pystring">" "</span>.join(s.split())) <span class="pykeyword">or</span> (<span class="pykeyword">lambda</span> s: s)
+    <span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join([<span class="pystring">"%s %s"</span> %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     <span class="pykeyword">for</span> method <span class="pykeyword">in</span> methodList])
+
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:                <a name="apihelper.intro.1.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /> <a name="apihelper.intro.1.5"></a><img src="http://es.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+    <span class="pykeyword">print</span> help.__doc__</pre><div class="calloutlist"><a name="d0e1698"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.intro.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Este m&oacute;dulo tiene una funcion, <tt>help</tt>. Seg&uacute;n su <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">declaraci&oacute;n</a>, admite tres
+par&aacute;metros: <tt>object</tt>, <tt>spacing</tt> y
+<tt>collapse</tt>. Los dos &uacute;ltimos son en realidad par&aacute;metros
+opcionales, como veremos en seguida.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.intro.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">La funci&oacute;n <tt>help</tt> tiene una <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">cadena de documentaci&oacute;n</a> de varias l&iacute;neas
+que describe sucintamente el prop&oacute;sito de la funci&oacute;n. Advierta que no
+se indica valor de retorno; esta funci&oacute;n se utilizar&aacute; solamente por
+sus efectos, no por su valor.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.intro.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">El c&oacute;digo de la funci&oacute;n est&aacute; <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">sangrado</a>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.intro.1.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">El <a href="http://es.diveintopython.net/odbchelper_testing.html#odbchelper.ifnametrick" title="Ejemplo 1.7. El truco if __name__">truco</a>
+<tt>if __name__</tt> permite a este programa hacer algo &uacute;til
+cuando se ejecuta aislado, sin que esto interfiera con su uso como
+m&oacute;dulo por otros programas. En este caso, el programa simplemente
+imprime la cadena de documentaci&oacute;n de la funci&oacute;n <tt>help</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.intro.1.5"><img src="http://es.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Las <a href="http://es.diveintopython.net/odbchelper_testing.html#odbchelper.ifnametrick" title="Ejemplo 1.7. El truco if __name__">sentencias
+<tt>if</tt></a> usan <tt>==</tt> para la comparaci&oacute;n, y no son
+necesarios los par&eacute;ntesis.</td></tr></table></div></div><p>La funci&oacute;n <tt>help</tt> est&aacute; dise&ntilde;ada para ser utilizada por usted, el
+programador, mientras trabaja en el entorno de programaci&oacute;n Python. Toma cualquier
+objeto que tenga funciones o m&eacute;todos (como un m&oacute;dulo, que tiene
+funciones, o una lista, que tiene m&eacute;todos) y muestra las funciones y
+sus cadenas de documentaci&oacute;n.</p><div class="example"><p><a name="d0e1728"></a><b>Ejemplo 2.2. Ejemplo de uso de <tt>apihelper.py</tt></b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> apihelper <span class="pykeyword">import</span> help</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">help(li)</span>
+<span class="computeroutput">append     L.append(object) -- append object to end
+count      L.count(value) -&gt; integer -- return number of occurrences of value
+extend     L.extend(list) -- extend list by appending list elements
+index      L.index(value) -&gt; integer -- return index of first occurrence of value
+insert     L.insert(index, object) -- insert object before index
+pop        L.pop([index]) -&gt; item -- remove and return item at index (default last)
+remove     L.remove(value) -- remove first occurrence of value
+reverse    L.reverse() -- reverse *IN PLACE*
+sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -&gt; -1, 0, 1</span></pre></div><p>Por omisi&oacute;n, la salida se formatea para que sea de f&aacute;cil
+lectura. Las cadenas de documentaci&oacute;n de varias l&iacute;neas se unen en una sola l&iacute;nea
+larga, pero esta opci&oacute;n puede cambiarse especificando
+<tt>0</tt> como valor del argumento
+<i><tt>collapse</tt></i>. Si los nombres de funci&oacute;n tienen m&aacute;s
+de diez caracteres, se puede especificar un valor mayor en el
+argumento <i><tt>spacing</tt></i> para hacer m&aacute;s legible la
+salida.</p><div class="example"><p><a name="d0e1743"></a><b>Ejemplo 2.3. Uso avanzado de <tt>apihelper.py</tt></b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">help(odbchelper)</span>
+<span class="computeroutput">buildConnectionString Build a connection string from a dictionary Returns string.</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">help(odbchelper, 30)</span>
+<span class="computeroutput">buildConnectionString          Build a connection string from a dictionary Returns string.</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">help(odbchelper, 30, 0)</span>
+<span class="computeroutput">buildConnectionString          Build a connection string from a dictionary
+    
+    Returns string.
+</span></pre></div></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_summary.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Resumen</a></td><td width="30%" align="center"><br />&nbsp;<b>1</b> <a href="http://es.diveintopython.net/apihelper_optional.html" title="2.2. Argumentos opcionales y con nombre">2</a> <a href="http://es.diveintopython.net/apihelper_builtin.html" title="2.3. type, str, dir, y otras funciones incorporadas">3</a> <a href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr">4</a> <a href="http://es.diveintopython.net/apihelper_filter.html" title="2.5. Filtrado de listas">5</a> <a href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or">6</a> <a href="http://es.diveintopython.net/apihelper_lambda.html" title="2.7. Utilizaci&oacute;n de las funciones lambda">7</a> <a href="http://es.diveintopython.net/apihelper_alltogether.html" title="2.8. Todo junto">8</a> <a href="http://es.diveintopython.net/apihelper_summary.html" title="2.9. Resumen">9</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/apihelper_optional.html">Argumentos opcionales y con nombre&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

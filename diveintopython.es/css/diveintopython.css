@@ -1,0 +1,146 @@
+
+
+
+
+
+/*
+     FILE ARCHIVED ON 0:05:17 Jul 26, 2011 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:20:24 Nov 7, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/* ----- fonts and colors ----- */
+body {
+	background-color:white;
+	color:black;
+	font-family:Georgia, Times New Roman, Times, New York, serif;
+}
+
+#Header, .Footer, .FooterNavigation, #Menu, .footnotes .footnotetitle, .furtherreading p, .revhistory .revdate {
+	font-family:Tahoma, Verdana, Helvetica, Geneva, sans-serif;
+}
+
+#Header, #logo, #tagline, #breadcrumb, #navigation, .Footer, #Menu p, .footnotes .footnotetitle, .furtherreading p, .revhistory .revdate {
+	color:maroon;
+}
+
+#breadcrumb, #navigation, #tagline, #Menu ul, #Menu p, .Footer p, .Footer td, .footnotes .footnotetitle, .furtherreading p, .revhistory .revdate, .NavigationArrow {
+	font-size:80%;
+}
+
+#Header #logo {
+	font-size:180%;
+}
+
+#logo, #tagline, #Menu p, .footnotes .footnotetitle, .furtherreading p, .revhistory .revdate {
+	font-weight:bold;
+}
+
+#tagline A:link, #tagline A:visited, #logo A:link, #logo A:visited {
+	color:maroon;
+	text-decoration: none;
+}
+
+/* ----- borders ----- */
+#Header, .Footer, #Menu p, .footnotes .footnotetitle, .furtherreading p, .revhistory .revdate {
+	border-style:solid;
+	border-color:maroon;
+}
+
+#Header, #Menu p, .footnotes .footnotetitle, .furtherreading p, .revhistory .revdate {
+	border-width:0px 0px 1px 0px;
+}
+
+.Footer {
+	border-width:1px 0px 0px 0px;
+}
+
+/* ----- positioning ----- */
+#Content {
+	margin-top:0px;
+	margin-right:18em;
+/* begin IE5/Win hack */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	margin-right:17em;
+}
+body>#Content {margin-right:17em;}
+/* end IE5/win hack */
+
+#Menu {
+	position:absolute;
+	top:12.6ex;
+	right:0px;
+	width:16em;
+/* begin IE5/Win hack */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	top:10ex;
+}
+body>#Menu {top:10ex}
+/* end IE5/win hack */
+
+#Menu p, #Menu ul {
+	margin-right:10px;
+}
+
+.tip, .note, .warning, .caution, .important {
+	margin-left:0.5in;
+	margin-right:0.5in;
+}
+
+/* ----- tables (of actual tabular data) ----- */
+.informaltable table {
+	margin-left:1.5em;
+	border-style:none;
+	border-width:1px 1px 1px 1px;
+}
+
+.informaltable td {
+	padding:0px 5px 2px 5px;
+	border-style:none;
+}
+
+.informaltable table .odd {
+	background:#eee;
+}
+
+/* ----- Python code syntax coloring ----- */
+.computeroutput, .traceback, .pykeyword, .pystring, .pycomment, .pyfunction, .pyclass {
+	background-color:white
+}
+
+.pykeyword, .pyfunction, .pyclass {
+	font-weight:bold
+}
+
+.computeroutput {
+	color:teal
+}
+
+.traceback {
+	color:red
+}
+
+.pykeyword {
+	color:navy;
+}
+
+.pystring {
+	color:olive
+}
+
+.pycomment {
+	color:green;
+	font-style:italic
+}
+
+.pyfunction {
+	color:teal;
+}
+
+.pyclass {
+	color:blue;
+}

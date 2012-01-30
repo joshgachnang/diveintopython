@@ -1,0 +1,627 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>7.3. Exemple : chiffres romains</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20090428134810cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/index.html" title="Chapitre 7. Expressions r&eacute;guli&egrave;res">
+      <link rel="previous" href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" title="7.2. Exemple : adresses postales">
+      <link rel="next" href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" title="7.4. Utilisation de la syntaxe {n,m}">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/regular_expressions\/roman_numerals.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "28";
+var displayMonth = "Apr";
+var displayYear = "2009";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20090428134810" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090226190041/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="26 Feb 2009"><strong>FEB</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 13:48:10 Apr 28, 2009">APR</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       May
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090226190041/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" title="19:00:41 Feb 26, 2009" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 13:48:10 Apr 28, 2009">28</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20080316200617/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="16 Mar 2008"><strong>2008</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 13:48:10 Apr 28, 2009">2009</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2010
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20090428134810*/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>24 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">19 Jun 06 - 28 Apr 09</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000001000101_2007:-1:010011000721_2008:-1:111010000101_2009:3:010100000000_2010:-1:000000000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/index.html">Expressions r&eacute;guli&egrave;res</a>&nbsp;&gt;&nbsp;<span class="thispage">Exemple : chiffres romains</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" title="Pr&eacute;c&eacute;dent: &laquo;Exemple : adresses postales&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" title="Suivant: &laquo;Utilisation de la syntaxe {n,m}&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="re.roman"></a>7.3. Exemple : chiffres romains
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#d0e17597">7.3.1. Rechercher les milliers</a></span></li>
+               <li><span class="section"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#d0e17787">7.3.2. Rechercher les centaines</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Vous avez certainement d&eacute;j&agrave; vu des chiffres romains, par exemple dans Ast&eacute;rix<sup>[<a name="d0e17345" href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#ftn.d0e17345">2</a>]</sup></p>
+         </div>
+         <p>En chiffres romains, il y a sept caract&egrave;res qui sont r&eacute;p&eacute;t&eacute;s et combin&eacute;s de diff&eacute;rentes mani&egrave;res pour repr&eacute;senter des nombres.</p>
+         <div class="itemizedlist">
+            <ul>
+               <li><tt class="literal">I</tt> = <tt class="literal">1</tt></li>
+               <li><tt class="literal">V</tt> = <tt class="literal">5</tt></li>
+               <li><tt class="literal">X</tt> = <tt class="literal">10</tt></li>
+               <li><tt class="literal">L</tt> = <tt class="literal">50</tt></li>
+               <li><tt class="literal">C</tt> = <tt class="literal">100</tt></li>
+               <li><tt class="literal">D</tt> = <tt class="literal">500</tt></li>
+               <li><tt class="literal">M</tt> = <tt class="literal">1000</tt></li>
+            </ul>
+         </div>
+         <p>Voici les r&egrave;gles g&eacute;n&eacute;rales pour construire des nombres romains :</p>
+         <div class="itemizedlist">
+            <ul>
+               <li>Les caract&egrave;res sont additifs. <tt class="literal">I</tt> est
+                            <tt class="constant">1</tt>, <tt class="literal">II</tt> est
+                            <tt class="literal">2</tt> et <tt class="literal">III</tt> est
+                            <tt class="literal">3</tt>. <tt class="literal">VI</tt> est <tt class="literal">6</tt>
+                            (litt&eacute;ralement &laquo;<span class="quote"><tt class="literal">5</tt> et
+                               <tt class="literal">1</tt></span>&raquo;), <tt class="literal">VII</tt> est
+                            <tt class="literal">7</tt> et <tt class="literal">VIII</tt> est
+                            <tt class="literal">8</tt>.
+               </li>
+               <li>Les caract&egrave;res en un (<tt class="literal">I</tt>,
+                            <tt class="literal">X</tt>, <tt class="literal">C</tt>, and
+                            <tt class="literal">M</tt>) peuvent &ecirc;tre r&eacute;p&eacute;t&eacute;s jusqu&#8217;&agrave; trois fois. A
+                            <tt class="literal">4</tt>, vous devez soustraire du prochain caract&egrave;re en
+                            cinq. Vous ne pouvez pas repr&eacute;senter <tt class="literal">4</tt> par
+                            <tt class="literal">IIII</tt>, au lieu de &ccedil;a il est repr&eacute;sent&eacute; par
+                            <tt class="literal">IV</tt> (&laquo;<span class="quote"><tt class="literal">1</tt> de moins que
+                               <tt class="literal">5</tt></span>&raquo;). <tt class="literal">40</tt> s&#8217;&eacute;crit
+                            <tt class="literal">XL</tt> (&laquo;<span class="quote"><tt class="literal">10</tt> de moins que
+                               <tt class="literal">50</tt></span>&raquo;), <tt class="literal">41</tt> s&#8217;&eacute;crit
+                            <tt class="literal">XLI</tt>, <tt class="literal">42</tt>
+                            <tt class="literal">XLII</tt>, <tt class="literal">43</tt>
+                            <tt class="literal">XLIII</tt> et <tt class="literal">44</tt>
+                            <tt class="literal">XLIV</tt> (&laquo;<span class="quote"><tt class="literal">10</tt> de moins que
+                               <tt class="literal">50</tt>, puis <tt class="literal">1</tt> de moins que
+                               <tt class="literal">5</tt></span>&raquo;).
+               </li>
+               <li>De mani&egrave;re similaire, &agrave; <tt class="literal">9</tt>, vous devez
+                            soustraire du prochain caract&egrave;re en un : <tt class="literal">8</tt> est
+                            <tt class="literal">VIII</tt> mais <tt class="literal">9</tt> est
+                            <tt class="literal">IX</tt> (&laquo;<span class="quote"><tt class="literal">1</tt> de moins que
+                               <tt class="literal">10</tt></span>&raquo;), pas <tt class="literal">VIIII</tt>
+                            (puisque le caract&egrave;re <tt class="literal">I</tt> ne peut &ecirc;tre r&eacute;p&eacute;t&eacute;
+                            quatre fois). <tt class="literal">90</tt> est <tt class="literal">XC</tt> et
+                            <tt class="literal">900</tt> <tt class="literal">CM</tt>.
+               </li>
+               <li>Les caract&egrave;res en cinq ne peuvent &ecirc;tre r&eacute;p&eacute;t&eacute;s.
+                            <tt class="literal">10</tt> est toujours repr&eacute;sent&eacute; par
+                            <tt class="literal">X</tt>, jamais par <tt class="literal">VV</tt>.
+                            <tt class="literal">100</tt> est toujours <tt class="literal">C</tt>, jamais
+                            <tt class="literal">LL</tt>.
+               </li>
+            </ul>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e17597"></a>7.3.1. Rechercher les milliers
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Qu&#8217;est-ce qui serait n&eacute;cessaire pour v&eacute;rifier qu&#8217;une cha&icirc;ne de caract&egrave;res quelconque constitue des chiffres romains valides
+               ? Nous allons op&eacute;rer caract&egrave;re par caract&egrave;re. Puisque les chiffres romains sont toujours &eacute;crits du plus grand vers le plus
+               petit, nous allons commencer par les plus grands : les milliers. Pour les nombres sup&eacute;rieurs &agrave; 1000, les milliers sont repr&eacute;sent&eacute;s
+               par une s&eacute;rie de caract&egrave;res <tt class="literal">M</tt>.
+            </p>
+            <div class="example"><a name="d0e17605"></a><h3 class="title">Exemple 7.3. Rechercher les milliers</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>       <a name="re.roman.1.1"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'M'</span>)</span>    <a name="re.roman.1.2"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 0106FB58&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MM'</span>)</span>   <a name="re.roman.1.3"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 0106C290&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMM'</span>)</span>  <a name="re.roman.1.4"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 0106AA38&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMM'</span>)</span> <a name="re.roman.1.5"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>''</span>)</span>     <a name="re.roman.1.6"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/6.png" alt="6" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 0106F4A8&gt;</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.1.1"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Ce motif a trois parties :
+                           <div class="itemizedlist">
+                              <ul>
+                                 <li><tt class="literal">^</tt> - reconna&icirc;t ce qui suit uniquement
+                                                    en d&eacute;but de cha&icirc;ne. Si ce n&#8217;&eacute;tait pas sp&eacute;cfi&eacute;, le motif
+                                                    reconna&icirc;trait les <tt class="literal">M</tt> o&ugrave; qu&#8217;ils soient, ce
+                                                    qui n&#8217;est pas ce que nous voulons. Nous voulons &ecirc;tre s&ucirc;rs que
+                                                    les <tt class="literal">M</tt>, s&#8217;il y en a dans la cha&icirc;ne, sont &agrave;
+                                                    son d&eacute;but.
+                                 </li>
+                                 <li><tt class="literal">M?</tt> - reconna&icirc;t un
+                                                    <tt class="literal">M</tt> optionnel. Comme nous le r&eacute;p&eacute;tons trois
+                                                    fois, nous reconnaissons 0 &agrave; 3 <tt class="literal">M</tt> se
+                                                    suivant.
+                                 </li>
+                                 <li><tt class="literal">$</tt> - reconna&icirc;t ce qui pr&eacute;c&egrave;de
+                                                    uniquement &agrave; la fin de la cha&icirc;ne. Lorsqu&#8217;il est combin&eacute; avec
+                                                    <tt class="literal">^</tt> en d&eacute;but de motif, cela signifie que le
+                                                    motif doit correspondre &agrave; la cha&icirc;ne enti&egrave;re, sans autres
+                                                    caract&egrave;res avant ou apr&egrave;s les <tt class="literal">M</tt>.
+                                 </li>
+                              </ul>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.1.2"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">L&#8217;essence du module <tt class="filename">re</tt> est la fonction
+                                       <tt class="function">search</tt>, qui prend une expression r&eacute;guli&egrave;re
+                                       (<tt class="varname">pattern</tt>) et une cha&icirc;ne
+                                       (<tt class="literal">'M'</tt>) qu&#8217;elle va tenter de faire correspondre.
+                                       Si une correspondance est trouv&eacute;e, <tt class="function">search</tt>
+                                       retourne un objet ayant diverses m&eacute;thodes permettant de d&eacute;crire la
+                                       correspondance, sinon, <tt class="function">search</tt> retourne
+                                       <tt class="literal">None</tt>, la valeur nulle de
+                                       <span class="application">Python</span>. Tout ce qui nous
+                                       int&eacute;resse &agrave; ce stade est de savoir si le motif est reconnu, ce que
+                                       nous pouvons dire rien qu&#8217;en regardant la valeur retourn&eacute;e par
+                                       <tt class="function">search</tt>. <tt class="literal">'M'</tt> est reconnu
+                                       par cette expression r&eacute;guli&egrave;re car le premier <tt class="literal">M</tt>
+                                       optionnel correspond et que le second et troisi&egrave;me
+                                       <tt class="literal">M</tt> sont ignor&eacute;s.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.1.3"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MM'</tt> est reconnu puisque les premier et
+                                       deuxi&egrave;me <tt class="literal">M</tt> optionnels correspondent et que le
+                                       troisi&egrave;me est ignor&eacute;.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.1.4"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MMM'</tt> est reconnu puisque les trois
+                                       <tt class="literal">M</tt> correspondent.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.1.5"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MMMM'</tt> n&#8217;est pas reconnu. Les trois
+                                       <tt class="literal">M</tt> correspondent, mais l&#8217;expression r&eacute;guli&egrave;re
+                                       pr&eacute;cise la fin de cha&icirc;ne (par le caract&egrave;re <tt class="literal">$</tt>)
+                                       et la cha&icirc;ne ne s&#8217;arr&ecirc;te pas l&agrave; (&agrave; cause du quatri&egrave;me
+                                       <tt class="literal">M</tt>). Donc <tt class="function">search</tt> retourne
+                                       <tt class="literal">None</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.1.6"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Un &eacute;l&eacute;ment int&eacute;ressant est qu&#8217;une cha&icirc;ne vide est reconnue
+                                       par l&#8217;expression r&eacute;guli&egrave;re, puisque tous les <tt class="literal">M</tt>
+                                       sont optionnels.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="fr">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e17787"></a>7.3.2. Rechercher les centaines
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Les centaines pr&eacute;sentent plus de difficult&eacute;s que les milliers car
+                     elles peuvent &ecirc;tre exprim&eacute;es de plusieurs mani&egrave;res mutuellement
+                     exclusives, en fonction de leur valeur.
+            </p>
+            <div class="itemizedlist">
+               <ul>
+                  <li><tt class="literal">100</tt> = <tt class="literal">C</tt></li>
+                  <li><tt class="literal">200</tt> = <tt class="literal">CC</tt></li>
+                  <li><tt class="literal">300</tt> = <tt class="literal">CCC</tt></li>
+                  <li><tt class="literal">400</tt> = <tt class="literal">CD</tt></li>
+                  <li><tt class="literal">500</tt> = <tt class="literal">D</tt></li>
+                  <li><tt class="literal">600</tt> = <tt class="literal">DC</tt></li>
+                  <li><tt class="literal">700</tt> = <tt class="literal">DCC</tt></li>
+                  <li><tt class="literal">800</tt> = <tt class="literal">DCCC</tt></li>
+                  <li><tt class="literal">900</tt> = <tt class="literal">CM</tt></li>
+               </ul>
+            </div>
+            <p>Il y a donc quatre motifs possibles :</p>
+            <div class="itemizedlist">
+               <ul>
+                  <li><tt class="literal">CM</tt></li>
+                  <li><tt class="literal">CD</tt></li>
+                  <li>0 &agrave; 3 <tt class="literal">C</tt> (0 si les centaines valent 0)
+                  </li>
+                  <li><tt class="literal">D</tt>, suivi de 0 &agrave; 3 <tt class="literal">C</tt></li>
+               </ul>
+            </div>
+            <p>Les deux derniers motifs peuvent &ecirc;tre combin&eacute;s en :</p>
+            <div class="itemizedlist">
+               <ul>
+                  <li>un <tt class="literal">D</tt> optionnel, suivi de 0 &agrave; 3
+                               <tt class="literal">C</tt></li>
+               </ul>
+            </div>
+            <p>L&#8217;exemple suivant montre comment valider les centaines en chiffres romains.</p>
+            <div class="example"><a name="re.roman.hundreds"></a><h3 class="title">Exemple 7.4. Rechercher les centaines</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?(CM|CD|D?C?C?C?)$'</span></span> <a name="re.roman.2.1"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCM'</span>)</span>            <a name="re.roman.2.2"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 01070390&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MD'</span>)</span>             <a name="re.roman.2.3"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 01073A50&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMCCC'</span>)</span>         <a name="re.roman.2.4"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 010748A8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMC'</span>)</span>           <a name="re.roman.2.5"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>''</span>)</span>               <a name="re.roman.2.6"></a><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/6.png" alt="6" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 01071D98&gt;</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.2.1"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Ce motif commence de la m&ecirc;me mani&egrave;re que le pr&eacute;c&eacute;dent, en
+                                       v&eacute;rifiant le d&eacute;but de cha&icirc;ne (<tt class="literal">^</tt>), puis les
+                                       milliers (<tt class="literal">M?M?M?</tt>). Ensuite vient la nouvelle
+                                       partie, entre parenth&egrave;ses, qui d&eacute;finit un ensemble de trois motifs
+                                       mutuellement exclusifs s&eacute;par&eacute;s par des barres verticales :
+                                       <tt class="literal">CM</tt>, <tt class="literal">CD</tt>, and
+                                       <tt class="literal">D?C?C?C?</tt> (qui est un <tt class="literal">D</tt>
+                                       optionnel suivi de 0 &agrave; 3 <tt class="literal">C</tt> optionnels). Le
+                                       processeur d&#8217;expressions r&eacute;guli&egrave;res teste chacun de ces motifs
+                                       dans l&#8217;ordre (de gauche &agrave; droite), prend le premier qui correspond
+                                       et ignore le reste.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.2.2"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MCM'</tt> est reconnu car le premier
+                                       <tt class="literal">M</tt> correspond, que le second et troisi&egrave;me
+                                       <tt class="literal">M</tt> sont ignor&eacute;s et que <tt class="literal">CM</tt>
+                                       correspond (et donc les motifs <tt class="literal">CD</tt> et
+                                       <tt class="literal">D?C?C?C?</tt> ne sont m&ecirc;me pas examin&eacute;s).
+                                       <tt class="literal">MCM</tt> est la repr&eacute;sentation de
+                                       <tt class="literal">1900</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.2.3"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MD'</tt> est reconnu car le premier
+                                       <tt class="literal">M</tt> correspond, les deuxi&egrave;me et troisi&egrave;me
+                                       <tt class="literal">M</tt> sont ignor&eacute;s et que le motif
+                                       <tt class="literal">D?C?C?C?</tt> reconna&icirc;t <tt class="literal">D</tt> (chacun
+                                       des trois <tt class="literal">C</tt> est optionnel et est ignor&eacute;).
+                                       <tt class="literal">MD</tt> est la repr&eacute;sentation de
+                                       <tt class="literal">1500</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.2.4"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MMMCCC'</tt> est reconnu car les trois
+                                       <tt class="literal">M</tt> correspondent et que le motif
+                                       <tt class="literal">D?C?C?C?</tt> reconna&icirc;t <tt class="literal">CCC</tt> (le
+                                       <tt class="literal">D</tt> est optionnel et est ignor&eacute;).
+                                       <tt class="literal">MMMCCC</tt> est la repr&eacute;sentation de
+                                       <tt class="literal">3300</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.2.5"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MCMC'</tt> n&#8217;est pas reconnu. Le premier
+                                       <tt class="literal">M</tt> correspond, les deuxi&egrave;me et troisi&egrave;me
+                                       <tt class="literal">M</tt> sont ignor&eacute;s et le <tt class="literal">CM</tt>
+                                       correspond, mais le <tt class="literal">$</tt> ne correspond pas car
+                                       nous ne sommes pas encore &agrave; la fin de la cha&icirc;ne (il nous reste le
+                                       caract&egrave;re <tt class="literal">C</tt> &agrave; &eacute;valuer). Le <tt class="literal">C</tt>
+                                       ne correspond <span class="emphasis"><em>pas</em></span> comme partie du motif
+                                       <tt class="literal">D?C?C?C?</tt> car le motif <tt class="literal">CM</tt> a
+                                       d&eacute;ja &eacute;t&eacute; reconnu et qu&#8217;ils sont mutuellement exclusifs.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#re.roman.2.6"><img src="http://web.archive.org/web/20090428134810im_/http://diveintopython.adrahon.org/images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Fait int&eacute;ressant, une cha&icirc;ne vide est toujours reconnue par
+                                       ce motif, car tous les <tt class="literal">M</tt> sont optionnels et
+                                       sont ignor&eacute;s et que la cha&icirc;ne vide est reconnue par le motif
+                                       <tt class="literal">D?C?C?C?</tt> dans lequel tous les caract&egrave;res sont
+                                       optionnels et sont ignor&eacute;s.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Ouf ! Vous voyez &agrave; quel point les expressions r&eacute;guli&egrave;res peuvent
+                     devenir compliqu&eacute;es ? Et nous n&#8217;avons vu que les milliers et les
+                     centaines. Heureusement, si vous avez suivi
+                     jusque l&agrave;, les dizaines sont relativement simples puisqu&#8217;elles suivent
+                     exactement le m&ecirc;me motif. Mais continuons en examinant une autre mani&egrave;re d&#8217;exprimer ce motif.
+            </p>
+         </div>
+         <div class="footnotes">
+            <h3 class="footnotetitle">Footnotes</h3>
+            <div class="footnote">
+               <p><sup>[<a name="ftn.d0e17345" href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/roman_numerals.html#d0e17345">2</a>] </sup>Note du traducteur : Je suppose que cet exemple suffit pour les lecteurs francophones.
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html">&lt;&lt;&nbsp;Exemple : adresses postales</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/index.html#re.intro" title="7.1. Plonger">1</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/street_addresses.html" title="7.2. Exemple : adresses postales">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html" title="7.4. Utilisation de la syntaxe {n,m}">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/verbose.html" title="7.5. Expressions r&eacute;guli&egrave;res d&eacute;taill&eacute;es">5</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/phone_numbers.html" title="7.6. Etude de cas : reconnaissance de num&eacute;ros de t&eacute;l&eacute;phone">6</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/summary.html" title="7.7. R&eacute;sum&eacute;">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090428134810/http://diveintopython.adrahon.org/regular_expressions/n_m_syntax.html">Utilisation de la syntaxe {n,m}&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 13:48:10 Apr 28, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:25:12 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

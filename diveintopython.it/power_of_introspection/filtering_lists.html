@@ -1,0 +1,226 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3.5.&nbsp;Filtrare le liste</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/power_of_introspection/index.html" title="Capitolo&nbsp;3.&nbsp;La potenza dell'introspezione" />
+<link rel="previous" href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr" />
+<link rel="next" href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="3.6.&nbsp;Le particolarit&agrave; degli
+operatori and e or" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html">La potenza dell'introspezione</a>&nbsp;&gt;&nbsp;<span class="thispage">Filtrare le liste</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="Indietro: “Ottenere riferimenti agli oggetti usando getattr”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="Avanti: “Le particolarit&agrave; degli
+operatori and e or”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="apihelper.filter"></a>3.5.&nbsp;Filtrare le liste
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Come gi&agrave; si &egrave; detto, <span class="application">Python</span> offre potenti strumenti
+               	per mappare delle liste in liste corrispondenti, per mezzo
+               	delle &#8220;<span class="quote">list comprehension</span>&#8221;. Queste
+               	possono essere combinate con un meccanismo di filtro,
+               	facendo in modo che alcuni elementi delle liste vengano
+               	mappati ed altri vengano ignorati completamente.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e6415"></a><h3 class="title">Esempio&nbsp;3.13.&nbsp;Sintassi per filtrare una lista</h3><pre class="programlisting">
+[<i class="replaceable"><tt>mapping-expression</tt></i><span class="pykeyword"> for</span> <i class="replaceable"><tt>element</tt></i><span class="pykeyword"> in</span> <i class="replaceable"><tt>source-list</tt></i><span class="pykeyword"> if</span> <i class="replaceable"><tt>filter-expression</tt></i>]</pre></div>
+<p>
+            	Questa &egrave; un'estensione della
+            	&#8220;<span class="quote"><a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html" title="2.13.&nbsp;Mappare le liste">list
+                  	comprehensions</a></span>&#8221; che tutti conosciamo ed amiamo.
+            	I primi due terzi sono uguali; l'ultima parte, a cominciare
+            	dalla parola chiave <tt class="literal">if</tt>, &egrave; l'espressione di filtro.
+            	Un'espressione di filtro pu&ograve; avere qualunque valore,
+            	purch&eacute; abbia come risultato un valore vero o falso (
+            	il che in <span class="application">Python</span> comprende
+            	<a href="http://it.diveintopython.net/getting_to_know_python/lists.html#tip.boolean">quasi tutto</a>). Ogni elemento
+            	per cui l'espressione di filtro risulti vera viene inclusa
+            	nella lista risultante. Tutti gli altri elementi sono
+            	ignorati, quindi non sono mai processati dall'espressione di
+            	mappatura e non sono inclusi nella lista risultante.
+            
+         </p>
+<div class="example"><a name="d0e6447"></a><h3 class="title">Esempio&nbsp;3.14.&nbsp;Introduzione alle liste filtrate</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">"a"</span>, <span class="pystring">"mpilgrim"</span>, <span class="pystring">"foo"</span>, <span class="pystring">"b"</span>, <span class="pystring">"c"</span>, <span class="pystring">"b"</span>, <span class="pystring">"d"</span>, <span class="pystring">"d"</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[elem <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li <span class="pykeyword">if</span> len(elem) &gt; 1]</span>       <a name="apihelper.filter.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['mpilgrim', 'foo']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[elem <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li <span class="pykeyword">if</span> elem != <span class="pystring">"b"</span>]</span>         <a name="apihelper.filter.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['a', 'mpilgrim', 'foo', 'c', 'd', 'd']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[elem <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li <span class="pykeyword">if</span> li.count(elem) == 1]</span> <a name="apihelper.filter.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['a', 'mpilgrim', 'foo', 'c']</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html#apihelper.filter.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	L'espressione di mappatura in questo caso &egrave; semplice
+                        	(restituisce il valore di ogni elemento), perci&ograve;
+                        	concentriamoci sull'espressione di filtro; <span class="application">Python</span> esegue
+                        	un ciclo sulla lista e ciascun elemento attraversa
+                        	l'espressione di filtro. Se l'espressione di filtro &egrave;
+                        	vera, l'elemento viene mappato ed il risultato
+                        	dell'espressione di mappatura &egrave; incluso nella lista
+                        	risultante. In questo caso si vogliono eliminare tutte le
+                        	stringhe di un carattere, per ottenere solo le
+                        	stringhe pi&ugrave; lunghe.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html#apihelper.filter.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Qui stiamo filtrando per eliminare uno specifico valore,
+                        	<tt class="literal">b</tt>. Da notare che questo filtra tutte le
+                        	occorrenze di <tt class="literal">b</tt>, dato che ogni volta che
+                        	appare tale valore l'espressione di filtro risulta falsa.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/power_of_introspection/filtering_lists.html#apihelper.filter.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La funzione <tt class="function">count</tt> &egrave; un metodo che restituisce il numero di
+                        	volte che un valore &egrave; presente in una lista. Si potrebbe
+                        	pensare che un tale filtro elimini i duplicati da una lista,
+                        	restituendo una lista che contenga solo una copia di ogni
+                        	valore della lista originale. Ma non &egrave; cos&igrave;,
+                        	perch&eacute; i valori che appaiono due volte nella lista
+                        	originale (in questo caso <tt class="literal">b</tt> e
+                        	<tt class="literal">d</tt>)vengono esclusi completamente. Ci sono
+                        	modi per eliminare i duplicati da una lista, ma filtrare la
+                        	lista non &egrave; tra questi.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="apihelper.filter.care"></a><h3 class="title">Esempio&nbsp;3.15.&nbsp;Filtrare una lista in <tt class="filename">apihelper.py</tt></h3><pre class="programlisting">
+    methodList = [method <span class="pykeyword">for</span> method <span class="pykeyword">in</span> dir(object) <span class="pykeyword">if</span> callable(getattr(object, method))]</pre></div>
+<p>
+            	Questo appare complicato ed in effetti lo &egrave;, ma la
+            	struttura di base &egrave; la stessa. L'intera espressione
+            	di filtro restituisce una lista che viene assegnata alla
+            	variabile <tt class="varname">methodList</tt>. La prima met&agrave;
+            	dell'espressione &egrave; la componente di mappatura.
+            	L'espressione di mappatura &egrave; un'espressione di
+            	uguaglianza; restituisce il valore di ciascun elemento.
+            	L'espressione
+            	<tt class="literal"></tt><tt class="function">dir</tt>(<tt class="varname">object</tt>)
+            	restituisce una lista di attributi e metodi
+            	di <tt class="varname">object</tt>; questa &egrave; la lista
+            	che stiamo mappando. Quindi, l'unica parte veramente nuova
+            	&egrave; l'espressione di filtro che segue la parola chiave
+            	<tt class="literal">if</tt>.
+            
+         </p>
+<p>
+            	L'espressione di filtro spaventa un po', ma solo a prima
+            	vista. Si &egrave; gi&agrave; detto dei metodi
+            	<a href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html#apihelper.builtin.callable" title="Esempio&nbsp;3.9.&nbsp;Introduzione a callable"><tt class="function">callable</tt></a>,
+            	<a href="http://it.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.intro" title="Esempio&nbsp;3.11.&nbsp;Introduzione a getattr"><tt class="function">getattr</tt></a>, e di
+            	<a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuplemethods" title="Esempio&nbsp;2.24.&nbsp;Le tuple non hanno metodi"><tt class="literal">in</tt></a>.
+            	Come si &egrave; visto nella
+            	<a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr">sezione precedente</a>,
+            	l'espressione <tt class="literal">getattr(object, method)</tt>
+            	restituisce una funzione se <tt class="varname">object</tt> &egrave;
+            	un modulo e <tt class="varname">method</tt> &egrave; il nome di una
+            	funzione del modulo.
+            
+         </p>
+<p>
+            	Quindi questa espressione prende un oggetto che abbia un
+            	nome, ne estrae la lista dei nomi degli attributi, dei
+            	metodi, delle funzioni e di qualche altra cosa, quindi
+            	filtra la lista per eliminare tutto ci&ograve; che non ci
+            	interessa. La scrematura della lista viene fatta partendo
+            	dal nome di ogni attributo/funzione/metodo ed ottenendo un
+            	riferimento all'oggetto corrispondente, attraverso la funzione
+            	<tt class="function">getattr</tt>. Quindi si controlla se l'oggetto &egrave;
+            	invocabile, come &egrave; il caso per i metodi e le funzioni,
+            	sia quelle built-in (come il metodo <tt class="function">pop</tt>  di una lista) sia
+            	quelle definite dall'utente (come la funzione
+            	<tt class="function">buildConnectionString</tt> del modulo <tt class="filename">odbchelper</tt>).
+            	Si scartano gli altri attributi, come l'attributo <tt class="literal">__name__</tt>
+            	che &egrave; in ogni modulo.
+            
+         </p>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> tratta di un altro modo di filtrare le liste
+                  <a href="http://it.diveintopython.net/doc/current/tut/node7.html#SECTION007130000000000000000">usando
+                     la funzione built-in <tt class="function">filter</tt></a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/getattr.html">&lt;&lt;&nbsp;Ottenere riferimenti agli oggetti usando getattr</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html#apihelper.divein" title="3.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/built_in_functions.html" title="3.3.&nbsp;type, str, dir, ed altre funzioni built-in">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/and_or.html" title="3.6.&nbsp;Le particolarit&agrave; degli
+operatori and e or">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/all_together.html" title="3.8.&nbsp;Unire il tutto">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/power_of_introspection/summary.html" title="3.9.&nbsp;Sommario">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/and_or.html">Le particolarit&agrave; degli
+                  operatori and e or&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

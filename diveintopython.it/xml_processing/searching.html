@@ -1,0 +1,246 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.5.&nbsp;Ricercare elementi</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Ricercare elementi</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/unicode.html" title="Indietro: “Unicode”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/attributes.html" title="Avanti: “Accedere agli attributi di un elemento”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.search"></a>6.5.&nbsp;Ricercare elementi
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+                       Attraversare documenti <span class="acronym">XML</span> passando da un nodo all'altro
+               	pu&ograve; essere noioso. Se state cercando qualcosa in particolare,
+               	bene in profondit&agrave; nel vostro documento <span class="acronym">XML</span>, c'&egrave; una
+               	scorciatoia che potete usare per trovarlo pi&ugrave; velocemente:
+               	<tt class="function">getElementsByTagName</tt>.
+               
+            </p>
+</div>
+<p>
+                    Per questa sezione, useremo il file di grammatica 
+            	<tt class="filename">binary.xml</tt>, che si presenta come segue:
+            
+         </p>
+<div class="example"><a name="d0e18567"></a><h3 class="title">Esempio&nbsp;6.19.&nbsp;<tt class="filename">binary.xml</tt></h3><pre class="screen"><span class="computeroutput">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE grammar PUBLIC "-//diveintopython.org//DTD Kant Generator Pro v1.0//EN" "kgp.dtd"&gt;
+&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span></pre></div>
+<p>
+                    Ha due <tt class="sgmltag-element">ref</tt>, <tt class="literal">'bit'</tt> e 
+            	<tt class="literal">'byte'</tt>.  Un <tt class="literal">bit</tt> pu&ograve; 
+            	essere uno <tt class="literal">'0'</tt> od un <tt class="literal">'1'</tt>
+            	ed un <tt class="literal">byte</tt> &egrave; composto da 8 
+            	<tt class="literal">bit</tt>.
+            
+         </p>
+<div class="example"><a name="d0e18600"></a><h3 class="title">Esempio&nbsp;6.20.&nbsp;Introduzione a <tt class="function">getElementsByTagName</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class="pystring">'binary.xml'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">reflist = xmldoc.getElementsByTagName(<span class="pystring">'ref'</span>)</span> <a name="kgp.search.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">reflist</span>
+<span class="computeroutput">[&lt;DOM Element: ref at 136138108&gt;, &lt;DOM Element: ref at 136144292&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> reflist[0].toxml()</span>
+<span class="computeroutput">&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> reflist[1].toxml()</span>
+<span class="computeroutput">&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/searching.html#kgp.search.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">getElementsByTagName</tt>  prende un argomento, il 
+                        	nome dell'elemento che volete trovare. Ritorna una lista di 
+                        	oggetti di tipo <tt class="classname">Element</tt>, corrispondenti agli
+                        	elementi <span class="acronym">XML</span> che hanno quel nome. In questo caso, troviamo 
+                        	due elementi <tt class="literal">ref</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e18663"></a><h3 class="title">Esempio&nbsp;6.21.&nbsp;Ogni elemento &egrave; ricercabile</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">firstref = reflist[0]</span>                      <a name="kgp.search.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> firstref.toxml()</span>
+<span class="computeroutput">&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist = firstref.getElementsByTagName(<span class="pystring">"p"</span>)</span> <a name="kgp.search.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist</span>
+<span class="computeroutput">[&lt;DOM Element: p at 136140116&gt;, &lt;DOM Element: p at 136142172&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> plist[0].toxml()</span>                     <a name="kgp.search.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;p&gt;0&lt;/p&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> plist[1].toxml()</span>
+<span class="computeroutput">&lt;p&gt;1&lt;/p&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/searching.html#kgp.search.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Continuando dall'esempio precedente, il primo oggetto nella 
+                        	nostra <tt class="varname">lista di ref</tt> &egrave; il <tt class="sgmltag-element">ref</tt> 
+                        	associato a <tt class="literal">'bit'</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/searching.html#kgp.search.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Possiamo usare lo stesso metodo
+                        	<tt class="function">getElementsByTagName</tt> su questo oggetto
+                        	<tt class="classname">Element</tt> per trovare tutti gli elementi
+                        	<tt class="sgmltag-element">&lt;p&gt;</tt> all'interno dell'elemento
+                        	<tt class="sgmltag-element">ref</tt> associato a <tt class="literal">'bit'</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/searching.html#kgp.search.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Proprio come prima, il metodo
+                        	<tt class="function">getElementsByTagName</tt> restituisce una lista con
+                        	tutti gli elementi trovati. In questo caso, ne abbiamo due,
+                        	uno per ogni bit.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e18752"></a><h3 class="title">Esempio&nbsp;6.22.&nbsp;La ricerca &egrave; ricorsiva</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist = xmldoc.getElementsByTagName(<span class="pystring">"p"</span>)</span> <a name="kgp.search.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist</span>
+<span class="computeroutput">[&lt;DOM Element: p at 136140116&gt;, &lt;DOM Element: p at 136142172&gt;, &lt;DOM Element: p at 136146124&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist[0].toxml()</span>                         <a name="kgp.search.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'&lt;p&gt;0&lt;/p&gt;'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist[1].toxml()</span>
+<span class="computeroutput">'&lt;p&gt;1&lt;/p&gt;'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist[2].toxml()</span>                         <a name="kgp.search.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'&lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/searching.html#kgp.search.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Notate attentamente la differenza tra questo esempio ed il
+                        	precedente. Precedentemente, stavamo cercando gli elementi
+                        	<tt class="sgmltag-element">p</tt> in <tt class="varname">firstref</tt>, qui
+                                stiamo cercando gli elementi <tt class="sgmltag-element">p</tt> in
+                        	<tt class="varname">xmldoc</tt>, cio&egrave; l'oggetto radice che
+                        	rappresenta l'intero documento <span class="acronym">XML</span>. In <span class="emphasis"><em>questo
+                              	modo</em></span> trova tutti gli elementi <tt class="sgmltag-element">p</tt> annidati
+                                negli elementi <tt class="sgmltag-element">ref</tt> all'interno del nodo radice
+                                <tt class="sgmltag-element">grammar</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/searching.html#kgp.search.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                I primi due elementi <tt class="sgmltag-element">p</tt> sono all'interno del primo 
+                                <tt class="sgmltag-element">ref</tt> (il <tt class="sgmltag-element">ref</tt> associato a 
+                                <tt class="literal">'bit'</tt>).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/searching.html#kgp.search.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                 L'ultimo elemento <tt class="sgmltag-element">p</tt> &egrave; quello all'interno del 
+                                 secondo <tt class="sgmltag-element">ref</tt> (il <tt class="sgmltag-element">ref</tt> associato a 
+                                 <tt class="literal">'byte'</tt>).
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/unicode.html">&lt;&lt;&nbsp;Unicode</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/attributes.html">Accedere agli attributi di un elemento&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

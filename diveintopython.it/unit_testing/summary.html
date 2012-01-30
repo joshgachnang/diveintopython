@@ -1,0 +1,197 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.15.&nbsp;Sommario</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto" />
+<link rel="next" href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">Sommario</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/postscript.html" title="Indietro: “Postscritto”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html" title="Avanti: “Programmazione orientata ai dati”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.summary"></a>7.15.&nbsp;Sommario
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Il test delle unit&agrave; di codice &egrave; un concetto forte che, se
+               	opportunamente implementato, pu&ograve; ridurre sia i costi di
+               	manutenzione che aumentare la flessibilit&agrave; in ogni progetto
+               	a lungo termine. &Egrave; per&ograve; anche importante capire che i test
+               	delle unit&agrave; di codice non sono una panacea, una bacchetta magica
+               	che risolve tutti i problemi, o una pallottola d'argento.
+               	Scrivere dei buoni test &egrave; difficile, e mantenerli aggiornati
+               	richiede disciplina (specialmente quando i clienti vi stanno
+               	chiedendo a gran voce la soluzione di qualche problema
+               	critico nel software). I test delle unit&agrave; di codice non sono un
+               	sostituto per le altre forme di verifica del codice, tra cui
+               	i test funzionali, i test di integrazione e i test di
+               	accettazione. Rappresentano tuttavia una pratica realizzabile,
+               	e funzionano, ed una volta che li avrete provati vi chiederete
+               	come avete fatto ad andare avanti senza di loro.
+               
+            </p>
+</div>
+<p>
+            	Questo capitolo ha trattato di un mucchio di cose e molte di
+            	esse non erano specifiche di <span class="application">Python</span>. Ci sono infrastrutture
+            	per i test delle unit&agrave; di codice in molti linguaggi, ciascuna
+            	delle quali richiede che si capiscano gli stessi concetti di
+            	base:
+            
+         </p>
+<div class="highlights">
+<div class="itemizedlist">
+<ul>
+<li>
+                     	Progettare test che siano specifici, automatici ed indipendenti
+                     
+                  </li>
+<li>
+                     	Scrivere i test <span class="emphasis"><em>prima</em></span>
+                     	di scrivere il codice da verificare
+                     
+                  </li>
+<li>
+                     	Scrivere test che usano
+                     	<a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">input validi</a>
+                     	e controllano la correttezza del risultato
+                     
+                  </li>
+<li>
+                     	Scrivere test che usano
+                     	<a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">input non validi</a> e
+                     	controllano che il programma fallisca nel modo atteso
+                     
+                  </li>
+<li>
+                     	Scrivere nuovi test e tenere aggiornati quelli esistenti per
+                     	<a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">documentare i bachi</a> trovati
+                     	o per <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">verificare
+                        	l'implementazione di nuovi requisiti</a>
+</li>
+<li>
+<a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">Rifattorizzare</a> senza
+                     	rimorsi per migliorare prestazioni, scalabilit&agrave;, leggibilit&agrave;,
+                     	manutenibilit&agrave;, o qualunque altra &#8220;<span class="quote">-it&agrave;</span>&#8221; sia
+                     	necessaria
+                     
+                  </li>
+</ul>
+</div>
+</div>
+<p>
+            	In aggiunta, dovreste ora essere a vostro agio nell'eseguire
+            	una delle seguenti attivit&agrave; specifiche di <span class="application">Python</span>:
+            
+         </p>
+<div class="highlights">
+<div class="itemizedlist">
+<ul>
+<li>
+<a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Esempio&nbsp;7.2.&nbsp;testToRomanKnownValues">Derivare una
+                        	nuova classe, <tt class="literal">unittest.TestCase</tt></a> 
+                     	e scrivere metodi per i singoli test
+                     
+                  </li>
+<li>
+                     	Usare
+                     <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Esempio&nbsp;7.2.&nbsp;testToRomanKnownValues"><tt class="function">assertEqual</tt></a>
+                     	per verificare che una funzione restituisca il valore atteso
+                     
+                  </li>
+<li>
+                     	Usare
+                     	<a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html#roman.tobadinput.example" title="Esempio&nbsp;7.3.&nbsp;Verificare la funzione toRoman con input non validi"><tt class="function">assertRaises</tt></a>
+                     	per verificare che una funzione sollevi l'eccezione attesa
+                     
+                  </li>
+<li>
+                     	Chiamare
+                     <a href="http://it.diveintopython.net/unit_testing/stage_1.html#roman.stage1.output" title="Esempio&nbsp;7.8.&nbsp;Output del modulo romantest1.py eseguito su roman1.py"><tt class="literal">unittest.main()</tt></a>
+                     	nella vostra clausola <tt class="literal">if __name__</tt> per
+                     	eseguire tutti i test in una sola volta
+                     
+                  </li>
+<li>
+                     	Eseguire i test sia in modalit&agrave;
+                     	<a href="http://it.diveintopython.net/unit_testing/stage_1.html#roman.stage1.output" title="Esempio&nbsp;7.8.&nbsp;Output del modulo romantest1.py eseguito su roman1.py">prolissa</a>
+                     	che in modalit&agrave;
+                     	<a href="http://it.diveintopython.net/unit_testing/refactoring.html#roman.stage8.1.output" title="Esempio&nbsp;7.33.&nbsp;Output di romantest81.py a fronte di roman81.py">normale</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/">XProgramming.com</a> include riferimenti utili a
+                  <a href="http://it.diveintopython.net/software.htm">scaricare infrastrutture per i test delle unit&agrave;
+                     di codice</a> per molti differenti linguaggi.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/postscript.html">&lt;&lt;&nbsp;Postscritto</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <span class="thispage">15</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/index.html">Programmazione orientata ai dati&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

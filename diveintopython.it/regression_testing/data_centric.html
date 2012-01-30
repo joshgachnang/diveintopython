@@ -1,0 +1,191 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>8.5.&nbsp;Programmazione data-centrica</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati" />
+<link rel="previous" href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="8.4.&nbsp;Rivisitazione della mappatura delle liste" />
+<link rel="next" href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="8.6.&nbsp;Importare dinamicamente i moduli" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html">Programmazione orientata ai dati</a>&nbsp;&gt;&nbsp;<span class="thispage">Programmazione data-centrica</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="Indietro: “Rivisitazione della mappatura delle liste”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="Avanti: “Importare dinamicamente i moduli”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="regression.datacentric"></a>8.5.&nbsp;Programmazione data-centrica
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Per adesso probabilmente vi starete grattando la testa
+               	chiedendovi perch&eacute; questo modo di fare sia migliore
+               	rispetto all'usare un ciclo <tt class="literal">for</tt> e chiamate dirette a
+               	funzioni.
+               	Ed &egrave; una domanda perfettamente legittima. &Egrave; principalmente
+               	una questione di prospettiva. Usare <tt class="function">map</tt> e
+               	<tt class="function">filter</tt> vi obbliga a focalizzare l'attenzione
+               	sui dati.
+               
+            </p>
+</div>
+<p>
+            	In questo caso abbiamo cominciato senza nessun dato;
+            	la prima cosa che abbiamo fatto &egrave; stata
+            	<a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso">ottenere la directory
+               	</a> dello script in esecuzione e una lista di
+            	files in questa directory. Questo &egrave; stato il nostro
+            	punto di partenza che ci ha fornito dei dati veri
+            	su cui lavorare: una lista di nomi di files.
+            
+         </p>
+<p>
+            	Comunque, sapevamo di non doverci occupare di tutti
+            	quei files, ma solo di quelli che sono configurazioni
+            	di test. Avevamo <span class="emphasis"><em>troppi dati</em></span>
+            	e dovevamo <tt class="literal">filtrarli</tt>.
+            	Come potevamo sapere quali dati scegliere?
+            	Avevamo bisogno di un test per decidere, quindi ne
+            	abbiamo definito uno e lo abbiamo passato alla
+            	funzione <tt class="function">filter</tt>.
+            	In questo caso abbiamo usato una
+            	espressione regolare per decidere, ma il concetto
+            	rimane lo stesso indipendentemente dal modo in cui
+            	strutturiamo il test.
+            
+         </p>
+<p>
+            	A questo punto avevamo i nomi dei files di ogni
+            	configurazione di test (e solo le configurazioni
+            	di test, visto che ogni altra cosa era stata
+            	esclusa dal filtro), ma in realt&agrave; volevamo il
+            	nome dei moduli. Avevamo le informazioni giuste
+            	ma nel <span class="emphasis"><em>formato sbagliato</em></span>.
+            	Abbiamo quindi definito
+            	una funzione per trasformare ogni nome di file in
+            	un nome di modulo ed abbiamo mappato la funzione
+            	sull'intera lista. Da un nome di file, possiamo
+            	avere un nome di modulo; da una lista di nomi di
+            	file, possiamo avere una lista di nomi di moduli.
+            
+         </p>
+<p>
+            	Al posto di un <tt class="literal">filtro</tt>, potevamo
+            	usare un ciclo <tt class="literal">for</tt> con una condizione <tt class="literal">if</tt>.
+            	Invece di <tt class="function">map</tt>, potevamo usare un
+            	ciclo <tt class="literal">for</tt> con una chiamata a funzione.
+            	Per&ograve; usare un ciclo <tt class="literal">for</tt> come questi &egrave; laborioso.
+            	Nel caso migliore, &egrave; una semplice
+            	perdita di tempo; nel caso peggiore, pu&ograve; introdurre bugs
+            	misteriosi. Per esempio, dovremo in ogni caso inventare
+            	un modo per decidere &#8220;<span class="quote">questo file &egrave; una
+               	configurazione di test?</span>&#8221;; questa &egrave; la logica
+            	specifica della nostra applicazione, e nessun linguaggio
+            	pu&ograve; scriverla per noi.
+            	Ma una volta trovata, dobbiamo davvero crearci il problema
+            	di definire una lista vuota, scrivere un ciclo <tt class="literal">for</tt>,
+            	impostare un <tt class="literal">if</tt>, <tt class="function">aggiungere</tt> a
+            	mano alla nuova lista ogni elemento che ha passato il
+            	test e tenere traccia di quale variabile contiene i nuovi
+            	dati filtrati e quale contiene i vecchi dati integri?
+            	Perch&eacute; non definire la condizione di test e poi lasciare
+            	che <span class="application">Python</span> faccia il resto del lavoro per noi?
+            
+         </p>
+<p>
+            	Certamente, potevate tentare di essere fantasiosi
+            	e cancellare gli elementi sul posto senza creare
+            	una nuova lista. Ma sareste stati bruciati da questo
+            	metodo ancora prima di cominciare. Cercare di modificare
+            	una struttura di dati sulla quale state iterando pu&ograve;
+            	essere rischioso. Cancellate un elemento, andate
+            	all'elemento successivo e ne avete appena saltato uno.
+            	Ma <span class="application">Python</span> &egrave; un linguaggio che lavora in questo
+            	modo? Quanto tempo ci avete messo per capirlo?
+            	I programmatori sprecano troppo tempo e fanno troppi
+            	errori connessi a questioni puramente tecniche come
+            	questa, e questo non ha nessun senso. Non migliora per
+            	niente il vostro programma; &egrave; solo spreco di energie.
+            
+         </p>
+<p>
+            	Io ho resistito alla list comprehension quando ho
+            	iniziato ad imparare <span class="application">Python</span>, ed ho resistito a
+            	<tt class="function">filter</tt> e <tt class="function">map</tt> ancora pi&ugrave; a lungo.
+            	Ho insistito per
+            	rendermi la vita pi&ugrave; difficile, ancorandomi ai
+            	familiari cicli <tt class="literal">for</tt> ed <tt class="literal">if</tt> di una programmazione
+            	incentrata sul codice. Ed i miei programmi in
+            	<span class="application">Python</span> sembravano scritti in <span class="application">Visual Basic</span>,
+            	descrivendo ogni passo di ogni operazione in ogni
+            	funzione. Avevano lo stesso tipo di piccoli
+            	problemi e bugs oscuri. E questo non aveva senso.
+            
+         </p>
+<p>
+            	Lasciamo andare tutto. Il codice laborioso non &egrave;
+            	importante. I dati sono importanti. Ed i dati non
+            	sono difficili. Sono solo dati. Se sono troppi, li
+            	filtriamo. Se non sono quelli che vogliamo, li
+            	mappiamo. Concentratevi sui dati; lasciatevi alle
+            	spalle i lavori inutili.
+            
+         </p>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/mapping_lists.html">&lt;&lt;&nbsp;Rivisitazione della mappatura delle liste</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/regression_testing/index.html#regression.divein" title="8.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/finding_the_path.html" title="8.2.&nbsp;Trovare il percorso">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/filtering_lists.html" title="8.3.&nbsp;Filtrare liste rivisitate">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/mapping_lists.html" title="8.4.&nbsp;Rivisitazione della mappatura delle liste">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/dynamic_import.html" title="8.6.&nbsp;Importare dinamicamente i moduli">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/all_together_part_1.html" title="8.7.&nbsp;Mettere assieme il tutto (parte 1)">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/regression_testing/inside_pyunit.html" title="8.8.&nbsp;Dentro PyUnit">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/regression_testing/dynamic_import.html">Importare dinamicamente i moduli&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

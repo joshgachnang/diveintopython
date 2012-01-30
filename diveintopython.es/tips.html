@@ -1,0 +1,130 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ap&eacute;ndice C. Trucos y consejos</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/toc.html" title="Inmersi&oacute;n en Python" /><link rel="previous" href="http://es.diveintopython.net/abstracts.html" title="Ap&eacute;ndice B. Repaso en cinco minutos" /><link rel="next" href="http://es.diveintopython.net/examples.html" title="Ap&eacute;ndice D. Lista de ejemplos" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<b>Trucos y consejos</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/abstracts.html" title="Anterior: “Repaso en cinco minutos”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/examples.html" title="Siguiente: “Lista de ejemplos”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="appendix"><div class="titlepage"><div><h2 class="title"><a name="tips"></a>Ap&eacute;ndice C. Trucos y consejos</h2></div></div><p><a href="http://es.diveintopython.net/odbchelper_divein.html">Cap&iacute;tulo 1. Conozcamos Python</a></p><ul><li><a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein">1.1. Inmersi&oacute;n</a><a name="tip.run.windows"></a><table class="tip" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/tip.png" alt="Sugerencia" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En el entorno de programaci&oacute;n Python en Windows, puede ejecutar un m&oacute;dulo con
+File-&gt;Run... (<b>Control-R</b>).  La salida se muestra en la ventana interactiva.</td></tr></table><a name="tip.run.mac"></a><table class="tip" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/tip.png" alt="Sugerencia" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En el entorno de programaci&oacute;n Python en Mac OS, puede ejecutar un m&oacute;dulo con
+Python-&gt;Run window... (<b>Cmd-R</b>), pero antes debe seleccionar una opci&oacute;n importante: Abra
+el m&oacute;dulo en el entorno de programaci&oacute;n, muestre el men&uacute; de opciones de m&oacute;dulo pulsando
+el tri&aacute;ngulo negro de la esquina superior derecha de la ventana, y
+aseg&uacute;rese de que &#8220;Run as
+__main__&#8221; est&aacute; seleccionado. Esta
+opci&oacute;n se guarda junto con el m&oacute;dulo, de modo que s&oacute;lo debe hacer esto
+una vez por cada m&oacute;dulo.</td></tr></table><a name="tip.run.unix"></a><table class="tip" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/tip.png" alt="Sugerencia" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En los sistemas compatibles con UNIX (incluido Mac OS X),
+puede ejecutar un m&oacute;dulo desde la l&iacute;nea de &oacute;rdenes: 
+<b><tt>python </tt><tt>odbchelper.py</tt></b></td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_funcdef.html">1.2. Declaraci&oacute;n de funciones</a><a name="compare.funcdef.vb"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En Visual Basic, las funciones (que devuelven un valor) empiezan con
+<tt>function</tt>, y las subrutinas (que no devuelven un
+valor) empiezan con <tt>sub</tt>. En Python no hay
+subrutinas. Todo son funciones, todas las funciones devuelven un valor
+(incluso si este es <tt>None</tt>), y todas las funciones empiezan con
+<tt>def</tt>.</td></tr></table><a name="compare.funcdef.java"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En Java, C++ y otros lenguajes de tipos est&aacute;ticos, se debe
+especificar el tipo de valor de retorno de una funci&oacute;n y de cada
+argumento. En Python, nunca se especifica expl&iacute;citamente el tipo de
+nada. Seg&uacute;n el valor que se le asigne, Python almacena el tipo de
+dato internamente.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_docstring.html">1.3. Documentaci&oacute;n de funciones</a><a name="compare.quoting.perl"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Las triples comillas son tambi&eacute;n una forma f&aacute;cil de definir una
+cadena que incluya comillas simples y dobles, como
+<tt>qq/.../</tt> en Perl.</td></tr></table><a name="tip.docstring"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Muchos entornos de programaci&oacute;n de Python utilizan la cadena de documentaci&oacute;n para
+proporcionar ayuda sensible al contexto, de modo que cuando se escribe
+el nombre de una funci&oacute;n, su cadena de documentaci&oacute;n se muestra como ayuda. Esto
+puede ser incre&iacute;blemente &uacute;til, pero s&oacute;lo es tan bueno como lo sean las
+cadenas de documentaci&oacute;n que se escriban.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_objects.html">1.4. Todo es un objeto</a><a name="compare.import.perl"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top"><tt>import</tt> en Python es como <tt>require</tt> en Perl. Cuando se ha
+importado un m&oacute;dulo en Python, se puede acceder a sus funciones con
+<tt><i>m&oacute;dulo</i>.<i>funci&oacute;n</i></tt>;
+cuando se ha requerido un m&oacute;dulo en Perl, se puede acceder a sus
+funciones con
+<tt><i>m&oacute;dulo</i>::<i>funci&oacute;n</i></tt>.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_indenting.html">1.5. Sangrado del c&oacute;digo</a><a name="compare.lineend.java"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Python usa el retorno de carro para separar sentencias y los
+dos puntos y el sangrado para separar bloques de c&oacute;digo. C++ y
+Java usan el punto y coma para separar sentencias y las llaves para
+separar bloques de c&oacute;digo.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_testing.html">1.6. Prueba de m&oacute;dulos</a><a name="compare.equals.c"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Al igual que C, Python usa <tt>==</tt> para comparar
+y <tt>=</tt> para asignar. Pero a diferencia de C, Python
+no admite la asignaci&oacute;n en l&iacute;nea, de modo que no hay posibilidad de
+asignar accidentalmente el valor con el que se piensa que se est&aacute;
+comparando.</td></tr></table><a name="tip.mac.runasmain"></a><table class="tip" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/tip.png" alt="Sugerencia" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En MacPython, hay que a&ntilde;adir un paso m&aacute;s para que funcione el
+truco <tt>if</tt> <tt>__name__</tt>. Mostrar el men&uacute; de opciones del m&oacute;dulo pulsando en
+el tri&aacute;ngulo negro de la esquina superior derecha de la ventana, y 
+asegurarse de que Run as
+__main__ est&aacute; seleccionado.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_dict.html">1.7. Todo sobre los diccionarios</a><a name="compare.dict.perl"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Un diccionario en Python es como un hash en Perl. En Perl,
+las variables que almacenan hashes comienzan siempre por el car&aacute;cter
+<tt>%</tt>; en Python, las variables pueden tener
+cualquier nombre, y Python guarda internamente el tipo de
+dato.</td></tr></table><a name="compare.dict.java"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Un diccionario en Python es como una instancia de la clase
+<tt>Hashtable</tt> en Java.</td></tr></table><a name="compare.dict.vb"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Un diccionario en Python es como una instancia del objeto
+<tt>Scripting.Dictionary</tt> en Visual Basic.</td></tr></table><a name="tip.dictorder"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Los diccionarios no tienen concepto alguno de orden entre sus
+elementos. Es incorrecto decir que los elementos est&aacute;n
+&#8220;desordenados&#8221;; simplemente no hay orden. Esta distinci&oacute;n
+es importante, y le estorbar&aacute; cuando intente acceder a los elementos
+de un diccionario en un orden espec&iacute;fico y repetible (como el orden
+alfab&eacute;tico de las claves). Hay formas de hacer esto, s&oacute;lo que no
+forman parte de los diccionarios.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_list.html">1.8. Todo sobre las listas</a><a name="compare.list.perl"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Una lista en Python es como un array en Perl. En Perl, las
+variables que almacenan arrays comienzan siempre con el car&aacute;cter
+<tt>@</tt>; en Python, las variables pueden llamarse de
+cualquier modo, y Python lleva el registro del tipo de datos
+internamente. </td></tr></table><a name="compare.list.java"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Una lista en Python es muy parecida a un array en Java
+(aunque se puede usar de ese modo si eso es todo lo que se espera en
+la vida). Se puede comparar mejor con la clase
+<tt>Vector</tt>, que puede guardar objetos arbitrarios y
+expandirse din&aacute;micamente al a&ntilde;adir nuevos elementos. </td></tr></table><a name="tip.boolean"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">No hay un tipo booleano en Python. En un contexto booleano
+(como una sentencia <tt>if</tt>), <tt>0</tt> es falso y el resto de los n&uacute;meros
+son verdaderos. Esto se extiende tambi&eacute;n a otros tipos de datos. Una
+cadena vac&iacute;a (<tt>""</tt>), una lista vac&iacute;a
+(<tt>[]</tt>) y un diccionario vac&iacute;o (<tt>{}</tt>)
+son todos falsos; el resto de cadenas, listas y diccionarios son
+verdaderos.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_tuple.html">1.9. Todo sobre las tuplas</a><a name="tip.tuple"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Las tuplas pueden convertirse en listas, y viceversa. La funci&oacute;n
+incorporada <tt>tuple</tt> toma una lista y devuelve una tupla con los mismos
+elementos, y la funci&oacute;n <tt>list</tt> toma  una tupla y devuelve una lista.
+En la pr&aacute;ctica, <tt>tuple</tt> congela una lista, y <tt>list</tt> descongela una
+tupla.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_vardef.html">1.10. Definici&oacute;n de variables</a><a name="tip.multiline"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Cuando una orden se extiende a lo largo de varias l&iacute;neas con la
+marca de continuaci&oacute;n de l&iacute;nea (&#8220;<tt>\</tt>&#8221;),
+las l&iacute;neas que siguen pueden sangrarse de cualquier modo; las severas
+normas de sangradeo de Python no se aplican. Si entorno de programaci&oacute;n Python
+sangra autom&aacute;ticamente las l&iacute;neas que contin&uacute;an, debe usted aceptar
+probablemente el valor por omisi&oacute;n a no ser que tenga una buena
+raz&oacute;n.</td></tr></table><a name="tip.implicitmultiline"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Para ser exactos, las expresiones entre par&eacute;ntesis, corchetes o
+llaves (como <a href="http://es.diveintopython.net/odbchelper_vardef.html#myparamsdef" title="Ejemplo 1.24. Definici&oacute;n de la variable myParams">la definici&oacute;n de un
+diccionario</a>) pueden extenderse a varias l&iacute;neas con la marca de
+continuaci&oacute;n (&#8220;<tt>\</tt>&#8221;) o sin ella. Yo
+prefiero incluir la contrabarra incluso cuando no es imprescindible,
+porque creo que hace el c&oacute;digo m&aacute;s legible, pero esto es cuesti&oacute;n de
+estilo.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_stringformatting.html">1.12. Formato de cadenas</a><a name="compare.stringformatting.c"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">El formato de cadenas en Python utiliza la misma sintaxis que
+la funci&oacute;n <tt>sprintf</tt> en C.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/odbchelper_join.html">1.14. Uni&oacute;n y divisi&oacute;n de cadenas</a><a name="tip.join"></a><table class="important" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/important.png" alt="Importante" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top"><tt>join</tt> s&oacute;lo funciona con listas de cadenas; no hace ninguna 
+conversi&oacute;n de tipos. Si se une una lista que tiene uno o m&aacute;s elementos
+que no sean cadenas, se lanzar&aacute; una excepci&oacute;n.</td></tr></table><a name="tip.split"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top"><tt><i>cadena</i>.</tt><tt>split</tt>(<i>delimitador</i>,
+1) es una t&eacute;cnica &uacute;til cuando se quiere buscar una subcadena
+en una cadena y despu&eacute;s trabajar con lo que la precede (que queda en
+el primer elemento de la lista devuelta) y lo que la sigue (que queda
+en el segundo elemento).</td></tr></table><p></p></li></ul><p><a href="http://es.diveintopython.net/apihelper_divein.html">Cap&iacute;tulo 2. El poder de la introspecci&oacute;n</a></p><ul><li><a href="http://es.diveintopython.net/apihelper_optional.html">2.2. Argumentos opcionales y con nombre</a><a name="tip.arguments"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Lo &uacute;nico que debe hacerse para llamar a una funci&oacute;n es
+especificar un valor (del modo que sea) para cada argumento
+obligatorio;
+el modo y el orden en que se haga esto depende de usted.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/apihelper_builtin.html">2.3. <tt>type</tt>, <tt>str</tt>, <tt>dir</tt>, y otras funciones incorporadas</a><a name="tip.manuals"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Python se acompa&ntilde;a de excelentes manuales de referencia, que
+deber&iacute;a usted leer detenidamente para aprender todos los m&oacute;dulos que
+Python ofrece. Pero mientras en la mayor&iacute;a de lenguajes debe usted
+volver continuamente sobre los manuales (o las p&aacute;ginas de manual, o,
+Dios le socorra, MSDN) para recordar c&oacute;mo se usan
+estos m&oacute;dulos, Python est&aacute; ampliamente autodocumentado.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/apihelper_andor.html">2.6. La peculiar naturaleza de <tt>and</tt> y <tt>or</tt></a><a name="tip.andor"></a><table class="important" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/important.png" alt="Importante" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">El truco <tt>and-or</tt>, <tt><i>bool</i> and 
+</tt><tt>a</tt> or <tt>b</tt>, no funcionar&aacute;
+como la expresi&oacute;n <tt><i>bool</i> ? </tt><tt>a</tt> : <tt>b</tt> en C cuando <tt>a</tt> sea
+falsa en contexto booleano.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/apihelper_lambda.html">2.7. Utilizaci&oacute;n de las funciones <tt>lambda</tt></a><a name="tip.lambda"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Las funciones <tt>lambda</tt> son una cuesti&oacute;n de estilo. Su
+uso nunca es necesario. En cualquier lugar en que puedan utilizarse,
+se puede definir una funci&oacute;n normal separada y utilizarla en su lugar.
+Yo las utilizo en lugares donde deseo encapsulaci&oacute;n, c&oacute;digo no
+reutilizable que no ensucie mi propio c&oacute;digo con un mont&oacute;n de peque&ntilde;as
+funciones de una sola l&iacute;nea.</td></tr></table><p></p></li><li><a href="http://es.diveintopython.net/apihelper_alltogether.html">2.8. Todo junto</a><a name="compare.isnull.sql"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">En sql, se utiliza <tt>IS NULL</tt> en vez de
+<tt>= NULL</tt> para comparar un valor nulo. En Python no
+hay una sintaxis especial; se usa <tt>== None</tt> como en
+cualquier otra comparaci&oacute;n.</td></tr></table><p></p></li></ul></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/abstracts.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Repaso en cinco minutos</a></td><td width="30%" align="center"><br />&nbsp;&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/examples.html">Lista de ejemplos&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

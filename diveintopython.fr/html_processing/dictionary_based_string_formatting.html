@@ -1,0 +1,462 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.6. Formatage de cha&icirc;nes &agrave; l&#8217;aide d&#8217;un dictionnaire</title>
+      <link rel="stylesheet" href="http://web.archive.org/web/20090205124925cs_/http://diveintopython.adrahon.org/diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, french, translation, Plongez au coeur de Python, tutoriel, orient&eacute; objet, programmation, documentation, livre, libre, gratuit">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/toc/index.html" title="Plongez au coeur de Python">
+      <link rel="up" href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/index.html" title="Chapitre 8. Traitement du HTML">
+      <link rel="previous" href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/locals_and_globals.html" title="8.5. locals et globals">
+      <link rel="next" href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/quoting_attribute_values.html" title="8.7. Mettre les valeurs d&#8217;attributs entre guillemets">
+   </head>
+   <body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/diveintopython.adrahon.org\/html_processing\/dictionary_based_string_formatting.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "5";
+var displayMonth = "Feb";
+var displayYear = "2009";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20090205124925" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081121100324/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="21 Nov 2008"><strong>NOV</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 12:49:25 Feb 5, 2009">FEB</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Mar
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20081121100324/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html" title="10:03:24 Nov 21, 2008" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 12:49:25 Feb 5, 2009">5</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20080117142128/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="17 Jan 2008"><strong>2008</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 12:49:25 Feb 5, 2009">2009</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2010
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20090205124925*/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>13 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">19 Jun 06 - 5 Feb 09</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000001000100_2007:-1:010010100110_2008:-1:101001001010_2009:1:010000000000_2010:-1:000000000000_2011:-1:000000000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/index.html">Sommaire</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/toc/index.html">Plongez au coeur de Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/index.html">Traitement du HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">Formatage de cha&icirc;nes &agrave; l&#8217;aide d&#8217;un dictionnaire</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/locals_and_globals.html" title="Pr&eacute;c&eacute;dent: &laquo;locals et globals&raquo;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/quoting_attribute_values.html" title="Suivant: &laquo;Mettre les valeurs d&#8217;attributs entre guillemets&raquo;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="6" id="logocontainer">
+               <h1 id="logo"><a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/index.html" accesskey="1">Plongez au coeur de Python</a></h1>
+               <p id="tagline">De d&eacute;butant &agrave; expert</p>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="fr">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.dictsub"></a>8.6. Formatage de cha&icirc;nes &agrave; l&#8217;aide d&#8217;un dictionnaire
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <p>Pourquoi avoir appris <tt class="function">locals</tt> et <tt class="function">globals</tt> ? Pour apprendre le formatage de cha&icirc;nes &agrave; l'aide d'un dictionnaire. Comme vous vous le rappelez, <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/native_data_types/formatting_strings.html" title="3.5. Formatage de cha&icirc;nes">le formatage de
+                     cha&icirc;nes</a> permet d&#8217;ins&eacute;rer facilement des valeurs dans des cha&icirc;nes.
+                  Les valeurs sont &eacute;num&eacute;r&eacute;es dans un tuple et ins&eacute;r&eacute;es dans l&#8217;ordre dans
+                  la cha&icirc;ne &agrave; la place de chaque marqueur de formatage. Bien que ce soit
+                  efficace, cela ne donne pas le code le plus simple &agrave; lire, surtout quand
+                  de multiples valeurs sont ins&eacute;r&eacute;es. Vous ne pouvez pas simplement lire
+                  la cha&icirc;ne en une fois pour comprendre ce que le r&eacute;sultat va &ecirc;tre, vous
+                  devez constamment passer de la cha&icirc;ne au tuple.
+         </p>
+         <div class="abstract">
+            <p>Il existe une technique de formatage de cha&icirc;nes alternative
+                       utilisant un dictionnaire au lieu de valeurs stock&eacute;es dans un
+                       tuple.
+            </p>
+         </div>
+         <div class="example"><a name="d0e21510"></a><h3 class="title">Exemple 8.13. Pr&eacute;sentation du formatage de cha&icirc;nes &agrave; l&#8217;aide d&#8217;un
+                       dictionnaire
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class='pystring'>"server"</span>:<span class='pystring'>"mpilgrim"</span>, <span class='pystring'>"database"</span>:<span class='pystring'>"master"</span>, <span class='pystring'>"uid"</span>:<span class='pystring'>"sa"</span>, <span class='pystring'>"pwd"</span>:<span class='pystring'>"secret"</span>}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"%(pwd)s"</span> % params</span>                                    <a name="dialect.dictsub.1.1"></a><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'secret'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"%(pwd)s is not a good password for %(uid)s"</span> % params</span> <a name="dialect.dictsub.1.2"></a><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'secret is not a good password for sa'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"%(database)s of mind, %(database)s of body"</span> % params</span> <a name="dialect.dictsub.1.3"></a><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'master of mind, master of body'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html#dialect.dictsub.1.1"><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Au lieu d&#8217;un tuple de valeurs explicites, ce type de
+                                    formatage de cha&icirc;nes utilise un dictionnaire,
+                                    <tt class="varname">params</tt>. Et au lieu d&#8217;un simple marqueur
+                                    <tt class="literal">%s</tt> dans la cha&icirc;ne, le marqueur contient un nom
+                                    entre parenth&egrave;ses. Ce nom est utilis&eacute; comme cl&eacute; dans le
+                                    dictionnaire <tt class="varname">params</tt> et la valeur
+                                    correspondante, <tt class="literal">secret</tt>, est substitu&eacute;e au
+                                    marqueur <tt class="literal">%(pwd)s</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html#dialect.dictsub.1.2"><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Le formatage &agrave; l&#8217;aide d&#8217;un dictionnaire fonctionne avec
+                                    n&#8217;importe quel nombre de cl&eacute;s nomm&eacute;es. Chaque cl&eacute; doit exister
+                                    dans le dictionnaire, sinon le formatage &eacute;chouera avec une erreur
+                                    <tt class="errorcode">KeyError</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html#dialect.dictsub.1.3"><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Vous pouvez m&ecirc;me ins&eacute;rer la m&ecirc;me cl&eacute; plusieurs fois, chaque
+                                    occurrence sera remplac&eacute;e avec la m&ecirc;me valeur.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Quand utiliser le formatage &agrave; l&#8217;aide d&#8217;un
+                  dictionnaire ? Il est un peu exag&eacute;r&eacute; de mettre en place un dictionnaire
+                  de cl&eacute;s et de valeurs simplement pour formater une ligne, c&#8217;est en fait
+                  plus appropri&eacute; lorsque vous avez d&eacute;j&agrave; un dictionnaire. Comme par exemple
+                  <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/locals_and_globals.html" title="8.5. locals et globals"><tt class="function">locals</tt></a>.
+         </p>
+         <div class="example"><a name="dialect.unknownstarttag"></a><h3 class="title">Exemple 8.14. Formatage &agrave; l&#8217;aide d&#8217;un dictionnaire dans <tt class="filename">BaseHTMLProcessor.py</tt></h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_comment</span>(self, text):        
+        self.pieces.append(<span class='pystring'>"&lt;!--%(text)s--&gt;"</span> % locals()) <a name="dialect.dictsub.2.1"></a><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html#dialect.dictsub.2.1"><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">L&#8217;utilisation de la fonction pr&eacute;d&eacute;finie
+                                    <tt class="function">locals</tt> est le cas le plus commun d&#8217;emploi du
+                                    formatage &agrave; l&#8217;aide d&#8217;un dictionnaire. Cela vous permet d&#8217;utiliser
+                                    les noms des variables locales dans votre cha&icirc;ne (dans ce cas,
+                                    <tt class="varname">text</tt>, qui a &eacute;t&eacute; pass&eacute; en argument &agrave; la m&eacute;thode
+                                    de classe) et chaque variable sera remplac&eacute;e par sa valeur. Si
+                                    <tt class="varname">text</tt> est <tt class="literal">'Begin page
+                                       footer'</tt>, le formatage de cha&icirc;ne
+                                    <tt class="literal">"&lt;!--%(text)s--&gt;" % locals()</tt> se traduira
+                                    par la cha&icirc;ne <tt class="literal">'&lt;!--Begin page
+                                       footer--&gt;'</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e21614"></a><h3 class="title">Exemple 8.15. Autres exemples de formatage &agrave; l&#8217;aide d&#8217;un dictionnaire</h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> unknown_starttag</span>(self, tag, attrs):
+        strattrs = <span class='pystring'>""</span>.join([<span class='pystring'>' %s="%s"'</span> % (key, value) <span class='pykeyword'>for</span> key, value <span class='pykeyword'>in</span> attrs]) <a name="dialect.dictsub.3.1"></a><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        self.pieces.append(<span class='pystring'>"&lt;%(tag)s%(strattrs)s&gt;"</span> % locals())                      <a name="dialect.dictsub.3.2"></a><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html#dialect.dictsub.3.1"><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Lorsque cette m&eacute;thode est appel&eacute;e, <tt class="varname">attrs</tt>
+                                    est une liste de tuples cl&eacute;/valeur, comme les <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/native_data_types/mapping_lists.html#odbchelper.items" title="Exemple 3.25. Les fonctions keys, values et items"><tt class="function">items</tt> (&eacute;l&eacute;ments) d&#8217;un
+                                       dictionnaire</a>, ce qui signifie que nous pouvons utiliser
+                                    <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/native_data_types/declaring_variables.html#odbchelper.multiassign" title="3.4.2. Assignation simultan&eacute;e de plusieurs valeurs">l&#8217;assignement
+                                       multiple</a> pour la parcourir. Cela devrait &ecirc;tre un motif
+                                    familier maintenant, mais il se passe beaucoup de choses ici,
+                                    d&eacute;taillons-les :
+                        <div class="orderedlist">
+                           <ol type="a">
+                              <li>Supposez que <tt class="varname">attrs</tt> vaut
+                                                 <tt class="literal">[('href', 'index.html'), ('title', 'Go to home
+                                                    page')]</tt>.
+                              </li>
+                              <li>Durant la premi&egrave;re &eacute;tape de la <span class="foreignphrase"><i class="foreignphrase">list
+                                                       comprehension</i></span>, la cl&eacute; (<tt class="varname">key</tt>)
+                                                 sera <tt class="literal">'href'</tt> et la valeur
+                                                 (<tt class="varname">value</tt>)
+                                                 <tt class="literal">'index.html'</tt>.
+                              </li>
+                              <li>Le formatage de cha&icirc;ne <tt class="literal">'&nbsp;%s="%s"' % (key, value)</tt> donnera
+                                                 <tt class="literal">'&nbsp;href="index.html"'</tt>. Cette cha&icirc;ne
+                                                 devient le premier &eacute;l&eacute;ment de la valeur de retour de la
+                                                 <span class="foreignphrase"><i class="foreignphrase">list comprehension</i></span>.
+                              </li>
+                              <li>Durant la seconde &eacute;tape, <tt class="varname">key</tt> sera
+                                                 <tt class="literal">'title'</tt> et <tt class="varname">value</tt>
+                                                 <tt class="literal">'Go to home page'</tt>.
+                              </li>
+                              <li>Le formatage de cha&icirc;ne donnera <tt class="literal">' title="Go to
+                                                    home page"'</tt>.
+                              </li>
+                              <li>La <span class="foreignphrase"><i class="foreignphrase">list comprehension</i></span>
+                                                 retourne une liste de ces deux cha&icirc;nes et
+                                                 <tt class="varname">strattrs</tt> joindra les deux &eacute;l&eacute;ments de cette
+                                                 liste pour former <tt class="literal">'&nbsp;href="index.html" title="Go
+                                                    to home page"'</tt>.
+                              </li>
+                           </ol>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/dictionary_based_string_formatting.html#dialect.dictsub.3.2"><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Maintenant, en utilisant le formatage &agrave; l&#8217;aide d&#8217;un
+                                    dictionnaire, nous ins&eacute;rons la valeur de <tt class="varname">tag</tt> et
+                                    de <tt class="varname">strattrs</tt> dans une cha&icirc;ne. Donc si
+                                    <tt class="varname">tag</tt> vaut <tt class="literal">'a'</tt>, le r&eacute;sultat
+                                    final sera <tt class="literal">'&lt;a href="index.html" title="Go to home
+                                       page"&gt;'</tt> et c&#8217;est ce qui sera ajout&eacute; &agrave;
+                                    <tt class="varname">self.pieces</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e21732"></a><table class="important" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20090205124925im_/http://diveintopython.adrahon.org/images/important.png" alt="Important" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">L&#8217;utilisation du formatage de cha&icirc;ne &agrave; l&#8217;aide d&#8217;un dictionnaire
+                          avec <tt class="function">locals</tt> est une mani&egrave;re pratique de rendre
+                          des expressions de formatage complexes plus lisibles, mais elle a un
+                          prix. Il y a une petite baisse de performance due &agrave; l&#8217;appel de
+                          <tt class="function">locals</tt>, puisque <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/locals_and_globals.html#dialect.locals.readonly.example" title="Exemple 8.12. locals est en lecture seule, globals ne l'est pas"><tt class="function">locals</tt>
+                             effectue une copie</a> de l&#8217;espace de noms local.
+               </td>
+            </tr>
+         </table>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/locals_and_globals.html">&lt;&lt;&nbsp;locals et globals</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/index.html#dialect.divein" title="8.1. Plonger">1</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/introducing_sgmllib.html" title="8.2. Pr&eacute;sentation de sgmllib.py">2</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/extracting_data.html" title="8.3. Extraction de donn&eacute;es de documents HTML">3</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/basehtmlprocessor.html" title="8.4. Pr&eacute;sentation de BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/locals_and_globals.html" title="8.5. locals et globals">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/quoting_attribute_values.html" title="8.7. Mettre les valeurs d&#8217;attributs entre guillemets">7</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/dialect.html" title="8.8. Pr&eacute;sentation de dialect.py">8</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/all_together.html" title="8.9. Assembler les pi&egrave;ces">9</a> <span class="divider">|</span> <a href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/summary.html" title="8.10. R&eacute;sum&eacute;">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http://web.archive.org/web/20090205124925/http://diveintopython.adrahon.org/html_processing/quoting_attribute_values.html">Mettre les valeurs d&#8217;attributs entre guillemets&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+         <p class="copyright">Copyright &copy; 2001 <a href="mailto:xavier@defrang.com">Xavier Defrang</a></p>
+         <p class="copyright">Copyright &copy; 2004 <a href="mailto:python@kantoche.org">Jean-Pierre Gay</a></p>
+         <p class="copyright">Copyright &copy; 2004, 2006 <a href="mailto:python@adrahon.org">Alexandre Drahon</a></p>
+      </div>
+   </body>
+</html>
+
+
+
+
+<!--
+     FILE ARCHIVED ON 12:49:25 Feb 5, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:25:19 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

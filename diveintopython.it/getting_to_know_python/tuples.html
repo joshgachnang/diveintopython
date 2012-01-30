@@ -1,0 +1,287 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.9.&nbsp;Introduzione alle tuple</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/getting_to_know_python/index.html" title="Capitolo&nbsp;2.&nbsp;Conoscere Python" />
+<link rel="previous" href="http://it.diveintopython.net/getting_to_know_python/lists.html" title="2.8.&nbsp;Introduzione alle liste" />
+<link rel="next" href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html" title="2.10.&nbsp;Definire le variabili" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/index.html">Conoscere Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Introduzione alle tuple</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/lists.html" title="Indietro: “Introduzione alle liste”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html" title="Avanti: “Definire le variabili”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="odbchelper.tuple"></a>2.9.&nbsp;Introduzione alle tuple
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+                       Una tupla &egrave; una lista immutabile. Una tupla non pu&ograve; essere
+               	 modificata in alcun modo una volta che &egrave; stata creata.
+               
+               
+            </p>
+</div>
+<div class="example"><a name="d0e3659"></a><h3 class="title">Esempio&nbsp;2.23.&nbsp;Definire una tupla</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t = (<span class="pystring">"a"</span>, <span class="pystring">"b"</span>, <span class="pystring">"mpilgrim"</span>, <span class="pystring">"z"</span>, <span class="pystring">"example"</span>)</span> <a name="odbchelper.tuple.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t</span>
+<span class="computeroutput">('a', 'b', 'mpilgrim', 'z', 'example')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t[0]</span>                                       <a name="odbchelper.tuple.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'a'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t[-1]</span>                                      <a name="odbchelper.tuple.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'example'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t[1:3]</span>                                     <a name="odbchelper.tuple.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">('b', 'mpilgrim')</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuple.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Una tupla &egrave; definita allo stesso modo di una lista, 
+                        	eccetto che l'intero gruppo di elementi viene racchiuso 
+                        	fra parentesi tonde invece che quadre.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuple.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Gli elementi di una tupla hanno un ordine definito,
+                        	proprio come le liste.
+                        	Gli indici delle tuple partono da zero, come visto
+                        	nelle liste, perci&ograve; il primo elemento di una tupla
+                        	non vuota &egrave; sempre <tt class="literal">t[0]</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuple.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Gli indici negativi vengono contati dalla fine della 
+                        	tupla, come nelle liste.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuple.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Anche l'affettamento (slicing) funziona come nelle liste.
+                        	Notate
+                        	che quando affettate una lista, ottenete una nuova lista,
+                        	quando affettate una tupla ottenete una nuova tupla.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="odbchelper.tuplemethods"></a><h3 class="title">Esempio&nbsp;2.24.&nbsp;Le tuple non hanno metodi</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t</span>
+<span class="computeroutput">('a', 'b', 'mpilgrim', 'z', 'example')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t.append(<span class="pystring">"new"</span>)</span>    <a name="odbchelper.tuple.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'append'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t.remove(<span class="pystring">"z"</span>)</span>      <a name="odbchelper.tuple.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'remove'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t.index(<span class="pystring">"example"</span>)</span> <a name="odbchelper.tuple.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'index'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">"z"</span> <span class="pykeyword">in</span> t</span>           <a name="odbchelper.tuple.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">1</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuple.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Non potete aggiungere elementi ad una tupla. Le tuple non
+                        	hanno i metodi <tt class="function">append</tt> ed 
+                        	<tt class="function">extend</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuple.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Non potete rimuovere elementi da una tupla. Le tuple non
+                        	hanno i metodi <tt class="function">remove</tt> o
+                        	<tt class="function">pop</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuple.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Non potete cercare elementi in una tupla. Le tuple non
+                        	hanno il metodo <tt class="function">index</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/getting_to_know_python/tuples.html#odbchelper.tuple.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                               Potete, comunque, usare <tt class="function">in</tt> per vedere
+                               se un elemento &egrave; presente nella tupla.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+                   A cosa servono le tuple?
+            
+         </p>
+<div class="itemizedlist">
+<ul>
+<li>
+                          Le tuple sono pi&ugrave; veloci delle liste. Se state definendo 
+                  	un gruppo costante di valori e l'unica cosa che intendete
+                  	farci &egrave; iterare al suo interno, usate una tupla invece 
+                  	di una lista.
+                  
+               </li>
+<li>
+                          Potete rendere pi&ugrave; sicuro il vostro codice
+                  	&#8220;<span class="quote">proteggendo dalla scrittura</span>&#8221; i dati che non
+                  	devono essere modificati. Usare una tupla invece di una
+                  	lista &egrave; come avere un'implicita istruzione
+                  	<tt class="literal">assert</tt> che mantenga il dato costante e
+                  	che richieda una riflessione (ed una specifica funzione) per
+                  	modificarlo. 
+                  
+               </li>
+<li>
+                          Ricordate che dissi che le
+                  	<a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html#odbchelper.dictionarytypes" title="Esempio&nbsp;2.12.&nbsp;Mischiare tipi di dato in un dizionario">chiavi
+                     	di un dizionario</a> possono essere interi, stringhe
+                  	e &#8220;<span class="quote">pochi altri tipi</span>&#8221;?
+                  	Le tuple fanno parte di questi tipi. Le tuple possono
+                  	essere usate come chiavi in un dizionario,
+                  	le liste no.
+                  
+                  <sup>[<a name="d0e3829" href="http://it.diveintopython.net/getting_to_know_python/tuples.html#ftn.d0e3829">2</a>]</sup>
+</li>
+<li>
+                          Le tuple sono usate nelle formattazione delle stringhe,
+                  	come vedremo presto.
+                  
+               </li>
+</ul>
+</div><a name="tip.tuple"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                          Le tuple possono essere convertite in liste e viceversa.
+                  	La funzione built-in <tt class="function">tuple</tt> prende una lista e ritorna
+                  	una tupla con gli stessi elementi, mentre la funzione
+                  	<tt class="function">list</tt> prende una tupla e ritorna una lista. In effetti,
+                  	<tt class="function">tuple</tt> congela una lista e <tt class="function">list</tt> scongela una tupla.
+                  
+               </td>
+</tr>
+</table>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/obp/thinkCSpy/" title="Python book for computer science majors"><i class="citetitle">How to Think Like a Computer Scientist</i></a> parle delle tuple e mostra come
+                  <a href="http://it.diveintopython.net/obp/thinkCSpy/chap10.htm">concatenarle</a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> mostra come
+                  <a href="http://it.diveintopython.net/knowledge-base/view.phtml/aid/4553/fid/587">ordinare una tupla</a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> mostra come
+                  <a href="http://it.diveintopython.net/doc/current/tut/node7.html#SECTION007300000000000000000">definire una tupla con un elemento</a>.
+                  
+               </li>
+</ul>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e3829" href="http://it.diveintopython.net/getting_to_know_python/tuples.html#d0e3829">2</a>] </sup>
+                  	In verit&agrave;, &egrave; pi&ugrave; complicato di cos&igrave;. Le chiavi di un
+                  	dizionario devono essere immutabili. Le stesse tuple
+                  	sono immutabili, ma se avete una tupla di liste, questa
+                  	&egrave; mutabile e quindi non &egrave; sicuro usarla come chiave
+                  	di un dizionario. Solo tuple di stringhe, numeri o altre
+                  	tuple sicure possono essere usate come chiavi per un
+                  	dizionario.
+                  	
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/getting_to_know_python/lists.html">&lt;&lt;&nbsp;Introduzione alle liste</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/index.html#odbchelper.divein" title="2.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/declaring_functions.html" title="2.2.&nbsp;Dichiarare le funzioni">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documentare le funzioni">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Tutto &egrave; un oggetto">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indentare il codice">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html" title="2.6.&nbsp;Testare i moduli">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html" title="2.7.&nbsp;Introduzione ai dizionari">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/lists.html" title="2.8.&nbsp;Introduzione alle liste">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html" title="2.10.&nbsp;Definire le variabili">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html" title="2.11.&nbsp;Assegnare valori multipli in un colpo solo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="2.12.&nbsp;Formattare le stringhe">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html" title="2.13.&nbsp;Mappare le liste">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="2.14.&nbsp;Concatenare liste e suddividere stringhe">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/summary.html" title="2.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html">Definire le variabili&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

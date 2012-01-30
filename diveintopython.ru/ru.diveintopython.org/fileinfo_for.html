@@ -1,0 +1,292 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>3.12. for loops</title><link rel="stylesheet" href="http://web.archive.org/web/20110709015612cs_/http://ru.diveintopython.org/diveintopython.css" type="text/css"><link rev="made" href="mailto:f8dy@diveintopython.org"><meta name="generator" content="DocBook XSL Stylesheets V"><meta name="keywords" content="Python, &#1103;&#1079;&#1099;&#1082; Python, &#1103;&#1079;&#1099;&#1082; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103; Python, Dive Into Python, &#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python, &#1091;&#1095;&#1077;&#1073;&#1085;&#1080;&#1082;, &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1099;&#1081;, &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;, &#1076;&#1086;&#1082;&#1091;&#1084;&#1077;&#1085;&#1090;&#1072;&#1094;&#1080;&#1103;, &#1082;&#1085;&#1080;&#1075;&#1072;, free, &#1089;&#1074;&#1086;&#1073;&#1086;&#1076;&#1085;&#1099;&#1081;, &#1073;&#1077;&#1089;&#1087;&#1083;&#1072;&#1090;&#1085;&#1099;&#1081;"><meta name="description" content="a free Python book for experienced programmers"><link rel="home" href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/toc.html" title="&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python"><link rel="up" href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_divein.html" title="&#1043;&#1083;&#1072;&#1074;&#1072; 3. &#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;"><link rel="previous" href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_files.html" title="3.11. File objects"><link rel="next" href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_modules.html" title="3.13. More on modules"></head><body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/ru.diveintopython.org\/fileinfo_for.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "9";
+var displayMonth = "Jul";
+var displayYear = "2011";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://ru.diveintopython.org/fileinfo_for.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20110709015612" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100928052851/http://ru.diveintopython.org/fileinfo_for.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="28 Sep 2010"><strong>SEP</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 1:56:12 Jul 9, 2011">JUL</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Aug
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100928052851/http://ru.diveintopython.org/fileinfo_for.html" title="5:28:51 Sep 28, 2010" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 1:56:12 Jul 9, 2011">9</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100315181538/http://ru.diveintopython.org/fileinfo_for.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="15 Mar 2010"><strong>2010</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 1:56:12 Jul 9, 2011">2011</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2012
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20110709015612*/http://ru.diveintopython.org/fileinfo_for.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>28 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">16 Jul 04 - 9 Jul 11</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000101010_2005:-1:100000000000_2006:-1:000000100100_2007:-1:110001121111_2008:-1:111111100000_2009:-1:101000000000_2010:-1:001000001000_2011:6:000000100000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/index.html">&#1053;&#1072;&#1095;&#1072;&#1083;&#1086;</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/toc.html">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_divein.html">&#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;</a>&nbsp;&gt;&nbsp;<b>for loops</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_files.html" title="&#1055;&#1088;&#1077;&#1076;.: &#8220;File objects&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_modules.html" title="&#1057;&#1083;&#1077;&#1076;.: &#8220;More on modules&#8221;">&gt;&gt;</a></td></tr><tr><td><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/logo.png" alt="diveinto.python.ru"></td><td colspan="2"><span id="logo">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</span><br><span id="tagline">&#1044;&#1083;&#1103; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1089;&#1090;&#1086;&#1074;</span></td><td colspan="3" align="right"></td></tr></table><div class="section"><a name="fileinfo.for"></a><div class="titlepage"><div><h2 class="title"><a name="fileinfo.for"></a>3.12. <tt>for</tt> loops</h2></div></div><div class="abstract"><p>Like most other languages, Python has <tt>for</tt> loops.  The only reason you haven't seen them until now is that Python is good at so many other things that you don't need them as often.</p></div><p>Most other languages don't have a powerful list datatype like Python, so you end up doing a lot of manual work, specifying a start, end, and step to define a range of integers or characters or other iteratable entities.  But in Python, a <tt>for</tt> loop simply iterates over a list, the same way <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/odbchelper_map.html" title="1.13. &#1054;&#1073;&#1088;&#1072;&#1073;&#1086;&#1090;&#1082;&#1072; &#1089;&#1087;&#1080;&#1089;&#1082;&#1086;&#1074;">list comprehensions</a> work.</p><div class="example"><p><a name="d0e4524"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.27. Introducing the <tt>for</tt> loop</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'a'</span>, <span class='pystring'>'b'</span>, <span class='pystring'>'e'</span>]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> li:</span>         <a name="fileinfo.for.1.1"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt>...     </tt><span class="userinput"><span class='pykeyword'>print</span> s</span>          <a name="fileinfo.for.1.2"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">a
+b
+e</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join(li)</span>  <a name="fileinfo.for.1.3"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">a
+b
+e</span></pre><div class="calloutlist"><a name="d0e4541"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.for.1.1"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left">The syntax for a <tt>for</tt> loop is similar to <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/odbchelper_map.html" title="1.13. &#1054;&#1073;&#1088;&#1072;&#1073;&#1086;&#1090;&#1082;&#1072; &#1089;&#1087;&#1080;&#1089;&#1082;&#1086;&#1074;">list comprehensions</a>.  <tt>li</tt> is a list, and <tt>s</tt> will take the value of each element in turn, starting from the first element.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.for.1.2"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left">Like an <tt>if</tt> statement or any other <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/odbchelper_indenting.html" title="1.5. &#1054;&#1090;&#1089;&#1090;&#1091;&#1087;&#1099;">indented block</a>, a <tt>for</tt> loop can have any number of lines of code in it.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.for.1.3"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> </td><td valign="top" align="left">This is the reason you haven't seen the <tt>for</tt> loop yet: we haven't needed it yet.  It's amazing how often you use <tt>for</tt> loops in other languages when all you really want is a <tt>join</tt> or a list comprehension.</td></tr></table></div></div><div class="example"><p><a name="fileinfo.for.counter"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.28. Simple counters</b></p><pre class="screen">
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> i <span class='pykeyword'>in</span> range(5):</span>       <a name="fileinfo.for.3.1"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt>...     </tt><span class="userinput"><span class='pykeyword'>print</span> i</span>
+<span class="computeroutput">0
+1
+2
+3
+4</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'a'</span>, <span class='pystring'>'b'</span>, <span class='pystring'>'c'</span>, <span class='pystring'>'d'</span>, <span class='pystring'>'e'</span>]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> i <span class='pykeyword'>in</span> range(len(li)):</span> <a name="fileinfo.for.3.2"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt>...     </tt><span class="userinput"><span class='pykeyword'>print</span> li[i]</span>
+<span class="computeroutput">a
+b
+c
+d
+e</span>
+</pre><div class="calloutlist"><a name="d0e4575"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.for.3.1"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left">Doing a &#8220;normal&#8221; (by Visual Basic standards) counter <tt>for</tt> loop is also simple.  As we saw in <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/odbchelper_multiassign.html#odbchelper.multiassign.range" title="&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 1.27. &#1055;&#1088;&#1080;&#1089;&#1074;&#1072;&#1080;&#1074;&#1072;&#1085;&#1080;&#1077; &#1080;&#1076;&#1091;&#1097;&#1080;&#1093; &#1087;&#1086;&#1076;&#1088;&#1103;&#1076; &#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1080;&#1081;">&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 1.27. &#1055;&#1088;&#1080;&#1089;&#1074;&#1072;&#1080;&#1074;&#1072;&#1085;&#1080;&#1077; &#1080;&#1076;&#1091;&#1097;&#1080;&#1093; &#1087;&#1086;&#1076;&#1088;&#1103;&#1076; &#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1080;&#1081;</a>, <tt>range</tt> produces a list of integers, which we then loop through.  I know it looks a bit odd, but it is occasionally (and I stress <span class="emphasis"><i>occasionally</i></span>) useful to have a counter loop.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.for.3.2"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left">Don't ever do this.  This is Visual Basic-style thinking.  Break out of it.  Just iterate through the list, as shown in the previous example.</td></tr></table></div></div><div class="example"><p><a name="dictionaryiter.example"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.29. Iterating through a dictionary</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> os.environ.items():</span> <a name="fileinfo.for.2.1"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="fileinfo.for.2.2"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt>...     </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"%s=%s"</span> % (k, v)</span>
+<span class="computeroutput">USERPROFILE=C:\Documents and Settings\mpilgrim
+OS=Windows_NT
+COMPUTERNAME=MPILGRIM
+USERNAME=mpilgrim
+
+[...snip...]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> os.environ.items()])</span> <a name="fileinfo.for.2.3"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">USERPROFILE=C:\Documents and Settings\mpilgrim
+OS=Windows_NT
+COMPUTERNAME=MPILGRIM
+USERNAME=mpilgrim
+
+[...snip...]</span></pre><div class="calloutlist"><a name="d0e4601"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.for.2.1"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>os.environ</tt> is a dictionary of the environment variables defined on your system.  In Windows, these are your user and system variables accessible from MS-DOS.  In UNIX, they are the variables exported in your shell's startup scripts.  In Mac OS, there is no concept of environment variables, so this dictionary is empty.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.for.2.2"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>os.environ.items()</tt> returns a list of tuples: <tt>[(<i>key1</i>, <i>value1</i>), (<i>key2</i>, <i>value2</i>), ...]</tt>.  The <tt>for</tt> loop iterates through this list.  The first round, it assigns <tt><i>key1</i></tt> to <tt>k</tt> and <tt><i>value1</i></tt> to <tt>v</tt>, so <tt>k</tt> = <tt>USERPROFILE</tt> and <tt>v</tt> = <tt>C:\Documents and Settings\mpilgrim</tt>.  The second round, <tt>k</tt> gets the second key, <tt>OS</tt>, and <tt>v</tt> gets the corresponding value, <tt>Windows_NT</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.for.2.3"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> </td><td valign="top" align="left">With <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/odbchelper_multiassign.html" title="1.11. &#1055;&#1088;&#1080;&#1089;&#1074;&#1072;&#1080;&#1074;&#1072;&#1085;&#1080;&#1077; &#1089;&#1088;&#1072;&#1079;&#1091; &#1085;&#1077;&#1089;&#1082;&#1086;&#1083;&#1100;&#1082;&#1080;&#1093; &#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1080;&#1081;">multi-variable assignment</a> and <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/odbchelper_map.html" title="1.13. &#1054;&#1073;&#1088;&#1072;&#1073;&#1086;&#1090;&#1082;&#1072; &#1089;&#1087;&#1080;&#1089;&#1082;&#1086;&#1074;">list comprehensions</a>, you can replace the entire <tt>for</tt> loop with a single statement.  Whether you actually do this in real code is a matter of personal coding style; I like it because it makes it clear that what we're doing is mapping a dictionary into a list, then joining the list into a single string.  Other programmers prefer to write this out as a <tt>for</tt> loop.  Note that the output is the same in either case, although this version is slightly faster, because there is only one <tt>print</tt> statement instead of many.</td></tr></table></div></div><div class="example"><p><a name="fileinfo.multiassign.for.example"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.30. <tt>for</tt> loop in <tt>MP3FileInfo</tt></b></p><pre class="programlisting">
+    tagDataMap = {<span class='pystring'>"title"</span>   : (  3,  33, stripnulls),
+                  <span class='pystring'>"artist"</span>  : ( 33,  63, stripnulls),
+                  <span class='pystring'>"album"</span>   : ( 63,  93, stripnulls),
+                  <span class='pystring'>"year"</span>    : ( 93,  97, stripnulls),
+                  <span class='pystring'>"comment"</span> : ( 97, 126, stripnulls),
+                  <span class='pystring'>"genre"</span>   : (127, 128, ord)} <a name="fileinfo.multiassign.5.1"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    .
+    .
+    .
+            <span class='pykeyword'>if</span> tagdata[:3] == <span class='pystring'>"TAG"</span>:
+                <span class='pykeyword'>for</span> tag, (start, end, parseFunc) <span class='pykeyword'>in</span> self.tagDataMap.items(): <a name="fileinfo.multiassign.5.2"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+                    self[tag] = parseFunc(tagdata[start:end])                <a name="fileinfo.multiassign.5.3"></a><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist"><a name="d0e4647"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.multiassign.5.1"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>tagDataMap</tt> is a <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_classattributes.html" title="3.8. Class attributes">class attribute</a> that defines the tags we're looking for in an MP3 file.  Tags are stored in fixed-length fields; once we read the last 128 bytes of the file, bytes 3 through 32 of those are always the song title, 33-62 are always the artist name, 63-92 the album name, and so forth.  Note that <tt>tagDataMap</tt> is a dictionary of tuples, and each tuple contains two integers and a function reference.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.multiassign.5.2"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left">This looks complicated, but it's not.  The structure of the <tt>for</tt> variables matches the structure of the elements of the list returned by <tt>items</tt>.  Remember, <tt>items</tt> returns a list of tuples of the form <tt>(<i>key</i>, <i>value</i>)</tt>.  The first element of that list is <tt>("title", (3, 33, &lt;function stripnulls&gt;))</tt>, so the first time around the loop, <tt>tag</tt> gets <tt>"title"</tt>, <tt>start</tt> gets <tt>3</tt>, <tt>end</tt> gets <tt>33</tt>, and <tt>parseFunc</tt> gets the function <tt>stripnulls</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_for.html#fileinfo.multiassign.5.3"><img src="http://web.archive.org/web/20110709015612im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> </td><td valign="top" align="left">Now that we've extracted all the parameters for a single MP3 tag, saving the tag data is easy.  We <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/odbchelper_list.html#odbchelper.list.slice" title="&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 1.16. &#1057;&#1088;&#1077;&#1079;">slice</a> <tt>tagdata</tt> from <tt>start</tt> to <tt>end</tt> to get the actual data for this tag, call <tt>parseFunc</tt> to post-process the data, and assign this as the value for the key <tt>tag</tt> in the pseudo-dictionary <tt>self</tt>.  After iterating through all the elements in <tt>tagDataMap</tt>, <tt>self</tt> has the values for all the tags, and <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_specialmethods.html#fileinfo.specialmethods.setname" title="&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.16. Setting an MP3FileInfo's name">you know what that looks like</a>.</td></tr></table></div></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_files.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;File objects</a></td><td width="30%" align="center"><br>&nbsp;<a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_divein.html#fileinfo.divein" title="3.1. &#1042; &#1075;&#1083;&#1091;&#1073;&#1100;">1</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_fromimport.html" title="3.2. &#1048;&#1084;&#1087;&#1086;&#1088;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1084;&#1086;&#1076;&#1091;&#1083;&#1077;&#1081; &#1080;&#1085;&#1089;&#1090;&#1088;&#1091;&#1082;&#1094;&#1080;&#1077;&#1081; from module import">2</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_class.html" title="3.3. &#1054;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1080;&#1077; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;">3</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_instantiation.html" title="3.4. &#1057;&#1086;&#1079;&#1076;&#1072;&#1085;&#1080;&#1077; &#1101;&#1082;&#1079;&#1077;&#1084;&#1087;&#1083;&#1103;&#1088;&#1086;&#1074; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;">4</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_userdict.html" title="3.5. UserDict: a wrapper class">5</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_specialmethods.html" title="3.6. Special class methods">6</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_morespecial.html" title="3.7. Advanced special class methods">7</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_classattributes.html" title="3.8. Class attributes">8</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_private.html" title="3.9. Private functions">9</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_exception.html" title="3.10. Handling exceptions">10</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_files.html" title="3.11. File objects">11</a> <b>12</b> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_modules.html" title="3.13. More on modules">13</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_os.html" title="3.14. The os module">14</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_alltogether.html" title="3.15. Putting it all together">15</a> <a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_summary.html" title="3.16. Summary">16</a>&nbsp;</td><td width="35%" align="right"><br><a href="http://web.archive.org/web/20110709015612/http://ru.diveintopython.org/fileinfo_modules.html">More on modules&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br></td></tr></table><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="left"><p class="copyright">Copyright &copy; 2000, 2001, 2002 <a href="mailto:f8dy@diveintopython.org">&#1052;&#1072;&#1088;&#1082; &#1055;&#1080;&#1083;&#1075;&#1088;&#1080;&#1084;</a></p><p class="copyright">Copyright &copy; 2001, 2002, 2003 &#1055;&#1077;&#1088;&#1077;&#1074;&#1086;&#1076;, <a href="mailto:ods@strana.ru">&#1044;&#1077;&#1085;&#1080;&#1089; &#1054;&#1090;&#1082;&#1080;&#1076;&#1072;&#1095;</a></p></td><td align="left">&nbsp;</td></tr></table></body></html>
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 1:56:12 Jul 9, 2011 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:32:42 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

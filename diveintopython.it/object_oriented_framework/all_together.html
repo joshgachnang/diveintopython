@@ -1,0 +1,220 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.15.&nbsp;Mettere tutto insieme</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Mettere tutto insieme</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="Indietro: “Il modulo os”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="Avanti: “Sommario”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.alltogether"></a>4.15.&nbsp;Mettere tutto insieme
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Ancora una volta tutte le nostre pedine del domino sono al
+               	loro posto. Abbiamo visto come funziona ogni linea di codice,
+               	adesso facciamo un passo indietro e vediamo come il tutto
+               	venga messo insieme.
+               
+            </p>
+</div>
+<div class="example"><a name="fileinfo.nested"></a><h3 class="title">Esempio&nbsp;4.39.&nbsp;<tt class="function">listDirectory</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> listDirectory(directory, fileExtList):                                         <a name="fileinfo.alltogether.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pystring">"get list of file info objects for files of particular extensions"</span>
+    fileList = [os.path.normcase(f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> os.listdir(directory)]               
+    fileList = [os.path.join(directory, f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> fileList \
+                <span class="pykeyword">if</span> os.path.splitext(f)[1] <span class="pykeyword">in</span> fileExtList]                          <a name="fileinfo.alltogether.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    <span class="pykeyword">def</span><span class="pyclass"> getFileInfoClass</span>(filename, module=sys.modules[FileInfo.__module__]):       <a name="fileinfo.alltogether.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+        <span class="pystring">"get file info class from filename extension"</span>                             
+        subclass = <span class="pystring">"%sFileInfo"</span> % os.path.splitext(filename)[1].upper()[1:]        <a name="fileinfo.alltogether.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+        <span class="pykeyword">return</span> hasattr(module, subclass) <span class="pykeyword">and</span> getattr(module, subclass) <span class="pykeyword">or</span> FileInfo <a name="fileinfo.alltogether.1.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+    <span class="pykeyword">return</span> [getFileInfoClass(f)(f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> fileList]                              <a name="fileinfo.alltogether.1.6"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/all_together.html#fileinfo.alltogether.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">listDirectory</tt> &egrave; la pricipale attrazione dell'intero modulo.
+                        	Prende una directory (come
+                        	<tt class="filename">c:\music\_singles\</tt>, nel
+                        	mio caso) ed una lista di interessanti estensioni di file
+                        	(come <tt class="literal">['.mp3']</tt>) e ritorna una lista di
+                        	istanze di classe che funzionano come un dizionario. E lo fa
+                        	in poche schiette linee di codice.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/all_together.html#fileinfo.alltogether.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto nella
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">precedente sezione</a>, questa
+                        	linea di codice prende una lista dei pathname di tutti i file
+                        	in <tt class="varname">directory</tt> che hanno un'estensione
+                        	interessante (come specificato da
+                        	<tt class="varname">fileExtList</tt>).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/all_together.html#fileinfo.alltogether.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ai programmatori <span class="application">Pascal</span> della vecchia scuola potranno essere
+                        	familiari, ma molte persone hanno sgranato gli occhi
+                        	quando gli ho detto che <span class="application">Python</span> supporta le
+                        	<span class="emphasis"><em>funzioni annidate</em></span> -- letteralmente, una
+                        	funzione dentro un'altra funzione. La funzione annidata
+                        	<tt class="function">getFileInfoClass</tt> pu&ograve; essere chiamata solo
+                        	dalla funzione nella quale &egrave; definita, <tt class="function">listDirectory</tt>.
+                        	Come con ogni altra funzione, non avete bisogno di
+                        	dichiarazione d'interfaccia od altre cose strane;
+                        	limitatevi a definire la funzione e scriverla.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/all_together.html#fileinfo.alltogether.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Adesso che avete visto il modulo
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os"><tt class="filename">os</tt></a>, questa linea dovrebbe
+                        	avere pi&ugrave; significato. Di fatto, prende
+                        	l'estensione del file
+                        	(<tt class="literal">os.path.splitext(filename)[1]</tt>), la forza a
+                        	caratteri maiuscoli (<tt class="literal">.upper()</tt>), affetta via
+                        	il punto (<tt class="literal">[1:]</tt>) e costruisce un nome di
+                        	classe con la formattazione di stringa. Quindi
+                        	<tt class="filename">c:\music\ap\mahadeva.mp3</tt> diventa
+                        	<tt class="literal">.mp3</tt> che diventa <tt class="literal">.MP3</tt>
+                        	che diventa <tt class="literal">MP3</tt> che
+                        	diventa <tt class="literal">MP3FileInfo</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/all_together.html#fileinfo.alltogether.1.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Avendo costruito il nome del gestore di classe che gestirebbe
+                        	questo file, controlliamo se quel gestore di classe realmente
+                        	esiste in questo modulo. Se lo fa, ritorniamo la classe,
+                        	altrimenti ritorniamo la classe base <tt class="classname">FileInfo</tt>.
+                        	Questo &egrave; un punto molto importante: <span class="emphasis"><em>questa funzione
+                              	ritorna una classe</em></span>. Non un'istanza di una classe,
+                        	ma la classe stessa.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/all_together.html#fileinfo.alltogether.1.6"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per ogni file nella nostra lista &#8220;<span class="quote">file
+                           	interessanti</span>&#8221; (<tt class="varname">fileList</tt>),
+                        	possiamo chiamare <tt class="function">getFileInfoClass</tt>
+                        	con il filename (<tt class="varname">f</tt>). Chiamando
+                        	<tt class="literal">getFileInfoClass(f)</tt> viene ritornata una
+                        	classe; noi non sappiamo esattamente quale, ma non ci importa.
+                        	Creiamo poi un'istanza di questa classe (qualunque essa sia)
+                        	e passiamo il nome del file (ancora <tt class="varname">f</tt>), al
+                        	metodo di <tt class="function">__init__</tt>. Come
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.setname" title="Esempio&nbsp;4.16.&nbsp;Impostare il nome di un MP3FileInfo">abbiamo visto
+                           	prima in questo capitolo</a>, il metodo <tt class="function">__init__</tt> di
+                        	<tt class="classname">FileInfo</tt> imposta <tt class="literal">self["name"]</tt>,
+                        	che richiama <tt class="function">__setitem__</tt>, che viene sovrascritto nella classe
+                        	discendente (<tt class="classname">MP3FileInfo</tt>), in modo da analizzare
+                        	correttamente il file, per ottenerne il metadato. Facciamo
+                        	tutto ci&ograve; per ogni file interessante e ritorniamo una lista
+                        	delle istanze risultanti.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Notate che <tt class="function">listDirectory</tt> &egrave; assolutamente generica; non
+            	conosce anticipatamente quale tipo di file otterr&agrave; o quali
+            	classi tra quelle definite potrebbero potenzialmente gestire
+            	questi file. Essa analizza la directory, alla ricerca dei file
+            	da processare e poi introspetta il suo stesso modulo per
+            	vedere quali speciali gestori di classi (come
+            	<tt class="classname">MP3FileInfo</tt>) sono definiti. Potete estendere
+            	questo programma per gestire altri tipi di file, semplicemente
+            	definendo una classe col nome appropriato:
+            	<tt class="classname">HTMLFileInfo</tt> per i file
+            	<span class="acronym">HTML</span>, <tt class="classname">DOCFileInfo</tt>
+            	per i file <tt class="literal">.doc</tt> di
+            	<span class="application">Word</span> e cos&igrave; via.
+            	<tt class="function">listDirectory</tt> li gestir&agrave; tutti, senza modifiche,
+            	delegando il lavoro effettivo alle classi appropriate e
+            	collazionando i risultati.
+            
+         </p>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/os_module.html">&lt;&lt;&nbsp;Il modulo os</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <span class="thispage">15</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/summary.html">Sommario&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

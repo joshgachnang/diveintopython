@@ -1,0 +1,370 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.6.&nbsp;Metodi speciali per le classi</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Metodi speciali per le classi</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="Indietro: “UserDict: una classe wrapper”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="Avanti: “Metodi speciali di classe avanzati”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.specialmethods"></a>4.6.&nbsp;Metodi speciali per le classi
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	In aggiunta ai normali metodi delle classi, c'&egrave; un certo
+               	numero di metodi speciali che le classi <span class="application">Python</span> possono
+               	definire. Invece di essere chiamati direttamente dal
+               	vostro codice (come metodi normali), i metodi speciali
+               	sono chiamati per voi da <span class="application">Python</span> in particolari circostanze
+               	o quando viene adoperata una certa sintassi.
+               
+            </p>
+</div>
+<p>
+            
+            	Come avete visto nella
+            	<a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">sezione precedente</a>,
+            	i metodi normali vanno ben oltre il wrapping di un dizionario
+            	in una classe. Ma i metodi normali da soli non sono
+            	abbastanza perch&eacute; ci sono una sacco di cose che potete fare
+            	con i dizionari oltre a chiamare i loro metodi. Per i novizi,
+            	potete <a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html#odbchelper.dict.define" title="Esempio&nbsp;2.10.&nbsp;Definire un dizionario">ottenere</a>
+            	ed <a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html#odbchelper.dict.modify" title="Esempio&nbsp;2.11.&nbsp;Modificare un dizionario">impostare</a>
+            	elementi con una sintassi che non prevede l'esplicita
+            	invocazione di un metodo. &Egrave; qui che saltano fuori i metodi
+            	speciali di una classe: mettono a disposizione un modo per
+            	mappare la sintassi senza-chiamata-metodo in una vera chiamata
+            	a metodo.
+            
+         </p>
+<div class="example"><a name="d0e9641"></a><h3 class="title">Esempio&nbsp;4.13.&nbsp;Il metodo speciale <tt class="function">__getitem__</tt></h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> __getitem__</span>(self, key): <span class="pykeyword">return</span> self.data[key]</pre><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = fileinfo.FileInfo(<span class="pystring">"/music/_singles/kairo.mp3"</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">{'name':'/music/_singles/kairo.mp3'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.__getitem__(<span class="pystring">"name"</span>)</span> <a name="fileinfo.specialmethods.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'/music/_singles/kairo.mp3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f[<span class="pystring">"name"</span>]</span>             <a name="fileinfo.specialmethods.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'/music/_singles/kairo.mp3'</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il metodo speciale <tt class="function">__getitem__</tt> sembra essere abbastanza
+                        	semplice. Come i metodi <tt class="function">clear</tt>, <tt class="function">keys</tt> e <tt class="function">values</tt>,
+                        	semplicemente redireziona la chiamata al dizionario per
+                        	ritornare il suo valore. Ma come viene chiamato? Beh,
+                        	potete chiamare <tt class="function">__getitem__</tt> direttamente, ma in pratica
+                        	non lo farete; io lo faccio giusto per mostrarvi come
+                        	funziona. Il modo giusto di usare <tt class="function">__getitem__</tt> &egrave; di farlo
+                        	chiamare per voi da <span class="application">Python</span>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa sembra proprio la sintassi che usereste per
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html#odbchelper.dict.define" title="Esempio&nbsp;2.10.&nbsp;Definire un dizionario">ottenere un valore
+                           	da un dizionario</a> ed infatti restituisce il valore
+                        	che vi aspettereste. Ma qui si vede l'anello mancante:
+                        	sotto sotto, <span class="application">Python</span> ha convertito questa sintassi in una
+                        	chiamata a metodo <tt class="literal">f.__getitem__("name")</tt>.
+                        	Ecco perch&eacute; <tt class="function">__getitem__</tt> &egrave; un metodo speciale; non solo lo
+                        	potete chiamare esplicitamente ma potete fare in modo che
+                        	<span class="application">Python</span> lo chiami per voi, utilizzando la sintassi corretta.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="fileinfo.specialmethods.setitem.example"></a><h3 class="title">Esempio&nbsp;4.14.&nbsp;Il metodo speciale <tt class="function">__setitem__</tt></h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> __setitem__</span>(self, key, item): self.data[key] = item</pre><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">{'name':'/music/_singles/kairo.mp3'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.__setitem__(<span class="pystring">"genre"</span>, 31)</span> <a name="fileinfo.specialmethods.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">{'name':'/music/_singles/kairo.mp3', 'genre':31}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f[<span class="pystring">"genre"</span>] = 32</span>            <a name="fileinfo.specialmethods.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">{'name':'/music/_singles/kairo.mp3', 'genre':32}</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come il metodo <tt class="function">__getitem__</tt>, <tt class="function">__setitem__</tt> per fare il suo lavoro
+                        	semplicemente redireziona la chiamata al vero dizionario
+                        	<tt class="varname">self.data</tt> e come per <tt class="function">__getitem__</tt> non lo
+                        	chiamerete in maniera diretta come qui; <span class="application">Python</span> chiama
+                        	<tt class="function">__setitem__</tt> per voi quando usate la sintassi corretta.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa somiglia alla sintassi regolare dei dizionari,
+                        	eccetto naturalmente per il fatto che
+                        	<tt class="varname">f</tt> &egrave; una classe che cerca di travestirsi
+                        	da dizionario e <tt class="function">__setitem__</tt> &egrave; una parte essenziale del suo
+                        	travestimento. Questa riga di codice va. sotto sotto, a
+                        	chiamare <tt class="literal">f.__setitem__("genre", 32)</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+<tt class="function">__setitem__</tt> &egrave; un metodo speciale di classe perch&eacute; viene chiamato
+            	per voi, ma &egrave; comunque un metodo della classe. Tanto
+            	semplicemente quanto il metodo <tt class="function">__setitem__</tt> &egrave; stato definito in
+            	<tt class="classname">UserDict</tt>, noi lo possiamo ridefinire nelle nostre
+            	classi discendenti per sovrascrivere il metodo antenato.
+            	Questo ci permette di definire classi che agiscono come
+            	dizionari in alcuni casi, ma definirne il loro comportamento
+            	ben oltre quello dei dizionari built-in.
+            
+         </p>
+<p>
+            	Questo concetto sta alla base dell'intero framework che
+            	stiamo studiando in questo capitolo. Ogni tipo di file
+            	pu&ograve; avere una classe handler che sa come ottenere i
+            	metadati da un particolare tipo di file. Una volta che
+            	alcuni attributi (come il nome del file e la sua locazione)
+            	sono noti, la classe handler sa come derivare altri
+            	attributi automaticamente. Questo &egrave; fatto sovrascrivendo il
+            	metodo <tt class="function">__setitem__</tt>, controllando particolari chiavi ed
+            	elaborandole nel momento in cui vengono trovate.
+            
+         </p>
+<p>
+            	Per esempio, <tt class="classname">MP3FileInfo</tt> &egrave; un discendente di
+            	<tt class="classname">FileInfo</tt>. Quando il <tt class="literal">nome</tt> di
+            	un <tt class="classname">MP3FileInfo</tt> &egrave; impostato, non si limita ad
+            	impostare la chiave <tt class="literal">name</tt> (come fa
+            	l'antenato <tt class="classname">FileInfo</tt>); va anche a cercare tag
+            	<span class="abbrev">MP3</span> nel file e popola l'intero insieme di chiavi.
+            
+         </p>
+<div class="example"><a name="d0e9842"></a><h3 class="title">Esempio&nbsp;4.15.&nbsp;Sovrascrivere <tt class="function">__setitem__</tt> in <tt class="classname">MP3FileInfo</tt></h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> __setitem__</span>(self, key, item):         <a name="fileinfo.specialmethods.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">if</span> key == <span class="pystring">"name"</span> <span class="pykeyword">and</span> item:            <a name="fileinfo.specialmethods.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+            self.__parse(item)                <a name="fileinfo.specialmethods.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+        FileInfo.__setitem__(self, key, item) <a name="fileinfo.specialmethods.3.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Notate che il nostro metodo <tt class="function">__setitem__</tt> &egrave; definito nello stesso
+                        	modo in cui era definito l'antenato. Questo &egrave; importante, in
+                        	quanto <span class="application">Python</span> dovr&agrave; chiamare il metodo per noi e si aspetta
+                        	che vi siano definiti un certo numero di argomenti (parlando
+                        	tecnicamente, i nomi degli argomenti non contano, ha importanza
+                        	solamente il loro numero).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo &egrave; il punto cruciale dell'intera classe
+                        	<tt class="classname">MP3FileInfo</tt>: se stiamo assegnando un valore alla
+                        	chiave <tt class="literal">name</tt>, vogliamo fare qualcosa in pi&ugrave;.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	L'elaborazione aggiuntiva che vogliamo fare per i
+                        	<tt class="literal">nomi</tt> &egrave; incapsulata nel metodo
+                        	<tt class="function">__parse</tt>. Si tratta di un altro metodo della classe
+                        	definito in <tt class="classname">MP3FileInfo</tt> e quando lo
+                        	chiamiamo, lo qualifichiamo con <tt class="varname">self</tt>.
+                        	La semplice chiamata a <tt class="function">__parse</tt>
+                        	sembrerebbe l'invocazione di una funzione definita fuori
+                        	dalla classe, che non &egrave; ci&ograve; che noi vogliamo; chiamando
+                        	<tt class="function">self.__parse</tt> sembrer&agrave; la chiamata
+                        	ad un metodo definito nella classe. Non si tratta di
+                        	nulla di nuovo; referenziate
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/userdict.html#fileinfo.userdict.normalmethods" title="Esempio&nbsp;4.12.&nbsp;Metodi comuni di UserDict">gli
+                           	attributi</a> nella medesima maniera.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.3.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Dopo aver effettuato la nostra elaborazione aggiuntiva,
+                        	vogliamo chiamare il metodo dell'antenato. Ricordate,
+                        	questo non viene mai fatto per voi da <span class="application">Python</span>; lo dovete
+                        	fare manualmente. Notate che stiamo chiamando l'antenato
+                        	immediatamente precedente, <tt class="classname">FileInfo</tt>, per
+                        	quanto non abbia un metodo <tt class="function">__setitem__</tt>. Va bene, perch&eacute;
+                        	<span class="application">Python</span> seguir&agrave; l'albero degli antenati finch&eacute; non trova
+                        	una classe con il metodo che stiamo chiamando, cos&igrave; questa
+                        	riga di codice, eventualmente, trover&agrave; e chiamer&agrave; il metodo
+                        	<tt class="function">__setitem__</tt>, definito in <tt class="classname">UserDict</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="tip.self.call"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Quando accedete agli attributi di una classe, avete bisogno
+                  	di qualificare il nome dell'attributo:
+                  	<tt class="literal">self.<i class="replaceable">attributo</i></tt>.
+                  	Quando chiamate altri metodi di una classe, dovete
+                  	qualificare il nome del metodo:
+                  <tt class="literal">self.<i class="replaceable">metodo</i></tt>.
+                  
+               </td>
+</tr>
+</table>
+<div class="example"><a name="fileinfo.specialmethods.setname"></a><h3 class="title">Esempio&nbsp;4.16.&nbsp;Impostare il <tt class="literal">nome</tt> di un <tt class="classname">MP3FileInfo</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> fileinfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file = fileinfo.MP3FileInfo()</span>                   <a name="fileinfo.specialmethods.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file</span>
+<span class="computeroutput">{'name':None}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file[<span class="pystring">"name"</span>] = <span class="pystring">"/music/_singles/kairo.mp3"</span></span>      <a name="fileinfo.specialmethods.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file</span>
+<span class="computeroutput">{'album': 'Rave Mix', 'artist': '***DJ MARY-JANE***', 'genre': 31,
+'title': 'KAIRO****THE BEST GOA', 'name': '/music/_singles/kairo.mp3',
+'year': '2000', 'comment': 'http://mp3.com/DJMARYJANE'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file[<span class="pystring">"name"</span>] = <span class="pystring">"/music/_singles/sidewinder.mp3"</span></span> <a name="fileinfo.specialmethods.4.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file</span>
+<span class="computeroutput">{'album': '', 'artist': 'The Cynic Project', 'genre': 18, 'title': 'Sidewinder',
+'name': '/music/_singles/sidewinder.mp3', 'year': '2000',
+'comment': 'http://mp3.com/cynicproject'}</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Prima, creiamo un'istanza di <tt class="classname">MP3FileInfo</tt>, senza
+                        	passarle alcun nome di file (possiamo evitarlo in quanto
+                        	l'argomento <tt class="varname">filename</tt> del metodo <tt class="function">__init__</tt> &egrave;
+                        	<a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">opzionale</a>). Siccome
+                        	<tt class="classname">MP3FileInfo</tt> non ha un suo metodo <tt class="function">__init__</tt>, <span class="application">Python</span>
+                        	percorre l'albero degli antenati e trova il metodo <tt class="function">__init__</tt> di
+                        	<tt class="classname">FileInfo</tt>. Questo metodo <tt class="function">__init__</tt> chiama manualmente
+                        	il metodo <tt class="function">__init__</tt> di <tt class="classname">UserDict</tt> e quindi imposta la
+                        	chiave <tt class="literal">name</tt> al valore di
+                        	<tt class="varname">filename</tt>, che &egrave; <tt class="literal">None</tt>, in quanto non
+                        	abbiamo passato l'argomento filename. Dunque
+                        	<tt class="varname">mp3file</tt> inizialmente sembra un dizionario
+                        	con una chiave, <tt class="literal">name</tt>, il cui valore &egrave;
+                        	<tt class="literal">None</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ora inizia il vero divertimento. Impostando la chiave
+                        	<tt class="literal">name</tt> di <tt class="varname">mp3file</tt> viene
+                        	invocato il metodo <tt class="function">__setitem__</tt> di <tt class="classname">MP3FileInfo</tt>
+                        	(non di <tt class="classname">UserDict</tt>), il quale
+                        	nota che stiamo impostando la chiave <tt class="literal">name</tt>
+                        	con un vero valore e chiama <tt class="function">self.__parse</tt>.
+                        	Anche se non abbiamo ancora analizzato a fondo il metodo
+                        	<tt class="function">__parse</tt>, potete vedere
+                        	dall'output che va ad impostare altre chiavi:
+                        	<tt class="literal">album</tt>, <tt class="literal">artist</tt>,
+                        	<tt class="literal">genre</tt>, <tt class="literal">title</tt>,
+                        	<tt class="literal">year</tt>, e <tt class="literal">comment</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.4.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Modificare la chiave <tt class="literal">name</tt> innescher&agrave;
+                        	nuovamente lo stesso processo: <span class="application">Python</span> chiama <tt class="function">__setitem__</tt>,
+                        	che chiama <tt class="function">self.__parse</tt>, che
+                        	imposta tutte le altre chiavi.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/userdict.html">&lt;&lt;&nbsp;UserDict: una classe wrapper</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html">Metodi speciali di classe avanzati&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

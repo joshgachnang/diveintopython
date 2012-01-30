@@ -1,0 +1,65 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.2. Argumentos opcionales y con nombre</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/apihelper_divein.html" title="Cap&iacute;tulo 2. El poder de la introspecci&oacute;n" /><link rel="previous" href="http://es.diveintopython.net/apihelper_divein.html" title="Cap&iacute;tulo 2. El poder de la introspecci&oacute;n" /><link rel="next" href="http://es.diveintopython.net/apihelper_builtin.html" title="2.3. type, str, dir, y otras funciones incorporadas" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html">El poder de la introspecci&oacute;n</a>&nbsp;&gt;&nbsp;<b>Argumentos opcionales y con nombre</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html" title="Anterior: “El poder de la introspecci&oacute;n”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_builtin.html" title="Siguiente: “type, str, dir, y otras funciones incorporadas”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="apihelper.optional"></a><div class="titlepage"><div><h2 class="title"><a name="apihelper.optional"></a>2.2. Argumentos opcionales y con nombre</h2></div></div><div class="abstract"><p>Python permite que los argumentos de funciones tengan valores
+por omisi&oacute;n; si la funci&oacute;n es llamada sin el argumento, &eacute;ste toma su
+valor por omisi&oacute;n. Adem&aacute;s, los argumentos pueden especificarse en
+cualquier orden si se les da nombre. Los procedimientos almacenados en
+SQL Server Transact/SQL pueden hacer esto; si es usted un gur&uacute; de los
+<i>scripts</i> en SQL Server, 
+puede saltarse esta parte.</p></div><div class="example"><p><a name="d0e1768"></a><b>Ejemplo 2.4. <tt>help</tt>, una funci&oacute;n con dos argumentos opcionales</b></p><pre class="programlisting"><span class="pykeyword">
+def</span> help(object, spacing=10, collapse=1):</pre></div><p><tt>spacing</tt> y <tt>collapse</tt> son
+opcionales, porque tienen asignados valores por omisi&oacute;n.
+<tt>object</tt> es obligatorio, porque no tiene valor por
+omisi&oacute;n. Si se llama a <tt>help</tt> s&oacute;lo con un argumento,
+<tt>spacing</tt> valdr&aacute; <tt>10</tt> y
+<tt>collapse</tt> valdr&aacute; <tt>1</tt>. Si se llama a <tt>help</tt> con dos
+argumentos, <tt>collapse</tt> seguir&aacute; valiendo <tt>1</tt>.</p><p>Supongamos que desea usted especificar un valor para
+<tt>collapse</tt>, pero acepta el valor por omisi&oacute;n de
+<tt>spacing</tt>. En la mayor&iacute;a de los lenguajes no tendr&iacute;a
+tanta suerte, pues deber&iacute;a llamar a la funci&oacute;n con los tres
+argumentos. Pero en Python, los argumentos pueden indicarse por su
+nombre en cualquier orden.</p><div class="example"><p><a name="d0e1788"></a><b>Ejemplo 2.5. Llamadas v&aacute;lidas a <tt>help</tt></b></p><pre class="programlisting">
+help(odbchelper)                    <a name="apihelper_args.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+help(odbchelper, 12)                <a name="apihelper_args.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+help(odbchelper, collapse=0)        <a name="apihelper_args.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+help(spacing=15, object=odbchelper) <a name="apihelper_args.1.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist"><a name="d0e1796"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_optional.html#apihelper_args.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Con un &uacute;nico argumento, <tt>spacing</tt> toma su valor
+por omisi&oacute;n de <tt>10</tt> y <tt>collapse</tt>
+toma su valor por omisi&oacute;n de <tt>1</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_optional.html#apihelper_args.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Con dos argumentos, <tt>collapse</tt> toma su valor
+por omisi&oacute;n de <tt>1</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_optional.html#apihelper_args.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Aqu&iacute; se nombra expl&iacute;citamente el argumento
+<tt>collapse</tt> y se le da un valor.
+<tt>spacing</tt> toma su valor por omisi&oacute;n de
+<tt>10</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_optional.html#apihelper_args.1.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Incluso los argumentos obligatorios (como
+<tt>object</tt>, que no tiene valor por omisi&oacute;n) pueden
+indicarse por su nombre, y los argumentos as&iacute; indicados pueden
+aparecer en cualquier orden.</td></tr></table></div></div><p>Esto sorprende hasta que se advierte que los
+argumentos simplemente forman un diccionario. El m&eacute;todo
+&#8220;normal&#8221; de llamar a funciones sin nombres de argumentos
+es realmente un atajo por el que Python empareja los valores con sus
+nombres en el orden en que fueron especificados en la declaraci&oacute;n de
+la funci&oacute;n. La mayor parte de las veces llamar&aacute; usted a las funciones
+de la forma &#8220;normal&#8221;, pero siempre dispone de esta
+flexibilidad adicional si la necesita.</p><a name="tip.arguments"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Lo &uacute;nico que debe hacerse para llamar a una funci&oacute;n es
+especificar un valor (del modo que sea) para cada argumento
+obligatorio;
+el modo y el orden en que se haga esto depende de usted.</td></tr></table><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li>El <a href="http://es.diveintopython.net/doc/current/tut/tut.html"><i>Tutorial de Python</i></a> explica exactamente <a href="http://es.diveintopython.net/doc/current/tut/node6.html#SECTION006710000000000000000">cu&aacute;ndo
+y c&oacute;mo se eval&uacute;an los argumentos por omisi&oacute;n</a>, lo cual es
+interesante cuando el valor por omisi&oacute;n es una lista o una expresi&oacute;n
+con efectos colaterales.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/apihelper_divein.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;El poder de la introspecci&oacute;n</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.divein" title="2.1. Inmersi&oacute;n">1</a> <b>2</b> <a href="http://es.diveintopython.net/apihelper_builtin.html" title="2.3. type, str, dir, y otras funciones incorporadas">3</a> <a href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr">4</a> <a href="http://es.diveintopython.net/apihelper_filter.html" title="2.5. Filtrado de listas">5</a> <a href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or">6</a> <a href="http://es.diveintopython.net/apihelper_lambda.html" title="2.7. Utilizaci&oacute;n de las funciones lambda">7</a> <a href="http://es.diveintopython.net/apihelper_alltogether.html" title="2.8. Todo junto">8</a> <a href="http://es.diveintopython.net/apihelper_summary.html" title="2.9. Resumen">9</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/apihelper_builtin.html">type, str, dir, y otras funciones incorporadas&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

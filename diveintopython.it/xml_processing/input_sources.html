@@ -1,0 +1,537 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.7.&nbsp;Astrarre le sorgenti di ingresso</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Astrarre le sorgenti di ingresso</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/attributes.html" title="Indietro: “Accedere agli attributi di un elemento”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="Avanti: “Standard input, output, ed error”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.openanything"></a>6.7.&nbsp;Astrarre le sorgenti di ingresso
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Uno dei punti di forza di <span class="application">Python</span> &egrave; il suo binding dinamico,
+               	ed uno degli usi pi&ugrave; potenti del binding dinamico sono gli
+               	<span class="emphasis"><em>oggetti file</em></span> (ovvero, che si
+               	comportano come dei file).
+               
+            </p>
+</div>
+<p>
+            	Molte funzioni che richiedono una sorgente di ingresso
+            	potrebbero semplicemente prendere un nome di un file,
+            	aprirle il file in lettura, leggerlo e chiuderlo quando
+            	hanno finito. Ma non lo fanno. Prendono, invece, degli
+            	<span class="emphasis"><em>oggetti file</em></span>.
+            
+         </p>
+<p>
+            	Nel caso pi&ugrave; semplice, un <span class="emphasis"><em>oggetto
+                  	file</em></span> &egrave; un oggetto dotato di un metodo <tt class="function">read</tt> 
+            	con un parametro opzionale <tt class="varname">size</tt>, che
+            	ritorna una stringa. Quando viene chiamato senza il
+            	parametro <tt class="varname">size</tt>, legge tutto ci&ograve; che
+            	c'&egrave; da leggere dalla sorgente di ingresso e ritorna
+            	tutti i dati come una sola stringa.
+            	Quando viene chiamato con il parametro
+            	<tt class="varname">size</tt>, legge quella quantit&agrave; dalla
+            	sorgente di ingresso e ritorna quella quantit&agrave; di dati;
+            	quando viene chiamato nuovamente, riprende da dove aveva
+            	lasciato e ritorna il prossimo spezzone di dati.
+            
+         </p>
+<p>
+            	&Egrave; cos&igrave; che funziona la
+            	<a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">lettura dai veri file</a>;
+            	la differenza &egrave; che non ci stiamo limitando ai veri file.
+            	La sorgente di ingresso potrebbe essere qualunque cosa: un
+            	file su disco, una pagina web, anche una stringa hard-coded.
+            	Fino a quando passiamo un oggetto file-like alla funzione
+            	e la funzione chiama semplicemente il metodo <tt class="function">read</tt>
+            	dell'oggetto, la funzione pu&ograve; gestire ogni genere di
+            	sorgente di ingresso senza la necessit&agrave; di codice specifico
+            	per ogni tipo.
+            
+         </p>
+<p>
+            	Nel caso vi stiate chiedendo cosa ha a che vedere con
+            	l'analisi dell'<span class="acronym">XML</span>, <tt class="function">minidom.parse</tt> &egrave; una di
+            	quelle funzioni che pu&ograve; prendere un 
+            	<span class="emphasis"><em>oggetto file</em></span>.
+            
+         </p>
+<div class="example"><a name="d0e19203"></a><h3 class="title">Esempio&nbsp;6.25.&nbsp;Analizzare <span class="acronym">XML</span> da file
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> xml.dom <span class="pykeyword">import</span> minidom</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fsock = open(<span class="pystring">'binary.xml'</span>)</span>    <a name="kgp.openanything.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(fsock)</span> <a name="kgp.openanything.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fsock.close()</span>                 <a name="kgp.openanything.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> xmldoc</span>
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per prima cosa, apriamo il file su disco.
+                        	Questo ci restituisce un
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">oggetto di tipo file</a>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Passiamo l'oggetto file a <tt class="function">minidom.parse</tt>, che
+                        	chiama il metodo <tt class="function">read</tt>  di <tt class="varname">fsock</tt>
+                        	e legge il documento <span class="acronym">XML</span> dal file su disco.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Siate sicuri di chiamare il metodo <tt class="function">close</tt> sull'oggetto file
+                        	quando avete finito. <tt class="function">minidom.parse</tt> non lo
+                        	far&agrave; per voi.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Bene, tutto questo sembra una colossale perdita di tempo.
+            	Dopo tutto, abbiamo gi&agrave; visto che <tt class="function">minidom.parse</tt>
+            	pu&ograve; semplicemente prendere il nome del file ed effettuare
+            	tutte le operazioni di apertura e chiusura autonomamente.
+            	Ed &egrave; vero che se sapete di dover analizzare un file locale,
+            	potete passargli il nome del file e
+            	<tt class="function">minidom.parse</tt>
+            	&egrave; sufficientemente intelligente da <span class="trademark">Fare La Cosa
+               	Giusta </span>&#8482;. Ma notate quanto sia simile, e facile,
+            	analizzare un documento <span class="acronym">XML</span> direttamente da Internet.
+            
+         </p>
+<div class="example"><a name="d0e19289"></a><h3 class="title">Esempio&nbsp;6.26.&nbsp;Analizzare <span class="acronym">XML</span> da una <span class="acronym">URL</span></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> urllib</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">usock = urllib.urlopen(<span class="pystring">'http://slashdot.org/slashdot.rdf'</span>)</span> <a name="kgp.openanything.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(usock)</span>                              <a name="kgp.openanything.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">usock.close()</span>                                              <a name="kgp.openanything.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> xmldoc.toxml()</span>                                       <a name="kgp.openanything.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;rdf:RDF xmlns="http://my.netscape.com/rdf/simple/0.9/"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+
+&lt;channel&gt;
+&lt;title&gt;Slashdot&lt;/title&gt;
+&lt;link&gt;http://slashdot.org/&lt;/link&gt;
+&lt;description&gt;News for nerds, stuff that matters&lt;/description&gt;
+&lt;/channel&gt;
+
+&lt;image&gt;
+&lt;title&gt;Slashdot&lt;/title&gt;
+&lt;url&gt;http://images.slashdot.org/topics/topicslashdot.gif&lt;/url&gt;
+&lt;link&gt;http://slashdot.org/&lt;/link&gt;
+&lt;/image&gt;
+
+&lt;item&gt;
+&lt;title&gt;To HDTV or Not to HDTV?&lt;/title&gt;
+&lt;link&gt;http://slashdot.org/article.pl?sid=01/12/28/0421241&lt;/link&gt;
+&lt;/item&gt;
+
+[...snip...]</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come abbiamo visto <a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.urllib" title="Esempio&nbsp;5.5.&nbsp;Introdurre urllib">nel
+                           	capitolo precedente</a>, <tt class="function">urlopen</tt> prende una pagina web
+                        	<span class="acronym">URL</span> e restituisce un <span class="emphasis"><em>oggetto
+                              	file</em></span>. Pi&ugrave; importante, questo 
+                        	oggetto ha un metodo <tt class="function">read</tt> che restituisce il sorgente <span class="acronym">HTML</span>
+                        	della pagina web.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ora passiamo l'<span class="emphasis"><em>oggetto file</em></span> a
+                        	<tt class="function">minidom.parse</tt>, che obbedientemente chiama il
+                        	metodo <tt class="function">read</tt> dell'oggetto ed analizza i dati <span class="acronym">XML</span> che il
+                        	metodo <tt class="function">read</tt> restituisce.
+                        	Il fatto che questi dati <span class="acronym">XML</span> stiano
+                        	arrivando da una pagina web &egrave; completamente irrilevante.
+                        	<tt class="function">minidom.parse</tt> non sa niente di pagine web e
+                        	non gli importa nulla delle pagine web; sa solo come usare
+                        	gli <span class="emphasis"><em>oggetti file</em></span>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Non appena avete finito, siate certi di chiudere l'oggetto
+                        	file-like che <tt class="function">urlopen</tt> restituisce.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	A proposito, questa <span class="acronym">URL</span> &egrave; reale e contiene davvero <span class="acronym">XML</span>.
+                        	&Egrave; una rappresentazione <span class="acronym">XML</span> delle attuali intestazioni
+                        	su <a href="http://it.diveintopython.net/">Slashdot</a>,
+                        	un sito di tecnica e pettegolezzi.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e19404"></a><h3 class="title">Esempio&nbsp;6.27.&nbsp;Analizzare <span class="acronym">XML</span> da una stringa (il metodo facile ma inflessibile)
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">contents = <span class="pystring">"&lt;grammar&gt;&lt;ref id='bit'&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parseString(contents)</span> <a name="kgp.openanything.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> xmldoc.toxml()</span>
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;grammar&gt;&lt;ref id="bit"&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="filename">minidom</tt> ha un metodo, <tt class="function">parseString</tt>,
+                        	che prende un intero documento <span class="acronym">XML</span> come stringa e lo
+                        	analizza. Potete usare questo metodo al posto di
+                        	<tt class="function">minidom.parse</tt> se sapete gi&agrave; di avere il vostro
+                        	documento <span class="acronym">XML</span> tutto in una stringa.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Ok, allora possiamo usare la funzione
+            	<tt class="function">minidom.parse</tt> per analizzare sia file locali
+            	che <span class="acronym">URL</span> remote, ma per analizzare stringhe, usiamo ...
+            	un'altra funzione. Significa che se vogliamo essere in
+            	grado di leggere un file, una <span class="acronym">URL</span> o una stringa, abbiamo
+            	bisogno di una logica speciale che controlli se &egrave; una
+            	stringa, e chiamare la funzione <tt class="function">parseString</tt>
+            	al suo posto. Davvero insoddisfacente.
+            
+         </p>
+<p>
+            	Se ci fosse un modo per trasformare una stringa in un oggetto
+            	file-like, allora potremmo semplicemente passare tale oggetto
+            	a <tt class="function">minidom.parse</tt>. Ed infatti, c'&egrave; un modulo
+            	specificamente disegnato per svolgere questo compito:
+            	<tt class="filename">StringIO</tt>.
+            
+         </p>
+<div class="example"><a name="d0e19472"></a><h3 class="title">Esempio&nbsp;6.28.&nbsp;Introduzione a <tt class="filename">StringIO</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">contents = <span class="pystring">"&lt;grammar&gt;&lt;ref id='bit'&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> StringIO</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock = StringIO.StringIO(contents)</span>   <a name="kgp.openanything.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read()</span>                          <a name="kgp.openanything.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">"&lt;grammar&gt;&lt;ref id='bit'&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;"</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read()</span>                          <a name="kgp.openanything.4.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">''</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.seek(0)</span>                         <a name="kgp.openanything.4.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read(15)</span>                        <a name="kgp.openanything.4.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">'&lt;grammar&gt;&lt;ref i'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read(15)</span>
+<span class="computeroutput">"d='bit'&gt;&lt;p&gt;0&lt;/p"</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read()</span>
+<span class="computeroutput">'&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.close()</span>                         <a name="kgp.openanything.4.6"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il modulo <tt class="filename">StringIO</tt> contiene una sola classe,
+                        	anch'essa chiamata <tt class="classname">StringIO</tt>, che vi permette
+                        	di trasformare una stringa in un oggetto file-like. La
+                        	classe <tt class="classname">StringIO</tt> prende una stringa come
+                        	parametro quando crea un'istanza.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ora abbiamo un oggetto file-like e possiamo fare ogni genere
+                        	di cose, come con i file, con esso. Come invocare <tt class="function">read</tt>, che ritorna
+                        	la stringa originale.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.4.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Chiamando nuovamente <tt class="function">read</tt> restituisce una stringa vuota.
+                        	&Egrave; cos&igrave;
+                        	che i veri oggetti di tipo file funzionano; una volta letto
+                        	l'intero file, non potete leggere di pi&ugrave; senza spostarvi
+                        	esplicitamente all'inizio del file. L'oggetto
+                        	<tt class="classname">StringIO</tt> funziona nello stesso modo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.4.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potete esplicitamente spostarvi all'inizio della stringa,
+                        	proprio come fareste con un file, utilizzando il metodo
+                        	<tt class="function">seek</tt> dell'oggetto <tt class="classname">StringIO</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.4.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potete anche leggere la stringa in spezzoni, passando un
+                        	parametro <tt class="varname">size</tt> al metodo <tt class="function">read</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.4.6"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	In qualunque momento, <tt class="function">read</tt> ritorner&agrave; il resto della stringa
+                        	che non avete ancora letto. Tutto questo rispecchia il modo
+                        	di funzionamento dei file; da cui il termine
+                        	<span class="emphasis"><em>oggetti file-like</em></span>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e19610"></a><h3 class="title">Esempio&nbsp;6.29.&nbsp;Analizzare <span class="acronym">XML</span> da una stringa (alla maniera degli oggetti file)
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">contents = <span class="pystring">"&lt;grammar&gt;&lt;ref id='bit'&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock = StringIO.StringIO(contents)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(ssock)</span> <a name="kgp.openanything.5.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> xmldoc.toxml()</span>
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;grammar&gt;&lt;ref id="bit"&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.5.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ora possiamo passare l'oggetto file (in realt&agrave; una
+                        	<tt class="classname">StringIO</tt>) a <tt class="function">minidom.parse</tt>, che
+                        	chiamer&agrave; il metodo <tt class="function">read</tt> dell'oggetto e lo analizzer&agrave;
+                        	felicemente, senza mai sapere che il suo input arrivava da
+                        	una stringa hard-coded.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Cos&igrave; ora sappiamo come usare una singola funzione,
+            	<tt class="function">minidom.parse</tt>, per analizzare un documento
+            	<span class="acronym">XML</span> memorizzato in una pagina web, in un file locale
+            	o in una stringa hard-coded. Per una pagina web, usiamo
+            	<tt class="function">urlopen</tt> per ottenere un oggetto file; per un file
+            	locale, usiamo <tt class="function">open</tt>; per una stringa, usiamo
+            	<tt class="classname">StringIO</tt>. Proseguiamo ora di un ulteriore
+            	passo per generalizzare meglio
+            	<span class="emphasis"><em>questa</em></span> differenza.
+            
+         </p>
+<div class="example"><a name="kgp.openanything.example"></a><h3 class="title">Esempio&nbsp;6.30.&nbsp;<tt class="function">openAnything</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> openAnything(source):                  <a name="kgp.openanything.6.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pycomment"># try to open with urllib (if source is http, ftp, or file URL)</span>
+    <span class="pykeyword">import</span> urllib                         
+    <span class="pykeyword">try</span>:                                  
+        <span class="pykeyword">return</span> urllib.urlopen(source)      <a name="kgp.openanything.6.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    <span class="pykeyword">except</span> (IOError, OSError):            
+        <span class="pykeyword">pass</span>                              
+
+    <span class="pycomment"># try to open with native open function (if source is pathname)</span>
+    <span class="pykeyword">try</span>:                                  
+        <span class="pykeyword">return</span> open(source)                <a name="kgp.openanything.6.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+    <span class="pykeyword">except</span> (IOError, OSError):            
+        <span class="pykeyword">pass</span>                              
+
+    <span class="pycomment"># treat source as string</span>
+    <span class="pykeyword">import</span> StringIO                       
+    <span class="pykeyword">return</span> StringIO.StringIO(str(source))  <a name="kgp.openanything.6.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.6.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La funzione <tt class="function">openAnything</tt> prende un solo
+                        	parametro, <tt class="varname">source</tt>, e ritorna un oggetto
+                        	file. <tt class="varname">source</tt> &egrave; una stringa di
+                        	qualche tipo; pu&ograve; essere una <span class="acronym">URL</span> (come
+                        	<tt class="literal">'http://slashdot.org/slashdot.rdf'</tt>),
+                            	un percorso completo o parziale verso un file locale (come
+                        	<tt class="literal">'binary.xml'</tt>), o una stringa che contiene
+                        	i dati <span class="acronym">XML</span> da analizzare.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.6.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per prima cosa, vediamo se <tt class="varname">source</tt> &egrave; una
+                        	<span class="acronym">URL</span>. Lo facciamo usando la forza bruta: proviamo ad
+                        	aprirla come una <span class="acronym">URL</span> e silenziosamente ignoriamo gli errori
+                        	causati cercando di aprire qualcosa che non &egrave; una <span class="acronym">URL</span>.
+                                &Egrave;
+                        	elegante nel senso che, se <tt class="filename">urllib</tt> mai supporter&agrave; nuovi tipi
+                        	di <span class="acronym">URL</span> in futuro, li supporteremo anche noi senza problemi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.6.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se <tt class="filename">urllib</tt> ci sgrida sostenendo che <tt class="varname">source</tt>
+                        	non &egrave; una <span class="acronym">URL</span> valida, assumiamo che sia il percorso di un
+                        	file su disco e proviamo ad aprirlo. Ancora, non facciamo
+                        	nulla per controllare se <tt class="varname">source</tt> &egrave; un nome
+                        	di file valido o meno (le regole sulla validit&agrave; del nome di
+                        	un file variano molto tra diverse piattaforme, dunque le
+                        	sbaglieremmo comunque). Invece, proviamo ciecamente ad aprire
+                        	il file e silenziosamente catturiamo gli errori.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/input_sources.html#kgp.openanything.6.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	A questo punto, dobbiamo assumere che
+                        	<tt class="varname">source</tt> sia una stringa con dei dati
+                        	precodificati all'interno (visto che nient'altro ha
+                        	funzionato), allora usiamo <tt class="classname">StringIO</tt> per creare
+                        	un oggetto file da essa e lo ritorniamo. (Infatti,
+                        	siccome stiamo usando la funzione <tt class="function">str</tt>,
+                        	<tt class="varname">source</tt> non deve necessariamente essere
+                        	una stringa; potrebbe essere qualunque oggetto e noi useremo
+                        	la sua rappresentazione sotto forma di stringa, come definita
+                        	dal <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">metodo
+                           	speciale</a> <tt class="function">__str__</tt>.)
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Ora possiamo usare la funzione <tt class="function">openAnything</tt> in
+            	congiunzione con <tt class="function">minidom.parse</tt> per creare una
+            	funzione, che prende un parametro <tt class="varname">source</tt>
+            	facente riferimento in qualche modo ad un documento <span class="acronym">XML</span>
+            	(sia una <span class="acronym">URL</span>, od il nome di un file locale o una stringa
+            	contenente un documento <span class="acronym">XML</span>) e lo analizza.
+            
+         </p>
+<div class="example"><a name="d0e19790"></a><h3 class="title">Esempio&nbsp;6.31.&nbsp;Usare <tt class="function">openAnything</tt> in <tt class="filename">kgp.py</tt></h3><pre class="programlisting"><span class="pykeyword">
+class</span> KantGenerator:
+    <span class="pykeyword">def</span><span class="pyclass"> _load</span>(self, source):
+        sock = toolbox.openAnything(source)
+        xmldoc = minidom.parse(sock).documentElement
+        sock.close()
+        <span class="pykeyword">return</span> xmldoc</pre></div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/attributes.html">&lt;&lt;&nbsp;Accedere agli attributi di un elemento</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html" title="6.12.&nbsp;Gestire gli argomenti da riga di comando">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html">Standard input, output, ed error&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

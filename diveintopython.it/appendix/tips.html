@@ -1,0 +1,1240 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Appendice&nbsp;C.&nbsp;Consigli e trucchi</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/toc/index.html" title="Dive Into Python" />
+<link rel="previous" href="http://it.diveintopython.net/appendix/abstracts.html" title="Appendice&nbsp;B.&nbsp;Recensione in 5 minuti" />
+<link rel="next" href="http://it.diveintopython.net/appendix/examples.html" title="Appendice&nbsp;D.&nbsp;Elenco degli esempi" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Consigli e trucchi</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/appendix/abstracts.html" title="Indietro: “Recensione in 5 minuti”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/appendix/examples.html" title="Avanti: “Elenco degli esempi”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="appendix" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="tips"></a>Appendice&nbsp;C.&nbsp;Consigli e trucchi
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<p><a href="http://it.diveintopython.net/appendix/index.html">Capitolo&nbsp;1.&nbsp;Installare Python</a></p>
+<ul></ul>
+<p><a href="http://it.diveintopython.net/appendix/index.html">Capitolo&nbsp;2.&nbsp;Conoscere Python</a></p>
+<ul>
+<li><a href="http://it.diveintopython.net/appendix/index.html#odbchelper.divein">2.1.&nbsp;Immergersi</a><a name="tip.run.windows"></a><table class="tip" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/tip.png" alt="Suggerimento" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Nel <span class="application">Python</span> <span class="acronym">IDE</span> di Windows, potere lanciare un modulo
+                        	con File-&gt;Run... (Ctrl-R).
+                        <span class="guimenu">File</span>-&gt;<span class="guimenuitem"><span class="accel">R</span>un...</span> (<span><b class="shortcut"><span></span></b><b class="keycap">Ctrl</b></span>-<span class="keysym">R</span>).  L'output viene mostrato nella finestra interattiva.
+                        
+                     </td>
+</tr>
+</table><a name="tip.run.mac"></a><table class="tip" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/tip.png" alt="Suggerimento" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Nel <span class="application">Python</span> <span class="acronym">IDE</span> di <span class="abbrev">Mac</span> <span class="acronym">OS</span>, potete lanciare un modulo con
+                        
+                        <span class="guimenu">Python</span>-&gt;<span class="guimenuitem">Run window...</span> (<span><b class="shortcut"><span></span></b><b class="keycap">Cmd</b></span>-<span class="keysym">R</span>), ma c'&egrave; prima un'opzione importante che dovete settare.
+                        Aprite il modulo nell'<span class="acronym">IDE</span>, fate comparire il menu delle opzioni dei
+                        moduli cliccando sul triangolo nero posto nell'angolo in alto a destra
+                        della finestra e siate sicuri che
+                        &#8220;<span class="quote"><span class="guimenuitem">Run as __main__</span></span>&#8221; sia settato.
+                        Questa impostazione verr&agrave; salvata con il modulo, cos&igrave; avrete bisogno
+                        di impostarla una volta sola per ogni modulo.
+                        
+                     </td>
+</tr>
+</table><a name="tip.run.unix"></a><table class="tip" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/tip.png" alt="Suggerimento" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Sui sistemi <span class="acronym">UNIX</span>-compatibili (incluso <span class="abbrev">Mac</span> <span class="acronym">OS</span> X),
+                        	potete lanciare un modulo direttamente dalla linea di
+                        	comando:
+                        	<b class="userinput"><tt>python </tt><tt class="filename">odbchelper.py</tt></b></td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/declaring_functions.html">2.2.&nbsp;Dichiarare le funzioni</a><a name="compare.funcdef.vb"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Nel <span class="application">Visual Basic</span>, le funzioni (che ritornano un valore) iniziano con
+                        	<tt class="literal">function</tt>, e le procedure (che non
+                        	ritornano un valore) iniziano con <tt class="literal">sub</tt>.
+                        	Non esistono procedure in <span class="application">Python</span>.
+                        	Sono tutte funzioni, ritornano un valore,
+                        	anche se &egrave; <tt class="literal">None</tt> ed iniziano tutte con <tt class="literal">def</tt>.
+                        
+                     </td>
+</tr>
+</table><a name="compare.funcdef.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	In <span class="application">Java</span>, <span class="application"><span class="acronym">C++</span></span>, ed in altri linguaggi con tipi di dato
+                        	statici, dovete specificare il tipo del valore di ritorno
+                        	della funzione e di ogni suo argomento. In <span class="application">Python</span> non si
+                        	specifica mai espressamente nessun tipo di dato. A seconda
+                        	del valore che assegnerete, <span class="application">Python</span> terr&agrave; conto del tipo di
+                        	dato internamente.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/documenting_functions.html">2.3.&nbsp;Documentare le funzioni</a><a name="compare.quoting.perl"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Le triple virgolette sono anche un semplice modo per definire
+                        	una stringa con singole e doppie virgolette, come il
+                        	<tt class="literal">qq/.../</tt> del <span class="application">Perl</span>.
+                        
+                     </td>
+</tr>
+</table><a name="tip.docstring"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Molti <span class="acronym">IDE</span> di <span class="application">Python</span> usano la <tt class="literal">doc string</tt> per rendere
+                        	disponibile una documentazione context-sensitive, cos&igrave; quando
+                        	scrivete il nome di una funzione, la sua <tt class="literal">doc string</tt> appare
+                        	come tooltip. Questo pu&ograve; essere incredibilmente utile, ma la
+                        	sua qualit&agrave; si basa unicamente sulla <tt class="literal">doc string</tt> che avete
+                        	scritto.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/everything_is_an_object.html">2.4.&nbsp;Tutto &egrave; un oggetto</a><a name="compare.import.perl"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="literal">import</tt> in <span class="application">Python</span> &egrave; come <tt class="literal">require</tt> in <span class="application">Perl</span>. Una volta
+                        	che avete importato un modulo <span class="application">Python</span>, accedete alle sue
+                        	funzioni con
+                        <tt class="literal"><i class="replaceable">module</i>.<i class="replaceable">function</i></tt>;
+                        	una volta che avete richiesto un modulo <span class="application">Perl</span>, accedete
+                        	alle sue funzioni con
+                        <tt class="literal"><i class="replaceable">modulo</i>::<i class="replaceable">funzione</i></tt>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/indenting_code.html">2.5.&nbsp;Indentare il codice</a><a name="compare.lineend.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> usa il ritorno a capo per separare le istruzioni
+                        	e i due punti e l'indentazione per separare i blocchi di
+                        	codice. <span class="application"><span class="acronym">C++</span></span> e <span class="application">Java</span> usano un punto e virgola per
+                        	separare le istruzioni e le parentesi graffe per separare
+                        	i blocchi di codice.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/testing_modules.html">2.6.&nbsp;Testare i moduli</a><a name="compare.equals.c"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Come il <span class="application"><span class="acronym">C</span></span>, <span class="application">Python</span> usa <tt class="literal">==</tt> per i confronti
+                        	e <tt class="literal">=</tt> per gli assegnamenti. Al contrario del
+                        	<span class="application"><span class="acronym">C</span></span>, <span class="application">Python</span> non supporta gli assegnamenti in una singola
+                        	riga, cos&igrave; non c'&egrave; modo di assegnare per errore il valore
+                        	che pensavate di comparare.
+                        
+                     </td>
+</tr>
+</table><a name="tip.mac.runasmain"></a><table class="tip" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/tip.png" alt="Suggerimento" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	In <span class="application">MacPython</span> c'&egrave; un passaggio ulteriore per far funzionare
+                        	il trucco <tt class="literal">if</tt> <tt class="literal">__name__</tt>. Fate apparire le opzioni del modulo
+                        	cliccando sul triangolo nero, nell'angolo in altro a destra
+                        	della finestra e assicuratevi che
+                        	&#8220;<span class="quote"><span class="guimenuitem">Esegui come
+                              	__main__</span></span>&#8221; sia selezionato.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/dictionaries.html">2.7.&nbsp;Introduzione ai dizionari</a><a name="compare.dict.perl"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Un dizionario in <span class="application">Python</span> &egrave; come una hash in <span class="application">Perl</span>. In
+                        	<span class="application">Perl</span>, le variabili che memorizzano degli hash cominciano
+                        	sempre con il carattere <tt class="literal">%</tt>; in <span class="application">Python</span>,
+                        	le variabili possono avere qualsiasi nome, e <span class="application">Python</span> tiene
+                        	traccia del loro tipo internamente.
+                        
+                     </td>
+</tr>
+</table><a name="compare.dict.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Un dizionario in <span class="application">Python</span> &egrave; come l'istanza di una classe
+                        	<tt class="classname">Hashtable</tt> in <span class="application">Java</span>.
+                        
+                     </td>
+</tr>
+</table><a name="compare.dict.vb"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Un dizionario <span class="application">Python</span> &egrave; come l'istanza di un oggetto
+                        	<tt class="classname">Scripting.Dictionary</tt> in <span class="application">Visual Basic</span>.
+                        
+                     </td>
+</tr>
+</table><a name="tip.dictorder"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	I dizionari non hanno il concetto di ordinamento tra elementi.
+                        	&Egrave; errato dire che gli elementi sono
+                        	&#8220;<span class="quote">disordinati</span>&#8221;; sono semplicemente non ordinati.
+                        	Si tratta di un'importante distinzione che vi dar&agrave; noia
+                        	quando vorrete accedere agli elementi di un dizionario in un
+                        	ordine specifico e ripetibile (ad esempio in ordine
+                        	alfabetico di chiave). Ci sono dei modi per farlo,
+                        	semplicemente non sono predefiniti nel dizionario.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/lists.html">2.8.&nbsp;Introduzione alle liste</a><a name="compare.list.perl"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Una lista in <span class="application">Python</span> &egrave; come un array in <span class="application">Perl</span>.
+                        	In <span class="application">Perl</span>, le variabili che contengono array hanno un nome che
+                        	inizia sempre con il carattere <tt class="literal">@</tt>; in
+                        	<span class="application">Python</span> le variabili possono avere qualunque nome, &egrave; il
+                        	linguaggio che tiene traccia internamente del tipo di dato.
+                        
+                     </td>
+</tr>
+</table><a name="compare.list.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Una lista in <span class="application">Python</span> &egrave; molto pi&ugrave; di un array in <span class="application">Java</span>
+                        	(sebbene possa essere usato allo stesso modo, se davvero
+                        	non volete altro). Un'analogia migliore sarebbe la classe
+                        	<tt class="classname">Vector</tt>, che pu&ograve; contenere oggetti
+                        	di tipo arbitrario e si espande automaticamente quando vi si
+                        	aggiungono nuovi elementi.
+                        
+                     </td>
+</tr>
+</table><a name="tip.boolean"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Prima della versione 2.2.1, <span class="application">Python</span> non aveva un tipo di dato
+                        	booleano distinto dai numeri interi. Per compensare, <span class="application">Python</span>
+                        	accettava quasi tutto in un contesto booleano (come un comando
+                        	<tt class="literal">if</tt>), secondo la seguente regola: <tt class="constant">0</tt> &egrave; falso; tutti gli
+                        	altri numeri sono veri. Una stringa vuota
+                        	(<tt class="literal">""</tt>) &egrave; falsa; tutte le altre stringhe sono
+                        	vere. Una lista vuota (<tt class="literal">[]</tt>) &egrave; falsa; tutte
+                        	le altre liste sono vere. Una tupla vuota
+                        	(<tt class="literal">()</tt>) &egrave; falsa; tutte le altre tuple sono
+                        	vere. Un dizionario vuoto (<tt class="literal">{}</tt>) &egrave; falso;
+                        	tutti gli altri dizionari sono veri. Queste regole valgono
+                        	ancora in <span class="application">Python</span> 2.2.1 e oltre, ma ora si pu&ograve; usare anche un
+                        	valore booleano vero e proprio, che ha valore
+                        	<tt class="literal">True</tt> o <tt class="literal">False</tt>.
+                        	Notate le maiuscole; questi valori, come tutto il resto in
+                        	<span class="application">Python</span>, sono case-sensitive.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/tuples.html">2.9.&nbsp;Introduzione alle tuple</a><a name="tip.tuple"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                                Le tuple possono essere convertite in liste e viceversa.
+                        	La funzione built-in <tt class="function">tuple</tt> prende una lista e ritorna
+                        	una tupla con gli stessi elementi, mentre la funzione
+                        	<tt class="function">list</tt> prende una tupla e ritorna una lista. In effetti,
+                        	<tt class="function">tuple</tt> congela una lista e <tt class="function">list</tt> scongela una tupla.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/declaring_variables.html">2.10.&nbsp;Definire le variabili</a><a name="tip.multiline"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                                Quando un comando &egrave; diviso su pi&ugrave; linee attraverso il 
+                                continuatore di linea 
+                        	(&#8220;<span class="quote"><tt class="literal">\</tt></span>&#8221;), la linea seguente 
+                        	pu&ograve; essere indentata in ogni maniera; Le rigide regole di
+                        	indentazione di <span class="application">Python</span> non vengono applicate.
+                        	Se il vostro <span class="application">Python</span> <span class="acronym">IDE</span>
+                        	auto-indenta la linea continuata, probabilmente dovreste
+                        	accettare il suo default a meno che non abbiate ottime
+                        	ragioni per non farlo.
+                        
+                     </td>
+</tr>
+</table><a name="tip.implicitmultiline"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                                A rigor di termini, espressioni fra parentesi, parentesi 
+                        	quadre o graffe (come per la
+                        	<a href="http://it.diveintopython.net/appendix/declaring_variables.html#myparamsdef" title="Esempio&nbsp;2.25.&nbsp;Definire la variabile myParams">definizione 
+                           	di un dizionario</a>),
+                        	possono essere divise in linee multiple con o senza il 
+                        	carattere di continuazione 
+                        	linea(&#8220;<span class="quote"><tt class="literal">\</tt></span>&#8221;).  
+                        	Io preferisco includere il backslash anche quando non &egrave; 
+                        	richiesto perch&eacute; credo che renda il codice pi&ugrave; leggibile,
+                        	ma &egrave; solo una questione di stile.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/formatting_strings.html">2.12.&nbsp;Formattare le stringhe</a><a name="compare.stringformatting.c"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	La formattazione delle stringhe in <span class="application">Python</span> utilizza la stessa
+                        	sintassi della funzione <span class="application"><span class="acronym">C</span></span> <tt class="function">sprintf</tt>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/joining_lists.html">2.14.&nbsp;Concatenare liste e suddividere stringhe</a><a name="tip.join"></a><table class="important" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/important.png" alt="Importante" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="function">join</tt> funziona solamente su liste di stringhe, non applica
+                        	alcuna forzatura sul tipo. Concatenare una lista che contiene
+                        	uno o pi&ugrave; oggetti che non sono di tipo stringa generer&agrave;
+                        	un'eccezione.
+                        
+                     </td>
+</tr>
+</table><a name="tip.split"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="literal"><i class="replaceable">anystring</i>.</tt><tt class="function">split</tt>
+                           	(<i class="replaceable">separatore</i>, 1)
+                        	&egrave; un'utile tecnica quando volete cercare in una stringa la
+                        	presenza di una particolare sottostringa e quindi utilizzare
+                        	tutto ci&ograve; che c'&egrave; prima di detta sottostringa (che va a
+                        	finire nel primo elemento della lista ritornata) e tutto
+                        	quello che c'&egrave; dopo (che va a finire nel secondo elemento).
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+</ul>
+<p><a href="http://it.diveintopython.net/appendix/index.html">Capitolo&nbsp;3.&nbsp;La potenza dell'introspezione</a></p>
+<ul>
+<li><a href="http://it.diveintopython.net/appendix/optional_arguments.html">3.2.&nbsp;Argomenti opzionali ed argomenti con nome</a><a name="tip.arguments"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	L'unica cosa che dovete fare per chiamare una funzione &egrave;
+                        	specificare un valore (in qualche modo) per ogni argomento
+                        	richiesto; il modo e l'ordine in cui lo fate &egrave; a vostra
+                        	discrezione.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/built_in_functions.html">3.3.&nbsp;type, str, dir, ed altre funzioni built-in</a><a name="tip.manuals"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> &egrave; dotato di un eccellente manuale di riferimento, 
+                        	che dovreste usare spesso per conoscere tutti i moduli che
+                        	<span class="application">Python</span> ha da offrire. Ma mentre nella maggior parte dei 
+                        	linguaggi vi ritroverete a dover tornare spesso sul manuale
+                        	(o pagine man o ... Dio vi aiuti, <span class="acronym">MSDN</span>)
+                        	per ricordare come si usano questi moduli, <span class="application">Python</span> &egrave;
+                        	largamente auto-documentante.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/and_or.html">3.6.&nbsp;Le particolarit&agrave; degli
+                  operatori and e or</a><a name="tip.andor"></a><table class="important" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/important.png" alt="Importante" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Il trucchetto <tt class="literal">and-or</tt>, cio&egrave;
+                        	<tt class="literal"><i class="replaceable">bool</i> and
+                           	</tt><tt class="varname">a</tt> or <tt class="varname">b</tt>,
+                        	non funziona come il costrutto <span class="application"><span class="acronym">C</span></span> <tt class="literal"><i class="replaceable">bool</i> ? </tt><tt class="varname">a</tt> : <tt class="varname">b</tt> quando
+                        	<tt class="varname">a</tt> ha un valore falso in un contesto booleano.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/lambda_functions.html">3.7.&nbsp;Usare le funzioni lambda</a><a name="tip.lambda"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	l'utilizzo o meno delle funzioni <tt class="literal">lambda</tt> &egrave; questione
+                        	di stile. Usarle non &egrave; mai necessario; in ogni caso in cui
+                        	vengono usate &egrave; possibile definire una funzione normale e
+                        	usarla al posto della funzione <tt class="literal">lambda</tt>.
+                        	Le funzioni <tt class="literal">lambda</tt> sono comode, ad esempio, nei
+                        	casi in cui si voglia incapsulare codice specifico, non
+                        	riutilizzato, senza riempire il programma di piccolissime
+                        	funzioni.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/all_together.html">3.8.&nbsp;Unire il tutto</a><a name="compare.isnull.sql"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	In <span class="acronym">SQL</span>, dovete usare <tt class="literal">IS NULL</tt> invece di
+                        	<tt class="literal">= NULL</tt> per confrontare un valore nullo.
+                        	In <span class="application">Python</span>, potete usare indifferentemente
+                        	<tt class="literal">== None</tt> o <tt class="literal">is None</tt>, ma
+                        	<tt class="literal">is None</tt> &egrave; pi&ugrave; efficiente.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+</ul>
+<p><a href="http://it.diveintopython.net/appendix/index.html">Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti</a></p>
+<ul>
+<li><a href="http://it.diveintopython.net/appendix/importing_modules.html">4.2.&nbsp;Importare i moduli usando from module import</a><a name="compare.fromimport.perl"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="literal">from <i class="replaceable">module</i> import *</tt> in <span class="application">Python</span> &egrave; simile allo
+                        	<tt class="literal">use <i class="replaceable">module</i></tt>
+                        	in <span class="application">Perl</span>; <tt class="literal">import <i class="replaceable">module</i></tt> nel <span class="application">Python</span> &egrave; come il
+                        	<tt class="literal">require <i class="replaceable">module</i></tt>
+                        	del <span class="application">Perl</span>.
+                        
+                     </td>
+</tr>
+</table><a name="compare.fromimport.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="literal">from <i class="replaceable">module</i> import *</tt> in <span class="application">Python</span> &egrave; come <tt class="literal">import
+                           	<i class="replaceable">module</i>.*</tt> in <span class="application">Java</span>;
+                        	<tt class="literal">import <i class="replaceable">module</i></tt> in <span class="application">Python</span> &egrave; simile a <tt class="literal">import
+                           	<i class="replaceable">module</i></tt> del <span class="application">Java</span>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/defining_classes.html">4.3.&nbsp;Definire classi</a><a name="compare.pass.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Lo statement <tt class="literal">pass</tt> in <span class="application">Python</span> &egrave; come un paio di graffe vuote
+                        	(<tt class="literal">{}</tt>) in <span class="application">Java</span> od in <span class="application"><span class="acronym">C</span></span>.
+                     </td>
+</tr>
+</table><a name="compare.extends.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	In <span class="application">Python</span>, l'antenato di una classe &egrave; semplicemente elencato
+                        	tra parentesi subito dopo il nome della classe. Non c'&egrave; alcuna
+                        	keyword come la <tt class="literal">extends</tt> di <span class="application">Java</span>.
+                        
+                     </td>
+</tr>
+</table><a name="tip.multipleinheritance"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Anche se non la discuter&ograve; in profondit&agrave; nel libro, <span class="application">Python</span>
+                        	supporta l'ereditariet&agrave; multipla. Nelle parentesi che seguono
+                        	il nome della classe, potete elencare quanti antenati volete,
+                        	separati da virgole.
+                        
+                     </td>
+</tr>
+</table><a name="compare.self.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                                Per convenzione, il primo argomento di ogni metodo di una classe (il 
+                        	riferimento all'istanza corrente) viene chiamato <tt class="literal">self</tt>. Questo argomento 
+                        	ricopre il ruolo della parola riservata <tt class="literal">this</tt> in <span class="application"><span class="acronym">C++</span></span> o <span class="application">Java</span>, ma <tt class="literal">self</tt> 
+                        	non &egrave; una parola riservata in <span class="application">Python</span>, &egrave; semplicemente una convenzione sui
+                        	nomi. Non di meno, vi prego di non chiamarlo diversamente da <tt class="literal">self</tt>; &egrave; una
+                        	convenzione molto forte.
+                        
+                     </td>
+</tr>
+</table><a name="tip.whenself"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                                Quando definite i vostri metodi nella classe,
+                        	<span class="emphasis"><em>dovete</em></span> elencare esplicitamente <tt class="literal">self</tt>
+                        	come il primo argomento di ogni metodo, incluso <tt class="function">__init__</tt>.
+                        	Quando chiamate il metodo di una classe antenata dall'interno
+                        	della vostra classe, <span class="emphasis"><em>dovete</em></span> includere
+                        	l'argomento <tt class="literal">self</tt>. Invece, quando chiamate i metodi della vostra
+                        	classe dall'esterno, non dovete specificare affatto
+                        	l'argomento <tt class="literal">self</tt>, lo saltate per intero e <span class="application">Python</span>
+                        	automaticamente aggiunge il riferimento all'istanza per voi.
+                        	Temo che inizialmente possa confondere; non &egrave; proprio
+                        	inconsistente ma pu&ograve; sembrarlo perch&eacute; fa
+                        	affidamento su una distinzione (tra metodi bound ed unbound)
+                        	che ancora non conoscete.
+                        
+                     </td>
+</tr>
+</table><a name="tip.initoptional"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	i metodi <tt class="function">__init__</tt> sono opzionali, ma quando ne definite uno, dovete
+                        	ricordarvi di chiamare esplicitamente il metodo <tt class="function">__init__</tt>
+                        	dell'antenato. Questo &egrave; generalmente vero; quando un
+                        	discendente vuole estendere il comportamento di un antenato,
+                        	il metodo del discendente deve esplicitamente chiamare il
+                        	metodo dell'antenato nel momento opportuno e con gli
+                        	opportuni argomenti.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/instantiating_classes.html">4.4.&nbsp;Istanziare classi</a><a name="compare.new.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	In <span class="application">Python</span>, semplicemente chiamate una classe come se fosse
+                        	una funzione per creare una sua nuova istanza. Non c'&egrave;
+                        	alcun operatore esplicito new come in <span class="application"><span class="acronym">C++</span></span> o in <span class="application">Java</span>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/userdict.html">4.5.&nbsp;UserDict: una classe wrapper</a><a name="tip.locate"></a><table class="tip" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/tip.png" alt="Suggerimento" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Nella <span class="acronym">IDE</span> di <span class="application">Python</span> su Windows, potete aprire
+                                rapidamente qualunque modulo nel vostro library path usando
+                        <span class="guimenu">File</span>-&gt;<span class="guimenuitem"><span class="accel">L</span>ocate...</span> (<span><b class="shortcut"><span></span></b><b class="keycap">Ctrl</b></span>-<span class="keysym">L</span>).
+                     </td>
+</tr>
+</table><a name="compare.overloading"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Java</span> e <span class="application">Powerbuilder</span> supportano l'overload di funzioni per
+                        	lista di argomenti, cio&egrave; una classe pu&ograve; avere pi&ugrave; metodi con
+                        	lo stesso nome, ma diverso numero di argomenti o argomenti di
+                        	tipo diverso. Altri linguaggi (principalmente <span class="acronym">PL/SQL</span>)
+                        	supportano l'overload di funzioni per nome di argomento; cio&egrave;
+                        	una classe pu&ograve; avere pi&ugrave; metodi con lo stesso nome e lo
+                        	stesso numero di argomenti dello stesso tipo, ma i nomi degli
+                        	argomenti sono diversi. <span class="application">Python</span> non supporta nessuno di
+                        	questi; non ha nessuna forma di overload di funzione. I metodi
+                        	sono definiti solamente dal loro nome e ci pu&ograve; essere
+                        	solamente un metodo per ogni classe con un dato nome. Cos&igrave;, se
+                        	una classe discendente ha un metodo <tt class="function">__init__</tt>, questo sovrascrive
+                        	<span class="emphasis"><em>sempre</em></span> il metodo <tt class="function">__init__</tt> dell'antenato,
+                        	anche se il discendente lo definisce con una lista di
+                        	argomenti diversa. La stessa regola si applica ad ogni altro
+                        	metodo.
+                        
+                     </td>
+</tr>
+</table><a name="fileinfo.derivedclasses"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Guido, l'autore originale di <span class="application">Python</span>, spiega l'override dei
+                        	metodi in questo modo: "Classi derivate possono sovrascrivere
+                        	i metodi delle loro classi base. Siccome i metodi non hanno
+                        	privilegi speciali quando chiamano altri metodi dello stesso
+                        	oggetto, un metodo di una classe base che chiama un altro
+                        	metodo definito nella stessa classe base, pu&ograve; infatti finire
+                        	per chiamare un metodo di una classe derivata che lo
+                        	sovrascrive. (Per i programmatori <span class="application"><span class="acronym">C++</span></span> tutti i metodi in
+                        	<span class="application">Python</span> sono effettivamente virtual.)" Se questo per voi non
+                        	ha senso (confonde un sacco pure me), sentitevi liberi di
+                        	ignorarlo. Penso che lo capir&ograve; pi&ugrave; avanti.
+                        
+                     </td>
+</tr>
+</table><a name="note.dataattributes"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Assegnate sempre un valore iniziale a tutti gli attributi
+                        	di un'istanza nel metodo <tt class="function">__init__</tt>. Vi risparmier&agrave; ore di
+                        	debugging pi&ugrave; tardi, spese a tracciare tutte le eccezioni
+                        	<tt class="classname">AttributeError</tt> che genera il
+                        	programma perch&eacute; state referenziando degli attributi non
+                        	inizializzati (e quindi inesistenti).
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/special_class_methods.html">4.6.&nbsp;Metodi speciali per le classi</a><a name="tip.self.call"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Quando accedete agli attributi di una classe, avete bisogno
+                        	di qualificare il nome dell'attributo:
+                        	<tt class="literal">self.<i class="replaceable">attributo</i></tt>.
+                        	Quando chiamate altri metodi di una classe, dovete
+                        	qualificare il nome del metodo:
+                        <tt class="literal">self.<i class="replaceable">metodo</i></tt>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/special_class_methods2.html">4.7.&nbsp;Metodi speciali di classe avanzati</a><a name="compare.strequals.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	In <span class="application">Java</span>, determinate quando due variabili di tipo stringa
+                        	referenziano la stessa memoria fisica utilizzando
+                        	<tt class="literal">str1 == str2</tt>. Questa &egrave; chiamata
+                        	<span class="emphasis"><em>identit&agrave; di oggetto</em></span>, ed &egrave; espressa in
+                        	<span class="application">Python</span> come <tt class="literal">str1 is str2</tt>. Per confrontare
+                        	valori di tipo stringa in <span class="application">Java</span>, dovreste usare
+                        	<tt class="literal">str1.equals(str2)</tt>; in <span class="application">Python</span>, usereste
+                        	<tt class="literal">str1 == str2</tt>. Programmatori <span class="application">Java</span> a cui &egrave;
+                        	stato insegnato a credere che il mondo &egrave; un posto migliore in
+                        	quanto <tt class="literal">==</tt> in <span class="application">Java</span> confronta l'identit&agrave;
+                        	invece del valore potrebbero avere qualche difficolt&agrave;
+                        	nell'acquisire questo nuovo &#8220;<span class="quote">concetto</span>&#8221; di
+                        	<span class="application">Python</span>.
+                        
+                     </td>
+</tr>
+</table><a name="note.physical.v.logical"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Mentre altri linguaggi orientati agli oggetti vi lasciano
+                        	definire il modello fisico di un oggetto (&#8220;<span class="quote">questo
+                           	oggetto ha il metodo <tt class="function">GetLength</tt></span>&#8221;),
+                        	i metodi speciali di classe <span class="application">Python</span> come <tt class="function">__len__</tt> vi
+                        	permettono di definire il modello logico di un oggetto
+                        	(&#8220;<span class="quote">questo oggetto ha una lunghezza</span>&#8221;).
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/class_attributes.html">4.8.&nbsp;Attributi di classe</a><a name="compare.classattr.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	In <span class="application">Java</span>, sia le variabili statiche (chiamate attributi di
+                        	classe in <span class="application">Python</span>) che le variabili di istanza (chiamate
+                        	attributi dato in <span class="application">Python</span>), sono definite immediatamente dopo
+                        	la definizione della classe (il primo con la parola chiave
+                        	<tt class="literal">static</tt>, il secondo senza). In <span class="application">Python</span>,
+                        	solo gli attributi di classe posso essere definiti cos&igrave;; gli
+                        	attributi dato sono definiti nel metodo <tt class="function">__init__</tt>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/private_functions.html">4.9.&nbsp;Funzioni private</a><a name="tip.private"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Se il nome di una funzione, metodo di classe o attributo in
+                        	<span class="application">Python</span> inizia con (ma non finisce con) due underscore, &egrave;
+                        	privato; ogni altra cosa &egrave; pubblica.
+                        
+                     </td>
+</tr>
+</table><a name="tip.specialmethodnames"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	In <span class="application">Python</span>, tutti i metodi speciali (come
+                        <a href="http://it.diveintopython.net/appendix/special_class_methods.html#fileinfo.specialmethods.setitem.example" title="Esempio&nbsp;4.14.&nbsp;Il metodo speciale __setitem__"><tt class="function">__setitem__</tt></a>)
+                        	e gli attributi built-in (come
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Esempio&nbsp;2.5.&nbsp;Accedere alla doc string della funzione buildConnectionString"><tt class="literal">__doc__</tt></a>)
+                        	seguono una convenzione standard sui nomi: iniziano e
+                        	finiscono con due underscore. Non nominate i vostri metodi e
+                        	attributi in questa maniera, servir&agrave; solo a confondervi.
+                        	Inoltre, in futuro, potrebbe anche confondere altri che
+                        	leggeranno il vostro codice.
+                        
+                     </td>
+</tr>
+</table><a name="tip.protected"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> non ha il concetto di metodi protetti di classe
+                        	(accessibili solo nella loro stessa classe ed in quelle
+                        	discendenti). I metodi di classe sono o privati (accessibili
+                        	unicamente nella loro stessa classe) o pubblici (accessibili
+                        	ovunque).
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/handling_exceptions.html">4.10.&nbsp;Gestire le eccezioni</a><a name="compare.exceptions.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> usa <tt class="literal">try...except</tt> per gestire le eccezioni e
+                        	<tt class="literal">raise</tt> per generarle. <span class="application">Java</span> e <span class="application"><span class="acronym">C++</span></span> usano
+                        	<tt class="literal">try...catch</tt> per gestirle e
+                        	<tt class="literal">throw</tt> per generarle.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/os_module.html">4.14.&nbsp;Il modulo os</a><a name="tip.os"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Ogniqualvolta sia possibile, dovreste usare le funzioni in
+                        	<tt class="filename">os</tt> e <tt class="filename">os.path</tt> per file, directory e manipolazione dei
+                        	percorsi. Questi moduli sono dei wrapper ai moduli specifici
+                        	per piattaforma, per cui funzioni come
+                        	<tt class="function">os.path.split</tt> funzionano su <span class="acronym">UNIX</span>,
+                        	Windows, <span class="abbrev">Mac</span> <span class="acronym">OS</span> ed ogni altra possibile piattaforma
+                        	supportata da <span class="application">Python</span>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+</ul>
+<p><a href="http://it.diveintopython.net/appendix/index.html">Capitolo&nbsp;5.&nbsp;Elaborare HTML</a></p>
+<ul>
+<li><a href="http://it.diveintopython.net/appendix/introducing_sgmllib.html">5.2.&nbsp;Introduciamo sgmllib.py</a><a name="d0e13721"></a><table class="important" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/important.png" alt="Importante" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> 2.0 ha un bug per il quale <tt class="classname">SGMLParser</tt> non riconosce del tutto le
+                        	dichiarazioni (<tt class="function">handle_decl</tt> non viene mai chiamato), questo implica che i
+                        	<tt class="sgmltag-element">DOCTYPE</tt> vengano ignorati senza che sia segnalato. Questo &egrave; stato corretto
+                        	in <span class="application">Python</span> 2.1.
+                        
+                     </td>
+</tr>
+</table><a name="tip.commandline.windows"></a><table class="tip" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/tip.png" alt="Suggerimento" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Nella <span class="acronym">IDE</span> di <span class="application">Python</span> su Windows, potete specificare
+                        	argomenti da linea di comando nella finestra di dialogo
+                        	&#8220;<span class="quote">Run script</span>&#8221;. Argomenti multipli vanno separati
+                        	da spazi. 
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/basehtmlprocessor.html">5.4.&nbsp;Introdurre BaseHTMLProcessor.py</a><a name="d0e14527"></a><table class="important" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/important.png" alt="Importante" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	La specifica <span class="acronym">HTML</span> richiede che tutto ci&ograve; che non &egrave; <span class="acronym">HTML</span>
+                        	(come <span class="application">JavaScript</span> lato client) debba essere racchiuso tra
+                        	commenti <span class="acronym">HTML</span>, ma non in tutte le pagine ci&ograve; &egrave; stato fatto
+                        	(e tutti i moderni browsers chiudono un occhio in merito).
+                        	<tt class="classname">BaseHTMLProcessor</tt> non perdona; se uno script &egrave; inserito
+                        	in modo improprio, verr&agrave; analizzato come se fosse codice <span class="acronym">HTML</span>.
+                        	Per esempio, se lo script contiene i simboli di minore e maggiore,
+                        	<tt class="classname">SGMLParser</tt> potrebbe pensare, sbagliando, di aver trovato tag e
+                        	attributi. <tt class="classname">SGMLParser</tt> converte sempre i tag e i nomi degli
+                        	attributi in lettere minuscole, il che potrebbe bloccare lo
+                        	script, e <tt class="classname">BaseHTMLProcessor</tt> racchiude sempre i valori tra
+                        	doppi apici (anche se originariamente il documento <span class="acronym">HTML</span> usava
+                        	apici singoli o niente del tutto), cosa che di sicuro
+                        	interromperebbe lo script. Proteggete sempre i vostri script
+                        	lato client inserendoli dentro commenti <span class="acronym">HTML</span>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/locals_and_globals.html">5.5.&nbsp;locals e globals</a><a name="d0e14728"></a><table class="important" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/important.png" alt="Importante" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> 2.2 introdusse un subdolo ma importante cambiamento che modific&ograve;
+                        	l'ordine di ricerca dei namespace: gli scope nidificati. Nelle versioni di
+                        	<span class="application">Python</span> precedenti al 2.2, quando vi riferite ad una variabile dentro ad una
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/all_together.html#fileinfo.nested" title="Esempio&nbsp;4.39.&nbsp;listDirectory">funzione nidificata</a> o una
+                        	<a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda">funzione <tt class="literal">lambda</tt></a>, <span class="application">Python</span>
+                        	ricercher&agrave; quella variabile
+                        	nel namespace corrente della funzione, e poi nel namespace del modulo.
+                        	<span class="application">Python</span> 2.2 ricercher&agrave; la variabile nel namespace della funzione corrente,
+                        	<span class="emphasis"><em>poi nel namespace della funzione genitore</em></span>, e poi nel
+                        	namespace del modulo.
+                        	<span class="application">Python</span> 2.1 pu&ograve; lavorare in ogni modo;
+                        	predefinitamente, lavora come <span class="application">Python</span> 2.0, ma potete
+                        	aggiugere la seguente linea di codice in cima al vostro modulo
+                        	per farlo funzionare come <span class="application">Python</span> 2.2: 
+                        <pre class="programlisting"><span class="pykeyword">
+from</span> __future__ <span class="pykeyword">import</span> nested_scopes</pre></td>
+</tr>
+</table><a name="tip.localsbyname"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Usando le funzioni <tt class="function">locals</tt> e <tt class="function">globals</tt>, potete ottenere
+                        	il valore di variabili arbitrarie dinamicamente, rendendo
+                        	disponibile il nome della variabile come una stringa.
+                        	Questo rispecchia la funzionalit&agrave; della funzione
+                        	<a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr"><tt class="function">getattr</tt></a>, che vi
+                        	permette di accedere a funzioni arbitrarie dinamicamente,
+                        	rendendo disponibile il nome della funzione come stringa.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/dictionary_based_string_formatting.html">5.6.&nbsp;Formattazione di stringhe basata su dizionario</a><a name="d0e15377"></a><table class="important" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/important.png" alt="Importante" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Usare una formattazione di stringhe basata su dizionari con <tt class="function">locals</tt> &egrave;
+                        	un modo conveniente per ottenere una formattazione di stringhe complessa
+                        	in maniera pi&ugrave; leggibile, ma ha un prezzo. C'&egrave; una minima perdita di
+                        	performance nell'effettuare una chiamata a <tt class="function">locals</tt>, in quanto
+                        	<a href="http://it.diveintopython.net/appendix/locals_and_globals.html#dialect.locals.readonly.example" title="Esempio&nbsp;5.12.&nbsp;locals &egrave; in sola lettura, globals no"><tt class="function">locals</tt> costruisce una
+                           	copia</a> dello spazio dei nomi locale.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+</ul>
+<p><a href="http://it.diveintopython.net/appendix/index.html">Capitolo&nbsp;6.&nbsp;Elaborare XML</a></p>
+<ul>
+<li><a href="http://it.diveintopython.net/appendix/packages.html">6.2.&nbsp;Package</a><a name="d0e17320"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	    Un package &egrave; una directory con il file speciale
+                        	    <tt class="filename">__init__.py</tt> dentro. Il file <tt class="filename">__init__.py</tt>
+                        	    definisce gli attributi ed i metodi del package.
+                        	    Non deve obbligatoriamente
+                        	    definire nulla; pu&ograve; essere un file vuoto,
+                        	    ma deve esistere. Ma se <tt class="filename">__init__.py</tt> non esiste,
+                        	    la directory &egrave; soltanto una directory, non un
+                        	    package e non pu&ograve; essere importata, contenere
+                        	    moduli o package annidati.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/attributes.html">6.6.&nbsp;Accedere agli attributi di un elemento</a><a name="d0e18882"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                                Questa sezione potrebbe risultare un po' confusa a causa
+                        	della sovrapposizione nella terminologia. Gli elementi in 
+                        	un documento <span class="acronym">XML</span> hanno degli attributi ed anche gli
+                        	oggetti <span class="application">Python</span> hanno degli attributi. Quando analizziamo 
+                        	un documento <span class="acronym">XML</span>, otteniamo un gruppo di oggetti 
+                        	<span class="application">Python</span> che rappresentano tutti i pezzi del documento 
+                        	<span class="acronym">XML</span> ed alcuni di questi oggetti rappresentano gli
+                        	attributi degli elementi <span class="acronym">XML</span>. Ma anche gli oggetti 
+                        	(<span class="application">Python</span>) che rappresentano gli attributi (<span class="acronym">XML</span>) hanno 
+                        	attributi, che vengono utilizzati per accedere alle varie
+                        	parti degli attributi (<span class="acronym">XML</span>) che l'oggetto rappresenta. 
+                        	Ve l'ho detto che vi avrebbe confuso. Sono aperto a 
+                        	suggerimenti su come distinguere le due cose in maniera 
+                        	pi&ugrave; chiara.
+                        
+                     </td>
+</tr>
+</table><a name="d0e19122"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Come un dizionario, gli attributi di un elemento <span class="acronym">XML</span> 
+                        	non hanno ordinamento. Gli attributi <span class="emphasis"><em>possono 
+                              	essere</em></span> elencati in un certo ordine nel 
+                        	documento <span class="acronym">XML</span> originale e gli oggetti
+                        	<tt class="classname">Attr</tt> <span class="emphasis"><em>possono essere</em></span> elencati
+                        	in un certo  
+                        	ordine quando il documento <span class="acronym">XML</span> viene interpretato 
+                        	in oggetti <span class="application">Python</span>, ma questi ordinamenti sono 
+                        	arbitrari e non dovrebbero avere alcun significato 
+                        	particolare. Dovreste sempre accedere agli attributi 
+                        	in base al nome, come nel caso delle chiavi di un dizionario.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+</ul>
+<p><a href="http://it.diveintopython.net/appendix/index.html">Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice</a></p>
+<ul>
+<li><a href="http://it.diveintopython.net/appendix/romantest.html">7.2.&nbsp;Introduzione al modulo romantest.py</a><a name="note.unittest"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="filename">unittest</tt> &egrave; incluso con <span class="application">Python</span> 2.1 e successivi.
+                        	Gli utilizzatori di <span class="application">Python</span> 2.0 possono scaricarlo da
+                        	<a href="http://it.diveintopython.net/"><tt class="systemitem">pyunit.sourceforge.net</tt></a>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/stage_3.html">7.8.&nbsp;roman.py, fase 3</a><a name="d0e23394"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	La cosa pi&ugrave; importante che test delle unit&agrave; di codice, condotti
+                        	in modo esaustivo, possano comunicarci &egrave; il momento in cui si
+                        	deve smettere di scrivere un programma.
+                        	Quando tutti i test di un modulo hanno successo, &egrave; il momento
+                        	di smettere di scrivere quel modulo.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/stage_5.html">7.10.&nbsp;roman.py, fase 5</a><a name="d0e24203"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Quando tutti i test passano con successo,
+                        	smettete di scrivere codice.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+<li><a href="http://it.diveintopython.net/appendix/refactoring.html">7.13.&nbsp;Rifattorizzazione</a><a name="d0e24810"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Ogni qualvolta si ha intenzione di usare pi&ugrave; di una volta
+                        	una espressione regolare, la si dovrebbe prima compilare
+                        	per ottenerne il corrispondente oggetto pattern, e quindi
+                        	chiamare direttamente i metodi di tale oggetto.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+</ul>
+<p><a href="http://it.diveintopython.net/appendix/index.html">Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati</a></p>
+<ul>
+<li><a href="http://it.diveintopython.net/appendix/finding_the_path.html">8.2.&nbsp;Trovare il percorso</a><a name="os.path.abspath.exist.note"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	I percorsi e i nomi di file che passate a <tt class="function">os.path.abspath</tt>
+                        	non &egrave; necessario che esistano.
+                        
+                     </td>
+</tr>
+</table><a name="os.path.normpath.note"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="function">os.path.abspath</tt> non realizza solo percorsi completi, si occupa
+                        	anche di normalizzarli. Se siete nella directory
+                        	<tt class="filename">/usr/</tt>,
+                        	<tt class="literal">os.path.abspath('bin/../local/bin')</tt>
+                        	ritorner&agrave; <tt class="filename">/usr/local/bin</tt>. Se volete solo
+                        	normalizzare un percorso senza trasformarlo in un percorso
+                        	completo, usate invece <tt class="function">os.path.normpath</tt>.
+                        
+                     </td>
+</tr>
+</table><a name="os.path.abspath.crossplatform.note"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                        	Come altre funzioni nei moduli <tt class="filename">os</tt> e <tt class="filename">os.path</tt>, anche
+                        	<tt class="function">os.path.abspath</tt> &egrave; multi-piattaforma. I vostri risultati
+                        	sembreranno leggermente differenti dai miei esempi se
+                        	state lavorando su Windows (che usa i backslash come
+                        	separatori di percorso) o sul <span class="abbrev">Mac</span> <span class="acronym">OS</span> (che usa due punti),
+                        	ma funzionano comunque. Questo &egrave; il punto cruciale del
+                        	modulo <tt class="filename">os</tt>.
+                        
+                     </td>
+</tr>
+</table>
+<p></p>
+</li>
+</ul>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/appendix/abstracts.html">&lt;&lt;&nbsp;Recensione in 5 minuti</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/appendix/examples.html">Elenco degli esempi&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

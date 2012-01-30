@@ -1,0 +1,349 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.8.&nbsp;roman.py, fase 3</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">roman.py, fase 3</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="Indietro: “roman.py, fase 2”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="Avanti: “roman.py, fase 4”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.stage3"></a>7.8.&nbsp;<tt class="filename">roman.py</tt>, fase 3
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Adesso che la funzione <tt class="function">toRoman</tt> si comporta correttamente con
+               	input validi (numeri da <tt class="literal">1</tt> a
+               	<tt class="literal">3999</tt>), &egrave; tempo di fare in modo che lo
+               	faccia anche con input non validi (qualsiasi altra cosa).
+               
+            </p>
+</div>
+<div class="example"><a name="d0e23204"></a><h3 class="title">Esempio&nbsp;7.12.&nbsp;<tt class="filename">roman3.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pystring">"""Convert to and from Roman numerals"""</span>
+
+<span class="pycomment">#Define exceptions</span>
+<span class="pykeyword">class</span><span class="pyclass"> RomanError</span>(Exception): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> OutOfRangeError</span>(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> NotIntegerError</span>(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> InvalidRomanNumeralError</span>(RomanError): <span class="pykeyword">pass</span>
+
+<span class="pycomment">#Define digit mapping</span>
+romanNumeralMap = ((<span class="pystring">'M'</span>,  1000),
+                   (<span class="pystring">'CM'</span>, 900),
+                   (<span class="pystring">'D'</span>,  500),
+                   (<span class="pystring">'CD'</span>, 400),
+                   (<span class="pystring">'C'</span>,  100),
+                   (<span class="pystring">'XC'</span>, 90),
+                   (<span class="pystring">'L'</span>,  50),
+                   (<span class="pystring">'XL'</span>, 40),
+                   (<span class="pystring">'X'</span>,  10),
+                   (<span class="pystring">'IX'</span>, 9),
+                   (<span class="pystring">'V'</span>,  5),
+                   (<span class="pystring">'IV'</span>, 4),
+                   (<span class="pystring">'I'</span>,  1))
+
+<span class="pykeyword">def</span><span class="pyclass"> toRoman</span>(n):
+    <span class="pystring">"""convert integer to Roman numeral"""</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> (0 &lt; n &lt; 4000):                                             <a name="roman.stage3.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">raise</span> OutOfRangeError, <span class="pystring">"number out of range (must be 1..3999)"</span> <a name="roman.stage3.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    <span class="pykeyword">if</span> int(n) &lt;&gt; n:                                                    <a name="roman.stage3.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+        <span class="pykeyword">raise</span> NotIntegerError, <span class="pystring">"decimals can not be converted"</span>
+
+    result = <span class="pystring">""</span>                                                        <a name="roman.stage3.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+    <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
+        <span class="pykeyword">while</span> n &gt;= integer:
+            result += numeral
+            n -= integer
+    <span class="pykeyword">return</span> result
+
+<span class="pykeyword">def</span><span class="pyclass"> fromRoman</span>(s):
+    <span class="pystring">"""convert Roman numeral to integer"""</span>
+    <span class="pykeyword">pass</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_3.html#roman.stage3.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa &egrave; una simpatica scorciatoia in stile <span class="application">Python</span>:
+                        	confronti multipli in un solo colpo. L'espressione &egrave;
+                        	equivalente a
+                        	<tt class="literal">if not ((0 &lt; n) and (n &lt; 4000))</tt>,
+                        	ma &egrave; molto pi&ugrave; facile da leggere. Questo &egrave; il nostro
+                        	controllo sull'intervallo di ammissibilit&agrave; e dovrebbe
+                        	filtrare gli input che sono troppo grandi, negativi o
+                        	uguali a zero.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_3.html#roman.stage3.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Con l'istruzione <tt class="literal">raise</tt> si possono sollevare
+                        	le proprie eccezioni. Si pu&ograve; sollevare una qualsiasi delle
+                        	eccezioni predefinite,  oppure le proprie eccezioni specifiche
+                        	definite in precedenza. Il secondo parametro, il messaggio di
+                        	errore, &egrave; opzionale; se viene specificato, &egrave; visualizzato nel
+                        	traceback, che viene stampato  se l'eccezione non &egrave; gestita dal
+                        	codice.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_3.html#roman.stage3.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo &egrave; il controllo sui numeri decimali. I decimali non
+                        	possono essere convertiti in numeri romani.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_3.html#roman.stage3.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il resto della funzione non &egrave; cambiata.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e23245"></a><h3 class="title">Esempio&nbsp;7.13.&nbsp;Osservare <tt class="function">toRoman</tt> gestire input non corretti
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> roman3</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">roman3.toRoman(4000)</span>
+<span class="traceback">Traceback (most recent call last):
+  File "&lt;interactive input&gt;", line 1, in ?
+  File "roman3.py", line 27, in toRoman
+    raise OutOfRangeError, "number out of range (must be 1..3999)"
+OutOfRangeError: number out of range (must be 1..3999)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">roman3.toRoman(1.5)</span>
+<span class="traceback">Traceback (most recent call last):
+  File "&lt;interactive input&gt;", line 1, in ?
+  File "roman3.py", line 29, in toRoman
+    raise NotIntegerError, "decimals can not be converted"
+NotIntegerError: decimals can not be converted</span>
+</pre></div>
+<div class="example"><a name="d0e23274"></a><h3 class="title">Esempio&nbsp;7.14.&nbsp;Output di <tt class="filename">romantest3.py</tt> a fronte di <tt class="filename">roman3.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... FAIL
+toRoman should always return uppercase ... ok
+fromRoman should fail with malformed antecedents ... FAIL
+fromRoman should fail with repeated pairs of numerals ... FAIL
+fromRoman should fail with too many repeated numerals ... FAIL
+fromRoman should give known result with known input ... FAIL
+toRoman should give known result with known input ... ok </span><a name="roman.stage3.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman(toRoman(n))==n for all n ... FAIL
+toRoman should fail with non-integer input ... ok        </span><a name="roman.stage3.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
+toRoman should fail with negative input ... ok           </span><a name="roman.stage3.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /><span class="computeroutput">
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_3.html#roman.stage3.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">toRoman</tt> passa ancora il
+                        	<a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Esempio&nbsp;7.2.&nbsp;testToRomanKnownValues">
+                           	test sui valori noti</a>, il che &egrave; confortante.
+                        	Tutti i test che erano stati superati nella
+                        	<a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">fase 2</a>
+                        	sono superati anche ora, indicando che le ultime modifiche
+                        	non hanno scombinato niente.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_3.html#roman.stage3.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Un fatto pi&ugrave; eccitante  &egrave;  che tutti i nostri test di
+                        	<a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html#roman.tobadinput.example" title="Esempio&nbsp;7.3.&nbsp;Verificare la funzione toRoman con input non validi">input non
+                           	validi</a> sono stati superati. Questo test,
+                        	<tt class="function">testDecimal</tt>, &egrave; passato con successo
+                        	per via del controllo <tt class="literal">int(n) &lt;&gt; n</tt>.
+                        	Quando un numero decimale &egrave; pasato a <tt class="function">toRoman</tt>, il controllo
+                        	<tt class="literal">int(n) &lt;&gt; n</tt> lo individua e solleva
+                        	l'eccezione <tt class="errorcode">NotIntegerError</tt>, che &egrave;
+                        	quello che si aspetta <tt class="function">testDecimal</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_3.html#roman.stage3.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo test, <tt class="function">testNegative</tt>, &egrave; superato con
+                        	successo per via del controllo
+                        	<tt class="literal">not (0 &lt; n &lt; 4000)</tt>, che solleva una
+                        	eccezione <tt class="errorcode">OutOfRangeError</tt>, che &egrave;
+                        	ci&ograve; che il test <tt class="function">testNegative</tt> si
+                        	aspetta.
+                        
+                     </td>
+</tr>
+</table>
+</div><pre class="screen"><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should only accept uppercase input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 156, in testFromRomanCase
+    roman3.fromRoman, numeral.lower())
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with malformed antecedents
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 133, in testMalformedAntecedent
+    self.assertRaises(roman3.InvalidRomanNumeralError, roman3.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with repeated pairs of numerals
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 127, in testRepeatedPairs
+    self.assertRaises(roman3.InvalidRomanNumeralError, roman3.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with too many repeated numerals
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 122, in testTooManyRepeatedNumerals
+    self.assertRaises(roman3.InvalidRomanNumeralError, roman3.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should give known result with known input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 99, in testFromRomanKnownValues
+    self.assertEqual(integer, result)
+  File "c:\python21\lib\unittest.py", line 273, in failUnlessEqual
+    raise self.failureException, (msg or '%s != %s' % (first, second))
+AssertionError: 1 != None</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman(toRoman(n))==n for all n
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 141, in testSanity
+    self.assertEqual(integer, result)
+  File "c:\python21\lib\unittest.py", line 273, in failUnlessEqual
+    raise self.failureException, (msg or '%s != %s' % (first, second))
+AssertionError: 1 != None</span><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 12 tests in 0.401s
+
+FAILED (failures=6)</span> <a name="roman.stage3.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_3.html#roman.stage3.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Siamo sotto di 6 test falliti e tutti riguardano <tt class="function">fromRoman</tt>:
+                        	il test sui valori noti, i tre differenti test sugli input non
+                        	validi, il test sulle maiuscole/minuscole ed il test di
+                        	consistenza. Questo significa che <tt class="function">toRoman</tt> ha passato tutti i
+                        	test che poteva superare da sola (&egrave; coinvolta nel test di
+                        	consistenza, ma questo test richiede anche che <tt class="function">fromRoman</tt> sia
+                        	scritta, e questo non &egrave; stato ancora fatto.) Questo significa
+                        	che dobbiamo smettere di codificare <tt class="function">toRoman</tt> ora. Niente
+                        	aggiustamenti, niente ritocchi, niente controlli addizionali
+                        	&#8220;<span class="quote">giusto per sicurezza</span>&#8221;. Basta. Togliete le mani
+                        	dalla tastiera.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="d0e23394"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	La cosa pi&ugrave; importante che test delle unit&agrave; di codice, condotti
+                  	in modo esaustivo, possano comunicarci &egrave; il momento in cui si
+                  	deve smettere di scrivere un programma.
+                  	Quando tutti i test di un modulo hanno successo, &egrave; il momento
+                  	di smettere di scrivere quel modulo.
+                  
+               </td>
+</tr>
+</table>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/stage_2.html">&lt;&lt;&nbsp;roman.py, fase 2</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/stage_4.html">roman.py, fase 4&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

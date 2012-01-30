@@ -1,0 +1,272 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.11.&nbsp;Come gestire gli errori di programmazione</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">Come gestire gli errori di programmazione</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="Indietro: “roman.py, fase 5”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="Avanti: “Gestire il cambiamento di requisiti”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.bugs"></a>7.11.&nbsp;Come gestire gli errori di programmazione
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	A dispetto dei nostri migliori sforzi per scrivere test
+               	completi per le unit&agrave; di codice, capita di fare degli
+               	errori di programmazione, in gergo chiamati bachi
+               	(&#8220;<span class="quote">bug</span>&#8221;). Un baco corrisponde ad un test che
+               	non &egrave; stato ancora scritto.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e24219"></a><h3 class="title">Esempio&nbsp;7.22.&nbsp;Il baco</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> roman5</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">roman5.fromRoman(<span class="pystring">""</span>)</span> <a name="roman.bugs.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">0</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/handling_bugs.html#roman.bugs.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ricordate nella <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">sezione
+                           	precedente</a> quando continuavamo a dire che una stringa
+                        	vuota corrispondeva con l'espressione regolare che usavamo
+                        	per controllare un numero romano valido? Bene, capita che
+                        	questo sia ancora valido per la versione finale
+                        	dell'espressione regolare. Questo &egrave; un baco; noi vogliamo
+                        	che una stringa vuota sollevi un'eccezione
+                        	<tt class="errorcode">InvalidRomanNumeralError</tt> esattamente
+                        	come ogni altra sequenza di caratteri che non rappresenta un
+                        	numero romano valido.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Dopo aver ricostruito il baco, e prima di porvi rimedio, &egrave;
+            	opportuno scrivere un test che fallisca a causa del baco,
+            	illustrandone cos&igrave; le caratteristiche.
+            
+         </p>
+<div class="example"><a name="d0e24249"></a><h3 class="title">Esempio&nbsp;7.23.&nbsp;Verificare la presenza del baco (<tt class="filename">romantest61.py</tt>)
+            </h3><pre class="programlisting"><span class="pykeyword">
+class</span> FromRomanBadInput(unittest.TestCase):                                      
+
+    <span class="pycomment"># previous test cases omitted for clarity (they haven&#8217;t changed)</span>
+
+    <span class="pykeyword">def</span><span class="pyclass"> testBlank</span>(self):
+        <span class="pystring">"""fromRoman should fail with blank string"""</span>
+        self.assertRaises(roman.InvalidRomanNumeralError, roman.fromRoman, <span class="pystring">""</span>) <a name="roman.bugs.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/handling_bugs.html#roman.bugs.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La cosa &egrave; piuttosto semplice. Basta chiamare la funzione
+                        	<tt class="function">fromRoman</tt> con una stringa vuota e assicurarsi che
+                        	sollevi un eccezione
+                        	<tt class="errorcode">InvalidRomanNumeralError</tt>. La parte
+                        	difficile &egrave; stata individuare il baco, adesso che ne conosciamo
+                        	la presenza, scrivere un test per verificarlo &egrave; semplice.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Dato che il nostro codice ha un baco, e noi abbiamo un test
+            	che verifica questo baco, il test fallir&agrave;.
+            
+            
+         </p>
+<div class="example"><a name="d0e24271"></a><h3 class="title">Esempio&nbsp;7.24.&nbsp;Output di <tt class="filename">romantest61.py</tt> a fronte di  <tt class="filename">roman61.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... ok
+toRoman should always return uppercase ... ok
+fromRoman should fail with blank string ... FAIL
+fromRoman should fail with malformed antecedents ... ok
+fromRoman should fail with repeated pairs of numerals ... ok
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ok
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+
+======================================================================
+FAIL: fromRoman should fail with blank string
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage6\romantest61.py", line 137, in testBlank
+    self.assertRaises(roman61.InvalidRomanNumeralError, roman61.fromRoman, "")
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 13 tests in 2.864s
+
+FAILED (failures=1)</span></pre></div>
+<p>
+<span class="emphasis"><em>Ora</em></span> possiamo risolvere il problema.
+            
+         </p>
+<div class="example"><a name="d0e24291"></a><h3 class="title">Esempio&nbsp;7.25.&nbsp;Eliminazione del baco (<tt class="filename">roman62.py</tt>)
+            </h3><pre class="programlisting"><span class="pykeyword">
+def</span> fromRoman(s):
+    <span class="pystring">"""convert Roman numeral to integer"""</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> s: <a name="roman.bugs.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">raise</span> InvalidRomanNumeralError, <span class="pystring">'Input can not be blank'</span>
+    <span class="pykeyword">if</span> <span class="pykeyword">not</span> re.search(romanNumeralPattern, s):
+        <span class="pykeyword">raise</span> InvalidRomanNumeralError, <span class="pystring">'Invalid Roman numeral: %s'</span> % s
+
+    result = 0
+    index = 0
+    <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
+        <span class="pykeyword">while</span> s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    <span class="pykeyword">return</span> result
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/handling_bugs.html#roman.bugs.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Solo due linee di codice sono richieste: un controllo
+                        	esplicito per la striga vuota ed un' istruzione <tt class="literal">raise</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e24308"></a><h3 class="title">Esempio&nbsp;7.26.&nbsp;Output di <tt class="filename">romantest62.py</tt> a fronte di <tt class="filename">roman62.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... ok
+toRoman should always return uppercase ... ok
+fromRoman should fail with blank string ... ok </span><a name="roman.bugs.5.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+fromRoman should fail with malformed antecedents ... ok
+fromRoman should fail with repeated pairs of numerals ... ok
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ok
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 2.834s
+
+OK</span> <a name="roman.bugs.5.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/handling_bugs.html#roman.bugs.5.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il test per la stringa vuota ora passa, quindi il baco &egrave; stato
+                        	eliminato.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/handling_bugs.html#roman.bugs.5.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Tutti gli altri test continuano a passare con successo e questo
+                        	significa che l'eliminazione del baco non ha scombinato
+                        	nient'altro. Smettete di scrivere codice.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Scrivere codice in questo modo non serve a rendere pi&ugrave; facile
+            	l'eliminazione dei bachi. Bachi semplici (come questo)
+            	richiedono test semplici; casi pi&ugrave; complessi richiedono test
+            	pi&ugrave; complessi. In un  ambiente orientato ai test, pu&ograve;
+            	<span class="emphasis"><em>sembrare</em></span> che ci voglia pi&ugrave; tempo per
+            	eliminare un baco, giacch&eacute; &egrave; necessario dettagliare in forma
+            	di codice esattamente qual'&egrave; il baco (per scrivere il test), e
+            	poi eliminare il problema. Quindi, se il test non passa
+            	subito con successo, occorre scoprire se ad essere sbagliata
+            	sia la correzione del problema o il test. Tuttavia, alla
+            	distanza, questo andare avanti e indietro tra il codice da
+            	verificare ed il codice di test ripaga, perch&eacute; rende pi&ugrave;
+            	probabile che un baco sia eliminato correttamente al primo
+            	colpo. Inoltre, dato che &egrave; possibile eseguire i vecchi test
+            	<span class="emphasis"><em>insieme</em></span> ai i nuovi, &egrave; molto meno
+            	probabile che si danneggi il codice esistente quando si cerca
+            	di eliminare il baco. I test delle unit&agrave; di codice di oggi saranno i test
+            	di regressione di domani.
+            
+         </p>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/stage_5.html">&lt;&lt;&nbsp;roman.py, fase 5</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <span class="thispage">11</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html">Gestire il cambiamento di requisiti&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

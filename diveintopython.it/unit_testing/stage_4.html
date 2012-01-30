@@ -1,0 +1,255 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.9.&nbsp;roman.py, fase 4</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">roman.py, fase 4</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="Indietro: “roman.py, fase 3”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="Avanti: “roman.py, fase 5”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.stage4"></a>7.9.&nbsp;<tt class="filename">roman.py</tt>, fase 4
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Ora che la funzione <tt class="function">toRoman</tt> &egrave; completa, &egrave; tempo di
+               	cominciare a scrivere il codice di <tt class="function">fromRoman</tt>.
+               	Grazie alla nostra struttura dati dettagliata che mappa
+               	i singoli numeri romani elementari negli interi
+               	corrispondenti, la cosa non &egrave; pi&ugrave; difficile dell'aver
+               	scritto la funzione <tt class="function">toRoman</tt>.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e23418"></a><h3 class="title">Esempio&nbsp;7.15.&nbsp;<tt class="filename">roman4.py</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pystring">"""Convert to and from Roman numerals"""</span>
+
+<span class="pycomment">#Define exceptions</span>
+<span class="pykeyword">class</span><span class="pyclass"> RomanError</span>(Exception): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> OutOfRangeError</span>(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> NotIntegerError</span>(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> InvalidRomanNumeralError</span>(RomanError): <span class="pykeyword">pass</span>
+
+<span class="pycomment">#Define digit mapping</span>
+romanNumeralMap = ((<span class="pystring">'M'</span>,  1000),
+                   (<span class="pystring">'CM'</span>, 900),
+                   (<span class="pystring">'D'</span>,  500),
+                   (<span class="pystring">'CD'</span>, 400),
+                   (<span class="pystring">'C'</span>,  100),
+                   (<span class="pystring">'XC'</span>, 90),
+                   (<span class="pystring">'L'</span>,  50),
+                   (<span class="pystring">'XL'</span>, 40),
+                   (<span class="pystring">'X'</span>,  10),
+                   (<span class="pystring">'IX'</span>, 9),
+                   (<span class="pystring">'V'</span>,  5),
+                   (<span class="pystring">'IV'</span>, 4),
+                   (<span class="pystring">'I'</span>,  1))
+
+<span class="pycomment"># toRoman function omitted for clarity (it hasn&#8217;t changed)</span>
+
+<span class="pykeyword">def</span><span class="pyclass"> fromRoman</span>(s):
+    <span class="pystring">"""convert Roman numeral to integer"""</span>
+    result = 0
+    index = 0
+    <span class="pykeyword">for</span> numeral, integer <span class="pykeyword">in</span> romanNumeralMap:
+        <span class="pykeyword">while</span> s[index:index+len(numeral)] == numeral: <a name="roman.stage4.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+            result += integer
+            index += len(numeral)
+    <span class="pykeyword">return</span> result
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_4.html#roman.stage4.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Lo schema qui &egrave; lo stesso che in
+                        	<a href="http://it.diveintopython.net/unit_testing/stage_2.html#roman.stage2.example" title="Esempio&nbsp;7.9.&nbsp;roman2.py"><tt class="function">toRoman</tt></a>.
+                        	Si itera sulla struttura dati che definisce i numeri romani
+                        	(una tupla di tuple) ed invece che cercare il valore
+                        	intero pi&ugrave; alto, fino a che ci&ograve; risulta possibile, cerchiamo
+                        	il numero romano &#8220;<span class="quote">pi&ugrave; alto</span>&#8221;, sempre fino a che
+                        	ci&ograve; risulta possibile.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e23442"></a><h3 class="title">Esempio&nbsp;7.16.&nbsp;Come funziona <tt class="function">fromRoman</tt></h3>
+<p>
+               	Se non &egrave; chiaro come funziona <tt class="function">fromRoman</tt>, potete aggiungere
+               	un'istruzione di stampa alla fine del ciclo
+               	<tt class="literal">while</tt>:
+               
+            </p><pre class="programlisting">
+        <span class="pykeyword">while</span> s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+            <span class="pykeyword">print</span> <span class="pystring">'found'</span>, numeral, <span class="pystring">', adding'</span>, integer</pre><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> roman4</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">roman4.fromRoman(<span class="pystring">'MCMLXXII'</span>)</span>
+<span class="computeroutput">found M , adding 1000
+found CM , adding 900
+found L , adding 50
+found X , adding 10
+found X , adding 10
+found I , adding 1
+found I , adding 1
+1972</span></pre></div>
+<div class="example"><a name="d0e23471"></a><h3 class="title">Esempio&nbsp;7.17.&nbsp;Output di <tt class="filename">romantest4.py</tt> a fronte di <tt class="filename">roman4.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... FAIL
+toRoman should always return uppercase ... ok
+fromRoman should fail with malformed antecedents ... FAIL
+fromRoman should fail with repeated pairs of numerals ... FAIL
+fromRoman should fail with too many repeated numerals ... FAIL
+fromRoman should give known result with known input ... ok </span><a name="roman.stage4.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /><span class="computeroutput">
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok                  </span><a name="roman.stage4.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /><span class="computeroutput">
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_4.html#roman.stage4.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Due notizie importanti qui. La prima &egrave; che <tt class="function">fromRoman</tt>
+                        	funziona per input validi, almeno per i
+                        	<a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Esempio&nbsp;7.2.&nbsp;testToRomanKnownValues">valori
+                           	noti</a> che usiamo per il test.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/stage_4.html#roman.stage4.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La seconda &egrave; che il nostro
+                        	<a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.example" title="Esempio&nbsp;7.5.&nbsp;Verificare toRoman in confronto con fromRoman">test di
+                           	consistenza</a> &egrave; anch'esso superato con successo.
+                        	Combinato con il test sui valori noti, possiamo essere
+                        	ragionevolmente sicuri che sia <tt class="function">toRoman</tt> che <tt class="function">fromRoman</tt>
+                        	funzionino in modo corretto con tutti i valori noti.
+                        	(La cosa non &egrave; garantita: &egrave; teoricamente possibile che
+                        	<tt class="function">toRoman</tt> abbia un baco che produca il numero romano
+                        	sbagliato per qualche particolare insieme di input
+                        	<span class="emphasis"><em>e</em></span> che <tt class="function">fromRoman</tt> abbia un baco reciproco
+                        	rispetto al primo che produca lo stesso insieme di valori
+                        	interi per i quali <tt class="function">toRoman</tt> produce i numeri romani sbagliati.
+                        	A seconda dell'uso previsto delle funzioni e dei loro
+                        	requisiti, questo pu&ograve; essere o meno una preoccupazione
+                        	reale; se lo &egrave;, potete scrivete un test sufficientemente
+                        	comprensivo da escludere tale preoccupazione.)
+                        
+                     </td>
+</tr>
+</table>
+</div><pre class="screen"><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should only accept uppercase input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage4\romantest4.py", line 156, in testFromRomanCase
+    roman4.fromRoman, numeral.lower())
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with malformed antecedents
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage4\romantest4.py", line 133, in testMalformedAntecedent
+    self.assertRaises(roman4.InvalidRomanNumeralError, roman4.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with repeated pairs of numerals
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage4\romantest4.py", line 127, in testRepeatedPairs
+    self.assertRaises(roman4.InvalidRomanNumeralError, roman4.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with too many repeated numerals
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage4\romantest4.py", line 122, in testTooManyRepeatedNumerals
+    self.assertRaises(roman4.InvalidRomanNumeralError, roman4.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 12 tests in 1.222s
+
+FAILED (failures=4)</span></pre></div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/stage_3.html">&lt;&lt;&nbsp;roman.py, fase 3</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html" title="7.5.&nbsp;Verificare la consistenza">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/stage_5.html">roman.py, fase 5&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

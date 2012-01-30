@@ -1,0 +1,63 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.10. Definici&oacute;n de variables</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas" /><link rel="next" href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Definici&oacute;n de variables</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_tuple.html" title="Anterior: “Todo sobre las tuplas”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="Siguiente: “Asignaci&oacute;n de m&uacute;ltiples valores de una vez”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.vardef"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.vardef"></a>1.10. Definici&oacute;n de variables</h2></div></div><p>Ahora que piensa que ya lo sabe todo sobre diccionarios, tuplas
+y listas (&iexcl;oh, no!), volvamos a nuestro programa de ejemplo, 
+<tt>odbchelper.py</tt>.</p><div class="abstract"><p>Python tiene variables locales y globales como la mayor&iacute;a de
+los lenguajes, pero no tiene declaraciones expl&iacute;citas de variables.
+Las variables aparecen al asignarles un valor, y son autom&aacute;ticamente
+destruidas cuando salimos de su &aacute;mbito.</p></div><div class="example"><p><a name="myparamsdef"></a><b>Ejemplo 1.24. Definici&oacute;n de la variable <tt>myParams</tt></b></p><pre class="programlisting"><span class="pykeyword">
+if</span> __name__ == <span class="pystring">"__main__"</span>:
+    myParams = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, \
+                <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, \
+                <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, \
+                <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span> \
+                }</pre></div><p>Aqu&iacute; hay varios puntos de inter&eacute;s. En primer lugar, f&iacute;jese en el
+sangrado. Una sentencia <tt>if</tt> es un bloque de c&oacute;digo y necesita estar
+sangrado, como una funci&oacute;n.</p><p>En segundo lugar, la asignaci&oacute;n de la variable es una orden
+partida en varias l&iacute;neas, con una contrabarra 
+(&#8220;<tt>\</tt>&#8221;) como marca de continuaci&oacute;n de la
+l&iacute;nea.</p><a name="tip.multiline"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Cuando una orden se extiende a lo largo de varias l&iacute;neas con la
+marca de continuaci&oacute;n de l&iacute;nea (&#8220;<tt>\</tt>&#8221;),
+las l&iacute;neas que siguen pueden sangrarse de cualquier modo; las severas
+normas de sangradeo de Python no se aplican. Si entorno de programaci&oacute;n Python
+sangra autom&aacute;ticamente las l&iacute;neas que contin&uacute;an, debe usted aceptar
+probablemente el valor por omisi&oacute;n a no ser que tenga una buena
+raz&oacute;n.</td></tr></table><a name="tip.implicitmultiline"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Para ser exactos, las expresiones entre par&eacute;ntesis, corchetes o
+llaves (como <a href="http://es.diveintopython.net/odbchelper_vardef.html#myparamsdef" title="Ejemplo 1.24. Definici&oacute;n de la variable myParams">la definici&oacute;n de un
+diccionario</a>) pueden extenderse a varias l&iacute;neas con la marca de
+continuaci&oacute;n (&#8220;<tt>\</tt>&#8221;) o sin ella. Yo
+prefiero incluir la contrabarra incluso cuando no es imprescindible,
+porque creo que hace el c&oacute;digo m&aacute;s legible, pero esto es cuesti&oacute;n de
+estilo.</td></tr></table><p>En tercer lugar, nunca se ha declarado la variable
+<tt>myParams</tt>, simplemente se le ha asignado un valor.
+Esto es como VBScript sin la opci&oacute;n <tt>option
+explicit</tt>. Afortunadamente, a diferencia de VBScript,
+Python no permite hacer referencia a una variable a la que no se ha
+asignado un valor; si se intenta, se lanzar&aacute; una excepci&oacute;n.</p><div class="example"><p><a name="odbchelper.unboundvariable"></a><b>Ejemplo 1.25. Referencia a una variable no asignada</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">x</span>
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+NameError: There is no variable named 'x'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">x = 1</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">x</span>
+<span class="computeroutput">1</span></pre></div><p>Alg&uacute;n d&iacute;a agradecer&aacute; esto</p><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li>La <a href="http://es.diveintopython.net/doc/current/ref/"><i>Referencia del lenguaje Python</i></a> muestra ejemplos de
+<a href="http://es.diveintopython.net/doc/current/ref/implicit-joining.html">cu&aacute;ndo se 
+puede omitir  la marca de continuaci&oacute;n de l&iacute;nea</a> y <a href="http://es.diveintopython.net/doc/current/ref/explicit-joining.html">cu&aacute;ndo debe
+usarse</a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_tuple.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Todo sobre las tuplas</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <b>10</b> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_multiassign.html">Asignaci&oacute;n de m&uacute;ltiples valores de una vez&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

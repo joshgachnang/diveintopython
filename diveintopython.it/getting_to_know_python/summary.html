@@ -1,0 +1,160 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.15.&nbsp;Sommario</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/getting_to_know_python/index.html" title="Capitolo&nbsp;2.&nbsp;Conoscere Python" />
+<link rel="previous" href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="2.14.&nbsp;Concatenare liste e suddividere stringhe" />
+<link rel="next" href="http://it.diveintopython.net/power_of_introspection/index.html" title="Capitolo&nbsp;3.&nbsp;La potenza dell'introspezione" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/index.html">Conoscere Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Sommario</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="Indietro: “Concatenare liste e suddividere stringhe”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/power_of_introspection/index.html" title="Avanti: “La potenza dell'introspezione”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="odbchelper.summary"></a>2.15.&nbsp;Sommario
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Il programma <tt class="filename">odbchelper.py</tt> ed il suo output dovrebbero
+               	ora esservi perfettamente chiari.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e5083"></a><h3 class="title">Esempio&nbsp;2.38.&nbsp;<tt class="filename">odbchelper.py</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> buildConnectionString(params):
+    <span class="pystring">"""Build a connection string from a dictionary of parameters.
+
+    Returns string."""</span>
+    <span class="pykeyword">return</span> <span class="pystring">";"</span>.join([<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()])
+
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:
+    myParams = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, \
+                <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, \
+                <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, \
+                <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span> \
+                }
+    <span class="pykeyword">print</span> buildConnectionString(myParams)</pre></div>
+<div class="example"><a name="d0e5089"></a><h3 class="title">Esempio&nbsp;2.39.&nbsp;Output di <tt class="filename">odbchelper.py</tt></h3><pre class="screen"><span class="computeroutput">server=mpilgrim;uid=sa;database=master;pwd=secret</span></pre></div>
+<div class="highlights">
+<p>
+               	Prima di immergerci nel prossimo capitolo, assicuratevi di
+               	essere a vostro agio nel fare le seguenti cose:
+               	
+            </p>
+<div class="itemizedlist">
+<ul>
+<li>
+                     	Usare la <span class="acronym">IDE</span> di <span class="application">Python</span> per provare le espressioni
+                     	interattivamente
+                     	
+                  </li>
+<li>
+                     	Scrivere moduli <span class="application">Python</span> cos&igrave; che possano essere
+                     	<a href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html" title="2.6.&nbsp;Testare i moduli">eseguiti anche
+                        	come programmi autonomi</a>, almeno per fare dei test
+                     	
+                  </li>
+<li>
+<a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Esempio&nbsp;2.5.&nbsp;Accedere alla doc string della funzione buildConnectionString">Importare dei moduli</a>
+                     	e chiamarne le funzioni
+                     	
+                  </li>
+<li>
+<a href="http://it.diveintopython.net/getting_to_know_python/declaring_functions.html" title="2.2.&nbsp;Dichiarare le funzioni">Dichiarare funzioni</a>
+                     	ed usare le <a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documentare le funzioni"><tt class="literal">doc string</tt>
+</a>, le
+                     	<a href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html" title="2.10.&nbsp;Definire le variabili">variabili
+                        	locali</a> e la
+                     	<a href="http://it.diveintopython.net/getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indentare il codice">corretta
+                        	indentazione</a>
+</li>
+<li>
+                     	Definire <a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html" title="2.7.&nbsp;Introduzione ai dizionari">dizionari</a>,
+                     	<a href="http://it.diveintopython.net/getting_to_know_python/tuples.html" title="2.9.&nbsp;Introduzione alle tuple">tuple</a> e
+                     	<a href="http://it.diveintopython.net/getting_to_know_python/lists.html" title="2.8.&nbsp;Introduzione alle liste">liste</a>
+</li>
+<li>
+                     	Accedere ad attributi e metodi di
+                     	<a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Tutto &egrave; un oggetto">ogni oggetto</a>,
+                     	incluse stringhe, liste, dizionari, funzioni e moduli
+                     	
+                  </li>
+<li>
+                     	Concatenare valori attraverso la
+                     	<a href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="2.12.&nbsp;Formattare le stringhe">formattazione
+                        	di stringhe</a>
+</li>
+<li>
+<a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html" title="2.13.&nbsp;Mappare le liste">Mappare liste</a>
+                     	in altre liste utilizzando le list comprehension
+                     	
+                  </li>
+<li>
+<a href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="2.14.&nbsp;Concatenare liste e suddividere stringhe">Dividere stringhe</a>
+                     	in liste e concatenare liste in stringhe
+                     	
+                  </li>
+</ul>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html">&lt;&lt;&nbsp;Concatenare liste e suddividere stringhe</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/index.html#odbchelper.divein" title="2.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/declaring_functions.html" title="2.2.&nbsp;Dichiarare le funzioni">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documentare le funzioni">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Tutto &egrave; un oggetto">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indentare il codice">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html" title="2.6.&nbsp;Testare i moduli">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html" title="2.7.&nbsp;Introduzione ai dizionari">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/lists.html" title="2.8.&nbsp;Introduzione alle liste">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/tuples.html" title="2.9.&nbsp;Introduzione alle tuple">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html" title="2.10.&nbsp;Definire le variabili">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html" title="2.11.&nbsp;Assegnare valori multipli in un colpo solo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="2.12.&nbsp;Formattare le stringhe">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html" title="2.13.&nbsp;Mappare le liste">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="2.14.&nbsp;Concatenare liste e suddividere stringhe">14</a> <span class="divider">|</span> <span class="thispage">15</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/power_of_introspection/index.html">La potenza dell'introspezione&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

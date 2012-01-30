@@ -1,0 +1,145 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.5.&nbsp;Indentare il codice</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/getting_to_know_python/index.html" title="Capitolo&nbsp;2.&nbsp;Conoscere Python" />
+<link rel="previous" href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Tutto &egrave; un oggetto" />
+<link rel="next" href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html" title="2.6.&nbsp;Testare i moduli" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/index.html">Conoscere Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Indentare il codice</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="Indietro: “Tutto &egrave; un oggetto”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html" title="Avanti: “Testare i moduli”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="odbchelper.indenting"></a>2.5.&nbsp;Indentare il codice
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Le funzioni in <span class="application">Python</span> non hanno un <tt class="literal">inizio</tt>
+               	o <tt class="literal">fine</tt> esplicito, nessuna parentesi graffa
+               	che indichi dove il codice inizia o finisce. L'unico
+               	delimitatore sono i due punti
+               	(&#8220;<span class="quote"><tt class="literal">:</tt></span>&#8221;) e l'indentazione del
+               	codice.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e2103"></a><h3 class="title">Esempio&nbsp;2.7.&nbsp;Indentazione della funzione <tt class="function">buildConnectionString</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> buildConnectionString(params):
+    <span class="pystring">"""Build a connection string from a dictionary of parameters.
+
+    Returns string."""</span>
+    <span class="pykeyword">return</span> <span class="pystring">";"</span>.join([<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()])</pre></div>
+<p>
+            	I blocchi di codice (funzioni, istruzioni <tt class="literal">if</tt>, cicli <tt class="literal">for</tt>,
+            	ecc.) sono definiti dalla loro indentazione. L'indentazione
+            	inizia un blocco e la rimozione dell'indentazione lo
+            	termina; non ci sono graffe, parentesi o parole chiave.
+            	Lo spazio in mezzo &egrave; insignificante e non &egrave; obbligatorio.
+            	In questo esempio il codice (inclusa la <tt class="literal">doc string</tt>) &egrave;
+            	indentato di 4 spazi. Se non vi sono 4 spazi non abbiamo
+            	la giusta coerenza. La prima linea non indentata non fa
+            	parte della funzione.
+            
+         </p>
+<p>
+            	Dopo qualche protesta iniziale e diverse sarcastiche analogie
+            	con <span class="application">Fortran</span>, farete pace con ci&ograve; e inizierete a vederne
+            	i benefici. Un importante beneficio &egrave; che tutti i programmi
+            	<span class="application">Python</span> hanno lo stesso aspetto poich&eacute; l'indentazione &egrave; un
+            	requisito del linguaggio e non una questione di stile.
+            	Questo fatto rende pi&ugrave; facile ad altre persone leggere
+            	e capire il codice <span class="application">Python</span>.
+            
+         </p><a name="compare.lineend.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> usa il ritorno a capo per separare le istruzioni
+                  	e i due punti e l'indentazione per separare i blocchi di
+                  	codice. <span class="application"><span class="acronym">C++</span></span> e <span class="application">Java</span> usano un punto e virgola per
+                  	separare le istruzioni e le parentesi graffe per separare
+                  	i blocchi di codice.
+                  
+               </td>
+</tr>
+</table>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/doc/current/ref/"><i class="citetitle"><span class="application">Python</span> Reference Manual</i></a> discute i problemi dell'indentazione
+                  	cross-platform e
+                  <a href="http://it.diveintopython.net/doc/current/ref/indentation.html">mostra vari
+                     	errori di indentazione</a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> discute sul buon stile di indentazione.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html">&lt;&lt;&nbsp;Tutto &egrave; un oggetto</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/getting_to_know_python/index.html#odbchelper.divein" title="2.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/declaring_functions.html" title="2.2.&nbsp;Dichiarare le funzioni">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documentare le funzioni">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Tutto &egrave; un oggetto">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html" title="2.6.&nbsp;Testare i moduli">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html" title="2.7.&nbsp;Introduzione ai dizionari">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/lists.html" title="2.8.&nbsp;Introduzione alle liste">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/tuples.html" title="2.9.&nbsp;Introduzione alle tuple">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html" title="2.10.&nbsp;Definire le variabili">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html" title="2.11.&nbsp;Assegnare valori multipli in un colpo solo">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="2.12.&nbsp;Formattare le stringhe">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/mapping_lists.html" title="2.13.&nbsp;Mappare le liste">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/joining_lists.html" title="2.14.&nbsp;Concatenare liste e suddividere stringhe">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/getting_to_know_python/summary.html" title="2.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html">Testare i moduli&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.4. Todo es un objeto</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones" /><link rel="next" href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Todo es un objeto</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_docstring.html" title="Anterior: “Documentaci&oacute;n de funciones”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_indenting.html" title="Siguiente: “Sangrado del c&oacute;digo”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.objects"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.objects"></a>1.4. Todo es un objeto</h2></div></div><p>Por si no se ha dado cuenta, acabo de decir que las funciones en
+Python tiene atributos, y que esos atributos est&aacute;n disponibles en
+tiempo de ejecuci&oacute;n.</p><div class="abstract"><p>Una funci&oacute;n, como cualquier otra cosa en Python, es un
+objeto.</p></div><div class="example"><p><a name="odbchelper.import"></a><b>Ejemplo 1.5. Acceso a la cadena de documentaci&oacute;n de <tt>buildConnectionString</tt></b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>                              <a name="odbchelper.objects.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">params = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span>}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> odbchelper.buildConnectionString(params)</span> <a name="odbchelper.objects.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">server=mpilgrim;uid=sa;database=master;pwd=secret</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> odbchelper.buildConnectionString.__doc__</span> <a name="odbchelper.objects.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">Build a connection string from a dictionary
+
+Returns string.</span></pre><div class="calloutlist"><a name="d0e272"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_objects.html#odbchelper.objects.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">La primera l&iacute;nea importa el programa <tt>odbchelper</tt> como m&oacute;dulo. Cuando se
+ha importado un m&oacute;dulo, se puede hacer referencia a cualquiera de sus
+funciones, clases o atributos p&uacute;blicos. Los m&oacute;dulos pueden hacer esto
+para acceder a la funcionalidad de otros m&oacute;dulos, y se puede hacer
+tambi&eacute;n en el entorno de programaci&oacute;n. Esto es un concepto importante, y volveremos
+sobre ello m&aacute;s adelante.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_objects.html#odbchelper.objects.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Cuando se quieren utilizar funciones definidas en los m&oacute;dulos
+importados, debe incluirse el nombre del m&oacute;dulo. No puede decirse s&oacute;lo
+<tt>buildConnectionString</tt>, debe ser
+<tt>odbchelper.buildConnectionString</tt>. Si ha
+utilizado usted clases en Java, esto le sonar&aacute; vagamente 
+familiar.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_objects.html#odbchelper.objects.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">En lugar de llamar a la funci&oacute;n como podr&iacute;a esperarse, pedimos
+uno de los atributos de la funci&oacute;n, <tt>__doc__</tt></td></tr></table></div></div><a name="compare.import.perl"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top"><tt>import</tt> en Python es como <tt>require</tt> en Perl. Cuando se ha
+importado un m&oacute;dulo en Python, se puede acceder a sus funciones con
+<tt><i>m&oacute;dulo</i>.<i>funci&oacute;n</i></tt>;
+cuando se ha requerido un m&oacute;dulo en Perl, se puede acceder a sus
+funciones con
+<tt><i>m&oacute;dulo</i>::<i>funci&oacute;n</i></tt>.</td></tr></table><p>Todo en Python es un objeto, y casi todo tiene atributos y
+m&eacute;todos.<sup>[<a name="d0e303" href="http://es.diveintopython.net/odbchelper_objects.html#ftn.d0e303">1</a>]</sup> Todas las funciones tienen un atributo <tt>__doc__</tt>
+incorporado, que devuelve la cadena de documentaci&oacute;n definida en el c&oacute;digo fuente
+de la funci&oacute;n.</p><p>Esto es tan importante que voy a repetirlo por si no se ha dado
+cuenta las otras veces: <span class="emphasis"><i>todo en Python es un
+objeto</i></span>. Las cadenas son objetos. Las listas son objetos.
+Las funciones son objetos. Incluso los m&oacute;dulos son objetos, como
+veremos en seguida.</p><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li>La <a href="http://es.diveintopython.net/doc/current/ref/"><i>Referencia del lenguaje Python</i></a> explica exactamente 
+qu&eacute; significa la afirmaci&oacute;n de que 
+<a href="http://es.diveintopython.net/doc/current/ref/objects.html">
+todo en Python es un objeto</a>.</li><li><a href="http://es.diveintopython.net/guides/">eff-bot</a> resume <a href="http://es.diveintopython.net/guides/python-objects.htm">
+los objetos de Python</a>.</li></ul></div><div class="footnotes"><p class="footnotetitle">Footnotes</p><div class="footnote"><p><sup>[<a name="ftn.d0e303" href="http://es.diveintopython.net/odbchelper_objects.html#d0e303">1</a>] </sup>Los distintos lenguajes de programaci&oacute;n
+definen &#8220;objeto&#8221; de formas diferentes. En algunos, todos
+los objetos deben tener atributos y m&eacute;todos; en otros, todos los
+objetos deben admitir subclases. En Python, la definici&oacute;n es m&aacute;s
+libre; algunos objetos no tienen ni atributos ni m&eacute;todos, y no todos
+los objetos admiten subclases (lo veremos en el cap&iacute;tulo 3). Pero todo
+es un objeto en el sentido de que puede ser asignado a una variable o
+pasarse como argumento a una funci&oacute;n (lo veremos en el cap&iacute;tulo
+2).</p></div></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_docstring.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Documentaci&oacute;n de funciones</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <b>4</b> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_indenting.html">Sangrado del c&oacute;digo&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

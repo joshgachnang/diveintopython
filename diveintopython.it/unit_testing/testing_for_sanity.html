@@ -1,0 +1,296 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7.5.&nbsp;Verificare la consistenza</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/unit_testing/index.html" title="Capitolo&nbsp;7.&nbsp;Test delle unit&agrave; di codice" />
+<link rel="previous" href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore" />
+<link rel="next" href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html">Test delle unit&agrave; di codice</a>&nbsp;&gt;&nbsp;<span class="thispage">Verificare la consistenza</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="Indietro: “Verificare i casi di errore”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="Avanti: “roman.py, fase 1”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.sanity"></a>7.5.&nbsp;Verificare la consistenza
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Spesso vi capiter&agrave; di scoprire che un'unit&agrave; di codice
+               	contiene un insieme di funzioni reciproche, di solito
+               	in forma di funzioni di conversione, laddove una converte
+               	A in B e l'altra converte B in A. In questi casi, &egrave; utile
+               	creare un &#8220;<span class="quote">test di consistenza</span>&#8221; per essere
+               	sicuri che si possa converire A in B e poi riconvertire B
+               	in A senza perdere precisione, incorrere in errori di
+               	arrotondamento o in qualche altro malfunzionamento.
+               
+            </p>
+</div>
+<p>
+            	Si consideri questo
+            	<a href="http://it.diveintopython.net/unit_testing/index.html#roman.requirements">requisito</a>:
+            
+         </p>
+<div class="orderedlist">
+<ol start="6" type="1">
+<li>
+                  	Prendendo un numero arabo, convertendolo in numero romano e
+                  	poi riconvertendolo in numero arabo, ci si dovrebbe ritrovare
+                  	con il numero da cui si era partiti. Quindi
+                  	<tt class="literal">fromRoman(toRoman(n)) == n</tt> per tutti i
+                  	numeri da <tt class="literal">1</tt> a <tt class="literal">3999</tt>.
+                  
+               </li>
+</ol>
+</div>
+<div class="example"><a name="roman.sanity.example"></a><h3 class="title">Esempio&nbsp;7.5.&nbsp;Verificare <tt class="function">toRoman</tt> in confronto con <tt class="function">fromRoman</tt></h3><pre class="programlisting"><span class="pykeyword">
+class</span> SanityCheck(unittest.TestCase):        
+    <span class="pykeyword">def</span><span class="pyclass"> testSanity</span>(self):                    
+        <span class="pystring">"""fromRoman(toRoman(n))==n for all n"""</span>
+        <span class="pykeyword">for</span> integer <span class="pykeyword">in</span> range(1, 4000):        <a name="roman.sanity.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="roman.sanity.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+            numeral = roman.toRoman(integer) 
+            result = roman.fromRoman(numeral)
+            self.assertEqual(integer, result) <a name="roman.sanity.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Abbiamo gi&agrave; incontrato
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html#odbchelper.multiassign.range" title="Esempio&nbsp;2.28.&nbsp;Assegnare valori consecutivi">la funzione
+                           	<tt class="function">range</tt></a> in precedenza, ma qui &egrave; usata con due
+                        	argomenti, per cui otteniamo una lista di interi a
+                        	partire dal primo argomento (<tt class="constant">1</tt>) e poi contando
+                        	successivamente fino al secondo argomento
+                        	(<tt class="literal">4000</tt>), <span class="emphasis"><em>escludendo
+                              	quest'ultimo</em></span>. Cioe l'intervallo da 
+                        	<tt class="literal">1</tt> a <tt class="literal">3999</tt>, che &egrave;
+                        	l'insieme dei numeri arabi convertibili in numeri romani.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Vorrei semplicemente citare di passaggio il fatto che
+                        	<tt class="varname">integer</tt> non &egrave; una parola chiave di
+                        	<span class="application">Python</span>. Qui &egrave; giusto un nome di variabile come gli
+                        	altri.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La struttura logica del test &egrave; lineare: si prende un numero
+                        	arabo (<tt class="varname">integer</tt>), lo si converte in numero
+                        	Romano (<tt class="varname">numeral</tt>), poi lo si riconverte in
+                        	numero arabo (<tt class="varname">result</tt>) e si controlla che
+                        	sia uguale al numero di partenza. In caso negativo,
+                        	<tt class="function">assertEqual</tt> sollever&agrave; un'eccezione ed il test sar&agrave;
+                        	immediatamente considerato fallito. Se tutti i numeri
+                        	corrispondono, <tt class="function">assertEqual</tt> terminer&agrave; sempre in modo normale,
+                        	l'intero metodo <tt class="function">testSanity</tt> terminer&agrave; quindi
+                        	in modo normale ed il test sar&agrave; considerato passato con successo.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Gli <a href="http://it.diveintopython.net/unit_testing/index.html#roman.requirements">ultimi due requisiti
+               	</a> sono diversi dagli altri perch&eacute; entrambi danno
+            	l'apparenza di essere tanto arbitrari quanto banali:
+            
+         </p>
+<div class="orderedlist">
+<ol start="7" type="1">
+<li>
+                  	La funzione <tt class="function">toRoman</tt> deve sempre restituire
+                  	un numero romano composto di lettere maiuscole.
+                  
+               </li>
+<li>
+                  	La funzione <tt class="function">fromRoman</tt> dovrebbe accettare in input solo
+                  	numeri romani composti di lettere maiuscole (<span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> dovrebbe
+                  	andare in errore con un input in lettere minuscole).
+                  
+               </li>
+</ol>
+</div>
+<p>
+            	In effetti, questi due requisiti sono un tantino arbitrari.
+            	Avremmo per esempio potuto decidere che <tt class="function">fromRoman</tt> poteva
+            	accettare input composti di lettere minuscole oppure sia
+            	maiuscole che minuscole. Tuttavia questi requisiti non sono
+            	completamente arbitrari; se <tt class="function">toRoman</tt> restituisce sempre
+            	numeri in lettere maiuscole,allora <tt class="function">fromRoman</tt> deve come
+            	minimo accettare input in lettere maiuscole, oppure il nostro
+            	&#8220;<span class="quote">controllo di consistenza</span>&#8221; (requisito #6)
+            	fallirebbe. Il fatto che <tt class="function">fromRoman</tt> accetti
+            	<span class="emphasis"><em>solo</em></span> lettere maiuscole &egrave; arbitrario, ma
+            	come ogni sistemista potrebbe confermare, usare lettere
+            	maiuscole o minuscole fa differenza,  per cui vale la pena
+            	specificarlo sin dall'inizio. E se vale la pena specificarlo,
+            	allora vale la pena verificarlo.
+            
+         </p>
+<div class="example"><a name="d0e22618"></a><h3 class="title">Esempio&nbsp;7.6.&nbsp;Verificare rispetto a maiuscolo/minuscolo</h3><pre class="programlisting"><span class="pykeyword">
+class</span> CaseCheck(unittest.TestCase):                   
+    <span class="pykeyword">def</span><span class="pyclass"> testToRomanCase</span>(self):                        
+        <span class="pystring">"""toRoman should always return uppercase"""</span>  
+        <span class="pykeyword">for</span> integer <span class="pykeyword">in</span> range(1, 4000):                
+            numeral = roman.toRoman(integer)          
+            self.assertEqual(numeral, numeral.upper()) <a name="roman.sanity.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+
+    <span class="pykeyword">def</span><span class="pyclass"> testFromRomanCase</span>(self):                      
+        <span class="pystring">"""fromRoman should only accept uppercase input"""</span>
+        <span class="pykeyword">for</span> integer <span class="pykeyword">in</span> range(1, 4000):                
+            numeral = roman.toRoman(integer)          
+            roman.fromRoman(numeral.upper())           <a name="roman.sanity.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /> <a name="roman.sanity.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+            self.assertRaises(roman.InvalidRomanNumeralError,
+                              roman.fromRoman, numeral.lower())</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La cosa pi&ugrave; interessante di questo test &egrave; tutto
+                        	quello che non verifica. Non verifica che il valore
+                        	restituito da <tt class="function">toRoman</tt> sia
+                        <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Esempio&nbsp;7.2.&nbsp;testToRomanKnownValues">giusto</a> o
+                        	perlomeno
+                        	<a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.example" title="Esempio&nbsp;7.5.&nbsp;Verificare toRoman in confronto con fromRoman">consistente</a>; a
+                        	queste domande rispondono altri test. Questo intero test
+                        	esiste solo per verificare l'uso delle maiuscole. Si
+                        	potrebbe essere tentati di combinare questo test con
+                        	<a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.example" title="Esempio&nbsp;7.5.&nbsp;Verificare toRoman in confronto con fromRoman">quello
+                           	di consistenza</a>, visto che entrambi ciclano attraverso
+                        	l'intero intervallo di valori ed entrambi chiamano <tt class="function">toRoman</tt>.
+                        <sup>[<a name="d0e22648" href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#ftn.d0e22648">13</a>]</sup>  
+                        	Ma questo violerebbe una delle nostre
+                        	<a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">regole fondamentali</a>:
+                        	ogni test dovrebbe rispondere ad una sola domanda. Immaginate
+                        	di combinare questo test con quello di consistenza e che il
+                        	test fallisca. Dovreste fare ulteriori analisi per scoprire
+                        	quale parte del test &egrave; fallita e cos&igrave; determinare qual'&egrave; il
+                        	problema. Se vi tocca analizzare l'output di un test per
+                        	capire cosa esso significhi, questo &egrave; un sicuro segno che
+                        	avete disegnato male i vostri test.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Qui c'&egrave; da apprendere una lezione simile a quella appena
+                        	esposta: anche se &#8220;<span class="quote">sappiamo</span>&#8221; che la funzione
+                        	<tt class="function">toRoman</tt> restituisce sempre un numero romano in lettere
+                        	maiuscole, convertiamo lo stesso in modo esplicito il
+                        	risultato di <tt class="function">toRoman</tt> in lettere maiuscole, per verificare
+                        	che <tt class="function">fromRoman</tt> lo accetti. Perch&eacute;? Perch&eacute; il fatto che
+                        	<tt class="function">toRoman</tt> restituisca sempre lettere maiuscole &egrave; un
+                        	requisito indipendente. Se cambiassimo questo requisito, in
+                        	modo che, ad esempio, <tt class="function">toRoman</tt> restituisse sempre numeri
+                        	romani in lettere minuscole, allora il test
+                        	<tt class="function">testToRomanCase</tt> dovrebbe essere cambiato,
+                        	ma questo test funzionerebbe ancora. Questa era un'altra delle
+                        	nostre <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">regole
+                           	fondamentali</a>: ogni test deve poter funzionare isolato
+                        	dagli altri. Ogni test &egrave; un isola.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#roman.sanity.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Si noti che non assegnamo ad alcunch&eacute; il valore di ritorno di
+                        	<tt class="function">fromRoman</tt>. Questo &egrave; sintatticamente corretto in <span class="application">Python</span>;
+                        	se una funzione restituisce un valore ma nessuno lo recepisce,
+                        	<span class="application">Python</span> semplicemente lo butta via. In questo caso, &egrave; quello
+                        	che vogliamo. Questo test non verifica niente circa il valore
+                        	di ritorno; esso verifica semplicemente che <tt class="function">fromRoman</tt>
+                        	accetti un input in lettere maiuscole senza sollevare
+                        	eccezioni.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e22648" href="http://it.diveintopython.net/unit_testing/testing_for_sanity.html#d0e22648">13</a>] </sup>
+                      &#8220;<span class="quote">Posso resistere a tutto, tranne che alle tentazioni.</span>&#8221;
+                      --Oscar Wilde
+                      
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/testing_for_failure.html">&lt;&lt;&nbsp;Verificare i casi di errore</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/unit_testing/index.html#roman.divein" title="7.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/romantest.html" title="7.2.&nbsp;Introduzione al modulo romantest.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_success.html" title="7.3.&nbsp;Verificare i casi di successo">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/testing_for_failure.html" title="7.4.&nbsp;Verificare i casi di errore">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_1.html" title="7.6.&nbsp;roman.py, fase 1">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_2.html" title="7.7.&nbsp;roman.py, fase 2">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_3.html" title="7.8.&nbsp;roman.py, fase 3">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_4.html" title="7.9.&nbsp;roman.py, fase 4">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/stage_5.html" title="7.10.&nbsp;roman.py, fase 5">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_bugs.html" title="7.11.&nbsp;Come gestire gli errori di programmazione">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/handling_changing_requirements.html" title="7.12.&nbsp;Gestire il cambiamento di requisiti">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/refactoring.html" title="7.13.&nbsp;Rifattorizzazione">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/postscript.html" title="7.14.&nbsp;Postscritto">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/unit_testing/summary.html" title="7.15.&nbsp;Sommario">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/unit_testing/stage_1.html">roman.py, fase 1&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

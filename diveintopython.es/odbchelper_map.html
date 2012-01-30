@@ -1,0 +1,101 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.13. Correspondencia de listas</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas" /><link rel="next" href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Correspondencia de listas</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="Anterior: “Formato de cadenas”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_join.html" title="Siguiente: “Uni&oacute;n y divisi&oacute;n de cadenas”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.map"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.map"></a>1.13. Correspondencia de listas</h2></div></div><div class="abstract"><p>Una de las m&aacute;s potentes caracter&iacute;sticas de Python es la
+creaci&oacute;n de listas por comprensi&oacute;n, que proporciona una forma compacta
+de relacionar una lista con otra aplicando una funci&oacute;n a los elementos
+de la primera.</p></div><div class="example"><p><a name="d0e1356"></a><b>Ejemplo 1.30. Introducci&oacute;n a las listas por comprensi&oacute;n</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li = [1, 9, 8, 4]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[elem*2 <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li]</span>      <a name="odbchelper.map.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">[2, 18, 16, 8]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>                           <a name="odbchelper.map.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">[1, 9, 8, 4]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li = [elem*2 <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li]</span> <a name="odbchelper.map.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">[2, 18, 16, 8]</span></pre><div class="calloutlist"><a name="d0e1375"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Para hacerse una idea de esto, m&iacute;relo de derecha a izquierda.
+<tt>li</tt> es la lista a la que se aplica la relaci&oacute;n.
+Python recorre esta lista elemento por elemento, asignando
+temporalmente el valor de cada uno de ellos a la variable
+<tt>elem</tt>. A continuaci&oacute;n, Python aplica la funci&oacute;n
+<tt></tt><tt>elem</tt>*2 y a&ntilde;ade el resultado a la
+lista que se devuelve.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Advierta que al crear una lista por comprensi&oacute;n no se modifica
+la lista original.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">No hay riesgo en asignar el resultado de una lista creada por
+comprensi&oacute;n a la variable a que se aplica la relaci&oacute;n. No hay nada de
+qu&eacute; preocuparse: Python construye la nueva lista en memoria, y
+cuando la operaci&oacute;n ha terminado, se asigna el resultado a la
+variable.</td></tr></table></div></div><div class="example"><p><a name="d0e1389"></a><b>Ejemplo 1.31. Listas por comprensi&oacute;n en <tt>buildConnectionString</tt></b></p><pre class="programlisting">
+[<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()]</pre></div><p>En primer lugar, advierta que se est&aacute; llamando a la funci&oacute;n
+<tt>items</tt> del diccionario <tt>params</tt>.
+Esta funci&oacute;n devuelve una lista de tuplas con todos los datos del
+diccionario.</p><div class="example"><p><a name="odbchelper.items"></a><b>Ejemplo 1.32. <tt>keys</tt>, <tt>values</tt>, e <tt>items</tt></b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">params = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span>}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">params.keys()</span>   <a name="odbchelper.map.2.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['server', 'uid', 'database', 'pwd']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">params.values()</span> <a name="odbchelper.map.2.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['mpilgrim', 'master', 'sa', 'secret']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">params.items()</span>  <a name="odbchelper.map.2.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">[('server', 'mpilgrim'), ('uid', 'sa'), ('database', 'master'), ('pwd', 'secret')]</span></pre><div class="calloutlist"><a name="d0e1416"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.2.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">El m&eacute;todo <tt>keys</tt> de un diccionario devuelve una lista de todas
+las claves. La lista no est&aacute; en el orden en que se defini&oacute; el
+diccionario (recuerde, los elementos de un diccionario no guardan
+orden), pero es una lista.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.2.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">El m&eacute;todo <tt>values</tt> devuelve una lista con todos los valores. La
+lista est&aacute; en el mismo orden que la devuelta por <tt>keys</tt>, de modo que
+<tt>params.values()[n] == params[params.keys()[n]]</tt> para
+todos los valores de <tt>n</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.2.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">El m&eacute;todo <tt>items</tt> devuelve una lista de tuplas de la forma
+<tt>(<i>key</i>,
+<i>valor</i>)</tt>. La lista contiene todos
+los datos del diccionario.</td></tr></table></div></div><p>Veamos ahora qu&eacute; hace <tt>buildConnectionString</tt>. Toma una lista,
+<tt></tt><tt>params</tt>.<tt>items</tt>(), y la
+transforma en una nueva lista aplicando el formato de cadenas a cada
+elemento. La nueva lista tendr&aacute; el mismo n&uacute;mero de elementos que
+<tt></tt><tt>params</tt>.<tt>items</tt>(), pero cada
+elemento de la nueva lista ser&aacute; una cadena que contiene tanto la clave
+como su valor asociado en el diccionario
+<tt>params</tt>.</p><div class="example"><p><a name="d0e1441"></a><b>Ejemplo 1.33. Listas por comprensi&oacute;n en <tt>buildConnectionString</tt>, paso a paso</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">params = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span>}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">params.items()</span>
+<span class="computeroutput">[('server', 'mpilgrim'), ('uid', 'sa'), ('database', 'master'), ('pwd', 'secret')]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[k <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()]</span>                <a name="odbchelper.map.3.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['server', 'uid', 'database', 'pwd']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[v <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()]</span>                <a name="odbchelper.map.3.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['mpilgrim', 'sa', 'master', 'secret']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()]</span> <a name="odbchelper.map.3.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']</span></pre><div class="calloutlist"><a name="d0e1462"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.3.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Advierta que estamos usando dos variables para recorrer la lista
+<tt>params.items()</tt>. Este es otro uso de 
+<a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">la asignaci&oacute;n m&uacute;ltiple</a>. 
+El primer elemento de <tt>params.items()</tt> es
+<tt>('server', 'mpilgrim')</tt>, de modo que en el primer
+ciclo de la relaci&oacute;n, <tt>k</tt> tomar&aacute; el valor
+<tt>'server'</tt> y <tt>v</tt> el valor
+<tt>'mpilgrim'</tt>. En este caso ignoramos el valor de
+<tt>v</tt> y s&oacute;lo incluimos el de <tt>k</tt> en la
+lista devuelta, por lo que esta relaci&oacute;n equivale finalmente a
+<tt></tt><tt>params</tt>.keys(). 
+(No se utilizar&iacute;a realmente una
+relaci&oacute;n de listas como esta en el c&oacute;digo real; es s&oacute;lo un ejemplo
+demasiado simple para entender qu&eacute; pasa aqu&iacute;).</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.3.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Aqu&iacute; hacemos lo mismo, pero ignoramos el valor de
+<tt>k</tt>, de manera que esta relaci&oacute;n equivale finalmente a
+<tt></tt><tt>params</tt>.<tt>values</tt>().</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.map.3.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Combinando los dos ejemplos anteriores con un simple 
+<a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">formato de cadenas</a>,
+obtenemos una lista de cadenas que incluyen tanto la clave como el
+valor de cada elemento del diccionario. Esto se parece sospechosamente
+a <a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.output" title="Ejemplo 1.2. Salida de odbchelper.py">la salida</a> del programa;
+todo lo que queda por hacer es unir los elementos de esta lista en una
+&uacute;nica cadena.</td></tr></table></div></div><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li>El <a href="http://es.diveintopython.net/doc/current/tut/tut.html"><i>Tutorial de Python</i></a> expone otra forma de relacionar
+listas <a href="http://es.diveintopython.net/doc/current/tut/node7.html#SECTION007130000000000000000">usando
+la funci&oacute;n incorporada
+<tt>map</tt></a>.</li><li>El <a href="http://es.diveintopython.net/doc/current/tut/tut.html"><i>Tutorial de Python</i></a> muestra c&oacute;mo<a href="http://es.diveintopython.net/doc/current/tut/node7.html#SECTION007140000000000000000">anidar
+relaciones de listas</a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_stringformatting.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Formato de cadenas</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <b>13</b> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_join.html">Uni&oacute;n y divisi&oacute;n de cadenas&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

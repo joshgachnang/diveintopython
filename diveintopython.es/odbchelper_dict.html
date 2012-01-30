@@ -1,0 +1,125 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.7. Todo sobre los diccionarios</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos" /><link rel="next" href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Todo sobre los diccionarios</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_testing.html" title="Anterior: “Prueba de m&oacute;dulos”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_list.html" title="Siguiente: “Todo sobre las listas”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.dict"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.dict"></a>1.7. Todo sobre los diccionarios</h2></div></div><p>A continuaci&oacute;n una breve digresi&oacute;n para conocer los
+diccionarios, las tuplas y las listas (&iexcl;oh, no!). Si es usted un
+hacker de Perl, probablemente pueda saltarse la parte sobre
+diccionarios y listas, pero deber&iacute;a prestar atenci&oacute;n a las
+tuplas.</p><div class="abstract"><p>Uno de los tipos de datos incorporados en Python es el
+diccionario, que define una relaci&oacute;n uno a uno entre claves y
+valores.</p></div><a name="compare.dict.perl"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Un diccionario en Python es como un hash en Perl. En Perl,
+las variables que almacenan hashes comienzan siempre por el car&aacute;cter
+<tt>%</tt>; en Python, las variables pueden tener
+cualquier nombre, y Python guarda internamente el tipo de
+dato.</td></tr></table><a name="compare.dict.java"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Un diccionario en Python es como una instancia de la clase
+<tt>Hashtable</tt> en Java.</td></tr></table><a name="compare.dict.vb"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Un diccionario en Python es como una instancia del objeto
+<tt>Scripting.Dictionary</tt> en Visual Basic.</td></tr></table><div class="example"><p><a name="odbchelper.dict.define"></a><b>Ejemplo 1.9. Definici&oacute;n de un diccionario</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">d = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, <span class="pystring">"database"</span>:<span class="pystring">"master"</span>}</span> <a name="odbchelper.dict.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'database': 'master'}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"server"</span>]</span>                                    <a name="odbchelper.dict.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'mpilgrim'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"database"</span>]</span>                                  <a name="odbchelper.dict.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'master'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"mpilgrim"</span>]</span>                                  <a name="odbchelper.dict.1.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+KeyError: mpilgrim</span></pre><div class="calloutlist"><a name="d0e495"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">En primer lugar, creamos un diccionario nuevo con dos elementos
+y lo asignamos a la variable <tt>d</tt>. Cada elemento es un
+par clave-valor, y el conjunto total de elementos se encierra entre
+llaves.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>server</tt> es una clave, y su valor asociado, al
+que se hace referencia con <tt>d["server"]</tt>, es
+<tt>mpilgrim</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>database</tt> es una clave, y su valor asociado,
+al que se hace referencia con <tt>d["database"]</tt>, 
+es <tt>master</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.1.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Se pueden obtener los valores por su clave, pero no se pueden
+obtener las claves por el valor. As&iacute;, <tt>d["server"]</tt>
+es <tt>mpilgrim</tt>, pero <tt>d["mpilgrim"]</tt>
+lanza una excepci&oacute;n, porque <tt>mpilgrim</tt> no es una
+clave.</td></tr></table></div></div><div class="example"><p><a name="odbchelper.dict.modify"></a><b>Ejemplo 1.10. Modificaci&oacute;n de un diccionario</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'database': 'master'}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"database"</span>] = <span class="pystring">"pubs"</span></span> <a name="odbchelper.dict.2.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'database': 'pubs'}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"uid"</span>] = <span class="pystring">"sa"</span></span>        <a name="odbchelper.dict.2.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'uid': 'sa', 'database': 'pubs'}</span></pre></div><div class="calloutlist"><a name="d0e533"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.2.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">No puede haber claves duplicadas en un diccionario. La
+asignaci&oacute;n de un valor a una clave existente borrar&aacute; el valor
+anterior.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.2.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Se pueden a&ntilde;adir nuevos pares clave-valor en cualquier momento.
+Esta sintaxis es id&eacute;ntica a la de la modificaci&oacute;n de valores
+existentes. (S&iacute;, esto le molestar&aacute; alg&uacute;n d&iacute;a, cuando pensando que est&aacute;
+a&ntilde;adiendo nuevos valores est&eacute; realmente modificando el mismo valor una
+y otra vez porque la clave no cambia de la manera que usted
+piensa.)</td></tr></table></div><p>Advierta que el nuevo elemento (clave <tt>uid</tt>,
+valor <tt>sa</tt>) aparece en medio. De hecho, es s&oacute;lo una
+coincidencia que los elementos aparecieran en orden en el primer
+ejemplo; es tambi&eacute;n una coincidencia que aparezcan desordenados
+ahora.</p><a name="tip.dictorder"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Los diccionarios no tienen concepto alguno de orden entre sus
+elementos. Es incorrecto decir que los elementos est&aacute;n
+&#8220;desordenados&#8221;; simplemente no hay orden. Esta distinci&oacute;n
+es importante, y le estorbar&aacute; cuando intente acceder a los elementos
+de un diccionario en un orden espec&iacute;fico y repetible (como el orden
+alfab&eacute;tico de las claves). Hay formas de hacer esto, s&oacute;lo que no
+forman parte de los diccionarios.</td></tr></table><div class="example"><p><a name="odbchelper.dictionarytypes"></a><b>Ejemplo 1.11. Mezcla de tipos de datos en un diccionario</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'uid': 'sa', 'database': 'pubs'}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"retrycount"</span>] = 3</span> <a name="odbchelper.dict.3.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'uid': 'sa', 'database': 'master', 'retrycount': 3}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[42] = <span class="pystring">"douglas"</span></span>   <a name="odbchelper.dict.3.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'uid': 'sa', 'database': 'master', 42: 'douglas', 'retrycount': 3}</span></pre></div><div class="calloutlist"><a name="d0e563"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.3.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Los diccionarios no sirven solamente para almacenar cadenas. Los
+valores de un diccionario pueden ser de cualquier tipo, incluidas
+cadenas, enteros, objetos o incluso otros diccionarios. Y en un mismo
+diccionario, los valores no tienen que ser todos del mismo tipo: se
+pueden mezclar y emparejar como sea necesario.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.3.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Las claves de un diccionario est&aacute;n m&aacute;s restringidas, pero pueden
+ser cadenas, enteros, y algunos tipos m&aacute;s (lo veremos m&aacute;s adelante).
+Tambi&eacute;n se pueden mezclar y emparejar distintos tipos de claves en un
+diccionario.</td></tr></table></div><div class="example"><p><a name="odbchelper.dict.del"></a><b>Ejemplo 1.12. Eliminaci&oacute;n de elementos de un diccionario</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'uid': 'sa', 'database': 'master', 42: 'douglas', 'retrycount': 3}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">del</span> d[42]</span> <a name="odbchelper.dict.4.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'server': 'mpilgrim', 'uid': 'sa', 'database': 'master', 'retrycount': 3}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d.clear()</span> <a name="odbchelper.dict.4.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{}</span></pre><div class="calloutlist"><a name="d0e586"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.4.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>del</tt> permite borrar elementos individuales de un diccionario
+por su clave.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.4.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>clear</tt> borra todos los elementos de un diccionario. Advierta
+que el conjunto de las dos llaves vac&iacute;as indica un diccionario sin
+elementos.</td></tr></table></div></div><div class="example"><p><a name="odbchelper.dict.case"></a><b>Ejemplo 1.13. Las cadenas diferencian may&uacute;sculas y min&uacute;sculas</b></p><pre class="screen">
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d = {}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"key"</span>] = <span class="pystring">"value"</span></span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"key"</span>] = <span class="pystring">"other value"</span></span> <a name="odbchelper.dict.5.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'key': 'other value'}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d[<span class="pystring">"Key"</span>] = <span class="pystring">"third value"</span></span> <a name="odbchelper.dict.5.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d</span>
+<span class="computeroutput">{'Key': 'third value', 'key': 'other value'}</span>
+</pre><div class="calloutlist"><a name="d0e612"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.5.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Al asignar un valor a una clave existente en un diccionario,
+simplemente se sustituye el valor antiguo con el nuevo.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_dict.html#odbchelper.dict.5.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Aqu&iacute; no se asigna un valor a una clave existente en el
+diccionario, porque en las cadenas de Python se diferencia entre
+may&uacute;sculas y min&uacute;sculas, de modo que <tt>'key'</tt> no es lo
+mismo que <tt>'Key'</tt>. Aqu&iacute; se crea un nuevo par
+clave-valor en el diccionario; puede parecer lo mismo, pero tal como
+lo ve Python, es completamente distinto.</td></tr></table></div></div><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li><a href="http://es.diveintopython.net/obp/thinkCSpy/"><i>How to Think Like a Computer Scientist</i></a> trata sobre diccionarios y muestra c&oacute;mo
+<a href="http://es.diveintopython.net/obp/thinkCSpy/chap10.htm">usar diccionarios para modelar
+matrices dispersas</a>.</li><li><a href="http://es.diveintopython.net/knowledge-base/index.phtml/fid/199/">Python Knowledge Base</a> tiene muchos ejemplos de 
+<a href="http://es.diveintopython.net/knowledge-base/index.phtml/fid/541">c&oacute;digo que
+utiliza diccionarios</a>.</li><li><a href="http://es.diveintopython.net/ASPN/Python/Cookbook/">Python Cookbook</a> expone 
+<a href="http://es.diveintopython.net/ASPN/Python/Cookbook/Recipe/52306">c&oacute;mo ordenar los valores
+de un diccionario seg&uacute;n su clave</a>.</li><li>La <a href="http://es.diveintopython.net/doc/current/lib/"><i>Referencia de bibliotecas de Python</i></a> resume
+<a href="http://es.diveintopython.net/doc/current/lib/typesmapping.html">los m&eacute;todos de los
+diccionarios</a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_testing.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Prueba de m&oacute;dulos</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <b>7</b> <a href="http://es.diveintopython.net/odbchelper_list.html" title="1.8. Todo sobre las listas">8</a> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_list.html">Todo sobre las listas&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

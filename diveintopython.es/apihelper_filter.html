@@ -1,0 +1,85 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.5. Filtrado de listas</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/apihelper_divein.html" title="Cap&iacute;tulo 2. El poder de la introspecci&oacute;n" /><link rel="previous" href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr" /><link rel="next" href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html">El poder de la introspecci&oacute;n</a>&nbsp;&gt;&nbsp;<b>Filtrado de listas</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_getattr.html" title="Anterior: “Obtenci&oacute;n de referencias a objetos con getattr”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_andor.html" title="Siguiente: “La peculiar naturaleza de and y or”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="apihelper.filter"></a><div class="titlepage"><div><h2 class="title"><a name="apihelper.filter"></a>2.5. Filtrado de listas</h2></div></div><div class="abstract"><p>Como ya sabe, Python tiene una potente capacidad para
+convertir una lista en otra por medio de las relaciones de listas.
+Esto puede combinarse con un mecanismo de filtrado en el que algunos
+elementos de la lista se utilicen mientras otros se pasen por
+alto.</p></div><div class="example"><p><a name="d0e2211"></a><b>Ejemplo 2.13. Sintaxis del filtrado de listas</b></p><pre class="programlisting">
+[<i><tt>expresi&oacute;n de relaci&oacute;n</tt></i><span class="pykeyword"> for</span> <i><tt>elemento</tt></i><span class="pykeyword"> in</span> <i><tt>lista origen</tt></i><span class="pykeyword"> if</span> <i><tt>expresi&oacute;n de filtrado</tt></i>]</pre></div><p>Esto es una extensi&oacute;n de la <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">relaci&oacute;n de listas</a> que usted conoce y
+tanto le gusta. Las dos primeras partes son como antes; la &uacute;ltima
+parte, la que comienza con <tt>if</tt>, es la expresi&oacute;n de filtrado. Una
+expresi&oacute;n de filtrado puede ser cualquier expresi&oacute;n que se eval&uacute;e como
+verdadera o falsa (lo cual, en Python, puede ser <a href="http://es.diveintopython.net/odbchelper_list.html#tip.boolean">casi cualquier resultado</a>). Cualquier
+elemento para el cual la expresi&oacute;n resulte verdadera, ser&aacute; incluido en
+el proceso de relaci&oacute;n. Todos los dem&aacute;s elementos se pasan por alto,
+de modo que no pasan por el proceso de relaci&oacute;n y no se incluyen en la
+lista final.</p><div class="example"><p><a name="d0e2223"></a><b>Ejemplo 2.14. Presentaci&oacute;n del filtrado de listas</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">"a"</span>, <span class="pystring">"mpilgrim"</span>, <span class="pystring">"foo"</span>, <span class="pystring">"b"</span>, <span class="pystring">"c"</span>, <span class="pystring">"b"</span>, <span class="pystring">"d"</span>, <span class="pystring">"d"</span>]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[elem <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li <span class="pykeyword">if</span> len(elem) &gt; 1]</span>       <a name="apihelper.filter.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['mpilgrim', 'foo']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[elem <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li <span class="pykeyword">if</span> elem != <span class="pystring">"b"</span>]</span>         <a name="apihelper.filter.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['a', 'mpilgrim', 'foo', 'c', 'd', 'd']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[elem <span class="pykeyword">for</span> elem <span class="pykeyword">in</span> li <span class="pykeyword">if</span> li.count(elem) == 1]</span> <a name="apihelper.filter.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['a', 'mpilgrim', 'foo', 'c']</span></pre><div class="calloutlist"><a name="d0e2240"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_filter.html#apihelper.filter.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Esta expresi&oacute;n de relaci&oacute;n es sencilla (simplemente devuelve el
+valor de cada elemento), as&iacute; que concentr&eacute;monos en la expresi&oacute;n de
+filtrado. Mientras Python recorre la lista, aplica la expresi&oacute;n de
+filtrado a cada elemento; si la expresi&oacute;n es verdadera, se aplica la
+relaci&oacute;n al elemento y el resultado se incluye en la lista final. Aqu&iacute;
+estamos filtrando todas las cadenas de un solo car&aacute;cter, por lo que se
+obtendr&aacute; una lista con todas las cadenas m&aacute;s largas.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_filter.html#apihelper.filter.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Aqu&iacute; filtramos un valor concreto, <tt>b</tt>. Observe
+que esto filtra todas las apariciones de <tt>b</tt>, ya que
+cada vez que este valor aparezca, la expresi&oacute;n de filtrado ser&aacute;
+falsa.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_filter.html#apihelper.filter.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>count</tt> es un m&eacute;todo de lista que devuelve el n&uacute;mero de veces
+que aparece un valor en una lista.  Se podr&iacute;a pensar que este filtro
+elimina los valores duplicados en una lista, devolviendo otra que
+contiene una &uacute;nica copia de cada valor de la lista original. Pero no
+es as&iacute;, porque los valores que aparecen dos veces en la lista original
+(en este caso, <tt>b</tt> y <tt>d</tt>) son
+completamente excluidos. Hay modos de eliminar valores duplicados en
+una lista, pero el filtrado no es la soluci&oacute;n.</td></tr></table></div></div><div class="example"><p><a name="apihelper.filter.care"></a><b>Ejemplo 2.15. Filtrado de una lista en <tt>apihelper.py</tt></b></p><pre class="programlisting">
+    methodList = [method <span class="pykeyword">for</span> method <span class="pykeyword">in</span> dir(object) <span class="pykeyword">if</span> callable(getattr(object, method))]</pre></div><p>Esto parece complicado, y lo es, pero la estructura b&aacute;sica es la
+misma. La expresi&oacute;n de filtrado devuelve una lista, que se asigna a la
+variable <tt>methodList</tt>. La primera mitad de la
+expresi&oacute;n es la parte de relaci&oacute;n. Es una relaci&oacute;n de identidad;
+devuelve el valor de cada elemento.
+<tt>dir(</tt><tt>object</tt>) devuelve la lista
+de los atributos y m&eacute;todos de <tt>object</tt>; esa es la
+lista a que se aplica la relaci&oacute;n. Luego la &uacute;nica parte nueva es la
+expresi&oacute;n de filtrado que sigue a <tt>if</tt>.</p><p>La expresi&oacute;n de filtrado parece que asusta, pero no. Usted ya
+conoce <a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.callable" title="Ejemplo 2.9. Presentaci&oacute;n de callable"><tt>callable</tt></a>, 
+<a href="http://es.diveintopython.net/apihelper_getattr.html#apihelper.getattr.intro" title="Ejemplo 2.11. Presentaci&oacute;n de getattr"><tt>getattr</tt></a>, e
+<a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuplemethods" title="Ejemplo 1.23. Las tuplas no tienen m&eacute;todos"><tt>in</tt></a>. Como se vio en
+<a href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr">la secci&oacute;n anterior</a>, la
+expresi&oacute;n <tt>getattr(object, method)</tt> devuelve un objeto
+funci&oacute;n si <tt>object</tt> es un m&oacute;dulo y
+<tt>method</tt> el nombre de una funci&oacute;n de ese
+m&oacute;dulo.</p><p>Por tanto esta expresi&oacute;n toma un objeto, llamado
+<tt>object</tt>, obtiene la lista de sus atributos, m&eacute;todos,
+funciones y algunas cosas m&aacute;s, y a continuaci&oacute;n filtra esta lista para
+eliminar todo lo que no nos interesa. Esto lo hacemos tomando el
+nombre de cada atributo/m&eacute;todo/funci&oacute;n y obteniendo una referencia al
+objeto real por medio de la funci&oacute;n <tt>getattr</tt>. Despu&eacute;s comprobamos si
+ese objeto puede ser llamado, como lo ser&aacute;n los m&eacute;todos y funciones,
+tanto incorporados (como el m&eacute;todo <tt>pop</tt> de una lista) como definidos
+por el usuario (como la funci&oacute;n <tt>buildConnectionString</tt> del m&oacute;dulo
+<tt>odbchelper</tt>). No nos interesan otros atributos, como el
+atributo <tt>__name__</tt> que est&aacute; incorporado en todos los m&oacute;dulos.</p><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li>El <a href="http://es.diveintopython.net/doc/current/tut/tut.html"><i>Tutorial de Python</i></a> expone otro modo de filtrar listas 
+<a href="http://es.diveintopython.net/doc/current/tut/node7.html#SECTION007130000000000000000">utilizando
+la funci&oacute;n incorporada <tt>filter</tt></a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/apihelper_getattr.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Obtenci&oacute;n de referencias a objetos con getattr</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.divein" title="2.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/apihelper_optional.html" title="2.2. Argumentos opcionales y con nombre">2</a> <a href="http://es.diveintopython.net/apihelper_builtin.html" title="2.3. type, str, dir, y otras funciones incorporadas">3</a> <a href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr">4</a> <b>5</b> <a href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or">6</a> <a href="http://es.diveintopython.net/apihelper_lambda.html" title="2.7. Utilizaci&oacute;n de las funciones lambda">7</a> <a href="http://es.diveintopython.net/apihelper_alltogether.html" title="2.8. Todo junto">8</a> <a href="http://es.diveintopython.net/apihelper_summary.html" title="2.9. Resumen">9</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/apihelper_andor.html">La peculiar naturaleza de and y or&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

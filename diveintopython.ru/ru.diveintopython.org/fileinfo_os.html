@@ -1,0 +1,282 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>3.14. The os module</title><link rel="stylesheet" href="http://web.archive.org/web/20110709015428cs_/http://ru.diveintopython.org/diveintopython.css" type="text/css"><link rev="made" href="mailto:f8dy@diveintopython.org"><meta name="generator" content="DocBook XSL Stylesheets V"><meta name="keywords" content="Python, &#1103;&#1079;&#1099;&#1082; Python, &#1103;&#1079;&#1099;&#1082; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103; Python, Dive Into Python, &#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python, &#1091;&#1095;&#1077;&#1073;&#1085;&#1080;&#1082;, &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1099;&#1081;, &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;, &#1076;&#1086;&#1082;&#1091;&#1084;&#1077;&#1085;&#1090;&#1072;&#1094;&#1080;&#1103;, &#1082;&#1085;&#1080;&#1075;&#1072;, free, &#1089;&#1074;&#1086;&#1073;&#1086;&#1076;&#1085;&#1099;&#1081;, &#1073;&#1077;&#1089;&#1087;&#1083;&#1072;&#1090;&#1085;&#1099;&#1081;"><meta name="description" content="a free Python book for experienced programmers"><link rel="home" href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/toc.html" title="&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python"><link rel="up" href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_divein.html" title="&#1043;&#1083;&#1072;&#1074;&#1072; 3. &#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;"><link rel="previous" href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_modules.html" title="3.13. More on modules"><link rel="next" href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_alltogether.html" title="3.15. Putting it all together"></head><body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="http://staticweb.archive.org/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/js/graph-calc.js" ></script>
+<script type="text/javascript" src="http://staticweb.archive.org/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1325375999999;
+var wbPrefix = "http://web.archive.org/web/";
+var wbCurrentUrl = "http:\/\/ru.diveintopython.org\/fileinfo_os.html";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 16;
+var firstYear = 1996;
+var imgWidth=400;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "9";
+var displayMonth = "Jul";
+var displayYear = "2011";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(http://staticweb.archive.org/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="http://wayback.archive.org/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="http://wayback.archive.org/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://ru.diveintopython.org/fileinfo_os.html" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20110709015428" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100929082852/http://ru.diveintopython.org/fileinfo_os.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="29 Sep 2010"><strong>SEP</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 1:54:28 Jul 9, 2011">JUL</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       Aug
+                       
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20100929082852/http://ru.diveintopython.org/fileinfo_os.html" title="8:28:52 Sep 29, 2010" style="background-color:transparent;border:none;"><img src="http://staticweb.archive.org/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 1:54:28 Jul 9, 2011">9</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+                       <img src="http://staticweb.archive.org/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+                       
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="http://web.archive.org/web/20090326024321/http://ru.diveintopython.org/fileinfo_os.html" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="26 Mar 2009"><strong>2009</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 1:54:28 Jul 9, 2011">2011</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+                       2012
+                       
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="http://wayback.archive.org/web/20110709015428*/http://ru.diveintopython.org/fileinfo_os.html" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>22 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">22 Nov 04 - 9 Jul 11</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:400px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:400px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="400"
+				height="27"
+				border="0"
+				src="http://wayback.archive.org/jsp/graph.jsp?graphdata=400_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000010_2005:-1:100000010001_2006:-1:000000100120_2007:-1:110000020100_2008:-1:101010110000_2009:-1:101000000000_2010:-1:000000001000_2011:6:000000100000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="http://staticweb.archive.org/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(http://staticweb.archive.org/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/index.html">&#1053;&#1072;&#1095;&#1072;&#1083;&#1086;</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/toc.html">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</a>&nbsp;&gt;&nbsp;<a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_divein.html">&#1057;&#1088;&#1077;&#1076;&#1089;&#1090;&#1074;&#1072; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1085;&#1086;-&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;</a>&nbsp;&gt;&nbsp;<b>The os module</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_modules.html" title="&#1055;&#1088;&#1077;&#1076;.: &#8220;More on modules&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_alltogether.html" title="&#1057;&#1083;&#1077;&#1076;.: &#8220;Putting it all together&#8221;">&gt;&gt;</a></td></tr><tr><td><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/logo.png" alt="diveinto.python.ru"></td><td colspan="2"><span id="logo">&#1042; &#1075;&#1083;&#1091;&#1073;&#1100; &#1103;&#1079;&#1099;&#1082;&#1072; Python</span><br><span id="tagline">&#1044;&#1083;&#1103; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1089;&#1090;&#1086;&#1074;</span></td><td colspan="3" align="right"></td></tr></table><div class="section"><a name="fileinfo.os"></a><div class="titlepage"><div><h2 class="title"><a name="fileinfo.os"></a>3.14. The <tt>os</tt> module</h2></div></div><div class="abstract"><p>The <tt>os</tt> module has lots of useful functions for manipulating files and processes, and <tt>os.path</tt> has functions for manipulating file and directory paths.</p></div><div class="example"><p><a name="fileinfo.os.path.join.example"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.35. Constructing pathnames</b></p><pre class="screen">
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> os</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">os.path.join(<span class='pystring'>"c:\\music\\ap\\"</span>, <span class='pystring'>"mahadeva.mp3"</span>)</span> <a name="fileinfo.os.1.1"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="fileinfo.os.1.2"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\music\\ap\\mahadeva.mp3'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">os.path.join(<span class='pystring'>"c:\\music\\ap"</span>, <span class='pystring'>"mahadeva.mp3"</span>)</span>   <a name="fileinfo.os.1.3"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\music\\ap\\mahadeva.mp3'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">os.path.expanduser(<span class='pystring'>"~"</span>)</span>                         <a name="fileinfo.os.1.4"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\Documents and Settings\\mpilgrim\\My Documents'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">os.path.join(os.path.expanduser(<span class='pystring'>"~"</span>), <span class='pystring'>"Python"</span>)</span> <a name="fileinfo.os.1.5"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\Documents and Settings\\mpilgrim\\My Documents\\Python'</span></pre><div class="calloutlist"><a name="d0e4864"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.1.1"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>os.path</tt> is a reference to a module; which module it is depends on what platform you're running on.  Just like <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_exception.html#crossplatform.example" title="&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.22. Supporting platform-specific functionality"><tt>getpass</tt></a> encapsulates differences between platforms by setting <tt>getpass</tt> to a platform-specific function, <tt>os</tt> encapsulates differences between platforms by setting <tt>path</tt> to a platform-specific module.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.1.2"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left">The <tt>join</tt> function of <tt>os.path</tt> constructs a pathname out of one or more partial pathnames.  In this simple case, it simply concatenates strings.  (Note that dealing with pathnames on Windows is annoying because the backslash character must be escaped.)</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.1.3"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> </td><td valign="top" align="left">In this slightly less trivial case, <tt>join</tt> will add an extra backslash to the pathname before joining it to the filename.  I was overjoyed when I discovered this, since <tt>addSlashIfNecessary</tt> is always one of the stupid little functions I have to write when building up my toolbox in a new language.  <span class="emphasis"><i>Do not</i></span> write this stupid little function in Python; smart people have already taken care of it for you.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.1.4"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>expanduser</tt> will expand a pathname that uses <tt>~</tt> to represent the current user's home directory.  This works on any platform where users have a home directory, like Windows, UNIX, and Mac OS X; it has no effect on Mac OS.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.1.5"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> </td><td valign="top" align="left">Combining these techniques, you can easily construct pathnames for directories and files under the user's home directory.</td></tr></table></div></div><div class="example"><p><a name="splittingpathnames.example"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.36. Splitting pathnames</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">os.path.split(<span class='pystring'>"c:\\music\\ap\\mahadeva.mp3"</span>)</span>                        <a name="fileinfo.os.2.1"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">('c:\\music\\ap', 'mahadeva.mp3')</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">(filepath, filename) = os.path.split(<span class='pystring'>"c:\\music\\ap\\mahadeva.mp3"</span>)</span> <a name="fileinfo.os.2.2"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt>&gt;&gt;&gt; </tt><span class="userinput">filepath</span>                                                            <a name="fileinfo.os.2.3"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\music\\ap'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">filename</span>                                                            <a name="fileinfo.os.2.4"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'mahadeva.mp3'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">(shortname, extension) = os.path.splitext(filename)</span>                 <a name="fileinfo.os.2.5"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt>&gt;&gt;&gt; </tt><span class="userinput">shortname</span>
+<span class="computeroutput">'mahadeva'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">extension</span>
+<span class="computeroutput">'.mp3'</span></pre><div class="calloutlist"><a name="d0e4921"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.2.1"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left">The <tt>split</tt> function splits a full pathname and returns a tuple containing the path and filename.  Remember when I said you could use <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/odbchelper_multiassign.html" title="1.11. &#1055;&#1088;&#1080;&#1089;&#1074;&#1072;&#1080;&#1074;&#1072;&#1085;&#1080;&#1077; &#1089;&#1088;&#1072;&#1079;&#1091; &#1085;&#1077;&#1089;&#1082;&#1086;&#1083;&#1100;&#1082;&#1080;&#1093; &#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1080;&#1081;">multi-variable assignment</a> to return multiple values from a function?  Well, <tt>split</tt> is such a function.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.2.2"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left">We assign the return value of the <tt>split</tt> function into a tuple of two variables.  Each variable receives the value of the corresponding element of the returned tuple.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.2.3"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> </td><td valign="top" align="left">The first variable, <tt>filepath</tt>, receives the value of the first element of the tuple returned from <tt>split</tt>, the file path.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.2.4"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> </td><td valign="top" align="left">The second variable, <tt>filename</tt>, receives the value of the second element of the tuple returned from <tt>split</tt>, the filename.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.2.5"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>os.path</tt> also contains a function <tt>splitext</tt>, which splits a filename and returns a tuple containing the filename and the file extension.   We use the same technique to assign each of them to separate variables.</td></tr></table></div></div><div class="example"><p><a name="fileinfo.listdir.example"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.37. Listing directories</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">os.listdir(<span class='pystring'>"c:\\music\\_singles\\"</span>)</span>                                          <a name="fileinfo.os.3.1"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['a_time_long_forgotten_con.mp3', 'hellraiser.mp3', 'kairo.mp3',
+'long_way_home1.mp3', 'sidewinder.mp3', 'spinning.mp3']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">dirname = <span class='pystring'>"c:\\"</span></span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">os.listdir(dirname)</span>                                                          <a name="fileinfo.os.3.2"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['AUTOEXEC.BAT', 'boot.ini', 'CONFIG.SYS', 'cygwin', 'docbook',
+'Documents and Settings', 'Incoming', 'Inetpub', 'IO.SYS', 'MSDOS.SYS', 'Music',
+'NTDETECT.COM', 'ntldr', 'pagefile.sys', 'Program Files', 'Python20', 'RECYCLER',
+'System Volume Information', 'TEMP', 'WINNT']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[f <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> os.listdir(dirname) <span class='pykeyword'>if</span> os.path.isfile(os.path.join(dirname, f))]</span> <a name="fileinfo.os.3.3"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['AUTOEXEC.BAT', 'boot.ini', 'CONFIG.SYS', 'IO.SYS', 'MSDOS.SYS',
+'NTDETECT.COM', 'ntldr', 'pagefile.sys']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">[f <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> os.listdir(dirname) <span class='pykeyword'>if</span> os.path.isdir(os.path.join(dirname, f))]</span>  <a name="fileinfo.os.3.4"></a><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">['cygwin', 'docbook', 'Documents and Settings', 'Incoming',
+'Inetpub', 'Music', 'Program Files', 'Python20', 'RECYCLER',
+'System Volume Information', 'TEMP', 'WINNT']</span></pre><div class="calloutlist"><a name="d0e4963"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.3.1"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> </td><td valign="top" align="left">The <tt>listdir</tt> function takes a pathname and returns a list of the contents of the directory.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.3.2"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>listdir</tt> returns both files and folders, with no indication of which is which.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.3.3"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> </td><td valign="top" align="left">You can use <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/apihelper_filter.html" title="2.5. &#1060;&#1080;&#1083;&#1100;&#1090;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1089;&#1087;&#1080;&#1089;&#1082;&#1086;&#1074;">list filtering</a> and the <tt>isfile</tt> function of the <tt>os.path</tt> module to separate the files from the folders.  <tt>isfile</tt> takes a pathname and returns 1 if the path represents a file, and 0 otherwise.  Here we're using <tt><tt>os.path</tt>.<tt>join</tt></tt> to ensure a full pathname, but <tt>isfile</tt> also works with a partial path, relative to the current working directory.  You can use <tt><tt>os.path</tt>.getcwd()</tt> to get the current working directory.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_os.html#fileinfo.os.3.4"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> </td><td valign="top" align="left"><tt>os.path</tt> also has a <tt>isdir</tt> function which returns 1 if the path represents a directory, and 0 otherwise.  You can use this to get a list of the subdirectories within a directory.</td></tr></table></div></div><div class="example"><p><a name="d0e4986"></a><b>&#1055;&#1088;&#1080;&#1084;&#1077;&#1088; 3.38. Listing directories in <tt>fileinfo.py</tt></b></p><pre class="programlisting"><span class='pykeyword'>
+def</span> listDirectory(directory, fileExtList):                                        
+    <span class='pystring'>"""&#1074;&#1086;&#1079;&#1074;&#1088;&#1072;&#1097;&#1072;&#1077;&#1090; &#1089;&#1087;&#1080;&#1089;&#1086;&#1082; &#1086;&#1073;&#1098;&#1077;&#1082;&#1090;&#1086;&#1074; &#1089; &#1084;&#1077;&#1090;&#1072;&#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1077;&#1081; &#1076;&#1083;&#1103; &#1074;&#1089;&#1077;&#1093; &#1092;&#1072;&#1081;&#1083;&#1086;&#1074; &#1089;
+&#1091;&#1082;&#1072;&#1079;&#1072;&#1085;&#1085;&#1099;&#1084; &#1088;&#1072;&#1089;&#1096;&#1080;&#1088;&#1077;&#1085;&#1080;&#1077;&#1084;"""</span>                       
+    fileList = [os.path.normcase(f) <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> os.listdir(directory)]               
+    fileList = [os.path.join(directory, f) <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> fileList \
+                <span class='pykeyword'>if</span> os.path.splitext(f)[1] <span class='pykeyword'>in</span> fileExtList]                         </pre><p>These two lines of code combine everything we've learned so far about the <tt>os</tt> module, and then some.</p><div class="orderedlist"><ol type="1"><li><tt>os.listdir(directory)</tt> returns a list of all the files and folders in <tt>directory</tt>.</li><li>Iterating through the list with <tt>f</tt>, we use <tt>os.path.normcase(f)</tt> to normalize the case according to operating system defaults.  <tt>normcase</tt> is a useful little function that compensates for case-insensitive operating systems that think that <tt>mahadeva.mp3</tt> and <tt>mahadeva.MP3</tt> are the same file.  For instance, on Windows and Mac OS, <tt>normcase</tt> will convert the entire filename to lowercase; on UNIX-compatible systems, it will return the filename unchanged.</li><li>Iterating through the normalized list with <tt>f</tt> again, we use <tt>os.path.splitext(f)</tt> to split each filename into name and extension.</li><li>For each file, we see if the extension is in the list of file extensions we care about (<tt>fileExtList</tt>, which was passed to the <tt>listDirectory</tt> function).</li><li>For each file we care about, we use <tt>os.path.join(directory, f)</tt> to construct the full pathname of the file, and return a list of the full pathnames.</li></ol></div></div><a name="tip.os"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://web.archive.org/web/20110709015428im_/http://ru.diveintopython.org/images/note.png" alt="&#1047;&#1072;&#1084;&#1077;&#1095;&#1072;&#1085;&#1080;&#1077;" width="24" height="24"></td></tr><tr><td colspan="2" align="left" valign="top">Whenever possible, you should use the functions in <tt>os</tt> and <tt>os.path</tt> for file, directory, and path manipulations.  These modules are wrappers for platform-specific modules, so functions like <tt>os.path.split</tt> work on UNIX, Windows, Mac OS, and any other supported Python platform.</td></tr></table><div class="furtherreading"><p><b>Further reading</b></p><ul><li><a href="http://web.archive.org/web/20110709015428/http://www.faqts.com/knowledge-base/index.phtml/fid/199/">Python Knowledge Base</a> answers <a href="http://web.archive.org/web/20110709015428/http://www.faqts.com/knowledge-base/index.phtml/fid/240">questions about the <tt>os</tt> module</a>.</li><li><a href="http://web.archive.org/web/20110709015428/http://www.python.org/doc/current/lib/"><i>Python Library Reference</i></a> documents the <a href="http://web.archive.org/web/20110709015428/http://www.python.org/doc/current/lib/module-os.html"><tt>os</tt></a> module and the <a href="http://web.archive.org/web/20110709015428/http://www.python.org/doc/current/lib/module-os.path.html"><tt>os.path</tt></a> module.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_modules.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;More on modules</a></td><td width="30%" align="center"><br>&nbsp;<a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_divein.html#fileinfo.divein" title="3.1. &#1042; &#1075;&#1083;&#1091;&#1073;&#1100;">1</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_fromimport.html" title="3.2. &#1048;&#1084;&#1087;&#1086;&#1088;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1084;&#1086;&#1076;&#1091;&#1083;&#1077;&#1081; &#1080;&#1085;&#1089;&#1090;&#1088;&#1091;&#1082;&#1094;&#1080;&#1077;&#1081; from module import">2</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_class.html" title="3.3. &#1054;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1080;&#1077; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;">3</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_instantiation.html" title="3.4. &#1057;&#1086;&#1079;&#1076;&#1072;&#1085;&#1080;&#1077; &#1101;&#1082;&#1079;&#1077;&#1084;&#1087;&#1083;&#1103;&#1088;&#1086;&#1074; &#1082;&#1083;&#1072;&#1089;&#1089;&#1086;&#1074;">4</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_userdict.html" title="3.5. UserDict: a wrapper class">5</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_specialmethods.html" title="3.6. Special class methods">6</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_morespecial.html" title="3.7. Advanced special class methods">7</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_classattributes.html" title="3.8. Class attributes">8</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_private.html" title="3.9. Private functions">9</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_exception.html" title="3.10. Handling exceptions">10</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_files.html" title="3.11. File objects">11</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_for.html" title="3.12. for loops">12</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_modules.html" title="3.13. More on modules">13</a> <b>14</b> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_alltogether.html" title="3.15. Putting it all together">15</a> <a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_summary.html" title="3.16. Summary">16</a>&nbsp;</td><td width="35%" align="right"><br><a href="http://web.archive.org/web/20110709015428/http://ru.diveintopython.org/fileinfo_alltogether.html">Putting it all together&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br></td></tr></table><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="left"><p class="copyright">Copyright &copy; 2000, 2001, 2002 <a href="mailto:f8dy@diveintopython.org">&#1052;&#1072;&#1088;&#1082; &#1055;&#1080;&#1083;&#1075;&#1088;&#1080;&#1084;</a></p><p class="copyright">Copyright &copy; 2001, 2002, 2003 &#1055;&#1077;&#1088;&#1077;&#1074;&#1086;&#1076;, <a href="mailto:ods@strana.ru">&#1044;&#1077;&#1085;&#1080;&#1089; &#1054;&#1090;&#1082;&#1080;&#1076;&#1072;&#1095;</a></p></td><td align="left">&nbsp;</td></tr></table></body></html>
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 1:54:28 Jul 9, 2011 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:32:43 Nov 4, 2011.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

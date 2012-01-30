@@ -1,0 +1,260 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.7.&nbsp;Metodi speciali di classe avanzati</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Metodi speciali di classe avanzati</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="Indietro: “Metodi speciali per le classi”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="Avanti: “Attributi di classe”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.morespecial"></a>4.7.&nbsp;Metodi speciali di classe avanzati
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Ci sono molti pi&ugrave; metodi speciali dei soli <tt class="function">__getitem__</tt> e
+               	<tt class="function">__setitem__</tt>. Alcuni di questi vi permettono di emulare
+               	funzionalit&agrave; che non avreste mai conosciuto.
+               
+            </p>
+</div>
+<div class="example"><a name="fileinfo.morespecial.example"></a><h3 class="title">Esempio&nbsp;4.17.&nbsp;Altri metodi speciali in <tt class="classname">UserDict</tt></h3><pre class="programlisting">
+    <span class="pykeyword">def</span><span class="pyclass"> __repr__</span>(self): <span class="pykeyword">return</span> repr(self.data)     <a name="fileinfo.morespecial.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pykeyword">def</span><span class="pyclass"> __cmp__</span>(self, dict):                       <a name="fileinfo.morespecial.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        <span class="pykeyword">if</span> isinstance(dict, UserDict):            
+            <span class="pykeyword">return</span> cmp(self.data, dict.data)      
+        <span class="pykeyword">else</span>:                                     
+            <span class="pykeyword">return</span> cmp(self.data, dict)           
+    <span class="pykeyword">def</span><span class="pyclass"> __len__</span>(self): <span class="pykeyword">return</span> len(self.data)       <a name="fileinfo.morespecial.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+    <span class="pykeyword">def</span><span class="pyclass"> __delitem__</span>(self, key): <span class="pykeyword">del</span> self.data[key] <a name="fileinfo.morespecial.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html#fileinfo.morespecial.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">__repr__</tt> &egrave; un metodo speciale che &egrave; chiamato quando
+                        	chiamate
+                        	<tt class="literal">repr(<i class="replaceable">istanza</i>)</tt>.
+                        	La funzione <tt class="function">repr</tt> &egrave; una funzione built-in che ritorna una
+                        	rappresentazione sotto forma di stringa di un oggetto.
+                        	Funziona su ogni oggetto, non solo su istanze di classi.
+                        	Avete gi&agrave; familiarizzato con <tt class="function">repr</tt> ed ancora non lo sapete.
+                        	Nella finestra interattiva, quando scrivete solamente il nome
+                        	di una variabile e premete <span><b class="keycap">ENTER</b></span>, <span class="application">Python</span>
+                        	usa <tt class="function">repr</tt> per mostrare il valore della variabile. Create un
+                        	dizionario <tt class="varname">d</tt> con alcuni dati e quindi
+                        	stampate <tt class="literal">repr(d)</tt> per vederlo con i vostri
+                        	occhi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html#fileinfo.morespecial.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">__cmp__</tt> &egrave; chiamato quando confrontate istanze di classe.
+                        	In generale, potete confrontare ogni coppia di oggetti <span class="application">Python</span>,
+                        	non solamente istanze di classe, usando <tt class="literal">==</tt>.
+                        	Ci sono regole che definiscono quando tipi di dato built-in
+                        	sono considerati uguali; per esempio, i dizionari sono uguali
+                        	quando hanno tutte le stesse chiavi e valori, le stringhe sono
+                        	uguali quando hanno la stessa lunghezza e contengono la stessa
+                        	sequenza di caratteri. Per le istanze di classe, potete
+                        	definire
+                        	il metodo <tt class="function">__cmp__</tt> ed implementarne la logica di
+                        	confronto, potrete quindi usare <tt class="literal">==</tt> per
+                        	confrontare istanze delle vostre classi e <span class="application">Python</span> chiamer&agrave;
+                        	il metodo speciale <tt class="function">__cmp__</tt> per voi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html#fileinfo.morespecial.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">__len__</tt> &egrave; chiamata quando chiamate
+                        	<tt class="literal">len(<i class="replaceable">istanza</i>)</tt>.
+                        	La funzione <tt class="function">len</tt> &egrave; una funzione built-in che ritorna la
+                        	lunghezza di un oggetto. Funziona su ogni oggetto di cui si
+                        	pu&ograve; ragionevolmente pensare di misurarne la lunghezza. La
+                        	lunghezza di una stringa &egrave; il numero dei suoi caratteri; la
+                        	lunghezza di un dizionario &egrave; il numero delle sue chiavi; la
+                        	lunghezza di una lista o di una tupla &egrave; il numero dei suoi
+                        	elementi. Per le istanze di classe, definite il metodo
+                        	<tt class="function">__len__</tt> ed implementate il calcolo della lughezza, quindi
+                        	chiamate
+                        	<tt class="literal">len(<i class="replaceable">istanza</i>)</tt>
+                        	e <span class="application">Python</span> chiamer&agrave; il metodo speciale <tt class="function">__len__</tt>
+                        	per voi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html#fileinfo.morespecial.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">__delitem__</tt> &egrave; chiamato quando chiamate
+                        <tt class="literal">del <i class="replaceable">istanza</i>[<i class="replaceable">chiave</i>]</tt>,
+                        	che potreste ricordare come il modo per
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/dictionaries.html#odbchelper.dict.del" title="Esempio&nbsp;2.13.&nbsp;Cancellare elementi da un dizionario">cancellare
+                           	singoli elementi da un dizionario</a>. Quando usate <tt class="function">del</tt>
+                        	su un'istanza di classe, <span class="application">Python</span> chiama il metodo speciale
+                        	<tt class="function">__delitem__</tt> per voi.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="compare.strequals.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	In <span class="application">Java</span>, determinate quando due variabili di tipo stringa
+                  	referenziano la stessa memoria fisica utilizzando
+                  	<tt class="literal">str1 == str2</tt>. Questa &egrave; chiamata
+                  	<span class="emphasis"><em>identit&agrave; di oggetto</em></span>, ed &egrave; espressa in
+                  	<span class="application">Python</span> come <tt class="literal">str1 is str2</tt>. Per confrontare
+                  	valori di tipo stringa in <span class="application">Java</span>, dovreste usare
+                  	<tt class="literal">str1.equals(str2)</tt>; in <span class="application">Python</span>, usereste
+                  	<tt class="literal">str1 == str2</tt>. Programmatori <span class="application">Java</span> a cui &egrave;
+                  	stato insegnato a credere che il mondo &egrave; un posto migliore in
+                  	quanto <tt class="literal">==</tt> in <span class="application">Java</span> confronta l'identit&agrave;
+                  	invece del valore potrebbero avere qualche difficolt&agrave;
+                  	nell'acquisire questo nuovo &#8220;<span class="quote">concetto</span>&#8221; di
+                  	<span class="application">Python</span>.
+                  
+               </td>
+</tr>
+</table>
+<p>
+            	A questo punto, potreste pensare, &#8220;<span class="quote">tutto questo lavoro
+               	solo per fare in una classe qualcosa che potrei fare con un
+               	tipo built-in</span>&#8221;. Ed &egrave; vero che la vita sarebbe pi&ugrave;
+            	semplice (e l'intera classe <tt class="classname">UserDict</tt> inutile) se
+            	poteste ereditare direttamente da un tipo built-in come un
+            	dizionario. Ma anche se poteste, i metodi speciali sarebbero
+            	comunque utili perch&eacute; possono essere usati in ogni classe,
+            	non solamente nelle classi wrapper come <tt class="classname">UserDict</tt>.
+            
+         </p>
+<p>
+            	Metodi speciali vuol dire che <span class="emphasis"><em>ogni classe</em></span>
+            	pu&ograve; memorizzare coppie chiave-valore come un dizionario, solo
+            	definendo il metodo <tt class="function">__setitem__</tt>. <span class="emphasis"><em>Ogni
+                  	classe</em></span> pu&ograve; agire come una sequenza, semplicemente
+            	definendo il metodo <tt class="function">__getitem__</tt>. Ogni classe che definisce il
+            	metodo <tt class="function">__cmp__</tt> pu&ograve; essere confrontata con
+            	<tt class="literal">==</tt>. Se invece la vostra classe rappresenta
+            	qualcosa che ha una lunghezza, non definite il metodo
+            	<tt class="function">GetLength</tt>, ma il metodo
+            	<tt class="function">__len__</tt> ed usate
+            	<tt class="literal">len(<i class="replaceable">istanza</i>)</tt>.
+            
+         </p><a name="note.physical.v.logical"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Mentre altri linguaggi orientati agli oggetti vi lasciano
+                  	definire il modello fisico di un oggetto (&#8220;<span class="quote">questo
+                     	oggetto ha il metodo <tt class="function">GetLength</tt></span>&#8221;),
+                  	i metodi speciali di classe <span class="application">Python</span> come <tt class="function">__len__</tt> vi
+                  	permettono di definire il modello logico di un oggetto
+                  	(&#8220;<span class="quote">questo oggetto ha una lunghezza</span>&#8221;).
+                  
+               </td>
+</tr>
+</table>
+<p>
+            	Ci sono molti altri metodi speciali. Ce n'&egrave; un intero gruppo
+            	che permette alle vostre classi di agire come numeri,
+            	permettendovi di aggiungere, sottrarre e fare altre operazioni
+            	aritmetiche sulle istanze di classe. L'esempio canonico di
+            	questo concetto &egrave; una classe che rappresenta i numeri
+            	complessi, numeri con parte reale ed immaginaria. Il metodo
+            	<tt class="function">__call__</tt> permette ad una classe di agire come una
+            	funzione, permettendovi di chiamare un'istanza di classe
+            	direttamente. Ci sono altri metodi speciali che permettono
+            	alle classi di avere attributi in sola lettura ed in sola
+            	scrittura; ne parleremo pi&ugrave; diffusamente nei capitoli
+            	successivi.
+            
+         </p>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/doc/current/ref/"><i class="citetitle"><span class="application">Python</span> Reference Manual</i></a> documenta
+                  <a href="http://it.diveintopython.net/doc/current/ref/specialnames.html">tutti
+                     	i metodi speciali per le classi</a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html">&lt;&lt;&nbsp;Metodi speciali per le classi</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html">Attributi di classe&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

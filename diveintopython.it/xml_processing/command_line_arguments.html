@@ -1,0 +1,468 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>6.12.&nbsp;Gestire gli argomenti da riga di comando</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/xml_processing/index.html" title="Capitolo&nbsp;6.&nbsp;Elaborare XML" />
+<link rel="previous" href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo" />
+<link rel="next" href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html">Elaborare XML</a>&nbsp;&gt;&nbsp;<span class="thispage">Gestire gli argomenti da riga di comando</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="Indietro: “Create gestori separati per tipo di nodo”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/xml_processing/all_together.html" title="Avanti: “Mettere tutto assieme”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="kgp.commandline"></a>6.12.&nbsp;Gestire gli argomenti da riga di comando
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+<span class="application">Python</span> supporta pienamente la creazione di programmi che
+               	possono essere eseguiti da riga di comando, completi di
+               	argomenti, sia con flag nel formato
+               	breve che nel formato esteso per specificare le varie opzioni.
+               	Nessuno di questi &egrave; specifico di <span class="acronym">XML</span>, ma questo script fa
+               	un buon uso dell'interpretazione da riga di comando, dunque
+               	pare un buon momento per menzionarla.
+               
+            </p>
+</div>
+<p>
+            	&Egrave; difficile parlare dell'elaborazione da riga di comando
+            	senza prima capire come gli argomenti da riga di comando
+            	vengono presentati al programma <span class="application">Python</span>, dunque scriviamo
+            	un semplice programma per vederli.
+            
+         </p>
+<div class="example"><a name="d0e20905"></a><h3 class="title">Esempio&nbsp;6.43.&nbsp;Introduzione a <tt class="varname">sys.argv</tt></h3>
+<p>Se non lo avete ancora fatto, potete
+               <a href="http://it.diveintopython.net/download/diveintopython-examples-2.0.zip" title="Download example scripts">
+                  scaricare</a> questo ed altri esempi usati in questo libro.
+            </p><pre class="programlisting">
+<span class="pycomment">#argecho.py</span>
+<span class="pykeyword">import</span> sys
+
+<span class="pykeyword">for</span> arg <span class="pykeyword">in</span> sys.argv: <a name="kgp.commandline.0.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pykeyword">print</span> arg</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.0.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ogni argomento da riga di comando passato al programma sar&agrave;
+                        	in <tt class="varname">sys.argv</tt>, che &egrave; semplicemente una lista.
+                        	Qui stiamo stampando ogni argomento su una riga diversa.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e20926"></a><h3 class="title">Esempio&nbsp;6.44.&nbsp;Il contenuto di <tt class="varname">sys.argv</tt></h3><pre class="screen">
+<tt class="prompt">[f8dy@oliver py]$ </tt><span class="userinput">python argecho.py</span>             <a name="kgp.commandline.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">argecho.py</span>
+<tt class="prompt">[f8dy@oliver py]$ </tt><span class="userinput">python argecho.py abc def</span>     <a name="kgp.commandline.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">argecho.py
+abc
+def</span>
+<tt class="prompt">[f8dy@oliver py]$ </tt><span class="userinput">python argecho.py --help</span>      <a name="kgp.commandline.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">argecho.py
+--help</span>
+<tt class="prompt">[f8dy@oliver py]$ </tt><span class="userinput">python argecho.py -m kant.xml</span> <a name="kgp.commandline.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">argecho.py
+-m
+kant.xml</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La prima cosa da sapere su <tt class="varname">sys.argv</tt> &egrave; che
+                        	contiene il nome dello script che stiamo chiamando.
+                        	Utilizzeremo questa conoscenza a nostro vantaggio pi&ugrave; tardi,
+                        	nel capitolo <a href="http://it.diveintopython.net/regression_testing/index.html" title="Capitolo&nbsp;8.&nbsp;Programmazione orientata ai dati">Programmazione orientata
+                           	ai dati</a>. Non
+                        	preoccupatevi di questo per ora.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Gli argomenti da riga di comando sono separati da spazi ed
+                        	ognuno di essi viene rappresentato da un elemento nella lista
+                        	<tt class="varname">sys.argv</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Anche i flag da riga di comando, come <tt class="literal">--help</tt>,
+                        	vengono rappresentati come elementi della lista
+                        	<tt class="varname">sys.argv</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per rendere le cose ancor pi&ugrave; interessanti, alcuni flag da
+                        	riga di comando possono a loro volta prendere degli argomenti.
+                        	Per esempio, qui abbiamo il flag (<tt class="literal">-m</tt>) che
+                        	prende un argomento (<tt class="literal">kant.xml</tt>). Entrambi,
+                        	sia il flag che il suo argomento, sono semplicemente degli
+                        	elementi sequenziali nella lista <tt class="varname">sys.argv</tt>.
+                        	Non viene fatto alcun tentativo di associare l'uno con
+                        	l'altro; tutto quello che ottenete &egrave; una lista.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Come possiamo vedere, tutte le informazioni vengono passate
+            	da riga di comando ma non sembra che sia poi tutto cos&igrave;
+            	semplice da usare. Per programmi semplici che prendono un
+            	solo argomento e non hanno flag, potete semplicemente usare
+            	<tt class="literal">sys.argv[1]</tt> per leggere l'argomento.
+            	Non c'&egrave; vergogna in questo, io lo faccio sempre. Per programmi
+            	pi&ugrave; complessi, avete bisogno del modulo <tt class="filename">getopt</tt>.
+            
+         </p>
+<div class="example"><a name="d0e21017"></a><h3 class="title">Esempio&nbsp;6.45.&nbsp;Introduzione a <tt class="filename">getopt</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> main(argv):                         
+    grammar = <span class="pystring">"kant.xml"</span>                 <a name="kgp.commandline.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pykeyword">try</span>:                                
+        opts, args = getopt.getopt(argv, <span class="pystring">"hg:d"</span>, [<span class="pystring">"help"</span>, <span class="pystring">"grammar="</span>]) <a name="kgp.commandline.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    <span class="pykeyword">except</span> getopt.GetoptError:           <a name="kgp.commandline.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+        usage()                          <a name="kgp.commandline.2.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+        sys.exit(2)                     
+
+...
+
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:
+    main(sys.argv[1:])</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Per prima cosa, date un'occhiata alla fine dell'esempio e
+                        	notate che stiamo chiamando la funzione
+                        	<tt class="function">main</tt> con <tt class="literal">sys.argv[1:]</tt>.
+                        	Ricordate, <tt class="literal">sys.argv[0]</tt> &egrave; il nome dello
+                        	script che stiamo eseguendo; non ne siamo interessati per
+                        	l'elaborazione da riga di comando, cos&igrave; lo possiamo
+                        	togliere e passare il resto della lista.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	&Egrave; qui che avvengono le elaborazioni interessanti. La funzione
+                        	<tt class="function">getopt</tt> del modulo <tt class="filename">getopt</tt> prende
+                        	tre parametri: la lista degli argomenti (che abbiamo ottenuto
+                        	da <tt class="literal">sys.argv[1:]</tt>), una stringa contenente
+                        	tutti i possibili flag composti da un solo carattere che
+                        	questo programma pu&ograve; accettare, ed una lista di comandi pi&ugrave;
+                        	lunghi che sono equivalenti alla loro versione da un solo
+                        	carattere. &Egrave; abbastanza intricato a prima vista e sar&agrave;
+                        	spiegato in maggior dettaglio in seguito.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se qualcosa dovesse andare male provando ad analizzare questi
+                        	flag da riga di comando, <tt class="filename">getopt</tt> sollever&agrave;
+                        	un'eccezione, che noi cattureremo. Abbiamo detto a
+                        	<tt class="filename">getopt</tt> tutti i flag che conosciamo, dunque
+                        	questo significa che probabilmente l'utente ha passato qualche
+                        	flag che non siamo in grado di interpretare.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.2.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Come di consueto nel mondo <span class="acronym">UNIX</span>, quando al nostro script
+                        	vengono passati dei flag che non pu&ograve; capire, stampiamo un
+                        	riassunto sull'utilizzo corretto del programma ed usciamo.
+                        	Notate che non ho mostrato la funzione
+                        	<tt class="function">usage</tt> qui. Dovremmo scriverla da
+                        	qualche parte e farle stampare un riassunto appropriato;
+                        	non &egrave; automatico.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Cosa sono dunque tutti questi parametri che passiamo alla
+            	funzione <tt class="function">getopt</tt>? Beh, il primo &egrave; semplicemente
+            	una lista grezza dei flag e degli argomenti da riga di
+            	comando (escluso il primo elemento, il nome dello script,
+            	che abbiamo rimosso prima di chiamare la funzione
+            	<tt class="function">main</tt>). Il secondo &egrave; la lista dei flag
+            	brevi che il nostro script accetta.
+            
+         </p>
+<div class="variablelist">
+<h3 class="title"><tt class="literal">"hg:d"</tt></h3>
+<dl>
+<dt><span class="term"><tt class="literal">-h</tt></span></dt>
+<dd>print usage summary</dd>
+<dt><span class="term"><tt class="literal">-g ...</tt></span></dt>
+<dd>use specified grammar file or URL</dd>
+<dt><span class="term"><tt class="literal">-d</tt></span></dt>
+<dd>show debugging information while parsing</dd>
+</dl>
+</div>
+<p>
+            	Il primo ed il terzo flag sono semplicemente dei flag
+            	autonomi; li potete specificare oppure no, fanno comunque
+            	qualcosa (stampa un aiuto) o cambiano uno stato (abilita
+            	il debugging). Comunque, il secondo flag
+            	(<tt class="literal">-g</tt>) <span class="emphasis"><em>deve</em></span> essere
+            	seguito da un argomento, che &egrave; il nome del file di grammatica
+            	da cui leggere.
+            	Infatti pu&ograve; essere il nome di un file o un indirizzo web, e
+            	non sappiamo ancora quale (lo vedremo dopo), ma sappiamo che
+            	deve essere <span class="emphasis"><em>qualcosa</em></span>. Dunque lo diciamo
+            	a <tt class="filename">getopt</tt> inserendo i due punti dopo
+            	<tt class="literal">g</tt> nel secondo parametro della funzione
+            	<tt class="function">getopt</tt>.
+            
+         </p>
+<p>
+            	Per complicare ulteriormente le cose, il nostro script
+            	accetta sia flag brevi (come <tt class="literal">-h</tt>) o
+            	lunghi (come --help), e vogliamo che facciano la stessa
+            	cosa. Questo &egrave; lo scopo del terzo parametro di
+            	<tt class="function">getopt</tt>, specificare una lista di flag lunghi
+            	che corrispondono a quelli brevi specificati nel secondo
+            	parametro.
+            
+         </p>
+<div class="variablelist">
+<h3 class="title"><tt class="literal">["help", "grammar="]</tt></h3>
+<dl>
+<dt><span class="term"><tt class="literal">--help</tt></span></dt>
+<dd>print usage summary</dd>
+<dt><span class="term"><tt class="literal">--grammar ...</tt></span></dt>
+<dd>use specified grammar file or URL</dd>
+</dl>
+</div>
+<p>Ci sono tre cose da notare qui:</p>
+<div class="orderedlist">
+<ol type="1">
+<li>
+                  	Tutti i flag lunghi sono preceduti da due trattini sulla riga
+                  	di comando, ma noi non li includiamo nella chiamata a
+                  	<tt class="function">getopt</tt>. Sono compresi automaticamente.
+                  
+               </li>
+<li>
+                  	Il flag <tt class="literal">--grammar</tt> deve sempre essere
+                  	seguito da un argomento addizionale, proprio come il flag
+                  	<tt class="literal">-g</tt>. &Egrave; evidenziato dal segno uguale,
+                  	<tt class="literal">"grammar="</tt>.
+                  
+               </li>
+<li>
+                  	La lista di flag lunghi &egrave; pi&ugrave; corta della lista di flag
+                  	corti, perch&eacute; il flag <tt class="literal">-d</tt> non ha una
+                  	corrispondente versione lunga. Questo va bene, solamente
+                  	<tt class="literal">-d</tt> imposter&agrave; il debugging. Ma l'ordine
+                  	di flag lunghi e corti deve essere il medesimo, dunque
+                  	dovete specificare per primi i flag brevi che
+                  	<span class="emphasis"><em>hanno</em></span> un corrispondente flag lungo,
+                  	seguiti dal resto dei flag brevi.
+                  
+               </li>
+</ol>
+</div>
+<p>
+            	Ancora confusi? Diamo un'occhiata al
+            	codice e vediamo se ora ha pi&ugrave; senso.
+            
+         </p>
+<div class="example"><a name="d0e21189"></a><h3 class="title">Esempio&nbsp;6.46.&nbsp;Gestire gli argomenti da riga di comando in <tt class="filename">kgp.py</tt></h3><pre class="programlisting"><span class="pykeyword">
+def</span> main(argv):                          <a name="kgp.commandline.3.0"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    grammar = <span class="pystring">"kant.xml"</span>                
+    <span class="pykeyword">try</span>:                                
+    <span class="pykeyword">except</span> getopt.GetoptError:          
+        usage()                         
+        sys.exit(2)                     
+    <span class="pykeyword">for</span> opt, arg <span class="pykeyword">in</span> opts:                <a name="kgp.commandline.3.1"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+        <span class="pykeyword">if</span> opt <span class="pykeyword">in</span> (<span class="pystring">"-h"</span>, <span class="pystring">"--help"</span>):      <a name="kgp.commandline.3.2"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+            usage()                     
+            sys.exit()                  
+        <span class="pykeyword">elif</span> opt == <span class="pystring">'-d'</span>:                <a name="kgp.commandline.3.3"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+            <span class="pykeyword">global</span> _debug               
+            _debug = 1                  
+        <span class="pykeyword">elif</span> opt <span class="pykeyword">in</span> (<span class="pystring">"-g"</span>, <span class="pystring">"--grammar"</span>): <a name="kgp.commandline.3.4"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+            grammar = arg               
+
+    source = <span class="pystring">""</span>.join(args)               <a name="kgp.commandline.3.5"></a><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" />
+
+    k = KantGenerator(grammar, source)
+    <span class="pykeyword">print</span> k.output()</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.3.0"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La variabile <tt class="varname">grammar</tt> terr&agrave; traccia del
+                        	file di grammatica che stiamo usando.
+                        	La inizializziamo qui nel caso non sia specificata da riga
+                        	di comando (utilizzando il flag <tt class="literal">-g</tt> o il
+                        	flag <tt class="literal">--grammar</tt>).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.3.1"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La variabile <tt class="varname">opts</tt> che otteniamo da
+                        	<tt class="function">getopt</tt> contiene una lista di tuple: flag ed
+                        	argomento. Se il flag non prende un argomento, allora
+                        	<tt class="varname">arg</tt> sar&agrave; semplicemente <tt class="literal">None</tt>.
+                        	Questo semplifica la creazione di un
+                        	ciclo che percorre i flag.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.3.2"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">getopt</tt> valida che i flag da riga di comando
+                        	siano accettabili, ma non fa alcun genere di conversione
+                        	tra flag lunghi e brevi. Se specificate il flag
+                        	<tt class="literal">-h</tt>, <tt class="varname">opt</tt> conterr&agrave;
+                        	<tt class="literal">"-h"</tt>; se specificate il flag
+                        	<tt class="literal">--help</tt>, <tt class="varname">opt</tt> conterr&agrave;
+                        	<tt class="literal">"--help"</tt>. Dunque dobbiamo controllarli
+                        	entrambi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.3.3"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ricordate, il flag <tt class="literal">-d</tt> non ha un
+                        	corrispondente flag lungo, quindi dobbiamo solamente
+                        	controllarne la forma breve. Se lo troviamo, impostiamo una
+                        	variabile globale a cui ci riferiremo pi&ugrave; avanti per
+                        	stampare delle informazioni di debug. (L'ho usato durante lo
+                        	sviluppo dello script. Pensavate che tutti questi esempi
+                        	fossero funzionati al primo colpo?)
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.3.4"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Se troviamo un file di grammatica, sia con il flag 
+                        	<tt class="literal">-g</tt> che con il flag
+                        	<tt class="literal">--grammar</tt>, salviamo l'argomento che lo 
+                        	segue (memorizzato in <tt class="varname">arg</tt>) nella nostra
+                        	variabile <tt class="varname">grammar</tt>, sovrascrivendo il valore
+                        	predefinito che abbiamo inizializzato all'inizio della nostra
+                        	funzione <tt class="function">main</tt>. 
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/xml_processing/command_line_arguments.html#kgp.commandline.3.5"><img src="http://it.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ecco fatto. Abbiamo scorso tutti i flag da riga di comando
+                        	e ci siamo occupati di ognuno di essi. Significa che tutto
+                        	ci&ograve; che &egrave; rimasto devono essere argomenti da riga di comando.
+                        	Questi tornano indietro dalla funzione <tt class="function">getopt</tt>
+                        	nella variabile <tt class="varname">args</tt>. In questo caso, li
+                        	stiamo trattando come materiale da passare al nostro parser.
+                        	Se non vi sono argomenti specificati nella riga di comando,
+                        	<tt class="varname">args</tt> sar&agrave; una lista vuota, e
+                        	<tt class="varname">source</tt> sar&agrave; trattato come una stringa vuota.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html">&lt;&lt;&nbsp;Create gestori separati per tipo di nodo</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/xml_processing/index.html#kgp.divein" title="6.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/packages.html" title="6.2.&nbsp;Package">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/parsing_xml.html" title="6.3.&nbsp;Analizzare XML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/unicode.html" title="6.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/searching.html" title="6.5.&nbsp;Ricercare elementi">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/attributes.html" title="6.6.&nbsp;Accedere agli attributi di un elemento">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/input_sources.html" title="6.7.&nbsp;Astrarre le sorgenti di ingresso">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/stdin_stdout_stderr.html" title="6.8.&nbsp;Standard input, output, ed error">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/caching.html" title="6.9.&nbsp;Memorizzare i nodi e ricercarli">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/child_nodes.html" title="6.10.&nbsp;Trovare i figli diretti di un nodo">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/handlers_by_node_type.html" title="6.11.&nbsp;Create gestori separati per tipo di nodo">11</a> <span class="divider">|</span> <span class="thispage">12</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/all_together.html" title="6.13.&nbsp;Mettere tutto assieme">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/xml_processing/summary.html" title="6.14.&nbsp;Sommario">14</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/xml_processing/all_together.html">Mettere tutto assieme&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

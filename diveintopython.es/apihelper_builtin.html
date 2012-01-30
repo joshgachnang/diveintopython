@@ -1,0 +1,148 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.3. type, str, dir, y otras funciones incorporadas</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/apihelper_divein.html" title="Cap&iacute;tulo 2. El poder de la introspecci&oacute;n" /><link rel="previous" href="http://es.diveintopython.net/apihelper_optional.html" title="2.2. Argumentos opcionales y con nombre" /><link rel="next" href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html">El poder de la introspecci&oacute;n</a>&nbsp;&gt;&nbsp;<b>type, str, dir, y otras funciones incorporadas</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_optional.html" title="Anterior: “Argumentos opcionales y con nombre”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/apihelper_getattr.html" title="Siguiente: “Obtenci&oacute;n de referencias a objetos con getattr”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="apihelper.builtin"></a><div class="titlepage"><div><h2 class="title"><a name="apihelper.builtin"></a>2.3. <tt>type</tt>, <tt>str</tt>, <tt>dir</tt>, y otras funciones incorporadas</h2></div></div><div class="abstract"><p>Python tiene un peque&ntilde;o conjunto de funciones incorporadas
+enormemente &uacute;tiles. Todas las dem&aacute;s funciones est&aacute;n repartidas en
+m&oacute;dulos. Esto es una decisi&oacute;n consciente de dise&ntilde;o, para que el
+n&uacute;cleo del lenguaje no se hinche como en otros lenguajes de
+<i>script</i> (cof cof,
+Visual Basic).</p></div><p>La funci&oacute;n <tt>type</tt> devuelve el tipo de dato de cualquier objeto.
+Los tipos posibles se enumeran en el m&oacute;dulo <tt>types</tt>. Esto es &uacute;til para funciones
+auxiliares que pueden manejar distintos tipos de datos.</p><div class="example"><p><a name="apihelper.type.intro"></a><b>Ejemplo 2.6. Presentaci&oacute;n de <tt>type</tt></b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">type(1)</span>           <a name="apihelper.builtin.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;type 'int'&gt;</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">type(li)</span>          <a name="apihelper.builtin.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;type 'list'&gt;</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">type(odbchelper)</span>  <a name="apihelper.builtin.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;type 'module'&gt;</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> types</span>      <a name="apihelper.builtin.1.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">type(odbchelper) == types.ModuleType</span>
+<span class="computeroutput">1</span></pre><div class="calloutlist"><a name="d0e1870"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>type</tt> toma cualquier cosa y devuelve su tipo. Y quiero decir
+cualquier cosa: enteros, cadenas, listas, diccionarios, tuplas,
+funciones, clases, m&oacute;dulos, incluso tipos.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>type</tt> puede tomar una variable y devolver su tipo.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>type</tt> funciona tambi&eacute;n con m&oacute;dulos.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.1.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Pueden utilizarse las constantes del m&oacute;dulo <tt>types</tt> para comparar tipos de objetos.
+Esto es lo que hace la funci&oacute;n <tt>help</tt>, como veremos en seguida.</td></tr></table></div></div><p>La funci&oacute;n <tt>str</tt> transforma un dato en una cadena. Todos los
+tipos de datos pueden transformarse en cadenas.</p><div class="example"><p><a name="apihelper.str.intro"></a><b>Ejemplo 2.7. Presentaci&oacute;n de <tt>str</tt></b></p><pre class="screen">
+<tt>&gt;&gt;&gt; </tt><span class="userinput">str(1)</span>          <a name="apihelper.builtin.2.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'1'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">horsemen = [<span class="pystring">'war'</span>, <span class="pystring">'pestilence'</span>, <span class="pystring">'famine'</span>]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">horsemen.append(<span class="pystring">'Powerbuilder'</span>)</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">str(horsemen)</span>   <a name="apihelper.builtin.2.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">"['war', 'pestilence', 'famine', 'Powerbuilder']"</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">str(odbchelper)</span> <a name="apihelper.builtin.2.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">"&lt;module 'odbchelper' from 'c:\\docbook\\dip\\py\\odbchelper.py'&gt;"</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">str(None)</span>       <a name="apihelper.builtin.2.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">'None'</span></pre><div class="calloutlist"><a name="d0e1912"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.2.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Para tipos simples de datos como los enteros, el comportamiento
+de <tt>str</tt> es el esperado, ya que casi todos los lenguajes tienen una
+funci&oacute;n que convierte enteros en cadenas.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.2.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Sin embargo, <tt>str</tt> funciona con cualquier objeto de cualquier
+tipo. Aqu&iacute; funciona sobre una lista que hemos construido por
+partes.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.2.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>str</tt> funciona tambi&eacute;n con m&oacute;dulos. Advierta que la
+representaci&oacute;n como cadena del m&oacute;dulo incluye la ruta del m&oacute;dulo en el
+disco, por lo que lo que usted obtenga ser&aacute; diferente.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.2.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Un comportamiento sutil pero importante de <tt>str</tt> es que funciona
+con <tt>None</tt>, el valor nulo de Python. Devuelve la cadena
+<tt>'None'</tt>. Aprovecharemos esto en la funci&oacute;n <tt>help</tt>,
+como veremos en seguida.</td></tr></table></div></div><p>En el coraz&oacute;n de nuestra funci&oacute;n <tt>help</tt> est&aacute; la potente funci&oacute;n
+<tt>dir</tt>. <tt>dir</tt> devuelve una lista de los atributos y m&eacute;todos de
+cualquier objeto: m&oacute;dulos, funciones, cadenas, listas, diccionarios...
+pr&aacute;cticamente todo.</p><div class="example"><p><a name="apihelper.dir.intro"></a><b>Ejemplo 2.8. Presentaci&oacute;n de <tt>dir</tt></b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">dir(li)</span>           <a name="apihelper.builtin.3.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['append', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">d = {}</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">dir(d)</span>            <a name="apihelper.builtin.3.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['clear', 'copy', 'get', 'has_key', 'items', 'keys', 'setdefault', 'update', 'values']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">dir(odbchelper)</span>   <a name="apihelper.builtin.3.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['__builtins__', '__doc__', '__file__', '__name__', 'buildConnectionString']</span></pre><div class="calloutlist"><a name="d0e1955"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.3.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>li</tt> es una lista, luego 
+<tt></tt><tt>dir</tt>(<tt>li</tt>) devuelve una lista 
+de los m&eacute;todos de una lista. Advierta que la lista devuelta contiene
+los nombres de los m&eacute;todos en forma de cadenas, no los propios
+m&eacute;todos.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.3.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>d</tt> es un diccionario, luego
+<tt></tt><tt>dir</tt>(<tt>d</tt>) devuelve una lista con
+los nombres de los m&eacute;todos de diccionario. Al menos uno de estos, 
+<a href="http://es.diveintopython.net/odbchelper_map.html#odbchelper.items" title="Ejemplo 1.32. keys, values, e items"><tt>keys</tt></a>, deber&iacute;a serle
+familiar.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.3.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Aqu&iacute; es donde empieza lo interesante. <tt>odbchelper</tt> es
+un m&oacute;dulo, por lo que <tt></tt><tt>dir</tt>(<tt>odbchelper</tt>) 
+devuelve una lista con todo lo definido en el m&oacute;dulo, incluidos
+atributos incorporados, como <a href="http://es.diveintopython.net/odbchelper_testing.html#odbchelper.ifnametrick" title="Ejemplo 1.7. El truco if __name__"><tt>__name__</tt></a> y <a href="http://es.diveintopython.net/odbchelper_objects.html#odbchelper.import" title="Ejemplo 1.5. Acceso a la cadena de documentaci&oacute;n de buildConnectionString"><tt>__doc__</tt></a>, y cualesquiera otros atributos
+y m&eacute;todos que se hayan definido. En este caso, <tt>odbchelper</tt>
+tiene un solo m&eacute;todo definido, la funci&oacute;n <tt>buildConnectionString</tt> que
+estudiamos en <a href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python"><i>Conozcamos Python</i></a>.</td></tr></table></div></div><p>Finalmente, la funci&oacute;n <tt>callable</tt> toma cualquier objeto y
+devuelve <tt>1</tt> si se puede llamar al objeto, o <tt>0</tt> en caso
+contrario. Los objetos que pueden ser llamados son funciones, m&eacute;todos
+de clase o incluso las propias clases. (M&aacute;s sobre clases en el
+cap&iacute;tulo 3).</p><div class="example"><p><a name="apihelper.builtin.callable"></a><b>Ejemplo 2.9. Presentaci&oacute;n de <tt>callable</tt></b></p><pre class="screen">
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> string</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">string.punctuation</span>           <a name="apihelper.builtin.4.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'!"#$%&amp;\'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">string.join</span>                  <a name="apihelper.builtin.4.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;function join at 00C55A7C&gt;</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">callable(string.punctuation)</span> <a name="apihelper.builtin.4.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">0</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">callable(string.join)</span>        <a name="apihelper.builtin.4.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">1</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> string.join.__doc__</span>    <a name="apihelper.builtin.4.5"></a><img src="http://es.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+<span class="computeroutput">join(list [,sep]) -&gt; string
+
+    Return a string composed of the words in list, with
+    intervening occurrences of sep.  The default separator is a
+    single space.
+
+    (joinfields and join are synonymous)</span></pre><div class="calloutlist"><a name="d0e2013"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.4.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Las funciones del m&oacute;dulo <tt>string</tt> est&aacute;n desaconsejadas (aunque
+mucha gente utiliza la funci&oacute;n <tt>join</tt>), pero el m&oacute;dulo contiene muchas
+constantes &uacute;tiles como <tt>string.puctuation</tt>, que
+contiene todos los signos habituales de puntuaci&oacute;n.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.4.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas"><tt>string.join</tt></a> es
+una funci&oacute;n que une una lista de cadenas.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.4.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>string.punctuation</tt> no puede llamarse; es una
+cadena. (Una cadena tiene m&eacute;todos que pueden llamarse, pero la propia
+cadena no).</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.4.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>string.join</tt> puede ser llamada; es una
+funci&oacute;n que toma dos argumentos.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/apihelper_builtin.html#apihelper.builtin.4.5"><img src="http://es.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Cualquier objeto que pueda llamarse puede tener una cadena de documentaci&oacute;n.
+Utilizando la funci&oacute;n <tt>callable</tt> sobre cada uno de los atributos de un
+objeto, podemos averiguar cu&aacute;les nos interesan (m&eacute;todos, funciones,
+clases) y cu&aacute;les queremos pasar por alto (constantes, <i>etc.</i>) sin saber
+nada sobre el objeto por anticipado.</td></tr></table></div></div><p><tt>type</tt>, <tt>str</tt>, <tt>dir</tt> y el resto de funciones incorporadas de
+Python se agrupan en un m&oacute;dulo especial llamado <tt>__builtins__</tt>. (Con dos
+subrayados antes y despu&eacute;s). Por si sirve de ayuda, puede
+interpretarse que Python ejecuta autom&aacute;ticamente <tt>from
+__builtins__ import *</tt> al iniciarse, con lo que se importan
+todas las funciones &#8220;incorporadas&#8221; en el espacio de
+nombres de manera que puedan utilizarse directamente.</p><p>La ventaja de interpretarlo as&iacute; es que se puede acceder a todas
+las funciones y atributos incorporados como un grupo, obteniendo
+informaci&oacute;n sobre el m&oacute;dulo <tt>__builtins__</tt>. E imag&iacute;neselo, tenemos una
+funci&oacute;n para ello: se llama <tt>help</tt>. Int&eacute;ntelo usted y prescinda ahora
+de la lista; nos sumergiremos m&aacute;s tarde en algunas de las principales
+funciones. (Algunas de las clases de error incorporadas, como <a href="http://es.diveintopython.net/odbchelper_tuple.html#odbchelper.tuplemethods" title="Ejemplo 1.23. Las tuplas no tienen m&eacute;todos"><tt>AttributeError</tt></a>,
+deber&iacute;an resultarle familiares).</p><div class="example"><p><a name="apihelper.builtin.list"></a><b>Ejemplo 2.10. Atributos y funciones incorporados</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> apihelper <span class="pykeyword">import</span> help</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">help(__builtins__, 20)</span>
+<span class="computeroutput">ArithmeticError      Base class for arithmetic errors.
+AssertionError       Assertion failed.
+AttributeError       Attribute not found.
+EOFError             Read beyond end of file.
+EnvironmentError     Base class for I/O related errors.
+Exception            Common base class for all exceptions.
+FloatingPointError   Floating point operation failed.
+IOError              I/O operation failed.
+
+[...snip...]</span></pre></div><a name="tip.manuals"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Python se acompa&ntilde;a de excelentes manuales de referencia, que
+deber&iacute;a usted leer detenidamente para aprender todos los m&oacute;dulos que
+Python ofrece. Pero mientras en la mayor&iacute;a de lenguajes debe usted
+volver continuamente sobre los manuales (o las p&aacute;ginas de manual, o,
+Dios le socorra, MSDN) para recordar c&oacute;mo se usan
+estos m&oacute;dulos, Python est&aacute; ampliamente autodocumentado.</td></tr></table><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li>La <a href="http://es.diveintopython.net/doc/current/lib/"><i>Referencia de bibliotecas de Python</i></a> documenta <a href="http://es.diveintopython.net/doc/current/lib/built-in-funcs.html">todas las
+funciones incorporadas</a> y <a href="http://es.diveintopython.net/doc/current/lib/module-exceptions.html">todas las
+excepciones incorporadas</a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/apihelper_optional.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Argumentos opcionales y con nombre</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/apihelper_divein.html#apihelper.divein" title="2.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/apihelper_optional.html" title="2.2. Argumentos opcionales y con nombre">2</a> <b>3</b> <a href="http://es.diveintopython.net/apihelper_getattr.html" title="2.4. Obtenci&oacute;n de referencias a objetos con getattr">4</a> <a href="http://es.diveintopython.net/apihelper_filter.html" title="2.5. Filtrado de listas">5</a> <a href="http://es.diveintopython.net/apihelper_andor.html" title="2.6. La peculiar naturaleza de and y or">6</a> <a href="http://es.diveintopython.net/apihelper_lambda.html" title="2.7. Utilizaci&oacute;n de las funciones lambda">7</a> <a href="http://es.diveintopython.net/apihelper_alltogether.html" title="2.8. Todo junto">8</a> <a href="http://es.diveintopython.net/apihelper_summary.html" title="2.9. Resumen">9</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/apihelper_getattr.html">Obtenci&oacute;n de referencias a objetos con getattr&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

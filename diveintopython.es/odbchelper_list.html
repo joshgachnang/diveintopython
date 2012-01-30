@@ -1,0 +1,197 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1.8. Todo sobre las listas</title><link rel="stylesheet" href="/css/diveintopython.css" type="text/css" /><link rev="made" href="josh@servercobra.com" /><meta name="generator" content="DocBook XSL Stylesheets V" /><meta name="keywords" content="Python, Dive Into Python, traducci&oacute;n, espa&ntilde;ol, castellano, Inmersi&oacute;n en Python, tutorial, orientado a objetos, programaci&oacute;n, documentaci&oacute;n, libro, libre" /><meta name="description" content="a free Python book for experienced programmers" /><link rel="home" href="http://es.diveintopython.net/" title="Inmersi&oacute;n en Python" /><link rel="up" href="http://es.diveintopython.net/odbchelper_divein.html" title="Cap&iacute;tulo 1. Conozcamos Python" /><link rel="previous" href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios" /><link rel="next" href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas" /><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head><body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td id="breadcrumb" colspan="5" align="left"><a href="http://es.diveintopython.net/index.html">Inicio</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/toc.html">Inmersi&oacute;n en Python</a>&nbsp;&gt;&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html">Conozcamos Python</a>&nbsp;&gt;&nbsp;<b>Todo sobre las listas</b></td><td id="navigation" align="right">&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_dict.html" title="Anterior: “Todo sobre los diccionarios”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://es.diveintopython.net/odbchelper_tuple.html" title="Siguiente: “Todo sobre las tuplas”">&gt;&gt;</a></td></tr><tr><td colspan="3"><span id="logo"><a href="http://es.diveintopython.net/index.html">diveintopython.org</a></span><br /><span id="tagline"><a href="http://es.diveintopython.net/index.html">Python para programadores con experiencia</a></span></td><td colspan="3" align="right"><form id="search" method="GET" action="http://www.google.com/custom"><p><input type="text" name="q" size="20" maxlength="255" /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p></form></td></tr></table><div class="section"><a name="odbchelper.list"></a><div class="titlepage"><div><h2 class="title"><a name="odbchelper.list"></a>1.8. Todo sobre las listas</h2></div></div><div class="abstract"><p>Las listas son el burro de carga en Python. Si si &uacute;nica
+experiencia con listas son los arrays de Visual Basic o (Dios lo prohiba) los
+datastore en Powerbuilder, prep&aacute;rese para ver las listas de
+Python. </p></div><a name="compare.list.perl"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Una lista en Python es como un array en Perl. En Perl, las
+variables que almacenan arrays comienzan siempre con el car&aacute;cter
+<tt>@</tt>; en Python, las variables pueden llamarse de
+cualquier modo, y Python lleva el registro del tipo de datos
+internamente. </td></tr></table><a name="compare.list.java"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">Una lista en Python es muy parecida a un array en Java
+(aunque se puede usar de ese modo si eso es todo lo que se espera en
+la vida). Se puede comparar mejor con la clase
+<tt>Vector</tt>, que puede guardar objetos arbitrarios y
+expandirse din&aacute;micamente al a&ntilde;adir nuevos elementos. </td></tr></table><div class="example"><p><a name="d0e671"></a><b>Ejemplo 1.14. Definici&oacute;n de una lista</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">"a"</span>, <span class="pystring">"b"</span>, <span class="pystring">"mpilgrim"</span>, <span class="pystring">"z"</span>, <span class="pystring">"example"</span>]</span> <a name="odbchelper.list.1.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[0]</span>                                       <a name="odbchelper.list.1.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'a'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[4]</span>                                       <a name="odbchelper.list.1.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'example'</span></pre><div class="calloutlist"><a name="d0e688"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.1.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">En primer lugar, definimos una lista de cinco elementos.
+Advierta que mantienen el orden original. Esto no es por azar. Una
+lista es un conjunto ordenado de elementos encerrados entre
+corchetes. </td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.1.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Una lista puede utilizarse como un array con primer &iacute;ndice 0. El
+primer elemento de una lista no vac&iacute;a es siempre
+<tt>li[0]</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.1.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">El &uacute;ltimo elemento en esta lista de cinco es
+<tt>li[4]</tt>, porque las listas siempre tienen como primer
+&iacute;ndice 0.</td></tr></table></div></div><div class="example"><p><a name="d0e697"></a><b>Ejemplo 1.15. &Iacute;ndices negativos en una lista</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[-1]</span> <a name="odbchelper.list.2.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">'example'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[-3]</span> <a name="odbchelper.list.2.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">'mpilgrim'</span></pre><div class="calloutlist"><a name="d0e711"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.2.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Un &iacute;ndice negativo da acceso a los elementos del final de la
+lista, contando hacia atr&aacute;s. El &uacute;ltimo elemento de cualquier lista no
+vac&iacute;a es siempre <tt>li[-1]</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.2.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Si los &iacute;ndices negativos le resultan confusos, pi&eacute;nselo de este
+modo: <tt>li[n] == li[n - len(li)]</tt>. De modo que en esta
+lista, <tt>li[2] == li[2 - 5] == li[-3]</tt>.</td></tr></table></div></div><div class="example"><p><a name="odbchelper.list.slice"></a><b>Ejemplo 1.16. Porciones de una lista</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[1:3]</span>  <a name="odbchelper.list.3.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['b', 'mpilgrim']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[1:-1]</span> <a name="odbchelper.list.3.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['b', 'mpilgrim', 'z']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[0:3]</span>  <a name="odbchelper.list.3.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['a', 'b', 'mpilgrim']</span></pre><div class="calloutlist"><a name="d0e737"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.3.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Se puede obtener un subconjunto de una lista, llamado
+&#8220;porci&oacute;n&#8221;, especificando dos &iacute;ndices. El valor de retorno
+es una nueva lista que contiene todos los elementos de la lista
+original, en orden, empezando con el primer &iacute;ndice de la porci&oacute;n (en
+este caso <tt>li[1]</tt>), hasta el segundo &iacute;ndice de la
+porci&oacute;n (en este caso <tt>li[3]</tt>), pero sin incluir
+&eacute;ste.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.3.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Las porciones funcionan si uno o ambos &iacute;ndices son negativos. Si
+le ayuda, el primer &iacute;ndice de la porci&oacute;n especifica el primer elemento
+que se desea obtener, y el segundo &iacute;ndice especifica el primer
+elemento que no se desea obtener. El valor de retorno es lo que hay
+entre medias.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.3.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Las listas comienzan en el &iacute;ndice 0, de manera que
+<tt>li[0:3]</tt> devuelve los tres primeros elementos de la
+lista, desde <tt>li[0]</tt> hasta <tt>li[3]</tt>,
+sin incluir &eacute;ste.</td></tr></table></div></div><div class="example"><p><a name="d0e750"></a><b>Ejemplo 1.17. Atajos para hacer porciones</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[:3]</span> <a name="odbchelper.list.4.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">['a', 'b', 'mpilgrim']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[3:]</span> <a name="odbchelper.list.4.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">['z', 'example']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li[:]</span>  <a name="odbchelper.list.4.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span></pre><div class="calloutlist"><a name="d0e768"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.4.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Si uno de los &iacute;ndices es 0, puede omitirse, y se sobreentiende.
+De modo que <tt>li[:3]</tt> es lo mismo que li[0:3] en el
+ejemplo anterior.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.4.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Advierta aqu&iacute; la simetr&iacute;a. En esta lista de cinco elementos,
+<tt>li[:3]</tt> devuelve los tres primeros elementos, y
+<tt>li[3:]</tt> devuelve los dos &uacute;ltimos. De hecho,
+<tt>li[:n]</tt> devolver&aacute; siempre los <tt>n</tt>
+primeros elementos, y <tt>li[n:]</tt> devolver&aacute; el
+resto.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.4.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Si ambos &iacute;ndices se omiten, se incluir&aacute;n todos los elementos de
+la lista. Pero esta lista no es la original; es una nueva lista que
+resulta tener los mismos elementos. <tt>li[:]</tt> es una
+forma abreviada para hacer una copia completa de una lista.</td></tr></table></div></div><div class="example"><p><a name="d0e782"></a><b>Ejemplo 1.18. Adici&oacute;n de elementos a una lista</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.append(<span class="pystring">"new"</span>)</span>               <a name="odbchelper.list.5.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example', 'new']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.insert(2, <span class="pystring">"new"</span>)</span>            <a name="odbchelper.list.5.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.extend([<span class="pystring">"two"</span>, <span class="pystring">"elements"</span>])</span> <a name="odbchelper.list.5.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span></pre><div class="calloutlist"><a name="d0e806"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.5.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>append</tt> a&ntilde;ade un elemento al final de la
+lista.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.5.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>insert</tt> inserta un elemento en una lista.
+El argumento num&eacute;rico es el &iacute;ndice del primer elemento que ser&aacute;
+desplazado de su posici&oacute;n. Advierta que los elementos de la lista no
+tienen que ser &uacute;nicos; ahora hay dos elementos separados con el mismo
+valor, <tt>li[2]</tt> y <tt>li[6]</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.5.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>extend</tt> concatena listas. Advierta que no se llama a <tt>extend</tt>
+con varios argumentos; debe llamarse con un &uacute;nico argumento: una
+lista. En este caso, la lista tiene dos elementos.</td></tr></table></div></div><div class="example"><p><a name="odbchelper.list.search"></a><b>Ejemplo 1.19. B&uacute;squeda en una lista</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"example"</span>)</span> <a name="odbchelper.list.6.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">5</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"new"</span>)</span>     <a name="odbchelper.list.6.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">2</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"c"</span>)</span>       <a name="odbchelper.list.6.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.index(x): x not in list</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">"c"</span> <span class="pykeyword">in</span> li</span>           <a name="odbchelper.list.6.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">0</span></pre><div class="calloutlist"><a name="d0e841"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.6.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>index</tt> encuentra la primera aparici&oacute;n de un
+valor en la lista y devuelve su &iacute;ndice.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.6.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>index</tt> encuentra la <span class="emphasis"><i>primera</i></span> 
+aparici&oacute;n de un valor en la lista. En este caso,
+<tt>new</tt> aparece dos veces en la lista, en
+<tt>li[2]</tt> y en <tt>li[6]</tt>, pero
+<tt>index</tt> devuelve s&oacute;lo el primer &iacute;ndice,
+<tt>2</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.6.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Si el valor no se encuentra en la lista, Python lanza una
+excepci&oacute;n. Esto es notablemente distinto de la mayor&iacute;a de los
+lenguajes, que devolver&aacute;n un &iacute;ndice no v&aacute;lido. Aunque esto parezca
+molesto, es bueno, ya que significa que su programa terminar&aacute; en el
+lugar donde se origina el problema, y no m&aacute;s adelante cuando se
+intente utilizar el &iacute;ndice no v&aacute;lido.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.6.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Para comprobar si un valor est&aacute; en la lista, utilice
+<tt>in</tt>, que devuelve <tt>1</tt> si se encuentra el valor y
+<tt>0</tt> si no.</td></tr></table></div></div><a name="tip.boolean"></a><table class="note" border="0"><tr><td rowspan="2" align="center" valign="top" width="24"><img src="http://es.diveintopython.net/images/note.png" alt="Nota" width="24" height="24" /></td></tr><tr><td colspan="2" align="left" valign="top">No hay un tipo booleano en Python. En un contexto booleano
+(como una sentencia <tt>if</tt>), <tt>0</tt> es falso y el resto de los n&uacute;meros
+son verdaderos. Esto se extiende tambi&eacute;n a otros tipos de datos. Una
+cadena vac&iacute;a (<tt>""</tt>), una lista vac&iacute;a
+(<tt>[]</tt>) y un diccionario vac&iacute;o (<tt>{}</tt>)
+son todos falsos; el resto de cadenas, listas y diccionarios son
+verdaderos.</td></tr></table><div class="example"><p><a name="odbchelper.list.removingelements"></a><b>Ejemplo 1.20. Eliminaci&oacute;n de elementos de una lista</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"z"</span>)</span>   <a name="odbchelper.list.7.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'example', 'new', 'two', 'elements']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"new"</span>)</span> <a name="odbchelper.list.7.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two', 'elements']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"c"</span>)</span>   <a name="odbchelper.list.7.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.remove(x): x not in list</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li.pop()</span>         <a name="odbchelper.list.7.4"></a><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">'elements'</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two']</span></pre><div class="calloutlist"><a name="d0e901"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.7.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>remove</tt> elimina la primera aparici&oacute;n de un
+valor en una lista.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.7.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>remove</tt> elimina <span class="emphasis"><i>s&oacute;lo</i></span>
+la primera aparici&oacute;n de un valor. En este caso, <tt>new</tt>
+aparece dos veces en la lista, pero
+<tt>li.remove("new")</tt> s&oacute;lo elimina la primera.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.7.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Si el valor no se encuentra en la lista, Python lanza una
+excepci&oacute;n. Esto imita el comportamiento del m&eacute;todo
+<tt>index</tt>.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.7.4"><img src="http://es.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a> </td><td valign="top" align="left"><tt>pop</tt> es un animal curioso. Hace dos cosas:
+elimina el &uacute;ltimo elemento de la lista, y devuelve el valor que ha
+eliminado. Advierta que esto es diferente de
+<tt>li[-1]</tt>, que devuelve el valor sin modificar la
+lista, y de
+<tt>li.remove(<i>valor</i>)</tt>, que
+modifica la lista sin devolver ning&uacute;n valor.</td></tr></table></div></div><div class="example"><p><a name="odbchelper.list.operators"></a><b>Ejemplo 1.21. Operadores de lista</b></p><pre class="screen"><tt>&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">'a'</span>, <span class="pystring">'b'</span>, <span class="pystring">'mpilgrim'</span>]</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li = li + [<span class="pystring">'example'</span>, <span class="pystring">'new'</span>]</span> <a name="odbchelper.list.8.1"></a><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li += [<span class="pystring">'two'</span>]</span>                <a name="odbchelper.list.8.2"></a><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two']</span>
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li = [1, 2] * 3</span>              <a name="odbchelper.list.8.3"></a><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt>&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">[1, 2, 1, 2, 1, 2]</span></pre><div class="calloutlist"><a name="d0e944"></a><table border="0" summary="Callout list"><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.8.1"><img src="http://es.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Las listas se pueden concatenar tambi&eacute;n con el operador
+<tt>+</tt>. <tt><i>lista</i> =
+<i>lista</i> +
+<i>otralista</i></tt> equivale a
+<tt>
+<i>lista</i>.extend(<i>otralista</i>)
+</tt>. 
+Pero el operador <tt>+</tt> devuelve la nueva lista como
+valor, mientras que <tt>extend</tt> s&oacute;lo modifica una lista existente.</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.8.2"><img src="http://es.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">Python admite el operador <tt>+=</tt>.
+<tt>li += ['two']</tt> equivale a  <tt>li = li +
+['two']</tt>. El operador <tt>+=</tt> funciona con
+listas, cadenas y enteros, y puede sobrecargarse para funcionar con
+clases definidas por el usuario. (Veremos m&aacute;s sobre clases en el
+cap&iacute;tulo 3).</td></tr><tr><td width="12" valign="top" align="left"><a href="http://es.diveintopython.net/odbchelper_list.html#odbchelper.list.8.3"><img src="http://es.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a> </td><td valign="top" align="left">El operador <tt>*</tt> funciona con listas como
+repetidor. <tt>li = [1, 2] * 3</tt> equivale a
+<tt>li = [1, 2] + [1, 2] + [1, 2]</tt>, que concatena las
+tres listas en una.</td></tr></table></div></div><div class="furtherreading"><p><b>Lecturas complementarias</b></p><ul><li><a href="http://es.diveintopython.net/obp/thinkCSpy/"><i>How to Think Like a Computer Scientist</i></a> trata sobre listas y pone &eacute;nfasis en 
+<a href="http://es.diveintopython.net/obp/thinkCSpy/chap08.htm">el paso de listas como
+argumentos de funci&oacute;n</a>.</li><li>El <a href="http://es.diveintopython.net/doc/current/tut/tut.html"><i>Tutorial de Python</i></a> muestra c&oacute;mo 
+<a href="http://es.diveintopython.net/doc/current/tut/node7.html#SECTION007110000000000000000">utilizar
+listas como pilas y colas</a>.</li><li><a href="http://es.diveintopython.net/knowledge-base/index.phtml/fid/199/">Python Knowledge Base</a> responde <a href="http://es.diveintopython.net/knowledge-base/index.phtml/fid/534">algunas
+preguntas comunes sobre listas</a> y tiene muchos <a href="http://es.diveintopython.net/knowledge-base/index.phtml/fid/540">ejemplos
+de c&oacute;digo que utiliza listas.</a>.</li><li>La <a href="http://es.diveintopython.net/doc/current/lib/"><i>Referencia de bibliotecas de Python</i></a> resume <a href="http://es.diveintopython.net/doc/current/lib/typesseq-mutable.html">todos los m&eacute;todos de
+lista</a>.</li></ul></div></div><table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="35%" align="left"><br /><a href="http://es.diveintopython.net/odbchelper_dict.html"><span class="NavigationArrow">&lt;&lt;</span>&nbsp;Todo sobre los diccionarios</a></td><td width="30%" align="center"><br />&nbsp;<a href="http://es.diveintopython.net/odbchelper_divein.html#odbchelper.divein" title="1.1. Inmersi&oacute;n">1</a> <a href="http://es.diveintopython.net/odbchelper_funcdef.html" title="1.2. Declaraci&oacute;n de funciones">2</a> <a href="http://es.diveintopython.net/odbchelper_docstring.html" title="1.3. Documentaci&oacute;n de funciones">3</a> <a href="http://es.diveintopython.net/odbchelper_objects.html" title="1.4. Todo es un objeto">4</a> <a href="http://es.diveintopython.net/odbchelper_indenting.html" title="1.5. Sangrado del c&oacute;digo">5</a> <a href="http://es.diveintopython.net/odbchelper_testing.html" title="1.6. Prueba de m&oacute;dulos">6</a> <a href="http://es.diveintopython.net/odbchelper_dict.html" title="1.7. Todo sobre los diccionarios">7</a> <b>8</b> <a href="http://es.diveintopython.net/odbchelper_tuple.html" title="1.9. Todo sobre las tuplas">9</a> <a href="http://es.diveintopython.net/odbchelper_vardef.html" title="1.10. Definici&oacute;n de variables">10</a> <a href="http://es.diveintopython.net/odbchelper_multiassign.html" title="1.11. Asignaci&oacute;n de m&uacute;ltiples valores de una vez">11</a> <a href="http://es.diveintopython.net/odbchelper_stringformatting.html" title="1.12. Formato de cadenas">12</a> <a href="http://es.diveintopython.net/odbchelper_map.html" title="1.13. Correspondencia de listas">13</a> <a href="http://es.diveintopython.net/odbchelper_join.html" title="1.14. Uni&oacute;n y divisi&oacute;n de cadenas">14</a> <a href="http://es.diveintopython.net/odbchelper_summary.html" title="1.15. Resumen">15</a>&nbsp;</td><td width="35%" align="right"><br /><a href="http://es.diveintopython.net/odbchelper_tuple.html">Todo sobre las tuplas&nbsp;<span class="NavigationArrow">&gt;&gt;</span></a></td></tr><tr><td colspan="3"><br /></td></tr></table><div class="Footer"><p class="copyright">Copyright &copy; 2000, 2001 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p><p class="copyright">Copyright &copy; 2001 <a href="mailto:josh@servercobra.com">Francisco Callejo
+Gim&eacute;nez</a></p></div></body></html>

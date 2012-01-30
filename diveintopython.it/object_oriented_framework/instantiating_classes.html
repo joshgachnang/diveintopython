@@ -1,0 +1,278 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.4.&nbsp;Istanziare classi</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Istanziare classi</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="Indietro: “Definire classi”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="Avanti: “UserDict: una classe wrapper”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.create"></a>4.4.&nbsp;Istanziare classi
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Istanziare una classe in <span class="application">Python</span> &egrave; molto semplice. Per
+               	istanziare una classe, basta semplicemente chiamare la
+               	classe come se fosse una funzione, passandole gli
+               	argomenti che il metodo <tt class="function">__init__</tt> definisce. Il valore di
+               	ritorno sar&agrave; il nuovo oggetto.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e8880"></a><h3 class="title">Esempio&nbsp;4.9.&nbsp;Creare un'istanza di <tt class="classname">FileInfo</tt>
+</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> fileinfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = fileinfo.FileInfo(<span class="pystring">"/music/_singles/kairo.mp3"</span>)</span> <a name="fileinfo.create.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.__class__</span>                                        <a name="fileinfo.create.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;class fileinfo.FileInfo at 010EC204&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.__doc__</span>                                          <a name="fileinfo.create.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">'base class for file info'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>                                                  <a name="fileinfo.create.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">{'name': '/music/_singles/kairo.mp3'}</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html#fileinfo.create.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Stiamo creando un'istanza della classe
+                        	<tt class="classname">FileInfo</tt> (definita nel modulo
+                        	<tt class="filename">fileinfo</tt>) ed assegnando l'istanza appena
+                        	creata alla variabile <tt class="varname">f</tt>. Stiamo
+                        	passando un parametro,
+                        	<tt class="literal">/music/_singles/kairo.mp3</tt>, che
+                        	andr&agrave; a finire nell'argomento
+                        	<tt class="varname">filename</tt> del metodo <tt class="function">__init__</tt> di
+                        	<tt class="classname">FileInfo</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html#fileinfo.create.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ogni istanza di classe ha un attributo built-in, <tt class="literal">__class__</tt>,
+                        	che &egrave; la classe dell'oggetto. (Notate che la sua
+                        	rappresentazione include l'indirizzo fisico dell'istanza
+                        	nella mia macchina; la vostra rappresentazione sar&agrave; diversa.)
+                        	I programmatori <span class="application">Java</span> potranno gi&agrave; avere familiarit&agrave; con la
+                        	classe <tt class="classname">Class</tt>, che contiene metodi
+                        	come <tt class="function">getName</tt> e
+                        	<tt class="function">getSuperclass</tt> per ottenere le
+                        	informazioni sui metadati di un oggetto. In <span class="application">Python</span>, questo
+                        	tipo di metadato &egrave; disponibile direttamente nell'oggetto
+                        	stesso attraverso attributi come <tt class="literal">__class__</tt>,
+                        	<tt class="literal">__name__</tt> e <tt class="literal">__bases__</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html#fileinfo.create.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potete accedere alla <tt class="literal">doc string</tt> di un'istanza proprio
+                        	come una funzione o un metodo. Tutte le istanze di una
+                        	classe condividono la medesima <tt class="literal">doc string</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html#fileinfo.create.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ricordate quando il metodo <tt class="function">__init__</tt>
+<a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html#fileinfo.class.example" title="Esempio&nbsp;4.6.&nbsp;Definire la classe FileInfo ">assegnava il suo
+                           	argomento <tt class="varname">filename</tt> a
+                           	<tt class="literal">self["name"]</tt></a>? Beh, questo &egrave; il
+                        	risultato. Gli argomenti che noi passiamo quando creiamo
+                        	l'istanza della classe vengono mandati direttamente al metodo
+                        	<tt class="function">__init__</tt> (assieme al riferimento all'oggetto, <tt class="literal">self</tt>, che
+                        	<span class="application">Python</span> aggiunge gratuitamente).
+                        
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="compare.new.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	In <span class="application">Python</span>, semplicemente chiamate una classe come se fosse
+                  	una funzione per creare una sua nuova istanza. Non c'&egrave;
+                  	alcun operatore esplicito new come in <span class="application"><span class="acronym">C++</span></span> o in <span class="application">Java</span>.
+                  
+               </td>
+</tr>
+</table>
+<p>
+            	Se creare nuove istanze &egrave; facile, distruggerle lo &egrave; ancora
+            	di pi&ugrave;. In generale, non c'&egrave; alcun bisogno di liberare
+            	esplicitamente delle istanze, in quanto vengono
+            	automaticamente liberate quando la variabile ad esse
+            	assegnata esce dallo scope.
+            	I memory leaks sono rari in <span class="application">Python</span>.
+            
+         </p>
+<div class="example"><a name="fileinfo.scope"></a><h3 class="title">Esempio&nbsp;4.10.&nbsp;Proviamo ad implementare un memory leak</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> leakmem</span>():</span>
+<tt class="prompt">...     </tt><span class="userinput">f = fileinfo.FileInfo(<span class="pystring">'/music/_singles/kairo.mp3'</span>)</span> <a name="fileinfo.create.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">for</span> i <span class="pykeyword">in</span> range(100):</span>
+<tt class="prompt">...     </tt><span class="userinput">leakmem()</span>                                          <a name="fileinfo.create.2.3"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html#fileinfo.create.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ogni volta che la funzione <tt class="function">leakmem</tt>
+                        	viene chiamata, creiamo un'istanza di
+                        	<tt class="classname">FileInfo</tt> e la assegnamo alla
+                        	variabile <tt class="varname">f</tt>, che &egrave; una variabile
+                        	locale alla funzione. Quindi la funzione termina senza
+                        	liberare <tt class="varname">f</tt>, vi aspettereste un
+                        	memory leak, ma sareste in errore.
+                        	Quando la funzione termina,
+                        	la variabile locale <tt class="varname">f</tt> esce dal suo
+                        	scope. A questo punto, non c'&egrave; pi&ugrave; alcun riferimento alla
+                        	nuova istanza di <tt class="classname">FileInfo</tt> (in
+                        	quanto non l'abbiamo mai assegnata ad altra variabile,
+                        	tranne a <tt class="varname">f</tt>), cos&igrave; <span class="application">Python</span> distrugge
+                        	l'istanza per noi.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html#fileinfo.create.2.3"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Non importa quante volte chiamate la funzione
+                        	<tt class="function">leakmem</tt>, questa non perder&agrave; mai
+                        	della memoria perch&eacute; ogni volta, <span class="application">Python</span>
+                        	distrugger&agrave; la nuova istanza di <tt class="classname">FileInfo</tt>
+                        	prima di ritornare da <tt class="function">leakmem</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Il termine tecnico per questo genere di garbage collection
+            	&egrave; &#8220;<span class="quote">reference counting</span>&#8221;. <span class="application">Python</span> tiene una
+            	lista dei riferimenti ad ogni istanza creata. Nell'esempio
+            	precedente, c'era un solo riferimento all'istanza di
+            	<tt class="classname">FileInfo</tt>: la variabile locale
+            	<tt class="varname">f</tt>. Quando la funzione termina, la
+            	variabile <tt class="varname">f</tt> esce dallo scope, cos&igrave; il
+            	contatore dei riferimenti finisce a <tt class="constant">0</tt> e <span class="application">Python</span>
+            	distrugge l'istanza automaticamente.
+            
+         </p>
+<p>
+            	Nelle precedenti versioni di <span class="application">Python</span> vi erano situazioni
+            	in cui il reference counting falliva e <span class="application">Python</span> non era
+            	in grado di ripulire la memoria. Se creavate due istanze
+            	che si referenziavano a vicenda (per esempio, una lista
+            	doppiamente linkata, dove ogni nodo ha un puntatore al
+            	prossimo nodo ed al precedente), nessuna istanza sarebbe
+            	stata distrutta automaticamente perch&eacute; <span class="application">Python</span>
+            	(correttamente) credeva che ci fosse sempre un riferimento
+            	ad ogni istanza. <span class="application">Python</span> 2.0 ha una forma addizionale di
+            	garbage collection chiamata &#8220;<span class="quote">mark-and-sweep</span>&#8221;
+            	che &egrave; sufficientemente intelligente da notare questo
+            	cappio virtuale e quindi, ripulire correttamente i
+            	riferimenti circolari.
+            
+         </p>
+<p>
+            	In qualit&agrave; di filosofo mi disturba l'idea che le cose
+            	scompaiano quando nessuno le sta guardando, ma questo &egrave;
+            	quanto accade in <span class="application">Python</span>. In generale, potete semplicemente
+            	dimenticarvi della gestione della memoria e lasciare che sia
+            	<span class="application">Python</span> a ripulire il vostro lavoro.
+            
+         </p>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> riassume gli
+                  <a href="http://it.diveintopython.net/doc/current/lib/specialattrs.html">attributi
+                     	built-in come <tt class="literal">__class__</tt></a>.
+                  
+               </li>
+<li>
+<a href="http://it.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documenta il
+                  	<a href="http://it.diveintopython.net/doc/current/lib/module-gc.html">
+                     	modulo <tt class="filename">gc</tt></a>,
+                  	che vi d&agrave; un controllo a basso livello sulla garbage collection
+                  	di <span class="application">Python</span>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html">&lt;&lt;&nbsp;Definire classi</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/userdict.html">UserDict: una classe wrapper&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>5.7.&nbsp;Virgolettare i valori degli attributi</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/html_processing/index.html" title="Capitolo&nbsp;5.&nbsp;Elaborare HTML" />
+<link rel="previous" href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario" />
+<link rel="next" href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html">Elaborare HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">Virgolettare i valori degli attributi</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="Indietro: “Formattazione di stringhe basata su dizionario”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/dialect.html" title="Avanti: “Introduzione al modulo dialect.py”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="dialect.quoting"></a>5.7.&nbsp;Virgolettare i valori degli attributi
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+               	Una domanda ricorrente su <a href="http://it.diveintopython.net/groups?group=comp.lang.python">comp.lang.python</a> &egrave;: &#8220;<span class="quote">Io ho un gruppo
+                  	di documenti <span class="acronym">HTML</span> con i valori degli attributi espressi
+                  	senza virgolette e voglio virgolettarli tutti in maniera
+                  	opportuna. Come posso farlo?</span>&#8221;
+               
+               <sup>[<a name="d0e15411" href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html#ftn.d0e15411">10</a>]</sup>  
+               	(Questa situazione &egrave; generalmente causata da un responsabile
+               	di progetto, convertito alla religione &#8220;<span class="quote"><span class="acronym">HTML</span> &egrave; uno
+                  	standard</span>&#8221;, che si aggiunge ad un grosso progetto e
+               	annuncia che tutte le pagine <span class="acronym">HTML</span> devono essere validate
+               	da un verificatore di <span class="acronym">HTML</span>. Avere i valori degli attributi
+               	senza virgolette &egrave; una violazione comune dello standard
+               	<span class="acronym">HTML</span>.) Qualunque sia la ragione, &egrave; facile rimediare ai
+               	valori degli attributi senza virgolette, se si filtra il
+               	documento <span class="acronym">HTML</span> attraverso <tt class="classname">BaseHTMLProcessor</tt>.
+               
+            </p>
+</div>
+<p>
+            	La classe <tt class="classname">BaseHTMLProcessor</tt> consuma codice <span class="acronym">HTML</span> (giacch&eacute;
+            	discende da <tt class="classname">SGMLParser</tt>) e produce codice <span class="acronym">HTML</span> equivalente,
+            	ma il codice di uscita non &egrave; identico a quello di entrata. Tag
+            	e nomi di attributi sono generati in carattere minuscoli,
+            	anche se erano inizialmente in caratteri maiuscoli o misti
+            	maiuscolo/minuscolo; i valori degli attributi sono racchiusi
+            	tra virgolette, anche se erano originariamente racchiusi tra
+            	apici o non avevano affatto delimitatori. &Egrave; quest'ultimo
+            	effetto collaterale che noi possiamo sfruttare.
+            
+         </p>
+<div class="example"><a name="dialect.quoting.example"></a><h3 class="title">Esempio&nbsp;5.15.&nbsp;Valori degli attributi tra virgolette</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">htmlSource = <span class="pystring">""</span>"</span>        <a name="dialect.basehtml.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt>&lt;html&gt;
+<tt class="prompt">...     </tt>&lt;head&gt;
+<tt class="prompt">...     </tt>&lt;title&gt;Test page&lt;/title&gt;
+<tt class="prompt">...     </tt>&lt;/head&gt;
+<tt class="prompt">...     </tt>&lt;body&gt;
+<tt class="prompt">...     </tt>&lt;ul&gt;
+<tt class="prompt">...     </tt>&lt;li&gt;&lt;a href=index.html&gt;Home&lt;/a&gt;&lt;/li&gt;
+<tt class="prompt">...     </tt>&lt;li&gt;&lt;a href=toc.html&gt;Table of contents&lt;/a&gt;&lt;/li&gt;
+<tt class="prompt">...     </tt>&lt;li&gt;&lt;a href=history.html&gt;Revision history&lt;/a&gt;&lt;/li&gt;
+<tt class="prompt">...     </tt>&lt;/body&gt;
+<tt class="prompt">...     </tt>&lt;/html&gt;
+<tt class="prompt">...     </tt><span class="userinput"><span class="pystring">""</span>"</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> BaseHTMLProcessor <span class="pykeyword">import</span> BaseHTMLProcessor</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser = BaseHTMLProcessor()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser.feed(htmlSource)</span> <a name="dialect.basehtml.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> parser.output()</span>   <a name="dialect.basehtml.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Test page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="toc.html"&gt;Table of contents&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="history.html"&gt;Revision history&lt;/a&gt;&lt;/li&gt;
+&lt;/body&gt;
+&lt;/html&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Va notato che i valori degli attributi
+                        	<tt class="literal">href</tt> nei tag <tt class="sgmltag-element">&lt;a&gt;</tt>
+                        	non sono virgolettati in modo proprio. Va anche notato che
+                        	stiamo usando le
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html#odbchelper.triplequotes" title="Esempio&nbsp;2.4.&nbsp;Definire la doc string della funzione buildConnectionString ">virgolette
+                           	triple</a> per qualcosa di diverso da una <tt class="literal">doc string</tt>, e
+                        	direttamente nell'interprete interattivo (<span class="acronym">IDE</span> ndt) per
+                        	giunta. Le triple virgolette sono utili per molte cose.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">Passiamo la stringa  al parser.</td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html#dialect.basehtml.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Usando la funzione di <tt class="function">output</tt> definita in
+                        	<tt class="classname">BaseHTMLProcessor</tt>, otteniamo l'output come una singola stringa,
+                        	inclusi i valori degli attributi racchiusi tra virgolette. Sebbene
+                        	tutto ci&ograve; possa apparire ben poco sensazionale, si pensi a quante
+                        	cose sono effettivamente successe a questo punto: <tt class="classname">SGMLParser</tt> ha
+                        	processato l'intero documento <span class="acronym">HTML</span> e lo ha scomposto in tag,
+                        	riferimenti, dati, e cos&igrave; via; <tt class="classname">BaseHTMLProcessor</tt> ha usato questi
+                        	elementi per ricostruire pezzi di <span class="acronym">HTML</span> ( che sono ancora
+                        	memorizzati in <tt class="varname">parser.pieces</tt>, nel caso li vogliate
+                        	vedere); finalmente, &egrave; stato chiamato il metodo
+                        	<tt class="function">parser.output</tt>, che ha ricomposto tutti gli elementi
+                        	<span class="acronym">HTML</span> in un'unica stringa.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e15411" href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html#d0e15411">10</a>] </sup>
+                      Daccordo, non &egrave; poi una domanda cos&igrave; comune. Non allo stesso
+                      livello di &#8220;<span class="quote">Quale editor conviene usare per scrivere
+                         codice <span class="application">Python</span>?</span>&#8221; (risposta: <span class="application">Emacs</span>) oppure
+                      &#8220;<span class="quote"><span class="application">Python</span> &egrave; migliore o peggiore di <span class="application">Perl</span>?</span>&#8221;
+                      ( risposta: &#8220;<span class="quote"><span class="application">Perl</span> &egrave; peggiore di <span class="application">Python</span> perch&eacute; la
+                         gente lo ha voluto peggiore.</span>&#8221; - Larry Wall, 14/10/1998).
+                      Ma comunque domande sull'elaborazione di testo <span class="acronym">HTML</span> spuntano
+                      fuori in una forma o nell'altra circa una volta al mese e tra
+                      queste domande una delle pi&ugrave; gettonate &egrave; quella che ho citato.
+                      
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html">&lt;&lt;&nbsp;Formattazione di stringhe basata su dizionario</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html#dialect.divein" title="5.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html" title="5.2.&nbsp;Introduciamo sgmllib.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/extracting_data.html" title="5.3.&nbsp;Estrarre informazioni da documenti HTML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="5.4.&nbsp;Introdurre BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/locals_and_globals.html" title="5.5.&nbsp;locals e globals">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="5.9.&nbsp;Introduzione alle espressioni regolari">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/all_together.html" title="5.10.&nbsp;Mettere tutto insieme">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/summary.html" title="5.11.&nbsp;Sommario">11</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/dialect.html">Introduzione al modulo dialect.py&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

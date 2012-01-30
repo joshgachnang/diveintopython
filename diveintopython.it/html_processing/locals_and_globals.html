@@ -1,0 +1,430 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>5.5.&nbsp;locals e globals</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/html_processing/index.html" title="Capitolo&nbsp;5.&nbsp;Elaborare HTML" />
+<link rel="previous" href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="5.4.&nbsp;Introdurre BaseHTMLProcessor.py" />
+<link rel="next" href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html">Elaborare HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">locals e globals</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="Indietro: “Introdurre BaseHTMLProcessor.py”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="Avanti: “Formattazione di stringhe basata su dizionario”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="dialect.locals"></a>5.5.&nbsp;<tt class="function">locals</tt> e <tt class="function">globals</tt></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+<span class="application">Python</span> dispone di due funzioni built-in, <tt class="function">locals</tt> e <tt class="function">globals</tt> che
+               	forniscono un accesso basato sui dizionari alle variabili locali e globali.
+               
+            </p>
+</div>
+<p>
+            	Prima per&ograve;, una parola sui namespace (ndt: spazio dei
+            	nomi). &Egrave; un argomento noioso, ma importante,
+            	perci&ograve; fate attenzione. <span class="application">Python</span> usa quelli che sono
+            	chiamati namespace per tenere traccia delle variabili. 
+            	Un namespace &egrave; come un dizionario nel quale le chiavi
+            	sono i nomi delle variabili ed i valori del dizionario sono i
+            	valori di quelle variabili. Infatti, potete accedere ad un
+            	namespace come ad un dizionario <span class="application">Python</span>, come vedremo fra un
+            	minuto. 
+            
+         </p>
+<p>
+            	Ad ogni particolare punto di un programma <span class="application">Python</span>, ci sono alcuni
+            	namespace disponibili. Ogni funzione ha il suo namespace, chiamato
+            	namespace locale, il quale tiene traccia delle variabili della
+            	funzione, inclusi gli argomenti della funzione e le variabili
+            	definite localmente. Ogni modulo ha il suo proprio namespace,
+            	chiamato namespace globale, che tiene traccia delle variabili del
+            	modulo, incluse funzioni, classi, ogni altro modulo importato,
+            	variabili e costanti di livello modulo. E c'&egrave; anche il namespace
+            	built-in, accessibile da ogni modulo, che contiene le funzioni
+            	built-in e le eccezioni.
+            
+         </p>
+<p>
+            	Quando una linea di codice chiede il valore della variabile
+            	<tt class="varname">x</tt>, <span class="application">Python</span> ricerca quella variabile in tutti
+            	i namespace disponibili, nell'ordine:
+            
+         </p>
+<div class="orderedlist">
+<ol type="1">
+<li>
+                  	namespace locale - specifico alla funzione o metodo di classe corrente.
+                  	Se la funzione definisce una variabile locale <tt class="varname">x</tt>, o
+                  	ha un argomento <tt class="varname">x</tt>, <span class="application">Python</span> user&agrave; questa e interromper&agrave; la ricerca.
+                  
+               </li>
+<li>
+                  	namespace globale - specifico al modulo corrente. Se il modulo
+                  	ha definito una variabile, funzione, o classe chiamata
+                  	<tt class="varname">x</tt>, <span class="application">Python</span> user&agrave; quella ed interromper&agrave; la ricerca.
+                  
+               </li>
+<li>
+                  	namespace built-in - globale per tutti i moduli. Come il punto precedente,
+                  	<span class="application">Python</span> considerer&agrave; quella <tt class="varname">x</tt> come il nome di una
+                  	variabile o funzione built-in.
+                  
+               </li>
+</ol>
+</div>
+<p>
+            	Se <span class="application">Python</span> non trova <tt class="varname">x</tt> in nessuno di questi
+            	namespace, si fermer&agrave; e sollever&agrave; un'eccezione <tt class="errorcode">NameError</tt>
+            	con il messaggio <tt class="errorname">There is no variable named 'x'</tt>,
+            	come avete visto nel <a href="http://it.diveintopython.net/getting_to_know_python/declaring_variables.html#odbchelper.unboundvariable" title='Esempio&nbsp;2.26.&nbsp;
+        Riferirsi ad una variabile non assegnata (unbound, 
+        "slegata" n.d.T.)
+'>Capitolo 2</a>,
+            	ma senza sapere quanto lavoro facesse <span class="application">Python</span> prima di darvi quell'errore.
+            
+         </p><a name="d0e14728"></a><table class="important" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/important.png" alt="Importante" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<span class="application">Python</span> 2.2 introdusse un subdolo ma importante cambiamento che modific&ograve;
+                  	l'ordine di ricerca dei namespace: gli scope nidificati. Nelle versioni di
+                  	<span class="application">Python</span> precedenti al 2.2, quando vi riferite ad una variabile dentro ad una
+                  	<a href="http://it.diveintopython.net/object_oriented_framework/all_together.html#fileinfo.nested" title="Esempio&nbsp;4.39.&nbsp;listDirectory">funzione nidificata</a> o una
+                  	<a href="http://it.diveintopython.net/power_of_introspection/lambda_functions.html" title="3.7.&nbsp;Usare le funzioni lambda">funzione <tt class="literal">lambda</tt></a>, <span class="application">Python</span>
+                  	ricercher&agrave; quella variabile
+                  	nel namespace corrente della funzione, e poi nel namespace del modulo.
+                  	<span class="application">Python</span> 2.2 ricercher&agrave; la variabile nel namespace della funzione corrente,
+                  	<span class="emphasis"><em>poi nel namespace della funzione genitore</em></span>, e poi nel
+                  	namespace del modulo.
+                  	<span class="application">Python</span> 2.1 pu&ograve; lavorare in ogni modo;
+                  	predefinitamente, lavora come <span class="application">Python</span> 2.0, ma potete
+                  	aggiugere la seguente linea di codice in cima al vostro modulo
+                  	per farlo funzionare come <span class="application">Python</span> 2.2: 
+                  <pre class="programlisting"><span class="pykeyword">
+from</span> __future__ <span class="pykeyword">import</span> nested_scopes</pre></td>
+</tr>
+</table>
+<p>
+            	Come molte cose in <span class="application">Python</span>, i namespace sono direttamente
+            	accessibili a run-time. Specificatamente, il namespace locale
+            	&egrave; accessibile dalla funzione built-in <tt class="function">locals</tt>, e quello globale
+            	(livello modulo) &egrave; accessibile dalla funzione built-in <tt class="function">globals</tt>.
+            
+         </p>
+<div class="example"><a name="d0e14778"></a><h3 class="title">Esempio&nbsp;5.10.&nbsp;Introdurre <tt class="function">locals</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">def</span><span class="pyclass"> foo</span>(arg):</span> <a name="dialect.locals.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">...     </tt><span class="userinput">x = 1</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class="pykeyword">print</span> locals()</span>
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">foo(7)</span>        <a name="dialect.locals.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">{'arg': 7, 'x': 1}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">foo(<span class="pystring">'bar'</span>)</span>    <a name="dialect.locals.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<span class="computeroutput">{'arg': 'bar', 'x': 1}</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	La funzione <tt class="function">foo</tt> ha due variabili nel suo namespace
+                        	locale: <tt class="varname">arg</tt>, il cui valore &egrave; passato nella funzione,
+                        	ed <tt class="varname">x</tt>, che &egrave; definito nella funzione.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">locals</tt> ritorna un dizionario di coppie nome/valore. Le chiavi di questo
+                        	dizionario sono nomi delle variabili come fossero stringhe; i valori del
+                        	dizionario sono gli attuali valori delle variabili. Perci&ograve; chiamando
+                        	<tt class="function">foo</tt> con <tt class="literal">7</tt> verr&agrave; stampato il
+                        	dizionario contenente le due variabili della funzione:
+                        	<tt class="varname">arg</tt> (<tt class="literal">7</tt>) ed <tt class="varname">x</tt> (<tt class="constant">1</tt>).
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ricordate, <span class="application">Python</span> ha una tipizzazione dinamica, perci&ograve; potreste
+                        	anche facilmente passare una stringa in <tt class="varname">arg</tt>;
+                        	la funzione (e la chiamata a <tt class="function">locals</tt>) funzionerebbe ancora bene.
+                        	<tt class="function">locals</tt> funziona con tutte le variabili di tutti i tipi di dato.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Ci&ograve; che <tt class="function">locals</tt> fa per il namespace locale, <tt class="function">globals</tt> lo fa per
+            	il namespace globale. <tt class="function">globals</tt> &egrave; pi&ugrave; eccitante quindi, perch&eacute;
+            	il namespace di un modulo &egrave; pi&ugrave; interessante.
+            <sup>[<a name="d0e14886" href="http://it.diveintopython.net/html_processing/locals_and_globals.html#ftn.d0e14886">9</a>]</sup>  
+            	Il namespace di un modulo non include solo le variabili e le
+            	costanti di livello modulo, include anche tutte le funzioni
+            	e le classi definite nel modulo. In pi&ugrave;, include ogni cosa
+            	che &egrave; stata importata nel modulo.
+            
+         </p>
+<p>
+            	Ricordate la differenza tra
+            	<a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html" title="4.2.&nbsp;Importare i moduli usando from module import"><tt class="literal">from <i class="replaceable">module</i> import</tt></a> e
+            	<a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Esempio&nbsp;2.5.&nbsp;Accedere alla doc string della funzione buildConnectionString"><tt class="literal">import <i class="replaceable">module</i></tt></a>? Con <tt class="literal">import <i class="replaceable">module</i></tt>,
+            	il modulo stesso &egrave; importato, ma mantiene il suo proprio namespace, visto che
+            	dovete usare il nome del modulo per accedere ad ogni sua funzione od attributo:
+            <tt class="literal"><i class="replaceable">modulo</i>.<i class="replaceable">funzione</i></tt>.
+            	Ma con <tt class="literal">from <i class="replaceable">module</i> import</tt>, state realmente importando funzioni ed attributi
+            	specifici da un altro modulo nel vostro namespace, perci&ograve; potete accedervi senza
+            	riferirvi direttamente al modulo da cui provengono. Con la funzione <tt class="function">globals</tt>,
+            	potete vedere come ci&ograve; avvenga.
+            
+         </p>
+<div class="example"><a name="dialect.globals.example"></a><h3 class="title">Esempio&nbsp;5.11.&nbsp;Introdurre <tt class="function">globals</tt></h3>
+<p>
+               	Aggiungete il seguente blocco di codice a <tt class="filename">BaseHTMLProcessor.py</tt>:
+               
+            </p><pre class="programlisting"><span class="pykeyword">
+if</span> __name__ == <span class="pystring">"__main__"</span>:
+    <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> globals().items():             <a name="dialect.locals.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+        <span class="pykeyword">print</span> k, <span class="pystring">"="</span>, v</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Non fatevi intimidire, ricordate che avete gi&agrave; visto tutto questo in
+                        	precedenza. La funzione <tt class="function">globals</tt> ritorna un dizionario, e stiamo
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html#dictionaryiter.example" title="Esempio&nbsp;4.29.&nbsp;Iterare sugli elementi di un dizionario">iterando attraverso il dizionario</a>
+                        	usando il metodo <tt class="function">items</tt> e <a href="http://it.diveintopython.net/getting_to_know_python/multiple_values.html" title="2.11.&nbsp;Assegnare valori multipli in un colpo solo">l'assegnamento
+                           	multi-variabile</a>. L'unica cosa nuova qui &egrave; la funzione <tt class="function">globals</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+<p>
+               	Ora lanciare lo script dalla linea di comando dar&agrave; il seguente output:
+               
+            </p><pre class="screen"><tt class="prompt">c:\docbook\dip\py&gt;</tt><span class="userinput">python BaseHTMLProcessor.py</span></pre><pre class="programlisting">
+SGMLParser = sgmllib.SGMLParser                <a name="dialect.locals.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+htmlentitydefs = &lt;module <span class="pystring">'htmlentitydefs'</span> <span class="pykeyword">from</span> <span class="pystring">'C:\Python21\lib\htmlentitydefs.py'</span>&gt; <a name="dialect.locals.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+BaseHTMLProcessor = __main__.BaseHTMLProcessor <a name="dialect.locals.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+__name__ = __main__                            <a name="dialect.locals.3.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+[...snip...]</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="classname">SGMLParser</tt> &egrave; stato importato da <tt class="filename">sgmllib</tt>, usando
+                        	<tt class="literal">from <i class="replaceable">module</i> import</tt>. Questo significa che &egrave; stato importato
+                        	direttamente nel namespace del nostro modulo, e l&igrave; lo troviamo.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Al contrario il modulo <tt class="filename">htmlentitydefs</tt>, &egrave; stato importato usando
+                        	<tt class="literal">import</tt>. Questo significa che il modulo <tt class="filename">htmlentitydefs</tt> stesso
+                        	si trova nel nostro namespace, ma la variabile
+                        	<tt class="varname">entitydefs</tt> definita nel modulo <tt class="filename">htmlentitydefs</tt>
+                        	invece no.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo modulo definisce un'unica classe, <tt class="classname">BaseHTMLProcessor</tt>.
+                        	Notate che il valore qui &egrave;
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html#fileinfo.classattributes.intro" title="Esempio&nbsp;4.18.&nbsp;Introdurre gli attributi di classe">la classe stessa</a>,
+                        	non una specifica istanza della classe.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.3.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Ricordate il
+                        <a href="http://it.diveintopython.net/getting_to_know_python/testing_modules.html#odbchelper.ifnametrick" title="Esempio&nbsp;2.8.&nbsp;Il trucco if __name__">trucco <tt class="literal">if <span class="literal">__name__</span></tt></a>?
+                        	Quando lanciate un modulo (al contrario di importarlo da un altro modulo),
+                        	l'attributo built-in <tt class="literal">__name__</tt> ottiene un valore speciale, <tt class="literal">__main__</tt>. Dato che
+                        	abbiamo lanciato questo modulo come uno script dalla linea di comando,
+                        	<tt class="literal">__name__</tt> diventa <tt class="literal">__main__</tt>, questo giustifica il nostro piccolo script di test
+                        	a stampare la <tt class="function">globals</tt> appena eseguita.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div><a name="tip.localsbyname"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+                  	Usando le funzioni <tt class="function">locals</tt> e <tt class="function">globals</tt>, potete ottenere
+                  	il valore di variabili arbitrarie dinamicamente, rendendo
+                  	disponibile il nome della variabile come una stringa.
+                  	Questo rispecchia la funzionalit&agrave; della funzione
+                  	<a href="http://it.diveintopython.net/power_of_introspection/getattr.html" title="3.4.&nbsp;Ottenere riferimenti agli oggetti usando getattr"><tt class="function">getattr</tt></a>, che vi
+                  	permette di accedere a funzioni arbitrarie dinamicamente,
+                  	rendendo disponibile il nome della funzione come stringa.
+                  
+               </td>
+</tr>
+</table>
+<p>
+            	C'&egrave; un'altra importante differenza fra <tt class="function">locals</tt> e <tt class="function">globals</tt> che
+            	dovreste imparare adesso, prima di pagarne le conseguenze. Vi
+            	colpir&agrave; ugualmente, ma almeno poi la ricorderete, imparandola.
+            
+         </p>
+<div class="example"><a name="dialect.locals.readonly.example"></a><h3 class="title">Esempio&nbsp;5.12.&nbsp;<tt class="function">locals</tt> &egrave; in sola lettura, <tt class="function">globals</tt> no
+            </h3><pre class="programlisting"><span class="pykeyword">
+def</span> foo(arg):
+    x = 1
+    <span class="pykeyword">print</span> locals()    <a name="dialect.locals.4.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    locals()[<span class="pystring">"x"</span>] = 2 <a name="dialect.locals.4.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    <span class="pykeyword">print</span> <span class="pystring">"x="</span>,x      <a name="dialect.locals.4.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+
+z = 7
+<span class="pykeyword">print</span> <span class="pystring">"z="</span>,z
+foo(3)
+globals()[<span class="pystring">"z"</span>] = 8    <a name="dialect.locals.4.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /><span class="pykeyword">
+print</span> <span class="pystring">"z="</span>,z          <a name="dialect.locals.4.5"></a><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.4.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Dato che <tt class="function">foo</tt> &egrave; chiamata con <tt class="literal">3</tt>, stamper&agrave;
+                        	<tt class="literal">{'arg': 3, 'x': 1}</tt>. Questo non dovrebbe essere una sorpresa.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.4.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Potreste pensare che questo cambierebbe il valore della variabile
+                        	locale <tt class="varname">x</tt> a <tt class="literal">2</tt>, ma non lo fa.
+                        	<tt class="function">locals</tt> non ritorna realmente il namespace locale, ritorna
+                        	una copia. Perci&ograve; cambiarla non ha rilevanza sulle variabile del
+                        	namespace locale.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.4.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo stampa <tt class="literal">x= 1</tt>, non <tt class="literal">x= 2</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.4.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Dopo essere rimasti scottati da <tt class="function">locals</tt>, potreste pensare che
+                        	<span class="emphasis"><em>questo non</em></span> cambierebbe il valore di
+                        	<tt class="varname">z</tt>, invece s&igrave;. A causa di differenze interne
+                        	su come <span class="application">Python</span> &egrave; implementato (che raramente spiego, dato che
+                        	non le ho capite pienamente neppure io), <tt class="function">globals</tt> ritorna
+                        	l'attuale namespace globale, non una copia: l'esatto opposto del
+                        	comportamento di <tt class="function">locals</tt>. Perci&ograve; ogni cambiamento al dizionario
+                        	ritornato da <tt class="function">globals</tt> ha effetto sulle variabili globali.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.locals.4.5"><img src="http://it.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questo stampa <tt class="literal">z= 8</tt>, non <tt class="literal">z= 7</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="footnotes">
+<h3 class="footnotetitle">Footnotes</h3>
+<div class="footnote">
+<p><sup>[<a name="ftn.d0e14886" href="http://it.diveintopython.net/html_processing/locals_and_globals.html#d0e14886">9</a>] </sup>
+                      Non &egrave; che io esca poi molto. ;-)
+                      
+               </p>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html">&lt;&lt;&nbsp;Introdurre BaseHTMLProcessor.py</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html#dialect.divein" title="5.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html" title="5.2.&nbsp;Introduciamo sgmllib.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/extracting_data.html" title="5.3.&nbsp;Estrarre informazioni da documenti HTML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="5.4.&nbsp;Introdurre BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html" title="5.7.&nbsp;Virgolettare i valori degli attributi">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="5.9.&nbsp;Introduzione alle espressioni regolari">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/all_together.html" title="5.10.&nbsp;Mettere tutto insieme">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/summary.html" title="5.11.&nbsp;Sommario">11</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html">Formattazione di stringhe basata su dizionario&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

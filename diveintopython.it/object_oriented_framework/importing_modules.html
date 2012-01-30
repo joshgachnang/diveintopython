@@ -1,0 +1,229 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.2.&nbsp;Importare i moduli usando from module import</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="previous" href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Capitolo&nbsp;4.&nbsp;Una struttura orientata agli oggetti" />
+<link rel="next" href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html">Una struttura orientata agli oggetti</a>&nbsp;&gt;&nbsp;<span class="thispage">Importare i moduli usando from module import</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html" title="Indietro: “Una struttura orientata agli oggetti”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="Avanti: “Definire classi”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.fromimport"></a>4.2.&nbsp;Importare i moduli usando <tt class="literal">from <i class="replaceable">module</i> import</tt></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+<span class="application">Python</span> utilizza due modi per importare i moduli. Entrambi
+               	sono utili e dovreste sapere quando usarli. Il primo,
+               	<tt class="literal">import <i class="replaceable">module</i></tt>, l'avete gi&agrave; visto nel capitolo 2. Il secondo,
+               	raggiunge lo stesso scopo, ma funziona in modo differente.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e8117"></a><h3 class="title">Esempio&nbsp;4.3.&nbsp;Sintassi basilare di <tt class="literal">from <i class="replaceable">module</i> import</tt></h3><pre class="programlisting"><span class="pykeyword">
+from</span> UserDict <span class="pykeyword">import</span> UserDict
+</pre></div>
+<p>
+            	Questa sintassi &egrave; simile a quella di
+            	<a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Esempio&nbsp;2.5.&nbsp;Accedere alla doc string della funzione buildConnectionString"><tt class="literal">import <i class="replaceable">module</i></tt></a>
+            	che conoscete ed amate, ma con una importante differenza:
+            	gli attributi ed i metodi del modulo importato <tt class="filename">types</tt> vengono
+            	importati direttamente nel namespace locale, in modo tale che
+            	siano disponibili direttamente, senza qualificare il nome del
+            	modulo. Potete importare elementi individualmente od usare
+            	<tt class="literal">from <i class="replaceable">module</i> import *</tt> per importare qualsiasi cosa.
+            
+         </p><a name="compare.fromimport.perl"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="literal">from <i class="replaceable">module</i> import *</tt> in <span class="application">Python</span> &egrave; simile allo
+                  	<tt class="literal">use <i class="replaceable">module</i></tt>
+                  	in <span class="application">Perl</span>; <tt class="literal">import <i class="replaceable">module</i></tt> nel <span class="application">Python</span> &egrave; come il
+                  	<tt class="literal">require <i class="replaceable">module</i></tt>
+                  	del <span class="application">Perl</span>.
+                  
+               </td>
+</tr>
+</table><a name="compare.fromimport.java"></a><table class="note" border="0" summary="">
+<tr>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="http://it.diveintopython.net/images/note.png" alt="Nota" title="" width="24" height="24" /></td>
+</tr>
+<tr>
+<td colspan="2" align="left" valign="top" width="99%">
+<tt class="literal">from <i class="replaceable">module</i> import *</tt> in <span class="application">Python</span> &egrave; come <tt class="literal">import
+                     	<i class="replaceable">module</i>.*</tt> in <span class="application">Java</span>;
+                  	<tt class="literal">import <i class="replaceable">module</i></tt> in <span class="application">Python</span> &egrave; simile a <tt class="literal">import
+                     	<i class="replaceable">module</i></tt> del <span class="application">Java</span>.
+                  
+               </td>
+</tr>
+</table>
+<div class="example"><a name="d0e8249"></a><h3 class="title">Esempio&nbsp;4.4.&nbsp;<tt class="literal">import <i class="replaceable">module</i></tt> <span class="foreignphrase"><i class="foreignphrase"><span class="acronym">contro</span></i></span> <tt class="literal">from <i class="replaceable">module</i> import</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> types</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">types.FunctionType</span>             <a name="fileinfo.import.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;type 'function'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">FunctionType</span>                   <a name="fileinfo.import.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+NameError: There is no variable named 'FunctionType'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> types <span class="pykeyword">import</span> FunctionType</span> <a name="fileinfo.import.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">FunctionType</span>                   <a name="fileinfo.import.1.4"></a><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
+<span class="computeroutput">&lt;type 'function'&gt;</span></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html#fileinfo.import.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Il modulo <tt class="filename">types</tt>
+                        	non contiene metodi, solo attributi per ogni oggetto tipo
+                        	di <span class="application">Python</span>. Notate che l'attributo, <tt class="constant">FunctionType</tt>,
+                        	deve essere qualificato con il nome del modulo,
+                        	in questo caso,
+                        	<tt class="filename">types</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html#fileinfo.import.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="constant">FunctionType</tt> di per s&eacute; non &egrave; definito in questo namespace;
+                        	esiste solo nel contesto di
+                        	<tt class="filename">types</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html#fileinfo.import.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Questa sintassi importa l'attributo <tt class="constant">FunctionType</tt> dal modulo
+                        	<tt class="filename">types</tt>
+                        	direttamente nel namespace locale.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/object_oriented_framework/importing_modules.html#fileinfo.import.1.4"><img src="http://it.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                        	Adesso <tt class="constant">FunctionType</tt> pu&ograve; essere utilizzato direttamente,
+                        	senza riferirsi a
+                        	<tt class="filename">types</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+            	Quando dovreste usare <tt class="literal">from <i class="replaceable">module</i> import</tt>?
+            
+         </p>
+<div class="itemizedlist">
+<ul>
+<li>
+                  	Se dovete accedere ad attributi e metodi di frequente e non
+                  	volete digitare il nome del modulo continuamente, usate
+                  	<tt class="literal">from <i class="replaceable">module</i> import</tt>.
+                  
+               </li>
+<li>
+                  	Se volete importare selettivamente alcuni attributi e metodi
+                  	ma non altri, usate <tt class="literal">from <i class="replaceable">module</i> import</tt>.
+                  
+               </li>
+<li>
+                  	Se il modulo contiene attributi e funzioni con lo stesso nome
+                  	di altri del vostro modulo, dovete usare <tt class="literal">import <i class="replaceable">module</i></tt> per
+                  	evitare conflitti di nomi.
+                  
+               </li>
+</ul>
+</div>
+<p>
+            	Per altri casi, &egrave; solo una questione di stile, in futuro
+            	vedrete codice <span class="application">Python</span> scritto in entrambi i modi.
+            
+         </p>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+<a href="http://it.diveintopython.net/guides/">eff-bot</a> mostra altri esempi su
+                  	<a href="http://it.diveintopython.net/guides/import-confusion.htm"><tt class="literal">import <i class="replaceable">module</i></tt>
+<span class="foreignphrase"><i class="foreignphrase"><span class="acronym">contro</span></i></span> <tt class="literal">from <i class="replaceable">module</i> import</tt></a>.
+                  
+               </li>
+<li>
+                  	Nel <a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> &egrave; possibile leggere di tecniche avanzate
+                  	d'importazione, tra cui
+                  <a href="http://it.diveintopython.net/doc/current/tut/node8.html#SECTION008410000000000000000"><tt class="literal">from <i class="replaceable">module</i> import *</tt></a>.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/index.html">&lt;&lt;&nbsp;Una struttura orientata agli oggetti</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/object_oriented_framework/index.html#fileinfo.divein" title="4.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html" title="4.3.&nbsp;Definire classi">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/userdict.html" title="4.5.&nbsp;UserDict: una classe wrapper">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods.html" title="4.6.&nbsp;Metodi speciali per le classi">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/special_class_methods2.html" title="4.7.&nbsp;Metodi speciali di classe avanzati">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/private_functions.html" title="4.9.&nbsp;Funzioni private">9</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/handling_exceptions.html" title="4.10.&nbsp;Gestire le eccezioni">10</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/file_objects.html" title="4.11.&nbsp;Oggetti file">11</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/for_loops.html" title="4.12.&nbsp;Cicli for ">12</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/more_on_modules.html" title="4.13.&nbsp;Ancora sui moduli">13</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/os_module.html" title="4.14.&nbsp;Il modulo os">14</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/all_together.html" title="4.15.&nbsp;Mettere tutto insieme">15</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/object_oriented_framework/summary.html" title="4.16.&nbsp;Sommario">16</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/object_oriented_framework/defining_classes.html">Definire classi&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>

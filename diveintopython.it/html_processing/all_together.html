@@ -1,0 +1,353 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>5.10.&nbsp;Mettere tutto insieme</title>
+<link rel="stylesheet" href="/css/diveintopython.css" type="text/css" />
+<link rev="made" href="josh@servercobra.com" />
+<meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
+<meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+<meta name="description" content="Python from novice to pro" />
+<link rel="home" href="http://it.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://it.diveintopython.net/html_processing/index.html" title="Capitolo&nbsp;5.&nbsp;Elaborare HTML" />
+<link rel="previous" href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="5.9.&nbsp;Introduzione alle espressioni regolari" />
+<link rel="next" href="http://it.diveintopython.net/html_processing/summary.html" title="5.11.&nbsp;Sommario" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://it.diveintopython.net/index.html">Partenza</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html">Elaborare HTML</a>&nbsp;&gt;&nbsp;<span class="thispage">Mettere tutto insieme</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="Indietro: “Introduzione alle espressioni regolari”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://it.diveintopython.net/html_processing/summary.html" title="Avanti: “Sommario”">&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3" id="logocontainer">
+<h1 id="logo"><a href="http://it.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<p id="tagline">Python per programmatori esperti</p>
+</td>
+<td colspan="3" align="right">
+<form id="search" method="GET" action="http://www.google.com/custom">
+<p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" " /> <input type="submit" value="Search" /><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;" /><input type="hidden" name="domains" value="diveintopython.org" /><input type="hidden" name="sitesearch" value="diveintopython.org" /></p>
+</form>
+</td>
+</tr>
+</table>
+<div class="section" lang="it">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="dialect.alltogether"></a>5.10.&nbsp;Mettere tutto insieme
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>
+                       &Egrave; tempo di mettere a frutto  tutto quello che abbiamo 
+               	imparato  finora. Spero che abbiate prestato attenzione.
+               
+            </p>
+</div>
+<div class="example"><a name="d0e16497"></a><h3 class="title">Esempio&nbsp;5.21.&nbsp;La funzione <tt class="function">translate</tt>, parte prima
+            </h3><pre class="programlisting"><span class="pykeyword">
+def</span> translate(url, dialectName=<span class="pystring">"chef"</span>): <a name="dialect.alltogether.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    <span class="pykeyword">import</span> urllib                       <a name="dialect.alltogether.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    sock = urllib.urlopen(url)          <a name="dialect.alltogether.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+    htmlSource = sock.read()           
+    sock.close()                       
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.1.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                La funzione <tt class="function">translate</tt> ha un 
+                        	<a href="http://it.diveintopython.net/power_of_introspection/optional_arguments.html" title="3.2.&nbsp;Argomenti opzionali ed argomenti con nome">argomento opzionale</a>
+<tt class="varname">dialectName</tt>, che &egrave; una stringa indicante il 
+                        	dialetto da usare. Fra poco vedremo come viene usato questo 
+                        	parametro.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.1.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Ehi, aspettate un secondo, c'&egrave; una istruzione
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Esempio&nbsp;2.5.&nbsp;Accedere alla doc string della funzione buildConnectionString"><tt class="literal">import</tt></a> in questa 
+                        	funzione! Questo &egrave; perfettamente lecito in <span class="application">Python</span>. 
+                        	Siete abituati a vedere istruzioni <tt class="literal">import</tt> all'inizio di un 
+                        	programma, cosa che implica che il modulo importato &egrave; 
+                        	disponibile in qualsiasi punto del programma. Ma &egrave; anche 
+                        	possibile importare un modulo in una funzione. Se si ha un 
+                        	modulo che &egrave; usato solo all'interno di una funzione, questa &egrave; 
+                        	una maniera semplice di rendere il vostro codice pi&ugrave; modulare. 
+                        	(Quando scoprirete che il vostro esercizio di un fine settimana
+                        	&egrave; diventato un complesso lavoro di 800 linee e deciderete di 
+                        	dividerlo in una dozzina di moduli riusabili, apprezerete 
+                        	questa finezza.)
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.1.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Ora si <a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.extract.urllib" title="Esempio&nbsp;5.5.&nbsp;Introdurre urllib">prende
+                           	il sorgente dalla URL specificata</a>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e16543"></a><h3 class="title">Esempio&nbsp;5.22.&nbsp;La funzione <tt class="function">translate</tt>, parte seconda: sempre pi&ugrave; curioso
+            </h3><pre class="programlisting">
+    parserName = <span class="pystring">"%sDialectizer"</span> % dialectName.capitalize() <a name="dialect.alltogether.2.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    parserClass = globals()[parserName]                     <a name="dialect.alltogether.2.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    parser = parserClass()                                  <a name="dialect.alltogether.2.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.2.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+<tt class="function">capitalize</tt> &egrave; un metodo del tipo stringa che non abbiamo 
+                        	mai incontrato finora; semplicemente, questo metodo rende 
+                        	maiuscola la prima lettera di una stringa e minuscole 
+                        	tutte le altre. Combinandolo con un po' di
+                        	<a href="http://it.diveintopython.net/getting_to_know_python/formatting_strings.html" title="2.12.&nbsp;Formattare le stringhe">formattazione 
+                           	di stringhe</a>, si riesce a prendere il nome di un 
+                        	dialetto ed a trasformarlo nel nome della classe 
+                        	&#8220;<span class="quote">Dialectizer</span>&#8221; corrispondente. Se 
+                        	<tt class="varname">dialectName</tt> &egrave; uguale alla stringa 
+                        	<tt class="literal">'chef'</tt>, allora 
+                        	<tt class="varname">parserName</tt> sar&agrave; uguale alla stringa 
+                        	<tt class="literal">'ChefDialectizer'</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.2.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Abbiamo il nome di una classe in forma di stringa
+                        	(<tt class="varname">parserName</tt>) e abbiamo lo
+                        	spazio dei nomi globale in forma di dizionario
+                        	(<tt class="function">globals</tt>()). Combinati, otteniamo un riferimento
+                        	alla classe nominata dalla stringa. (Ricordate,
+                        	<a href="http://it.diveintopython.net/object_oriented_framework/class_attributes.html" title="4.8.&nbsp;Attributi di classe">le classi
+                           	sono oggetti</a>, e possono essere assegnati a
+                        	variabili proprio come ogni altro oggetto.) Se
+                        	<tt class="varname">parserName</tt> &egrave; uguale alla stringa
+                        	<tt class="literal">'ChefDialectizer'</tt>, allora
+                        	<tt class="varname">parserClass</tt> sar&agrave; uguale alla
+                        	classe <tt class="literal">ChefDialectizer</tt>.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.2.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Alla fine, ecco che abbiamo l'oggetto classe
+                        	(<tt class="varname">parserClass</tt>), e ci serve una
+                        	instanza di tale classe. Bene, sappiamo gi&agrave; come
+                        	fare: basta <a href="http://it.diveintopython.net/object_oriented_framework/instantiating_classes.html" title="4.4.&nbsp;Istanziare classi">chiamare
+                           	la classe come fosse una funzione</a>. Il fatto
+                        	che la classe &egrave; memorizzata in una variabile locale
+                        	non fa assolutamente alcuna differenza; chiamiamo
+                        	semplicemente la variabile locale come una funzione
+                        	e vien fuori un'istanza della classe.
+                        	Se <tt class="varname">parserClass</tt> &egrave; uguale alla
+                        	classe <tt class="literal">ChefDialectizer</tt>, allora
+                        	<tt class="varname">parser</tt> sar&agrave; uguale ad un instanza
+                        	della classe <tt class="literal">ChefDialectizer</tt>.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+                    Ma perch&eacute; darsi tanta pena? Dopo tutto, ci sono solo
+            	tre classi <tt class="classname">Dialectizer</tt>; perch&eacute;
+            	non usare semplicemente una istruzione
+            	<tt class="function">case</tt>? (Beh, non c'&egrave; l'istruzione
+            	<tt class="function">case</tt> in <span class="application">Python</span>, ma perch&eacute; non
+            	usare una serie di istruzioni <tt class="literal">if</tt> ?)
+            	Una ragione c'&egrave;: estensibilit&agrave;. La funzione
+            	<tt class="function">translate</tt> non dipende in nessun modo dal numero di
+            	classi &#8220;<span class="quote">Dialectizer</span>&#8221; che sono state
+            	definite. Immaginate che domani si definisca una nuova
+            	classe <tt class="classname">FooDialectizer</tt>; la
+            	funzione <tt class="function">translate</tt> funzionerebbe semplicemente
+            	passando <tt class="literal">'foo'</tt> come valore del
+            	parametro <tt class="varname">dialectName</tt>.
+            
+         </p>
+<p>
+                    Ancora meglio, immaginatevi di mettere
+            	<tt class="classname">FooDialectizer</tt> in un
+            	modulo separato, e di importare tale modulo
+            	con la sintassi <tt class="literal">from <i class="replaceable">module</i> import</tt>.
+            	Abbiamo gi&agrave; visto come questo
+            	<a href="http://it.diveintopython.net/html_processing/locals_and_globals.html#dialect.globals.example" title="Esempio&nbsp;5.11.&nbsp;Introdurre globals">includa
+               	il modulo nello spazio dei nomi globali restituito
+               	da <tt class="function">globals</tt>()</a>, per cui <tt class="function">translate</tt> funzionerebbe
+            	ancora senza bisogno di modifiche, sebbene
+            	<tt class="classname">FooDialectizer</tt> sia
+            	definita in un file separato.
+            
+         </p>
+<p>
+                    Ora immaginate che il nome del dialetto venga da
+            	qualche luogo esterno al programma, magari da un
+            	database o da un valore inserito dall'utente in
+            	una form. &Egrave; possibile usare una qualsiasi
+            	delle molte  architetture di scripting server-side
+            	in <span class="application">Python</span> per la generazione dinamica di pagine
+            	<span class="acronym">HTML</span>; questa funzione potrebbe accettare una <span class="acronym">URL</span>
+            	ed il nome di un dialetto (entrambi stringhe) nella
+            	stringa di query di una richiesta di pagina web, e
+            	restituire come output la pagina web
+            	&#8220;<span class="quote">tradotta</span>&#8221;.
+            
+         </p>
+<p>
+                    Infine, immaginate una infrastruttura
+            	<tt class="classname">Dialectizer</tt> con
+            	una architettura che faccia uso di
+            	plug-in. Potreste mettere ogni classe
+            	<tt class="classname">Dialectizer</tt> in un
+            	file diverso, lasciando solo la funzione
+            	<tt class="function">translate</tt> nel modulo <tt class="filename">dialect.py</tt>.
+            	Assumendo una metodologia consistente
+            	nell'assegnare i nomi, la funzione <tt class="function">translate</tt>
+            	potrebbe importare dinamicamente la classe
+            	richiesta dal file corrispondente, partendo
+            	da nient'altro che il nome del dialetto.
+            	(Non abbiamo ancora visto esempi di import
+            	dinamico, ma vi prometto di trattare questo
+            	argomento in uno dei prossimi capitoli.)
+            	Per aggiungere un nuovo dialetto, potreste
+            	semplicemente aggiungere un file con il
+            	nome appropriato nella directory dei plug-in
+            	(ad esempio un file
+            	<tt class="filename">foodialect.py</tt> che contenga
+            	la classe <tt class="classname">FooDialectizer</tt>).
+            	Chiamando la funzione <tt class="function">translate</tt> usando
+            	<tt class="literal">'foo'</tt> come nome del dialetto
+            	provocherebbe il ritrovamento del modulo
+            	<tt class="filename">foodialect.py</tt>, l'import
+            	della classe <tt class="classname">FooDialectizer</tt>,
+            	e cos&igrave; via.
+            
+         </p>
+<div class="example"><a name="d0e16734"></a><h3 class="title">Esempio&nbsp;5.23.&nbsp;La funzione <tt class="function">translate</tt>, parte terza
+            </h3><pre class="programlisting">
+    parser.feed(htmlSource) <a name="dialect.alltogether.3.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+    parser.close()          <a name="dialect.alltogether.3.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+    <span class="pykeyword">return</span> parser.output()  <a name="dialect.alltogether.3.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.3.1"><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Dopo tutto quell' immaginare, questo vi potr&agrave; sembrare 
+                        	piuttosto noioso, ma &egrave; la funzione <tt class="function">feed</tt> 
+                        	che <a href="http://it.diveintopython.net/html_processing/extracting_data.html#dialect.feed.example" title="Esempio&nbsp;5.7.&nbsp;Utilizzare urllister.py">inizializza
+                           	l'intera trasformazione</a>. L'intero sorgente <span class="acronym">HTML</span> 
+                        	&egrave; memorizzato in una stringa, per cui basta chiamare 
+                        	<tt class="function">feed</tt> solo una volta. Tuttavia, &egrave; anche 
+                        	possibile chiamare <tt class="function">feed</tt> quante volte 
+                        	si vuole e il parser continuer&agrave; semplicemente ad analizzare.
+                        	Se vi state preoccupando di usare troppa memoria ( o
+                        	sapete di dover gestire pagine <span class="acronym">HTML</span> molto grandi), &egrave; 
+                        	possibile creare un ciclo in cui si leggano pochi bytes di 
+                        	<span class="acronym">HTML</span> per volta da passare al parser. Il risultato sarebbe 
+                        	identico.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.3.2"><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Poich&eacute; <tt class="function">feed</tt> mantiene un buffer 
+                        	interno, &egrave; opportuno chiamare sempre il metodo <tt class="function">close</tt> 
+                        	del parser una volta finito (anche se si passa tutto
+                        	il codice <span class="acronym">HTML</span> in un colpo solo, come abbiamo fatto noi).
+                        	Altrimenti, potreste scoprire che al vostro output mancano 
+                        	gli ultimi bytes.
+                        
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://it.diveintopython.net/html_processing/all_together.html#dialect.alltogether.3.3"><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">
+                                Ricordate, <tt class="function">output</tt> &egrave; la funzione che abbiamo
+                        	definito nella classe <tt class="classname">BaseHTMLProcessor</tt> per
+                        	<a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html#dialect.output.example" title="Esempio&nbsp;5.9.&nbsp;BaseHTMLProcessor output"> mettere insieme tutte le
+                           	parti dell'output che avevamo memorizzato</a> e restituirle in
+                        	una singola stringa.
+                        
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>
+                    Ed ecco fatto, abbiamo &#8220;<span class="quote">tradotto</span>&#8221; una pagina web,
+            	passando nient'altro che una <span class="acronym">URL</span> ed il nome di un dialetto.
+            
+         </p>
+<div class="furtherreading">
+<h3>Ulteriori letture</h3>
+<ul>
+<li>
+                  Pensavate che stessi scherzando sull'idea del server-side
+                  scripting. Cos&igrave; ho fatto, fino a che non ho trovato
+                  <a href="http://it.diveintopython.net/dialect/">un dialettizatore</a>.
+                  Non ho idea se sia implementato in <span class="application">Python</span>, ma la home page della mia
+                  compagnia &egrave; felice. Sfortunatamente, il codice sorgente non sembra essere
+                  disponibile.
+                  
+               </li>
+</ul>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/regular_expressions.html">&lt;&lt;&nbsp;Introduzione alle espressioni regolari</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://it.diveintopython.net/html_processing/index.html#dialect.divein" title="5.1.&nbsp;Immergersi">1</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/introducing_sgmllib.html" title="5.2.&nbsp;Introduciamo sgmllib.py">2</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/extracting_data.html" title="5.3.&nbsp;Estrarre informazioni da documenti HTML">3</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/basehtmlprocessor.html" title="5.4.&nbsp;Introdurre BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/locals_and_globals.html" title="5.5.&nbsp;locals e globals">5</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="5.6.&nbsp;Formattazione di stringhe basata su dizionario">6</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/quoting_attribute_values.html" title="5.7.&nbsp;Virgolettare i valori degli attributi">7</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/dialect.html" title="5.8.&nbsp;Introduzione al modulo dialect.py">8</a> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/regular_expressions.html" title="5.9.&nbsp;Introduzione alle espressioni regolari">9</a> <span class="divider">|</span> <span class="thispage">10</span> <span class="divider">|</span> <a href="http://it.diveintopython.net/html_processing/summary.html" title="5.11.&nbsp;Sommario">11</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://it.diveintopython.net/html_processing/summary.html">Sommario&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>
+<div class="Footer">
+<p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a></p>
+<p class="copyright">Copyright &copy; 2003 Si veda l'appendice <span class="emphasis"><em>E: "Storia delle revisioni"</em></span></p>
+</div>
+</body>
+</html>
