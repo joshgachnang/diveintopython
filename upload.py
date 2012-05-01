@@ -83,6 +83,7 @@ def upload_file(arg, dirname, names):
 def upload(directory):
     sys.stdout.write("Beginning upload to %s" % BUCKET_NAME)
     sys.stdout.flush()
+    
     files_changed = os.path.walk(directory, upload_file, 'arg')
     if files_changed == False:
         print "\nNo files needed to be uploaded."
