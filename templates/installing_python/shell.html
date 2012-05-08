@@ -1,9 +1,77 @@
 {% extends "chapter_base.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}1.8.&nbsp;The Interactive Shell{% endblock %}
 
-{% block rel_nav %}{% endblock %}
+{% block rel_nav %}<link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;1.&nbsp;Installing Python" />
+<link rel="previous" href="http://www.diveintopython.net/" title="1.7.&nbsp;Python Installation from Source" />
+<link rel="next" href="http://www.diveintopython.net/" title="1.9.&nbsp;Summary" />{% endblock %}
 
-{% block breadcrumbs %}{% endblock %}
+{% block breadcrumbs %}<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/installing_python/index.html">Installing Python</a>&nbsp;&gt;&nbsp;<span class="thispage">The Interactive Shell</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/installing_python/source.html" title="Prev: “Python Installation from Source”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/installing_python/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>{% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}<div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="install.shell"></a>1.8.&nbsp;The Interactive Shell
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>Now that you have <span class="application">Python</span> installed, what's this interactive shell thing you're running?
+            </p>
+</div>
+<p>It's like this: <span class="application">Python</span> leads a double life.  It's an interpreter for scripts that you can run from the command line or run like applications, by
+            double-clicking the scripts.  But it's also an interactive shell that can evaluate arbitrary statements and expressions. 
+            This is extremely useful for debugging, quick hacking, and testing.  I even know some people who use the <span class="application">Python</span> interactive shell in lieu of a calculator!
+         </p>
+<p>Launch the <span class="application">Python</span> interactive shell in whatever way works on your platform, and let's dive in with the steps shown here:
+         </p>
+<div class="example"><a name="d0e3829"></a><h3 class="title">Example&nbsp;1.5.&nbsp;First Steps in the Interactive Shell</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">1 + 1</span>               <a name="install.shell.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">'hello world'</span></span> <a name="install.shell.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<span class="computeroutput">hello world</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">x = 1</span>               <a name="install.shell.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">y = 2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">x + y</span>
+<span class="computeroutput">3</span>
+</pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/installing_python/shell.html#install.shell.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">The <span class="application">Python</span> interactive shell can evaluate arbitrary <span class="application">Python</span> expressions, including any basic arithmetic expression.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/installing_python/shell.html#install.shell.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">The interactive shell can execute arbitrary <span class="application">Python</span> statements, including the <span><b class="command">print</b></span> statement.
+                     </td>
+</tr>
+<tr>
+<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/installing_python/shell.html#install.shell.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+</td>
+<td valign="top" align="left">You can also assign values to variables, and the values will be remembered as long as the shell is open (but not any longer
+                        than that).
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/installing_python/source.html">&lt;&lt;&nbsp;Python Installation from Source</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/installing_python/index.html#install.choosing" title="1.1.&nbsp;Which Python is right for you?">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/installing_python/windows.html" title="1.2.&nbsp;Python on Windows">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/installing_python/macosx.html" title="1.3.&nbsp;Python on Mac OS X">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/installing_python/macos9.html" title="1.4.&nbsp;Python on Mac OS 9">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/installing_python/redhat.html" title="1.5.&nbsp;Python on RedHat Linux">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/installing_python/debian.html" title="1.6.&nbsp;Python on Debian GNU/Linux">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/installing_python/source.html" title="1.7.&nbsp;Python Installation from Source">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/installing_python/summary.html" title="1.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/installing_python/summary.html">Summary&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>{% endblock %}
