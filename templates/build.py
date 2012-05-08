@@ -57,6 +57,7 @@ def render_all_html():
     for ob in os.listdir(template_dir):
         if os.path.isfile(os.path.join(template_dir, ob)) and ob[-5:] == '.html':
             # Is a file, send to render_file
+            #print "rendering %s" % ob
             render_file(ob, ob,)
 
         elif os.path.isdir(os.path.join(template_dir, ob)):
@@ -64,6 +65,7 @@ def render_all_html():
             # Is directroy, list files, send to render_file
             for f in os.listdir(ob):
                 if os.path.isfile(os.path.join(template_dir, dirname, f)) and f[-5:] == '.html':
+                    #print "rendering %s" % f
                     render_file(f, f, dirname, dirname)
 
 

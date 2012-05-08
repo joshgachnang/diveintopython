@@ -1,0 +1,85 @@
+{% extends "chapter_base.html" %}
+
+{% block title %}4.9.&nbsp;Summary{% endblock %}
+
+{% block rel_nav %}<link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;4.&nbsp;The Power Of Introspection" />
+<link rel="previous" href="http://www.diveintopython.net/" title="4.8.&nbsp;Putting It All Together" />
+<link rel="next" href="http://www.diveintopython.net/" title="Chapter&nbsp;5.&nbsp;Objects and Object-Orientation" />{% endblock %}
+
+{% block breadcrumbs %}<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/power_of_introspection/index.html">The Power Of Introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">Summary</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/power_of_introspection/all_together.html" title="Prev: “Putting It All Together”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/object_oriented_framework/index.html" title="Next: “Objects and Object-Orientation”">&gt;&gt;</a></td>{% endblock %}
+
+{% block body %}<div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="apihelper.summary"></a>4.9.&nbsp;Summary
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>The <tt class="filename">apihelper.py</tt> program and its output should now make perfect sense.
+            </p>
+</div>
+<div class="informalexample"><pre class="programlisting"><span class="pykeyword">
+def</span> info(object, spacing=10, collapse=1):
+    <span class="pystring">"""Print methods and doc strings.
+    
+    Takes module, class, list, dictionary, or string."""</span>
+    methodList = [method <span class="pykeyword">for</span> method <span class="pykeyword">in</span> dir(object) <span class="pykeyword">if</span> callable(getattr(object, method))]
+    processFunc = collapse <span class="pykeyword">and</span> (<span class="pykeyword">lambda</span> s: <span class="pystring">" "</span>.join(s.split())) <span class="pykeyword">or</span> (<span class="pykeyword">lambda</span> s: s)
+    <span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join([<span class="pystring">"%s %s"</span> %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     <span class="pykeyword">for</span> method <span class="pykeyword">in</span> methodList])
+
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:
+    <span class="pykeyword">print</span> info.__doc__</pre></div>
+<div class="informalexample">
+<p>Here is the output of <tt class="filename">apihelper.py</tt>:
+            </p><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> apihelper <span class="pykeyword">import</span> info</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">info(li)</span>
+<span class="computeroutput">append     L.append(object) -- append object to end
+count      L.count(value) -&gt; integer -- return number of occurrences of value
+extend     L.extend(list) -- extend list by appending list elements
+index      L.index(value) -&gt; integer -- return index of first occurrence of value
+insert     L.insert(index, object) -- insert object before index
+pop        L.pop([index]) -&gt; item -- remove and return item at index (default last)
+remove     L.remove(value) -- remove first occurrence of value
+reverse    L.reverse() -- reverse *IN PLACE*
+sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -&gt; -1, 0, 1</span></pre></div>
+<div class="highlights">
+<p>Before diving into the next chapter, make sure you're comfortable doing all of these things:</p>
+<div class="itemizedlist">
+<ul>
+<li>Defining and calling functions with <a href="http://www.diveintopython.net/power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">optional and named arguments</a></li>
+<li>Using <a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html#apihelper.str.intro" title="Example&nbsp;4.6.&nbsp;Introducing str"><tt class="function">str</tt></a> to coerce any arbitrary value into a string representation
+                  </li>
+<li>Using <a href="http://www.diveintopython.net/power_of_introspection/getattr.html" title="4.4.&nbsp;Getting Object References With getattr"><tt class="function">getattr</tt></a> to get references to functions and other attributes dynamically
+                  </li>
+<li>Extending the list comprehension syntax to do <a href="http://www.diveintopython.net/power_of_introspection/filtering_lists.html" title="4.5.&nbsp;Filtering Lists">list filtering</a></li>
+<li>Recognizing <a href="http://www.diveintopython.net/power_of_introspection/and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">the <tt class="literal">and-or</tt> trick</a> and using it safely
+                  </li>
+<li>Defining <a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions"><tt class="literal">lambda</tt> functions</a></li>
+<li><a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html#apihelper.funcassign">Assigning functions to variables</a> and calling the function by referencing the variable.  I can't emphasize this enough, because this mode of thought is vital
+                     to advancing your understanding of <span class="application">Python</span>.  You'll see more complex applications of this concept throughout this book.
+                  </li>
+</ul>
+</div>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/power_of_introspection/all_together.html">&lt;&lt;&nbsp;Putting It All Together</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.divein" title="4.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/getattr.html" title="4.4.&nbsp;Getting Object References With getattr">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/all_together.html" title="4.8.&nbsp;Putting It All Together">8</a> <span class="divider">|</span> <span class="thispage">9</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/object_oriented_framework/index.html">Objects and Object-Orientation&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>{% endblock %}

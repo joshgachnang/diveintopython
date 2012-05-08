@@ -1,0 +1,80 @@
+{% extends "chapter_base.html" %}
+
+{% block title %}Chapter&nbsp;7.&nbsp;Regular Expressions{% endblock %}
+
+{% block rel_nav %}<link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+<link rel="up" href="http://www.diveintopython.net/" title="Dive Into Python" />
+<link rel="previous" href="http://www.diveintopython.net/" title="6.7.&nbsp;Summary" />
+<link rel="next" href="http://www.diveintopython.net/" title="7.2.&nbsp;Case Study: Street Addresses" />{% endblock %}
+
+{% block breadcrumbs %}<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Regular Expressions</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/file_handling/summary.html" title="Prev: “Summary”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/street_addresses.html" title="Next: “Case Study: Street Addresses”">&gt;&gt;</a></td>{% endblock %}
+
+{% block body %}<div class="chapter" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="re"></a>Chapter&nbsp;7.&nbsp;Regular Expressions
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="toc">
+<ul>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/index.html#re.intro">7.1. Diving In</a></span></li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/street_addresses.html">7.2. Case Study: Street Addresses</a></span></li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html">7.3. Case Study: Roman Numerals</a></span><ul>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#d0e17592">7.3.1. Checking for Thousands</a></span></li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html#d0e17785">7.3.2. Checking for Hundreds</a></span></li>
+</ul>
+</li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html">7.4. Using the {n,m} Syntax</a></span><ul>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#d0e18326">7.4.1. Checking for Tens and Ones</a></span></li>
+</ul>
+</li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/verbose.html">7.5. Verbose Regular Expressions</a></span></li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html">7.6. Case study: Parsing Phone Numbers</a></span></li>
+<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/summary.html">7.7. Summary</a></span></li>
+</ul>
+</div>
+<div class="abstract">
+<p>Regular expressions are a powerful and standardized way of searching, replacing, and parsing text with complex patterns of
+               characters.  If you've used regular expressions in other languages (like <span class="application">Perl</span>), the syntax will be very familiar, and you get by just reading the summary of the <a href="http://www.diveintopython.net/doc/current/lib/module-re.html"><tt class="filename">re</tt> module</a> to get an overview of the available functions and their arguments.
+            </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="re.intro"></a>7.1.&nbsp;Diving In
+                     </h2>
+</div>
+</div>
+<div></div>
+</div>
+<p>Strings have methods for searching (<tt class="function">index</tt>, <tt class="function">find</tt>, and <tt class="function">count</tt>), replacing (<tt class="function">replace</tt>), and parsing (<tt class="function">split</tt>), but they are limited to the simplest of cases.  The search methods look for a single, hard-coded substring, and they are
+               always case-sensitive.  To do case-insensitive searches of a string <tt class="varname">s</tt>, you must call <tt class="function">s.lower()</tt> or <tt class="function">s.upper()</tt> and make sure your search strings are the appropriate case to match.  The <tt class="function">replace</tt> and <tt class="function">split</tt> methods have the same limitations.
+            </p>
+<div class="abstract">
+<p>If what you're trying to do can be accomplished with string functions, you should use them.  They're fast and simple and easy
+                  to read, and there's a lot to be said for fast, simple, readable code.  But if you find yourself using a lot of different
+                  string functions with <tt class="literal">if</tt> statements to handle special cases, or if you're combining them with <tt class="function">split</tt> and <tt class="function">join</tt> and list comprehensions in weird unreadable ways, you may need to move up to regular expressions.
+               </p>
+</div>
+<p>Although the regular expression syntax is tight and unlike normal code, the result can end up being <span class="emphasis"><em>more</em></span> readable than a hand-rolled solution that uses a long chain of string functions.  There are even ways of embedding comments
+               within regular expressions to make them practically self-documenting.
+            </p>
+</div>
+</div>
+<table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/file_handling/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/regular_expressions/street_addresses.html">Case Study: Street Addresses&nbsp;&gt;&gt;</a></td>
+</tr>
+<tr>
+<td colspan="3"><br /></td>
+</tr>
+</table>{% endblock %}
