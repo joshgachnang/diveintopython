@@ -29,8 +29,8 @@ def scrape():
                         out.write(urllib.urlopen(i['href']).read())
                 except IOError, e:
                     pass
+
 def purify(filename):
-    
     with open(filename, 'r') as f:
         
         soup = BeautifulSoup(f)

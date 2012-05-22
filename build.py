@@ -13,7 +13,7 @@ output_dir = os.path.join(root_dir, 'new')
 site_url = 'http://www.diveintopython.net/'
 support_email = 'josh@servercobra.com'
 
-ignore = ('chapter_base.html', 'chapter_page_template.html', 'footer.html', 'google_analytics.html', 'google_search.html')
+ignore = ('new_chapter_base1.html', 'chapter_base.html', 'chapter_page_template.html', 'footer.html', 'google_analytics.html', 'google_search.html', 'new_chapter_page_template.html', 'new_chapter_base.html', 'snippets.html')
 
 env = Environment(loader=FileSystemLoader(template_dir))
 

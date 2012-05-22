@@ -72,7 +72,7 @@ def purify(filename):
     for img in soup.findAll('img'):
         if img.has_key('src'):
             if 'http://web.archive.org/' in img['src']:
-                print URL + '/'.join(img['src'].split('/')[8:])
+                img['src'] =  URL + '/'.join(img['src'].split('/')[8:])
     
     #TODO: insert Google Analytics
     #soup.head.insert(len(a.head.contents), '<!-- comment -->')
