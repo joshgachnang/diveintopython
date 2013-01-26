@@ -109,7 +109,7 @@
 <p>If you have not already done so, you can <a href="http://www.diveintopython.net/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
                </p><pre class="programlisting"><span class="pykeyword">
 def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="apihelper.intro.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /> <a name="apihelper.intro.1.3"></a><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
-    <span class="pystring">"""Print methods and doc strings.
+    <span class="pystring">"""Print methods and docstrings.
     
     Takes module, class, list, dictionary, or string."""</span>
     methodList = [method <span class="pykeyword">for</span> method <span class="pykeyword">in</span> dir(object) <span class="pykeyword">if</span> callable(getattr(object, method))]
@@ -131,7 +131,7 @@ def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
 <tr>
 <td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">The <tt class="function">info</tt> function has a multi-line <a href="http://www.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documenting Functions"><tt class="literal">doc string</tt></a> that succinctly describes the function's purpose.  Note that no return value is mentioned; this function will be used solely
+<td valign="top" align="left">The <tt class="function">info</tt> function has a multi-line <a href="http://www.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documenting Functions"><tt class="literal">docstring</tt></a> that succinctly describes the function's purpose.  Note that no return value is mentioned; this function will be used solely
                            for its effects, rather than its value.
                         </td>
 </tr>
@@ -145,7 +145,7 @@ def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
 <td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.intro.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="literal"><span class="literal">if</span> <span class="literal">__name__</span></tt> <a href="http://www.diveintopython.net/getting_to_know_python/testing_modules.html#odbchelper.ifnametrick">trick</a> allows this program do something useful when run by itself, without interfering with its use as a module for other programs.
-                            In this case, the program simply prints out the <tt class="literal">doc string</tt> of the <tt class="function">info</tt> function.
+                            In this case, the program simply prints out the <tt class="literal">docstring</tt> of the <tt class="function">info</tt> function.
                         </td>
 </tr>
 <tr>
@@ -158,7 +158,7 @@ def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
 </div>
 </div>
 <p>The <tt class="function">info</tt> function is designed to be used by you, the programmer, while working in the <span class="application">Python</span> <span class="acronym">IDE</span>.  It takes any object that has functions or methods (like a module, which has functions, or a list, which has methods) and
-               prints out the functions and their <tt class="literal">doc string</tt>s.
+               prints out the functions and their <tt class="literal">docstring</tt>s.
             </p>
 <div class="example"><a name="d0e8257"></a><h3 class="title">Example&nbsp;4.2.&nbsp;Sample Usage of <tt class="filename">apihelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> apihelper <span class="pykeyword">import</span> info</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
@@ -172,7 +172,7 @@ pop        L.pop([index]) -&gt; item -- remove and return item at index (default
 remove     L.remove(value) -- remove first occurrence of value
 reverse    L.reverse() -- reverse *IN PLACE*
 sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -&gt; -1, 0, 1</span></pre></div>
-<p>By default the output is formatted to be easy to read.  Multi-line <tt class="literal">doc string</tt>s are collapsed into a single long line, but this option can be changed by specifying <tt class="constant">0</tt> for the <i class="parameter"><tt>collapse</tt></i> argument.  If the function names are longer than 10 characters, you can specify a larger value for the <i class="parameter"><tt>spacing</tt></i> argument to make the output easier to read.
+<p>By default the output is formatted to be easy to read.  Multi-line <tt class="literal">docstring</tt>s are collapsed into a single long line, but this option can be changed by specifying <tt class="constant">0</tt> for the <i class="parameter"><tt>collapse</tt></i> argument.  If the function names are longer than 10 characters, you can specify a larger value for the <i class="parameter"><tt>spacing</tt></i> argument to make the output easier to read.
             </p>
 <div class="example"><a name="d0e8294"></a><h3 class="title">Example&nbsp;4.3.&nbsp;Advanced Usage of <tt class="filename">apihelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">info(odbchelper)</span>

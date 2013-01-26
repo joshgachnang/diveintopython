@@ -59,11 +59,11 @@
 <div class="abstract">
 <p>
                	Potete documentare una funzione <span class="application">Python</span> dandole una
-               	<tt class="literal">doc string</tt> (stringa di documentazione ndr.).
+               	<tt class="literal">docstring</tt> (stringa di documentazione ndr.).
                
             </p>
 </div>
-<div class="example"><a name="odbchelper.triplequotes"></a><h3 class="title">Esempio&nbsp;2.4.&nbsp;Definire la <tt class="literal">doc string</tt> della funzione <tt class="function">buildConnectionString</tt>
+<div class="example"><a name="odbchelper.triplequotes"></a><h3 class="title">Esempio&nbsp;2.4.&nbsp;Definire la <tt class="literal">docstring</tt> della funzione <tt class="function">buildConnectionString</tt>
 </h3><pre class="programlisting"><span class="pykeyword">
 def</span> buildConnectionString(params):
     <span class="pystring">"""Build a connection string from a dictionary of parameters.
@@ -73,7 +73,7 @@ def</span> buildConnectionString(params):
                	cosa tra le virgolette iniziali e finali fanno parte di una
                	singola stringa, inclusi il carriage returns ed altri
                	caratteri speciali. Le potete usare ovunque, ma le vedrete
-               	quasi sempre usate durante la definizione di una <tt class="literal">doc string</tt>.
+               	quasi sempre usate durante la definizione di una <tt class="literal">docstring</tt>.
                
             </p>
 </div><a name="compare.quoting.perl"></a><table class="note" border="0" summary="">
@@ -91,14 +91,14 @@ def</span> buildConnectionString(params):
 </table>
 <p>
             	Ogni cosa in mezzo alle triple virgolette rappresenta la
-            	<tt class="literal">doc string</tt>, della funzione, essa documenta ci&ograve; che la
-            	funzione &egrave; in grado di fare. Una <tt class="literal">doc string</tt>, se esiste, deve
+            	<tt class="literal">docstring</tt>, della funzione, essa documenta ci&ograve; che la
+            	funzione &egrave; in grado di fare. Una <tt class="literal">docstring</tt>, se esiste, deve
             	essere la prima cosa definita in una funzione (<span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> la prima
             	cosa dopo i due punti). Non &egrave; necessario dotare la vostra
-            	funzione di una <tt class="literal">doc string</tt>, ma &egrave; buona cosa farlo sempre.
+            	funzione di una <tt class="literal">docstring</tt>, ma &egrave; buona cosa farlo sempre.
             	So che avrete sentito questa frase in ogni lezione di
             	programmazione che avete sentito, ma <span class="application">Python</span> vi d&agrave; un
-            	incentivo: la <tt class="literal">doc string</tt> rimane disponibile durante
+            	incentivo: la <tt class="literal">docstring</tt> rimane disponibile durante
             	l'esecuzione del programma come attributo della funzione.
             
          </p><a name="tip.docstring"></a><table class="note" border="0" summary="">
@@ -107,11 +107,11 @@ def</span> buildConnectionString(params):
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%">
-                  	Molti <span class="acronym">IDE</span> di <span class="application">Python</span> usano la <tt class="literal">doc string</tt> per rendere
+                  	Molti <span class="acronym">IDE</span> di <span class="application">Python</span> usano la <tt class="literal">docstring</tt> per rendere
                   	disponibile una documentazione context-sensitive, cos&igrave; quando
-                  	scrivete il nome di una funzione, la sua <tt class="literal">doc string</tt> appare
+                  	scrivete il nome di una funzione, la sua <tt class="literal">docstring</tt> appare
                   	come tooltip. Questo pu&ograve; essere incredibilmente utile, ma la
-                  	sua qualit&agrave; si basa unicamente sulla <tt class="literal">doc string</tt> che avete
+                  	sua qualit&agrave; si basa unicamente sulla <tt class="literal">docstring</tt> che avete
                   	scritto.
                   
                </td>
@@ -120,13 +120,13 @@ def</span> buildConnectionString(params):
 <div class="furtherreading">
 <h3>Ulteriori letture</h3>
 <ul>
-<li><a href="http://it.diveintopython.net/peps/pep-0257.html">PEP 257</a> definisce le convenzioni sulle <tt class="literal">doc string</tt>.
+<li><a href="http://it.diveintopython.net/peps/pep-0257.html">PEP 257</a> definisce le convenzioni sulle <tt class="literal">docstring</tt>.
                </li>
-<li><a href="http://it.diveintopython.net/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> discute di come scrivere una buona <tt class="literal">doc string</tt>.
+<li><a href="http://it.diveintopython.net/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> discute di come scrivere una buona <tt class="literal">docstring</tt>.
                </li>
 <li><a href="http://it.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discute delle convenzioni per
                   <a href="http://it.diveintopython.net/doc/current/tut/node6.html#SECTION006750000000000000000">spaziare
-                     le <tt class="literal">doc string</tt></a>.
+                     le <tt class="literal">docstring</tt></a>.
                </li>
 </ul>
 </div>

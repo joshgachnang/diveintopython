@@ -111,7 +111,7 @@
                      scaricare</a> questo ed altri esempi usati in questo libro.
                </p><pre class="programlisting"><span class="pykeyword">
 def</span> help(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /> <a name="apihelper.intro.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /> <a name="apihelper.intro.1.3"></a><img src="http://it.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
-    <span class="pystring">"""Print methods and doc strings.
+    <span class="pystring">"""Print methods and docstrings.
     
     Takes module, class, list, dictionary, or string."""</span>
     methodList = [method <span class="pykeyword">for</span> method <span class="pykeyword">in</span> dir(object) <span class="pykeyword">if</span> callable(getattr(object, method))]
@@ -143,7 +143,7 @@ def</span> help(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
 </td>
 <td valign="top" align="left">
                            	La funzione <tt class="function">help</tt> ha una
-                           	<a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documentare le funzioni"><tt class="literal">doc string</tt></a>
+                           	<a href="http://it.diveintopython.net/getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documentare le funzioni"><tt class="literal">docstring</tt></a>
                            	multiriga che succintamente descrive lo scopo della funzione.
                            	Notate che nessun valore di ritorno &egrave; menzionato; questa
                            	funzione sar&agrave; usata solamente per i suoi
@@ -169,7 +169,7 @@ def</span> help(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
                            	permette al programma di fare qualcosa di utile anche quando
                            	viene eseguito da solo, senza comunque interferire con il suo
                            	utilizzo come modulo per altri programmi. In questo caso, il
-                           	programma semplicemente stampa la <tt class="literal">doc string</tt> della funzione
+                           	programma semplicemente stampa la <tt class="literal">docstring</tt> della funzione
                            	<tt class="function">help</tt>.
                            
                         </td>

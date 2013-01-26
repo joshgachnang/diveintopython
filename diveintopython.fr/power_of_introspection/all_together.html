@@ -295,7 +295,7 @@ function trackMouseMove(event,element) {
                      int&eacute;ressent</a> dans <tt class="varname">object</tt>. Nous parcourons donc
                   cette liste avec <tt class="varname">method</tt>.
          </p>
-         <div class="example"><a name="d0e10744"></a><h3 class="title">Exemple 4.22. Obtenir une <tt class="literal">doc string</tt> dynamiquement
+         <div class="example"><a name="d0e10744"></a><h3 class="title">Exemple 4.22. Obtenir une <tt class="literal">docstring</tt> dynamiquement
             </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> odbchelper</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">object = odbchelper</span>                   <a name="apihelper.alltogether.1.1"></a><img src="http://web.archive.org/web/20091205193551im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">method = <span class='pystring'>'buildConnectionString'</span></span>      <a name="apihelper.alltogether.1.2"></a><img src="http://web.archive.org/web/20091205193551im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12">
@@ -334,7 +334,7 @@ function trackMouseMove(event,element) {
                   <tr>
                      <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20091205193551/http://diveintopython.adrahon.org/power_of_introspection/all_together.html#apihelper.alltogether.1.4"><img src="http://web.archive.org/web/20091205193551im_/http://diveintopython.adrahon.org/images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
                      </td>
-                     <td valign="top" align="left">Maintenant, afficher la <tt class="literal">doc string</tt> de la
+                     <td valign="top" align="left">Maintenant, afficher la <tt class="literal">docstring</tt> de la
                                     m&eacute;thode est facile.
                      </td>
                   </tr>
@@ -342,16 +342,16 @@ function trackMouseMove(event,element) {
             </div>
          </div>
          <p>La pi&egrave;ce suivante du puzzle est l&#8217;utilisation de
-                  <tt class="function">str</tt> sur la <tt class="literal">doc string</tt>. Comme
+                  <tt class="function">str</tt> sur la <tt class="literal">docstring</tt>. Comme
                   vous vous rappelez peut-&ecirc;tre, <tt class="function">str</tt> est une fonction
                   pr&eacute;d&eacute;finie pour <a href="http://web.archive.org/web/20091205193551/http://diveintopython.adrahon.org/power_of_introspection/built_in_functions.html" title="4.3. Utilisation de type, str, dir et autres fonction pr&eacute;d&eacute;finies">convertir des donn&eacute;es en
-                     cha&icirc;ne</a>. Mais une <tt class="literal">doc string</tt> est toujours une
+                     cha&icirc;ne</a>. Mais une <tt class="literal">docstring</tt> est toujours une
                   cha&icirc;ne, alors pourquoi utiliser <tt class="function">str</tt> ? La r&eacute;ponse
-                  est que toutes les fonctions n&#8217;ont pas de <tt class="literal">doc string</tt>,
+                  est que toutes les fonctions n&#8217;ont pas de <tt class="literal">docstring</tt>,
                   et que l&#8217;attribut <tt class="literal">__doc__</tt> de celles qui n&#8217;en ont pas
                   renvoi <tt class="literal">None</tt>.
          </p>
-         <div class="example"><a name="d0e10856"></a><h3 class="title">Exemple 4.23. Pourquoi utiliser <tt class="function">str</tt> sur une <tt class="literal">doc string</tt> ?
+         <div class="example"><a name="d0e10856"></a><h3 class="title">Exemple 4.23. Pourquoi utiliser <tt class="function">str</tt> sur une <tt class="literal">docstring</tt> ?
             </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">&gt;&gt;&gt; <span class='pykeyword'>def</span><span class='pyclass'> foo</span>(): <span class='pykeyword'>print</span> 2</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">&gt;&gt;&gt; foo()</span>
 <span class="computeroutput">2</span>
@@ -366,7 +366,7 @@ function trackMouseMove(event,element) {
                      <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20091205193551/http://diveintopython.adrahon.org/power_of_introspection/all_together.html#apihelper.alltogether.2.1"><img src="http://web.archive.org/web/20091205193551im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
                      </td>
                      <td valign="top" align="left">Nous pouvons facilement d&eacute;finir une fonction qui n&#8217;a pas de
-                                    <tt class="literal">doc string</tt>, sont attribut <tt class="literal">__doc__</tt> est <tt class="literal">None</tt>. Attention,
+                                    <tt class="literal">docstring</tt>, sont attribut <tt class="literal">__doc__</tt> est <tt class="literal">None</tt>. Attention,
                                     si vous &eacute;valuez directement l&#8217;attribut <tt class="literal">__doc__</tt>, l'<span class="acronym">IDE</span> <span class="application">Python</span>
                                     n&#8217;affiche rien du tout, ce qui est logique si vous y r&eacute;flechissez
                                     mais n&#8217;est pas tr&egrave;s utile.
@@ -432,7 +432,7 @@ function trackMouseMove(event,element) {
                      <td valign="top" align="left"><tt class="function">ljust</tt> compl&egrave;te la cha&icirc;ne avec des
                                     espaces jusqu&#8217;&agrave; la longueur donn&eacute;e. La fonction
                                     <tt class="function">info</tt> l&#8217;utilise pour afficher sur deux
-                                    colonnes et aligner les <tt class="literal">doc string</tt> de la
+                                    colonnes et aligner les <tt class="literal">docstring</tt> de la
                                     seconde colonne.
                      </td>
                   </tr>
@@ -449,7 +449,7 @@ function trackMouseMove(event,element) {
          </div>
          <p>Nous avons presque termin&eacute;. Ayant obtenu le nom de m&eacute;thode
                   compl&eacute;t&eacute; d&#8217;espaces de la m&eacute;thode <tt class="function">ljust</tt> et la
-                  <tt class="literal">doc string</tt> (&eacute;ventuellement repli&eacute;e sur une ligne) de
+                  <tt class="literal">docstring</tt> (&eacute;ventuellement repli&eacute;e sur une ligne) de
                   l&#8217;appel &agrave; <tt class="varname">processFunc</tt>, nous concat&eacute;nons les deux pour
                   obtenir une seule cha&icirc;ne. Comme nous faisons une mutation de
                   <tt class="varname">methodList</tt>, nous obtenons une liste de cha&icirc;nes. En

@@ -68,7 +68,7 @@
                
             </p>
 </div>
-<div class="example"><a name="odbchelper.import"></a><h3 class="title">Esempio&nbsp;2.5.&nbsp;Accedere alla <tt class="literal">doc string</tt> della funzione <tt class="function">buildConnectionString</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>                              <a name="odbchelper.objects.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<div class="example"><a name="odbchelper.import"></a><h3 class="title">Esempio&nbsp;2.5.&nbsp;Accedere alla <tt class="literal">docstring</tt> della funzione <tt class="function">buildConnectionString</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>                              <a name="odbchelper.objects.1.1"></a><img src="http://it.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span>}</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> odbchelper.buildConnectionString(params)</span> <a name="odbchelper.objects.1.2"></a><img src="http://it.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">server=mpilgrim;uid=sa;database=master;pwd=secret</span>
@@ -216,7 +216,7 @@ Returns string.</span></pre><div class="calloutlist">
             	metodi.
             <sup>[<a name="d0e2017" href="http://it.diveintopython.net/getting_to_know_python/everything_is_an_object.html#ftn.d0e2017">1</a>]</sup>
             	Tutte le funzioni hanno l'attributo built-in
-               	<tt class="literal">__doc__</tt>, che ritorna la <tt class="literal">doc string</tt> definita nel codice sorgente
+               	<tt class="literal">__doc__</tt>, che ritorna la <tt class="literal">docstring</tt> definita nel codice sorgente
                	della funzione. Il modulo <tt class="filename">sys</tt> &egrave; un oggetto che ha
             	(fra le altre cose) un attributo chiamato
             	<tt class="varname">path</tt> ... e cos&igrave; via.

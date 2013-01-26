@@ -326,7 +326,7 @@ function trackMouseMove(event,element) {
                <p>Si vous ne l&#8217;avez pas d&eacute;j&agrave; fait, vous pouvez <a href="http://web.archive.org/web/20100510151914/http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="T&eacute;l&eacute;charger les exemples de scripts">t&eacute;l&eacute;charger cet exemple ainsi que les autres exemples</a> du livre.
                </p><pre class="programlisting"><span class='pykeyword'>
 def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"></a><img src="http://web.archive.org/web/20100510151914im_/http://diveintopython.adrahon.org/images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="apihelper.intro.1.2"></a><img src="http://web.archive.org/web/20100510151914im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="apihelper.intro.1.3"></a><img src="http://web.archive.org/web/20100510151914im_/http://diveintopython.adrahon.org/images/callouts/3.png" alt="3" border="0" width="12" height="12">
-    <span class='pystring'>"""Print methods and doc strings.
+    <span class='pystring'>"""Print methods and docstrings.
     
     Takes module, class, list, dictionary, or string."""</span>
     methodList = [method <span class='pykeyword'>for</span> method <span class='pykeyword'>in</span> dir(object) <span class='pykeyword'>if</span> callable(getattr(object, method))]
@@ -353,7 +353,7 @@ def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
                      <tr>
                         <td width="12" valign="top" align="left"><a href="http://web.archive.org/web/20100510151914/http://diveintopython.adrahon.org/power_of_introspection/index.html#apihelper.intro.1.2"><img src="http://web.archive.org/web/20100510151914im_/http://diveintopython.adrahon.org/images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
                         </td>
-                        <td valign="top" align="left">La fonction <tt class="function">info</tt> a une <a href="http://web.archive.org/web/20100510151914/http://diveintopython.adrahon.org/getting_to_know_python/documenting_functions.html" title="2.3. Documentation des fonctions"><tt class="literal">doc string</tt></a>
+                        <td valign="top" align="left">La fonction <tt class="function">info</tt> a une <a href="http://web.archive.org/web/20100510151914/http://diveintopython.adrahon.org/getting_to_know_python/documenting_functions.html" title="2.3. Documentation des fonctions"><tt class="literal">docstring</tt></a>
                                        multi-lignes qui d&eacute;crit succintement son
                                        usage. Notez qu&#8217;aucune valeur de retour n&#8217;est mentionn&eacute;e, cette
                                        fonction sera employ&eacute;e uniquement pour son effet, pas sa
@@ -374,7 +374,7 @@ def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
                                           <span class="literal">__name__</span></tt> permet &agrave; ce programme de
                                        faire quelque chose d&#8217;utile lorsqu&#8217;il est ex&eacute;cut&eacute; tout seul sans
                                        int&eacute;rf&eacute;rence avec son usage comme module pour d&#8217;autres programmes.
-                                       Dans ce cas, le programme affiche simplement la <tt class="literal">doc string</tt> de la fonction <tt class="function">info</tt>.
+                                       Dans ce cas, le programme affiche simplement la <tt class="literal">docstring</tt> de la fonction <tt class="function">info</tt>.
                         </td>
                      </tr>
                      <tr>
@@ -393,7 +393,7 @@ def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"><
                      l&#8217;<span class="acronym">IDE</span> <span class="application">Python</span>. Elle prend
                      n&#8217;importe quel objet qui a des fonctions ou des m&eacute;thodes (comme un
                      module, qui a des fonction, ou une liste, qui a des m&eacute;thodes) et affiche
-                     les fonctions et leur <tt class="literal">doc string</tt>.
+                     les fonctions et leur <tt class="literal">docstring</tt>.
             </p>
             <div class="example"><a name="d0e8305"></a><h3 class="title">Exemple 4.2. Exemple d'utilisation de <tt class="filename">apihelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> apihelper <span class='pykeyword'>import</span> info</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
@@ -408,7 +408,7 @@ remove     L.remove(value) -- remove first occurrence of value
 reverse    L.reverse() -- reverse *IN PLACE*
 sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -&gt; -1, 0, 1</span></pre></div>
             <p>Par d&eacute;faut, la sortie est format&eacute;e pour &ecirc;tre facilement lisible.
-                     Les <tt class="literal">doc string</tt> multi-lignes sont combin&eacute;es en une
+                     Les <tt class="literal">docstring</tt> multi-lignes sont combin&eacute;es en une
                      seule longue ligne, mais cette option peut &ecirc;tre chang&eacute;e en sp&eacute;cifiant
                      <tt class="constant">0</tt> pour l&#8217;argument <i class="parameter"><tt>collapse</tt></i>.
                      Si les noms de fonction font plus de 10 caract&egrave;res, vous pouvez

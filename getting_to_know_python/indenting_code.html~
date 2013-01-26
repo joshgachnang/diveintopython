@@ -68,7 +68,7 @@ def</span> buildConnectionString(params):
     Returns string."""</span>
     <span class="pykeyword">return</span> <span class="pystring">";"</span>.join([<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()])</pre></div>
 <p>Code blocks are defined by their indentation.  By "code block", I mean functions, <tt class="literal">if</tt> statements, <tt class="literal">for</tt> loops, <tt class="literal">while</tt> loops, and so forth.  Indenting starts a block and unindenting ends it.  There are no explicit braces, brackets, or keywords.
-             This means that whitespace is significant, and must be consistent.  In this example, the function code (including the <tt class="literal">doc string</tt>) is indented four spaces.  It doesn't need to be four spaces, it just needs to be consistent.  The first line that is not
+             This means that whitespace is significant, and must be consistent.  In this example, the function code (including the <tt class="literal">docstring</tt>) is indented four spaces.  It doesn't need to be four spaces, it just needs to be consistent.  The first line that is not
             indented is outside the function.
          </p>
 <p><a href="http://www.diveintopython.net/getting_to_know_python/indenting_code.html#odbchelper.indenting.if" title="Example&nbsp;2.6.&nbsp;if Statements">Example&nbsp;2.6, &#8220;if Statements&#8221;</a> shows an example of code indentation with <tt class="literal">if</tt> statements.

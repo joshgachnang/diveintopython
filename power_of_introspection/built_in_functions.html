@@ -206,7 +206,7 @@
 <tr>
 <td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html#apihelper.builtin.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">This is where it really gets interesting. <tt class="filename">odbchelper</tt> is a module, so <tt class="literal"></tt><tt class="function">dir</tt>(<tt class="filename">odbchelper</tt>) returns a list of all kinds of stuff defined in the module, including built-in attributes, like <a href="http://www.diveintopython.net/getting_to_know_python/testing_modules.html#odbchelper.ifnametrick"><tt class="literal">__name__</tt></a>, <a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&nbsp;2.3.&nbsp;Accessing the buildConnectionString Function's doc string"><tt class="literal">__doc__</tt></a>, and whatever other attributes and methods you define.  In this case, <tt class="filename">odbchelper</tt> has only one user-defined method, the <tt class="function">buildConnectionString</tt> function described in <a href="http://www.diveintopython.net/getting_to_know_python/index.html">Chapter 2</a>.
+<td valign="top" align="left">This is where it really gets interesting. <tt class="filename">odbchelper</tt> is a module, so <tt class="literal"></tt><tt class="function">dir</tt>(<tt class="filename">odbchelper</tt>) returns a list of all kinds of stuff defined in the module, including built-in attributes, like <a href="http://www.diveintopython.net/getting_to_know_python/testing_modules.html#odbchelper.ifnametrick"><tt class="literal">__name__</tt></a>, <a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&nbsp;2.3.&nbsp;Accessing the buildConnectionString Function's docstring"><tt class="literal">__doc__</tt></a>, and whatever other attributes and methods you define.  In this case, <tt class="filename">odbchelper</tt> has only one user-defined method, the <tt class="function">buildConnectionString</tt> function described in <a href="http://www.diveintopython.net/getting_to_know_python/index.html">Chapter 2</a>.
                         </td>
 </tr>
 </table>
@@ -260,7 +260,7 @@
 <tr>
 <td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html#apihelper.builtin.4.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Any callable object may have a <tt class="literal">doc string</tt>.  By using the <tt class="function">callable</tt> function on each of an object's attributes, you can determine which attributes you care about (methods, functions, classes)
+<td valign="top" align="left">Any callable object may have a <tt class="literal">docstring</tt>.  By using the <tt class="function">callable</tt> function on each of an object's attributes, you can determine which attributes you care about (methods, functions, classes)
                            and which you want to ignore (constants and so on) without knowing anything about the object ahead of time.
                         </td>
 </tr>

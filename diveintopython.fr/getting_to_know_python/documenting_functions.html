@@ -265,16 +265,16 @@ function trackMouseMove(event,element) {
          <div class="abstract">
             <p>Vous pouvez documenter une fonction
                        <span class="application">Python</span> en lui donnant une cha&icirc;ne de
-                       documentation (<tt class="literal">doc string</tt>).
+                       documentation (<tt class="literal">docstring</tt>).
             </p>
          </div>
-         <div class="example"><a name="odbchelper.triplequotes"></a><h3 class="title">Exemple 2.2. D&eacute;finition d'une <tt class="literal">doc string</tt> pour la fonction <tt class="function">buildConnectionString</tt></h3><pre class="programlisting"><span class='pykeyword'>
+         <div class="example"><a name="odbchelper.triplequotes"></a><h3 class="title">Exemple 2.2. D&eacute;finition d'une <tt class="literal">docstring</tt> pour la fonction <tt class="function">buildConnectionString</tt></h3><pre class="programlisting"><span class='pykeyword'>
 def</span> buildConnectionString(params):
     <span class='pystring'>"""Build a connection string from a dictionary of parameters.
 
     Returns string."""</span></pre><p>Les tripes guillemets indiquent une cha&icirc;ne multi-lignes. Tout ce qu'il y a entre l'ouverture et la fermeture des guillemets
                fait partie de la cha&icirc;ne, y compris les retours chariot et les autres guillemets. On peut les utiliser partout, mais vous
-               les verrez le plus souvent utilis&eacute;es pour d&eacute;finir une <tt class="literal">doc string</tt>.
+               les verrez le plus souvent utilis&eacute;es pour d&eacute;finir une <tt class="literal">docstring</tt>.
             </p>
          </div><a name="compare.quoting.perl"></a><table class="note" border="0" summary="">
             <tr>
@@ -288,33 +288,33 @@ def</span> buildConnectionString(params):
             </tr>
          </table>
          <p>Tout ce qui se trouve entre les triples guillemets fait partie de la
-                  <tt class="literal">doc string</tt> de la fonction, qui d&eacute;crit ce que fait la
-                  fonction. Une <tt class="literal">doc string</tt>, si elle existe, doit &ecirc;tre
+                  <tt class="literal">docstring</tt> de la fonction, qui d&eacute;crit ce que fait la
+                  fonction. Une <tt class="literal">docstring</tt>, si elle existe, doit &ecirc;tre
                   la premi&egrave;re chose d&eacute;clar&eacute;e dans une fonction (la premi&egrave;re chose apr&egrave;s
                   les deux points). Techniquement parlant, vous n'&ecirc;tes pas oblig&eacute;s de
-                  donner une <tt class="literal">doc string</tt> &agrave; votre fonction, mais vous
+                  donner une <tt class="literal">docstring</tt> &agrave; votre fonction, mais vous
                   devriez toujours le faire. Je sais que vous avez entendu cela &agrave; tous les
                   cours de programmation auxquels vous avez assist&eacute; mais
                   <span class="application">Python</span> vous donne une motivation
-                  suppl&eacute;mentaire : la <tt class="literal">doc string</tt> est disponible &agrave;
+                  suppl&eacute;mentaire : la <tt class="literal">docstring</tt> est disponible &agrave;
                   l'ex&eacute;cution en tant qu'attribut de fonction.
          </p><a name="tip.docstring"></a><table class="note" border="0" summary="">
             <tr>
                <td rowspan="2" align="center" valign="top" width="1%"><img src="http://web.archive.org/web/20090206232417im_/http://diveintopython.adrahon.org/images/note.png" alt="NOTE" title="" width="24" height="24"></td>
             </tr>
             <tr>
-               <td colspan="2" align="left" valign="top" width="99%">Beaucoup d'<span class="acronym">IDE</span> <span class="application">Python</span> utilisent les <tt class="literal">doc string</tt> pour fournir une documentation contextuelle, ainsi lorsque vous tapez le nom d'une fonction, sa <tt class="literal">doc string</tt> appara&icirc;t dans une bulle d'aide. Cela peut &ecirc;tre incroyablement utile, mais cette utilit&eacute; est li&eacute;e &agrave; la qualit&eacute; de votre <tt class="literal">doc string</tt>.
+               <td colspan="2" align="left" valign="top" width="99%">Beaucoup d'<span class="acronym">IDE</span> <span class="application">Python</span> utilisent les <tt class="literal">docstring</tt> pour fournir une documentation contextuelle, ainsi lorsque vous tapez le nom d'une fonction, sa <tt class="literal">docstring</tt> appara&icirc;t dans une bulle d'aide. Cela peut &ecirc;tre incroyablement utile, mais cette utilit&eacute; est li&eacute;e &agrave; la qualit&eacute; de votre <tt class="literal">docstring</tt>.
                </td>
             </tr>
          </table>
          <div class="furtherreading">
             <h3>Pour en savoir plus sur la documentation des fonctions</h3>
             <ul>
-               <li>La <a href="http://web.archive.org/web/20090206232417/http://www.python.org/peps/pep-0257.html">PEP 257</a> d&eacute;finit les conventions pour les <tt class="literal">doc string</tt>.
+               <li>La <a href="http://web.archive.org/web/20090206232417/http://www.python.org/peps/pep-0257.html">PEP 257</a> d&eacute;finit les conventions pour les <tt class="literal">docstring</tt>.
                </li>
-               <li>Le <a href="http://web.archive.org/web/20090206232417/http://www.python.org/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> explique la mani&egrave;re d'&eacute;crire de bonnes <tt class="literal">doc string</tt>.
+               <li>Le <a href="http://web.archive.org/web/20090206232417/http://www.python.org/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> explique la mani&egrave;re d'&eacute;crire de bonnes <tt class="literal">docstring</tt>.
                </li>
-               <li>Le <a href="http://web.archive.org/web/20090206232417/http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> traite des conventions <a href="http://web.archive.org/web/20090206232417/http://www.python.org/doc/current/tut/node6.html#SECTION006750000000000000000">d'espacement dans les <tt class="literal">doc string</tt></a>.
+               <li>Le <a href="http://web.archive.org/web/20090206232417/http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> traite des conventions <a href="http://web.archive.org/web/20090206232417/http://www.python.org/doc/current/tut/node6.html#SECTION006750000000000000000">d'espacement dans les <tt class="literal">docstring</tt></a>.
                </li>
             </ul>
          </div>

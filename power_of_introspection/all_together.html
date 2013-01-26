@@ -75,7 +75,7 @@
 <p>Now, let's take it from the end and work backwards.  The </p><pre class="programlisting"><span class="pykeyword">
 for</span> method <span class="pykeyword">in</span> methodList</pre><p>shows that this is a <a href="http://www.diveintopython.net/native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehension</a>.  As you know, <tt class="varname">methodList</tt> is a list of <a href="http://www.diveintopython.net/power_of_introspection/filtering_lists.html#apihelper.filter.care">all the methods you care about</a> in <tt class="varname">object</tt>.  So you're looping through that list with <tt class="varname">method</tt>.
          </p>
-<div class="example"><a name="d0e10681"></a><h3 class="title">Example&nbsp;4.22.&nbsp;Getting a <tt class="literal">doc string</tt> Dynamically
+<div class="example"><a name="d0e10681"></a><h3 class="title">Example&nbsp;4.22.&nbsp;Getting a <tt class="literal">docstring</tt> Dynamically
             </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> odbchelper</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">object = odbchelper</span>                   <a name="apihelper.alltogether.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">method = <span class="pystring">'buildConnectionString'</span></span>      <a name="apihelper.alltogether.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
@@ -107,15 +107,15 @@ for</span> method <span class="pykeyword">in</span> methodList</pre><p>shows tha
 <tr>
 <td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/all_together.html#apihelper.alltogether.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Now, printing the actual <tt class="literal">doc string</tt> of the method is easy.
+<td valign="top" align="left">Now, printing the actual <tt class="literal">docstring</tt> of the method is easy.
                      </td>
 </tr>
 </table>
 </div>
 </div>
-<p>The next piece of the puzzle is the use of <tt class="function">str</tt> around the <tt class="literal">doc string</tt>.  As you may recall, <tt class="function">str</tt> is a built-in function that <a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">coerces data into a string</a>.  But a <tt class="literal">doc string</tt> is always a string, so why bother with the <tt class="function">str</tt> function?  The answer is that not every function has a <tt class="literal">doc string</tt>, and if it doesn't, its <tt class="literal">__doc__</tt> attribute is <tt class="literal">None</tt>.
+<p>The next piece of the puzzle is the use of <tt class="function">str</tt> around the <tt class="literal">docstring</tt>.  As you may recall, <tt class="function">str</tt> is a built-in function that <a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">coerces data into a string</a>.  But a <tt class="literal">docstring</tt> is always a string, so why bother with the <tt class="function">str</tt> function?  The answer is that not every function has a <tt class="literal">docstring</tt>, and if it doesn't, its <tt class="literal">__doc__</tt> attribute is <tt class="literal">None</tt>.
          </p>
-<div class="example"><a name="d0e10793"></a><h3 class="title">Example&nbsp;4.23.&nbsp;Why Use <tt class="function">str</tt> on a <tt class="literal">doc string</tt>?
+<div class="example"><a name="d0e10793"></a><h3 class="title">Example&nbsp;4.23.&nbsp;Why Use <tt class="function">str</tt> on a <tt class="literal">docstring</tt>?
             </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">&gt;&gt;&gt; <span class="pykeyword">def</span><span class="pyclass"> foo</span>(): <span class="pykeyword">print</span> 2</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">&gt;&gt;&gt; foo()</span>
 <span class="computeroutput">2</span>
@@ -129,7 +129,7 @@ for</span> method <span class="pykeyword">in</span> methodList</pre><p>shows tha
 <tr>
 <td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/all_together.html#apihelper.alltogether.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">You can easily define a function that has no <tt class="literal">doc string</tt>, so its <tt class="literal">__doc__</tt> attribute is <tt class="literal">None</tt>.  Confusingly, if you evaluate the <tt class="literal">__doc__</tt> attribute directly, the <span class="application">Python</span> <span class="acronym">IDE</span> prints nothing at all, which makes sense if you think about it, but is still unhelpful.
+<td valign="top" align="left">You can easily define a function that has no <tt class="literal">docstring</tt>, so its <tt class="literal">__doc__</tt> attribute is <tt class="literal">None</tt>.  Confusingly, if you evaluate the <tt class="literal">__doc__</tt> attribute directly, the <span class="application">Python</span> <span class="acronym">IDE</span> prints nothing at all, which makes sense if you think about it, but is still unhelpful.
                      </td>
 </tr>
 <tr>
@@ -168,7 +168,7 @@ for</span> method <span class="pykeyword">in</span> methodList</pre><p>shows tha
 <tr>
 <td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/all_together.html#apihelper.alltogether.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left"><tt class="function">ljust</tt> pads the string with spaces to the given length.  This is what the <tt class="function">info</tt> function uses to make two columns of output and line up all the <tt class="literal">doc string</tt>s in the second column.
+<td valign="top" align="left"><tt class="function">ljust</tt> pads the string with spaces to the given length.  This is what the <tt class="function">info</tt> function uses to make two columns of output and line up all the <tt class="literal">docstring</tt>s in the second column.
                      </td>
 </tr>
 <tr>
@@ -180,7 +180,7 @@ for</span> method <span class="pykeyword">in</span> methodList</pre><p>shows tha
 </table>
 </div>
 </div>
-<p>You're almost finished.  Given the padded method name from the <tt class="function">ljust</tt> method and the (possibly collapsed) <tt class="literal">doc string</tt> from the call to <tt class="varname">processFunc</tt>, you concatenate the two and get a single string.  Since you're mapping <tt class="varname">methodList</tt>, you end up with a list of strings.  Using the <tt class="function">join</tt> method of the string <tt class="literal">"\n"</tt>, you join this list into a single string, with each element of the list on a separate line, and print the result.
+<p>You're almost finished.  Given the padded method name from the <tt class="function">ljust</tt> method and the (possibly collapsed) <tt class="literal">docstring</tt> from the call to <tt class="varname">processFunc</tt>, you concatenate the two and get a single string.  Since you're mapping <tt class="varname">methodList</tt>, you end up with a list of strings.  Using the <tt class="function">join</tt> method of the string <tt class="literal">"\n"</tt>, you join this list into a single string, with each element of the list on a separate line, and print the result.
          </p>
 <div class="example"><a name="d0e11026"></a><h3 class="title">Example&nbsp;4.25.&nbsp;Printing a List</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">'a'</span>, <span class="pystring">'b'</span>, <span class="pystring">'c'</span>]</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">print</span> <span class="pystring">"\n"</span>.join(li)</span> <a name="apihelper.alltogether.4.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />

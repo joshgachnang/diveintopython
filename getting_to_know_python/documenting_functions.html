@@ -57,16 +57,16 @@
 <div></div>
 </div>
 <div class="abstract">
-<p>You can document a <span class="application">Python</span> function by giving it a <tt class="literal">doc string</tt>.
+<p>You can document a <span class="application">Python</span> function by giving it a <tt class="literal">docstring</tt>.
             </p>
 </div>
-<div class="example"><a name="odbchelper.triplequotes"></a><h3 class="title">Example&nbsp;2.2.&nbsp;Defining the <tt class="function">buildConnectionString</tt> Function's <tt class="literal">doc string</tt></h3><pre class="programlisting"><span class="pykeyword">
+<div class="example"><a name="odbchelper.triplequotes"></a><h3 class="title">Example&nbsp;2.2.&nbsp;Defining the <tt class="function">buildConnectionString</tt> Function's <tt class="literal">docstring</tt></h3><pre class="programlisting"><span class="pykeyword">
 def</span> buildConnectionString(params):
     <span class="pystring">"""Build a connection string from a dictionary of parameters.
 
     Returns string."""</span></pre><p>Triple quotes signify a multi-line string.  Everything between the start and end quotes is part of a single string, including
                carriage returns and other quote characters.  You can use them anywhere, but you'll see them most often used when defining
-               a <tt class="literal">doc string</tt>.
+               a <tt class="literal">docstring</tt>.
             </p>
 </div><a name="compare.quoting.perl"></a><table class="note" border="0" summary="">
 <tr>
@@ -77,25 +77,25 @@ def</span> buildConnectionString(params):
                </td>
 </tr>
 </table>
-<p>Everything between the triple quotes is the function's <tt class="literal">doc string</tt>, which documents what the function does.  A <tt class="literal">doc string</tt>, if it exists, must be the first thing defined in a function (that is, the first thing after the colon).  You don't technically
-            need to give your function a <tt class="literal">doc string</tt>, but you always should.  I know you've heard this in every programming class you've ever taken, but <span class="application">Python</span> gives you an added incentive: the <tt class="literal">doc string</tt> is available at runtime as an attribute of the function.
+<p>Everything between the triple quotes is the function's <tt class="literal">docstring</tt>, which documents what the function does.  A <tt class="literal">docstring</tt>, if it exists, must be the first thing defined in a function (that is, the first thing after the colon).  You don't technically
+            need to give your function a <tt class="literal">docstring</tt>, but you always should.  I know you've heard this in every programming class you've ever taken, but <span class="application">Python</span> gives you an added incentive: the <tt class="literal">docstring</tt> is available at runtime as an attribute of the function.
          </p><a name="tip.docstring"></a><table class="note" border="0" summary="">
 <tr>
 <td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/note.png" alt="Note" title="" width="24" height="24" /></td>
 </tr>
 <tr>
-<td colspan="2" align="left" valign="top" width="99%">Many <span class="application">Python</span> <span class="acronym">IDE</span>s use the <tt class="literal">doc string</tt> to provide context-sensitive documentation, so that when you type a function name, its <tt class="literal">doc string</tt> appears as a tooltip.  This can be incredibly helpful, but it's only as good as the <tt class="literal">doc string</tt>s you write.
+<td colspan="2" align="left" valign="top" width="99%">Many <span class="application">Python</span> <span class="acronym">IDE</span>s use the <tt class="literal">docstring</tt> to provide context-sensitive documentation, so that when you type a function name, its <tt class="literal">docstring</tt> appears as a tooltip.  This can be incredibly helpful, but it's only as good as the <tt class="literal">docstring</tt>s you write.
                </td>
 </tr>
 </table>
 <div class="furtherreading">
 <h3>Further Reading on Documenting Functions</h3>
 <ul>
-<li><a href="http://www.diveintopython.net/peps/pep-0257.html">PEP 257</a> defines <tt class="literal">doc string</tt> conventions.
+<li><a href="http://www.diveintopython.net/peps/pep-0257.html">PEP 257</a> defines <tt class="literal">docstring</tt> conventions.
                </li>
-<li><a href="http://www.diveintopython.net/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> discusses how to write a good <tt class="literal">doc string</tt>.
+<li><a href="http://www.diveintopython.net/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> discusses how to write a good <tt class="literal">docstring</tt>.
                </li>
-<li><a href="http://www.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discusses conventions for <a href="http://www.diveintopython.net/doc/current/tut/node6.html#SECTION006750000000000000000">spacing in <tt class="literal">doc string</tt>s</a>.
+<li><a href="http://www.diveintopython.net/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discusses conventions for <a href="http://www.diveintopython.net/doc/current/tut/node6.html#SECTION006750000000000000000">spacing in <tt class="literal">docstring</tt>s</a>.
                </li>
 </ul>
 </div>
