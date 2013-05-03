@@ -161,7 +161,7 @@ Flingjingwaller F452 37.5845122774</span>
 <p>This is <tt class="filename">soundex/stage1/soundex1e.py</tt>:
          </p>
 <div class="informalexample"><pre class="programlisting">
-    <span class="pykeyword">if</span> (<span class="pykeyword">not</span> source) <span class="pykeyword">and</span> (<span class="pykeyword">not</span> source.isalpha()):
+    <span class="pykeyword">if</span> (<span class="pykeyword">not</span> source) <span class="pykeyword">or</span> (<span class="pykeyword">not</span> source.isalpha()):
         <span class="pykeyword">return</span> <span class="pystring">"0000"</span>
 </pre></div>
 <p>How much did we gain by using this specific method in <tt class="filename">soundex1e.py</tt>?  Quite a bit.
@@ -203,7 +203,7 @@ charToSoundex = {<span class="pystring">"A"</span>: <span class="pystring">"9"</
                  <span class="pystring">"Z"</span>: <span class="pystring">"2"</span>}
 
 <span class="pykeyword">def</span><span class="pyclass"> soundex</span>(source):
-    <span class="pykeyword">if</span> (<span class="pykeyword">not</span> source) <span class="pykeyword">and</span> (<span class="pykeyword">not</span> source.isalpha()):
+    <span class="pykeyword">if</span> (<span class="pykeyword">not</span> source) <span class="pykeyword">or</span> (<span class="pykeyword">not</span> source.isalpha()):
         <span class="pykeyword">return</span> <span class="pystring">"0000"</span>
     source = source[0].upper() + source[1:]
     digits = source[0]
