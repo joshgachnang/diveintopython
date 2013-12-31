@@ -1,0 +1,138 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;13.&nbsp;Unit Testing</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../soap_web_services/summary.html" title="12.9.&nbsp;Summary">
+      <link rel="next" href="diving_in.html" title="13.2.&nbsp;Diving in">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Unit Testing</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../soap_web_services/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="diving_in.html" title="Next: &#8220;Diving in&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman"></a>Chapter&nbsp;13.&nbsp;Unit Testing
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#roman.intro">13.1. Introduction to Roman numerals</a></span></li>
+               <li><span class="section"><a href="diving_in.html">13.2. Diving in</a></span></li>
+               <li><span class="section"><a href="romantest.html">13.3. Introducing romantest.py</a></span></li>
+               <li><span class="section"><a href="testing_for_success.html">13.4. Testing for success</a></span></li>
+               <li><span class="section"><a href="testing_for_failure.html">13.5. Testing for failure</a></span></li>
+               <li><span class="section"><a href="testing_for_sanity.html">13.6. Testing for sanity</a></span></li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="roman.intro"></a>13.1.&nbsp;Introduction to Roman numerals
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>In previous chapters, you &#8220;<span class="quote">dived in</span>&#8221; by immediately looking at code and trying to understand it as quickly as possible.  Now that you have some <span class="application">Python</span> under your belt, you're going to step back and look at the steps that happen <span class="emphasis"><em>before</em></span> the code gets written.
+               </p>
+            </div>
+            <p>In the next few chapters, you're going to write, debug, and optimize a set of utility functions to convert to and from Roman
+               numerals.  You saw the mechanics of constructing and validating Roman numerals in <a href="../regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">Section&nbsp;7.3, &#8220;Case Study: Roman Numerals&#8221;</a>, but now let's step back and consider what it would take to expand that into a two-way utility.
+            </p>
+            <p><a href="../regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">The rules for Roman numerals</a> lead to a number of interesting observations:
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>There is only one correct way to represent a particular number as Roman numerals.</li>
+                  <li>The converse is also true: if a string of characters is a valid Roman numeral, it represents only one number (<span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> it can only be read one way).
+                  </li>
+                  <li>There is a limited range of numbers that can be expressed as Roman numerals, specifically <tt class="literal">1</tt> through <tt class="literal">3999</tt>.  (The Romans did have several ways of expressing larger numbers, for instance by having a bar over a numeral to represent
+                     that its normal value should be multiplied by <tt class="literal">1000</tt>, but you're not going to deal with that.  For the purposes of this chapter, let's stipulate that Roman numerals go from <tt class="literal">1</tt> to <tt class="literal">3999</tt>.)
+                  </li>
+                  <li>There is no way to represent <tt class="constant">0</tt> in Roman numerals.  (Amazingly, the ancient Romans had no concept of <tt class="constant">0</tt> as a number.  Numbers were for counting things you had; how can you count what you don't have?)
+                  </li>
+                  <li>There is no way to represent negative numbers in Roman numerals.</li>
+                  <li>There is no way to represent fractions or non-integer numbers in Roman numerals.</li>
+               </ol>
+            </div>
+            <p>Given all of this, what would you expect out of a set of functions to convert to and from Roman numerals?</p>
+            <div class="orderedlist"><a name="roman.requirements"></a><h3 class="title"><tt class="filename">roman.py</tt> requirements
+               </h3>
+               <ol type="1">
+                  <li><tt class="function">toRoman</tt> should return the Roman numeral representation for all integers <tt class="constant">1</tt> to <tt class="literal">3999</tt>.
+                  </li>
+                  <li><tt class="function">toRoman</tt> should fail when given an integer outside the range <tt class="constant">1</tt> to <tt class="literal">3999</tt>.
+                  </li>
+                  <li><tt class="function">toRoman</tt> should fail when given a non-integer number.
+                  </li>
+                  <li><tt class="function">fromRoman</tt> should take a valid Roman numeral and return the number that it represents.
+                  </li>
+                  <li><tt class="function">fromRoman</tt> should fail when given an invalid Roman numeral.
+                  </li>
+                  <li>If you take a number, convert it to Roman numerals, then convert that back to a number, you should end up with the number
+                     you started with.  So <tt class="literal">fromRoman(toRoman(n)) == n</tt> for all <tt class="varname">n</tt> in <tt class="literal">1..3999</tt>.
+                  </li>
+                  <li><tt class="function">toRoman</tt> should always return a Roman numeral using uppercase letters.
+                  </li>
+                  <li><tt class="function">fromRoman</tt> should only accept uppercase Roman numerals (<span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> it should fail when given lowercase input).
+                  </li>
+               </ol>
+            </div>
+            <div class="furtherreading">
+               <h3>Further reading</h3>
+               <ul>
+                  <li><a href="http://www.wilkiecollins.demon.co.uk/roman/front.htm">This site</a> has more on Roman numerals, including a fascinating <a href="http://www.wilkiecollins.demon.co.uk/roman/intro.htm">history</a> of how Romans and other civilizations really used them (short answer: haphazardly and inconsistently).
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../soap_web_services/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="diving_in.html" title="13.2.&nbsp;Diving in">2</a> <span class="divider">|</span> <a href="romantest.html" title="13.3.&nbsp;Introducing romantest.py">3</a> <span class="divider">|</span> <a href="testing_for_success.html" title="13.4.&nbsp;Testing for success">4</a> <span class="divider">|</span> <a href="testing_for_failure.html" title="13.5.&nbsp;Testing for failure">5</a> <span class="divider">|</span> <a href="testing_for_sanity.html" title="13.6.&nbsp;Testing for sanity">6</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="diving_in.html">Diving in&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

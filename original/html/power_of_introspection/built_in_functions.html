@@ -1,0 +1,322 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>4.3.&nbsp;Using type, str, dir, and Other Built-In Functions</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;4.&nbsp;The Power Of Introspection">
+      <link rel="previous" href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">
+      <link rel="next" href="getattr.html" title="4.4.&nbsp;Getting Object References With getattr">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">The Power Of Introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">Using type, str, dir, and Other Built-In Functions</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="optional_arguments.html" title="Prev: &#8220;Using Optional and Named Arguments&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="getattr.html" title="Next: &#8220;Getting Object References With getattr&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="apihelper.builtin"></a>4.3.&nbsp;Using <tt class="function">type</tt>, <tt class="function">str</tt>, <tt class="function">dir</tt>, and Other Built-In Functions
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="built_in_functions.html#d0e8510">4.3.1. The type Function</a></span></li>
+               <li><span class="section"><a href="built_in_functions.html#d0e8609">4.3.2. The str Function</a></span></li>
+               <li><span class="section"><a href="built_in_functions.html#d0e8958">4.3.3. Built-In Functions</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Python</span> has a small set of extremely useful built-in functions.  All other functions are partitioned off into modules.  This was
+               actually a conscious design decision, to keep the core language from getting bloated like other scripting languages (cough
+               cough, <span class="application">Visual Basic</span>).
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e8510"></a>4.3.1.&nbsp;The <tt class="function">type</tt> Function
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>The <tt class="function">type</tt> function returns the datatype of any arbitrary object.  The possible types are listed in the <tt class="filename">types</tt> module.  This is useful for helper functions that can handle several types of data.
+            </p>
+            <div class="example"><a name="apihelper.type.intro"></a><h3 class="title">Example&nbsp;4.5.&nbsp;Introducing <tt class="function">type</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">type(1)</span>           <a name="apihelper.builtin.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;type 'int'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">type(li)</span>          <a name="apihelper.builtin.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;type 'list'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> odbchelper</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">type(odbchelper)</span>  <a name="apihelper.builtin.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;type 'module'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> types</span>      <a name="apihelper.builtin.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">type(odbchelper) == types.ModuleType</span>
+<span class="computeroutput">True</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">type</tt> takes anything -- and I mean anything -- and returns its datatype.  Integers, strings, lists, dictionaries, tuples, functions,
+                           classes, modules, even types are acceptable.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">type</tt> can take a variable and return its datatype.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">type</tt> also works on modules.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You can use the constants in the <tt class="filename">types</tt> module to compare types of objects.  This is what the <tt class="function">info</tt> function does, as you'll see shortly.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e8609"></a>4.3.2.&nbsp;The <tt class="function">str</tt> Function
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>The <tt class="function">str</tt> coerces data into a string.  Every datatype can be coerced into a string.
+            </p>
+            <div class="example"><a name="apihelper.str.intro"></a><h3 class="title">Example&nbsp;4.6.&nbsp;Introducing <tt class="function">str</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">str(1)</span>          <a name="apihelper.builtin.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'1'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">horsemen = [<span class='pystring'>'war'</span>, <span class='pystring'>'pestilence'</span>, <span class='pystring'>'famine'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">horsemen</span>
+<span class="computeroutput">['war', 'pestilence', 'famine']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">horsemen.append('<span class="application">Powerbuilder</span>')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">str(horsemen)</span>   <a name="apihelper.builtin.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">"['war', 'pestilence', 'famine', '<span class="application">Powerbuilder</span>']"</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">str(odbchelper)</span> <a name="apihelper.builtin.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">"&lt;module 'odbchelper' from 'c:\\docbook\\dip\\py\\odbchelper.py'&gt;"</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">str(None)</span>       <a name="apihelper.builtin.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'None'</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">For simple datatypes like integers, you would expect <tt class="function">str</tt> to work, because almost every language has a function to convert an integer to a string.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">However, <tt class="function">str</tt> works on any object of any type.  Here it works on a list which you've constructed in bits and pieces.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">str</tt> also works on modules.  Note that the string representation of the module includes the pathname of the module on disk, so
+                           yours will be different.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">A subtle but important behavior of <tt class="function">str</tt> is that it works on <tt class="literal">None</tt>, the <span class="application">Python</span> null value.  It returns the string <tt class="literal">'None'</tt>.  You'll use this to your advantage in the <tt class="function">info</tt> function, as you'll see shortly.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>At the heart of the <tt class="function">info</tt> function is the powerful <tt class="function">dir</tt> function.  <tt class="function">dir</tt> returns a list of the attributes and methods of any object: modules, functions, strings, lists, dictionaries... pretty much
+               anything.
+            </p>
+            <div class="example"><a name="apihelper.dir.intro"></a><h3 class="title">Example&nbsp;4.7.&nbsp;Introducing <tt class="function">dir</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">dir(li)</span>           <a name="apihelper.builtin.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['append', 'count', 'extend', 'index', 'insert',
+'pop', 'remove', 'reverse', 'sort']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">d = {}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">dir(d)</span>            <a name="apihelper.builtin.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['clear', 'copy', 'get', 'has_key', 'items', 'keys', 'setdefault', 'update', 'values']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> odbchelper</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">dir(odbchelper)</span>   <a name="apihelper.builtin.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['__builtins__', '__doc__', '__file__', '__name__', 'buildConnectionString']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="varname">li</tt> is a list, so <tt class="literal"><tt class="function">dir</tt>(<tt class="varname">li</tt>)</tt> returns a list of all the methods of a list.  Note that the returned list contains the names of the methods as strings, not
+                           the methods themselves.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="varname">d</tt> is a dictionary, so <tt class="literal"><tt class="function">dir</tt>(<tt class="varname">d</tt>)</tt> returns a list of the names of dictionary methods.  At least one of these, <a href="../native_data_types/mapping_lists.html#odbchelper.items" title="Example&nbsp;3.25.&nbsp;The keys, values, and items Functions"><tt class="function">keys</tt></a>, should look familiar.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This is where it really gets interesting. <tt class="filename">odbchelper</tt> is a module, so <tt class="literal"><tt class="function">dir</tt>(<tt class="filename">odbchelper</tt>)</tt> returns a list of all kinds of stuff defined in the module, including built-in attributes, like <a href="../getting_to_know_python/testing_modules.html#odbchelper.ifnametrick"><tt class="literal">__name__</tt></a>, <a href="../getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&nbsp;2.3.&nbsp;Accessing the buildConnectionString Function's doc string"><tt class="literal">__doc__</tt></a>, and whatever other attributes and methods you define.  In this case, <tt class="filename">odbchelper</tt> has only one user-defined method, the <tt class="function">buildConnectionString</tt> function described in <a href="../getting_to_know_python/index.html">Chapter 2</a>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Finally, the <tt class="function">callable</tt> function takes any object and returns <tt class="constant">True</tt> if the object can be called, or <tt class="constant">False</tt> otherwise.  Callable objects include functions, class methods, even classes themselves.  (More on classes in the next chapter.)
+            </p>
+            <div class="example"><a name="apihelper.builtin.callable"></a><h3 class="title">Example&nbsp;4.8.&nbsp;Introducing <tt class="function">callable</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> string</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">string.punctuation</span>           <a name="apihelper.builtin.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'!"#$%&amp;\'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">string.join</span>                  <a name="apihelper.builtin.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;function join at 00C55A7C&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callable(string.punctuation)</span> <a name="apihelper.builtin.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">False</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callable(string.join)</span>        <a name="apihelper.builtin.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">True</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> string.join.__doc__</span>    <a name="apihelper.builtin.4.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">join(list [,sep]) -&gt; string
+
+    Return a string composed of the words in list, with
+    intervening occurrences of sep.  The default separator is a
+    single space.
+
+    (joinfields and join are synonymous)</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The functions in the <tt class="filename">string</tt> module are deprecated (although many people still use the <tt class="function">join</tt> function), but the module contains a lot of useful constants like this <tt class="varname">string.punctuation</tt>, which contains all the standard punctuation characters.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><a href="../native_data_types/joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings"><tt class="function">string.join</tt></a> is a function that joins a list of strings.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="varname">string.punctuation</tt> is not callable; it is a string.  (A string does have callable methods, but the string itself is not callable.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">string.join</tt> is callable; it's a function that takes two arguments.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.builtin.4.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Any callable object may have a <tt class="literal">doc string</tt>.  By using the <tt class="function">callable</tt> function on each of an object's attributes, you can determine which attributes you care about (methods, functions, classes)
+                           and which you want to ignore (constants and so on) without knowing anything about the object ahead of time.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e8958"></a>4.3.3.&nbsp;Built-In Functions
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p><tt class="function">type</tt>, <tt class="function">str</tt>, <tt class="function">dir</tt>, and all the rest of <span class="application">Python</span>'s built-in functions are grouped into a special module called <tt class="filename">__builtin__</tt>.  (That's two underscores before and after.)  If it helps, you can think of <span class="application">Python</span> automatically executing <tt class="literal">from __builtin__ import *</tt> on startup, which imports all the &#8220;<span class="quote">built-in</span>&#8221; functions into the namespace so you can use them directly.
+            </p>
+            <p>The advantage of thinking like this is that you can access all the built-in functions and attributes as a group by getting
+               information about the <tt class="filename">__builtin__</tt> module.  And guess what, <span class="application">Python</span> has a function called <tt class="function">info</tt>.  Try it yourself and skim through the list now.  We'll dive into some of the more important functions later.  (Some of the
+               built-in error classes, like <a href="../native_data_types/tuples.html#odbchelper.tuplemethods" title="Example&nbsp;3.16.&nbsp;Tuples Have No Methods"><tt class="errorcode">AttributeError</tt></a>, should already look familiar.)
+            </p>
+            <div class="example"><a name="apihelper.builtin.list"></a><h3 class="title">Example&nbsp;4.9.&nbsp;Built-in Attributes and Functions</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> apihelper <span class='pykeyword'>import</span> info</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> __builtin__</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">info(__builtin__, 20)</span>
+<span class="computeroutput">ArithmeticError      Base class for arithmetic errors.
+AssertionError       Assertion failed.
+AttributeError       Attribute not found.
+EOFError             Read beyond end of file.
+EnvironmentError     Base class for I/O related errors.
+Exception            Common base class for all exceptions.
+FloatingPointError   Floating point operation failed.
+IOError              I/O operation failed.
+
+[...snip...]</span></pre></div><a name="tip.manuals"></a><table class="note" border="0" summary="">
+               <tr>
+                  <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> comes with excellent reference manuals, which you should peruse thoroughly to learn all the modules <span class="application">Python</span> has to offer.  But unlike most languages, where you would find yourself referring back to the manuals or man pages to remind
+                     yourself how to use these modules, <span class="application">Python</span> is largely self-documenting.
+                  </td>
+               </tr>
+            </table>
+            <div class="furtherreading">
+               <h3>Further Reading on Built-In Functions</h3>
+               <ul>
+                  <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents <a href="http://www.python.org/doc/current/lib/built-in-funcs.html">all the built-in functions</a> and <a href="http://www.python.org/doc/current/lib/module-exceptions.html">all the built-in exceptions</a>.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="optional_arguments.html">&lt;&lt;&nbsp;Using Optional and Named Arguments</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#apihelper.divein" title="4.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="getattr.html" title="4.4.&nbsp;Getting Object References With getattr">4</a> <span class="divider">|</span> <a href="filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <a href="and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">6</a> <span class="divider">|</span> <a href="lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">7</a> <span class="divider">|</span> <a href="all_together.html" title="4.8.&nbsp;Putting It All Together">8</a> <span class="divider">|</span> <a href="summary.html" title="4.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="getattr.html">Getting Object References With getattr&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

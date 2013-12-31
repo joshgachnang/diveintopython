@@ -1,0 +1,150 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>11.4.&nbsp;Debugging HTTP web services</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;11.&nbsp;HTTP Web Services">
+      <link rel="previous" href="http_features.html" title="11.3.&nbsp;Features of HTTP">
+      <link rel="next" href="user_agent.html" title="11.5.&nbsp;Setting the User-Agent">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Debugging HTTP web services</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http_features.html" title="Prev: &#8220;Features of HTTP&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="user_agent.html" title="Next: &#8220;Setting the User-Agent&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="oa.debug"></a>11.4.&nbsp;Debugging HTTP web services
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>First, let's turn on the debugging features of <span class="application">Python</span>'s HTTP library and see what's being sent over the wire.  This will be useful throughout the chapter, as you add more and
+               more features.
+            </p>
+         </div>
+         <div class="example"><a name="d0e27789"></a><h3 class="title">Example&nbsp;11.3.&nbsp;Debugging HTTP</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> httplib</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">httplib.HTTPConnection.debuglevel = 1</span>             <a name="oa.debug.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">feeddata = urllib.urlopen(<span class='pystring'>'http://diveintomark.org/xml/atom.xml'</span>).read()</span>
+<span class="computeroutput">connect: (diveintomark.org, 80)</span>                       <a name="oa.debug.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">send: '</span>
+<span class="computeroutput">GET /xml/atom.xml HTTP/1.0</span>                            <a name="oa.debug.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">Host: diveintomark.org</span>                                <a name="oa.debug.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">User-agent: Python-urllib/1.15</span>                        <a name="oa.debug.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">'</span>
+<span class="computeroutput">reply: 'HTTP/1.1 200 OK\r\n'</span>                          <a name="oa.debug.1.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+<span class="computeroutput">header: Date: Wed, 14 Apr 2004 22:27:30 GMT</span>
+<span class="computeroutput">header: Server: Apache/2.0.49 (Debian GNU/Linux)</span>
+<span class="computeroutput">header: Content-Type: application/atom+xml</span>
+<span class="computeroutput">header: Last-Modified: Wed, 14 Apr 2004 22:14:38 GMT</span>  <a name="oa.debug.1.7"></a><img src="../images/callouts/7.png" alt="7" border="0" width="12" height="12">
+<span class="computeroutput">header: ETag: "e8284-68e0-4de30f80"</span>                   <a name="oa.debug.1.8"></a><img src="../images/callouts/8.png" alt="8" border="0" width="12" height="12">
+<span class="computeroutput">header: Accept-Ranges: bytes</span>
+<span class="computeroutput">header: Content-Length: 26848</span>
+<span class="computeroutput">header: Connection: close</span>
+</pre></div>
+         <div class="calloutlist">
+            <table border="0" summary="Callout list">
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#oa.debug.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left"><tt class="filename">urllib</tt> relies on another standard <span class="application">Python</span> library, <tt class="filename">httplib</tt>.  Normally you don't need to <tt class="literal">import httplib</tt> directly (<tt class="filename">urllib</tt> does that automatically), but you will here so you can set the debugging flag on the <tt class="classname">HTTPConnection</tt> class that <tt class="filename">urllib</tt> uses internally to connect to the HTTP server.  This is an incredibly useful technique.  Some other <span class="application">Python</span> libraries have similar debug flags, but there's no particular standard for naming them or turning them on; you need to read
+                     the documentation of each library to see if such a feature is available.
+                  </td>
+               </tr>
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#oa.debug.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">Now that the debugging flag is set, information on the the HTTP request and response is printed out in real time.  The first
+                     thing it tells you is that you're connecting to the server <tt class="literal">diveintomark.org</tt> on port 80, which is the standard port for HTTP.
+                  </td>
+               </tr>
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#oa.debug.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">When you request the Atom feed, <tt class="filename">urllib</tt> sends three lines to the server.  The first line specifies the HTTP verb you're using, and the path of the resource (minus
+                     the domain name).  All the requests in this chapter will use <tt class="literal">GET</tt>, but in the next chapter on <span class="acronym">SOAP</span>, you'll see that it uses <tt class="literal">POST</tt> for everything.  The basic syntax is the same, regardless of the verb.
+                  </td>
+               </tr>
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#oa.debug.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">The second line is the <tt class="literal">Host</tt> header, which specifies the domain name of the service you're accessing.  This is important, because a single HTTP server
+                     can host multiple separate domains.  My server currently hosts 12 domains; other servers can host hundreds or even thousands.
+                  </td>
+               </tr>
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#oa.debug.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">The third line is the <tt class="literal">User-Agent</tt> header.  What you see here is the generic <tt class="literal">User-Agent</tt> that the <tt class="filename">urllib</tt> library adds by default.  In the next section, you'll see how to customize this to be more specific.
+                  </td>
+               </tr>
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#oa.debug.1.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">The server replies with a status code and a bunch of headers (and possibly some data, which got stored in the <tt class="varname">feeddata</tt> variable).  The status code here is <tt class="literal">200</tt>, meaning &#8220;<span class="quote">everything's normal, here's the data you requested</span>&#8221;.  The server also tells you the date it responded to your request, some information about the server itself, and the content
+                     type of the data it's giving you.  Depending on your application, this might be useful, or not.  It's certainly reassuring
+                     that you thought you were asking for an Atom feed, and lo and behold, you're getting an Atom feed (<tt class="literal">application/atom+xml</tt>, which is the registered content type for Atom feeds).
+                  </td>
+               </tr>
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#oa.debug.1.7"><img src="../images/callouts/7.png" alt="7" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">The server tells you when this Atom feed was last modified (in this case, about 13 minutes ago).  You can send this date back
+                     to the server the next time you request the same feed, and the server can do last-modified checking.
+                  </td>
+               </tr>
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#oa.debug.1.8"><img src="../images/callouts/8.png" alt="8" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">The server also tells you that this Atom feed has an ETag hash of <tt class="literal">"e8284-68e0-4de30f80"</tt>.  The hash doesn't mean anything by itself; there's nothing you can do with it, except send it back to the server the next
+                     time you request this same feed.  Then the server can use it to tell you if the data has changed or not.
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="http_features.html">&lt;&lt;&nbsp;Features of HTTP</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="user_agent.html">Setting the User-Agent&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

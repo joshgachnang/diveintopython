@@ -1,0 +1,320 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>15.3.&nbsp;Refactoring</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;15.&nbsp;Refactoring">
+      <link rel="previous" href="handling_changing_requirements.html" title="15.2.&nbsp;Handling changing requirements">
+      <link rel="next" href="postscript.html" title="15.4.&nbsp;Postscript">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Refactoring</a>&nbsp;&gt;&nbsp;<span class="thispage">Refactoring</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="handling_changing_requirements.html" title="Prev: &#8220;Handling changing requirements&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="postscript.html" title="Next: &#8220;Postscript&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.refactoring"></a>15.3.&nbsp;Refactoring
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The best thing about comprehensive unit testing is not the feeling you get when all your test cases finally pass, or even
+               the feeling you get when someone else blames you for breaking their code and you can actually <span class="emphasis"><em>prove</em></span> that you didn't.  The best thing about unit testing is that it gives you the freedom to refactor mercilessly.
+            </p>
+         </div>
+         <p>Refactoring is the process of taking working code and making it work better.  Usually, &#8220;<span class="quote">better</span>&#8221; means &#8220;<span class="quote">faster</span>&#8221;, although it can also mean &#8220;<span class="quote">using less memory</span>&#8221;, or &#8220;<span class="quote">using less disk space</span>&#8221;, or simply &#8220;<span class="quote">more elegantly</span>&#8221;.  Whatever it means to you, to your project, in your environment, refactoring is important to the long-term health of any
+            program.
+         </p>
+         <p>Here, &#8220;<span class="quote">better</span>&#8221; means &#8220;<span class="quote">faster</span>&#8221;.  Specifically, the <tt class="function">fromRoman</tt> function is slower than it needs to be, because of that big nasty regular expression that you use to validate Roman numerals.
+             It's probably not worth trying to do away with the regular expression altogether (it would be difficult, and it might not
+            end up any faster), but you can speed up the function by precompiling the regular expression.
+         </p>
+         <div class="example"><a name="d0e34647"></a><h3 class="title">Example&nbsp;15.10.&nbsp;Compiling regular expressions</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'M'</span>)</span>               <a name="roman.refactoring.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 01090490&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compiledPattern = re.compile(pattern)</span> <a name="roman.refactoring.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compiledPattern</span>
+<span class="computeroutput">&lt;SRE_Pattern object at 00F06E28&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">dir(compiledPattern)</span>                  <a name="roman.refactoring.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['findall', 'match', 'scanner', 'search', 'split', 'sub', 'subn']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">compiledPattern.search(<span class='pystring'>'M'</span>)</span>           <a name="roman.refactoring.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 01104928&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the syntax you've seen before: <tt class="function">re.search</tt> takes a regular expression as a string (<tt class="varname">pattern</tt>) and a string to match against it (<tt class="literal">'M'</tt>).  If the pattern matches, the function returns a match object which can be queried to find out exactly what matched and
+                        how.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the new syntax: <tt class="function">re.compile</tt> takes a regular expression as a string and returns a pattern object.  Note there is no string to match here.  Compiling a
+                        regular expression has nothing to do with matching it against any specific strings (like <tt class="literal">'M'</tt>); it only involves the regular expression itself.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The compiled pattern object returned from <tt class="function">re.compile</tt> has several useful-looking functions, including several (like <tt class="function">search</tt> and <tt class="function">sub</tt>) that are available directly in the <tt class="filename">re</tt> module.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Calling the compiled pattern object's <tt class="function">search</tt> function with the string <tt class="literal">'M'</tt> accomplishes the same thing as calling <tt class="function">re.search</tt> with both the regular expression and the string <tt class="literal">'M'</tt>.  Only much, much faster.  (In fact, the <tt class="function">re.search</tt> function simply compiles the regular expression and calls the resulting pattern object's <tt class="function">search</tt> method for you.)
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e34764"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Whenever you are going to use a regular expression more than once, you should compile it to get a pattern object, then call
+                  the methods on the pattern object directly.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="d0e34769"></a><h3 class="title">Example&nbsp;15.11.&nbsp;Compiled regular expressions in <tt class="filename">roman81.py</tt></h3>
+            <p>This file is available in <tt class="filename">py/roman/stage8/</tt> in the examples directory.
+            </p>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pycomment'># toRoman and rest of module omitted for clarity</span>
+
+romanNumeralPattern = \
+    re.compile(<span class='pystring'>'^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span>) <a name="roman.refactoring.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+
+<span class='pykeyword'>def</span><span class='pyclass'> fromRoman</span>(s):
+    <span class='pystring'>"""convert Roman numeral to integer"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> s:
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>'Input can not be blank'</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> romanNumeralPattern.search(s):                                    <a name="roman.refactoring.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>'Invalid Roman numeral: %s'</span> % s
+
+    result = 0
+    index = 0
+    <span class='pykeyword'>for</span> numeral, integer <span class='pykeyword'>in</span> romanNumeralMap:
+        <span class='pykeyword'>while</span> s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    <span class='pykeyword'>return</span> result
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This looks very similar, but in fact a lot has changed.  <tt class="varname">romanNumeralPattern</tt> is no longer a string; it is a pattern object which was returned from <tt class="function">re.compile</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">That means that you can call methods on <tt class="varname">romanNumeralPattern</tt> directly.  This will be much, much faster than calling <tt class="function">re.search</tt> every time.  The regular expression is compiled once and stored in <tt class="varname">romanNumeralPattern</tt> when the module is first imported; then, every time you call <tt class="function">fromRoman</tt>, you can immediately match the input string against the regular expression, without any intermediate steps occurring under
+                        the covers.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So how much faster is it to compile regular expressions?  See for yourself:</p>
+         <div class="example"><a name="roman.stage8.1.output"></a><h3 class="title">Example&nbsp;15.12.&nbsp;Output of <tt class="filename">romantest81.py</tt> against <tt class="filename">roman81.py</tt></h3><pre class="screen"><span class="computeroutput">.............          </span><a name="roman.refactoring.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 13 tests in 3.385s </span><a name="roman.refactoring.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"><span class="computeroutput">
+
+OK</span>                     <a name="roman.refactoring.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Just a note in passing here: this time, I ran the unit test <span class="emphasis"><em>without</em></span> the <tt class="option">-v</tt> option, so instead of the full <tt class="literal">doc string</tt> for each test, you only get a dot for each test that passes.  (If a test failed, you'd get an <tt class="literal">F</tt>, and if it had an error, you'd get an <tt class="literal">E</tt>.  You'd still get complete tracebacks for each failure and error, so you could track down any problems.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You ran <tt class="literal">13</tt> tests in <tt class="literal">3.385</tt> seconds, compared to <a href="handling_changing_requirements.html#roman.roman72.output" title="Example&nbsp;15.9.&nbsp;Output of romantest72.py against roman72.py"><tt class="literal">3.685</tt> seconds</a> without precompiling the regular expressions.  That's an <tt class="literal">8%</tt> improvement overall, and remember that most of the time spent during the unit test is spent doing other things.  (Separately,
+                        I time-tested the regular expressions by themselves, apart from the rest of the unit tests, and found that compiling this
+                        regular expression speeds up the <tt class="function">search</tt> by an average of <tt class="literal">54%</tt>.)  Not bad for such a simple fix.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Oh, and in case you were wondering, precompiling the regular expression didn't break anything, and you just proved it.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>There is one other performance optimization that I want to try.  Given the complexity of regular expression syntax, it should
+            come as no surprise that there is frequently more than one way to write the same expression.  After some discussion about
+            this module on <a href="http://groups.google.com/groups?group=comp.lang.python">comp.lang.python</a>, someone suggested that I try using the <tt class="literal">{<i class="replaceable">m</i>,<i class="replaceable">n</i>}</tt> syntax for the optional repeated characters.
+         </p>
+         <div class="example"><a name="d0e34895"></a><h3 class="title">Example&nbsp;15.13.&nbsp;<tt class="filename">roman82.py</tt></h3>
+            <p>This file is available in <tt class="filename">py/roman/stage8/</tt> in the examples directory.
+            </p>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pycomment'># rest of program omitted for clarity</span>
+
+<span class='pycomment'>#old version</span>
+<span class='pycomment'>#romanNumeralPattern = \</span>
+<span class='pycomment'>#   re.compile('^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$')</span>
+
+<span class='pycomment'>#new version</span>
+romanNumeralPattern = \
+    re.compile(<span class='pystring'>'^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$'</span>) <a name="roman.refactoring.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You have replaced <tt class="literal">M?M?M?M?</tt> with <tt class="literal">M{0,4}</tt>.  Both mean the same thing: &#8220;<span class="quote">match 0 to 4 <tt class="literal">M</tt> characters</span>&#8221;.  Similarly, <tt class="literal">C?C?C?</tt> became <tt class="literal">C{0,3}</tt> (&#8220;<span class="quote">match 0 to 3 <tt class="literal">C</tt> characters</span>&#8221;) and so forth for <tt class="literal">X</tt> and <tt class="literal">I</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>This form of the regular expression is a little shorter (though not any more readable).  The big question is, is it any faster?</p>
+         <div class="example"><a name="d0e34949"></a><h3 class="title">Example&nbsp;15.14.&nbsp;Output of <tt class="filename">romantest82.py</tt> against <tt class="filename">roman82.py</tt></h3><pre class="screen"><span class="computeroutput">.............
+----------------------------------------------------------------------
+Ran 13 tests in 3.315s </span><a name="roman.refactoring.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+
+OK</span>                     <a name="roman.refactoring.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Overall, the unit tests run 2% faster with this form of regular expression.  That doesn't sound exciting, but remember that
+                        the <tt class="function">search</tt> function is a small part of the overall unit test; most of the time is spent doing other things.  (Separately, I time-tested
+                        just the regular expressions, and found that the <tt class="function">search</tt> function is <tt class="literal">11%</tt> faster with this syntax.)  By precompiling the regular expression and rewriting part of it to use this new syntax, you've
+                        improved the regular expression performance by over <tt class="literal">60%</tt>, and improved the overall performance of the entire unit test by over <tt class="literal">10%</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">More important than any performance boost is the fact that the module still works perfectly.  This is the freedom I was talking
+                        about earlier: the freedom to tweak, change, or rewrite any piece of it and verify that you haven't messed anything up in
+                        the process.  This is not a license to endlessly tweak your code just for the sake of tweaking it; you had a very specific
+                        objective (&#8220;<span class="quote">make <tt class="function">fromRoman</tt> faster</span>&#8221;), and you were able to accomplish that objective without any lingering doubts about whether you introduced new bugs in the
+                        process.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>One other tweak I would like to make, and then I promise I'll stop refactoring and put this module to bed.  As you've seen
+            repeatedly, regular expressions can get pretty hairy and unreadable pretty quickly.  I wouldn't like to come back to this
+            module in six months and try to maintain it.  Sure, the test cases pass, so I know that it works, but if I can't figure out
+            <span class="emphasis"><em>how</em></span> it works, it's still going to be difficult to add new features, fix new bugs, or otherwise maintain it.  As you saw in <a href="../regular_expressions/verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">Section&nbsp;7.5, &#8220;Verbose Regular Expressions&#8221;</a>, <span class="application">Python</span> provides a way to document your logic line-by-line.
+         </p>
+         <div class="example"><a name="d0e35003"></a><h3 class="title">Example&nbsp;15.15.&nbsp;<tt class="filename">roman83.py</tt></h3>
+            <p>This file is available in <tt class="filename">py/roman/stage8/</tt> in the examples directory.
+            </p>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pycomment'># rest of program omitted for clarity</span>
+
+<span class='pycomment'>#old version</span>
+<span class='pycomment'>#romanNumeralPattern = \</span>
+<span class='pycomment'>#   re.compile('^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$')</span>
+
+<span class='pycomment'>#new version</span>
+romanNumeralPattern = re.compile(<span class='pystring'>'''
+    ^                   # beginning of string
+    M{0,4}              # thousands - 0 to 4 M's
+    (CM|CD|D?C{0,3})    # hundreds - 900 (CM), 400 (CD), 0-300 (0 to 3 C's),
+                        #            or 500-800 (D, followed by 0 to 3 C's)
+    (XC|XL|L?X{0,3})    # tens - 90 (XC), 40 (XL), 0-30 (0 to 3 X's),
+                        #        or 50-80 (L, followed by 0 to 3 X's)
+    (IX|IV|V?I{0,3})    # ones - 9 (IX), 4 (IV), 0-3 (0 to 3 I's),
+                        #        or 5-8 (V, followed by 0 to 3 I's)
+    $                   # end of string
+    '''</span>, re.VERBOSE) <a name="roman.refactoring.6.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.6.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">re.compile</tt> function can take an optional second argument, which is a set of one or more flags that control various options about the
+                        compiled regular expression.  Here you're specifying the <tt class="literal">re.VERBOSE</tt> flag, which tells <span class="application">Python</span> that there are in-line comments within the regular expression itself.  The comments and all the whitespace around them are
+                        <span class="emphasis"><em>not</em></span> considered part of the regular expression; the <tt class="function">re.compile</tt> function simply strips them all out when it compiles the expression.  This new, &#8220;<span class="quote">verbose</span>&#8221; version is identical to the old version, but it is infinitely more readable.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e35043"></a><h3 class="title">Example&nbsp;15.16.&nbsp;Output of <tt class="filename">romantest83.py</tt> against <tt class="filename">roman83.py</tt></h3><pre class="screen"><span class="computeroutput">.............
+----------------------------------------------------------------------
+Ran 13 tests in 3.315s </span><a name="roman.refactoring.7.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+
+OK</span>                     <a name="roman.refactoring.7.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.7.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This new, &#8220;<span class="quote">verbose</span>&#8221; version runs at exactly the same speed as the old version.  In fact, the compiled pattern objects are the same, since the
+                        <tt class="function">re.compile</tt> function strips out all the stuff you added.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.refactoring.7.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This new, &#8220;<span class="quote">verbose</span>&#8221; version passes all the same tests as the old version.  Nothing has changed, except that the programmer who comes back to
+                        this module in six months stands a fighting chance of understanding how the function works.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="handling_changing_requirements.html">&lt;&lt;&nbsp;Handling changing requirements</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#roman.bugs" title="15.1.&nbsp;Handling bugs">1</a> <span class="divider">|</span> <a href="handling_changing_requirements.html" title="15.2.&nbsp;Handling changing requirements">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="postscript.html" title="15.4.&nbsp;Postscript">4</a> <span class="divider">|</span> <a href="summary.html" title="15.5.&nbsp;Summary">5</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="postscript.html">Postscript&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,308 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>9.4.&nbsp;Unicode</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;9.&nbsp;XML Processing">
+      <link rel="previous" href="parsing_xml.html" title="9.3.&nbsp;Parsing XML">
+      <link rel="next" href="searching.html" title="9.5.&nbsp;Searching for elements">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">XML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Unicode</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="parsing_xml.html" title="Prev: &#8220;Parsing XML&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="searching.html" title="Next: &#8220;Searching for elements&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.unicode"></a>9.4.&nbsp;Unicode
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Unicode is a system to represent characters from all the world's different languages.  When <span class="application">Python</span> parses an <span class="acronym">XML</span> document, all data is stored in memory as unicode.
+            </p>
+         </div>
+         <p>You'll get to all that in a minute, but first, some background.</p>
+         <p><b>Historical note.&nbsp;</b>Before unicode, there were separate character encoding systems for each language, each using the same numbers (0-255) to represent
+            that language's characters.  Some languages (like Russian) have multiple conflicting standards about how to represent the
+            same characters; other languages (like Japanese) have so many characters that they require multiple-byte character sets. 
+            Exchanging documents between systems was difficult because there was no way for a computer to tell for certain which character
+            encoding scheme the document author had used; the computer only saw numbers, and the numbers could mean different things.
+            Then think about trying to store these documents in the same place (like in the same database table); you would need to store
+            the character encoding alongside each piece of text, and make sure to pass it around whenever you passed the text around.
+             Then think about multilingual documents, with characters from multiple languages in the same document.  (They typically used
+            escape codes to switch modes; poof, you're in Russian koi8-r mode, so character 241 means this; poof, now you're in Mac Greek
+            mode, so character 241 means something else.  And so on.)  These are the problems which unicode was designed to solve.
+         </p>
+         <p>To solve these problems, unicode represents each character as a 2-byte number, from 0 to 65535.<sup>[<a name="d0e23786" href="#ftn.d0e23786">5</a>]</sup>  Each 2-byte number represents a unique character used in at least one of the world's languages.  (Characters that are used
+            in multiple languages have the same numeric code.)  There is exactly 1 number per character, and exactly 1 character per number.
+             Unicode data is never ambiguous.
+         </p>
+         <p>Of course, there is still the matter of all these legacy encoding systems.  7-bit <span class="acronym">ASCII</span>, for instance, which stores English characters as numbers ranging from 0 to 127.  (65 is capital &#8220;<span class="quote"><tt class="literal">A</tt></span>&#8221;, 97 is lowercase &#8220;<span class="quote"><tt class="literal">a</tt></span>&#8221;, and so forth.)  English has a very simple alphabet, so it can be completely expressed in 7-bit <span class="acronym">ASCII</span>.  Western European languages like French, Spanish, and German all use an encoding system called ISO-8859-1 (also called &#8220;<span class="quote">latin-1</span>&#8221;), which uses the 7-bit <span class="acronym">ASCII</span> characters for the numbers 0 through 127, but then extends into the 128-255 range for characters like n-with-a-tilde-over-it
+            (241), and u-with-two-dots-over-it (252).  And unicode uses the same characters as 7-bit <span class="acronym">ASCII</span> for 0 through 127, and the same characters as ISO-8859-1 for 128 through 255, and then extends from there into characters
+            for other languages with the remaining numbers, 256 through 65535.
+         </p>
+         <p>When dealing with unicode data, you may at some point need to convert the data back into one of these other legacy encoding
+            systems.  For instance, to integrate with some other computer system which expects its data in a specific 1-byte encoding
+            scheme, or to print it to a non-unicode-aware terminal or printer.  Or to store it in an <span class="acronym">XML</span> document which explicitly specifies the encoding scheme.
+         </p>
+         <p>And on that note, let's get back to <span class="application">Python</span>.
+         </p>
+         <p><span class="application">Python</span> has had unicode support throughout the language since version 2.0.  The <span class="acronym">XML</span> package uses unicode to store all parsed <span class="acronym">XML</span> data, but you can use unicode anywhere.
+         </p>
+         <div class="example"><a name="d0e23841"></a><h3 class="title">Example&nbsp;9.13.&nbsp;Introducing unicode</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = u<span class='pystring'>'Dive in'</span></span>            <a name="kgp.unicode.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s</span>
+<span class="computeroutput">u'Dive in'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> s</span>                   <a name="kgp.unicode.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">Dive in</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To create a unicode string instead of a regular <span class="acronym">ASCII</span> string, add the letter &#8220;<span class="quote"><tt class="literal">u</tt></span>&#8221; before the string.  Note that this particular string doesn't have any non-<span class="acronym">ASCII</span> characters.  That's fine; unicode is a superset of <span class="acronym">ASCII</span> (a very large superset at that), so any regular <span class="acronym">ASCII</span> string can also be stored as unicode.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">When printing a string, <span class="application">Python</span> will attempt to convert it to your default encoding, which is usually <span class="acronym">ASCII</span>.  (More on this in a minute.)  Since this unicode string is made up of characters that are also <span class="acronym">ASCII</span> characters, printing it has the same result as printing a normal <span class="acronym">ASCII</span> string; the conversion is seamless, and if you didn't know that <tt class="varname">s</tt> was a unicode string, you'd never notice the difference.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e23908"></a><h3 class="title">Example&nbsp;9.14.&nbsp;Storing non-<span class="acronym">ASCII</span> characters
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = u<span class='pystring'>'La Pe\xf1a'</span></span>         <a name="kgp.unicode.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> s</span>                   <a name="kgp.unicode.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+UnicodeError: ASCII encoding error: ordinal not in range(128)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> s.encode(<span class='pystring'>'latin-1'</span>)</span> <a name="kgp.unicode.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">La Pe&ntilde;a</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The real advantage of unicode, of course, is its ability to store non-<span class="acronym">ASCII</span> characters, like the Spanish &#8220;<span class="quote"><tt class="literal">&ntilde;</tt></span>&#8221; (<tt class="literal">n</tt> with a tilde over it).  The unicode character code for the tilde-n is <tt class="literal">0xf1</tt> in hexadecimal (241 in decimal), which you can type like this: <tt class="literal">\xf1</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Remember I said that the <tt class="function">print</tt> function attempts to convert a unicode string to <span class="acronym">ASCII</span> so it can print it?  Well, that's not going to work here, because your unicode string contains non-<span class="acronym">ASCII</span> characters, so <span class="application">Python</span> raises a <tt class="errorname">UnicodeError</tt> error.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Here's where the conversion-from-unicode-to-other-encoding-schemes comes in.  <tt class="varname">s</tt> is a unicode string, but <tt class="function">print</tt> can only print a regular string.  To solve this problem, you call the <tt class="function">encode</tt> method, available on every unicode string, to convert the unicode string to a regular string in the given encoding scheme,
+                        which you pass as a parameter.  In this case, you're using <tt class="literal">latin-1</tt> (also known as <tt class="literal">iso-8859-1</tt>), which includes the tilde-n (whereas the default <span class="acronym">ASCII</span> encoding scheme did not, since it only includes characters numbered 0 through 127).
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Remember I said <span class="application">Python</span> usually converted unicode to <span class="acronym">ASCII</span> whenever it needed to make a regular string out of a unicode string?  Well, this default encoding scheme is an option which
+            you can customize.
+         </p>
+         <div class="example"><a name="d0e24009"></a><h3 class="title">Example&nbsp;9.15.&nbsp;<tt class="filename">sitecustomize.py</tt></h3><pre class="programlisting">
+<span class='pycomment'># sitecustomize.py                   </span><a name="kgp.unicode.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class='pycomment'># this file can be anywhere in your Python path,</span>
+<span class='pycomment'># but it usually goes in ${pythondir}/lib/site-packages/</span>
+<span class='pykeyword'>import</span> sys
+sys.setdefaultencoding(<span class='pystring'>'iso-8859-1'</span>) <a name="kgp.unicode.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="filename">sitecustomize.py</tt> is a special script; <span class="application">Python</span> will try to import it on startup, so any code in it will be run automatically.  As the comment mentions, it can go anywhere
+                        (as long as <tt class="literal">import</tt> can find it), but it usually goes in the <tt class="filename">site-packages</tt> directory within your <span class="application">Python</span> <tt class="filename">lib</tt> directory.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">setdefaultencoding</tt> function sets, well, the default encoding.  This is the encoding scheme that <span class="application">Python</span> will try to use whenever it needs to auto-coerce a unicode string into a regular string.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e24048"></a><h3 class="title">Example&nbsp;9.16.&nbsp;Effects of setting the default encoding</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> sys</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.getdefaultencoding()</span> <a name="kgp.unicode.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'iso-8859-1'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = u<span class='pystring'>'La Pe\xf1a'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> s</span>                  <a name="kgp.unicode.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">La Pe&ntilde;a</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This example assumes that you have made the changes listed in the previous example to your <tt class="filename">sitecustomize.py</tt> file, and restarted <span class="application">Python</span>.  If your default encoding still says <tt class="literal">'ascii'</tt>, you didn't set up your <tt class="filename">sitecustomize.py</tt> properly, or you didn't restart <span class="application">Python</span>.  The default encoding can only be changed during <span class="application">Python</span> startup; you can't change it later.  (Due to some wacky programming tricks that I won't get into right now, you can't even
+                        call <tt class="function">sys.setdefaultencoding</tt> after <span class="application">Python</span> has started up.  Dig into <tt class="filename">site.py</tt> and search for &#8220;<span class="quote"><tt class="literal">setdefaultencoding</tt></span>&#8221; to find out how.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now that the default encoding scheme includes all the characters you use in your string, <span class="application">Python</span> has no problem auto-coercing the string and printing it.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e24123"></a><h3 class="title">Example&nbsp;9.17.&nbsp;Specifying encoding in <tt class="filename">.py</tt> files
+            </h3>
+            <p>If you are going to be storing non-ASCII strings within your <span class="application">Python</span> code, you'll need to specify the encoding of each individual <tt class="filename">.py</tt> file by putting an encoding declaration at the top of each file.  This declaration defines the <tt class="filename">.py</tt> file to be UTF-8:
+            </p><pre class="programlisting">
+<span class='pycomment'>#!/usr/bin/env python</span>
+<span class='pycomment'># -*- coding: UTF-8 -*-</span>
+</pre></div>
+         <p>Now, what about <span class="acronym">XML</span>?  Well, every <span class="acronym">XML</span> document is in a specific encoding.  Again, ISO-8859-1 is a popular encoding for data in Western European languages.  KOI8-R
+            is popular for Russian texts.  The encoding, if specified, is in the header of the <span class="acronym">XML</span> document.
+         </p>
+         <div class="example"><a name="d0e24153"></a><h3 class="title">Example&nbsp;9.18.&nbsp;<tt class="filename">russiansample.xml</tt></h3><pre class="screen"><span class="computeroutput">
+&lt;?xml version="1.0" encoding="koi8-r"?&gt;       </span><a name="kgp.unicode.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+&lt;preface&gt;
+&lt;title&gt;&#1055;&#1088;&#1077;&#1076;&#1080;&#1089;&#1083;&#1086;&#1074;&#1080;&#1077;&lt;/title&gt;                    </span><a name="kgp.unicode.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"><span class="computeroutput">
+&lt;/preface&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a sample extract from a real Russian <span class="acronym">XML</span> document; it's part of a Russian translation of this very book.  Note the encoding, <tt class="literal">koi8-r</tt>, specified in the header.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">These are Cyrillic characters which, as far as I know, spell the Russian word for &#8220;<span class="quote">Preface</span>&#8221;.  If you open this file in a regular text editor, the characters will most likely like gibberish, because they're encoded
+                        using the <tt class="literal">koi8-r</tt> encoding scheme, but they're being displayed in <tt class="literal">iso-8859-1</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e24188"></a><h3 class="title">Example&nbsp;9.19.&nbsp;Parsing <tt class="filename">russiansample.xml</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> xml.dom <span class='pykeyword'>import</span> minidom</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class='pystring'>'russiansample.xml'</span>)</span> <a name="kgp.unicode.6.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">title = xmldoc.getElementsByTagName(<span class='pystring'>'title'</span>)[0].firstChild.data</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">title</span>                                       <a name="kgp.unicode.6.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">u'\u041f\u0440\u0435\u0434\u0438\u0441\u043b\u043e\u0432\u0438\u0435'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> title</span>                                 <a name="kgp.unicode.6.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+UnicodeError: ASCII encoding error: ordinal not in range(128)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">convertedtitle = title.encode(<span class='pystring'>'koi8-r'</span>)</span>     <a name="kgp.unicode.6.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">convertedtitle</span>
+<span class="computeroutput">'\xf0\xd2\xc5\xc4\xc9\xd3\xcc\xcf\xd7\xc9\xc5'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> convertedtitle</span>                        <a name="kgp.unicode.6.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">&#1055;&#1088;&#1077;&#1076;&#1080;&#1089;&#1083;&#1086;&#1074;&#1080;&#1077;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.6.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">I'm assuming here that you saved the previous example as <tt class="filename">russiansample.xml</tt> in the current directory.  I am also, for the sake of completeness, assuming that you've changed your default encoding back
+                        to <tt class="literal">'ascii'</tt> by removing your <tt class="filename">sitecustomize.py</tt> file, or at least commenting out the <tt class="function">setdefaultencoding</tt> line.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.6.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note that the text data of the <tt class="sgmltag-element">title</tt> tag (now in the <tt class="varname">title</tt> variable, thanks to that long concatenation of <span class="application">Python</span> functions which I hastily skipped over and, annoyingly, won't explain until the next section) -- the text data inside the
+                        <span class="acronym">XML</span> document's <tt class="sgmltag-element">title</tt> element is stored in unicode.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.6.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Printing the title is not possible, because this unicode string contains non-<span class="acronym">ASCII</span> characters, so <span class="application">Python</span> can't convert it to <span class="acronym">ASCII</span> because that doesn't make sense.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.6.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can, however, explicitly convert it to <tt class="literal">koi8-r</tt>, in which case you get a (regular, not unicode) string of single-byte characters (<tt class="literal">f0</tt>, <tt class="literal">d2</tt>, <tt class="literal">c5</tt>, and so forth) that are the <tt class="literal">koi8-r</tt>-encoded versions of the characters in the original unicode string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.unicode.6.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Printing the <tt class="literal">koi8-r</tt>-encoded string will probably show gibberish on your screen, because your <span class="application">Python</span> <span class="acronym">IDE</span> is interpreting those characters as <tt class="literal">iso-8859-1</tt>, not <tt class="literal">koi8-r</tt>.  But at least they do print.  (And, if you look carefully, it's the same gibberish that you saw when you opened the original
+                        <span class="acronym">XML</span> document in a non-unicode-aware text editor.  <span class="application">Python</span> converted it from <tt class="literal">koi8-r</tt> into unicode when it parsed the <span class="acronym">XML</span> document, and you've just converted it back.)
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>To sum up, unicode itself is a bit intimidating if you've never seen it before, but unicode data is really very easy to handle
+            in <span class="application">Python</span>.  If your <span class="acronym">XML</span> documents are all 7-bit <span class="acronym">ASCII</span> (like the examples in this chapter), you will literally never think about unicode.  <span class="application">Python</span> will convert the <span class="acronym">ASCII</span> data in the <span class="acronym">XML</span> documents into unicode while parsing, and auto-coerce it back to <span class="acronym">ASCII</span> whenever necessary, and you'll never even notice.  But if you need to deal with that in other languages, <span class="application">Python</span> is ready.
+         </p>
+         <div class="furtherreading">
+            <h3>Further reading</h3>
+            <ul>
+               <li><a href="http://www.unicode.org/">Unicode.org</a> is the home page of the unicode standard, including a brief <a href="http://www.unicode.org/standard/principles.html">technical introduction</a>.
+               </li>
+               <li><a href="http://www.reportlab.com/i18n/python_unicode_tutorial.html">Unicode Tutorial</a> has some more examples of how to use <span class="application">Python</span>'s unicode functions, including how to force <span class="application">Python</span> to coerce unicode into <span class="acronym">ASCII</span> even when it doesn't really want to.
+               </li>
+               <li><a href="http://www.python.org/peps/pep-0263.html">PEP 263</a> goes into more detail about how and when to define a character encoding in your <tt class="filename">.py</tt> files.
+               </li>
+            </ul>
+         </div>
+         <div class="footnotes">
+            <h3 class="footnotetitle">Footnotes</h3>
+            <div class="footnote">
+               <p><sup>[<a name="ftn.d0e23786" href="#d0e23786">5</a>] </sup>This, sadly, is <span class="emphasis"><em>still</em></span> an oversimplification.  Unicode now has been extended to handle ancient Chinese, Korean, and Japanese texts, which had so
+                  many different characters that the 2-byte unicode system could not represent them all.  But <span class="application">Python</span> doesn't currently support that out of the box, and I don't know if there is a project afoot to add it.  You've reached the
+                  limits of my expertise, sorry.
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="parsing_xml.html">&lt;&lt;&nbsp;Parsing XML</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.divein" title="9.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="packages.html" title="9.2.&nbsp;Packages">2</a> <span class="divider">|</span> <a href="parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="searching.html">Searching for elements&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

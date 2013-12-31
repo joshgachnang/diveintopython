@@ -1,0 +1,189 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>5.8.&nbsp;Introducing Class Attributes</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;5.&nbsp;Objects and Object-Orientation">
+      <link rel="previous" href="special_class_methods2.html" title="5.7.&nbsp;Advanced Special Class Methods">
+      <link rel="next" href="private_functions.html" title="5.9.&nbsp;Private Functions">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Objects and Object-Orientation</a>&nbsp;&gt;&nbsp;<span class="thispage">Introducing Class Attributes</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="special_class_methods2.html" title="Prev: &#8220;Advanced Special Class Methods&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="private_functions.html" title="Next: &#8220;Private Functions&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.classattributes"></a>5.8.&nbsp;Introducing Class Attributes
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>You already know about <a href="userdict.html#fileinfo.userdict.init.example" title="Example&nbsp;5.9.&nbsp;Defining the UserDict Class">data attributes</a>, which are variables owned by a specific instance of a class.  <span class="application">Python</span> also supports class attributes, which are variables owned by the class itself.
+            </p>
+         </div>
+         <div class="example"><a name="fileinfo.classattributes.intro"></a><h3 class="title">Example&nbsp;5.17.&nbsp;Introducing Class Attributes</h3><pre class="programlisting"><span class='pykeyword'>
+class</span> MP3FileInfo(FileInfo):
+    <span class='pystring'>"store ID3v1.0 MP3 tags"</span>
+    tagDataMap = {<span class='pystring'>"title"</span>   : (  3,  33, stripnulls),
+                  <span class='pystring'>"artist"</span>  : ( 33,  63, stripnulls),
+                  <span class='pystring'>"album"</span>   : ( 63,  93, stripnulls),
+                  <span class='pystring'>"year"</span>    : ( 93,  97, stripnulls),
+                  <span class='pystring'>"comment"</span> : ( 97, 126, stripnulls),
+                  <span class='pystring'>"genre"</span>   : (127, 128, ord)}</pre><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> fileinfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo.MP3FileInfo</span>            <a name="fileinfo.classattributes.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;class fileinfo.MP3FileInfo at 01257FDC&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo.MP3FileInfo.tagDataMap</span> <a name="fileinfo.classattributes.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">{'title': (3, 33, &lt;function stripnulls at 0260C8D4&gt;), 
+'genre': (127, 128, &lt;built-in function ord&gt;), 
+'artist': (33, 63, &lt;function stripnulls at 0260C8D4&gt;), 
+'year': (93, 97, &lt;function stripnulls at 0260C8D4&gt;), 
+'comment': (97, 126, &lt;function stripnulls at 0260C8D4&gt;), 
+'album': (63, 93, &lt;function stripnulls at 0260C8D4&gt;)}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m = fileinfo.MP3FileInfo()</span>      <a name="fileinfo.classattributes.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m.tagDataMap</span>
+<span class="computeroutput">{'title': (3, 33, &lt;function stripnulls at 0260C8D4&gt;), 
+'genre': (127, 128, &lt;built-in function ord&gt;), 
+'artist': (33, 63, &lt;function stripnulls at 0260C8D4&gt;), 
+'year': (93, 97, &lt;function stripnulls at 0260C8D4&gt;), 
+'comment': (97, 126, &lt;function stripnulls at 0260C8D4&gt;), 
+'album': (63, 93, &lt;function stripnulls at 0260C8D4&gt;)}</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.classattributes.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="classname">MP3FileInfo</tt> is the class itself, not any particular instance of the class.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.classattributes.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">tagDataMap</tt> is a class attribute: literally, an attribute of the class.  It is available before creating any instances of the class.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.classattributes.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Class attributes are available both through direct reference to the class and through any instance of the class.</td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="compare.classattr.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Java</span>, both static variables (called class attributes in <span class="application">Python</span>) and instance variables (called data attributes in <span class="application">Python</span>) are defined immediately after the class definition (one with the <tt class="literal">static</tt> keyword, one without).  In <span class="application">Python</span>, only class attributes can be defined here; data attributes are defined in the <tt class="function">__init__</tt> method.
+               </td>
+            </tr>
+         </table>
+         <p>Class attributes can be used as class-level constants (which is how you use them in <tt class="classname">MP3FileInfo</tt>), but they are not really constants.  You can also change them.
+         </p><a name="d0e13711"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">There are no constants in <span class="application">Python</span>.  Everything can be changed if you try hard enough.  This fits with one of the core principles of <span class="application">Python</span>: bad behavior should be discouraged but not banned.  If you really want to change the value of <tt class="literal">None</tt>, you can do it, but don't come running to me when your code is impossible to debug.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="fileinfo.classattributes.writeable.example"></a><h3 class="title">Example&nbsp;5.18.&nbsp;Modifying Class Attributes</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>class</span><span class='pyclass'> counter</span>:</span>
+<tt class="prompt">...     </tt><span class="userinput">count = 0</span>                     <a name="fileinfo.classattributes.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self):</span>
+<tt class="prompt">...     </tt><span class="userinput">    self.__class__.count += 1</span> <a name="fileinfo.classattributes.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter</span>
+<span class="computeroutput">&lt;class __main__.counter at 010EAECC&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>                     <a name="fileinfo.classattributes.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">0</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c = counter()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c.count</span>                           <a name="fileinfo.classattributes.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>
+<span class="computeroutput">1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">d = counter()</span>                     <a name="fileinfo.classattributes.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">d.count</span>
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">c.count</span>
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.count</span>
+<span class="computeroutput">2</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.classattributes.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">count</tt> is a class attribute of the <tt class="classname">counter</tt> class.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.classattributes.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">__class__</tt> is a built-in attribute of every class instance (of every class).  It is a reference to the class that <tt class="varname">self</tt> is an instance of (in this case, the <tt class="classname">counter</tt> class).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.classattributes.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Because <tt class="varname">count</tt> is a class attribute, it is available through direct reference to the class, before you have created any instances of the
+                        class.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.classattributes.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Creating an instance of the class calls the <tt class="function">__init__</tt> method, which increments the class attribute <tt class="varname">count</tt> by <tt class="constant">1</tt>.  This affects the class itself, not just the newly created instance.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.classattributes.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Creating a second instance will increment the class attribute <tt class="varname">count</tt> again.  Notice how the class attribute is shared by the class and all instances of the class.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="special_class_methods2.html">&lt;&lt;&nbsp;Advanced Special Class Methods</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.divein" title="5.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="importing_modules.html" title="5.2.&nbsp;Importing Modules Using from module import">2</a> <span class="divider">|</span> <a href="defining_classes.html" title="5.3.&nbsp;Defining Classes">3</a> <span class="divider">|</span> <a href="instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">4</a> <span class="divider">|</span> <a href="userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">5</a> <span class="divider">|</span> <a href="special_class_methods.html" title="5.6.&nbsp;Special Class Methods">6</a> <span class="divider">|</span> <a href="special_class_methods2.html" title="5.7.&nbsp;Advanced Special Class Methods">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="private_functions.html" title="5.9.&nbsp;Private Functions">9</a> <span class="divider">|</span> <a href="summary.html" title="5.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="private_functions.html">Private Functions&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

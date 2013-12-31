@@ -1,0 +1,336 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;8.&nbsp;HTML Processing</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../regular_expressions/summary.html" title="7.7.&nbsp;Summary">
+      <link rel="next" href="introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">HTML Processing</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../regular_expressions/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="introducing_sgmllib.html" title="Next: &#8220;Introducing sgmllib.py&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect"></a>Chapter&nbsp;8.&nbsp;<span class="acronym">HTML</span> Processing
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#dialect.divein">8.1. Diving in</a></span></li>
+               <li><span class="section"><a href="introducing_sgmllib.html">8.2. Introducing sgmllib.py</a></span></li>
+               <li><span class="section"><a href="extracting_data.html">8.3. Extracting data from HTML documents</a></span></li>
+               <li><span class="section"><a href="basehtmlprocessor.html">8.4. Introducing BaseHTMLProcessor.py</a></span></li>
+               <li><span class="section"><a href="locals_and_globals.html">8.5. locals and globals</a></span></li>
+               <li><span class="section"><a href="dictionary_based_string_formatting.html">8.6. Dictionary-based string formatting</a></span></li>
+               <li><span class="section"><a href="quoting_attribute_values.html">8.7. Quoting attribute values</a></span></li>
+               <li><span class="section"><a href="dialect.html">8.8. Introducing dialect.py</a></span></li>
+               <li><span class="section"><a href="all_together.html">8.9. Putting it all together</a></span></li>
+               <li><span class="section"><a href="summary.html">8.10. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="dialect.divein"></a>8.1.&nbsp;Diving in
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>I often see questions on <a href="http://groups.google.com/groups?group=comp.lang.python">comp.lang.python</a> like &#8220;<span class="quote">How can I list all the [headers|images|links] in my <span class="acronym">HTML</span> document?</span>&#8221;  &#8220;<span class="quote">How do I parse/translate/munge the text of my <span class="acronym">HTML</span> document but leave the tags alone?</span>&#8221;  &#8220;<span class="quote">How can I add/remove/quote attributes of all my <span class="acronym">HTML</span> tags at once?</span>&#8221;  This chapter will answer all of these questions.
+               </p>
+            </div>
+            <p>Here is a complete, working <span class="application">Python</span> program in two parts.  The first part, <tt class="filename">BaseHTMLProcessor.py</tt>, is a generic tool to help you process <span class="acronym">HTML</span> files by walking through the tags and text blocks.  The second part, <tt class="filename">dialect.py</tt>, is an example of how to use <tt class="filename">BaseHTMLProcessor.py</tt> to translate the text of an <span class="acronym">HTML</span> document but leave the tags alone.  Read the <tt class="literal">doc string</tt>s and comments to get an overview of what's going on.  Most of it will seem like black magic, because it's not obvious how
+               any of these class methods ever get called.  Don't worry, all will be revealed in due time.
+            </p>
+            <div class="example"><a name="dialect.basehtml.listing"></a><h3 class="title">Example&nbsp;8.1.&nbsp;<tt class="filename">BaseHTMLProcessor.py</tt></h3>
+               <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+               </p><pre class="programlisting"><span class='pykeyword'>
+from</span> sgmllib <span class='pykeyword'>import</span> SGMLParser
+<span class='pykeyword'>import</span> htmlentitydefs
+
+<span class='pykeyword'>class</span><span class='pyclass'> BaseHTMLProcessor</span>(SGMLParser):
+    <span class='pykeyword'>def</span><span class='pyclass'> reset</span>(self):                       
+        <span class='pycomment'># extend (called by SGMLParser.__init__)</span>
+        self.pieces = []
+        SGMLParser.reset(self)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> unknown_starttag</span>(self, tag, attrs):
+        <span class='pycomment'># called for each start tag</span>
+        <span class='pycomment'># attrs is a list of (attr, value) tuples</span>
+        <span class='pycomment'># e.g. for &lt;pre class="screen"&gt;, tag="pre", attrs=[("class", "screen")]</span>
+        <span class='pycomment'># Ideally we would like to reconstruct original tag and attributes, but</span>
+        <span class='pycomment'># we may end up quoting attribute values that weren't quoted in the source</span>
+        <span class='pycomment'># document, or we may change the type of quotes around the attribute value</span>
+        <span class='pycomment'># (single to double quotes).</span>
+        <span class='pycomment'># Note that improperly embedded non-HTML code (like client-side Javascript)</span>
+        <span class='pycomment'># may be parsed incorrectly by the ancestor, causing runtime script errors.</span>
+        <span class='pycomment'># All non-HTML code must be enclosed in HTML comment tags (&lt;!-- code --&gt;)</span>
+        <span class='pycomment'># to ensure that it will pass through this parser unaltered (in handle_comment).</span>
+        strattrs = <span class='pystring'>""</span>.join([<span class='pystring'>' %s="%s"'</span> % (key, value) <span class='pykeyword'>for</span> key, value <span class='pykeyword'>in</span> attrs])
+        self.pieces.append(<span class='pystring'>"&lt;%(tag)s%(strattrs)s&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> unknown_endtag</span>(self, tag):         
+        <span class='pycomment'># called for each end tag, e.g. for &lt;/pre&gt;, tag will be "pre"</span>
+        <span class='pycomment'># Reconstruct the original end tag.</span>
+        self.pieces.append(<span class='pystring'>"&lt;/%(tag)s&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_charref</span>(self, ref):         
+        <span class='pycomment'># called for each character reference, e.g. for "&amp;#160;", ref will be "160"</span>
+        <span class='pycomment'># Reconstruct the original character reference.</span>
+        self.pieces.append(<span class='pystring'>"&amp;#%(ref)s;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_entityref</span>(self, ref):       
+        <span class='pycomment'># called for each entity reference, e.g. for "&amp;copy;", ref will be "copy"</span>
+        <span class='pycomment'># Reconstruct the original entity reference.</span>
+        self.pieces.append(<span class='pystring'>"&amp;%(ref)s"</span> % locals())
+        <span class='pycomment'># standard HTML entities are closed with a semicolon; other entities are not</span>
+        <span class='pykeyword'>if</span> htmlentitydefs.entitydefs.has_key(ref):
+            self.pieces.append(<span class='pystring'>";"</span>)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_data</span>(self, text):           
+        <span class='pycomment'># called for each block of plain text, i.e. outside of any tag and</span>
+        <span class='pycomment'># not containing any character or entity references</span>
+        <span class='pycomment'># Store the original text verbatim.</span>
+        self.pieces.append(text)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_comment</span>(self, text):        
+        <span class='pycomment'># called for each HTML comment, e.g. &lt;!-- insert Javascript code here --&gt;</span>
+        <span class='pycomment'># Reconstruct the original comment.</span>
+        <span class='pycomment'># It is especially important that the source document enclose client-side</span>
+        <span class='pycomment'># code (like Javascript) within comments so it can pass through this</span>
+        <span class='pycomment'># processor undisturbed; see comments in unknown_starttag for details.</span>
+        self.pieces.append(<span class='pystring'>"&lt;!--%(text)s--&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_pi</span>(self, text):             
+        <span class='pycomment'># called for each processing instruction, e.g. &lt;?instruction&gt;</span>
+        <span class='pycomment'># Reconstruct original processing instruction.</span>
+        self.pieces.append(<span class='pystring'>"&lt;?%(text)s&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_decl</span>(self, text):
+        <span class='pycomment'># called for the DOCTYPE, if present, e.g.</span>
+        <span class='pycomment'># &lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"</span>
+        <span class='pycomment'>#     "http://www.w3.org/TR/html4/loose.dtd"&gt;</span>
+        <span class='pycomment'># Reconstruct original DOCTYPE</span>
+        self.pieces.append(<span class='pystring'>"&lt;!%(text)s&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> output</span>(self):              
+        <span class='pystring'>"""Return processed HTML as a single string"""</span>
+        <span class='pykeyword'>return</span> <span class='pystring'>""</span>.join(self.pieces)</pre></div>
+            <div class="example"><a name="d0e19707"></a><h3 class="title">Example&nbsp;8.2.&nbsp;<tt class="filename">dialect.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> re
+<span class='pykeyword'>from</span> BaseHTMLProcessor <span class='pykeyword'>import</span> BaseHTMLProcessor
+
+<span class='pykeyword'>class</span><span class='pyclass'> Dialectizer</span>(BaseHTMLProcessor):
+    subs = ()
+
+    <span class='pykeyword'>def</span><span class='pyclass'> reset</span>(self):
+        <span class='pycomment'># extend (called from __init__ in ancestor)</span>
+        <span class='pycomment'># Reset all data attributes</span>
+        self.verbatim = 0
+        BaseHTMLProcessor.reset(self)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> start_pre</span>(self, attrs):            
+        <span class='pycomment'># called for every &lt;pre&gt; tag in HTML source</span>
+        <span class='pycomment'># Increment verbatim mode count, then handle tag like normal</span>
+        self.verbatim += 1                 
+        self.unknown_starttag(<span class='pystring'>"pre"</span>, attrs)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> end_pre</span>(self):                     
+        <span class='pycomment'># called for every &lt;/pre&gt; tag in HTML source</span>
+        <span class='pycomment'># Decrement verbatim mode count</span>
+        self.unknown_endtag(<span class='pystring'>"pre"</span>)         
+        self.verbatim -= 1                 
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_data</span>(self, text):                                        
+        <span class='pycomment'># override</span>
+        <span class='pycomment'># called for every block of text in HTML source</span>
+        <span class='pycomment'># If in verbatim mode, save text unaltered;</span>
+        <span class='pycomment'># otherwise process the text with a series of substitutions</span>
+        self.pieces.append(self.verbatim <span class='pykeyword'>and</span> text <span class='pykeyword'>or</span> self.process(text))
+
+    <span class='pykeyword'>def</span><span class='pyclass'> process</span>(self, text):
+        <span class='pycomment'># called from handle_data</span>
+        <span class='pycomment'># Process text block by performing series of regular expression</span>
+        <span class='pycomment'># substitutions (actual substitions are defined in descendant)</span>
+        <span class='pykeyword'>for</span> fromPattern, toPattern <span class='pykeyword'>in</span> self.subs:
+            text = re.sub(fromPattern, toPattern, text)
+        <span class='pykeyword'>return</span> text
+
+<span class='pykeyword'>class</span><span class='pyclass'> ChefDialectizer</span>(Dialectizer):
+    <span class='pystring'>"""convert HTML to Swedish Chef-speak
+    
+    based on the classic chef.x, copyright (c) 1992, 1993 John Hagerman
+    """</span>
+    subs = ((r<span class='pystring'>'a([nu])'</span>, r<span class='pystring'>'u\1'</span>),
+            (r<span class='pystring'>'A([nu])'</span>, r<span class='pystring'>'U\1'</span>),
+            (r<span class='pystring'>'a\B'</span>, r<span class='pystring'>'e'</span>),
+            (r<span class='pystring'>'A\B'</span>, r<span class='pystring'>'E'</span>),
+            (r<span class='pystring'>'en\b'</span>, r<span class='pystring'>'ee'</span>),
+            (r<span class='pystring'>'\Bew'</span>, r<span class='pystring'>'oo'</span>),
+            (r<span class='pystring'>'\Be\b'</span>, r<span class='pystring'>'e-a'</span>),
+            (r<span class='pystring'>'\be'</span>, r<span class='pystring'>'i'</span>),
+            (r<span class='pystring'>'\bE'</span>, r<span class='pystring'>'I'</span>),
+            (r<span class='pystring'>'\Bf'</span>, r<span class='pystring'>'ff'</span>),
+            (r<span class='pystring'>'\Bir'</span>, r<span class='pystring'>'ur'</span>),
+            (r<span class='pystring'>'(\w*?)i(\w*?)$'</span>, r<span class='pystring'>'\1ee\2'</span>),
+            (r<span class='pystring'>'\bow'</span>, r<span class='pystring'>'oo'</span>),
+            (r<span class='pystring'>'\bo'</span>, r<span class='pystring'>'oo'</span>),
+            (r<span class='pystring'>'\bO'</span>, r<span class='pystring'>'Oo'</span>),
+            (r<span class='pystring'>'the'</span>, r<span class='pystring'>'zee'</span>),
+            (r<span class='pystring'>'The'</span>, r<span class='pystring'>'Zee'</span>),
+            (r<span class='pystring'>'th\b'</span>, r<span class='pystring'>'t'</span>),
+            (r<span class='pystring'>'\Btion'</span>, r<span class='pystring'>'shun'</span>),
+            (r<span class='pystring'>'\Bu'</span>, r<span class='pystring'>'oo'</span>),
+            (r<span class='pystring'>'\BU'</span>, r<span class='pystring'>'Oo'</span>),
+            (r<span class='pystring'>'v'</span>, r<span class='pystring'>'f'</span>),
+            (r<span class='pystring'>'V'</span>, r<span class='pystring'>'F'</span>),
+            (r<span class='pystring'>'w'</span>, r<span class='pystring'>'w'</span>),
+            (r<span class='pystring'>'W'</span>, r<span class='pystring'>'W'</span>),
+            (r<span class='pystring'>'([a-z])[.]'</span>, r<span class='pystring'>'\1.  Bork Bork Bork!'</span>))
+
+<span class='pykeyword'>class</span><span class='pyclass'> FuddDialectizer</span>(Dialectizer):
+    <span class='pystring'>"""convert HTML to Elmer Fudd-speak"""</span>
+    subs = ((r<span class='pystring'>'[rl]'</span>, r<span class='pystring'>'w'</span>),
+            (r<span class='pystring'>'qu'</span>, r<span class='pystring'>'qw'</span>),
+            (r<span class='pystring'>'th\b'</span>, r<span class='pystring'>'f'</span>),
+            (r<span class='pystring'>'th'</span>, r<span class='pystring'>'d'</span>),
+            (r<span class='pystring'>'n[.]'</span>, r<span class='pystring'>'n, uh-hah-hah-hah.'</span>))
+
+<span class='pykeyword'>class</span><span class='pyclass'> OldeDialectizer</span>(Dialectizer):
+    <span class='pystring'>"""convert HTML to mock Middle English"""</span>
+    subs = ((r<span class='pystring'>'i([bcdfghjklmnpqrstvwxyz])e\b'</span>, r<span class='pystring'>'y\1'</span>),
+            (r<span class='pystring'>'i([bcdfghjklmnpqrstvwxyz])e'</span>, r<span class='pystring'>'y\1\1e'</span>),
+            (r<span class='pystring'>'ick\b'</span>, r<span class='pystring'>'yk'</span>),
+            (r<span class='pystring'>'ia([bcdfghjklmnpqrstvwxyz])'</span>, r<span class='pystring'>'e\1e'</span>),
+            (r<span class='pystring'>'e[ea]([bcdfghjklmnpqrstvwxyz])'</span>, r<span class='pystring'>'e\1e'</span>),
+            (r<span class='pystring'>'([bcdfghjklmnpqrstvwxyz])y'</span>, r<span class='pystring'>'\1ee'</span>),
+            (r<span class='pystring'>'([bcdfghjklmnpqrstvwxyz])er'</span>, r<span class='pystring'>'\1re'</span>),
+            (r<span class='pystring'>'([aeiou])re\b'</span>, r<span class='pystring'>'\1r'</span>),
+            (r<span class='pystring'>'ia([bcdfghjklmnpqrstvwxyz])'</span>, r<span class='pystring'>'i\1e'</span>),
+            (r<span class='pystring'>'tion\b'</span>, r<span class='pystring'>'cioun'</span>),
+            (r<span class='pystring'>'ion\b'</span>, r<span class='pystring'>'ioun'</span>),
+            (r<span class='pystring'>'aid'</span>, r<span class='pystring'>'ayde'</span>),
+            (r<span class='pystring'>'ai'</span>, r<span class='pystring'>'ey'</span>),
+            (r<span class='pystring'>'ay\b'</span>, r<span class='pystring'>'y'</span>),
+            (r<span class='pystring'>'ay'</span>, r<span class='pystring'>'ey'</span>),
+            (r<span class='pystring'>'ant'</span>, r<span class='pystring'>'aunt'</span>),
+            (r<span class='pystring'>'ea'</span>, r<span class='pystring'>'ee'</span>),
+            (r<span class='pystring'>'oa'</span>, r<span class='pystring'>'oo'</span>),
+            (r<span class='pystring'>'ue'</span>, r<span class='pystring'>'e'</span>),
+            (r<span class='pystring'>'oe'</span>, r<span class='pystring'>'o'</span>),
+            (r<span class='pystring'>'ou'</span>, r<span class='pystring'>'ow'</span>),
+            (r<span class='pystring'>'ow'</span>, r<span class='pystring'>'ou'</span>),
+            (r<span class='pystring'>'\bhe'</span>, r<span class='pystring'>'hi'</span>),
+            (r<span class='pystring'>'ve\b'</span>, r<span class='pystring'>'veth'</span>),
+            (r<span class='pystring'>'se\b'</span>, r<span class='pystring'>'e'</span>),
+            (r<span class='pystring'>"'s\b"</span>, r<span class='pystring'>'es'</span>),
+            (r<span class='pystring'>'ic\b'</span>, r<span class='pystring'>'ick'</span>),
+            (r<span class='pystring'>'ics\b'</span>, r<span class='pystring'>'icc'</span>),
+            (r<span class='pystring'>'ical\b'</span>, r<span class='pystring'>'ick'</span>),
+            (r<span class='pystring'>'tle\b'</span>, r<span class='pystring'>'til'</span>),
+            (r<span class='pystring'>'ll\b'</span>, r<span class='pystring'>'l'</span>),
+            (r<span class='pystring'>'ould\b'</span>, r<span class='pystring'>'olde'</span>),
+            (r<span class='pystring'>'own\b'</span>, r<span class='pystring'>'oune'</span>),
+            (r<span class='pystring'>'un\b'</span>, r<span class='pystring'>'onne'</span>),
+            (r<span class='pystring'>'rry\b'</span>, r<span class='pystring'>'rye'</span>),
+            (r<span class='pystring'>'est\b'</span>, r<span class='pystring'>'este'</span>),
+            (r<span class='pystring'>'pt\b'</span>, r<span class='pystring'>'pte'</span>),
+            (r<span class='pystring'>'th\b'</span>, r<span class='pystring'>'the'</span>),
+            (r<span class='pystring'>'ch\b'</span>, r<span class='pystring'>'che'</span>),
+            (r<span class='pystring'>'ss\b'</span>, r<span class='pystring'>'sse'</span>),
+            (r<span class='pystring'>'([wybdp])\b'</span>, r<span class='pystring'>'\1e'</span>),
+            (r<span class='pystring'>'([rnt])\b'</span>, r<span class='pystring'>'\1\1e'</span>),
+            (r<span class='pystring'>'from'</span>, r<span class='pystring'>'fro'</span>),
+            (r<span class='pystring'>'when'</span>, r<span class='pystring'>'whan'</span>))
+
+<span class='pykeyword'>def</span><span class='pyclass'> translate</span>(url, dialectName=<span class='pystring'>"chef"</span>):
+    <span class='pystring'>"""fetch URL and translate using dialect
+    
+    dialect in ("chef", "fudd", "olde")"""</span>
+    <span class='pykeyword'>import</span> urllib                      
+    sock = urllib.urlopen(url)         
+    htmlSource = sock.read()           
+    sock.close()                       
+    parserName = <span class='pystring'>"%sDialectizer"</span> % dialectName.capitalize()
+    parserClass = globals()[parserName]                    
+    parser = parserClass()                                 
+    parser.feed(htmlSource)
+    parser.close()         
+    <span class='pykeyword'>return</span> parser.output() 
+
+<span class='pykeyword'>def</span><span class='pyclass'> test</span>(url):
+    <span class='pystring'>"""test all dialects against URL"""</span>
+    <span class='pykeyword'>for</span> dialect <span class='pykeyword'>in</span> (<span class='pystring'>"chef"</span>, <span class='pystring'>"fudd"</span>, <span class='pystring'>"olde"</span>):
+        outfile = <span class='pystring'>"%s.html"</span> % dialect
+        fsock = open(outfile, <span class='pystring'>"wb"</span>)
+        fsock.write(translate(url, dialect))
+        fsock.close()
+        <span class='pykeyword'>import</span> webbrowser
+        webbrowser.open_new(outfile)
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:
+    test(<span class='pystring'>"http://diveintopython.org/odbchelper_list.html"</span>)</pre></div>
+            <div class="example"><a name="d0e19713"></a><h3 class="title">Example&nbsp;8.3.&nbsp;Output of <tt class="filename">dialect.py</tt></h3>
+               <p>Running this script will translate <a href="../native_data_types/lists.html" title="3.2.&nbsp;Introducing Lists">Section&nbsp;3.2, &#8220;Introducing Lists&#8221;</a> into <a href="../native_data_types/chef.html">mock Swedish Chef-speak</a> (from The Muppets), <a href="../native_data_types/fudd.html">mock Elmer Fudd-speak</a> (from Bugs Bunny cartoons), and <a href="../native_data_types/olde.html">mock Middle English</a> (loosely based on Chaucer's <i class="citetitle">The Canterbury Tales</i>).  If you look at the <span class="acronym">HTML</span> source of the output pages, you'll see that all the <span class="acronym">HTML</span> tags and attributes are untouched, but the text between the tags has been &#8220;<span class="quote">translated</span>&#8221; into the mock language.  If you look closer, you'll see that, in fact, only the titles and paragraphs were translated; the
+                  code listings and screen examples were left untouched.
+               </p><pre class="programlisting">
+&lt;div <span class='pykeyword'>class</span>="<span class='pyclass'>abstract</span>"&gt;
+&lt;p&gt;Lists awe &lt;span <span class='pykeyword'>class</span>="<span class='pyclass'>application</span>"&gt;Pydon&lt;/span&gt;'s wowkhowse datatype.
+If youw onwy expewience wif wists <span class='pykeyword'>is</span> awways <span class='pykeyword'>in</span>
+&lt;span <span class='pykeyword'>class</span>="<span class='pyclass'>application</span>"&gt;Visuaw Basic&lt;/span&gt; ow (God fowbid) de datastowe
+<span class='pykeyword'>in</span> &lt;span <span class='pykeyword'>class</span>="<span class='pyclass'>application</span>"&gt;Powewbuiwdew&lt;/span&gt;, bwace youwsewf fow
+&lt;span <span class='pykeyword'>class</span>="<span class='pyclass'>application</span>"&gt;Pydon&lt;/span&gt; wists.&lt;/p&gt;
+&lt;/div&gt;
+</pre></div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../regular_expressions/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">3</a> <span class="divider">|</span> <a href="basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <a href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <a href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <a href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <a href="all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="introducing_sgmllib.html">Introducing sgmllib.py&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

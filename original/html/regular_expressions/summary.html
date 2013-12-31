@@ -1,0 +1,116 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>7.7.&nbsp;Summary</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">
+      <link rel="previous" href="phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">
+      <link rel="next" href="../html_processing/index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Summary</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="phone_numbers.html" title="Prev: &#8220;Case study: Parsing Phone Numbers&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="../html_processing/index.html" title="Next: &#8220;HTML Processing&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="re.summary"></a>7.7.&nbsp;Summary
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>This is just the tiniest tip of the iceberg of what regular expressions can do.  In other words, even though you're completely
+               overwhelmed by them now, believe me, you ain't seen nothing yet.
+            </p>
+         </div>
+         <p>You should now be familiar with the following techniques:</p>
+         <div class="itemizedlist">
+            <ul>
+               <li><tt class="literal">^</tt> matches the beginning of a string.
+               </li>
+               <li><tt class="literal">$</tt> matches the end of a string.
+               </li>
+               <li><tt class="literal">\b</tt> matches a word boundary.
+               </li>
+               <li><tt class="literal">\d</tt> matches any numeric digit.
+               </li>
+               <li><tt class="literal">\D</tt> matches any non-numeric character.
+               </li>
+               <li><tt class="literal">x?</tt> matches an optional <tt class="literal">x</tt> character (in other words, it matches an <tt class="literal">x</tt> zero or one times).
+               </li>
+               <li><tt class="literal">x*</tt> matches <tt class="literal">x</tt> zero or more times.
+               </li>
+               <li><tt class="literal">x+</tt> matches <tt class="literal">x</tt> one or more times.
+               </li>
+               <li><tt class="literal">x{n,m}</tt> matches an <tt class="literal">x</tt> character at least <tt class="literal">n</tt> times, but not more than <tt class="literal">m</tt> times.
+               </li>
+               <li><tt class="literal">(a|b|c)</tt> matches either <tt class="literal">a</tt> or <tt class="literal">b</tt> or <tt class="literal">c</tt>.
+               </li>
+               <li><tt class="literal">(x)</tt> in general is a <span class="emphasis"><em>remembered group</em></span>.  You can get the value of what matched by using the <tt class="function">groups()</tt> method of the object returned by <tt class="function">re.search</tt>.
+               </li>
+            </ul>
+         </div>
+         <p>Regular expressions are extremely powerful, but they are not the correct solution for every problem.  You should learn enough
+            about them to know when they are appropriate, when they will solve your problems, and when they will cause more problems than
+            they solve.
+         </p>
+         <div class="blockquote">
+            <table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote">
+               <tr>
+                  <td width="10%" valign="top">&nbsp;</td>
+                  <td width="80%" valign="top">
+                     <p>Some people, when confronted with a problem, think &#8220;<span class="quote">I know, I'll use regular expressions.</span>&#8221;  Now they have two problems.
+                     </p>
+                  </td>
+                  <td width="10%" valign="top">&nbsp;</td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="right" valign="top">--<span class="attribution">Jamie Zawinski, <a href="http://groups.google.com/groups?selm=33F0C496.370D7C45%40netscape.com">in comp.emacs.xemacs</a></span></td>
+                  <td width="10%" valign="top">&nbsp;</td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="phone_numbers.html">&lt;&lt;&nbsp;Case study: Parsing Phone Numbers</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <a href="roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">3</a> <span class="divider">|</span> <a href="n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax">4</a> <span class="divider">|</span> <a href="verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <a href="phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">6</a> <span class="divider">|</span> <span class="thispage">7</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="../html_processing/index.html">HTML Processing&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

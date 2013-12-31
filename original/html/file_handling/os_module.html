@@ -1,0 +1,322 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>6.5.&nbsp;Working with Directories</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;6.&nbsp;Exceptions and File Handling">
+      <link rel="previous" href="more_on_modules.html" title="6.4.&nbsp;Using sys.modules">
+      <link rel="next" href="all_together.html" title="6.6.&nbsp;Putting It All Together">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Exceptions and File Handling</a>&nbsp;&gt;&nbsp;<span class="thispage">Working with Directories</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="more_on_modules.html" title="Prev: &#8220;Using sys.modules&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="all_together.html" title="Next: &#8220;Putting It All Together&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.os"></a>6.5.&nbsp;Working with Directories
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The <tt class="filename">os.path</tt> module has several functions for manipulating files and directories.  Here, we're looking at handling pathnames and listing
+               the contents of a directory.
+            </p>
+         </div>
+         <div class="example"><a name="fileinfo.os.path.join.example"></a><h3 class="title">Example&nbsp;6.16.&nbsp;Constructing Pathnames</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> os</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.join(<span class='pystring'>"c:\\music\\ap\\"</span>, <span class='pystring'>"mahadeva.mp3"</span>)</span> <a name="fileinfo.os.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="fileinfo.os.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\music\\ap\\mahadeva.mp3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.join(<span class='pystring'>"c:\\music\\ap"</span>, <span class='pystring'>"mahadeva.mp3"</span>)</span>   <a name="fileinfo.os.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\music\\ap\\mahadeva.mp3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.expanduser(<span class='pystring'>"~"</span>)</span>                         <a name="fileinfo.os.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\Documents and Settings\\mpilgrim\\My Documents'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.join(os.path.expanduser(<span class='pystring'>"~"</span>), <span class='pystring'>"Python"</span>)</span> <a name="fileinfo.os.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\Documents and Settings\\mpilgrim\\My Documents\\Python'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="filename">os.path</tt> is a reference to a module -- which module depends on your platform.  Just as <a href="index.html#crossplatform.example" title="Example&nbsp;6.2.&nbsp;Supporting Platform-Specific Functionality"><tt class="filename">getpass</tt></a> encapsulates differences between platforms by setting <tt class="varname">getpass</tt> to a platform-specific function, <tt class="filename">os</tt> encapsulates differences between platforms by setting <tt class="varname">path</tt> to a platform-specific module.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">join</tt> function of <tt class="filename">os.path</tt> constructs a pathname out of one or more partial pathnames.  In this case, it simply concatenates strings.  (Note that dealing
+                        with pathnames on Windows is annoying because the backslash character must be escaped.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In this slightly less trivial case, <tt class="function">join</tt> will add an extra backslash to the pathname before joining it to the filename.  I was overjoyed when I discovered this, since
+                        <tt class="function">addSlashIfNecessary</tt> is one of the stupid little functions I always need to write when building up my toolbox in a new language.  <span class="emphasis"><em>Do not</em></span> write this stupid little function in <span class="application">Python</span>; smart people have already taken care of it for you.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">expanduser</tt> will expand a pathname that uses <tt class="literal">~</tt> to represent the current user's home directory.  This works on any platform where users have a home directory, like Windows,
+                        <span class="acronym">UNIX</span>, and <span class="abbrev">Mac</span> <span class="acronym">OS</span> X; it has no effect on <span class="abbrev">Mac</span> <span class="acronym">OS</span>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Combining these techniques, you can easily construct pathnames for directories and files under the user's home directory.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="splittingpathnames.example"></a><h3 class="title">Example&nbsp;6.17.&nbsp;Splitting Pathnames</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.split(<span class='pystring'>"c:\\music\\ap\\mahadeva.mp3"</span>)</span>                        <a name="fileinfo.os.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">('c:\\music\\ap', 'mahadeva.mp3')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">(filepath, filename) = os.path.split(<span class='pystring'>"c:\\music\\ap\\mahadeva.mp3"</span>)</span> <a name="fileinfo.os.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filepath</span>                                                            <a name="fileinfo.os.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'c:\\music\\ap'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filename</span>                                                            <a name="fileinfo.os.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'mahadeva.mp3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">(shortname, extension) = os.path.splitext(filename)</span>                 <a name="fileinfo.os.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">shortname</span>
+<span class="computeroutput">'mahadeva'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">extension</span>
+<span class="computeroutput">'.mp3'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">split</tt> function splits a full pathname and returns a tuple containing the path and filename.  Remember when I said you could use
+                        <a href="../native_data_types/declaring_variables.html#odbchelper.multiassign" title="3.4.2.&nbsp;Assigning Multiple Values at Once">multi-variable assignment</a> to return multiple values from a function?  Well, <tt class="function">split</tt> is such a function.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You assign the return value of the <tt class="function">split</tt> function into a tuple of two variables.  Each variable receives the value of the corresponding element of the returned tuple.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The first variable, <tt class="varname">filepath</tt>, receives the value of the first element of the tuple returned from <tt class="function">split</tt>, the file path.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The second variable, <tt class="varname">filename</tt>, receives the value of the second element of the tuple returned from <tt class="function">split</tt>, the filename.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="filename">os.path</tt> also contains a function <tt class="function">splitext</tt>, which splits a filename and returns a tuple containing the filename and the file extension.   You use the same technique
+                        to assign each of them to separate variables.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="fileinfo.listdir.example"></a><h3 class="title">Example&nbsp;6.18.&nbsp;Listing Directories</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.listdir(<span class='pystring'>"c:\\music\\_singles\\"</span>)</span>              <a name="fileinfo.os.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['a_time_long_forgotten_con.mp3', 'hellraiser.mp3',
+'kairo.mp3', 'long_way_home1.mp3', 'sidewinder.mp3', 
+'spinning.mp3']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">dirname = <span class='pystring'>"c:\\"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.listdir(dirname)</span>                              <a name="fileinfo.os.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['AUTOEXEC.BAT', 'boot.ini', 'CONFIG.SYS', 'cygwin',
+'docbook', 'Documents and Settings', 'Incoming', 'Inetpub', 'IO.SYS',
+'MSDOS.SYS', 'Music', 'NTDETECT.COM', 'ntldr', 'pagefile.sys',
+'Program Files', 'Python20', 'RECYCLER',
+'System Volume Information', 'TEMP', 'WINNT']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[f <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> os.listdir(dirname)</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>if</span> os.path.isfile(os.path.join(dirname, f))]</span> <a name="fileinfo.os.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['AUTOEXEC.BAT', 'boot.ini', 'CONFIG.SYS', 'IO.SYS', 'MSDOS.SYS',
+'NTDETECT.COM', 'ntldr', 'pagefile.sys']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[f <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> os.listdir(dirname)</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>if</span> os.path.isdir(os.path.join(dirname, f))]</span>  <a name="fileinfo.os.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">['cygwin', 'docbook', 'Documents and Settings', 'Incoming',
+'Inetpub', 'Music', 'Program Files', 'Python20', 'RECYCLER',
+'System Volume Information', 'TEMP', 'WINNT']</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">listdir</tt> function takes a pathname and returns a list of the contents of the directory.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">listdir</tt> returns both files and folders, with no indication of which is which.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can use <a href="../power_of_introspection/filtering_lists.html" title="4.5.&nbsp;Filtering Lists">list filtering</a> and the <tt class="function">isfile</tt> function of the <tt class="filename">os.path</tt> module to separate the files from the folders.  <tt class="function">isfile</tt> takes a pathname and returns 1 if the path represents a file, and 0 otherwise.  Here you're using <tt class="literal"><tt class="filename">os.path</tt>.<tt class="function">join</tt></tt> to ensure a full pathname, but <tt class="function">isfile</tt> also works with a partial path, relative to the current working directory.  You can use <tt class="literal">os.getcwd()</tt> to get the current working directory.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="filename">os.path</tt> also has a <tt class="function">isdir</tt> function which returns 1 if the path represents a directory, and 0 otherwise.  You can use this to get a list of the subdirectories
+                        within a directory.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e16376"></a><h3 class="title">Example&nbsp;6.19.&nbsp;Listing Directories in <tt class="filename">fileinfo.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+def</span> listDirectory(directory, fileExtList):                                        
+    <span class='pystring'>"get list of file info objects for files of particular extensions"</span> 
+    fileList = [os.path.normcase(f)
+                <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> os.listdir(directory)]            <a name="fileinfo.os.3a.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="fileinfo.os.3a.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    fileList = [os.path.join(directory, f) 
+               <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> fileList
+                <span class='pykeyword'>if</span> os.path.splitext(f)[1] <span class='pykeyword'>in</span> fileExtList]  <a name="fileinfo.os.3a.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"> <a name="fileinfo.os.3a.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"> <a name="fileinfo.os.3a.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3a.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">os.listdir(directory)</tt> returns a list of all the files and folders in <tt class="varname">directory</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3a.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Iterating through the list with <tt class="varname">f</tt>, you use <tt class="literal">os.path.normcase(f)</tt> to normalize the case according to operating system defaults.  <tt class="function">normcase</tt> is a useful little function that compensates for case-insensitive operating systems that think that <tt class="filename">mahadeva.mp3</tt> and <tt class="filename">mahadeva.MP3</tt> are the same file.  For instance, on Windows and <span class="abbrev">Mac</span> <span class="acronym">OS</span>, <tt class="function">normcase</tt> will convert the entire filename to lowercase; on <span class="acronym">UNIX</span>-compatible systems, it will return the filename unchanged.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3a.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Iterating through the normalized list with <tt class="varname">f</tt> again, you use <tt class="literal">os.path.splitext(f)</tt> to split each filename into name and extension.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3a.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">For each file, you see if the extension is in the list of file extensions you care about (<tt class="varname">fileExtList</tt>, which was passed to the <tt class="function">listDirectory</tt> function).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.3a.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">For each file you care about, you use <tt class="literal">os.path.join(directory, f)</tt> to construct the full pathname of the file, and return a list of the full pathnames.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="tip.os"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Whenever possible, you should use the functions in <tt class="filename">os</tt> and <tt class="filename">os.path</tt> for file, directory, and path manipulations.  These modules are wrappers for platform-specific modules, so functions like
+                  <tt class="function">os.path.split</tt> work on <span class="acronym">UNIX</span>, Windows, <span class="abbrev">Mac</span> <span class="acronym">OS</span>, and any other platform supported by <span class="application">Python</span>.
+               </td>
+            </tr>
+         </table>
+         <p>There is one other way to get the contents of a directory.  It's very powerful, and it uses the sort of wildcards that you
+            may already be familiar with from working on the command line.
+         </p>
+         <div class="example"><a name="fileinfo.os.glob.example"></a><h3 class="title">Example&nbsp;6.20.&nbsp;Listing Directories with <tt class="filename">glob</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.listdir(<span class='pystring'>"c:\\music\\_singles\\"</span>)</span>               <a name="fileinfo.os.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['a_time_long_forgotten_con.mp3', 'hellraiser.mp3',
+'kairo.mp3', 'long_way_home1.mp3', 'sidewinder.mp3',
+'spinning.mp3']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> glob</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">glob.glob(<span class='pystring'>'c:\\music\\_singles\\*.mp3'</span>)</span>           <a name="fileinfo.os.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['c:\\music\\_singles\\a_time_long_forgotten_con.mp3',
+'c:\\music\\_singles\\hellraiser.mp3',
+'c:\\music\\_singles\\kairo.mp3',
+'c:\\music\\_singles\\long_way_home1.mp3',
+'c:\\music\\_singles\\sidewinder.mp3',
+'c:\\music\\_singles\\spinning.mp3']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">glob.glob(<span class='pystring'>'c:\\music\\_singles\\s*.mp3'</span>)</span>          <a name="fileinfo.os.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['c:\\music\\_singles\\sidewinder.mp3',
+'c:\\music\\_singles\\spinning.mp3']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">glob.glob(<span class='pystring'>'c:\\music\\*\\*.mp3'</span>)</span>                  <a name="fileinfo.os.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw earlier, <tt class="function">os.listdir</tt> simply takes a directory path and lists all files and directories in that directory.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="filename">glob</tt> module, on the other hand, takes a wildcard and returns the full path of all files and directories matching the wildcard.
+                         Here the wildcard is a directory path plus "*.mp3", which will match all <tt class="filename">.mp3</tt> files.  Note that each element of the returned list already includes the full path of the file.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If you want to find all the files in a specific directory that start with "s" and end with ".mp3", you can do that too.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.os.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now consider this scenario: you have a <tt class="filename">music</tt> directory, with several subdirectories within it, with <tt class="filename">.mp3</tt> files within each subdirectory.  You can get a list of all of those with a single call to <tt class="filename">glob</tt>, by using two wildcards at once.  One wildcard is the <tt class="literal">"*.mp3"</tt> (to match <tt class="filename">.mp3</tt> files), and one wildcard is <span class="emphasis"><em>within the directory path itself</em></span>, to match any subdirectory within <tt class="filename">c:\music</tt>.  That's a crazy amount of power packed into one deceptively simple-looking function!
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Further Reading on the <tt class="filename">os</tt> Module
+            </h3>
+            <ul>
+               <li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> answers <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/240">questions about the <tt class="filename">os</tt> module</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents the <a href="http://www.python.org/doc/current/lib/module-os.html"><tt class="filename">os</tt></a> module and the <a href="http://www.python.org/doc/current/lib/module-os.path.html"><tt class="filename">os.path</tt></a> module.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="more_on_modules.html">&lt;&lt;&nbsp;Using sys.modules</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions">1</a> <span class="divider">|</span> <a href="file_objects.html" title="6.2.&nbsp;Working with File Objects">2</a> <span class="divider">|</span> <a href="for_loops.html" title="6.3.&nbsp;Iterating with for Loops">3</a> <span class="divider">|</span> <a href="more_on_modules.html" title="6.4.&nbsp;Using sys.modules">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="all_together.html" title="6.6.&nbsp;Putting It All Together">6</a> <span class="divider">|</span> <a href="summary.html" title="6.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="all_together.html">Putting It All Together&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

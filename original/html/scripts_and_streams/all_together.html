@@ -1,0 +1,142 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>10.7.&nbsp;Putting it all together</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;10.&nbsp;Scripts and Streams">
+      <link rel="previous" href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">
+      <link rel="next" href="summary.html" title="10.8.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="command_line_arguments.html" title="Prev: &#8220;Handling command-line arguments&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.alltogether"></a>10.7.&nbsp;Putting it all together
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>You've covered a lot of ground.  Let's step back and see how all the pieces fit together.</p>
+         </div>
+         <p>To start with, this is a script that <a href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">takes its arguments on the command line</a>, using the <tt class="filename">getopt</tt> module.
+         </p>
+         <div class="informalexample"><pre class="programlisting"><span class='pykeyword'>
+def</span> main(argv):                         
+...
+    <span class='pykeyword'>try</span>:                                
+        opts, args = getopt.getopt(argv, <span class='pystring'>"hg:d"</span>, [<span class='pystring'>"help"</span>, <span class='pystring'>"grammar="</span>])
+    <span class='pykeyword'>except</span> getopt.GetoptError:          
+...
+    <span class='pykeyword'>for</span> opt, arg <span class='pykeyword'>in</span> opts:               
+...</pre></div>
+         <p>You create a new instance of the <tt class="classname">KantGenerator</tt> class, and pass it the grammar file and source that may or may not have been specified on the command line.
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    k = KantGenerator(grammar, source)</pre></div>
+         <p>The <tt class="classname">KantGenerator</tt> instance automatically loads the grammar, which is an <span class="acronym">XML</span> file.  You use your custom <tt class="function">openAnything</tt> function to open the file (which <a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">could be stored in a local file or a remote web server</a>), then use the built-in <tt class="filename">minidom</tt> parsing functions to <a href="../xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">parse the <span class="acronym">XML</span> into a tree of <span class="application">Python</span> objects</a>.
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> _load</span>(self, source):
+        sock = toolbox.openAnything(source)
+        xmldoc = minidom.parse(sock).documentElement
+        sock.close()</pre></div>
+         <p>Oh, and along the way, you take advantage of your knowledge of the structure of the <span class="acronym">XML</span> document to <a href="caching.html" title="10.3.&nbsp;Caching node lookups">set up a little cache of references</a>, which are just elements in the <span class="acronym">XML</span> document.
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> loadGrammar</span>(self, grammar):                         
+        <span class='pykeyword'>for</span> ref <span class='pykeyword'>in</span> self.grammar.getElementsByTagName(<span class='pystring'>"ref"</span>):
+            self.refs[ref.attributes[<span class='pystring'>"id"</span>].value] = ref     </pre></div>
+         <p>If you specified some source material on the command line, you use that; otherwise you rip through the grammar looking for
+            the "top-level" reference (that isn't referenced by anything else) and use that as a starting point.
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> getDefaultSource</span>(self):
+        xrefs = {}
+        <span class='pykeyword'>for</span> xref <span class='pykeyword'>in</span> self.grammar.getElementsByTagName(<span class='pystring'>"xref"</span>):
+            xrefs[xref.attributes[<span class='pystring'>"id"</span>].value] = 1
+        xrefs = xrefs.keys()
+        standaloneXrefs = [e <span class='pykeyword'>for</span> e <span class='pykeyword'>in</span> self.refs.keys() <span class='pykeyword'>if</span> e <span class='pykeyword'>not</span> <span class='pykeyword'>in</span> xrefs]
+        <span class='pykeyword'>return</span> <span class='pystring'>'&lt;xref id="%s"/&gt;'</span> % random.choice(standaloneXrefs)</pre></div>
+         <p>Now you rip through the source material.  The source material is also <span class="acronym">XML</span>, and you parse it one node at a time.  To keep the code separated and more maintainable, you use <a href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">separate handlers for each node type</a>.
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Element</span>(self, node): 
+        handlerMethod = getattr(self, <span class='pystring'>"do_%s"</span> % node.tagName)
+        handlerMethod(node)</pre></div>
+         <p>You bounce through the grammar, <a href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">parsing all the children</a> of each <tt class="sgmltag-element">p</tt> element,
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> do_p</span>(self, node):
+...
+        <span class='pykeyword'>if</span> doit:
+            <span class='pykeyword'>for</span> child <span class='pykeyword'>in</span> node.childNodes: self.parse(child)</pre></div>
+         <p>replacing <tt class="sgmltag-element">choice</tt> elements with a random child,
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> do_choice</span>(self, node):
+        self.parse(self.randomChildElement(node))</pre></div>
+         <p>and replacing <tt class="sgmltag-element">xref</tt> elements with a random child of the corresponding <tt class="sgmltag-element">ref</tt> element, which you previously cached.
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> do_xref</span>(self, node):
+        id = node.attributes[<span class='pystring'>"id"</span>].value
+        self.parse(self.randomChildElement(self.refs[id]))</pre></div>
+         <p>Eventually, you parse your way down to plain text,</p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Text</span>(self, node):    
+        text = node.data
+...
+            self.pieces.append(text)</pre></div>
+         <p>which you print out.</p>
+         <div class="informalexample"><pre class="programlisting"><span class='pykeyword'>
+def</span> main(argv):                         
+...
+    k = KantGenerator(grammar, source)
+    <span class='pykeyword'>print</span> k.output()</pre></div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="command_line_arguments.html">&lt;&lt;&nbsp;Handling command-line arguments</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

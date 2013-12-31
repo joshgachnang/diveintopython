@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>5.9. Private Functions</title>
+        <link rev="made" href="josh@servercobra.com" />
+        <meta name="generator" content="convert_to_jinja2.py" />
+        <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+        <meta name="description" content="Python from novice to pro" />
+        <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+        
+        <link rel="up" href="index.html" title=" Chapter5.Objects and Object-Orientation" />
+        
+        
+        
+        <link rel="next" href="summary.html" title=" 5.10.Summary" />
+        
+         <link rel="stylesheet" href="../css/normalize.css">
+         <link rel="stylesheet" href="../css/foundation.css">
+         <link rel="stylesheet" href="../css/diveintopython.css" type="text/css" />
+
+
+         <script src="../js/modernizr.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="small-12 columns" id="Header">
+                <div class="row">
+                    <div class="small-11 columns">
+                        
+                        <td align="left" colspan="5" id="breadcrumb" valign="top">You are here: <a href="../index.html">Home</a>&#160;&gt;&#160;<a href="../toc/index.html">Dive Into Python</a>&#160;&gt;&#160;<a href="index.html">Objects and Object-Orientation</a>&#160;&gt;&#160;<span class="thispage">Private Functions</span></td>
+                        
+                    </div>
+                    <div class="small-1 columns">
+                        
+                        <td align="right" id="navigation" valign="top">&#160;&#160;&#160;<a href="class_attributes.html" title="Prev: &#8220;Introducing Class Attributes&#8221;">&lt;&lt;</a>&#160;&#160;&#160;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+                        
+                    </div>
+                </div>
+
+
+                <div id="logocontainer">
+                    <h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+                    <p id="tagline">Python from novice to pro</p>
+                    <a href="http://www.amazon.com/gp/product/B001GIOFN8/ref=as_li_tf_tl?ie=UTF8&tag=diveintopython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=B001GIOFN8"><img src="../images/amazon-buy-button.gif"></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.private"></a>5.9.&#160;Private Functions
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<p>Like most languages, <span class="application">Python</span> has the concept of private elements:
+         </p>
+<div class="itemizedlist">
+<ul>
+<li>Private functions, which can't be called from outside their module</li>
+<li>Private class methods, which can't be called from outside their class</li>
+<li>Private attributes, which can't be accessed from outside their class.</li>
+</ul>
+</div>
+<div class="abstract">
+<p>Unlike in most languages, whether a <span class="application">Python</span> function, method, or attribute is private or public is determined entirely by its name.
+            </p>
+</div>
+<p>If the name of a <span class="application">Python</span> function, class method, or attribute starts with (but doesn't end with) two underscores, it's private; everything else is
+            public.  <span class="application">Python</span> has no concept of <span class="emphasis"><em>protected</em></span> class methods (accessible only in their own class and descendant classes).  Class methods are either private (accessible
+            only in their own class) or public (accessible from anywhere).
+         </p>
+<p>In <tt class="classname">MP3FileInfo</tt>, there are two methods: <tt class="function">__parse</tt> and <tt class="function">__setitem__</tt>.  As you have already discussed, <tt class="function">__setitem__</tt> is a <a href="special_class_methods.html#fileinfo.specialmethods.setitem.example" title="Example&#160;5.13.&#160;The __setitem__ Special Method">special method</a>; normally, you would call it indirectly by using the dictionary syntax on a class instance, but it is public, and you could
+            call it directly (even from outside the <tt class="filename">fileinfo</tt> module) if you had a really good reason.  However, <tt class="function">__parse</tt> is private, because it has two underscores at the beginning of its name.
+         </p><a name="tip.specialmethodnames"></a><table border="0" class="note" summary="">
+<tr>
+<td align="center" rowspan="2" valign="top" width="1%"><img alt="Note" height="24" src="../images/note.png" title="" width="24"/></td>
+</tr>
+<tr>
+<td align="left" colspan="2" valign="top" width="99%">In <span class="application">Python</span>, all special methods (like <a href="special_class_methods.html#fileinfo.specialmethods.setitem.example" title="Example&#160;5.13.&#160;The __setitem__ Special Method"><tt class="function">__setitem__</tt></a>) and built-in attributes (like <a href="../getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&#160;2.3.&#160;Accessing the buildConnectionString Function's doc string"><tt class="literal">__doc__</tt></a>) follow a standard naming convention: they both start with and end with two underscores.  Don't name your own methods and
+                  attributes this way, because it will only confuse you (and others) later.
+               </td>
+</tr>
+</table>
+<div class="example"><a name="d0e13946"></a><h3 class="title">Example&#160;5.19.&#160;Trying to Call a Private Method</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> fileinfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m = fileinfo.MP3FileInfo()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">m.__parse(<span class="pystring">"/music/_singles/kairo.mp3"</span>)</span> <a name="fileinfo.private.1.1"></a><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'MP3FileInfo' instance has no attribute '__parse'</span></img></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="12"><a href="#fileinfo.private.1.1"><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"/></a>
+</td>
+<td align="left" valign="top">If you try to call a private method, <span class="application">Python</span> will raise a slightly misleading exception, saying that the method does not exist.  Of course it does exist, but it's private,
+                        so it's not accessible outside the class.Strictly speaking, private methods are accessible outside their class, just not <span class="emphasis"><em>easily</em></span> accessible.  Nothing in <span class="application">Python</span> is truly private; internally, the names of private methods and attributes are mangled and unmangled on the fly to make them
+                        seem inaccessible by their given names.  You can access the <tt class="function">__parse</tt> method of the <tt class="classname">MP3FileInfo</tt> class by the name <tt class="function">_MP3FileInfo__parse</tt>.  Acknowledge that this is interesting, but promise to never, ever do it in real code.  Private methods are private for a
+                        reason, but like many other things in <span class="application">Python</span>, their privateness is ultimately a matter of convention, not force.
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<div class="furtherreading">
+<h3>Further Reading on Private Functions</h3>
+<ul>
+<li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discusses the inner workings of <a href="http://www.python.org/doc/current/tut/node11.html#SECTION0011600000000000000000">private variables</a>.
+               </li>
+</ul>
+</div>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <table border="0" cellpadding="0" cellspacing="0" class="Footer" summary="" width="100%">
+<tr>
+<td align="left" width="35%"><br><a class="NavigationArrow" href="class_attributes.html">&lt;&lt;&#160;Introducing Class Attributes</a></br></td>
+<td align="center" width="30%"><br>&#160;<span class="divider">|</span>&#160;<a href="index.html#fileinfo.divein" title="5.1.&#160;Diving In">1</a> <span class="divider">|</span> <a href="importing_modules.html" title="5.2.&#160;Importing Modules Using from module import">2</a> <span class="divider">|</span> <a href="defining_classes.html" title="5.3.&#160;Defining Classes">3</a> <span class="divider">|</span> <a href="instantiating_classes.html" title="5.4.&#160;Instantiating Classes">4</a> <span class="divider">|</span> <a href="userdict.html" title="5.5.&#160;Exploring UserDict: A Wrapper Class">5</a> <span class="divider">|</span> <a href="special_class_methods.html" title="5.6.&#160;Special Class Methods">6</a> <span class="divider">|</span> <a href="special_class_methods2.html" title="5.7.&#160;Advanced Special Class Methods">7</a> <span class="divider">|</span> <a href="class_attributes.html" title="5.8.&#160;Introducing Class Attributes">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="summary.html" title="5.10.&#160;Summary">10</a>&#160;<span class="divider">|</span>&#160;
+            </br></td>
+<td align="right" width="35%"><br><a class="NavigationArrow" href="summary.html">Summary&#160;&gt;&gt;</a></br></td>
+</tr>
+<tr>
+<td colspan="3"><br/></td>
+</tr>
+</table>
+        <!-- Footer -->
+<div class="Footer">
+    <p><a href="https://github.com/pcsforeducation/diveintopython/issues?sort=created&state=open">Report issues<img style="margin-left:10px" height="40" src="../images/logo_github.png"></a></p>
+    <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a>. Maintained by Josh Gachnang.</p>
+</div>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1879314568120827";
+/* DiveIntoPython */
+google_ad_slot = "8002881514";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<!-- End Footer -->
+            </div>
+        </div>
+        <!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google Analytics -->
+        <script src="../js/jquery.js"></script>
+        <script src="../js/foundation.min.js"></script>
+        <script>
+          $(document).foundation();
+        </script>
+    </body>
+</html>

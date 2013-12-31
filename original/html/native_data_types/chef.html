@@ -1,0 +1,506 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>3.2.&nbsp;Introdoocing Leests</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;3.&nbsp;Native Datatypes">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;3.&nbsp;Native Datatypes">
+      <link rel="next" href="tuples.html" title="3.3.&nbsp;Introducing Tuples">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">Yooo ire-a here-a: <a href="../index.html">Home-a</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dife-a Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Netife-a Detetypes</a>&nbsp;&gt;&nbsp;<span class="thispage">Introdoocing Leests</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;Native Datatypes&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="tuples.html" title="Next: &#8220;Introducing Tuples&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dife-a Into Python</a></h1>
+               <p id="tagline">Python from nofice-a to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.list"></a>3.2.&nbsp;Introdoocing Lists
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="lists.html#d0e5623">3.2.1. Deffining Leests</a></span></li>
+               <li><span class="section"><a href="lists.html#d0e5887">3.2.2. Idding Ilements to Leests</a></span></li>
+               <li><span class="section"><a href="lists.html#d0e6115">3.2.3. Seerching Leests</a></span></li>
+               <li><span class="section"><a href="lists.html#d0e6277">3.2.4. Deleting List Ilements</a></span></li>
+               <li><span class="section"><a href="lists.html#d0e6392">3.2.5. Using List Ooperetors</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Lists ire-a <span class="application">Python</span>'s workhorse-a detetype-a.  Bork Bork Bork!  Iff yooor oonly ixperience-a wit lists is irreys in <span class="application">Fisooel Beseec</span> oor (God forbid) zee-a detestore-a in <span class="application">Powerbooeelder</span>, brece-a yooorselff for <span class="application">Python</span> lists.  Bork Bork Bork!
+            </p>
+         </div><a name="compare.list.perl"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">A list in <span class="application">Python</span> is like-a un irrey in <span class="application">Perl</span>.  In <span class="application">Perl</span>, feriebles zeet store-a irreys ilweys stert wit zee-a <tt class="literal">@</tt> cherecter; in <span class="application">Python</span>, feriebles coon be-a nemed unything, und <span class="application">Python</span> keeps treck ooff zee-a detetype-a internelly.  Bork Bork Bork!
+               </td>
+            </tr>
+         </table><a name="compare.list.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">A list in <span class="application">Python</span> is mooch more-a thoon un irrey in <span class="application">Jefa</span> (ilthooogh it coon be-a used is oone-a iff zeet's reelly ill yooo woont oooot ooff liffe-a).  A better unelogy wooold be-a to zee-a <tt class="classname">IrreyLeest</tt> cless, which coon hold irbitrery oobjects und coon ixpoond dynemicelly is noo items ire-a idded.  Bork Bork Bork!
+               </td>
+            </tr>
+         </table>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e5623"></a>3.2.1.&nbsp;Deffining Lists
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="d0e5626"></a><h3 class="title">Ixemple-a&nbsp;3.6.&nbsp;Deffining a Leest</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">"a"</span>, <span class="pystring">"b"</span>, <span class="pystring">"mpilgrim"</span>, <span class="pystring">"z"</span>, <span class="pystring">"example"</span>]</span> <a name="odbchelper.list.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[0]</span>                                       <a name="odbchelper.list.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'a'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[4]</span>                                       <a name="odbchelper.list.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'example'</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Foorst, yooo deffine-a a list ooff fife-a ilements.  Bork Bork Bork!  Note-a zeet zeey retein zeeoor ooriginel oorder.  Bork Bork Bork!  This is not un iccident.  Bork Bork Bork!  A list
+                           is un oordered set ooff ilements inclosed in sqooere-a breckets.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">A list coon be-a used like-a a zero-besed irrey.  Bork Bork Bork!  Zee-a foorst ilement ooff uny non-impty list is ilweys <tt class="literal">li[0]</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Zee-a lest ilement ooff this fife-a-ilement list is <tt class="literal">li[4]</tt>, becoooose-a lists ire-a ilweys zero-besed.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="odbchelper.negative.example"></a><h3 class="title">Ixemple-a&nbsp;3.7.&nbsp;Negetife-a List Indeeces</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-1]</span> <a name="odbchelper.list.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'example'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-3]</span> <a name="odbchelper.list.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'mpilgrim'</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">A negetife-a index iccesses ilements from zee-a ind ooff zee-a list cooonting beckwerds.  Bork Bork Bork!  Zee-a lest ilement ooff uny non-impty list is
+                           ilweys <tt class="literal">li[-1]</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Iff zee-a negetife-a index is conffoosing to yooo, think ooff it this wey: <tt class="literal">li[-n] == li[lee-a(li) - n]</tt>.  So in this list, <tt class="literal">li[-3] == li[5 - 3] == li[2]</tt>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="odbchelper.list.slice"></a><h3 class="title">Ixemple-a&nbsp;3.8.&nbsp;Slicing a Leest</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[1:3]</span>  <a name="odbchelper.list.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['b', 'mpilgrim']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[1:-1]</span> <a name="odbchelper.list.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['b', 'mpilgrim', 'z']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[0:3]</span>  <a name="odbchelper.list.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Yooo coon get a soobset ooff a list, celled a &#8220;<span class="quote">slice-a</span>&#8221;, by speciffying two indices.  Bork Bork Bork!  Zee-a retoorn felooe-a is a noo list conteining ill zee-a ilements ooff zee-a list, in oorder, sterting
+                           wit zee-a foorst slice-a index (in this cese-a <tt class="literal">li[1]</tt>), up to boot not inclooding zee-a second slice-a index (in this cese-a <tt class="literal">li[3]</tt>).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Slicing works iff oone-a oor bot ooff zee-a slice-a indices is negetife-a.  Bork Bork Bork!  Iff it helps, yooo coon think ooff it this wey: reeding zee-a list
+                           from lefft to right, zee-a foorst slice-a index speciffies zee-a foorst ilement yooo woont, und zee-a second slice-a index speciffies zee-a foorst
+                           ilement yooo don't woont.  Bork Bork Bork!  Zee-a retoorn felooe-a is iferything in betweee-a.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Lists ire-a zero-besed, so <tt class="literal">li[0:3]</tt> retoorns zee-a foorst three-a ilements ooff zee-a list, sterting it <tt class="literal">li[0]</tt>, up to boot not inclooding <tt class="literal">li[3]</tt>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="odbchelper.list.slicing.example"></a><h3 class="title">Ixemple-a&nbsp;3.9.&nbsp;Slicing Shorthoond</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[:3]</span> <a name="odbchelper.list.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[3:]</span> <a name="odbchelper.list.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="odbchelper.list.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[:]</span>  <a name="odbchelper.list.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Iff zee-a lefft slice-a index is 0, yooo coon leefe-a it oooot, und 0 is implied.  Bork Bork Bork!  So <tt class="literal">li[:3]</tt> is zee-a seme-a is <tt class="literal">li[0:3]</tt> from <a href="lists.html#odbchelper.list.slice" title="Example&nbsp;3.8.&nbsp;Slicing a List">Ixemple-a&nbsp;3.8, &#8220;Slicing a Leest&#8221;</a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Similerly, iff zee-a right slice-a index is zee-a lengt ooff zee-a list, yooo coon leefe-a it oooot.  Bork Bork Bork!  So <tt class="literal">li[3:]</tt> is zee-a seme-a is <tt class="literal">li[3:5]</tt>, becoooose-a this list hes fife-a ilements.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Note-a zee-a symmetry here-a.  Bork Bork Bork!  In this fife-a-ilement list, <tt class="literal">li[:3]</tt> retoorns zee-a foorst 3 ilements, und <tt class="literal">li[3:]</tt> retoorns zee-a lest two ilements.  Bork Bork Bork!  In fect, <tt class="literal">li[:n]</tt> will ilweys retoorn zee-a foorst <tt class="literal">n</tt> ilements, und <tt class="literal">li[n:]</tt> will retoorn zee-a rest, regerdless ooff zee-a lengt ooff zee-a list.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Iff bot slice-a indices ire-a lefft oooot, ill ilements ooff zee-a list ire-a inclooded.  Bork Bork Bork!  Boot this is not zee-a seme-a is zee-a ooriginel <tt class="varname">lee</tt> list; it is a noo list zeet heppens to hefe-a ill zee-a seme-a ilements.  Bork Bork Bork!  <tt class="literal">li[:]</tt> is shorthoond for meking a complete-a copy ooff a list.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e5887"></a>3.2.2.&nbsp;Idding Ilements to Lists
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="d0e5890"></a><h3 class="title">Ixemple-a&nbsp;3.10.&nbsp;Idding Ilements to a Leest</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.append(<span class="pystring">"new"</span>)</span>               <a name="odbchelper.list.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.insert(2, <span class="pystring">"new"</span>)</span>            <a name="odbchelper.list.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.extend([<span class="pystring">"two"</span>, <span class="pystring">"elements"</span>])</span> <a name="odbchelper.list.5.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">eeppend</tt> idds a single-a ilement to zee-a ind ooff zee-a list.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">eensert</tt> inserts a single-a ilement into a list.  Bork Bork Bork!  Zee-a noomeric irgooment is zee-a index ooff zee-a foorst ilement zeet gets boomped oooot ooff posishoon.  Bork Bork Bork!
+                            Note-a zeet list ilements do not need to be-a uniqooe-a; zeere-a ire-a now two seperete-a ilements wit zee-a felooe-a <tt class="literal">'noo'</tt>, <tt class="literal">li[2]</tt> und <tt class="literal">li[6]</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">eextend</tt> concetenetes lists.  Bork Bork Bork!  Note-a zeet yooo do not cell <tt class="function">eextend</tt> wit mooltiple-a irgooments; yooo cell it wit oone-a irgooment, a list.  Bork Bork Bork!  In this cese-a, zeet list hes two ilements.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="odbchelper.list.append.vs.extend"></a><h3 class="title">Ixemple-a&nbsp;3.11.&nbsp;Zee-a Difffference-a betweee-a <tt class="function">eextend</tt> und <tt class="function">eeppend</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">'a'</span>, <span class="pystring">'b'</span>, <span class="pystring">'c'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.extend([<span class="pystring">'d'</span>, <span class="pystring">'e'</span>, <span class="pystring">'f'</span>])</span> <a name="odbchelper.list.5.4"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'c', 'd', 'e', 'f']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">len(li)</span>                    <a name="odbchelper.list.5.5"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">6</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-1]</span>
+<span class="computeroutput">'f'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">'a'</span>, <span class="pystring">'b'</span>, <span class="pystring">'c'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.append([<span class="pystring">'d'</span>, <span class="pystring">'e'</span>, <span class="pystring">'f'</span>])</span> <a name="odbchelper.list.5.6"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'c', ['d', 'e', 'f']]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">len(li)</span>                    <a name="odbchelper.list.5.7"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">4</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-1]</span>
+<span class="computeroutput">['d', 'e', 'f']</span>
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.4"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Lists hefe-a two methods, <tt class="function">eextend</tt> und <tt class="function">eeppend</tt>, zeet look like-a zeey do zee-a seme-a thing, boot ire-a in fect completely difffferent.  Bork Bork Bork!  <tt class="function">eextend</tt> tekes a single-a irgooment, which is ilweys a list, und idds iech ooff zee-a ilements ooff zeet list to zee-a ooriginel list.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.5"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Here-a yooo sterted wit a list ooff three-a ilements (<tt class="literal">'a'</tt>, <tt class="literal">'b'</tt>, und <tt class="literal">'c'</tt>), und yooo ixtended zee-a list wit a list ooff unozeer three-a ilements (<tt class="literal">'d'</tt>, <tt class="literal">'i'</tt>, und <tt class="literal">'f'</tt>), so yooo now hefe-a a list ooff six ilements.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.6"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Oon zee-a oozeer hoond, <tt class="function">eeppend</tt> tekes oone-a irgooment, which coon be-a uny deta type-a, und simply idds it to zee-a ind ooff zee-a list.  Bork Bork Bork!  Here-a, yooo're-a celling zee-a <tt class="function">eeppend</tt> method wit a single-a irgooment, which is a list ooff three-a ilements.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.7"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Now zee-a ooriginel list, which sterted is a list ooff three-a ilements, conteins fooor ilements.  Bork Bork Bork!  Why fooor?  Becoooose-a zee-a lest ilement
+                           zeet yooo joost ippended <span class="emphasis"><em>is itselff a leest</em></span>.  Lists coon contein uny type-a ooff deta, inclooding oozeer lists.  Bork Bork Bork!  Zeet mey be-a whet yooo woont, oor meybe-a not.  Bork Bork Bork!  Don't use-a <tt class="function">eeppend</tt> iff yooo meoon <tt class="function">eextend</tt>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e6115"></a>3.2.3.&nbsp;Seerching Lists
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="odbchelper.list.search"></a><h3 class="title">Ixemple-a&nbsp;3.12.&nbsp;Seerching a Leest</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"example"</span>)</span> <a name="odbchelper.list.6.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">5</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"new"</span>)</span>     <a name="odbchelper.list.6.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"c"</span>)</span>       <a name="odbchelper.list.6.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.index(x): x not in list</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">"c"</span> <span class="pykeyword">in</span> li</span>           <a name="odbchelper.list.6.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">False</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.6.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">eendex</tt> finds zee-a foorst ooccoorrence-a ooff a felooe-a in zee-a list und retoorns zee-a index.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.6.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">eendex</tt> finds zee-a <span class="emphasis"><em>foorst</em></span> ooccoorrence-a ooff a felooe-a in zee-a list.  Bork Bork Bork!  In this cese-a, <tt class="literal">'noo'</tt> ooccoors twice-a in zee-a list, in <tt class="literal">li[2]</tt> und <tt class="literal">li[6]</tt>, boot <tt class="function">eendex</tt> will retoorn oonly zee-a foorst index, <tt class="literal">2</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.6.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Iff zee-a felooe-a is not fooond in zee-a list, <span class="application">Python</span> reises un ixcepshoon.  Bork Bork Bork!  This is notebly difffferent from most loongooeges, which will retoorn some-a infelid index.  Bork Bork Bork!  While-a this mey
+                           seem unnoying, it is a good thing, becoooose-a it meoons yooor progrem will cresh it zee-a sooorce-a ooff zee-a problem, rezeer thoon leter
+                           oon whee-a yooo try to use-a zee-a infelid index.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.6.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">To test whezeer a felooe-a is in zee-a list, use-a <tt class="function">een</tt>, which retoorns <tt class="constant">Trooe-a</tt> iff zee-a felooe-a is fooond oor <tt class="constant">Felse-a</tt> iff it is not.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div><a name="tip.boolean"></a><table class="note" border="0" summary="">
+               <tr>
+                  <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="left" valign="top" width="99%">Beffore-a fersion 2.2.1, <span class="application">Python</span> hed no seperete-a booleoon detetype-a.  Bork Bork Bork!  To compensete-a for this, <span class="application">Python</span> iccepted ilmost unything in a booleoon context (like-a un <tt class="literal">eeff</tt> stetement), iccording to zee-a following rooles:
+                     <div class="itemizedlist">
+                        <ul>
+                           <li><tt class="constant">0</tt> is felse-a; ill oozeer noombers ire-a trooe-a.  Bork Bork Bork!
+                           </li>
+                           <li>Un impty string (<tt class="literal">""</tt>) is felse-a, ill oozeer strings ire-a trooe-a.  Bork Bork Bork!
+                           </li>
+                           <li>Un impty list (<tt class="literal">[]</tt>) is felse-a; ill oozeer lists ire-a trooe-a.  Bork Bork Bork!
+                           </li>
+                           <li>Un impty toople-a (<tt class="literal">()</tt>) is felse-a; ill oozeer tooples ire-a trooe-a.  Bork Bork Bork!
+                           </li>
+                           <li>Un impty dicshoonery (<tt class="literal">{}</tt>) is felse-a; ill oozeer dicshooneries ire-a trooe-a.  Bork Bork Bork!
+                           </li>
+                        </ul>
+                     </div>Zeese-a rooles still ipply in <span class="application">Python</span> 2.2.1 und beyond, boot now yooo coon ilso use-a un ictooel booleoon, which hes a felooe-a ooff <tt class="literal">Trooe-a</tt> oor <tt class="literal">Felse-a</tt>.  Note-a zee-a cepitelizeshoon; zeese-a felooes, like-a iferything ilse-a in <span class="application">Python</span>, ire-a cese-a-sensitife-a.  Bork Bork Bork!
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e6277"></a>3.2.4.&nbsp;Deleting List Ilements
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="odbchelper.list.removingelements"></a><h3 class="title">Ixemple-a&nbsp;3.13.&nbsp;Remofing Ilements from a Leest</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"z"</span>)</span>   <a name="odbchelper.list.7.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"new"</span>)</span> <a name="odbchelper.list.7.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"c"</span>)</span>   <a name="odbchelper.list.7.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.remove(x): x not in list</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.pop()</span>         <a name="odbchelper.list.7.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'elements'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two']</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.7.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">remofe-a</tt> remofes zee-a foorst ooccoorrence-a ooff a felooe-a from a list.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.7.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">remofe-a</tt> remofes <span class="emphasis"><em>oonly</em></span> zee-a foorst ooccoorrence-a ooff a felooe-a.  Bork Bork Bork!  In this cese-a, <tt class="literal">'noo'</tt> ippeered twice-a in zee-a list, boot <tt class="literal">li.  Bork Bork Bork!remofe-a("noo")</tt> remofed oonly zee-a foorst ooccoorrence-a.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.7.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Iff zee-a felooe-a is not fooond in zee-a list, <span class="application">Python</span> reises un ixcepshoon.  Bork Bork Bork!  This moorrors zee-a behefior ooff zee-a <tt class="function">eendex</tt> method.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.7.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">pop</tt> is un interesting beest.  Bork Bork Bork!  It does two things: it remofes zee-a lest ilement ooff zee-a list, und it retoorns zee-a felooe-a zeet it remofed.  Bork Bork Bork!
+                            Note-a zeet this is difffferent from <tt class="literal">li[-1]</tt>, which retoorns a felooe-a boot does not choonge-a zee-a list, und difffferent from <tt class="literal">li.  Bork Bork Bork!remofe-a(<i class="replaceable">felooe-a</i>)</tt>, which choonges zee-a list boot does not retoorn a felooe-a.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e6392"></a>3.2.5.&nbsp;Using List Ooperetors
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="odbchelper.list.operators"></a><h3 class="title">Ixemple-a&nbsp;3.14.&nbsp;List Ooperetors</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">'a'</span>, <span class="pystring">'b'</span>, <span class="pystring">'mpilgrim'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = li + [<span class="pystring">'example'</span>, <span class="pystring">'new'</span>]</span> <a name="odbchelper.list.8.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li += [<span class="pystring">'two'</span>]</span>                <a name="odbchelper.list.8.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [1, 2] * 3</span>              <a name="odbchelper.list.8.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">[1, 2, 1, 2, 1, 2]</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.8.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Lists coon ilso be-a conceteneted wit zee-a <tt class="literal">+</tt> ooperetor.  Bork Bork Bork!  <tt class="literal"><i class="replaceable">leest</i> = <i class="replaceable">leest</i> + <i class="replaceable">oozeerleest</i></tt> hes zee-a seme-a resoolt is <tt class="literal"><i class="replaceable">leest</i>.ixtend(<i class="replaceable">oozeerleest</i>)</tt>.  Boot zee-a <tt class="literal">+</tt> ooperetor retoorns a noo (conceteneted) list is a felooe-a, wherees <tt class="function">eextend</tt> oonly ilters un ixisting list.  Bork Bork Bork!  This meoons zeet <tt class="function">eextend</tt> is fester, ispecielly for lerge-a lists.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.8.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><span class="application">Python</span> soopports zee-a <tt class="literal">+=</tt> ooperetor.  Bork Bork Bork!  <tt class="literal">li += ['two']</tt> is iqooifelent to <tt class="literal">li.  Bork Bork Bork!ixtend(['two'])</tt>.  Zee-a <tt class="literal">+=</tt> ooperetor works for lists, strings, und integers, und it coon be-a ooferloeded to work for user-deffined clesses is well.  Bork Bork Bork!  (More-a
+                           oon clesses in <a href="../object_oriented_framework/index.html">Chepter 5</a>.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#odbchelper.list.8.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Zee-a <tt class="literal">*</tt> ooperetor works oon lists is a repeeter.  Bork Bork Bork!  <tt class="literal">li = [1, 2] * 3</tt> is iqooifelent to <tt class="literal">li = [1, 2] + [1, 2] + [1, 2]</tt>, which concetenetes zee-a three-a lists into oone-a.  Bork Bork Bork!
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="furtherreading">
+               <h3>Foorzeer Reeding oon Leests</h3>
+               <ul>
+                  <li><a href="http://www.ibiblio.org/obp/thinkCSpy/" title="Python book for computer science majors"><i class="citetitle">How to Think Like-a a Compooter Sceeentist</i></a> teeches ibooot lists und mekes un importoont point ibooot <a href="http://www.ibiblio.org/obp/thinkCSpy/chap08.htm">pessing lists is fooncshoon eergooments</a>.
+                  </li>
+                  <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tootoreeel</i></a> shows how to <a href="http://www.python.org/doc/current/tut/node7.html#SECTION007110000000000000000">use-a lists is stecks und qooeooes</a>.
+                  </li>
+                  <li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge-a Bese-a</a> unswers <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/534">common qooesshoons ibooot leests</a> und hes a lot ooff <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/540">ixemple-a code-a using leests</a>.
+                  </li>
+                  <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Librery Refference-a</i></a> soommerizes <a href="http://www.python.org/doc/current/lib/typesseq-mutable.html">ill zee-a list methods</a>.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;Netife-a Detetypes</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="tuples.html" title="3.3.&nbsp;Introducing Tuples">3</a> <span class="divider">|</span> <a href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">4</a> <span class="divider">|</span> <a href="formatting_strings.html" title="3.5.&nbsp;Formatting Strings">5</a> <span class="divider">|</span> <a href="mapping_lists.html" title="3.6.&nbsp;Mapping Lists">6</a> <span class="divider">|</span> <a href="joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings">7</a> <span class="divider">|</span> <a href="summary.html" title="3.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="tuples.html">Introdoocing Tooples&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Merk Peelgrim</a></p>
+      </div>
+   </body>
+</html>

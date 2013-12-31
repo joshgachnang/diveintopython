@@ -1,0 +1,200 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>12.4.&nbsp;Debugging SOAP Web Services</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;12.&nbsp;SOAP Web Services">
+      <link rel="previous" href="first_steps.html" title="12.3.&nbsp;First Steps with SOAP">
+      <link rel="next" href="wsdl.html" title="12.5.&nbsp;Introducing WSDL">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">SOAP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Debugging SOAP Web Services</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="first_steps.html" title="Prev: &#8220;First Steps with SOAP&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="wsdl.html" title="Next: &#8220;Introducing WSDL&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soap.debug"></a>12.4.&nbsp;Debugging <span class="acronym">SOAP</span> Web Services
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The <span class="acronym">SOAP</span> libraries provide an easy way to see what's going on behind the scenes.
+            </p>
+         </div>
+         <p>Turning on debugging is a simple matter of setting two flags in the <tt class="classname">SOAPProxy</tt>'s configuration.
+         </p>
+         <div class="example"><a name="d0e30423"></a><h3 class="title">Example&nbsp;12.7.&nbsp;Debugging <span class="acronym">SOAP</span> Web Services
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> SOAPpy <span class='pykeyword'>import</span> SOAPProxy</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">url = <span class='pystring'>'http://services.xmethods.net:80/soap/servlet/rpcrouter'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">n = <span class='pystring'>'urn:xmethods-Temperature'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = SOAPProxy(url, namespace=n)</span>     <a name="soap.debug.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.config.dumpSOAPOut = 1</span>            <a name="soap.debug.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.config.dumpSOAPIn = 1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">temperature = server.getTemp(<span class='pystring'>'27502'</span>)</span>    <a name="soap.debug.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">*** Outgoing SOAP ******************************************************
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:xsd="http://www.w3.org/1999/XMLSchema"&gt;
+&lt;SOAP-ENV:Body&gt;
+&lt;ns1:getTemp xmlns:ns1="urn:xmethods-Temperature" SOAP-ENC:root="1"&gt;
+&lt;v1 xsi:type="xsd:string"&gt;27502&lt;/v1&gt;
+&lt;/ns1:getTemp&gt;
+&lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+************************************************************************
+*** Incoming SOAP ******************************************************
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+&lt;SOAP-ENV:Body&gt;
+&lt;ns1:getTempResponse xmlns:ns1="urn:xmethods-Temperature"
+  SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"&gt;
+&lt;return xsi:type="xsd:float"&gt;80.0&lt;/return&gt;
+&lt;/ns1:getTempResponse&gt;
+
+&lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+************************************************************************
+</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">temperature</span>
+<span class="computeroutput">80.0</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">First, create the <tt class="classname">SOAPProxy</tt> like normal, with the service <span class="acronym">URL</span> and the namespace.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Second, turn on debugging by setting <tt class="varname">server.config.dumpSOAPIn</tt> and <tt class="varname">server.config.dumpSOAPOut</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Third, call the remote <span class="acronym">SOAP</span> method as usual.  The <span class="acronym">SOAP</span> library will print out both the outgoing XML request document, and the incoming XML response document.  This is all the hard
+                        work that <tt class="classname">SOAPProxy</tt> is doing for you.  Intimidating, isn't it?  Let's break it down.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Most of the XML request document that gets sent to the server is just boilerplate.  Ignore all the namespace declarations;
+            they're going to be the same (or similar) for all <span class="acronym">SOAP</span> calls.  The heart of the &#8220;<span class="quote">function call</span>&#8221; is this fragment within the <tt class="sgmltag-element">&lt;Body&gt;</tt> element:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+&lt;ns1:getTemp                                 <a name="soap.debug.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+  xmlns:ns1=<span class='pystring'>"urn:xmethods-Temperature"</span>       <a name="soap.debug.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+  SOAP-ENC:root=<span class='pystring'>"1"</span>&gt;
+&lt;v1 xsi:type=<span class='pystring'>"xsd:string"</span>&gt;27502&lt;/v1&gt;         <a name="soap.debug.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+&lt;/ns1:getTemp&gt;
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The element name is the function name, <tt class="function">getTemp</tt>.  <tt class="classname">SOAPProxy</tt> uses <a href="../scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type"><tt class="function">getattr</tt> as a dispatcher</a>.  Instead of calling separate local methods based on the method name, it actually uses the method name to construct the XML
+                        request document.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The function's XML element is contained in a specific namespace, which is the namespace you specified when you created the
+                        <tt class="classname">SOAPProxy</tt> object.  Don't worry about the <tt class="literal">SOAP-ENC:root</tt>; that's boilerplate too.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The arguments of the function also got translated into XML.  <tt class="classname">SOAPProxy</tt> introspects each argument to determine its datatype (in this case it's a string).  The argument datatype goes into the <tt class="literal">xsi:type</tt> attribute, followed by the actual string value.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The XML return document is equally easy to understand, once you know what to ignore.  Focus on this fragment within the <tt class="sgmltag-element">&lt;Body&gt;</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+&lt;ns1:getTempResponse                             <a name="soap.debug.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+  xmlns:ns1=<span class='pystring'>"urn:xmethods-Temperature"</span>           <a name="soap.debug.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+  SOAP-ENV:encodingStyle=<span class='pystring'>"http://schemas.xmlsoap.org/soap/encoding/"</span>&gt;
+&lt;<span class='pykeyword'>return</span> xsi:type=<span class='pystring'>"xsd:float"</span>&gt;80.0&lt;/<span class='pykeyword'>return</span>&gt;       <a name="soap.debug.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+&lt;/ns1:getTempResponse&gt;
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The server wraps the function return value within a <tt class="sgmltag-element">&lt;getTempResponse&gt;</tt> element.  By convention, this wrapper element is the name of the function, plus <tt class="literal">Response</tt>.  But it could really be almost anything; the important thing that <tt class="classname">SOAPProxy</tt> notices is not the element name, but the namespace.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The server returns the response in the same namespace we used in the request, the same namespace we specified when we first
+                        create the <tt class="classname">SOAPProxy</tt>.  Later in this chapter we'll see what happens if you forget to specify the namespace when creating the <tt class="classname">SOAPProxy</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.debug.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The return value is specified, along with its datatype (it's a float).  <tt class="classname">SOAPProxy</tt> uses this explicit datatype to create a <span class="application">Python</span> object of the correct native datatype and return it.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="first_steps.html">&lt;&lt;&nbsp;First Steps with SOAP</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soap.divein" title="12.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="install.html" title="12.2.&nbsp;Installing the SOAP Libraries">2</a> <span class="divider">|</span> <a href="first_steps.html" title="12.3.&nbsp;First Steps with SOAP">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="wsdl.html" title="12.5.&nbsp;Introducing WSDL">5</a> <span class="divider">|</span> <a href="introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">6</a> <span class="divider">|</span> <a href="google.html" title="12.7.&nbsp;Searching Google">7</a> <span class="divider">|</span> <a href="troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">8</a> <span class="divider">|</span> <a href="summary.html" title="12.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="wsdl.html">Introducing WSDL&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,276 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;6.&nbsp;Exceptions and File Handling</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../object_oriented_framework/summary.html" title="5.10.&nbsp;Summary">
+      <link rel="next" href="file_objects.html" title="6.2.&nbsp;Working with File Objects">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Exceptions and File Handling</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../object_oriented_framework/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="file_objects.html" title="Next: &#8220;Working with File Objects&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="filehandling"></a>Chapter&nbsp;6.&nbsp;Exceptions and File Handling
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#fileinfo.exception">6.1. Handling Exceptions</a></span><ul>
+                     <li><span class="section"><a href="index.html#d0e14344">6.1.1. Using Exceptions For Other Purposes</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="file_objects.html">6.2. Working with File Objects</a></span><ul>
+                     <li><span class="section"><a href="file_objects.html#d0e14670">6.2.1. Reading Files</a></span></li>
+                     <li><span class="section"><a href="file_objects.html#d0e14800">6.2.2. Closing Files</a></span></li>
+                     <li><span class="section"><a href="file_objects.html#d0e14928">6.2.3. Handling I/O Errors</a></span></li>
+                     <li><span class="section"><a href="file_objects.html#d0e15055">6.2.4. Writing to Files</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="for_loops.html">6.3. Iterating with for Loops</a></span></li>
+               <li><span class="section"><a href="more_on_modules.html">6.4. Using sys.modules</a></span></li>
+               <li><span class="section"><a href="os_module.html">6.5. Working with Directories</a></span></li>
+               <li><span class="section"><a href="all_together.html">6.6. Putting It All Together</a></span></li>
+               <li><span class="section"><a href="summary.html">6.7. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>In this chapter, you will dive into exceptions, file objects, <tt class="literal">for</tt> loops, and the <tt class="filename">os</tt> and <tt class="filename">sys</tt> modules.  If you've used exceptions in another programming language, you can skim the first section to get a sense of <span class="application">Python</span>'s syntax.  Be sure to tune in again for file handling.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="fileinfo.exception"></a>6.1.&nbsp;Handling Exceptions
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="toc">
+               <ul>
+                  <li><span class="section"><a href="index.html#d0e14344">6.1.1. Using Exceptions For Other Purposes</a></span></li>
+               </ul>
+            </div>
+            <div class="abstract">
+               <p>Like many other programming languages, <span class="application">Python</span> has exception handling via <tt class="literal">try...except</tt> blocks.
+               </p>
+            </div><a name="compare.exceptions.java"></a><table class="note" border="0" summary="">
+               <tr>
+                  <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> uses <tt class="literal">try...except</tt> to handle exceptions and <tt class="literal">raise</tt> to generate them.  <span class="application">Java</span> and <span class="application"><span class="acronym">C++</span></span> use <tt class="literal">try...catch</tt> to handle exceptions, and <tt class="literal">throw</tt> to generate them.
+                  </td>
+               </tr>
+            </table>
+            <p>Exceptions are everywhere in <span class="application">Python</span>.  Virtually every module in the standard <span class="application">Python</span> library uses them, and <span class="application">Python</span> itself will raise them in a lot of different circumstances.  You've already seen them repeatedly throughout this book.
+            </p>
+            <div class="itemizedlist">
+               <ul>
+                  <li><a href="../native_data_types/index.html#odbchelper.dict.define" title="Example&nbsp;3.1.&nbsp;Defining a Dictionary">Accessing a non-existent dictionary key</a> will raise a <tt class="errorcode">KeyError</tt> exception.
+                  </li>
+                  <li><a href="../native_data_types/lists.html#odbchelper.list.search" title="Example&nbsp;3.12.&nbsp;Searching a List">Searching a list for a non-existent value</a> will raise a <tt class="errorcode">ValueError</tt> exception.
+                  </li>
+                  <li><a href="../native_data_types/tuples.html#odbchelper.tuplemethods" title="Example&nbsp;3.16.&nbsp;Tuples Have No Methods">Calling a non-existent method</a> will raise an <tt class="errorcode">AttributeError</tt> exception.
+                  </li>
+                  <li><a href="../native_data_types/declaring_variables.html#odbchelper.unboundvariable" title="Example&nbsp;3.18.&nbsp;Referencing an Unbound Variable">Referencing a non-existent variable</a> will raise a <tt class="errorcode">NameError</tt> exception.
+                  </li>
+                  <li><a href="../native_data_types/formatting_strings.html#odbchelper.stringformatting.coerce" title="Example&nbsp;3.22.&nbsp;String Formatting vs. Concatenating">Mixing datatypes without coercion</a> will raise a <tt class="errorcode">TypeError</tt> exception.
+                  </li>
+               </ul>
+            </div>
+            <p>In each of these cases, you were simply playing around in the <span class="application">Python</span> <span class="acronym">IDE</span>: an error occurred, the exception was printed (depending on your <span class="acronym">IDE</span>, perhaps in an intentionally jarring shade of red), and that was that.  This is called an <span class="emphasis"><em>unhandled</em></span> exception.  When the exception was raised, there was no code to explicitly notice it and deal with it, so it bubbled its
+               way back to the default behavior built in to <span class="application">Python</span>, which is to spit out some debugging information and give up.  In the <span class="acronym">IDE</span>, that's no big deal, but if that happened while your actual <span class="application">Python</span> program was running, the entire program would come to a screeching halt.
+            </p>
+            <p>An exception doesn't need result in a complete program crash, though.  Exceptions, when raised, can be <span class="emphasis"><em>handled</em></span>.  Sometimes an exception is really because you have a bug in your code (like accessing a variable that doesn't exist), but
+               many times, an exception is something you can anticipate.  If you're opening a file, it might not exist.  If you're connecting
+               to a database, it might be unavailable, or you might not have the correct security credentials to access it.  If you know
+               a line of code may raise an exception, you should handle the exception using a <tt class="literal">try...except</tt> block.
+            </p>
+            <div class="example"><a name="d0e14243"></a><h3 class="title">Example&nbsp;6.1.&nbsp;Opening a Non-Existent File</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fsock = open(<span class='pystring'>"/notthere"</span>, <span class='pystring'>"r"</span>)</span>      <a name="fileinfo.exceptions.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+IOError: [Errno 2] No such file or directory: '/notthere'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>try</span>:</span>
+<tt class="prompt">...     </tt><span class="userinput">fsock = open(<span class='pystring'>"/notthere"</span>)</span>       <a name="fileinfo.exceptions.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">... </tt><span class="userinput"><span class='pykeyword'>except</span> IOError:</span>                     <a name="fileinfo.exceptions.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"The file does not exist, exiting gracefully"</span></span>
+<tt class="prompt">... </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"This line will always print"</span></span> <a name="fileinfo.exceptions.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">The file does not exist, exiting gracefully
+This line will always print</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Using the built-in <tt class="function">open</tt> function, you can try to open a file for reading (more on <tt class="function">open</tt> in the next section).  But the file doesn't exist, so this raises the <tt class="errorcode">IOError</tt> exception.  Since you haven't provided any explicit check for an <tt class="errorcode">IOError</tt> exception, <span class="application">Python</span> just prints out some debugging information about what happened and then gives up.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You're trying to open the same non-existent file, but this time you're doing it within a <tt class="literal">try...except</tt> block.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">When the <tt class="function">open</tt> method raises an <tt class="errorcode">IOError</tt> exception, you're ready for it.  The <tt class="literal">except IOError:</tt> line catches the exception and executes your own block of code, which in this case just prints a more pleasant error message.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Once an exception has been handled, processing continues normally on the first line after the <tt class="literal">try...except</tt> block.  Note that this line will always print, whether or not an exception occurs.  If you really did have a file called
+                           <tt class="filename">notthere</tt> in your root directory, the call to <tt class="function">open</tt> would succeed, the <tt class="literal">except</tt> clause would be ignored, and this line would still be executed.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Exceptions may seem unfriendly (after all, if you don't catch the exception, your entire program will crash), but consider
+               the alternative.  Would you rather get back an unusable file object to a non-existent file?  You'd need to check its validity
+               somehow anyway, and if you forgot, somewhere down the line, your program would give you strange errors somewhere down the
+               line that you would need to trace back to the source.  I'm sure you've experienced this, and you know it's not fun.  With
+               exceptions, errors occur immediately, and you can handle them in a standard way at the source of the problem.
+            </p>
+            <div class="section" lang="en">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="d0e14344"></a>6.1.1.&nbsp;Using Exceptions For Other Purposes
+                        </h3>
+                     </div>
+                  </div>
+                  <div></div>
+               </div>
+               <p>There are a lot of other uses for exceptions besides handling actual error conditions.  A common use in the standard <span class="application">Python</span> library is to try to import a module, and then check whether it worked.  Importing a module that does not exist will raise
+                  an <tt class="errorcode">ImportError</tt> exception.  You can use this to define multiple levels of functionality based on which modules are available at run-time,
+                  or to support multiple platforms (where platform-specific code is separated into different modules).
+               </p>
+               <p>You can also define your own exceptions by creating a class that inherits from the built-in <tt class="classname">Exception</tt> class, and then raise your exceptions with the <tt class="function">raise</tt> command.  See the further reading section if you're interested in doing this.
+               </p>
+               <p>The next example demonstrates how to use an exception to support platform-specific functionality.  This code comes from the
+                  <tt class="filename">getpass</tt> module, a wrapper module for getting a password from the user.  Getting a password is accomplished differently on <span class="acronym">UNIX</span>, Windows, and <span class="abbrev">Mac</span> <span class="acronym">OS</span> platforms, but this code encapsulates all of those differences.
+               </p>
+               <div class="example"><a name="crossplatform.example"></a><h3 class="title">Example&nbsp;6.2.&nbsp;Supporting Platform-Specific Functionality</h3><pre class="programlisting">
+  <span class='pycomment'># Bind the name getpass to the appropriate function</span>
+  <span class='pykeyword'>try</span>:
+      <span class='pykeyword'>import</span> termios, TERMIOS                     <a name="fileinfo.exceptions.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+  <span class='pykeyword'>except</span> ImportError:
+      <span class='pykeyword'>try</span>:
+          <span class='pykeyword'>import</span> msvcrt                           <a name="fileinfo.exceptions.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+      <span class='pykeyword'>except</span> ImportError:
+          <span class='pykeyword'>try</span>:
+              <span class='pykeyword'>from</span> EasyDialogs <span class='pykeyword'>import</span> AskPassword <a name="fileinfo.exceptions.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+          <span class='pykeyword'>except</span> ImportError:
+              getpass = default_getpass           <a name="fileinfo.exceptions.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+          <span class='pykeyword'>else</span>:                                   <a name="fileinfo.exceptions.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+              getpass = AskPassword
+      <span class='pykeyword'>else</span>:
+          getpass = win_getpass
+  <span class='pykeyword'>else</span>:
+      getpass = unix_getpass</pre><div class="calloutlist">
+                     <table border="0" summary="Callout list">
+                        <tr>
+                           <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                           </td>
+                           <td valign="top" align="left"><tt class="filename">termios</tt> is a <span class="acronym">UNIX</span>-specific module that provides low-level control over the input terminal.  If this module is not available (because it's not
+                              on your system, or your system doesn't support it), the import fails and <span class="application">Python</span> raises an <tt class="errorcode">ImportError</tt>, which you catch.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                           </td>
+                           <td valign="top" align="left">OK, you didn't have <tt class="filename">termios</tt>, so let's try <tt class="filename">msvcrt</tt>, which is a Windows-specific module that provides an <span class="acronym">API</span> to many useful functions in the Microsoft <span class="application">Visual C++</span> runtime services.  If this import fails, <span class="application">Python</span> will raise an <tt class="errorcode">ImportError</tt>, which you catch.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                           </td>
+                           <td valign="top" align="left">If the first two didn't work, you try to import a function from <tt class="filename">EasyDialogs</tt>, which is a <span class="abbrev">Mac</span> <span class="acronym">OS</span>-specific module that provides functions to pop up dialog boxes of various types.  Once again, if this import fails, <span class="application">Python</span> will raise an <tt class="errorcode">ImportError</tt>, which you catch.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                           </td>
+                           <td valign="top" align="left">None of these platform-specific modules is available (which is possible, since <span class="application">Python</span> has been ported to a lot of different platforms), so you need to fall back on a default password input function (which is
+                              defined elsewhere in the <tt class="filename">getpass</tt> module).  Notice what you're doing here: assigning the function <tt class="function">default_getpass</tt> to the variable <tt class="varname">getpass</tt>.  If you read the official <tt class="filename">getpass</tt> documentation, it tells you that the <tt class="filename">getpass</tt> module defines a <tt class="function">getpass</tt> function.  It does this by binding <tt class="varname">getpass</tt> to the correct function for your platform.  Then when you call the <tt class="function">getpass</tt> function, you're really calling a platform-specific function that this code has set up for you.  You don't need to know or
+                              care which platform your code is running on -- just call <tt class="function">getpass</tt>, and it will always do the right thing.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td width="12" valign="top" align="left"><a href="#fileinfo.exceptions.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                           </td>
+                           <td valign="top" align="left">A <tt class="literal">try...except</tt> block can have an <tt class="literal">else</tt> clause, like an <tt class="literal">if</tt> statement.  If no exception is raised during the <tt class="literal">try</tt> block, the <tt class="literal">else</tt> clause is executed afterwards.  In this case, that means that the <tt class="literal">from EasyDialogs import AskPassword</tt> import worked, so you should bind <tt class="varname">getpass</tt> to the <tt class="function">AskPassword</tt> function.  Each of the other <tt class="literal">try...except</tt> blocks has similar <tt class="literal">else</tt> clauses to bind <tt class="varname">getpass</tt> to the appropriate function when you find an <tt class="literal">import</tt> that works.
+                           </td>
+                        </tr>
+                     </table>
+                  </div>
+               </div>
+               <div class="furtherreading">
+                  <h3>Further Reading on Exception Handling</h3>
+                  <ul>
+                     <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discusses <a href="http://www.python.org/doc/current/tut/node10.html#SECTION0010400000000000000000">defining and raising your own exceptions, and handling multiple exceptions at once</a>.
+                     </li>
+                     <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes <a href="http://www.python.org/doc/current/lib/module-exceptions.html">all the built-in exceptions</a>.
+                     </li>
+                     <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents the <a href="http://www.python.org/doc/current/lib/module-getpass.html">getpass</a> module.
+                     </li>
+                     <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents the <a href="http://www.python.org/doc/current/lib/module-traceback.html"><tt class="filename">traceback</tt> module</a>, which provides low-level access to exception attributes after an exception is raised.
+                     </li>
+                     <li><a href="http://www.python.org/doc/current/ref/"><i class="citetitle"><span class="application">Python</span> Reference Manual</i></a> discusses the inner workings of the <a href="http://www.python.org/doc/current/ref/try.html"><tt class="literal">try...except</tt> block</a>.
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../object_oriented_framework/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="file_objects.html" title="6.2.&nbsp;Working with File Objects">2</a> <span class="divider">|</span> <a href="for_loops.html" title="6.3.&nbsp;Iterating with for Loops">3</a> <span class="divider">|</span> <a href="more_on_modules.html" title="6.4.&nbsp;Using sys.modules">4</a> <span class="divider">|</span> <a href="os_module.html" title="6.5.&nbsp;Working with Directories">5</a> <span class="divider">|</span> <a href="all_together.html" title="6.6.&nbsp;Putting It All Together">6</a> <span class="divider">|</span> <a href="summary.html" title="6.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="file_objects.html">Working with File Objects&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

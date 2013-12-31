@@ -1,0 +1,456 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>15.2.&nbsp;Handling changing requirements</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;15.&nbsp;Refactoring">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;15.&nbsp;Refactoring">
+      <link rel="next" href="refactoring.html" title="15.3.&nbsp;Refactoring">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Refactoring</a>&nbsp;&gt;&nbsp;<span class="thispage">Handling changing requirements</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;Refactoring&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="refactoring.html" title="Next: &#8220;Refactoring&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.change"></a>15.2.&nbsp;Handling changing requirements
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Despite your best efforts to pin your customers to the ground and extract exact requirements from them on pain of horrible
+               nasty things involving scissors and hot wax, requirements will change.  Most customers don't know what they want until they
+               see it, and even if they do, they aren't that good at articulating what they want precisely enough to be useful.  And even
+               if they do, they'll want more in the next release anyway.  So be prepared to update your test cases as requirements change.
+            </p>
+         </div>
+         <p>Suppose, for instance, that you wanted to expand the range of the Roman numeral conversion functions.  Remember <a href="../unit_testing/diving_in.html" title="13.2.&nbsp;Diving in">the rule</a> that said that no character could be repeated more than three times?  Well, the Romans were willing to make an exception
+            to that rule by having 4 <tt class="literal">M</tt> characters in a row to represent <tt class="literal">4000</tt>.  If you make this change, you'll be able to expand the range of convertible numbers from <tt class="literal">1..3999</tt> to <tt class="literal">1..4999</tt>.  But first, you need to make some changes to the test cases.
+         </p>
+         <div class="example"><a name="d0e34307"></a><h3 class="title">Example&nbsp;15.6.&nbsp;Modifying test cases for new requirements (<tt class="filename">romantest71.py</tt>)
+            </h3>
+            <p>This file is available in <tt class="filename">py/roman/stage7/</tt> in the examples directory.
+            </p>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting"><span class='pykeyword'>
+import</span> roman71
+<span class='pykeyword'>import</span> unittest
+
+<span class='pykeyword'>class</span><span class='pyclass'> KnownValues</span>(unittest.TestCase):
+    knownValues = ( (1, <span class='pystring'>'I'</span>),
+                    (2, <span class='pystring'>'II'</span>),
+                    (3, <span class='pystring'>'III'</span>),
+                    (4, <span class='pystring'>'IV'</span>),
+                    (5, <span class='pystring'>'V'</span>),
+                    (6, <span class='pystring'>'VI'</span>),
+                    (7, <span class='pystring'>'VII'</span>),
+                    (8, <span class='pystring'>'VIII'</span>),
+                    (9, <span class='pystring'>'IX'</span>),
+                    (10, <span class='pystring'>'X'</span>),
+                    (50, <span class='pystring'>'L'</span>),
+                    (100, <span class='pystring'>'C'</span>),
+                    (500, <span class='pystring'>'D'</span>),
+                    (1000, <span class='pystring'>'M'</span>),
+                    (31, <span class='pystring'>'XXXI'</span>),
+                    (148, <span class='pystring'>'CXLVIII'</span>),
+                    (294, <span class='pystring'>'CCXCIV'</span>),
+                    (312, <span class='pystring'>'CCCXII'</span>),
+                    (421, <span class='pystring'>'CDXXI'</span>),
+                    (528, <span class='pystring'>'DXXVIII'</span>),
+                    (621, <span class='pystring'>'DCXXI'</span>),
+                    (782, <span class='pystring'>'DCCLXXXII'</span>),
+                    (870, <span class='pystring'>'DCCCLXX'</span>),
+                    (941, <span class='pystring'>'CMXLI'</span>),
+                    (1043, <span class='pystring'>'MXLIII'</span>),
+                    (1110, <span class='pystring'>'MCX'</span>),
+                    (1226, <span class='pystring'>'MCCXXVI'</span>),
+                    (1301, <span class='pystring'>'MCCCI'</span>),
+                    (1485, <span class='pystring'>'MCDLXXXV'</span>),
+                    (1509, <span class='pystring'>'MDIX'</span>),
+                    (1607, <span class='pystring'>'MDCVII'</span>),
+                    (1754, <span class='pystring'>'MDCCLIV'</span>),
+                    (1832, <span class='pystring'>'MDCCCXXXII'</span>),
+                    (1993, <span class='pystring'>'MCMXCIII'</span>),
+                    (2074, <span class='pystring'>'MMLXXIV'</span>),
+                    (2152, <span class='pystring'>'MMCLII'</span>),
+                    (2212, <span class='pystring'>'MMCCXII'</span>),
+                    (2343, <span class='pystring'>'MMCCCXLIII'</span>),
+                    (2499, <span class='pystring'>'MMCDXCIX'</span>),
+                    (2574, <span class='pystring'>'MMDLXXIV'</span>),
+                    (2646, <span class='pystring'>'MMDCXLVI'</span>),
+                    (2723, <span class='pystring'>'MMDCCXXIII'</span>),
+                    (2892, <span class='pystring'>'MMDCCCXCII'</span>),
+                    (2975, <span class='pystring'>'MMCMLXXV'</span>),
+                    (3051, <span class='pystring'>'MMMLI'</span>),
+                    (3185, <span class='pystring'>'MMMCLXXXV'</span>),
+                    (3250, <span class='pystring'>'MMMCCL'</span>),
+                    (3313, <span class='pystring'>'MMMCCCXIII'</span>),
+                    (3408, <span class='pystring'>'MMMCDVIII'</span>),
+                    (3501, <span class='pystring'>'MMMDI'</span>),
+                    (3610, <span class='pystring'>'MMMDCX'</span>),
+                    (3743, <span class='pystring'>'MMMDCCXLIII'</span>),
+                    (3844, <span class='pystring'>'MMMDCCCXLIV'</span>),
+                    (3888, <span class='pystring'>'MMMDCCCLXXXVIII'</span>),
+                    (3940, <span class='pystring'>'MMMCMXL'</span>),
+                    (3999, <span class='pystring'>'MMMCMXCIX'</span>),
+                    (4000, <span class='pystring'>'MMMM'</span>),                                       <a name="roman.change.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+                    (4500, <span class='pystring'>'MMMMD'</span>),
+                    (4888, <span class='pystring'>'MMMMDCCCLXXXVIII'</span>),
+                    (4999, <span class='pystring'>'MMMMCMXCIX'</span>))
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testToRomanKnownValues</span>(self):
+        <span class='pystring'>"""toRoman should give known result with known input"""</span>
+        <span class='pykeyword'>for</span> integer, numeral <span class='pykeyword'>in</span> self.knownValues:
+            result = roman71.toRoman(integer)
+            self.assertEqual(numeral, result)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testFromRomanKnownValues</span>(self):
+        <span class='pystring'>"""fromRoman should give known result with known input"""</span>
+        <span class='pykeyword'>for</span> integer, numeral <span class='pykeyword'>in</span> self.knownValues:
+            result = roman71.fromRoman(numeral)
+            self.assertEqual(integer, result)
+
+<span class='pykeyword'>class</span><span class='pyclass'> ToRomanBadInput</span>(unittest.TestCase):
+    <span class='pykeyword'>def</span><span class='pyclass'> testTooLarge</span>(self):
+        <span class='pystring'>"""toRoman should fail with large input"""</span>
+        self.assertRaises(roman71.OutOfRangeError, roman71.toRoman, 5000) <a name="roman.change.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testZero</span>(self):
+        <span class='pystring'>"""toRoman should fail with 0 input"""</span>
+        self.assertRaises(roman71.OutOfRangeError, roman71.toRoman, 0)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testNegative</span>(self):
+        <span class='pystring'>"""toRoman should fail with negative input"""</span>
+        self.assertRaises(roman71.OutOfRangeError, roman71.toRoman, -1)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testNonInteger</span>(self):
+        <span class='pystring'>"""toRoman should fail with non-integer input"""</span>
+        self.assertRaises(roman71.NotIntegerError, roman71.toRoman, 0.5)
+
+<span class='pykeyword'>class</span><span class='pyclass'> FromRomanBadInput</span>(unittest.TestCase):
+    <span class='pykeyword'>def</span><span class='pyclass'> testTooManyRepeatedNumerals</span>(self):
+        <span class='pystring'>"""fromRoman should fail with too many repeated numerals"""</span>
+        <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> (<span class='pystring'>'MMMMM'</span>, <span class='pystring'>'DD'</span>, <span class='pystring'>'CCCC'</span>, <span class='pystring'>'LL'</span>, <span class='pystring'>'XXXX'</span>, <span class='pystring'>'VV'</span>, <span class='pystring'>'IIII'</span>):     <a name="roman.change.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+            self.assertRaises(roman71.InvalidRomanNumeralError, roman71.fromRoman, s)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testRepeatedPairs</span>(self):
+        <span class='pystring'>"""fromRoman should fail with repeated pairs of numerals"""</span>
+        <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> (<span class='pystring'>'CMCM'</span>, <span class='pystring'>'CDCD'</span>, <span class='pystring'>'XCXC'</span>, <span class='pystring'>'XLXL'</span>, <span class='pystring'>'IXIX'</span>, <span class='pystring'>'IVIV'</span>):
+            self.assertRaises(roman71.InvalidRomanNumeralError, roman71.fromRoman, s)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testMalformedAntecedent</span>(self):
+        <span class='pystring'>"""fromRoman should fail with malformed antecedents"""</span>
+        <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> (<span class='pystring'>'IIMXCC'</span>, <span class='pystring'>'VX'</span>, <span class='pystring'>'DCM'</span>, <span class='pystring'>'CMM'</span>, <span class='pystring'>'IXIV'</span>,
+                  <span class='pystring'>'MCMC'</span>, <span class='pystring'>'XCX'</span>, <span class='pystring'>'IVI'</span>, <span class='pystring'>'LM'</span>, <span class='pystring'>'LD'</span>, <span class='pystring'>'LC'</span>):
+            self.assertRaises(roman71.InvalidRomanNumeralError, roman71.fromRoman, s)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testBlank</span>(self):
+        <span class='pystring'>"""fromRoman should fail with blank string"""</span>
+        self.assertRaises(roman71.InvalidRomanNumeralError, roman71.fromRoman, <span class='pystring'>""</span>)
+
+<span class='pykeyword'>class</span><span class='pyclass'> SanityCheck</span>(unittest.TestCase):
+    <span class='pykeyword'>def</span><span class='pyclass'> testSanity</span>(self):
+        <span class='pystring'>"""fromRoman(toRoman(n))==n for all n"""</span>
+        <span class='pykeyword'>for</span> integer <span class='pykeyword'>in</span> range(1, 5000):                                    <a name="roman.change.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+            numeral = roman71.toRoman(integer)
+            result = roman71.fromRoman(numeral)
+            self.assertEqual(integer, result)
+
+<span class='pykeyword'>class</span><span class='pyclass'> CaseCheck</span>(unittest.TestCase):
+    <span class='pykeyword'>def</span><span class='pyclass'> testToRomanCase</span>(self):
+        <span class='pystring'>"""toRoman should always return uppercase"""</span>
+        <span class='pykeyword'>for</span> integer <span class='pykeyword'>in</span> range(1, 5000):
+            numeral = roman71.toRoman(integer)
+            self.assertEqual(numeral, numeral.upper())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testFromRomanCase</span>(self):
+        <span class='pystring'>"""fromRoman should only accept uppercase input"""</span>
+        <span class='pykeyword'>for</span> integer <span class='pykeyword'>in</span> range(1, 5000):
+            numeral = roman71.toRoman(integer)
+            roman71.fromRoman(numeral.upper())
+            self.assertRaises(roman71.InvalidRomanNumeralError,
+                              roman71.fromRoman, numeral.lower())
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:
+    unittest.main()
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The existing known values don't change (they're all still reasonable values to test), but you need to add a few more in the
+                        <tt class="literal">4000</tt> range.  Here I've included <tt class="literal">4000</tt> (the shortest), <tt class="literal">4500</tt> (the second shortest), <tt class="literal">4888</tt> (the longest), and <tt class="literal">4999</tt> (the largest).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The definition of &#8220;<span class="quote">large input</span>&#8221; has changed.  This test used to call <tt class="function">toRoman</tt> with <tt class="literal">4000</tt> and expect an error; now that <tt class="literal">4000-4999</tt> are good values, you need to bump this up to <tt class="literal">5000</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The definition of &#8220;<span class="quote">too many repeated numerals</span>&#8221; has also changed.  This test used to call <tt class="function">fromRoman</tt> with <tt class="literal">'MMMM'</tt> and expect an error; now that <tt class="literal">MMMM</tt> is considered a valid Roman numeral, you need to bump this up to <tt class="literal">'MMMMM'</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The sanity check and case checks loop through every number in the range, from <tt class="constant">1</tt> to <tt class="literal">3999</tt>.  Since the range has now expanded, these <tt class="literal">for</tt> loops need to be updated as well to go up to <tt class="literal">4999</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Now your test cases are up to date with the new requirements, but your code is not, so you expect several of the test cases
+            to fail.
+         </p>
+         <div class="example"><a name="d0e34405"></a><h3 class="title">Example&nbsp;15.7.&nbsp;Output of <tt class="filename">romantest71.py</tt> against <tt class="filename">roman71.py</tt></h3><pre class="screen"><span class="computeroutput">
+fromRoman should only accept uppercase input ... ERROR        </span><a name="roman.change.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+toRoman should always return uppercase ... ERROR
+fromRoman should fail with blank string ... ok
+fromRoman should fail with malformed antecedents ... ok
+fromRoman should fail with repeated pairs of numerals ... ok
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ERROR </span><a name="roman.change.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"><span class="computeroutput">
+toRoman should give known result with known input ... ERROR   </span><a name="roman.change.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"><span class="computeroutput">
+fromRoman(toRoman(n))==n for all n ... ERROR                  </span><a name="roman.change.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"><span class="computeroutput">
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Our case checks now fail because they loop from <tt class="constant">1</tt> to <tt class="literal">4999</tt>, but <tt class="function">toRoman</tt> only accepts numbers from <tt class="constant">1</tt> to <tt class="literal">3999</tt>, so it will fail as soon the test case hits <tt class="literal">4000</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">fromRoman</tt> known values test will fail as soon as it hits <tt class="literal">'MMMM'</tt>, because <tt class="function">fromRoman</tt> still thinks this is an invalid Roman numeral.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">toRoman</tt> known values test will fail as soon as it hits <tt class="literal">4000</tt>, because <tt class="function">toRoman</tt> still thinks this is out of range.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The sanity check will also fail as soon as it hits <tt class="literal">4000</tt>, because <tt class="function">toRoman</tt> still thinks this is out of range.
+                     </td>
+                  </tr>
+               </table>
+            </div><pre class="screen"><span class="computeroutput">
+======================================================================
+ERROR: fromRoman should only accept uppercase input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage7\romantest71.py", line 161, in testFromRomanCase
+    numeral = roman71.toRoman(integer)
+  File "roman71.py", line 28, in toRoman
+    raise OutOfRangeError, "number out of range (must be 1..3999)"
+OutOfRangeError: number out of range (must be 1..3999)</span><span class="computeroutput">
+======================================================================
+ERROR: toRoman should always return uppercase
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage7\romantest71.py", line 155, in testToRomanCase
+    numeral = roman71.toRoman(integer)
+  File "roman71.py", line 28, in toRoman
+    raise OutOfRangeError, "number out of range (must be 1..3999)"
+OutOfRangeError: number out of range (must be 1..3999)</span><span class="computeroutput">
+======================================================================
+ERROR: fromRoman should give known result with known input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage7\romantest71.py", line 102, in testFromRomanKnownValues
+    result = roman71.fromRoman(numeral)
+  File "roman71.py", line 47, in fromRoman
+    raise InvalidRomanNumeralError, 'Invalid Roman numeral: %s' % s
+InvalidRomanNumeralError: Invalid Roman numeral: MMMM</span><span class="computeroutput">
+======================================================================
+ERROR: toRoman should give known result with known input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage7\romantest71.py", line 96, in testToRomanKnownValues
+    result = roman71.toRoman(integer)
+  File "roman71.py", line 28, in toRoman
+    raise OutOfRangeError, "number out of range (must be 1..3999)"
+OutOfRangeError: number out of range (must be 1..3999)</span><span class="computeroutput">
+======================================================================
+ERROR: fromRoman(toRoman(n))==n for all n
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage7\romantest71.py", line 147, in testSanity
+    numeral = roman71.toRoman(integer)
+  File "roman71.py", line 28, in toRoman
+    raise OutOfRangeError, "number out of range (must be 1..3999)"
+OutOfRangeError: number out of range (must be 1..3999)</span><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 13 tests in 2.213s
+
+FAILED (errors=5)</span></pre></div>
+         <p>Now that you have test cases that fail due to the new requirements, you can think about fixing the code to bring it in line
+            with the test cases.  (One thing that takes some getting used to when you first start coding unit tests is that the code being
+            tested is never &#8220;<span class="quote">ahead</span>&#8221; of the test cases.  While it's behind, you still have some work to do, and as soon as it catches up to the test cases, you
+            stop coding.)
+         </p>
+         <div class="example"><a name="d0e34511"></a><h3 class="title">Example&nbsp;15.8.&nbsp;Coding the new requirements (<tt class="filename">roman72.py</tt>)
+            </h3>
+            <p>This file is available in <tt class="filename">py/roman/stage7/</tt> in the examples directory.
+            </p><pre class="programlisting">
+<span class='pystring'>"""Convert to and from Roman numerals"""</span>
+<span class='pykeyword'>import</span> re
+
+<span class='pycomment'>#Define exceptions</span>
+<span class='pykeyword'>class</span><span class='pyclass'> RomanError</span>(Exception): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> OutOfRangeError</span>(RomanError): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> NotIntegerError</span>(RomanError): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> InvalidRomanNumeralError</span>(RomanError): <span class='pykeyword'>pass</span>
+
+<span class='pycomment'>#Define digit mapping</span>
+romanNumeralMap = ((<span class='pystring'>'M'</span>,  1000),
+                   (<span class='pystring'>'CM'</span>, 900),
+                   (<span class='pystring'>'D'</span>,  500),
+                   (<span class='pystring'>'CD'</span>, 400),
+                   (<span class='pystring'>'C'</span>,  100),
+                   (<span class='pystring'>'XC'</span>, 90),
+                   (<span class='pystring'>'L'</span>,  50),
+                   (<span class='pystring'>'XL'</span>, 40),
+                   (<span class='pystring'>'X'</span>,  10),
+                   (<span class='pystring'>'IX'</span>, 9),
+                   (<span class='pystring'>'V'</span>,  5),
+                   (<span class='pystring'>'IV'</span>, 4),
+                   (<span class='pystring'>'I'</span>,  1))
+
+<span class='pykeyword'>def</span><span class='pyclass'> toRoman</span>(n):
+    <span class='pystring'>"""convert integer to Roman numeral"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> (0 &lt; n &lt; 5000):                                                         <a name="roman.change.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>raise</span> OutOfRangeError, <span class='pystring'>"number out of range (must be 1..4999)"</span>
+    <span class='pykeyword'>if</span> int(n) &lt;&gt; n:
+        <span class='pykeyword'>raise</span> NotIntegerError, <span class='pystring'>"non-integers can not be converted"</span>
+
+    result = <span class='pystring'>""</span>
+    <span class='pykeyword'>for</span> numeral, integer <span class='pykeyword'>in</span> romanNumeralMap:
+        <span class='pykeyword'>while</span> n &gt;= integer:
+            result += numeral
+            n -= integer
+    <span class='pykeyword'>return</span> result
+
+<span class='pycomment'>#Define pattern to detect valid Roman numerals</span>
+romanNumeralPattern = <span class='pystring'>'^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span> <a name="roman.change.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+
+<span class='pykeyword'>def</span><span class='pyclass'> fromRoman</span>(s):
+    <span class='pystring'>"""convert Roman numeral to integer"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> s:
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>'Input can not be blank'</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> re.search(romanNumeralPattern, s):
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>'Invalid Roman numeral: %s'</span> % s
+
+    result = 0
+    index = 0
+    <span class='pykeyword'>for</span> numeral, integer <span class='pykeyword'>in</span> romanNumeralMap:
+        <span class='pykeyword'>while</span> s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    <span class='pykeyword'>return</span> result
+</pre></div>
+         <div class="calloutlist">
+            <table border="0" summary="Callout list">
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#roman.change.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left"><tt class="function">toRoman</tt> only needs one small change, in the range check.  Where you used to check <tt class="literal">0 &lt; n &lt; 4000</tt>, you now check <tt class="literal">0 &lt; n &lt; 5000</tt>.  And you change the error message that you <tt class="literal">raise</tt> to reflect the new acceptable range (<tt class="literal">1..4999</tt> instead of <tt class="literal">1..3999</tt>).  You don't need to make any changes to the rest of the function; it handles the new cases already.  (It merrily adds <tt class="literal">'M'</tt> for each thousand that it finds; given <tt class="literal">4000</tt>, it will spit out <tt class="literal">'MMMM'</tt>.  The only reason it didn't do this before is that you explicitly stopped it with the range check.)
+                  </td>
+               </tr>
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#roman.change.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">You don't need to make any changes to <tt class="function">fromRoman</tt> at all.  The only change is to <tt class="varname">romanNumeralPattern</tt>; if you look closely, you'll notice that you added another optional <tt class="literal">M</tt> in the first section of the regular expression.  This will allow up to 4 <tt class="literal">M</tt> characters instead of 3, meaning you will allow the Roman numeral equivalents of <tt class="literal">4999</tt> instead of <tt class="literal">3999</tt>.  The actual <tt class="function">fromRoman</tt> function is completely general; it just looks for repeated Roman numeral characters and adds them up, without caring how
+                     many times they repeat.  The only reason it didn't handle <tt class="literal">'MMMM'</tt> before is that you explicitly stopped it with the regular expression pattern matching.
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <p>You may be skeptical that these two small changes are all that you need.  Hey, don't take my word for it; see for yourself:</p>
+         <div class="example"><a name="roman.roman72.output"></a><h3 class="title">Example&nbsp;15.9.&nbsp;Output of <tt class="filename">romantest72.py</tt> against <tt class="filename">roman72.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... ok
+toRoman should always return uppercase ... ok
+fromRoman should fail with blank string ... ok
+fromRoman should fail with malformed antecedents ... ok
+fromRoman should fail with repeated pairs of numerals ... ok
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ok
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 3.685s
+
+OK</span> <a name="roman.change.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.change.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">All the test cases pass.  Stop coding.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Comprehensive unit testing means never having to rely on a programmer who says &#8220;<span class="quote">Trust me.</span>&#8221;
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;Refactoring</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#roman.bugs" title="15.1.&nbsp;Handling bugs">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="refactoring.html" title="15.3.&nbsp;Refactoring">3</a> <span class="divider">|</span> <a href="postscript.html" title="15.4.&nbsp;Postscript">4</a> <span class="divider">|</span> <a href="summary.html" title="15.5.&nbsp;Summary">5</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="refactoring.html">Refactoring&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

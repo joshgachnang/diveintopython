@@ -1,0 +1,244 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>5.5.&nbsp;Exploring UserDict: A Wrapper Class</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;5.&nbsp;Objects and Object-Orientation">
+      <link rel="previous" href="instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">
+      <link rel="next" href="special_class_methods.html" title="5.6.&nbsp;Special Class Methods">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Objects and Object-Orientation</a>&nbsp;&gt;&nbsp;<span class="thispage">Exploring UserDict: A Wrapper Class</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="instantiating_classes.html" title="Prev: &#8220;Instantiating Classes&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="special_class_methods.html" title="Next: &#8220;Special Class Methods&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.userdict"></a>5.5.&nbsp;Exploring <tt class="classname">UserDict</tt>: A Wrapper Class
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>As you've seen, <tt class="classname">FileInfo</tt> is a class that acts like a dictionary.  To explore this further, let's look at the <tt class="classname">UserDict</tt> class in the <tt class="filename">UserDict</tt> module, which is the ancestor of the <tt class="classname">FileInfo</tt> class.  This is nothing special; the class is written in <span class="application">Python</span> and stored in a <tt class="literal">.py</tt> file, just like any other <span class="application">Python</span> code.  In particular, it's stored in the <tt class="filename">lib</tt> directory in your <span class="application">Python</span> installation.
+            </p>
+         </div><a name="tip.locate"></a><table class="tip" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">In the <span class="application">ActivePython</span> <span class="acronym">IDE</span> on Windows, you can quickly open any module in your library path by selecting
+                  <span class="guimenu">File</span>-&gt;<span class="guimenuitem"><span class="accel">L</span>ocate...</span> (<span><b class="shortcut"><span><b class="keycap">Ctrl</b></span>-<span class="keysym">L</span></b></span>).
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="fileinfo.userdict.init.example"></a><h3 class="title">Example&nbsp;5.9.&nbsp;Defining the <tt class="classname">UserDict</tt> Class
+            </h3><pre class="programlisting"><span class='pykeyword'>
+class</span> UserDict:                                <a name="fileinfo.userdict.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self, dict=None):             <a name="fileinfo.userdict.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        self.data = {}                         <a name="fileinfo.userdict.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> dict <span class='pykeyword'>is</span> <span class='pykeyword'>not</span> None: self.update(dict) <a name="fileinfo.userdict.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"> <a name="fileinfo.userdict.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note that <tt class="classname">UserDict</tt> is a base class, not inherited from any other class.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the <tt class="function">__init__</tt> method that you <a href="defining_classes.html#fileinfo.class.example" title="Example&nbsp;5.4.&nbsp;Defining the FileInfo Class">overrode in the <tt class="classname">FileInfo</tt> class</a>.  Note that the argument list in this ancestor class is different than the descendant.  That's okay; each subclass can have
+                        its own set of arguments, as long as it calls the ancestor with the correct arguments.  Here the ancestor class has a way
+                        to define initial values (by passing a dictionary in the <tt class="varname">dict</tt> argument) which the <tt class="classname">FileInfo</tt> does not use.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><span class="application">Python</span> supports data attributes (called &#8220;<span class="quote">instance variables</span>&#8221; in <span class="application">Java</span> and <span class="application">Powerbuilder</span>, and &#8220;<span class="quote">member variables</span>&#8221; in <span class="application"><span class="acronym">C++</span></span>).  Data attributes are pieces of data held by a specific instance of a class.  In this case, each instance of <tt class="classname">UserDict</tt> will have a data attribute <tt class="varname">data</tt>.  To reference this attribute from code outside the class, you qualify it with the instance name, <tt class="literal"><i class="replaceable">instance</i>.data</tt>, in the same way that you qualify a function with its module name.  To reference a data attribute from within the class,
+                        you use <tt class="literal">self</tt> as the qualifier.  By convention, all data attributes are initialized to reasonable values in the <tt class="function">__init__</tt> method.  However, this is not required, since data attributes, like local variables, <a href="../native_data_types/declaring_variables.html" title="3.4.&nbsp;Declaring variables">spring into existence</a> when they are first assigned a value.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">update</tt> method is a dictionary duplicator: it copies all the keys and values from one dictionary to another.  This does <span class="emphasis"><em>not</em></span> clear the target dictionary first; if the target dictionary already has some keys, the ones from the source dictionary will
+                        be overwritten, but others will be left untouched.  Think of <tt class="function">update</tt> as a merge function, not a copy function.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a syntax you may not have seen before (I haven't used it in the examples in this book).  It's an <tt class="literal">if</tt> statement, but instead of having an indented block starting on the next line, there is just a single statement on the same
+                        line, after the colon.  This is perfectly legal syntax, which is just a shortcut you can use when you have only one statement
+                        in a block.  (It's like specifying a single statement without braces in <span class="application"><span class="acronym">C++</span></span>.)  You can use this syntax, or you can have indented code on subsequent lines, but you can't do both for the same block.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="compare.overloading"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><span class="application">Java</span> and <span class="application">Powerbuilder</span> support function overloading by argument list, <span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> one class can have multiple methods with the same name but a different number of arguments, or arguments of different types.
+                   Other languages (most notably <span class="acronym">PL/SQL</span>) even support function overloading by argument name; <span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> one class can have multiple methods with the same name and the same number of arguments of the same type but different argument
+                  names.  <span class="application">Python</span> supports neither of these; it has no form of function overloading whatsoever.  Methods are defined solely by their name,
+                  and there can be only one method per class with a given name.  So if a descendant class has an <tt class="function">__init__</tt> method, it <span class="emphasis"><em>always</em></span> overrides the ancestor <tt class="function">__init__</tt> method, even if the descendant defines it with a different argument list.  And the same rule applies to any other method.
+               </td>
+            </tr>
+         </table><a name="fileinfo.derivedclasses"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Guido, the original author of <span class="application">Python</span>, explains method overriding this way: "Derived classes may override methods of their base classes. Because methods have no
+                  special privileges when calling other methods of the same object, a method of a base class that calls another method defined
+                  in the same base class, may in fact end up calling a method of a derived class that overrides it. (For <span class="application"><span class="acronym">C++</span></span> programmers: all methods in <span class="application">Python</span> are effectively virtual.)"  If that doesn't make sense to you (it confuses the hell out of me), feel free to ignore it. 
+                  I just thought I'd pass it along.
+               </td>
+            </tr>
+         </table><a name="note.dataattributes"></a><table class="caution" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/caution.png" alt="Caution" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Always assign an initial value to all of an instance's data attributes in the <tt class="function">__init__</tt> method.  It will save you hours of debugging later, tracking down <tt class="classname">AttributeError</tt> exceptions because you're referencing uninitialized (and therefore non-existent) attributes.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="fileinfo.userdict.normalmethods"></a><h3 class="title">Example&nbsp;5.10.&nbsp;<tt class="classname">UserDict</tt> Normal Methods
+            </h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> clear</span>(self): self.data.clear()          <a name="fileinfo.userdict.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> copy</span>(self):                             <a name="fileinfo.userdict.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> self.__class__ <span class='pykeyword'>is</span> UserDict:          <a name="fileinfo.userdict.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+            <span class='pykeyword'>return</span> UserDict(self.data)         
+        <span class='pykeyword'>import</span> copy                             <a name="fileinfo.userdict.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> copy.copy(self)                 
+    <span class='pykeyword'>def</span><span class='pyclass'> keys</span>(self): <span class='pykeyword'>return</span> self.data.keys()     <a name="fileinfo.userdict.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> items</span>(self): <span class='pykeyword'>return</span> self.data.items()  
+    <span class='pykeyword'>def</span><span class='pyclass'> values</span>(self): <span class='pykeyword'>return</span> self.data.values()
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">clear</tt> is a normal class method; it is publicly available to be called by anyone at any time.  Notice that <tt class="function">clear</tt>, like all class methods, has <tt class="literal">self</tt> as its first argument.  (Remember that you don't include <tt class="literal">self</tt> when you call the method; it's something that <span class="application">Python</span> adds for you.)  Also note the basic technique of this wrapper class: store a real dictionary (<tt class="varname">data</tt>) as a data attribute, define all the methods that a real dictionary has, and have each class method redirect to the corresponding
+                        method on the real dictionary.  (In case you'd forgotten, a dictionary's <tt class="function">clear</tt> method <a href="../native_data_types/index.html#odbchelper.dict.del" title="Example&nbsp;3.5.&nbsp;Deleting Items from a Dictionary">deletes all of its keys</a> and their associated values.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="filename">copy</tt> method of a real dictionary returns a new dictionary that is an exact duplicate of the original (all the same key-value pairs).
+                         But <tt class="classname">UserDict</tt> can't simply redirect to <tt class="function">self.data.copy</tt>, because that method returns a real dictionary, and what you want is to return a new instance that is the same class as <tt class="literal">self</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You use the <tt class="literal">__class__</tt> attribute to see if <tt class="literal">self</tt> is a <tt class="classname">UserDict</tt>; if so, you're golden, because you know how to copy a <tt class="classname">UserDict</tt>: just create a new <tt class="classname">UserDict</tt> and give it the real dictionary that you've squirreled away in <tt class="varname">self.data</tt>.  Then you immediately return the new <tt class="classname">UserDict</tt> you don't even get to the <tt class="literal">import copy</tt> on the next line.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If <tt class="literal"><span class="literal">self</span>.<span class="literal">__class__</span></tt> is not <tt class="classname">UserDict</tt>, then <tt class="literal">self</tt> must be some subclass of <tt class="classname">UserDict</tt> (like maybe <tt class="classname">FileInfo</tt>), in which case life gets trickier.  <tt class="classname">UserDict</tt> doesn't know how to make an exact copy of one of its descendants; there could, for instance, be other data attributes defined
+                        in the subclass, so you would need to iterate through them and make sure to copy all of them.  Luckily, <span class="application">Python</span> comes with a module to do exactly this, and it's called <tt class="filename">copy</tt>.  I won't go into the details here (though it's a wicked cool module, if you're ever inclined to dive into it on your own).
+                         Suffice it to say that <tt class="filename">copy</tt> can copy arbitrary <span class="application">Python</span> objects, and that's how you're using it here.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The rest of the methods are straightforward, redirecting the calls to the built-in methods on <tt class="varname">self.data</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e12692"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">In versions of <span class="application">Python</span> prior to 2.2, you could not directly subclass built-in datatypes like strings, lists, and dictionaries.  To compensate for
+                  this, <span class="application">Python</span> comes with wrapper classes that mimic the behavior of these built-in datatypes: <tt class="classname">UserString</tt>, <tt class="classname">UserList</tt>, and <tt class="classname">UserDict</tt>.  Using a combination of normal and special methods, the <tt class="classname">UserDict</tt> class does an excellent imitation of a dictionary.  In <span class="application">Python</span> 2.2 and later, you can inherit classes directly from built-in datatypes like <tt class="classname">dict</tt>.  An example of this is given in the examples that come with this book, in <tt class="filename">fileinfo_fromdict.py</tt>.
+               </td>
+            </tr>
+         </table>
+         <p>In <span class="application">Python</span>, you can inherit directly from the <tt class="classname">dict</tt> built-in datatype, as shown in this example.  There are three differences here compared to the <tt class="filename">UserDict</tt> version.
+         </p>
+         <div class="example"><a name="fileinfo.userdict.fromdict"></a><h3 class="title">Example&nbsp;5.11.&nbsp;Inheriting Directly from Built-In Datatype <tt class="classname">dict</tt></h3><pre class="programlisting"><span class='pykeyword'>
+class</span> FileInfo(dict):                  <a name="fileinfo.userdict.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pystring'>"store file metadata"</span>
+    <span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self, filename=None): <a name="fileinfo.userdict.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        self[<span class='pystring'>"name"</span>] = filename
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The first difference is that you don't need to import the <tt class="filename">UserDict</tt> module, since <tt class="classname">dict</tt> is a built-in datatype and is always available.  The second is that you are inheriting from <tt class="classname">dict</tt> directly, instead of from <tt class="function">UserDict.UserDict</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.userdict.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The third difference is subtle but important.  Because of the way <tt class="filename">UserDict</tt> works internally, it requires you to manually call its <tt class="function">__init__</tt> method to properly initialize its internal data structures.  <tt class="classname">dict</tt> does not work like this; it is not a wrapper, and it requires no explicit initialization.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Further Reading on <tt class="filename">UserDict</tt></h3>
+            <ul>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents the <a href="http://www.python.org/doc/current/lib/module-UserDict.html"><tt class="filename">UserDict</tt> module</a> and the <a href="http://www.python.org/doc/current/lib/module-copy.html"><tt class="filename">copy</tt> module</a>.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="instantiating_classes.html">&lt;&lt;&nbsp;Instantiating Classes</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.divein" title="5.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="importing_modules.html" title="5.2.&nbsp;Importing Modules Using from module import">2</a> <span class="divider">|</span> <a href="defining_classes.html" title="5.3.&nbsp;Defining Classes">3</a> <span class="divider">|</span> <a href="instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="special_class_methods.html" title="5.6.&nbsp;Special Class Methods">6</a> <span class="divider">|</span> <a href="special_class_methods2.html" title="5.7.&nbsp;Advanced Special Class Methods">7</a> <span class="divider">|</span> <a href="class_attributes.html" title="5.8.&nbsp;Introducing Class Attributes">8</a> <span class="divider">|</span> <a href="private_functions.html" title="5.9.&nbsp;Private Functions">9</a> <span class="divider">|</span> <a href="summary.html" title="5.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="special_class_methods.html">Special Class Methods&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

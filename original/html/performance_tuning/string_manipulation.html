@@ -1,0 +1,155 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>18.6.&nbsp;Optimizing String Manipulation</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;18.&nbsp;Performance Tuning">
+      <link rel="previous" href="list_operations.html" title="18.5.&nbsp;Optimizing List Operations">
+      <link rel="next" href="summary.html" title="18.7.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Performance Tuning</a>&nbsp;&gt;&nbsp;<span class="thispage">Optimizing String Manipulation</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="list_operations.html" title="Prev: &#8220;Optimizing List Operations&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soundex.stage4"></a>18.6.&nbsp;Optimizing String Manipulation
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The final step of the Soundex algorithm is padding short results with zeros, and truncating long results.  What is the best
+               way to do this?
+            </p>
+         </div>
+         <p>This is what we have so far, taken from <tt class="filename">soundex/stage2/soundex2c.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    digits3 = re.sub(<span class='pystring'>'9'</span>, <span class='pystring'>''</span>, digits2)
+    <span class='pykeyword'>while</span> len(digits3) &lt; 4:
+        digits3 += <span class='pystring'>"0"</span>
+    <span class='pykeyword'>return</span> digits3[:4]
+</pre></div>
+         <p>These are the results for <tt class="filename">soundex2c.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage2&gt;</tt><span class="userinput">python soundex2c.py</span>
+<span class="computeroutput">Woo             W000 12.6070768771
+Pilgrim         P426 14.4033353401
+Flingjingwaller F452 19.7774882003</span>
+</pre></div>
+         <p>The first thing to consider is replacing that regular expression with a loop.  This code is from <tt class="filename">soundex/stage4/soundex4a.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    digits3 = <span class='pystring'>''</span>
+    <span class='pykeyword'>for</span> d <span class='pykeyword'>in</span> digits2:
+        <span class='pykeyword'>if</span> d != <span class='pystring'>'9'</span>:
+            digits3 += d
+</pre></div>
+         <p>Is <tt class="filename">soundex4a.py</tt> faster?  Yes it is:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage4&gt;</tt><span class="userinput">python soundex4a.py</span>
+<span class="computeroutput">Woo             W000 6.62865531792
+Pilgrim         P426 9.02247576158
+Flingjingwaller F452 13.6328416042</span>
+</pre></div>
+         <p>But wait a minute.  A loop to remove characters from a string?  We can use a simple string method for that.  Here's <tt class="filename">soundex/stage4/soundex4b.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    digits3 = digits2.replace(<span class='pystring'>'9'</span>, <span class='pystring'>''</span>)
+</pre></div>
+         <p>Is <tt class="filename">soundex4b.py</tt> faster?  That's an interesting question.  It depends on the input:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage4&gt;</tt><span class="userinput">python soundex4b.py</span>
+<span class="computeroutput">Woo             W000 6.75477414029
+Pilgrim         P426 7.56652144337
+Flingjingwaller F452 10.8727729362</span>
+</pre></div>
+         <p>The string method in <tt class="filename">soundex4b.py</tt> is faster than the loop for most names, but it's actually slightly slower than <tt class="filename">soundex4a.py</tt> in the trivial case (of a very short name).  Performance optimizations aren't always uniform; tuning that makes one case
+            faster can sometimes make other cases slower.  In this case, the majority of cases will benefit from the change, so let's
+            leave it at that, but the principle is an important one to remember.
+         </p>
+         <p>Last but not least, let's examine the final two steps of the algorithm: padding short results with zeros, and truncating long
+            results to four characters.  The code you see in <tt class="filename">soundex4b.py</tt> does just that, but it's horribly inefficient.  Take a look at <tt class="filename">soundex/stage4/soundex4c.py</tt> to see why:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    digits3 += <span class='pystring'>'000'</span>
+    <span class='pykeyword'>return</span> digits3[:4]
+</pre></div>
+         <p>Why do we need a <tt class="literal">while</tt> loop to pad out the result?  We know in advance that we're going to truncate the result to four characters, and we know that
+            we already have at least one character (the initial letter, which is passed unchanged from the original <tt class="varname">source</tt> variable).  That means we can simply add three zeros to the output, then truncate it.  Don't get stuck in a rut over the
+            exact wording of the problem; looking at the problem slightly differently can lead to a simpler solution.
+         </p>
+         <p>How much speed do we gain in <tt class="filename">soundex4c.py</tt> by dropping the <tt class="literal">while</tt> loop?  It's significant:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage4&gt;</tt><span class="userinput">python soundex4c.py</span>
+<span class="computeroutput">Woo             W000 4.89129791636
+Pilgrim         P426 7.30642134685
+Flingjingwaller F452 10.689832367</span>
+</pre></div>
+         <p>Finally, there is still one more thing you can do to these three lines of code to make them faster: you can combine them into
+            one line.  Take a look at <tt class="filename">soundex/stage4/soundex4d.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>return</span> (digits2.replace(<span class='pystring'>'9'</span>, <span class='pystring'>''</span>) + <span class='pystring'>'000'</span>)[:4]
+</pre></div>
+         <p>Putting all this code on one line in <tt class="filename">soundex4d.py</tt> is barely faster than <tt class="filename">soundex4c.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage4&gt;</tt><span class="userinput">python soundex4d.py</span>
+<span class="computeroutput">Woo             W000 4.93624105857
+Pilgrim         P426 7.19747593619
+Flingjingwaller F452 10.5490700634</span>
+</pre></div>
+         <p>It is also significantly less readable, and for not much performance gain.  Is that worth it?  I hope you have good comments.
+             Performance isn't everything.  Your optimization efforts must always be balanced against threats to your program's readability
+            and maintainability.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="list_operations.html">&lt;&lt;&nbsp;Optimizing List Operations</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soundex.divein" title="18.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="timeit.html" title="18.2.&nbsp;Using the timeit Module">2</a> <span class="divider">|</span> <a href="regular_expressions.html" title="18.3.&nbsp;Optimizing Regular Expressions">3</a> <span class="divider">|</span> <a href="dictionary_lookups.html" title="18.4.&nbsp;Optimizing Dictionary Lookups">4</a> <span class="divider">|</span> <a href="list_operations.html" title="18.5.&nbsp;Optimizing List Operations">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="summary.html" title="18.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chapter 14. Test-First Programming</title>
+        <link rev="made" href="josh@servercobra.com" />
+        <meta name="generator" content="convert_to_jinja2.py" />
+        <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+        <meta name="description" content="Python from novice to pro" />
+        <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+        
+        <link rel="up" href="../toc/index.html" title=" Dive Into Python" />
+        
+        
+        
+        <link rel="next" href="stage_2.html" title=" 14.2.roman.py, stage 2" />
+        
+         <link rel="stylesheet" href="../css/normalize.css">
+         <link rel="stylesheet" href="../css/foundation.css">
+         <link rel="stylesheet" href="../css/diveintopython.css" type="text/css" />
+
+
+         <script src="../js/modernizr.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="small-12 columns" id="Header">
+                <div class="row">
+                    <div class="small-11 columns">
+                        
+                        <td align="left" colspan="5" id="breadcrumb" valign="top">You are here: <a href="../index.html">Home</a>&#160;&gt;&#160;<a href="../toc/index.html">Dive Into Python</a>&#160;&gt;&#160;<span class="thispage">Test-First Programming</span></td>
+                        
+                    </div>
+                    <div class="small-1 columns">
+                        
+                        <td align="right" id="navigation" valign="top">&#160;&#160;&#160;<a href="testing_for_sanity.html" title="Prev: &#8220;Testing for sanity&#8221;">&lt;&lt;</a>&#160;&#160;&#160;<a href="stage_2.html" title="Next: &#8220;roman.py, stage 2&#8221;">&gt;&gt;</a></td>
+                        
+                    </div>
+                </div>
+
+
+                <div id="logocontainer">
+                    <h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+                    <p id="tagline">Python from novice to pro</p>
+                    <a href="http://www.amazon.com/gp/product/B001GIOFN8/ref=as_li_tf_tl?ie=UTF8&tag=diveintopython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=B001GIOFN8"><img src="../images/amazon-buy-button.gif"></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman1.5"></a>Chapter&#160;14.&#160;Test-First Programming
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="toc">
+<ul>
+<li><span class="section"><a href="stage_1.html#roman.stage1">14.1. roman.py, stage 1</a></span></li>
+<li><span class="section"><a href="stage_2.html">14.2. roman.py, stage 2</a></span></li>
+<li><span class="section"><a href="stage_3.html">14.3. roman.py, stage 3</a></span></li>
+<li><span class="section"><a href="stage_4.html">14.4. roman.py, stage 4</a></span></li>
+<li><span class="section"><a href="stage_5.html">14.5. roman.py, stage 5</a></span></li>
+</ul>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="roman.stage1"></a>14.1.&#160;<tt class="filename">roman.py</tt>, stage 1
+                     </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>Now that the unit tests are complete, it's time to start writing the code that the test cases are attempting to test.  You're
+                  going to do this in stages, so you can see all the unit tests fail, then watch them pass one by one as you fill in the gaps
+                  in <tt class="filename">roman.py</tt>.
+               </p>
+</div>
+<div class="example"><a name="d0e32864"></a><h3 class="title">Example&#160;14.1.&#160;<tt class="filename">roman1.py</tt></h3>
+<p>This file is available in <tt class="filename">py/roman/stage1/</tt> in the examples directory.
+               </p>
+<p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+               </p><pre class="programlisting">
+<span class="pystring">"""Convert to and from Roman numerals"""</span>
+
+<span class="pycomment">#Define exceptions</span>
+<span class="pykeyword">class</span><span class="pyclass"> RomanError</span>(Exception): <span class="pykeyword">pass</span>                <a name="roman.stage1.1.1"></a><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"><span class="pykeyword">
+class</span> OutOfRangeError(RomanError): <span class="pykeyword">pass</span>          <a name="roman.stage1.1.2"></a><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12"><span class="pykeyword">
+class</span> NotIntegerError(RomanError): <span class="pykeyword">pass</span>
+<span class="pykeyword">class</span><span class="pyclass"> InvalidRomanNumeralError</span>(RomanError): <span class="pykeyword">pass</span> <a name="roman.stage1.1.3"></a><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12">
+
+<span class="pykeyword">def</span><span class="pyclass"> toRoman</span>(n):
+    <span class="pystring">"""convert integer to Roman numeral"""</span>
+    <span class="pykeyword">pass</span>                                         <a name="roman.stage1.1.4"></a><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12">
+
+<span class="pykeyword">def</span><span class="pyclass"> fromRoman</span>(s):
+    <span class="pystring">"""convert Roman numeral to integer"""</span>
+    <span class="pykeyword">pass</span>
+</img></img></img></img></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="12"><a href="#roman.stage1.1.1"><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"/></a>
+</td>
+<td align="left" valign="top">This is how you define your own custom exceptions in <span class="application">Python</span>.  Exceptions are classes, and you create your own by subclassing existing exceptions.  It is strongly recommended (but not
+                           required) that you subclass <tt class="errorcode">Exception</tt>, which is the base class that all built-in exceptions inherit from.  Here I am defining <tt class="errorcode">RomanError</tt> (inherited from <tt class="errorcode">Exception</tt>) to act as the base class for all my other custom exceptions to follow.  This is a matter of style; I could just as easily
+                           have inherited each individual exception from the <tt class="errorcode">Exception</tt> class directly.
+                        </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#roman.stage1.1.2"><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12"/></a>
+</td>
+<td align="left" valign="top">The <tt class="errorcode">OutOfRangeError</tt> and <tt class="errorcode">NotIntegerError</tt> exceptions will eventually be used by <tt class="function">toRoman</tt> to flag various forms of invalid input, as specified in <a href="testing_for_failure.html#roman.tobadinput.example" title="Example&#160;13.3.&#160;Testing bad input to toRoman"><tt class="classname">ToRomanBadInput</tt></a>.
+                        </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#roman.stage1.1.3"><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12"/></a>
+</td>
+<td align="left" valign="top">The <tt class="errorcode">InvalidRomanNumeralError</tt> exception will eventually be used by <tt class="function">fromRoman</tt> to flag invalid input, as specified in <a href="testing_for_failure.html#roman.frombadinput.example" title="Example&#160;13.4.&#160;Testing bad input to fromRoman"><tt class="classname">FromRomanBadInput</tt></a>.
+                        </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#roman.stage1.1.4"><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12"/></a>
+</td>
+<td align="left" valign="top">At this stage, you want to define the <span class="acronym">API</span> of each of your functions, but you don't want to code them yet, so you stub them out using the <span class="application">Python</span> reserved word <a href="../object_oriented_framework/defining_classes.html#fileinfo.class.simplest" title="Example&#160;5.3.&#160;The Simplest Python Class"><tt class="literal">pass</tt></a>.
+                        </td>
+</tr>
+</table>
+</div>
+</div>
+<p>Now for the big moment (drum roll please): you're finally going to run the unit test against this stubby little module.  At
+               this point, every test case should fail.  In fact, if any test case passes in stage 1, you should go back to <tt class="filename">romantest.py</tt> and re-evaluate why you coded a test so useless that it passes with do-nothing functions.
+            </p>
+<p>Run <tt class="filename">romantest1.py</tt> with the <tt class="option">-v</tt> command-line option, which will give more verbose output so you can see exactly what's going on as each test case runs. 
+               With any luck, your output should look like this:
+            </p>
+<div class="example"><a name="roman.stage1.output"></a><h3 class="title">Example&#160;14.2.&#160;Output of <tt class="filename">romantest1.py</tt> against <tt class="filename">roman1.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... ERROR
+toRoman should always return uppercase ... ERROR
+fromRoman should fail with malformed antecedents ... FAIL
+fromRoman should fail with repeated pairs of numerals ... FAIL
+fromRoman should fail with too many repeated numerals ... FAIL
+fromRoman should give known result with known input ... FAIL
+toRoman should give known result with known input ... FAIL
+fromRoman(toRoman(n))==n for all n ... FAIL
+toRoman should fail with non-integer input ... FAIL
+toRoman should fail with negative input ... FAIL
+toRoman should fail with large input ... FAIL
+toRoman should fail with 0 input ... FAIL
+
+======================================================================
+ERROR: fromRoman should only accept uppercase input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 154, in testFromRomanCase
+    roman1.fromRoman(numeral.upper())
+AttributeError: 'None' object has no attribute 'upper'</span><span class="computeroutput">
+======================================================================
+ERROR: toRoman should always return uppercase
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 148, in testToRomanCase
+    self.assertEqual(numeral, numeral.upper())
+AttributeError: 'None' object has no attribute 'upper'</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with malformed antecedents
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 133, in testMalformedAntecedent
+    self.assertRaises(roman1.InvalidRomanNumeralError, roman1.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with repeated pairs of numerals
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 127, in testRepeatedPairs
+    self.assertRaises(roman1.InvalidRomanNumeralError, roman1.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with too many repeated numerals
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 122, in testTooManyRepeatedNumerals
+    self.assertRaises(roman1.InvalidRomanNumeralError, roman1.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should give known result with known input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 99, in testFromRomanKnownValues
+    self.assertEqual(integer, result)
+  File "c:\python21\lib\unittest.py", line 273, in failUnlessEqual
+    raise self.failureException, (msg or '%s != %s' % (first, second))
+AssertionError: 1 != None</span><span class="computeroutput">
+======================================================================
+FAIL: toRoman should give known result with known input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 93, in testToRomanKnownValues
+    self.assertEqual(numeral, result)
+  File "c:\python21\lib\unittest.py", line 273, in failUnlessEqual
+    raise self.failureException, (msg or '%s != %s' % (first, second))
+AssertionError: I != None</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman(toRoman(n))==n for all n
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 141, in testSanity
+    self.assertEqual(integer, result)
+  File "c:\python21\lib\unittest.py", line 273, in failUnlessEqual
+    raise self.failureException, (msg or '%s != %s' % (first, second))
+AssertionError: 1 != None</span><span class="computeroutput">
+======================================================================
+FAIL: toRoman should fail with non-integer input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 116, in testNonInteger
+    self.assertRaises(roman1.NotIntegerError, roman1.toRoman, 0.5)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: NotIntegerError</span><span class="computeroutput">
+======================================================================
+FAIL: toRoman should fail with negative input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 112, in testNegative
+    self.assertRaises(roman1.OutOfRangeError, roman1.toRoman, -1)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: OutOfRangeError</span><span class="computeroutput">
+======================================================================
+FAIL: toRoman should fail with large input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 104, in testTooLarge
+    self.assertRaises(roman1.OutOfRangeError, roman1.toRoman, 4000)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: OutOfRangeError</span><span class="computeroutput">
+======================================================================
+FAIL: toRoman should fail with 0 input                                 </span><a name="roman.stage1.2.1"></a><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"><span class="computeroutput">
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage1\romantest1.py", line 108, in testZero
+    self.assertRaises(roman1.OutOfRangeError, roman1.toRoman, 0)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: OutOfRangeError                                        </span><a name="roman.stage1.2.2"></a><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12"><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 12 tests in 0.040s                                                 </span><a name="roman.stage1.2.3"></a><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12"><span class="computeroutput">
+
+FAILED (failures=10, errors=2)                                         </span><a name="roman.stage1.2.4"></a><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12"/></img></img></img></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="12"><a href="#roman.stage1.2.1"><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"/></a>
+</td>
+<td align="left" valign="top">Running the script runs <tt class="function">unittest.main()</tt>, which runs each test case, which is to say each method defined in each class within <tt class="filename">romantest.py</tt>.  For each test case, it prints out the <tt class="literal">doc string</tt> of the method and whether that test passed or failed.  As expected, none of the test cases passed.
+                        </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#roman.stage1.2.2"><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12"/></a>
+</td>
+<td align="left" valign="top">For each failed test case, <tt class="filename">unittest</tt> displays the trace information showing exactly what happened.  In this case, the call to <tt class="function">assertRaises</tt> (also called <tt class="function">failUnlessRaises</tt>) raised an <tt class="errorcode">AssertionError</tt> because it was expecting <tt class="function">toRoman</tt> to raise an <tt class="errorcode">OutOfRangeError</tt> and it didn't.
+                        </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#roman.stage1.2.3"><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12"/></a>
+</td>
+<td align="left" valign="top">After the detail, <tt class="filename">unittest</tt> displays a summary of how many tests were performed and how long it took.
+                        </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#roman.stage1.2.4"><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12"/></a>
+</td>
+<td align="left" valign="top">Overall, the unit test failed because at least one test case did not pass.  When a test case doesn't pass, <tt class="filename">unittest</tt> distinguishes between failures and errors.  A failure is a call to an <tt class="function">assertXYZ</tt> method, like <tt class="function">assertEqual</tt> or <tt class="function">assertRaises</tt>, that fails because the asserted condition is not true or the expected exception was not raised.  An error is any other sort
+                           of exception raised in the code you're testing or the unit test case itself.  For instance, the <tt class="function">testFromRomanCase</tt> method (&#8220;<span class="quote"><tt class="function">fromRoman</tt> should only accept uppercase input</span>&#8221;) was an error, because the call to <tt class="function">numeral.upper()</tt> raised an <tt class="errorcode">AttributeError</tt> exception, because <tt class="function">toRoman</tt> was supposed to return a string but didn't.  But <tt class="function">testZero</tt> (&#8220;<span class="quote"><tt class="function">toRoman</tt> should fail with 0 input</span>&#8221;) was a failure, because the call to <tt class="function">fromRoman</tt> did not raise the <tt class="errorcode">InvalidRomanNumeral</tt> exception that <tt class="function">assertRaises</tt> was looking for.
+                        </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <table border="0" cellpadding="0" cellspacing="0" class="Footer" summary="" width="100%">
+<tr>
+<td align="left" width="35%"><br><a class="NavigationArrow" href="testing_for_sanity.html">&lt;&lt;&#160;Testing for sanity</a></br></td>
+<td align="center" width="30%"><br>&#160;<span class="divider">|</span>&#160;<span class="thispage">1</span> <span class="divider">|</span> <a href="stage_2.html" title="14.2.&#160;roman.py, stage 2">2</a> <span class="divider">|</span> <a href="stage_3.html" title="14.3.&#160;roman.py, stage 3">3</a> <span class="divider">|</span> <a href="stage_4.html" title="14.4.&#160;roman.py, stage 4">4</a> <span class="divider">|</span> <a href="stage_5.html" title="14.5.&#160;roman.py, stage 5">5</a>&#160;<span class="divider">|</span>&#160;
+            </br></td>
+<td align="right" width="35%"><br><a class="NavigationArrow" href="stage_2.html">roman.py, stage 2&#160;&gt;&gt;</a></br></td>
+</tr>
+<tr>
+<td colspan="3"><br/></td>
+</tr>
+</table>
+        <!-- Footer -->
+<div class="Footer">
+    <p><a href="https://github.com/pcsforeducation/diveintopython/issues?sort=created&state=open">Report issues<img style="margin-left:10px" height="40" src="../images/logo_github.png"></a></p>
+    <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a>. Maintained by Josh Gachnang.</p>
+</div>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1879314568120827";
+/* DiveIntoPython */
+google_ad_slot = "8002881514";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<!-- End Footer -->
+            </div>
+        </div>
+        <!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google Analytics -->
+        <script src="../js/jquery.js"></script>
+        <script src="../js/foundation.min.js"></script>
+        <script>
+          $(document).foundation();
+        </script>
+    </body>
+</html>

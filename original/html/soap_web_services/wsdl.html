@@ -1,0 +1,99 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>12.5.&nbsp;Introducing WSDL</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;12.&nbsp;SOAP Web Services">
+      <link rel="previous" href="debugging.html" title="12.4.&nbsp;Debugging SOAP Web Services">
+      <link rel="next" href="introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">SOAP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Introducing WSDL</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="debugging.html" title="Prev: &#8220;Debugging SOAP Web Services&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="introspection.html" title="Next: &#8220;Introspecting SOAP Web Services with WSDL&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soap.wsdl"></a>12.5.&nbsp;Introducing <span class="acronym">WSDL</span></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The <tt class="classname">SOAPProxy</tt> class proxies local method calls and transparently turns then into invocations of remote <span class="acronym">SOAP</span> methods.  As you've seen, this is a lot of work, and <tt class="classname">SOAPProxy</tt> does it quickly and transparently.  What it doesn't do is provide any means of method introspection.
+            </p>
+         </div>
+         <p>Consider this: the previous two sections showed an example of calling a simple remote <span class="acronym">SOAP</span> method with one argument and one return value, both of simple data types.  This required knowing, and keeping track of, the
+            service <span class="acronym">URL</span>, the service namespace, the function name, the number of arguments, and the datatype of each argument.  If any of these is
+            missing or wrong, the whole thing falls apart.
+         </p>
+         <p>That shouldn't come as a big surprise.  If I wanted to call a local function, I would need to know what package or module
+            it was in (the equivalent of service <span class="acronym">URL</span> and namespace).  I would need to know the correct function name and the correct number of arguments.  <span class="application">Python</span> deftly handles datatyping without explicit types, but I would still need to know how many argument to pass, and how many
+            return values to expect.
+         </p>
+         <p>The big difference is introspection.  As you saw in <a href="../power_of_introspection/index.html">Chapter 4</a>, <span class="application">Python</span> excels at letting you discover things about modules and functions at runtime.  You can list the available functions within
+            a module, and with a little work, drill down to individual function declarations and arguments.
+         </p>
+         <p><span class="acronym">WSDL</span> lets you do that with <span class="acronym">SOAP</span> web services.  <span class="acronym">WSDL</span> stands for &#8220;<span class="quote">Web Services Description Language</span>&#8221;.  Although designed to be flexible enough to describe many types of web services, it is most often used to describe <span class="acronym">SOAP</span> web services.
+         </p>
+         <p>A <span class="acronym">WSDL</span> file is just that: a file.  More specifically, it's an XML file.  It usually lives on the same server you use to access the
+            <span class="acronym">SOAP</span> web services it describes, although there's nothing special about it.  Later in this chapter, we'll download the <span class="acronym">WSDL</span> file for the Google API and use it locally.  That doesn't mean we're calling Google locally; the <span class="acronym">WSDL</span> file still describes the remote functions sitting on Google's server.
+         </p>
+         <p>A <span class="acronym">WSDL</span> file contains a description of everything involved in calling a <span class="acronym">SOAP</span> web service:
+         </p>
+         <div class="itemizedlist">
+            <ul>
+               <li>The service <span class="acronym">URL</span> and namespace
+               </li>
+               <li>The type of web service (probably function calls using <span class="acronym">SOAP</span>, although as I mentioned, <span class="acronym">WSDL</span> is flexible enough to describe a wide variety of web services)
+               </li>
+               <li>The list of available functions</li>
+               <li>The arguments for each function</li>
+               <li>The datatype of each argument</li>
+               <li>The return values of each function, and the datatype of each return value</li>
+            </ul>
+         </div>
+         <p>In other words, a <span class="acronym">WSDL</span> file tells you everything you need to know to be able to call a <span class="acronym">SOAP</span> web service.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="debugging.html">&lt;&lt;&nbsp;Debugging SOAP Web Services</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soap.divein" title="12.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="install.html" title="12.2.&nbsp;Installing the SOAP Libraries">2</a> <span class="divider">|</span> <a href="first_steps.html" title="12.3.&nbsp;First Steps with SOAP">3</a> <span class="divider">|</span> <a href="debugging.html" title="12.4.&nbsp;Debugging SOAP Web Services">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">6</a> <span class="divider">|</span> <a href="google.html" title="12.7.&nbsp;Searching Google">7</a> <span class="divider">|</span> <a href="troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">8</a> <span class="divider">|</span> <a href="summary.html" title="12.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="introspection.html">Introspecting SOAP Web Services with WSDL&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

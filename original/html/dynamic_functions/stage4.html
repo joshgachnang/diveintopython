@@ -1,0 +1,212 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>17.5.&nbsp;plural.py, stage 4</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;17.&nbsp;Dynamic functions">
+      <link rel="previous" href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">
+      <link rel="next" href="stage5.html" title="17.6.&nbsp;plural.py, stage 5">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Dynamic functions</a>&nbsp;&gt;&nbsp;<span class="thispage">plural.py, stage 4</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="stage3.html" title="Prev: &#8220;plural.py, stage 3&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="stage5.html" title="Next: &#8220;plural.py, stage 5&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="plural.stage4"></a>17.5.&nbsp;<tt class="filename">plural.py</tt>, stage 4
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Let's factor out the duplication in the code so that defining new rules can be easier.</p>
+         </div>
+         <div class="example"><a name="plural.stage4.example.1"></a><h3 class="title">Example&nbsp;17.9.&nbsp;<tt class="filename">plural4.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> re
+
+<span class='pykeyword'>def</span><span class='pyclass'> buildMatchAndApplyFunctions</span>((pattern, search, replace)):  
+    matchFunction = <span class='pykeyword'>lambda</span> word: re.search(pattern, word)      <a name="plural.stage4.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    applyFunction = <span class='pykeyword'>lambda</span> word: re.sub(search, replace, word) <a name="plural.stage4.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>return</span> (matchFunction, applyFunction)                      <a name="plural.stage4.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage4.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">buildMatchAndApplyFunctions</tt> is a function that builds other functions dynamically.  It takes <tt class="varname">pattern</tt>, <tt class="varname">search</tt> and <tt class="varname">replace</tt> (actually it takes a tuple, but more on that in a minute), and you can build the match function using the <tt class="literal">lambda</tt> syntax to be a function that takes one parameter (<tt class="varname">word</tt>) and calls <tt class="function">re.search</tt> with the <tt class="varname">pattern</tt> that was passed to the <tt class="function">buildMatchAndApplyFunctions</tt> function, and the <tt class="varname">word</tt> that was passed to the match function you're building.  Whoa.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage4.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Building the apply function works the same way.  The apply function is a function that takes one parameter, and calls <tt class="function">re.sub</tt> with the <tt class="varname">search</tt> and <tt class="varname">replace</tt> parameters that were passed to the <tt class="function">buildMatchAndApplyFunctions</tt> function, and the <tt class="varname">word</tt> that was passed to the apply function you're building.  This technique of using the values of outside parameters within a
+                        dynamic function is called <span class="emphasis"><em>closures</em></span>.  You're essentially defining constants within the apply function you're building: it takes one parameter (<tt class="varname">word</tt>), but it then acts on that plus two other values (<tt class="varname">search</tt> and <tt class="varname">replace</tt>) which were set when you defined the apply function.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage4.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Finally, the <tt class="function">buildMatchAndApplyFunctions</tt> function returns a tuple of two values: the two functions you just created.  The constants you defined within those functions
+                        (<tt class="varname">pattern</tt> within <tt class="varname">matchFunction</tt>, and <tt class="varname">search</tt> and <tt class="varname">replace</tt> within <tt class="varname">applyFunction</tt>) stay with those functions, even after you return from <tt class="function">buildMatchAndApplyFunctions</tt>.  That's insanely cool.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>If this is incredibly confusing (and it should be, this is weird stuff), it may become clearer when you see how to use it.</p>
+         <div class="example"><a name="d0e37935"></a><h3 class="title">Example&nbsp;17.10.&nbsp;<tt class="filename">plural4.py</tt> continued
+            </h3><pre class="programlisting">
+patterns = \
+  (
+    (<span class='pystring'>'[sxz]$'</span>, <span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>),
+    (<span class='pystring'>'[^aeioudgkprt]h$'</span>, <span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>),
+    (<span class='pystring'>'(qu|[^aeiou])y$'</span>, <span class='pystring'>'y$'</span>, <span class='pystring'>'ies'</span>),
+    (<span class='pystring'>'$'</span>, <span class='pystring'>'$'</span>, <span class='pystring'>'s'</span>)
+  )                                                 <a name="plural.stage4.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+rules = map(buildMatchAndApplyFunctions, patterns)  <a name="plural.stage4.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage4.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Our pluralization rules are now defined as a series of strings (not functions).  The first string is the regular expression
+                        that you would use in <tt class="function">re.search</tt> to see if this rule matches; the second and third are the search and replace expressions you would use in <tt class="function">re.sub</tt> to actually apply the rule to turn a noun into its plural.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage4.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This line is magic.  It takes the list of strings in <tt class="varname">patterns</tt> and turns them into a list of functions.  How?  By mapping the strings to the <tt class="function">buildMatchAndApplyFunctions</tt> function, which just happens to take three strings as parameters and return a tuple of two functions.  This means that <tt class="varname">rules</tt> ends up being exactly the same as the previous example: a list of tuples, where each tuple is a pair of functions, where
+                        the first function is the match function that calls <tt class="function">re.search</tt>, and the second function is the apply function that calls <tt class="function">re.sub</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>I swear I am not making this up: <tt class="varname">rules</tt> ends up with exactly the same list of functions as the previous example.  Unroll the <tt class="varname">rules</tt> definition, and you'll get this:
+         </p>
+         <div class="example"><a name="d0e37982"></a><h3 class="title">Example&nbsp;17.11.&nbsp;Unrolling the rules definition</h3><pre class="programlisting">
+rules = \
+  (
+    (
+     <span class='pykeyword'>lambda</span> word: re.search(<span class='pystring'>'[sxz]$'</span>, word),
+     <span class='pykeyword'>lambda</span> word: re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>, word)
+    ),
+    (
+     <span class='pykeyword'>lambda</span> word: re.search(<span class='pystring'>'[^aeioudgkprt]h$'</span>, word),
+     <span class='pykeyword'>lambda</span> word: re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>, word)
+    ),
+    (
+     <span class='pykeyword'>lambda</span> word: re.search(<span class='pystring'>'[^aeiou]y$'</span>, word),
+     <span class='pykeyword'>lambda</span> word: re.sub(<span class='pystring'>'y$'</span>, <span class='pystring'>'ies'</span>, word)
+    ),
+    (
+     <span class='pykeyword'>lambda</span> word: re.search(<span class='pystring'>'$'</span>, word),
+     <span class='pykeyword'>lambda</span> word: re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'s'</span>, word)
+    )
+   )                                          
+</pre></div>
+         <div class="example"><a name="plural.finishing.up"></a><h3 class="title">Example&nbsp;17.12.&nbsp;<tt class="filename">plural4.py</tt>, finishing up
+            </h3><pre class="programlisting"><span class='pykeyword'>
+def</span> plural(noun):                                  
+    <span class='pykeyword'>for</span> matchesRule, applyRule <span class='pykeyword'>in</span> rules:            <a name="plural.stage4.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> matchesRule(noun):                      
+            <span class='pykeyword'>return</span> applyRule(noun)                 
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage4.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Since the <tt class="varname">rules</tt> list is the same as the previous example, it should come as no surprise that the <tt class="function">plural</tt> function hasn't changed.  Remember, it's completely generic; it takes a list of rule functions and calls them in order. 
+                        It doesn't care how the rules are defined.  In <a href="stage2.html" title="17.3.&nbsp;plural.py, stage 2">stage 2</a>, they were defined as seperate named functions.  In <a href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">stage 3</a>, they were defined as anonymous <tt class="literal">lambda</tt> functions.  Now in stage 4, they are built dynamically by mapping the <tt class="function">buildMatchAndApplyFunctions</tt> function onto a list of raw strings.  Doesn't matter; the <tt class="function">plural</tt> function still works the same way.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Just in case that wasn't mind-blowing enough, I must confess that there was a subtlety in the definition of <tt class="function">buildMatchAndApplyFunctions</tt> that I skipped over.  Let's go back and take another look.
+         </p>
+         <div class="example"><a name="d0e38026"></a><h3 class="title">Example&nbsp;17.13.&nbsp;Another look at <tt class="function">buildMatchAndApplyFunctions</tt></h3><pre class="programlisting"><span class='pykeyword'>
+def</span> buildMatchAndApplyFunctions((pattern, search, replace)):   <a name="plural.stage4.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage4.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Notice the double parentheses?  This function doesn't actually take three parameters; it actually takes one parameter, a tuple
+                        of three elements.  But the tuple is expanded when the function is called, and the three elements of the tuple are each assigned
+                        to different variables: <tt class="varname">pattern</tt>, <tt class="varname">search</tt>, and <tt class="varname">replace</tt>.  Confused yet?  Let's see it in action.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e38048"></a><h3 class="title">Example&nbsp;17.14.&nbsp;Expanding tuples when calling functions</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>def</span><span class='pyclass'> foo</span>((a, b, c)):</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> c</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> b</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> a</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parameters = (<span class='pystring'>'apple'</span>, <span class='pystring'>'bear'</span>, <span class='pystring'>'catnap'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">foo(parameters)</span> <a name="plural.stage4.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">catnap</span>
+<span class="computeroutput">bear</span>
+<span class="computeroutput">apple</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage4.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The proper way to call the function <tt class="function">foo</tt> is with a tuple of three elements.  When the function is called, the elements are assigned to different local variables within
+                        <tt class="function">foo</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p>Now let's go back and see why this auto-tuple-expansion trick was necessary.  <tt class="varname">patterns</tt> was a list of tuples, and each tuple had three elements.  When you called <tt class="literal">map(buildMatchAndApplyFunctions, patterns)</tt>, that means that <tt class="function">buildMatchAndApplyFunctions</tt> is <span class="emphasis"><em>not</em></span> getting called with three parameters.  Using <tt class="function">map</tt> to map a single list onto a function always calls the function with a single parameter: each element of the list.  In the
+               case of <tt class="varname">patterns</tt>, each element of the list is a tuple, so <tt class="function">buildMatchAndApplyFunctions</tt> always gets called with the tuple, and you use the auto-tuple-expansion trick in the definition of <tt class="function">buildMatchAndApplyFunctions</tt> to assign the elements of that tuple to named variables that you can work with.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="stage3.html">&lt;&lt;&nbsp;plural.py, stage 3</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#plural.divein" title="17.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="stage1.html" title="17.2.&nbsp;plural.py, stage 1">2</a> <span class="divider">|</span> <a href="stage2.html" title="17.3.&nbsp;plural.py, stage 2">3</a> <span class="divider">|</span> <a href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="stage5.html" title="17.6.&nbsp;plural.py, stage 5">6</a> <span class="divider">|</span> <a href="stage6.html" title="17.7.&nbsp;plural.py, stage 6">7</a> <span class="divider">|</span> <a href="summary.html" title="17.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="stage5.html">plural.py, stage 5&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

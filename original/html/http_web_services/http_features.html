@@ -1,0 +1,186 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>11.3.&nbsp;Features of HTTP</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;11.&nbsp;HTTP Web Services">
+      <link rel="previous" href="review.html" title="11.2.&nbsp;How not to fetch data over HTTP">
+      <link rel="next" href="debugging.html" title="11.4.&nbsp;Debugging HTTP web services">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Features of HTTP</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="review.html" title="Prev: &#8220;How not to fetch data over HTTP&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="debugging.html" title="Next: &#8220;Debugging HTTP web services&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="oa.features"></a>11.3.&nbsp;Features of HTTP
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="http_features.html#d0e27596">11.3.1. User-Agent</a></span></li>
+               <li><span class="section"><a href="http_features.html#d0e27616">11.3.2. Redirects</a></span></li>
+               <li><span class="section"><a href="http_features.html#d0e27689">11.3.3. Last-Modified/If-Modified-Since</a></span></li>
+               <li><span class="section"><a href="http_features.html#d0e27724">11.3.4. ETag/If-None-Match</a></span></li>
+               <li><span class="section"><a href="http_features.html#d0e27752">11.3.5. Compression</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>There are five important features of HTTP which you should support.</p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e27596"></a>11.3.1.&nbsp;<tt class="literal">User-Agent</tt></h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>The <tt class="literal">User-Agent</tt> is simply a way for a client to tell a server who it is when it requests a web page, a syndicated feed, or any sort of web
+               service over HTTP.  When the client requests a resource, it should always announce who it is, as specifically as possible.
+                This allows the server-side administrator to get in touch with the client-side developer if anything is going fantastically
+               wrong.
+            </p>
+            <p>By default, <span class="application">Python</span> sends a generic <tt class="literal">User-Agent</tt>: <tt class="literal">Python-urllib/1.15</tt>.  In the next section, you'll see how to change this to something more specific.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e27616"></a>11.3.2.&nbsp;Redirects
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Sometimes resources move around.  Web sites get reorganized, pages move to new addresses.  Even web services can reorganize.
+                A syndicated feed at <tt class="literal">http://example.com/index.xml</tt> might be moved to <tt class="literal">http://example.com/xml/atom.xml</tt>.  Or an entire domain might move, as an organization expands and reorganizes; for instance, <tt class="literal">http://www.example.com/index.xml</tt> might be redirected to <tt class="literal">http://server-farm-1.example.com/index.xml</tt>.
+            </p>
+            <p>Every time you request any kind of resource from an HTTP server, the server includes a status code in its response.  Status
+               code <tt class="literal">200</tt> means &#8220;<span class="quote">everything's normal, here's the page you asked for</span>&#8221;.  Status code <tt class="literal">404</tt> means &#8220;<span class="quote">page not found</span>&#8221;.  (You've probably seen 404 errors while browsing the web.)
+            </p>
+            <p>HTTP has two different ways of signifying that a resource has moved.  Status code <tt class="literal">302</tt> is a <span class="emphasis"><em>temporary redirect</em></span>; it means &#8220;<span class="quote">oops, that got moved over here temporarily</span>&#8221; (and then gives the temporary address in a <tt class="literal">Location:</tt> header).  Status code <tt class="literal">301</tt> is a <span class="emphasis"><em>permanent redirect</em></span>; it means &#8220;<span class="quote">oops, that got moved permanently</span>&#8221; (and then gives the new address in a <tt class="literal">Location:</tt> header).  If you get a <tt class="literal">302</tt> status code and a new address, the HTTP specification says you should use the new address to get what you asked for, but
+               the next time you want to access the same resource, you should retry the old address.  But if you get a <tt class="literal">301</tt> status code and a new address, you're supposed to use the new address from then on.
+            </p>
+            <p><tt class="function">urllib.urlopen</tt> will automatically &#8220;<span class="quote">follow</span>&#8221; redirects when it receives the appropriate status code from the HTTP server, but unfortunately, it doesn't tell you when
+               it does so.  You'll end up getting data you asked for, but you'll never know that the underlying library &#8220;<span class="quote">helpfully</span>&#8221; followed a redirect for you.  So you'll continue pounding away at the old address, and each time you'll get redirected to
+               the new address.  That's two round trips instead of one: not very efficient!  Later in this chapter, you'll see how to work
+               around this so you can deal with permanent redirects properly and efficiently.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e27689"></a>11.3.3.&nbsp;<tt class="literal">Last-Modified</tt>/<tt class="literal">If-Modified-Since</tt></h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Some data changes all the time.  The home page of CNN.com is constantly updating every few minutes.  On the other hand, the
+               home page of Google.com only changes once every few weeks (when they put up a special holiday logo, or advertise a new service).
+                Web services are no different; usually the server knows when the data you requested last changed, and HTTP provides a way
+               for the server to include this last-modified date along with the data you requested.
+            </p>
+            <p>If you ask for the same data a second time (or third, or fourth), you can tell the server the last-modified date that you
+               got last time: you send an <tt class="literal">If-Modified-Since</tt> header with your request, with the date you got back from the server last time.  If the data hasn't changed since then, the
+               server sends back a special HTTP status code <tt class="literal">304</tt>, which means &#8220;<span class="quote">this data hasn't changed since the last time you asked for it</span>&#8221;.  Why is this an improvement?  Because when the server sends a <tt class="literal">304</tt>, <span class="emphasis"><em>it doesn't re-send the data</em></span>.  All you get is the status code.  So you don't need to download the same data over and over again if it hasn't changed;
+               the server assumes you have the data cached locally.
+            </p>
+            <p>All modern web browsers support last-modified date checking.  If you've ever visited a page, re-visited the same page a day
+               later and found that it hadn't changed, and wondered why it loaded so quickly the second time -- this could be why.  Your
+               web browser cached the contents of the page locally the first time, and when you visited the second time, your browser automatically
+               sent the last-modified date it got from the server the first time.  The server simply says <tt class="literal">304: Not Modified</tt>, so your browser knows to load the page from its cache.  Web services can be this smart too.
+            </p>
+            <p><span class="application">Python</span>'s URL library has no built-in support for last-modified date checking, but since you can add arbitrary headers to each request
+               and read arbitrary headers in each response, you can add support for it yourself.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e27724"></a>11.3.4.&nbsp;<tt class="literal">ETag</tt>/<tt class="literal">If-None-Match</tt></h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>ETags are an alternate way to accomplish the same thing as the last-modified date checking: don't re-download data that hasn't
+               changed.  The way it works is, the server sends some sort of hash of the data (in an <tt class="literal">ETag</tt> header) along with the data you requested.  Exactly how this hash is determined is entirely up to the server.  The second
+               time you request the same data, you include the ETag hash in an <tt class="literal">If-None-Match:</tt> header, and if the data hasn't changed, the server will send you back a <tt class="literal">304</tt> status code.  As with the last-modified date checking, the server <span class="emphasis"><em>just</em></span> sends the <tt class="literal">304</tt>; it doesn't send you the same data a second time.  By including the ETag hash in your second request, you're telling the
+               server that there's no need to re-send the same data if it still matches this hash, since you still have the data from the
+               last time.
+            </p>
+            <p><span class="application">Python</span>'s URL library has no built-in support for ETags, but you'll see how to add it later in this chapter.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e27752"></a>11.3.5.&nbsp;Compression
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>The last important HTTP feature is gzip compression.  When you talk about HTTP web services, you're almost always talking
+               about moving XML back and forth over the wire.  XML is text, and quite verbose text at that, and text generally compresses
+               well.  When you request a resource over HTTP, you can ask the server that, if it has any new data to send you, to please send
+               it in compressed format.  You include the <tt class="literal">Accept-encoding: gzip</tt> header in your request, and if the server supports compression, it will send you back gzip-compressed data and mark it with
+               a <tt class="literal">Content-encoding: gzip</tt> header.
+            </p>
+            <p><span class="application">Python</span>'s URL library has no built-in support for gzip compression per se, but you can add arbitrary headers to the request.  And
+               <span class="application">Python</span> comes with a separate <tt class="filename">gzip</tt> module, which has functions you can use to decompress the data yourself.
+            </p>
+            <p>Note that <a href="review.html" title="11.2.&nbsp;How not to fetch data over HTTP">our little one-line script</a> to download a syndicated feed did not support any of these HTTP features.  Let's see how you can improve it.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="review.html">&lt;&lt;&nbsp;How not to fetch data over HTTP</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="debugging.html">Debugging HTTP web services&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

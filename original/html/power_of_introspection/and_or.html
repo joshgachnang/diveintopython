@@ -1,0 +1,229 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>4.6.&nbsp;The Peculiar Nature of and and or</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;4.&nbsp;The Power Of Introspection">
+      <link rel="previous" href="filtering_lists.html" title="4.5.&nbsp;Filtering Lists">
+      <link rel="next" href="lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">The Power Of Introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">The Peculiar Nature of and and or</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="filtering_lists.html" title="Prev: &#8220;Filtering Lists&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="lambda_functions.html" title="Next: &#8220;Using lambda Functions&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="apihelper.andor"></a>4.6.&nbsp;The Peculiar Nature of <tt class="literal">and</tt> and <tt class="literal">or</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="and_or.html#d0e9975">4.6.1. Using the and-or Trick</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>In <span class="application">Python</span>, <tt class="literal">and</tt> and <tt class="literal">or</tt> perform boolean logic as you would expect, but they do not return boolean values; instead, they return one of the actual
+               values they are comparing.
+            </p>
+         </div>
+         <div class="example"><a name="apihelper.andor.intro.example"></a><h3 class="title">Example&nbsp;4.15.&nbsp;Introducing <tt class="literal">and</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>'a'</span> <span class='pykeyword'>and</span> <span class='pystring'>'b'</span></span>         <a name="apihelper.andor.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'b'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>''</span> <span class='pykeyword'>and</span> <span class='pystring'>'b'</span></span>          <a name="apihelper.andor.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">''</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>'a'</span> <span class='pykeyword'>and</span> <span class='pystring'>'b'</span> <span class='pykeyword'>and</span> <span class='pystring'>'c'</span></span> <a name="apihelper.andor.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'c'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.andor.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">When using <tt class="literal">and</tt>, values are evaluated in a boolean context from left to right.  <tt class="constant">0</tt>, <tt class="literal">''</tt>, <tt class="literal">[]</tt>, <tt class="literal">()</tt>, <tt class="literal">{}</tt>, and <tt class="literal">None</tt> are false in a boolean context; everything else is true.  Well, almost everything.  By default, instances of classes are
+                        true in a boolean context, but you can define special methods in your class to make an instance evaluate to false.  You'll
+                        learn all about classes and special methods in <a href="../object_oriented_framework/index.html">Chapter 5</a>.  If all values are true in a boolean context, <tt class="literal">and</tt> returns the last value.  In this case, <tt class="literal">and</tt> evaluates <tt class="literal">'a'</tt>, which is true, then <tt class="literal">'b'</tt>, which is true, and returns <tt class="literal">'b'</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.andor.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If any value is false in a boolean context, <tt class="literal">and</tt> returns the first false value.  In this case, <tt class="literal">''</tt> is the first false value.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.andor.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">All values are true, so <tt class="literal">and</tt> returns the last value, <tt class="literal">'c'</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e9812"></a><h3 class="title">Example&nbsp;4.16.&nbsp;Introducing <tt class="literal">or</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>'a'</span> <span class='pykeyword'>or</span> <span class='pystring'>'b'</span></span>          <a name="apihelper.andor.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'a'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>''</span> <span class='pykeyword'>or</span> <span class='pystring'>'b'</span></span>           <a name="apihelper.andor.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'b'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>''</span> <span class='pykeyword'>or</span> [] <span class='pykeyword'>or</span> {}</span>      <a name="apihelper.andor.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">{}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>def</span><span class='pyclass'> sidefx</span>():</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"in sidefx()"</span></span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>return</span> 1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>'a'</span> <span class='pykeyword'>or</span> sidefx()</span>     <a name="apihelper.andor.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'a'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.andor.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">When using <tt class="literal">or</tt>, values are evaluated in a boolean context from left to right, just like <tt class="literal">and</tt>.  If any value is true, <tt class="literal">or</tt> returns that value immediately.  In this case, <tt class="literal">'a'</tt> is the first true value.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.andor.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">or</tt> evaluates <tt class="literal">''</tt>, which is false, then <tt class="literal">'b'</tt>, which is true, and returns <tt class="literal">'b'</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.andor.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If all values are false, <tt class="literal">or</tt> returns the last value.  <tt class="literal">or</tt> evaluates <tt class="literal">''</tt>, which is false, then <tt class="literal">[]</tt>, which is false, then <tt class="literal">{}</tt>, which is false, and returns <tt class="literal">{}</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.andor.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note that <tt class="literal">or</tt> evaluates values only until it finds one that is true in a boolean context, and then it ignores the rest.  This distinction
+                        is important if some values can have side effects.  Here, the function <tt class="function">sidefx</tt> is never called, because <tt class="literal">or</tt> evaluates <tt class="literal">'a'</tt>, which is true, and returns <tt class="literal">'a'</tt> immediately.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>If you're a <span class="application"><span class="acronym">C</span></span> hacker, you are certainly familiar with the <tt class="literal"><i class="replaceable">bool</i> ? <tt class="varname">a</tt> : <tt class="varname">b</tt></tt> expression, which evaluates to <tt class="varname">a</tt> if <i class="replaceable"><tt>bool</tt></i> is true, and <tt class="varname">b</tt> otherwise.  Because of the way <tt class="literal">and</tt> and <tt class="literal">or</tt> work in <span class="application">Python</span>, you can accomplish the same thing.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e9975"></a>4.6.1.&nbsp;Using the <tt class="literal">and-or</tt> Trick
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="apihelper.andortrick.intro"></a><h3 class="title">Example&nbsp;4.17.&nbsp;Introducing the <tt class="literal">and-or</tt> Trick
+               </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a = <span class='pystring'>"first"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">b = <span class='pystring'>"second"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">1 <span class='pykeyword'>and</span> a <span class='pykeyword'>or</span> b</span> <a name="apihelper.andor.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'first'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">0 <span class='pykeyword'>and</span> a <span class='pykeyword'>or</span> b</span> <a name="apihelper.andor.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'second'</span>
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.andor.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This syntax looks similar to the <tt class="literal"><i class="replaceable">bool</i> ? <tt class="varname">a</tt> : <tt class="varname">b</tt></tt> expression in <span class="application"><span class="acronym">C</span></span>.  The entire expression is evaluated from left to right, so the <tt class="literal">and</tt> is evaluated first.  <tt class="literal">1 and 'first'</tt> evalutes to <tt class="literal">'first'</tt>, then <tt class="literal">'first' or 'second'</tt> evalutes to <tt class="literal">'first'</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.andor.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">0 and 'first'</tt> evalutes to <tt class="constant">False</tt>, and then <tt class="literal">0 or 'second'</tt> evaluates to <tt class="literal">'second'</tt>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>However, since this <span class="application">Python</span> expression is simply boolean logic, and not a special construct of the language, there is one extremely important difference
+               between this <tt class="literal">and-or</tt> trick in <span class="application">Python</span> and the <tt class="literal"><i class="replaceable">bool</i> ? <tt class="varname">a</tt> : <tt class="varname">b</tt></tt> syntax in <span class="application"><span class="acronym">C</span></span>.  If the value of <tt class="varname">a</tt> is false, the expression will not work as you would expect it to.  (Can you tell I was bitten by this?  More than once?)
+            </p>
+            <div class="example"><a name="d0e10093"></a><h3 class="title">Example&nbsp;4.18.&nbsp;When the <tt class="literal">and-or</tt> Trick Fails
+               </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a = <span class='pystring'>""</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">b = <span class='pystring'>"second"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">1 <span class='pykeyword'>and</span> a <span class='pykeyword'>or</span> b</span>         <a name="apihelper.andor.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'second'</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.andor.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Since <tt class="varname">a</tt> is an empty string, which <span class="application">Python</span> considers false in a boolean context, <tt class="literal">1 and ''</tt> evalutes to <tt class="literal">''</tt>, and then <tt class="literal">'' or 'second'</tt> evalutes to <tt class="literal">'second'</tt>.  Oops!  That's not what you wanted.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>The <tt class="literal">and-or</tt> trick, <tt class="literal"><i class="replaceable">bool</i> and <tt class="varname">a</tt> or <tt class="varname">b</tt></tt>, will not work like the <span class="application"><span class="acronym">C</span></span> expression <tt class="literal"><i class="replaceable">bool</i> ? <tt class="varname">a</tt> : <tt class="varname">b</tt></tt> when <tt class="varname">a</tt> is false in a boolean context.
+            </p>
+            <p>The real trick behind the <tt class="literal">and-or</tt> trick, then, is to make sure that the value of <tt class="varname">a</tt> is never false.  One common way of doing this is to turn <tt class="varname">a</tt> into <tt class="literal">[<tt class="varname">a</tt>]</tt> and <tt class="varname">b</tt> into <tt class="literal">[<tt class="varname">b</tt>]</tt>, then taking the first element of the returned list, which will be either <tt class="varname">a</tt> or <tt class="varname">b</tt>.
+            </p>
+            <div class="example"><a name="d0e10205"></a><h3 class="title">Example&nbsp;4.19.&nbsp;Using the <tt class="literal">and-or</tt> Trick Safely
+               </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">a = <span class='pystring'>""</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">b = <span class='pystring'>"second"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">(1 <span class='pykeyword'>and</span> [a] <span class='pykeyword'>or</span> [b])[0]</span> <a name="apihelper.andor.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">''</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.andor.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Since <tt class="literal">[<tt class="varname">a</tt>]</tt> is a non-empty list, it is never false.  Even if <tt class="varname">a</tt> is <tt class="constant">0</tt> or <tt class="literal">''</tt> or some other false value, the list <tt class="literal">[<tt class="varname">a</tt>]</tt> is true because it has one element.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>By now, this trick may seem like more trouble than it's worth.  You could, after all, accomplish the same thing with an <tt class="literal">if</tt> statement, so why go through all this fuss?  Well, in many cases, you are choosing between two constant values, so you can
+               use the simpler syntax and not worry, because you know that the <tt class="varname">a</tt> value will always be true.  And even if you need to use the more complicated safe form, there are good reasons to do so.
+                For example, there are some cases in <span class="application">Python</span> where <tt class="literal">if</tt> statements are not allowed, such as in <tt class="literal">lambda</tt> functions.
+            </p>
+            <div class="furtherreading">
+               <h3>Further Reading on the <tt class="literal">and-or</tt> Trick
+               </h3>
+               <ul>
+                  <li><a href="http://www.activestate.com/ASPN/Python/Cookbook/" title="growing archive of annotated code samples"><span class="application">Python</span> Cookbook</a> discusses <a href="http://www.activestate.com/ASPN/Python/Cookbook/Recipe/52310">alternatives to the <tt class="literal">and-or</tt> trick</a>.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="filtering_lists.html">&lt;&lt;&nbsp;Filtering Lists</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#apihelper.divein" title="4.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <a href="built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">3</a> <span class="divider">|</span> <a href="getattr.html" title="4.4.&nbsp;Getting Object References With getattr">4</a> <span class="divider">|</span> <a href="filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">7</a> <span class="divider">|</span> <a href="all_together.html" title="4.8.&nbsp;Putting It All Together">8</a> <span class="divider">|</span> <a href="summary.html" title="4.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="lambda_functions.html">Using lambda Functions&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

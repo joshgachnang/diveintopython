@@ -1,0 +1,181 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>9.5.&nbsp;Searching for elements</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;9.&nbsp;XML Processing">
+      <link rel="previous" href="unicode.html" title="9.4.&nbsp;Unicode">
+      <link rel="next" href="attributes.html" title="9.6.&nbsp;Accessing element attributes">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">XML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Searching for elements</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="unicode.html" title="Prev: &#8220;Unicode&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="attributes.html" title="Next: &#8220;Accessing element attributes&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.search"></a>9.5.&nbsp;Searching for elements
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Traversing <span class="acronym">XML</span> documents by stepping through each node can be tedious.  If you're looking for something in particular, buried deep within
+               your <span class="acronym">XML</span> document, there is a shortcut you can use to find it quickly: <tt class="function">getElementsByTagName</tt>.
+            </p>
+         </div>
+         <p>For this section, you'll be using the <tt class="filename">binary.xml</tt> grammar file, which looks like this:
+         </p>
+         <div class="example"><a name="d0e24431"></a><h3 class="title">Example&nbsp;9.20.&nbsp;<tt class="filename">binary.xml</tt></h3><pre class="screen"><span class="computeroutput">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE grammar PUBLIC "-//diveintopython.org//DTD Kant Generator Pro v1.0//EN" "kgp.dtd"&gt;
+&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span></pre></div>
+         <p>It has two <tt class="sgmltag-element">ref</tt>s, <tt class="literal">'bit'</tt> and <tt class="literal">'byte'</tt>.  A <tt class="literal">bit</tt> is either a <tt class="literal">'0'</tt> or <tt class="literal">'1'</tt>, and a <tt class="literal">byte</tt> is 8 <tt class="literal">bit</tt>s.
+         </p>
+         <div class="example"><a name="d0e24464"></a><h3 class="title">Example&nbsp;9.21.&nbsp;Introducing <tt class="function">getElementsByTagName</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> xml.dom <span class='pykeyword'>import</span> minidom</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class='pystring'>'binary.xml'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">reflist = xmldoc.getElementsByTagName(<span class='pystring'>'ref'</span>)</span> <a name="kgp.search.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">reflist</span>
+<span class="computeroutput">[&lt;DOM Element: ref at 136138108&gt;, &lt;DOM Element: ref at 136144292&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> reflist[0].toxml()</span>
+<span class="computeroutput">&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> reflist[1].toxml()</span>
+<span class="computeroutput">&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.search.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">getElementsByTagName</tt> takes one argument, the name of the element you wish to find.  It returns a list of <tt class="classname">Element</tt> objects, corresponding to the <span class="acronym">XML</span> elements that have that name.  In this case, you find two <tt class="literal">ref</tt> elements.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e24526"></a><h3 class="title">Example&nbsp;9.22.&nbsp;Every element is searchable</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">firstref = reflist[0]</span>                      <a name="kgp.search.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> firstref.toxml()</span>
+<span class="computeroutput">&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist = firstref.getElementsByTagName(<span class='pystring'>"p"</span>)</span> <a name="kgp.search.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist</span>
+<span class="computeroutput">[&lt;DOM Element: p at 136140116&gt;, &lt;DOM Element: p at 136142172&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> plist[0].toxml()</span>                     <a name="kgp.search.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;p&gt;0&lt;/p&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> plist[1].toxml()</span>
+<span class="computeroutput">&lt;p&gt;1&lt;/p&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.search.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Continuing from the previous example, the first object in your <tt class="varname">reflist</tt> is the <tt class="literal">'bit'</tt> <tt class="sgmltag-element">ref</tt> element.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.search.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can use the same <tt class="function">getElementsByTagName</tt> method on this <tt class="classname">Element</tt> to find all the <tt class="sgmltag-element">&lt;p&gt;</tt> elements within the <tt class="literal">'bit'</tt> <tt class="sgmltag-element">ref</tt> element.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.search.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Just as before, the <tt class="function">getElementsByTagName</tt> method returns a list of all the elements it found.  In this case, you have two, one for each bit.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e24615"></a><h3 class="title">Example&nbsp;9.23.&nbsp;Searching is actually recursive</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist = xmldoc.getElementsByTagName(<span class='pystring'>"p"</span>)</span> <a name="kgp.search.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist</span>
+<span class="computeroutput">[&lt;DOM Element: p at 136140116&gt;, &lt;DOM Element: p at 136142172&gt;, &lt;DOM Element: p at 136146124&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist[0].toxml()</span>                         <a name="kgp.search.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'&lt;p&gt;0&lt;/p&gt;'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist[1].toxml()</span>
+<span class="computeroutput">'&lt;p&gt;1&lt;/p&gt;'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">plist[2].toxml()</span>                         <a name="kgp.search.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'&lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.search.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note carefully the difference between this and the previous example.  Previously, you were searching for <tt class="sgmltag-element">p</tt> elements within <tt class="varname">firstref</tt>, but here you are searching for <tt class="sgmltag-element">p</tt> elements within <tt class="varname">xmldoc</tt>, the root-level object that represents the entire <span class="acronym">XML</span> document.  This <span class="emphasis"><em>does</em></span> find the <tt class="sgmltag-element">p</tt> elements nested within the <tt class="sgmltag-element">ref</tt> elements within the root <tt class="sgmltag-element">grammar</tt> element.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.search.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The first two <tt class="sgmltag-element">p</tt> elements are within the first <tt class="sgmltag-element">ref</tt> (the <tt class="literal">'bit'</tt> <tt class="sgmltag-element">ref</tt>).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.search.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The last <tt class="sgmltag-element">p</tt> element is the one within the second <tt class="sgmltag-element">ref</tt> (the <tt class="literal">'byte'</tt> <tt class="sgmltag-element">ref</tt>).
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="unicode.html">&lt;&lt;&nbsp;Unicode</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.divein" title="9.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="packages.html" title="9.2.&nbsp;Packages">2</a> <span class="divider">|</span> <a href="parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <a href="unicode.html" title="9.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="attributes.html">Accessing element attributes&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,5 @@
+Jinja2==2.7.1
+MarkupSafe==0.18
+beautifulsoup4==4.3.2
+boto==2.21.1
+wsgiref==0.1.2

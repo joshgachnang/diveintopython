@@ -1,0 +1,88 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>18.7.&nbsp;Summary</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;18.&nbsp;Performance Tuning">
+      <link rel="previous" href="string_manipulation.html" title="18.6.&nbsp;Optimizing String Manipulation">
+      <link rel="next" href="../appendix/furtherreading.html" title="Appendix&nbsp;A.&nbsp;Further reading">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Performance Tuning</a>&nbsp;&gt;&nbsp;<span class="thispage">Summary</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="string_manipulation.html" title="Prev: &#8220;Optimizing String Manipulation&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="../appendix/furtherreading.html" title="Next: &#8220;Further reading&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soundex.summary"></a>18.7.&nbsp;Summary
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>This chapter has illustrated several important aspects of performance tuning in <span class="application">Python</span>, and performance tuning in general.
+            </p>
+         </div>
+         <div class="itemizedlist">
+            <ul>
+               <li>If you need to choose between regular expressions and writing a loop, choose regular expressions.  The regular expression
+                  engine is compiled in C and runs natively on your computer; your loop is written in <span class="application">Python</span> and runs through the <span class="application">Python</span> interpreter.
+               </li>
+               <li>If you need to choose between regular expressions and string methods, choose string methods.  Both are compiled in C, so choose
+                  the simpler one.
+               </li>
+               <li>General-purpose dictionary lookups are fast, but specialtiy functions such as <tt class="function">string.maketrans</tt> and string methods such as <tt class="methodname">isalpha()</tt> are faster.  If <span class="application">Python</span> has a custom-tailored function for you, use it.
+               </li>
+               <li>Don't be too clever.  Sometimes the most obvious algorithm is also the fastest.</li>
+               <li>Don't sweat it too much.  Performance isn't everything.</li>
+            </ul>
+         </div>
+         <p>I can't emphasize that last point strongly enough.  Over the course of this chapter, you made this function three times faster
+            and saved 20 seconds over 1 million function calls.  Great.  Now think: over the course of those million function calls, how
+            many seconds will your surrounding application wait for a database connection?  Or wait for disk I/O?  Or wait for user input?
+             Don't spend too much time over-optimizing one algorithm, or you'll ignore obvious improvements somewhere else.  Develop an
+            instinct for the sort of code that <span class="application">Python</span> runs well, correct obvious blunders if you find them, and leave the rest alone.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="string_manipulation.html">&lt;&lt;&nbsp;Optimizing String Manipulation</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soundex.divein" title="18.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="timeit.html" title="18.2.&nbsp;Using the timeit Module">2</a> <span class="divider">|</span> <a href="regular_expressions.html" title="18.3.&nbsp;Optimizing Regular Expressions">3</a> <span class="divider">|</span> <a href="dictionary_lookups.html" title="18.4.&nbsp;Optimizing Dictionary Lookups">4</a> <span class="divider">|</span> <a href="list_operations.html" title="18.5.&nbsp;Optimizing List Operations">5</a> <span class="divider">|</span> <a href="string_manipulation.html" title="18.6.&nbsp;Optimizing String Manipulation">6</a> <span class="divider">|</span> <span class="thispage">7</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="../appendix/furtherreading.html">Further reading&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

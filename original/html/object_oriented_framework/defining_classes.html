@@ -1,0 +1,275 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>5.3.&nbsp;Defining Classes</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;5.&nbsp;Objects and Object-Orientation">
+      <link rel="previous" href="importing_modules.html" title="5.2.&nbsp;Importing Modules Using from module import">
+      <link rel="next" href="instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Objects and Object-Orientation</a>&nbsp;&gt;&nbsp;<span class="thispage">Defining Classes</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="importing_modules.html" title="Prev: &#8220;Importing Modules Using from module import&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="instantiating_classes.html" title="Next: &#8220;Instantiating Classes&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.class"></a>5.3.&nbsp;Defining Classes
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="defining_classes.html#d0e11720">5.3.1. Initializing and Coding Classes</a></span></li>
+               <li><span class="section"><a href="defining_classes.html#d0e11896">5.3.2. Knowing When to Use self and __init__</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Python</span> is fully object-oriented: you can define your own classes, inherit from your own or built-in classes, and instantiate the
+               classes you've defined.
+            </p>
+         </div>
+         <p>Defining a class in <span class="application">Python</span> is simple.  As with functions, there is no separate interface definition.  Just define the class and start coding.  A <span class="application">Python</span> class starts with the reserved word <tt class="literal">class</tt>, followed by the class name.  Technically, that's all that's required, since a class doesn't need to inherit from any other
+            class.
+         </p>
+         <div class="example"><a name="fileinfo.class.simplest"></a><h3 class="title">Example&nbsp;5.3.&nbsp;The Simplest <span class="application">Python</span> Class
+            </h3><pre class="programlisting"><span class='pykeyword'>
+class</span> Loaf: <a name="fileinfo.class.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>pass</span>    <a name="fileinfo.class.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="fileinfo.class.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.class.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The name of this class is <tt class="classname">Loaf</tt>, and it doesn't inherit from any other class.  Class names are usually capitalized, <tt class="classname">EachWordLikeThis</tt>, but this is only a convention, not a requirement.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.class.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This class doesn't define any methods or attributes, but syntactically, there needs to be something in the definition, so
+                        you use <tt class="literal">pass</tt>.  This is a <span class="application">Python</span> reserved word that just means &#8220;<span class="quote">move along, nothing to see here</span>&#8221;.  It's a statement that does nothing, and it's a good placeholder when you're stubbing out functions or classes.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.class.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You probably guessed this, but everything in a class is indented, just like the code within a function, <tt class="literal">if</tt> statement, <tt class="literal">for</tt> loop, and so forth.  The first thing not indented is not in the class.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="compare.pass.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">The <tt class="literal">pass</tt> statement in <span class="application">Python</span> is like an empty set of braces (<tt class="literal">{}</tt>) in <span class="application">Java</span> or <span class="application"><span class="acronym">C</span></span>.
+               </td>
+            </tr>
+         </table>
+         <p>Of course, realistically, most classes will be inherited from other classes, and they will define their own class methods
+            and attributes.  But as you've just seen, there is nothing that a class absolutely must have, other than a name.  In particular,
+            <span class="application"><span class="acronym">C++</span></span> programmers may find it odd that <span class="application">Python</span> classes don't have explicit constructors and destructors.  <span class="application">Python</span> classes do have something similar to a constructor: the <tt class="function">__init__</tt> method.
+         </p>
+         <div class="example"><a name="fileinfo.class.example"></a><h3 class="title">Example&nbsp;5.4.&nbsp;Defining the <tt class="classname">FileInfo</tt> Class
+            </h3><pre class="programlisting"><span class='pykeyword'>
+from</span> UserDict <span class='pykeyword'>import</span> UserDict
+
+<span class='pykeyword'>class</span><span class='pyclass'> FileInfo</span>(UserDict): <a name="fileinfo.class.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.class.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In <span class="application">Python</span>, the ancestor of a class is simply listed in parentheses immediately after the class name.  So the <tt class="classname">FileInfo</tt> class is inherited from the <tt class="classname">UserDict</tt> class (which was <a href="importing_modules.html" title="5.2.&nbsp;Importing Modules Using from module import">imported from the <tt class="filename">UserDict</tt> module</a>).  <tt class="classname">UserDict</tt> is a class that acts like a dictionary, allowing you to essentially subclass the dictionary datatype and add your own behavior.
+                         (There are similar classes <tt class="classname">UserList</tt> and <tt class="classname">UserString</tt> which allow you to subclass lists and strings.)  There is a bit of black magic behind this, which you will demystify later
+                        in this chapter when you explore the <tt class="classname">UserDict</tt> class in more depth.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="compare.extends.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Python</span>, the ancestor of a class is simply listed in parentheses immediately after the class name.  There is no special keyword like
+                  <tt class="literal">extends</tt> in <span class="application">Java</span>.
+               </td>
+            </tr>
+         </table>
+         <p><span class="application">Python</span> supports multiple inheritance.  In the parentheses following the class name, you can list as many ancestor classes as you
+            like, separated by commas.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e11720"></a>5.3.1.&nbsp;Initializing and Coding Classes
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>This example shows the initialization of the <tt class="classname">FileInfo</tt> class using the <tt class="function">__init__</tt> method.
+            </p>
+            <div class="example"><a name="fileinfo.init.example"></a><h3 class="title">Example&nbsp;5.5.&nbsp;Initializing the <tt class="classname">FileInfo</tt> Class
+               </h3><pre class="programlisting"><span class='pykeyword'>
+class</span> FileInfo(UserDict):
+    <span class='pystring'>"store file metadata"</span>              <a name="fileinfo.class.2.2"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self, filename=None): <a name="fileinfo.class.2.3"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="fileinfo.class.2.4"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"> <a name="fileinfo.class.2.5"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.class.2.2"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Classes can (and <a href="../getting_to_know_python/documenting_functions.html#tip.docstring">should</a>) have <tt class="literal">doc string</tt>s too, just like modules and functions.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.class.2.3"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">__init__</tt> is called immediately after an instance of the class is created.  It would be tempting but incorrect to call this the constructor
+                           of the class.  It's tempting, because it looks like a constructor (by convention, <tt class="function">__init__</tt> is the first method defined for the class), acts like one (it's the first piece of code executed in a newly created instance
+                           of the class), and even sounds like one (&#8220;<span class="quote">init</span>&#8221; certainly suggests a constructor-ish nature).  Incorrect, because the object has already been constructed by the time <tt class="function">__init__</tt> is called, and you already have a valid reference to the new instance of the class.  But <tt class="function">__init__</tt> is the closest thing you're going to get to a constructor in <span class="application">Python</span>, and it fills much the same role.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.class.2.4"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The first argument of every class method, including <tt class="function">__init__</tt>, is always a reference to the current instance of the class.  By convention, this argument is always named <tt class="literal">self</tt>.  In the <tt class="function">__init__</tt> method, <tt class="literal">self</tt> refers to the newly created object; in other class methods, it refers to the instance whose method was called.  Although
+                           you need to specify <tt class="literal">self</tt> explicitly when defining the method, you do <span class="emphasis"><em>not</em></span> specify it when calling the method; <span class="application">Python</span> will add it for you automatically.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.class.2.5"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">__init__</tt> methods can take any number of arguments, and just like functions, the arguments can be defined with default values, making
+                           them optional to the caller.  In this case, <tt class="varname">filename</tt> has a default value of <tt class="literal">None</tt>, which is the <span class="application">Python</span> null value.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div><a name="compare.self.java"></a><table class="note" border="0" summary="">
+               <tr>
+                  <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="left" valign="top" width="99%">By convention, the first argument of any <span class="application">Python</span> class method (the reference to the current instance) is called <tt class="literal">self</tt>.  This argument fills the role of the reserved word <tt class="literal">this</tt> in <span class="application"><span class="acronym">C++</span></span> or <span class="application">Java</span>, but <tt class="literal">self</tt> is not a reserved word in <span class="application">Python</span>, merely a naming convention.  Nonetheless, please don't call it anything but <tt class="literal">self</tt>; this is a very strong convention.
+                  </td>
+               </tr>
+            </table>
+            <div class="example"><a name="fileinfo.init.code.example"></a><h3 class="title">Example&nbsp;5.6.&nbsp;Coding the <tt class="classname">FileInfo</tt> Class
+               </h3><pre class="programlisting"><span class='pykeyword'>
+class</span> FileInfo(UserDict):
+    <span class='pystring'>"store file metadata"</span>
+    <span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self, filename=None):
+        UserDict.__init__(self)        <a name="fileinfo.class.2.6"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        self[<span class='pystring'>"name"</span>] = filename        <a name="fileinfo.class.2.7"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+                                       <a name="fileinfo.class.2.8"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.class.2.6"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Some pseudo-object-oriented languages like <span class="application">Powerbuilder</span> have a concept of &#8220;<span class="quote">extending</span>&#8221; constructors and other events, where the ancestor's method is called automatically before the descendant's method is executed.
+                            <span class="application">Python</span> does not do this; you must always explicitly call the appropriate method in the ancestor class.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.class.2.7"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">I told you that this class acts like a dictionary, and here is the first sign of it.  You're assigning the argument <tt class="varname">filename</tt> as the value of this object's <tt class="literal">name</tt> key.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.class.2.8"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Note that the <tt class="function">__init__</tt> method never returns a value.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e11896"></a>5.3.2.&nbsp;Knowing When to Use <tt class="literal">self</tt> and <tt class="function">__init__</tt></h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>When defining your class methods, you <span class="emphasis"><em>must</em></span> explicitly list <tt class="literal">self</tt> as the first argument for each method, including <tt class="function">__init__</tt>.  When you call a method of an ancestor class from within your class, you <span class="emphasis"><em>must</em></span> include the <tt class="literal">self</tt> argument.  But when you call your class method from outside, you do not specify anything for the <tt class="literal">self</tt> argument; you skip it entirely, and <span class="application">Python</span> automatically adds the instance reference for you.  I am aware that this is confusing at first; it's not really inconsistent,
+               but it may appear inconsistent because it relies on a distinction (between bound and unbound methods) that you don't know
+               about yet.
+            </p>
+            <p>Whew.  I realize that's a lot to absorb, but you'll get the hang of it.  All <span class="application">Python</span> classes work the same way, so once you learn one, you've learned them all.  If you forget everything else, remember this
+               one thing, because I promise it will trip you up:
+            </p><a name="tip.initoptional"></a><table class="note" border="0" summary="">
+               <tr>
+                  <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="left" valign="top" width="99%"><tt class="function">__init__</tt> methods are optional, but when you define one, you must remember to explicitly call the ancestor's <tt class="function">__init__</tt> method (if it defines one).  This is more generally true: whenever a descendant wants to extend the behavior of the ancestor,
+                     the descendant method must explicitly call the ancestor method at the proper time, with the proper arguments.
+                  </td>
+               </tr>
+            </table>
+            <div class="furtherreading">
+               <h3>Further Reading on <span class="application">Python</span> Classes
+               </h3>
+               <ul>
+                  <li><a href="http://www.freenetpages.co.uk/hp/alan.gauld/" title="Python book for first-time programmers"><i class="citetitle">Learning to Program</i></a> has a gentler <a href="http://www.freenetpages.co.uk/hp/alan.gauld/tutclass.htm">introduction to classes</a>.
+                  </li>
+                  <li><a href="http://www.ibiblio.org/obp/thinkCSpy/" title="Python book for computer science majors"><i class="citetitle">How to Think Like a Computer Scientist</i></a> shows how to <a href="http://www.ibiblio.org/obp/thinkCSpy/chap12.htm">use classes to model compound datatypes</a>.
+                  </li>
+                  <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> has an in-depth look at <a href="http://www.python.org/doc/current/tut/node11.html">classes, namespaces, and inheritance</a>.
+                  </li>
+                  <li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> answers <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/242">common questions about classes</a>.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="importing_modules.html">&lt;&lt;&nbsp;Importing Modules Using from module import</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.divein" title="5.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="importing_modules.html" title="5.2.&nbsp;Importing Modules Using from module import">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">4</a> <span class="divider">|</span> <a href="userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">5</a> <span class="divider">|</span> <a href="special_class_methods.html" title="5.6.&nbsp;Special Class Methods">6</a> <span class="divider">|</span> <a href="special_class_methods2.html" title="5.7.&nbsp;Advanced Special Class Methods">7</a> <span class="divider">|</span> <a href="class_attributes.html" title="5.8.&nbsp;Introducing Class Attributes">8</a> <span class="divider">|</span> <a href="private_functions.html" title="5.9.&nbsp;Private Functions">9</a> <span class="divider">|</span> <a href="summary.html" title="5.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="instantiating_classes.html">Instantiating Classes&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

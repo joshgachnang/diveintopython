@@ -1,0 +1,161 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>6.7.&nbsp;Summary</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;6.&nbsp;Exceptions and File Handling">
+      <link rel="previous" href="all_together.html" title="6.6.&nbsp;Putting It All Together">
+      <link rel="next" href="../regular_expressions/index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Exceptions and File Handling</a>&nbsp;&gt;&nbsp;<span class="thispage">Summary</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="all_together.html" title="Prev: &#8220;Putting It All Together&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="../regular_expressions/index.html" title="Next: &#8220;Regular Expressions&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.summary2"></a>6.7.&nbsp;Summary
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The <tt class="filename">fileinfo.py</tt> program introduced in <a href="../object_oriented_framework/index.html">Chapter 5</a> should now make perfect sense.
+            </p>
+         </div>
+         <div class="informalexample"><pre class="programlisting">
+<span class='pystring'>"""Framework for getting filetype-specific metadata.
+
+Instantiate appropriate class with filename.  Returned object acts like a
+dictionary, with key-value pairs for each piece of metadata.
+    import fileinfo
+    info = fileinfo.MP3FileInfo("/music/ap/mahadeva.mp3")
+    print "\\n".join(["%s=%s" % (k, v) for k, v in info.items()])
+
+Or use listDirectory function to get info on all files in a directory.
+    for info in fileinfo.listDirectory("/music/ap/", [".mp3"]):
+        ...
+
+Framework can be extended by adding classes for particular file types, e.g.
+HTMLFileInfo, MPGFileInfo, DOCFileInfo.  Each class is completely responsible for
+parsing its files appropriately; see MP3FileInfo for example.
+"""</span>
+<span class='pykeyword'>import</span> os
+<span class='pykeyword'>import</span> sys
+<span class='pykeyword'>from</span> UserDict <span class='pykeyword'>import</span> UserDict
+
+<span class='pykeyword'>def</span><span class='pyclass'> stripnulls</span>(data):
+    <span class='pystring'>"strip whitespace and nulls"</span>
+    <span class='pykeyword'>return</span> data.replace(<span class='pystring'>"\00"</span>, <span class='pystring'>""</span>).strip()
+
+<span class='pykeyword'>class</span><span class='pyclass'> FileInfo</span>(UserDict):
+    <span class='pystring'>"store file metadata"</span>
+    <span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self, filename=None):
+        UserDict.__init__(self)
+        self[<span class='pystring'>"name"</span>] = filename
+
+<span class='pykeyword'>class</span><span class='pyclass'> MP3FileInfo</span>(FileInfo):
+    <span class='pystring'>"store ID3v1.0 MP3 tags"</span>
+    tagDataMap = {<span class='pystring'>"title"</span>   : (  3,  33, stripnulls),
+                  <span class='pystring'>"artist"</span>  : ( 33,  63, stripnulls),
+                  <span class='pystring'>"album"</span>   : ( 63,  93, stripnulls),
+                  <span class='pystring'>"year"</span>    : ( 93,  97, stripnulls),
+                  <span class='pystring'>"comment"</span> : ( 97, 126, stripnulls),
+                  <span class='pystring'>"genre"</span>   : (127, 128, ord)}
+
+    <span class='pykeyword'>def</span><span class='pyclass'> __parse</span>(self, filename):
+        <span class='pystring'>"parse ID3v1.0 tags from MP3 file"</span>
+        self.clear()
+        <span class='pykeyword'>try</span>:                               
+            fsock = open(filename, <span class='pystring'>"rb"</span>, 0)
+            <span class='pykeyword'>try</span>:                           
+                fsock.seek(-128, 2)        
+                tagdata = fsock.read(128)  
+            <span class='pykeyword'>finally</span>:                       
+                fsock.close()              
+            <span class='pykeyword'>if</span> tagdata[:3] == <span class='pystring'>"TAG"</span>:
+                <span class='pykeyword'>for</span> tag, (start, end, parseFunc) <span class='pykeyword'>in</span> self.tagDataMap.items():
+                    self[tag] = parseFunc(tagdata[start:end])               
+        <span class='pykeyword'>except</span> IOError:                    
+            <span class='pykeyword'>pass</span>                           
+
+    <span class='pykeyword'>def</span><span class='pyclass'> __setitem__</span>(self, key, item):
+        <span class='pykeyword'>if</span> key == <span class='pystring'>"name"</span> <span class='pykeyword'>and</span> item:
+            self.__parse(item)
+        FileInfo.__setitem__(self, key, item)
+
+<span class='pykeyword'>def</span><span class='pyclass'> listDirectory</span>(directory, fileExtList):                                        
+    <span class='pystring'>"get list of file info objects for files of particular extensions"</span>
+    fileList = [os.path.normcase(f)
+                <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> os.listdir(directory)]           
+    fileList = [os.path.join(directory, f) 
+               <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> fileList
+                <span class='pykeyword'>if</span> os.path.splitext(f)[1] <span class='pykeyword'>in</span> fileExtList] 
+    <span class='pykeyword'>def</span><span class='pyclass'> getFileInfoClass</span>(filename, module=sys.modules[FileInfo.__module__]):      
+        <span class='pystring'>"get file info class from filename extension"</span>                             
+        subclass = <span class='pystring'>"%sFileInfo"</span> % os.path.splitext(filename)[1].upper()[1:]       
+        <span class='pykeyword'>return</span> hasattr(module, subclass) <span class='pykeyword'>and</span> getattr(module, subclass) <span class='pykeyword'>or</span> FileInfo
+    <span class='pykeyword'>return</span> [getFileInfoClass(f)(f) <span class='pykeyword'>for</span> f <span class='pykeyword'>in</span> fileList]                             
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:
+    <span class='pykeyword'>for</span> info <span class='pykeyword'>in</span> listDirectory(<span class='pystring'>"/music/_singles/"</span>, [<span class='pystring'>".mp3"</span>]):
+        <span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> info.items()])
+        print</pre></div>
+         <div class="highlights">
+            <p>Before diving into the next chapter, make sure you're comfortable doing the following things:</p>
+            <div class="itemizedlist">
+               <ul>
+                  <li>Catching exceptions with <a href="index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions"><tt class="literal">try...except</tt></a></li>
+                  <li>Protecting external resources with <a href="file_objects.html#fileinfo.files.incode" title="Example&nbsp;6.6.&nbsp;File Objects in MP3FileInfo"><tt class="literal">try...finally</tt></a></li>
+                  <li>Reading from <a href="file_objects.html" title="6.2.&nbsp;Working with File Objects">files</a></li>
+                  <li>Assigning multiple values at once in a <a href="for_loops.html#fileinfo.multiassign.for.example" title="Example&nbsp;6.11.&nbsp;for Loop in MP3FileInfo"><tt class="literal">for</tt> loop</a></li>
+                  <li>Using the <a href="os_module.html" title="6.5.&nbsp;Working with Directories"><tt class="filename">os</tt></a> module for all your cross-platform file manipulation needs
+                  </li>
+                  <li>Dynamically <a href="all_together.html" title="6.6.&nbsp;Putting It All Together">instantiating classes of unknown type</a> by treating classes as objects and passing them around
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="all_together.html">&lt;&lt;&nbsp;Putting It All Together</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions">1</a> <span class="divider">|</span> <a href="file_objects.html" title="6.2.&nbsp;Working with File Objects">2</a> <span class="divider">|</span> <a href="for_loops.html" title="6.3.&nbsp;Iterating with for Loops">3</a> <span class="divider">|</span> <a href="more_on_modules.html" title="6.4.&nbsp;Using sys.modules">4</a> <span class="divider">|</span> <a href="os_module.html" title="6.5.&nbsp;Working with Directories">5</a> <span class="divider">|</span> <a href="all_together.html" title="6.6.&nbsp;Putting It All Together">6</a> <span class="divider">|</span> <span class="thispage">7</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="../regular_expressions/index.html">Regular Expressions&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

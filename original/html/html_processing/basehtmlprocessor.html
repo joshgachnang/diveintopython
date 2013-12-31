@@ -1,0 +1,205 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.4.&nbsp;Introducing BaseHTMLProcessor.py</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+      <link rel="previous" href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">
+      <link rel="next" href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Introducing BaseHTMLProcessor.py</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="extracting_data.html" title="Prev: &#8220;Extracting data from HTML documents&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="locals_and_globals.html" title="Next: &#8220;locals and globals&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.basehtml"></a>8.4.&nbsp;Introducing <tt class="filename">BaseHTMLProcessor.py</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><tt class="classname">SGMLParser</tt> doesn't produce anything by itself.  It parses and parses and parses, and it calls a method for each interesting thing it
+               finds, but the methods don't do anything.  <tt class="classname">SGMLParser</tt> is an <span class="acronym">HTML</span> <span class="emphasis"><em>consumer</em></span>: it takes <span class="acronym">HTML</span> and breaks it down into small, structured pieces.  As you saw in the <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">previous section</a>, you can subclass <tt class="classname">SGMLParser</tt> to define classes that catch specific tags and produce useful things, like a list of all the links on a web page.  Now you'll
+               take this one step further by defining a class that catches everything <tt class="classname">SGMLParser</tt> throws at it and reconstructs the complete <span class="acronym">HTML</span> document.  In technical terms, this class will be an <span class="acronym">HTML</span> <span class="emphasis"><em>producer</em></span>.
+            </p>
+         </div>
+         <p><tt class="classname">BaseHTMLProcessor</tt> subclasses <tt class="classname">SGMLParser</tt> and provides all 8 essential handler methods: <tt class="function">unknown_starttag</tt>, <tt class="function">unknown_endtag</tt>, <tt class="function">handle_charref</tt>, <tt class="function">handle_entityref</tt>, <tt class="function">handle_comment</tt>, <tt class="function">handle_pi</tt>, <tt class="function">handle_decl</tt>, and <tt class="function">handle_data</tt>.
+         </p>
+         <div class="example"><a name="dialect.basehtml.intro"></a><h3 class="title">Example&nbsp;8.8.&nbsp;Introducing <tt class="classname">BaseHTMLProcessor</tt></h3><pre class="programlisting"><span class='pykeyword'>
+class</span> BaseHTMLProcessor(SGMLParser):
+    <span class='pykeyword'>def</span><span class='pyclass'> reset</span>(self):                        <a name="dialect.basehtml.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        self.pieces = []
+        SGMLParser.reset(self)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> unknown_starttag</span>(self, tag, attrs): <a name="dialect.basehtml.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        strattrs = <span class='pystring'>""</span>.join([<span class='pystring'>' %s="%s"'</span> % (key, value) <span class='pykeyword'>for</span> key, value <span class='pykeyword'>in</span> attrs])
+        self.pieces.append(<span class='pystring'>"&lt;%(tag)s%(strattrs)s&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> unknown_endtag</span>(self, tag):          <a name="dialect.basehtml.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        self.pieces.append(<span class='pystring'>"&lt;/%(tag)s&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_charref</span>(self, ref):          <a name="dialect.basehtml.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        self.pieces.append(<span class='pystring'>"&amp;#%(ref)s;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_entityref</span>(self, ref):        <a name="dialect.basehtml.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+        self.pieces.append(<span class='pystring'>"&amp;%(ref)s"</span> % locals())
+        <span class='pykeyword'>if</span> htmlentitydefs.entitydefs.has_key(ref):
+            self.pieces.append(<span class='pystring'>";"</span>)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_data</span>(self, text):            <a name="dialect.basehtml.1.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+        self.pieces.append(text)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_comment</span>(self, text):         <a name="dialect.basehtml.1.7"></a><img src="../images/callouts/7.png" alt="7" border="0" width="12" height="12">
+        self.pieces.append(<span class='pystring'>"&lt;!--%(text)s--&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_pi</span>(self, text):              <a name="dialect.basehtml.1.8"></a><img src="../images/callouts/8.png" alt="8" border="0" width="12" height="12">
+        self.pieces.append(<span class='pystring'>"&lt;?%(text)s&gt;"</span> % locals())
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_decl</span>(self, text):
+        self.pieces.append(<span class='pystring'>"&lt;!%(text)s&gt;"</span> % locals())</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">reset</tt>, called by <tt class="function">SGMLParser.__init__</tt>, initializes <tt class="varname">self.pieces</tt> as an empty list before <a href="../object_oriented_framework/defining_classes.html#fileinfo.init.code.example" title="Example&nbsp;5.6.&nbsp;Coding the FileInfo Class">calling the ancestor method</a>.  <tt class="varname">self.pieces</tt> is a <a href="../object_oriented_framework/userdict.html#fileinfo.userdict.init.example" title="Example&nbsp;5.9.&nbsp;Defining the UserDict Class">data attribute</a> which will hold the pieces of the <span class="acronym">HTML</span> document you're constructing.  Each handler method will reconstruct the <span class="acronym">HTML</span> that <tt class="classname">SGMLParser</tt> parsed, and each method will append that string to <tt class="varname">self.pieces</tt>.  Note that <tt class="varname">self.pieces</tt> is a list.  You might be tempted to define it as a string and just keep appending each piece to it.  That would work, but
+                        <span class="application">Python</span> is much more efficient at dealing with lists.<sup>[<a name="d0e20702" href="#ftn.d0e20702">2</a>]</sup></td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Since <tt class="classname">BaseHTMLProcessor</tt> does not define any methods for specific tags (like the <tt class="function">start_a</tt> method in <a href="extracting_data.html#dialect.extract.links" title="Example&nbsp;8.6.&nbsp;Introducing urllister.py"><tt class="classname">URLLister</tt></a>), <tt class="classname">SGMLParser</tt> will call <tt class="function">unknown_starttag</tt> for every start tag.  This method takes the tag (<tt class="varname">tag</tt>) and the list of attribute name/value pairs (<tt class="varname">attrs</tt>), reconstructs the original <span class="acronym">HTML</span>, and appends it to <tt class="varname">self.pieces</tt>.  The <a href="../native_data_types/formatting_strings.html" title="3.5.&nbsp;Formatting Strings">string formatting</a> here is a little strange; you'll untangle that (and also the odd-looking <tt class="function">locals</tt> function) later in this chapter.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Reconstructing end tags is much simpler; just take the tag name and wrap it in the <tt class="literal">&lt;/...&gt;</tt> brackets.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">When <tt class="classname">SGMLParser</tt> finds a character reference, it calls <tt class="function">handle_charref</tt> with the bare reference.  If the <span class="acronym">HTML</span> document contains the reference <tt class="literal">&amp;#160;</tt>, <tt class="varname">ref</tt> will be <tt class="literal">160</tt>.  Reconstructing the original complete character reference just involves wrapping <tt class="varname">ref</tt> in <tt class="literal">&amp;#...;</tt> characters.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Entity references are similar to character references, but without the hash mark.  Reconstructing the original entity reference
+                        requires wrapping <tt class="varname">ref</tt> in <tt class="literal">&amp;...;</tt> characters.  (Actually, as an erudite reader pointed out to me, it's slightly more complicated than this.  Only certain standard
+                        <span class="acronym">HTML</span> entites end in a semicolon; other similar-looking entities do not.  Luckily for us, the set of standard <span class="acronym">HTML</span> entities is defined in a dictionary in a <span class="application">Python</span> module called <tt class="filename">htmlentitydefs</tt>.  Hence the extra <tt class="literal">if</tt> statement.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.1.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Blocks of text are simply appended to <tt class="varname">self.pieces</tt> unaltered.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.1.7"><img src="../images/callouts/7.png" alt="7" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><span class="acronym">HTML</span> comments are wrapped in <tt class="literal">&lt;!--...--&gt;</tt> characters.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.1.8"><img src="../images/callouts/8.png" alt="8" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Processing instructions are wrapped in <tt class="literal">&lt;?...&gt;</tt> characters.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e20845"></a><table class="important" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/important.png" alt="Important" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">The <span class="acronym">HTML</span> specification requires that all non-<span class="acronym">HTML</span> (like client-side <span class="application">JavaScript</span>) must be enclosed in <span class="acronym">HTML</span> comments, but not all web pages do this properly (and all modern web browsers are forgiving if they don't).  <tt class="classname">BaseHTMLProcessor</tt> is not forgiving; if script is improperly embedded, it will be parsed as if it were <span class="acronym">HTML</span>.  For instance, if the script contains less-than and equals signs, <tt class="classname">SGMLParser</tt> may incorrectly think that it has found tags and attributes.  <tt class="classname">SGMLParser</tt> always converts tags and attribute names to lowercase, which may break the script, and <tt class="classname">BaseHTMLProcessor</tt> always encloses attribute values in double quotes (even if the original <span class="acronym">HTML</span> document used single quotes or no quotes), which will certainly break the script.  Always protect your client-side script
+                  within <span class="acronym">HTML</span> comments.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="dialect.output.example"></a><h3 class="title">Example&nbsp;8.9.&nbsp;<tt class="classname">BaseHTMLProcessor</tt> output
+            </h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> output</span>(self):               <a name="dialect.basehtml.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pystring'>"""Return processed HTML as a single string"""</span>
+        <span class='pykeyword'>return</span> <span class='pystring'>""</span>.join(self.pieces) <a name="dialect.basehtml.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the one method in <tt class="classname">BaseHTMLProcessor</tt> that is never called by the ancestor <tt class="classname">SGMLParser</tt>.  Since the other handler methods store their reconstructed <span class="acronym">HTML</span> in <tt class="varname">self.pieces</tt>, this function is needed to join all those pieces into one string.  As noted before, <span class="application">Python</span> is great at lists and mediocre at strings, so you only create the complete string when somebody explicitly asks for it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If you prefer, you could use the <tt class="function">join</tt> method of the <tt class="filename">string</tt> module instead: <tt class="literal">string.join(self.pieces, "")</tt></td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Further reading</h3>
+            <ul>
+               <li><a href="http://www.w3.org/">W3C</a> discusses <a href="http://www.w3.org/TR/REC-html40/charset.html#entities">character and entity references</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> confirms your suspicions that <a href="http://www.python.org/doc/current/lib/module-htmlentitydefs.html">the <tt class="filename">htmlentitydefs</tt> module</a> is exactly what it sounds like.
+               </li>
+            </ul>
+         </div>
+         <div class="footnotes">
+            <h3 class="footnotetitle">Footnotes</h3>
+            <div class="footnote">
+               <p><sup>[<a name="ftn.d0e20702" href="#d0e20702">2</a>] </sup>The reason <span class="application">Python</span> is better at lists than strings is that lists are mutable but strings are immutable.  This means that appending to a list
+                  just adds the element and updates the index.  Since strings can not be changed after they are created, code like <tt class="literal">s = s + newpiece</tt> will create an entirely new string out of the concatenation of the original and the new piece, then throw away the original
+                  string.  This involves a lot of expensive memory management, and the amount of effort involved increases as the string gets
+                  longer, so doing <tt class="literal">s = s + newpiece</tt> in a loop is deadly.  In technical terms, appending <tt class="varname">n</tt> items to a list is <tt class="literal">O(n)</tt>, while appending <tt class="varname">n</tt> items to a string is <tt class="literal">O(n<sup>2</sup>)</tt>.
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="extracting_data.html">&lt;&lt;&nbsp;Extracting data from HTML documents</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <a href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <a href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <a href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <a href="all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="locals_and_globals.html">locals and globals&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

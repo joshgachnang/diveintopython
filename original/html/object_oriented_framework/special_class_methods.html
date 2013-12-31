@@ -1,0 +1,234 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>5.6.&nbsp;Special Class Methods</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;5.&nbsp;Objects and Object-Orientation">
+      <link rel="previous" href="userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">
+      <link rel="next" href="special_class_methods2.html" title="5.7.&nbsp;Advanced Special Class Methods">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Objects and Object-Orientation</a>&nbsp;&gt;&nbsp;<span class="thispage">Special Class Methods</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="userdict.html" title="Prev: &#8220;Exploring UserDict: A Wrapper Class&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="special_class_methods2.html" title="Next: &#8220;Advanced Special Class Methods&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.specialmethods"></a>5.6.&nbsp;Special Class Methods
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="special_class_methods.html#d0e12822">5.6.1. Getting and Setting Items</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>In addition to normal class methods, there are a number of special methods that <span class="application">Python</span> classes can define.  Instead of being called directly by your code (like normal methods), special methods are called for
+               you by <span class="application">Python</span> in particular circumstances or when specific syntax is used.
+            </p>
+         </div>
+         <p>As you saw in the <a href="userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">previous section</a>, normal methods go a long way towards wrapping a dictionary in a class.  But normal methods alone are not enough, because
+            there are a lot of things you can do with dictionaries besides call methods on them.  For starters, you can <a href="../native_data_types/index.html#odbchelper.dict.define" title="Example&nbsp;3.1.&nbsp;Defining a Dictionary">get</a> and <a href="../native_data_types/index.html#odbchelper.dict.modify" title="Example&nbsp;3.2.&nbsp;Modifying a Dictionary">set</a> items with a syntax that doesn't include explicitly invoking methods.  This is where special class methods come in: they
+            provide a way to map non-method-calling syntax into method calls.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e12822"></a>5.6.1.&nbsp;Getting and Setting Items
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="example"><a name="d0e12825"></a><h3 class="title">Example&nbsp;5.12.&nbsp;The <tt class="function">__getitem__</tt> Special Method
+               </h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> __getitem__</span>(self, key): <span class='pykeyword'>return</span> self.data[key]</pre><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = fileinfo.FileInfo(<span class='pystring'>"/music/_singles/kairo.mp3"</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">{'name':'/music/_singles/kairo.mp3'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.__getitem__(<span class='pystring'>"name"</span>)</span> <a name="fileinfo.specialmethods.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'/music/_singles/kairo.mp3'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f[<span class='pystring'>"name"</span>]</span>             <a name="fileinfo.specialmethods.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'/music/_singles/kairo.mp3'</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">__getitem__</tt> special method looks simple enough.  Like the normal methods <tt class="function">clear</tt>, <tt class="function">keys</tt>, and <tt class="function">values</tt>, it just redirects to the dictionary to return its value.  But how does it get called?  Well, you can call <tt class="function">__getitem__</tt> directly, but in practice you wouldn't actually do that; I'm just doing it here to show you how it works.  The right way
+                           to use <tt class="function">__getitem__</tt> is to get <span class="application">Python</span> to call it for you.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This looks just like the syntax you would use to <a href="../native_data_types/index.html#odbchelper.dict.define" title="Example&nbsp;3.1.&nbsp;Defining a Dictionary">get a dictionary value</a>, and in fact it returns the value you would expect.  But here's the missing link: under the covers, <span class="application">Python</span> has converted this syntax to the method call <tt class="literal">f.__getitem__("name")</tt>.  That's why <tt class="function">__getitem__</tt> is a special class method; not only can you call it yourself, you can get <span class="application">Python</span> to call it for you by using the right syntax.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Of course, <span class="application">Python</span> has a <tt class="function">__setitem__</tt> special method to go along with <tt class="function">__getitem__</tt>, as shown in the next example.
+            </p>
+            <div class="example"><a name="fileinfo.specialmethods.setitem.example"></a><h3 class="title">Example&nbsp;5.13.&nbsp;The <tt class="function">__setitem__</tt> Special Method
+               </h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> __setitem__</span>(self, key, item): self.data[key] = item</pre><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">{'name':'/music/_singles/kairo.mp3'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.__setitem__(<span class='pystring'>"genre"</span>, 31)</span> <a name="fileinfo.specialmethods.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">{'name':'/music/_singles/kairo.mp3', 'genre':31}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f[<span class='pystring'>"genre"</span>] = 32</span>            <a name="fileinfo.specialmethods.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">{'name':'/music/_singles/kairo.mp3', 'genre':32}</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Like the <tt class="function">__getitem__</tt> method, <tt class="function">__setitem__</tt> simply redirects to the real dictionary <tt class="varname">self.data</tt> to do its work.  And like <tt class="function">__getitem__</tt>, you wouldn't ordinarily call it directly like this; <span class="application">Python</span> calls <tt class="function">__setitem__</tt> for you when you use the right syntax.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This looks like regular dictionary syntax, except of course that <tt class="varname">f</tt> is really a class that's trying very hard to masquerade as a dictionary, and <tt class="function">__setitem__</tt> is an essential part of that masquerade.  This line of code actually calls <tt class="literal">f.__setitem__("genre", 32)</tt> under the covers.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p><tt class="function">__setitem__</tt> is a special class method because it gets called for you, but it's still a class method.  Just as easily as the <tt class="function">__setitem__</tt> method was defined in <tt class="classname">UserDict</tt>, you can redefine it in the descendant class to override the ancestor method.  This allows you to define classes that act
+               like dictionaries in some ways but define their own behavior above and beyond the built-in dictionary.
+            </p>
+            <p>This concept is the basis of the entire framework you're studying in this chapter.  Each file type can have a handler class
+               that knows how to get metadata from a particular type of file.  Once some attributes (like the file's name and location) are
+               known, the handler class knows how to derive other attributes automatically.  This is done by overriding the <tt class="function">__setitem__</tt> method, checking for particular keys, and adding additional processing when they are found.
+            </p>
+            <p>For example, <tt class="classname">MP3FileInfo</tt> is a descendant of <tt class="classname">FileInfo</tt>.  When an <tt class="classname">MP3FileInfo</tt>'s <tt class="literal">name</tt> is set, it doesn't just set the <tt class="literal">name</tt> key (like the ancestor <tt class="classname">FileInfo</tt> does); it also looks in the file itself for <span class="abbrev">MP3</span> tags and populates a whole set of keys.  The next example shows how this works.
+            </p>
+            <div class="example"><a name="d0e13038"></a><h3 class="title">Example&nbsp;5.14.&nbsp;Overriding <tt class="function">__setitem__</tt> in <tt class="classname">MP3FileInfo</tt></h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> __setitem__</span>(self, key, item):         <a name="fileinfo.specialmethods.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> key == <span class='pystring'>"name"</span> <span class='pykeyword'>and</span> item:            <a name="fileinfo.specialmethods.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+            self.__parse(item)                <a name="fileinfo.specialmethods.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        FileInfo.__setitem__(self, key, item) <a name="fileinfo.specialmethods.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Notice that this <tt class="function">__setitem__</tt> method is defined exactly the same way as the ancestor method.  This is important, since <span class="application">Python</span> will be calling the method for you, and it expects it to be defined with a certain number of arguments.  (Technically speaking,
+                           the names of the arguments don't matter; only the number of arguments is important.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Here's the crux of the entire <tt class="classname">MP3FileInfo</tt> class: if you're assigning a value to the <tt class="literal">name</tt> key, you want to do something extra.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The extra processing you do for <tt class="literal">name</tt>s is encapsulated in the <tt class="function">__parse</tt> method.  This is another class method defined in <tt class="classname">MP3FileInfo</tt>, and when you call it, you qualify it with <tt class="varname">self</tt>.  Just calling <tt class="function">__parse</tt> would look for a normal function defined outside the class, which is not what you want.  Calling <tt class="function">self.__parse</tt> will look for a class method defined within the class.  This isn't anything new; you reference <a href="userdict.html#fileinfo.userdict.normalmethods" title="Example&nbsp;5.10.&nbsp;UserDict Normal Methods">data attributes</a> the same way.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">After doing this extra processing, you want to call the ancestor method.  Remember that this is never done for you in <span class="application">Python</span>; you must do it manually.  Note that you're calling the immediate ancestor, <tt class="classname">FileInfo</tt>, even though it doesn't have a <tt class="function">__setitem__</tt> method.  That's okay, because <span class="application">Python</span> will walk up the ancestor tree until it finds a class with the method you're calling, so this line of code will eventually
+                           find and call the <tt class="function">__setitem__</tt> defined in <tt class="classname">UserDict</tt>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div><a name="tip.self.call"></a><table class="note" border="0" summary="">
+               <tr>
+                  <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+               </tr>
+               <tr>
+                  <td colspan="2" align="left" valign="top" width="99%">When accessing data attributes within a class, you need to qualify the attribute name: <tt class="literal">self.<i class="replaceable">attribute</i></tt>.  When calling other methods within a class, you need to qualify the method name: <tt class="literal">self.<i class="replaceable">method</i></tt>.
+                  </td>
+               </tr>
+            </table>
+            <div class="example"><a name="fileinfo.specialmethods.setname"></a><h3 class="title">Example&nbsp;5.15.&nbsp;Setting an <tt class="classname">MP3FileInfo</tt>'s <tt class="literal">name</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> fileinfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file = fileinfo.MP3FileInfo()</span>                   <a name="fileinfo.specialmethods.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file</span>
+<span class="computeroutput">{'name':None}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file[<span class='pystring'>"name"</span>] = <span class='pystring'>"/music/_singles/kairo.mp3"</span></span>      <a name="fileinfo.specialmethods.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file</span>
+<span class="computeroutput">{'album': 'Rave Mix', 'artist': '***DJ MARY-JANE***', 'genre': 31,
+'title': 'KAIRO****THE BEST GOA', 'name': '/music/_singles/kairo.mp3',
+'year': '2000', 'comment': 'http://mp3.com/DJMARYJANE'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file[<span class='pystring'>"name"</span>] = <span class='pystring'>"/music/_singles/sidewinder.mp3"</span></span> <a name="fileinfo.specialmethods.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">mp3file</span>
+<span class="computeroutput">{'album': '', 'artist': 'The Cynic Project', 'genre': 18, 'title': 'Sidewinder', 
+'name': '/music/_singles/sidewinder.mp3', 'year': '2000', 
+'comment': 'http://mp3.com/cynicproject'}</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">First, you create an instance of <tt class="classname">MP3FileInfo</tt>, without passing it a filename.  (You can get away with this because the <tt class="varname">filename</tt> argument of the <tt class="function">__init__</tt> method is <a href="../power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">optional</a>.)  Since <tt class="classname">MP3FileInfo</tt> has no <tt class="function">__init__</tt> method of its own, <span class="application">Python</span> walks up the ancestor tree and finds the <tt class="function">__init__</tt> method of <tt class="classname">FileInfo</tt>.  This <tt class="function">__init__</tt> method manually calls the <tt class="function">__init__</tt> method of <tt class="classname">UserDict</tt> and then sets the <tt class="literal">name</tt> key to <tt class="varname">filename</tt>, which is <tt class="literal">None</tt>, since you didn't pass a filename.  Thus, <tt class="varname">mp3file</tt> initially looks like a dictionary with one key, <tt class="literal">name</tt>, whose value is <tt class="literal">None</tt>.
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Now the real fun begins.  Setting the <tt class="literal">name</tt> key of <tt class="varname">mp3file</tt> triggers the <tt class="function">__setitem__</tt> method on <tt class="classname">MP3FileInfo</tt> (not <tt class="classname">UserDict</tt>), which notices that you're setting the <tt class="literal">name</tt> key with a real value and calls <tt class="function">self.__parse</tt>.  Although you haven't traced through the <tt class="function">__parse</tt> method yet, you can see from the output that it sets several other keys: <tt class="literal">album</tt>, <tt class="literal">artist</tt>, <tt class="literal">genre</tt>, <tt class="literal">title</tt>, <tt class="literal">year</tt>, and <tt class="literal">comment</tt>.
+                           
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.specialmethods.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Modifying the <tt class="literal">name</tt> key will go through the same process again: <span class="application">Python</span> calls <tt class="function">__setitem__</tt>, which calls <tt class="function">self.__parse</tt>, which sets all the other keys.
+                           
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="userdict.html">&lt;&lt;&nbsp;Exploring UserDict: A Wrapper Class</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.divein" title="5.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="importing_modules.html" title="5.2.&nbsp;Importing Modules Using from module import">2</a> <span class="divider">|</span> <a href="defining_classes.html" title="5.3.&nbsp;Defining Classes">3</a> <span class="divider">|</span> <a href="instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">4</a> <span class="divider">|</span> <a href="userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="special_class_methods2.html" title="5.7.&nbsp;Advanced Special Class Methods">7</a> <span class="divider">|</span> <a href="class_attributes.html" title="5.8.&nbsp;Introducing Class Attributes">8</a> <span class="divider">|</span> <a href="private_functions.html" title="5.9.&nbsp;Private Functions">9</a> <span class="divider">|</span> <a href="summary.html" title="5.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="special_class_methods2.html">Advanced Special Class Methods&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,222 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>14.5.&nbsp;roman.py, stage 5</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="stage_1.html" title="Chapter&nbsp;14.&nbsp;Test-First Programming">
+      <link rel="previous" href="stage_4.html" title="14.4.&nbsp;roman.py, stage 4">
+      <link rel="next" href="../refactoring/index.html" title="Chapter&nbsp;15.&nbsp;Refactoring">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="stage_1.html">Test-First Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">roman.py, stage 5</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="stage_4.html" title="Prev: &#8220;roman.py, stage 4&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="../refactoring/index.html" title="Next: &#8220;Refactoring&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.stage5"></a>14.5.&nbsp;<tt class="filename">roman.py</tt>, stage 5
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Now that <tt class="function">fromRoman</tt> works properly with good input, it's time to fit in the last piece of the puzzle: making it work properly with bad input.
+                That means finding a way to look at a string and determine if it's a valid Roman numeral.  This is inherently more difficult
+               than <a href="stage_3.html" title="14.3.&nbsp;roman.py, stage 3">validating numeric input</a> in <tt class="function">toRoman</tt>, but you have a powerful tool at your disposal: regular expressions.
+            </p>
+         </div>
+         <p>If you're not familiar with regular expressions and didn't read <a href="../regular_expressions/index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">Chapter&nbsp;7, <i>Regular Expressions</i></a>, now would be a good time.
+         </p>
+         <p>As you saw in <a href="../regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">Section&nbsp;7.3, &#8220;Case Study: Roman Numerals&#8221;</a>, there are several simple rules for constructing a Roman numeral, using the letters <tt class="literal">M</tt>, <tt class="literal">D</tt>, <tt class="literal">C</tt>, <tt class="literal">L</tt>, <tt class="literal">X</tt>, <tt class="literal">V</tt>, and <tt class="literal">I</tt>.  Let's review the rules:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>Characters are additive.  <tt class="literal">I</tt> is <tt class="constant">1</tt>, <tt class="literal">II</tt> is <tt class="literal">2</tt>, and <tt class="literal">III</tt> is <tt class="literal">3</tt>.  <tt class="literal">VI</tt> is <tt class="literal">6</tt> (literally, &#8220;<span class="quote"><tt class="literal">5</tt> and <tt class="literal">1</tt></span>&#8221;), <tt class="literal">VII</tt> is <tt class="literal">7</tt>, and <tt class="literal">VIII</tt> is <tt class="literal">8</tt>.
+               </li>
+               <li>The tens characters (<tt class="literal">I</tt>, <tt class="literal">X</tt>, <tt class="literal">C</tt>, and <tt class="literal">M</tt>) can be repeated up to three times.  At <tt class="literal">4</tt>, you need to subtract from the next highest fives character.  You can't represent <tt class="literal">4</tt> as <tt class="literal">IIII</tt>; instead, it is represented as <tt class="literal">IV</tt> (&#8220;<span class="quote"><tt class="literal">1</tt> less than <tt class="literal">5</tt></span>&#8221;).  <tt class="literal">40</tt> is written as <tt class="literal">XL</tt> (&#8220;<span class="quote"><tt class="literal">10</tt> less than <tt class="literal">50</tt></span>&#8221;), <tt class="literal">41</tt> as <tt class="literal">XLI</tt>, <tt class="literal">42</tt> as <tt class="literal">XLII</tt>, <tt class="literal">43</tt> as <tt class="literal">XLIII</tt>, and then <tt class="literal">44</tt> as <tt class="literal">XLIV</tt> (&#8220;<span class="quote"><tt class="literal">10</tt> less than <tt class="literal">50</tt>, then <tt class="literal">1</tt> less than <tt class="literal">5</tt></span>&#8221;).
+               </li>
+               <li>Similarly, at <tt class="literal">9</tt>, you need to subtract from the next highest tens character: <tt class="literal">8</tt> is <tt class="literal">VIII</tt>, but <tt class="literal">9</tt> is <tt class="literal">IX</tt> (&#8220;<span class="quote"><tt class="literal">1</tt> less than <tt class="literal">10</tt></span>&#8221;), not <tt class="literal">VIIII</tt> (since the <tt class="literal">I</tt> character can not be repeated four times).  <tt class="literal">90</tt> is <tt class="literal">XC</tt>, <tt class="literal">900</tt> is <tt class="literal">CM</tt>.
+               </li>
+               <li>The fives characters can not be repeated.  <tt class="literal">10</tt> is always represented as <tt class="literal">X</tt>, never as <tt class="literal">VV</tt>.  <tt class="literal">100</tt> is always <tt class="literal">C</tt>, never <tt class="literal">LL</tt>.
+               </li>
+               <li>Roman numerals are always written highest to lowest, and read left to right, so order of characters matters very much.  <tt class="literal">DC</tt> is <tt class="literal">600</tt>; <tt class="literal">CD</tt> is a completely different number (<tt class="literal">400</tt>, &#8220;<span class="quote"><tt class="literal">100</tt> less than <tt class="literal">500</tt></span>&#8221;).  <tt class="literal">CI</tt> is <tt class="literal">101</tt>; <tt class="literal">IC</tt> is not even a valid Roman numeral (because you can't subtract <tt class="literal">1</tt> directly from <tt class="literal">100</tt>; you would need to write it as <tt class="literal">XCIX</tt>, &#8220;<span class="quote"><tt class="literal">10</tt> less than <tt class="literal">100</tt>, then <tt class="literal">1</tt> less than <tt class="literal">10</tt></span>&#8221;).
+               </li>
+            </ol>
+         </div>
+         <div class="example"><a name="d0e34010"></a><h3 class="title">Example&nbsp;14.12.&nbsp;<tt class="filename">roman5.py</tt></h3>
+            <p>This file is available in <tt class="filename">py/roman/stage5/</tt> in the examples directory.
+            </p>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pystring'>"""Convert to and from Roman numerals"""</span>
+<span class='pykeyword'>import</span> re
+
+<span class='pycomment'>#Define exceptions</span>
+<span class='pykeyword'>class</span><span class='pyclass'> RomanError</span>(Exception): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> OutOfRangeError</span>(RomanError): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> NotIntegerError</span>(RomanError): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> InvalidRomanNumeralError</span>(RomanError): <span class='pykeyword'>pass</span>
+
+<span class='pycomment'>#Define digit mapping</span>
+romanNumeralMap = ((<span class='pystring'>'M'</span>,  1000),
+                   (<span class='pystring'>'CM'</span>, 900),
+                   (<span class='pystring'>'D'</span>,  500),
+                   (<span class='pystring'>'CD'</span>, 400),
+                   (<span class='pystring'>'C'</span>,  100),
+                   (<span class='pystring'>'XC'</span>, 90),
+                   (<span class='pystring'>'L'</span>,  50),
+                   (<span class='pystring'>'XL'</span>, 40),
+                   (<span class='pystring'>'X'</span>,  10),
+                   (<span class='pystring'>'IX'</span>, 9),
+                   (<span class='pystring'>'V'</span>,  5),
+                   (<span class='pystring'>'IV'</span>, 4),
+                   (<span class='pystring'>'I'</span>,  1))
+
+<span class='pykeyword'>def</span><span class='pyclass'> toRoman</span>(n):
+    <span class='pystring'>"""convert integer to Roman numeral"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> (0 &lt; n &lt; 4000):
+        <span class='pykeyword'>raise</span> OutOfRangeError, <span class='pystring'>"number out of range (must be 1..3999)"</span>
+    <span class='pykeyword'>if</span> int(n) &lt;&gt; n:
+        <span class='pykeyword'>raise</span> NotIntegerError, <span class='pystring'>"non-integers can not be converted"</span>
+
+    result = <span class='pystring'>""</span>
+    <span class='pykeyword'>for</span> numeral, integer <span class='pykeyword'>in</span> romanNumeralMap:
+        <span class='pykeyword'>while</span> n &gt;= integer:
+            result += numeral
+            n -= integer
+    <span class='pykeyword'>return</span> result
+
+<span class='pycomment'>#Define pattern to detect valid Roman numerals</span>
+romanNumeralPattern = <span class='pystring'>'^M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span> <a name="roman.stage5.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+
+<span class='pykeyword'>def</span><span class='pyclass'> fromRoman</span>(s):
+    <span class='pystring'>"""convert Roman numeral to integer"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> re.search(romanNumeralPattern, s):                                    <a name="roman.stage5.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>'Invalid Roman numeral: %s'</span> % s
+
+    result = 0
+    index = 0
+    <span class='pykeyword'>for</span> numeral, integer <span class='pykeyword'>in</span> romanNumeralMap:
+        <span class='pykeyword'>while</span> s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    <span class='pykeyword'>return</span> result
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage5.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is just a continuation of the pattern you discussed in <a href="../regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">Section&nbsp;7.3, &#8220;Case Study: Roman Numerals&#8221;</a>.  The tens places is either <tt class="literal">XC</tt> (<tt class="literal">90</tt>), <tt class="literal">XL</tt> (<tt class="literal">40</tt>), or an optional <tt class="literal">L</tt> followed by 0 to 3 optional <tt class="literal">X</tt> characters.  The ones place is either <tt class="literal">IX</tt> (<tt class="literal">9</tt>), <tt class="literal">IV</tt> (<tt class="literal">4</tt>), or an optional <tt class="literal">V</tt> followed by 0 to 3 optional <tt class="literal">I</tt> characters.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage5.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Having encoded all that logic into a regular expression, the code to check for invalid Roman numerals becomes trivial.  If
+                        <tt class="function">re.search</tt> returns an object, then the regular expression matched and the input is valid; otherwise, the input is invalid.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>At this point, you are allowed to be skeptical that that big ugly regular expression could possibly catch all the types of
+            invalid Roman numerals.  But don't take my word for it, look at the results:
+         </p>
+         <div class="example"><a name="d0e34080"></a><h3 class="title">Example&nbsp;14.13.&nbsp;Output of <tt class="filename">romantest5.py</tt> against <tt class="filename">roman5.py</tt></h3><pre class="screen"><span class="computeroutput">
+fromRoman should only accept uppercase input ... ok          </span><a name="roman.stage5.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+toRoman should always return uppercase ... ok
+fromRoman should fail with malformed antecedents ... ok      </span><a name="roman.stage5.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"><span class="computeroutput">
+fromRoman should fail with repeated pairs of numerals ... ok </span><a name="roman.stage5.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"><span class="computeroutput">
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ok
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.864s
+
+OK                                                           </span><a name="roman.stage5.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage5.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">One thing I didn't mention about regular expressions is that, by default, they are case-sensitive.  Since the regular expression
+                        <tt class="varname">romanNumeralPattern</tt> was expressed in uppercase characters, the <tt class="function">re.search</tt> check will reject any input that isn't completely uppercase.  So the uppercase input test passes.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage5.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">More importantly, the bad input tests pass.  For instance, the malformed antecedents test checks cases like <tt class="literal">MCMC</tt>.  As you've seen, this does not match the regular expression, so <tt class="function">fromRoman</tt> raises an <tt class="errorcode">InvalidRomanNumeralError</tt> exception, which is what the malformed antecedents test case is looking for, so the test passes.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage5.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In fact, all the bad input tests pass.  This regular expression catches everything you could think of when you made your test
+                        cases.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage5.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">And the anticlimax award of the year goes to the word &#8220;<span class="quote"><tt class="literal">OK</tt></span>&#8221;, which is printed by the <tt class="filename">unittest</tt> module when all the tests pass.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e34136"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">When all of your tests pass, stop coding.</td>
+            </tr>
+         </table>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="stage_4.html">&lt;&lt;&nbsp;roman.py, stage 4</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="stage_1.html#roman.stage1" title="14.1.&nbsp;roman.py, stage 1">1</a> <span class="divider">|</span> <a href="stage_2.html" title="14.2.&nbsp;roman.py, stage 2">2</a> <span class="divider">|</span> <a href="stage_3.html" title="14.3.&nbsp;roman.py, stage 3">3</a> <span class="divider">|</span> <a href="stage_4.html" title="14.4.&nbsp;roman.py, stage 4">4</a> <span class="divider">|</span> <span class="thispage">5</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="../refactoring/index.html">Refactoring&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>11.9. Putting it all together</title>
+        <link rev="made" href="josh@servercobra.com" />
+        <meta name="generator" content="convert_to_jinja2.py" />
+        <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+        <meta name="description" content="Python from novice to pro" />
+        <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+        
+        <link rel="up" href="index.html" title=" Chapter11.HTTP Web Services" />
+        
+        
+        
+        <link rel="next" href="summary.html" title=" 11.10.Summary" />
+        
+         <link rel="stylesheet" href="../css/normalize.css">
+         <link rel="stylesheet" href="../css/foundation.css">
+         <link rel="stylesheet" href="../css/diveintopython.css" type="text/css" />
+
+
+         <script src="../js/modernizr.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="small-12 columns" id="Header">
+                <div class="row">
+                    <div class="small-11 columns">
+                        
+                        <td align="left" colspan="5" id="breadcrumb" valign="top">You are here: <a href="../index.html">Home</a>&#160;&gt;&#160;<a href="../toc/index.html">Dive Into Python</a>&#160;&gt;&#160;<a href="index.html">HTTP Web Services</a>&#160;&gt;&#160;<span class="thispage">Putting it all together</span></td>
+                        
+                    </div>
+                    <div class="small-1 columns">
+                        
+                        <td align="right" id="navigation" valign="top">&#160;&#160;&#160;<a href="gzip_compression.html" title="Prev: &#8220;Handling compressed data&#8221;">&lt;&lt;</a>&#160;&#160;&#160;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+                        
+                    </div>
+                </div>
+
+
+                <div id="logocontainer">
+                    <h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+                    <p id="tagline">Python from novice to pro</p>
+                    <a href="http://www.amazon.com/gp/product/B001GIOFN8/ref=as_li_tf_tl?ie=UTF8&tag=diveintopython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=B001GIOFN8"><img src="../images/amazon-buy-button.gif"></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="oa.alltogether"></a>11.9.&#160;Putting it all together
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>You've seen all the pieces for building an intelligent HTTP web services client.  Now let's see how they all fit together.</p>
+</div>
+<div class="example"><a name="d0e29475"></a><h3 class="title">Example&#160;11.17.&#160;The <tt class="function">openanything</tt> function
+            </h3>
+<p>This function is defined in <tt class="filename">openanything.py</tt>.
+            </p><pre class="programlisting"><span class="pykeyword">
+def</span> openAnything(source, etag=None, lastmodified=None, agent=USER_AGENT):
+    <span class="pycomment"># non-HTTP code omitted for brevity</span>
+    <span class="pykeyword">if</span> urlparse.urlparse(source)[0] == <span class="pystring">'http'</span>:                                       <a name="oa.alltogether.1.1"></a><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12">
+        <span class="pycomment"># open URL with urllib2                                                     </span>
+        request = urllib2.Request(source)                                           
+        request.add_header(<span class="pystring">'User-Agent'</span>, agent)                                      <a name="oa.alltogether.1.2"></a><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12">
+        <span class="pykeyword">if</span> etag:                                                                    
+            request.add_header(<span class="pystring">'If-None-Match'</span>, etag)                                <a name="oa.alltogether.1.3"></a><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12">
+        <span class="pykeyword">if</span> lastmodified:                                                            
+            request.add_header(<span class="pystring">'If-Modified-Since'</span>, lastmodified)                    <a name="oa.alltogether.1.4"></a><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12">
+        request.add_header(<span class="pystring">'Accept-encoding'</span>, <span class="pystring">'gzip'</span>)                                <a name="oa.alltogether.1.5"></a><img alt="5" border="0" height="12" src="../images/callouts/5.png" width="12">
+        opener = urllib2.build_opener(SmartRedirectHandler(), DefaultErrorHandler()) <a name="oa.alltogether.1.6"></a><img alt="6" border="0" height="12" src="../images/callouts/6.png" width="12">
+        <span class="pykeyword">return</span> opener.open(request)                                                  <a name="oa.alltogether.1.7"></a><img alt="7" border="0" height="12" src="../images/callouts/7.png" width="12">
+</img></img></img></img></img></img></img></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.1.1"><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"/></a>
+</td>
+<td align="left" valign="top"><tt class="filename">urlparse</tt> is a handy utility module for, you guessed it, parsing URLs.  It's primary function, also called <tt class="function">urlparse</tt>, takes a URL and splits it into a tuple of (scheme, domain, path, params, query string parameters, and fragment identifier).
+                         Of these, the only thing you care about is the scheme, to make sure that you're dealing with an HTTP URL (which <tt class="filename">urllib2</tt> can handle).
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.1.2"><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12"/></a>
+</td>
+<td align="left" valign="top">You identify yourself to the HTTP server with the <tt class="literal">User-Agent</tt> passed in by the calling function.  If no <tt class="literal">User-Agent</tt> was specified, you use a default one defined earlier in the <tt class="filename">openanything.py</tt> module.  You never use the default one defined by <tt class="filename">urllib2</tt>.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.1.3"><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12"/></a>
+</td>
+<td align="left" valign="top">If an <tt class="literal">ETag</tt> hash was given, send it in the <tt class="literal">If-None-Match</tt> header.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.1.4"><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12"/></a>
+</td>
+<td align="left" valign="top">If a last-modified date was given, send it in the <tt class="literal">If-Modified-Since</tt> header.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.1.5"><img alt="5" border="0" height="12" src="../images/callouts/5.png" width="12"/></a>
+</td>
+<td align="left" valign="top">Tell the server you would like compressed data if possible.</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.1.6"><img alt="6" border="0" height="12" src="../images/callouts/6.png" width="12"/></a>
+</td>
+<td align="left" valign="top">Build a URL opener that uses <span class="emphasis"><em>both</em></span> of the custom URL handlers: <tt class="classname">SmartRedirectHandler</tt> for handling <tt class="literal">301</tt> and <tt class="literal">302</tt> redirects, and <tt class="classname">DefaultErrorHandler</tt> for handling <tt class="literal">304</tt>, <tt class="literal">404</tt>, and other error conditions gracefully.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.1.7"><img alt="7" border="0" height="12" src="../images/callouts/7.png" width="12"/></a>
+</td>
+<td align="left" valign="top">That's it!  Open the URL and return a file-like object to the caller.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e29574"></a><h3 class="title">Example&#160;11.18.&#160;The <tt class="function">fetch</tt> function
+            </h3>
+<p>This function is defined in <tt class="filename">openanything.py</tt>.
+            </p><pre class="programlisting"><span class="pykeyword">
+def</span> fetch(source, etag=None, last_modified=None, agent=USER_AGENT):  
+    <span class="pystring">'''Fetch data and metadata from a URL, file, stream, or string'''</span>
+    result = {}                                                      
+    f = openAnything(source, etag, last_modified, agent)              <a name="oa.alltogether.2.1"></a><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12">
+    result[<span class="pystring">'data'</span>] = f.read()                                         <a name="oa.alltogether.2.2"></a><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12">
+    <span class="pykeyword">if</span> hasattr(f, <span class="pystring">'headers'</span>):                                        
+        <span class="pycomment"># save ETag, if the server sent one                          </span>
+        result[<span class="pystring">'etag'</span>] = f.headers.get(<span class="pystring">'ETag'</span>)                        <a name="oa.alltogether.2.3"></a><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12">
+        <span class="pycomment"># save Last-Modified header, if the server sent one          </span>
+        result[<span class="pystring">'lastmodified'</span>] = f.headers.get(<span class="pystring">'Last-Modified'</span>)       <a name="oa.alltogether.2.4"></a><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12">
+        <span class="pykeyword">if</span> f.headers.get(<span class="pystring">'content-encoding'</span>, <span class="pystring">''</span>) == <span class="pystring">'gzip'</span>:           <a name="oa.alltogether.2.5"></a><img alt="5" border="0" height="12" src="../images/callouts/5.png" width="12">
+            <span class="pycomment"># data came back gzip-compressed, decompress it          </span>
+            result[<span class="pystring">'data'</span>] = gzip.GzipFile(fileobj=StringIO(result[<span class="pystring">'data'</span>]])).read()
+    <span class="pykeyword">if</span> hasattr(f, <span class="pystring">'url'</span>):                                             <a name="oa.alltogether.2.6"></a><img alt="6" border="0" height="12" src="../images/callouts/6.png" width="12">
+        result[<span class="pystring">'url'</span>] = f.url                                        
+        result[<span class="pystring">'status'</span>] = 200                                       
+    <span class="pykeyword">if</span> hasattr(f, <span class="pystring">'status'</span>):                                          <a name="oa.alltogether.2.7"></a><img alt="7" border="0" height="12" src="../images/callouts/7.png" width="12">
+        result[<span class="pystring">'status'</span>] = f.status                                  
+    f.close()                                                        
+    <span class="pykeyword">return</span> result                                                    
+</img></img></img></img></img></img></img></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.2.1"><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"/></a>
+</td>
+<td align="left" valign="top">First, you call the <tt class="function">openAnything</tt> function with a URL, <tt class="literal">ETag</tt> hash, <tt class="literal">Last-Modified</tt> date, and <tt class="literal">User-Agent</tt>.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.2.2"><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12"/></a>
+</td>
+<td align="left" valign="top">Read the actual data returned from the server.  This may be compressed; if so, you'll decompress it later.</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.2.3"><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12"/></a>
+</td>
+<td align="left" valign="top">Save the <tt class="literal">ETag</tt> hash returned from the server, so the calling application can pass it back to you next time, and you can pass it on to <tt class="function">openAnything</tt>, which can stick it in the <tt class="literal">If-None-Match</tt> header and send it to the remote server.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.2.4"><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12"/></a>
+</td>
+<td align="left" valign="top">Save the <tt class="literal">Last-Modified</tt> date too.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.2.5"><img alt="5" border="0" height="12" src="../images/callouts/5.png" width="12"/></a>
+</td>
+<td align="left" valign="top">If the server says that it sent compressed data, decompress it.</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.2.6"><img alt="6" border="0" height="12" src="../images/callouts/6.png" width="12"/></a>
+</td>
+<td align="left" valign="top">If you got a URL back from the server, save it, and assume that the status code is <tt class="literal">200</tt> until you find out otherwise.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.2.7"><img alt="7" border="0" height="12" src="../images/callouts/7.png" width="12"/></a>
+</td>
+<td align="left" valign="top">If one of the custom URL handlers captured a status code, then save that too.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="example"><a name="d0e29650"></a><h3 class="title">Example&#160;11.19.&#160;Using <tt class="filename">openanything.py</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> openanything</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">useragent = <span class="pystring">'MyHTTPWebServicesApp/1.0'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">url = <span class="pystring">'http://diveintopython.org/redir/example301.xml'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = openanything.fetch(url, agent=useragent)</span>              <a name="oa.alltogether.3.1"></a><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params</span>                                                         <a name="oa.alltogether.3.2"></a><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12">
+<span class="computeroutput">{'url': 'http://diveintomark.org/xml/atom.xml', 
+'lastmodified': 'Thu, 15 Apr 2004 19:45:21 GMT', 
+'etag': '"e842a-3e53-55d97640"', 
+'status': 301,
+'data': '&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;feed version="0.3"
+&lt;-- rest of data omitted for brevity --&gt;'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">if</span> params[<span class="pystring">'status'</span>] == 301:</span>                                    <a name="oa.alltogether.3.3"></a><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12">
+<tt class="prompt">...     </tt><span class="userinput">url = params[<span class="pystring">'url'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">newparams = openanything.fetch(</span>
+<tt class="prompt">...     </tt><span class="userinput">url, params[<span class="pystring">'etag'</span>], params[<span class="pystring">'lastmodified'</span>], useragent)</span>    <a name="oa.alltogether.3.4"></a><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">newparams</span>
+<span class="computeroutput">{'url': 'http://diveintomark.org/xml/atom.xml', 
+'lastmodified': None, 
+'etag': '"e842a-3e53-55d97640"', 
+'status': 304,
+'data': ''}</span>                                                        <a name="oa.alltogether.3.5"></a><img alt="5" border="0" height="12" src="../images/callouts/5.png" width="12">
+</img></img></img></img></img></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.3.1"><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"/></a>
+</td>
+<td align="left" valign="top">The very first time you fetch a resource, you don't have an <tt class="literal">ETag</tt> hash or <tt class="literal">Last-Modified</tt> date, so you'll leave those out.  (They're <a href="../power_of_introspection/optional_arguments.html" title="4.2.&#160;Using Optional and Named Arguments">optional parameters</a>.)
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.3.2"><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12"/></a>
+</td>
+<td align="left" valign="top">What you get back is a dictionary of several useful headers, the HTTP status code, and the actual data returned from the server.
+                         <tt class="filename">openanything</tt> handles the gzip compression internally; you don't care about that at this level.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.3.3"><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12"/></a>
+</td>
+<td align="left" valign="top">If you ever get a <tt class="literal">301</tt> status code, that's a permanent redirect, and you need to update your URL to the new address.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.3.4"><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12"/></a>
+</td>
+<td align="left" valign="top">The second time you fetch the same resource, you have all sorts of information to pass back: a (possibly updated) URL, the
+                        <tt class="literal">ETag</tt> from the last time, the <tt class="literal">Last-Modified</tt> date from the last time, and of course your <tt class="literal">User-Agent</tt>.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#oa.alltogether.3.5"><img alt="5" border="0" height="12" src="../images/callouts/5.png" width="12"/></a>
+</td>
+<td align="left" valign="top">What you get back is again a dictionary, but the data hasn't changed, so all you got was a <tt class="literal">304</tt> status code and no data.
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <table border="0" cellpadding="0" cellspacing="0" class="Footer" summary="" width="100%">
+<tr>
+<td align="left" width="35%"><br><a class="NavigationArrow" href="gzip_compression.html">&lt;&lt;&#160;Handling compressed data</a></br></td>
+<td align="center" width="30%"><br>&#160;<span class="divider">|</span>&#160;<a href="index.html#oa.divein" title="11.1.&#160;Diving in">1</a> <span class="divider">|</span> <a href="review.html" title="11.2.&#160;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http_features.html" title="11.3.&#160;Features of HTTP">3</a> <span class="divider">|</span> <a href="debugging.html" title="11.4.&#160;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="user_agent.html" title="11.5.&#160;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="etags.html" title="11.6.&#160;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="redirects.html" title="11.7.&#160;Handling redirects">7</a> <span class="divider">|</span> <a href="gzip_compression.html" title="11.8.&#160;Handling compressed data">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="summary.html" title="11.10.&#160;Summary">10</a>&#160;<span class="divider">|</span>&#160;
+            </br></td>
+<td align="right" width="35%"><br><a class="NavigationArrow" href="summary.html">Summary&#160;&gt;&gt;</a></br></td>
+</tr>
+<tr>
+<td colspan="3"><br/></td>
+</tr>
+</table>
+        <!-- Footer -->
+<div class="Footer">
+    <p><a href="https://github.com/pcsforeducation/diveintopython/issues?sort=created&state=open">Report issues<img style="margin-left:10px" height="40" src="../images/logo_github.png"></a></p>
+    <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a>. Maintained by Josh Gachnang.</p>
+</div>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1879314568120827";
+/* DiveIntoPython */
+google_ad_slot = "8002881514";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<!-- End Footer -->
+            </div>
+        </div>
+        <!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google Analytics -->
+        <script src="../js/jquery.js"></script>
+        <script src="../js/foundation.min.js"></script>
+        <script>
+          $(document).foundation();
+        </script>
+    </body>
+</html>

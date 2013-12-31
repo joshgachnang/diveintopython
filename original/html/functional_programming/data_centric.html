@@ -1,0 +1,96 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>16.5.&nbsp;Data-centric programming</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">
+      <link rel="previous" href="mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">
+      <link rel="next" href="dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Data-centric programming</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="mapping_lists.html" title="Prev: &#8220;Mapping lists revisited&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="dynamic_import.html" title="Next: &#8220;Dynamically importing modules&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="regression.datacentric"></a>16.5.&nbsp;Data-centric programming
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>By now you're probably scratching your head wondering why this is better than using <tt class="literal">for</tt> loops and straight function calls.  And that's a perfectly valid question.  Mostly, it's a matter of perspective.  Using
+               <tt class="function">map</tt> and <tt class="function">filter</tt> forces you to center your thinking around your data.
+            </p>
+         </div>
+         <p>In this case, you started with no data at all; the first thing you did was <a href="finding_the_path.html" title="16.2.&nbsp;Finding the path">get the directory path</a> of the current script, and got a list of files in that directory.  That was the bootstrap, and it gave you real data to work
+            with: a list of filenames.
+         </p>
+         <p>However, you knew you didn't care about all of those files, only the ones that were actually test suites.  You had <span class="emphasis"><em>too much data</em></span>, so you needed to <tt class="function">filter</tt> it.  How did you know which data to keep?  You needed a test to decide, so you defined one and passed it to the <tt class="function">filter</tt> function.  In this case you used a regular expression to decide, but the concept would be the same regardless of how you
+            constructed the test.
+         </p>
+         <p>Now you had the filenames of each of the test suites (and only the test suites, since everything else had been filtered out),
+            but you really wanted module names instead.  You had the right amount of data, but it was <span class="emphasis"><em>in the wrong format</em></span>.  So you defined a function that would transform a single filename into a module name, and you mapped that function onto
+            the entire list.  From one filename, you can get a module name; from a list of filenames, you can get a list of module names.
+         </p>
+         <p>Instead of <tt class="function">filter</tt>, you could have used a <tt class="literal">for</tt> loop with an <tt class="literal">if</tt> statement.  Instead of <tt class="function">map</tt>, you could have used a <tt class="literal">for</tt> loop with a function call.  But using <tt class="literal">for</tt> loops like that is busywork.  At best, it simply wastes time; at worst, it introduces obscure bugs.  For instance, you need
+            to figure out how to test for the condition &#8220;<span class="quote">is this file a test suite?</span>&#8221; anyway; that's the application-specific logic, and no language can write that for us.  But once you've figured that out,
+            do you really want go to all the trouble of defining a new empty list and writing a <tt class="literal">for</tt> loop and an <tt class="literal">if</tt> statement and manually calling <tt class="function">append</tt> to add each element to the new list if it passes the condition and then keeping track of which variable holds the new filtered
+            data and which one holds the old unfiltered data?  Why not just define the test condition, then let <span class="application">Python</span> do the rest of that work for us?
+         </p>
+         <p>Oh sure, you could try to be fancy and delete elements in place without creating a new list.  But you've been burned by that
+            before.  Trying to modify a data structure that you're looping through can be tricky.  You delete an element, then loop to
+            the next element, and suddenly you've skipped one.  Is <span class="application">Python</span> one of the languages that works that way?  How long would it take you to figure it out?  Would you remember for certain whether
+            it was safe the next time you tried?  Programmers spend so much time and make so many mistakes dealing with purely technical
+            issues like this, and it's all pointless.  It doesn't advance your program at all; it's just busywork.
+         </p>
+         <p>I resisted list comprehensions when I first learned <span class="application">Python</span>, and I resisted <tt class="function">filter</tt> and <tt class="function">map</tt> even longer.  I insisted on making my life more difficult, sticking to the familiar way of <tt class="literal">for</tt> loops and <tt class="literal">if</tt> statements and step-by-step code-centric programming.  And my <span class="application">Python</span> programs looked a lot like <span class="application">Visual Basic</span> programs, detailing every step of every operation in every function.  And they had all the same types of little problems
+            and obscure bugs.  And it was all pointless.
+         </p>
+         <p>Let it all go.  Busywork code is not important.  Data is important.  And data is not difficult.  It's only data.  If you have
+            too much, filter it.  If it's not what you want, map it.  Focus on the data; leave the busywork behind.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="mapping_lists.html">&lt;&lt;&nbsp;Mapping lists revisited</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <a href="all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="dynamic_import.html">Dynamically importing modules&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

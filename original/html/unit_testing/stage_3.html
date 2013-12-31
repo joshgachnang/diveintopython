@@ -1,0 +1,268 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>14.3.&nbsp;roman.py, stage 3</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="stage_1.html" title="Chapter&nbsp;14.&nbsp;Test-First Programming">
+      <link rel="previous" href="stage_2.html" title="14.2.&nbsp;roman.py, stage 2">
+      <link rel="next" href="stage_4.html" title="14.4.&nbsp;roman.py, stage 4">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="stage_1.html">Test-First Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">roman.py, stage 3</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="stage_2.html" title="Prev: &#8220;roman.py, stage 2&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="stage_4.html" title="Next: &#8220;roman.py, stage 4&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.stage3"></a>14.3.&nbsp;<tt class="filename">roman.py</tt>, stage 3
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Now that <tt class="function">toRoman</tt> behaves correctly with good input (integers from <tt class="literal">1</tt> to <tt class="literal">3999</tt>), it's time to make it behave correctly with bad input (everything else).
+            </p>
+         </div>
+         <div class="example"><a name="d0e33364"></a><h3 class="title">Example&nbsp;14.6.&nbsp;<tt class="filename">roman3.py</tt></h3>
+            <p>This file is available in <tt class="filename">py/roman/stage3/</tt> in the examples directory.
+            </p>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pystring'>"""Convert to and from Roman numerals"""</span>
+
+<span class='pycomment'>#Define exceptions</span>
+<span class='pykeyword'>class</span><span class='pyclass'> RomanError</span>(Exception): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> OutOfRangeError</span>(RomanError): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> NotIntegerError</span>(RomanError): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> InvalidRomanNumeralError</span>(RomanError): <span class='pykeyword'>pass</span>
+
+<span class='pycomment'>#Define digit mapping</span>
+romanNumeralMap = ((<span class='pystring'>'M'</span>,  1000),
+                   (<span class='pystring'>'CM'</span>, 900),
+                   (<span class='pystring'>'D'</span>,  500),
+                   (<span class='pystring'>'CD'</span>, 400),
+                   (<span class='pystring'>'C'</span>,  100),
+                   (<span class='pystring'>'XC'</span>, 90),
+                   (<span class='pystring'>'L'</span>,  50),
+                   (<span class='pystring'>'XL'</span>, 40),
+                   (<span class='pystring'>'X'</span>,  10),
+                   (<span class='pystring'>'IX'</span>, 9),
+                   (<span class='pystring'>'V'</span>,  5),
+                   (<span class='pystring'>'IV'</span>, 4),
+                   (<span class='pystring'>'I'</span>,  1))
+
+<span class='pykeyword'>def</span><span class='pyclass'> toRoman</span>(n):
+    <span class='pystring'>"""convert integer to Roman numeral"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> (0 &lt; n &lt; 4000):                                             <a name="roman.stage3.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>raise</span> OutOfRangeError, <span class='pystring'>"number out of range (must be 1..3999)"</span> <a name="roman.stage3.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>if</span> int(n) &lt;&gt; n:                                                    <a name="roman.stage3.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pykeyword'>raise</span> NotIntegerError, <span class='pystring'>"non-integers can not be converted"</span>
+
+    result = <span class='pystring'>""</span>                                                        <a name="roman.stage3.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+    <span class='pykeyword'>for</span> numeral, integer <span class='pykeyword'>in</span> romanNumeralMap:
+        <span class='pykeyword'>while</span> n &gt;= integer:
+            result += numeral
+            n -= integer
+    <span class='pykeyword'>return</span> result
+
+<span class='pykeyword'>def</span><span class='pyclass'> fromRoman</span>(s):
+    <span class='pystring'>"""convert Roman numeral to integer"""</span>
+    <span class='pykeyword'>pass</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage3.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a nice <span class="application">Python</span>ic shortcut: multiple comparisons at once.  This is equivalent to <tt class="literal">if not ((0 &lt; n) and (n &lt; 4000))</tt>, but it's much easier to read.  This is the range check, and it should catch inputs that are too large, negative, or zero.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage3.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You raise exceptions yourself with the <tt class="literal">raise</tt> statement.  You can raise any of the built-in exceptions, or you can raise any of your custom exceptions that you've defined.
+                         The second parameter, the error message, is optional; if given, it is displayed in the traceback that is printed if the exception
+                        is never handled.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage3.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the non-integer check.  Non-integers can not be converted to Roman numerals.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage3.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The rest of the function is unchanged.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e33410"></a><h3 class="title">Example&nbsp;14.7.&nbsp;Watching <tt class="function">toRoman</tt> handle bad input
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> roman3</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">roman3.toRoman(4000)</span>
+<span class="traceback">Traceback (most recent call last):
+  File "&lt;interactive input&gt;", line 1, in ?
+  File "roman3.py", line 27, in toRoman
+    raise OutOfRangeError, "number out of range (must be 1..3999)"
+OutOfRangeError: number out of range (must be 1..3999)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">roman3.toRoman(1.5)</span>
+<span class="traceback">Traceback (most recent call last):
+  File "&lt;interactive input&gt;", line 1, in ?
+  File "roman3.py", line 29, in toRoman
+    raise NotIntegerError, "non-integers can not be converted"
+NotIntegerError: non-integers can not be converted</span>
+</pre></div>
+         <div class="example"><a name="d0e33439"></a><h3 class="title">Example&nbsp;14.8.&nbsp;Output of <tt class="filename">romantest3.py</tt> against <tt class="filename">roman3.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... FAIL
+toRoman should always return uppercase ... ok
+fromRoman should fail with malformed antecedents ... FAIL
+fromRoman should fail with repeated pairs of numerals ... FAIL
+fromRoman should fail with too many repeated numerals ... FAIL
+fromRoman should give known result with known input ... FAIL
+toRoman should give known result with known input ... ok </span><a name="roman.stage3.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+fromRoman(toRoman(n))==n for all n ... FAIL
+toRoman should fail with non-integer input ... ok        </span><a name="roman.stage3.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"><span class="computeroutput">
+toRoman should fail with negative input ... ok           </span><a name="roman.stage3.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"><span class="computeroutput">
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage3.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">toRoman</tt> still passes the <a href="testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues">known values test</a>, which is comforting.  All the tests that passed in <a href="stage_2.html" title="14.2.&nbsp;roman.py, stage 2">stage 2</a> still pass, so the latest code hasn't broken anything.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage3.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">More exciting is the fact that all of the <a href="testing_for_failure.html#roman.tobadinput.example" title="Example&nbsp;13.3.&nbsp;Testing bad input to toRoman">bad input tests</a> now pass.  This test, <tt class="function">testNonInteger</tt>, passes because of the <tt class="literal">int(n) &lt;&gt; n</tt> check.  When a non-integer is passed to <tt class="function">toRoman</tt>, the <tt class="literal">int(n) &lt;&gt; n</tt> check notices it and raises the <tt class="errorcode">NotIntegerError</tt> exception, which is what <tt class="function">testNonInteger</tt> is looking for.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage3.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This test, <tt class="function">testNegative</tt>, passes because of the <tt class="literal">not (0 &lt; n &lt; 4000)</tt> check, which raises an <tt class="errorcode">OutOfRangeError</tt> exception, which is what <tt class="function">testNegative</tt> is looking for.
+                     </td>
+                  </tr>
+               </table>
+            </div><pre class="screen"><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should only accept uppercase input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 156, in testFromRomanCase
+    roman3.fromRoman, numeral.lower())
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with malformed antecedents
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 133, in testMalformedAntecedent
+    self.assertRaises(roman3.InvalidRomanNumeralError, roman3.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with repeated pairs of numerals
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 127, in testRepeatedPairs
+    self.assertRaises(roman3.InvalidRomanNumeralError, roman3.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should fail with too many repeated numerals
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 122, in testTooManyRepeatedNumerals
+    self.assertRaises(roman3.InvalidRomanNumeralError, roman3.fromRoman, s)
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman should give known result with known input
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 99, in testFromRomanKnownValues
+    self.assertEqual(integer, result)
+  File "c:\python21\lib\unittest.py", line 273, in failUnlessEqual
+    raise self.failureException, (msg or '%s != %s' % (first, second))
+AssertionError: 1 != None</span><span class="computeroutput">
+======================================================================
+FAIL: fromRoman(toRoman(n))==n for all n
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage3\romantest3.py", line 141, in testSanity
+    self.assertEqual(integer, result)
+  File "c:\python21\lib\unittest.py", line 273, in failUnlessEqual
+    raise self.failureException, (msg or '%s != %s' % (first, second))
+AssertionError: 1 != None</span><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 12 tests in 0.401s
+
+FAILED (failures=6)</span> <a name="roman.stage3.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.stage3.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You're down to 6 failures, and all of them involve <tt class="function">fromRoman</tt>: the known values test, the three separate bad input tests, the case check, and the sanity check.  That means that <tt class="function">toRoman</tt> has passed all the tests it can pass by itself.  (It's involved in the sanity check, but that also requires that <tt class="function">fromRoman</tt> be written, which it isn't yet.)  Which means that you must stop coding <tt class="function">toRoman</tt> now.  No tweaking, no twiddling, no extra checks &#8220;<span class="quote">just in case</span>&#8221;.  Stop.  Now.  Back away from the keyboard.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e33558"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">The most important thing that comprehensive unit testing can tell you is when to stop coding.  When all the unit tests for
+                  a function pass, stop coding the function.  When all the unit tests for an entire module pass, stop coding the module.
+               </td>
+            </tr>
+         </table>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="stage_2.html">&lt;&lt;&nbsp;roman.py, stage 2</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="stage_1.html#roman.stage1" title="14.1.&nbsp;roman.py, stage 1">1</a> <span class="divider">|</span> <a href="stage_2.html" title="14.2.&nbsp;roman.py, stage 2">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="stage_4.html" title="14.4.&nbsp;roman.py, stage 4">4</a> <span class="divider">|</span> <a href="stage_5.html" title="14.5.&nbsp;roman.py, stage 5">5</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="stage_4.html">roman.py, stage 4&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,164 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>13.5.&nbsp;Testing for failure</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;13.&nbsp;Unit Testing">
+      <link rel="previous" href="testing_for_success.html" title="13.4.&nbsp;Testing for success">
+      <link rel="next" href="testing_for_sanity.html" title="13.6.&nbsp;Testing for sanity">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Unit Testing</a>&nbsp;&gt;&nbsp;<span class="thispage">Testing for failure</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="testing_for_success.html" title="Prev: &#8220;Testing for success&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="testing_for_sanity.html" title="Next: &#8220;Testing for sanity&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.failure"></a>13.5.&nbsp;Testing for failure
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>It is not enough to test that functions succeed when given good input; you must also test that they fail when given bad input.
+                And not just any sort of failure; they must fail in the way you expect.
+            </p>
+         </div>
+         <p>Remember the <a href="index.html#roman.requirements">other requirements</a> for <tt class="function">toRoman</tt>:
+         </p>
+         <div class="orderedlist">
+            <ol start="2" type="1">
+               <li><tt class="function">toRoman</tt> should fail when given an integer outside the range <tt class="constant">1</tt> to <tt class="literal">3999</tt>.
+               </li>
+               <li><tt class="function">toRoman</tt> should fail when given a non-integer number.
+               </li>
+            </ol>
+         </div>
+         <p>In <span class="application">Python</span>, functions indicate failure by raising <a href="../file_handling/index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions">exceptions</a>, and the <tt class="filename">unittest</tt> module provides methods for testing whether a function raises a particular exception when given bad input.
+         </p>
+         <div class="example"><a name="roman.tobadinput.example"></a><h3 class="title">Example&nbsp;13.3.&nbsp;Testing bad input to <tt class="function">toRoman</tt></h3><pre class="programlisting"><span class='pykeyword'>
+class</span> ToRomanBadInput(unittest.TestCase):                            
+    <span class='pykeyword'>def</span><span class='pyclass'> testTooLarge</span>(self):                                          
+        <span class='pystring'>"""toRoman should fail with large input"""</span>                   
+        self.assertRaises(roman.OutOfRangeError, roman.toRoman, 4000) <a name="roman.failure.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testZero</span>(self):                                              
+        <span class='pystring'>"""toRoman should fail with 0 input"""</span>                       
+        self.assertRaises(roman.OutOfRangeError, roman.toRoman, 0)    <a name="roman.failure.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testNegative</span>(self):                                          
+        <span class='pystring'>"""toRoman should fail with negative input"""</span>                
+        self.assertRaises(roman.OutOfRangeError, roman.toRoman, -1)  
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testNonInteger</span>(self):                                        
+        <span class='pystring'>"""toRoman should fail with non-integer input"""</span>             
+        self.assertRaises(roman.NotIntegerError, roman.toRoman, 0.5)  <a name="roman.failure.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.failure.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="classname">TestCase</tt> class of the <tt class="filename">unittest</tt> provides the <tt class="function">assertRaises</tt> method, which takes the following arguments: the exception you're expecting, the function you're testing, and the arguments
+                        you're passing that function.  (If the function you're testing takes more than one argument, pass them all to <tt class="function">assertRaises</tt>, in order, and it will pass them right along to the function you're testing.)  Pay close attention to what you're doing here:
+                        instead of calling <tt class="function">toRoman</tt> directly and manually checking that it raises a particular exception (by wrapping it in a <a href="../file_handling/index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions"><tt class="literal">try...except</tt> block</a>), <tt class="function">assertRaises</tt> has encapsulated all of that for us.  All you do is give it the exception (<tt class="errorcode">roman.OutOfRangeError</tt>), the function (<tt class="function">toRoman</tt>), and <tt class="function">toRoman</tt>'s arguments (<tt class="literal">4000</tt>), and <tt class="function">assertRaises</tt> takes care of calling <tt class="function">toRoman</tt> and checking to make sure that it raises <tt class="errorcode">roman.OutOfRangeError</tt>.  (Also note that you're passing the <tt class="function">toRoman</tt> function itself as an argument; you're not calling it, and you're not passing the name of it as a string.  Have I mentioned
+                        recently how handy it is that <a href="../getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object">everything in <span class="application">Python</span> is an object</a>, including functions and exceptions?)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.failure.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Along with testing numbers that are too large, you need to test numbers that are too small.  Remember, Roman numerals cannot
+                        express <tt class="constant">0</tt> or negative numbers, so you have a test case for each of those (<tt class="function">testZero</tt> and <tt class="function">testNegative</tt>).  In <tt class="function">testZero</tt>, you are testing that <tt class="function">toRoman</tt> raises a <tt class="errorcode">roman.OutOfRangeError</tt> exception when called with <tt class="constant">0</tt>; if it does <span class="emphasis"><em>not</em></span> raise a <tt class="errorcode">roman.OutOfRangeError</tt> (either because it returns an actual value, or because it raises some other exception), this test is considered failed.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.failure.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><a href="index.html#roman.requirements">Requirement #3</a> specifies that <tt class="function">toRoman</tt> cannot accept a non-integer number, so here you test to make sure that <tt class="function">toRoman</tt> raises a <tt class="errorcode">roman.NotIntegerError</tt> exception when called with <tt class="literal">0.5</tt>.  If <tt class="function">toRoman</tt> does not raise a <tt class="errorcode">roman.NotIntegerError</tt>, this test is considered failed.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The next two <a href="index.html#roman.requirements">requirements</a> are similar to the first three, except they apply to <tt class="function">fromRoman</tt> instead of <tt class="function">toRoman</tt>:
+         </p>
+         <div class="orderedlist">
+            <ol start="4" type="1">
+               <li><tt class="function">fromRoman</tt> should take a valid Roman numeral and return the number that it represents.
+               </li>
+               <li><tt class="function">fromRoman</tt> should fail when given an invalid Roman numeral.
+               </li>
+            </ol>
+         </div>
+         <p>Requirement #4 is handled in the same way as <a href="testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues">requirement #1</a>, iterating through a sampling of known values and testing each in turn.  Requirement #5 is handled in the same way as requirements
+            #2 and #3, by testing a series of bad inputs and making sure <tt class="function">fromRoman</tt> raises the appropriate exception.
+         </p>
+         <div class="example"><a name="roman.frombadinput.example"></a><h3 class="title">Example&nbsp;13.4.&nbsp;Testing bad input to <tt class="function">fromRoman</tt></h3><pre class="programlisting"><span class='pykeyword'>
+class</span> FromRomanBadInput(unittest.TestCase):                                      
+    <span class='pykeyword'>def</span><span class='pyclass'> testTooManyRepeatedNumerals</span>(self):                                       
+        <span class='pystring'>"""fromRoman should fail with too many repeated numerals"""</span>              
+        <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> (<span class='pystring'>'MMMM'</span>, <span class='pystring'>'DD'</span>, <span class='pystring'>'CCCC'</span>, <span class='pystring'>'LL'</span>, <span class='pystring'>'XXXX'</span>, <span class='pystring'>'VV'</span>, <span class='pystring'>'IIII'</span>):             
+            self.assertRaises(roman.InvalidRomanNumeralError, roman.fromRoman, s) <a name="roman.failure.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testRepeatedPairs</span>(self):                                                 
+        <span class='pystring'>"""fromRoman should fail with repeated pairs of numerals"""</span>              
+        <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> (<span class='pystring'>'CMCM'</span>, <span class='pystring'>'CDCD'</span>, <span class='pystring'>'XCXC'</span>, <span class='pystring'>'XLXL'</span>, <span class='pystring'>'IXIX'</span>, <span class='pystring'>'IVIV'</span>):               
+            self.assertRaises(roman.InvalidRomanNumeralError, roman.fromRoman, s)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testMalformedAntecedent</span>(self):                                           
+        <span class='pystring'>"""fromRoman should fail with malformed antecedents"""</span>                   
+        <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> (<span class='pystring'>'IIMXCC'</span>, <span class='pystring'>'VX'</span>, <span class='pystring'>'DCM'</span>, <span class='pystring'>'CMM'</span>, <span class='pystring'>'IXIV'</span>,
+                  <span class='pystring'>'MCMC'</span>, <span class='pystring'>'XCX'</span>, <span class='pystring'>'IVI'</span>, <span class='pystring'>'LM'</span>, <span class='pystring'>'LD'</span>, <span class='pystring'>'LC'</span>):                       
+            self.assertRaises(roman.InvalidRomanNumeralError, roman.fromRoman, s)</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.failure.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Not much new to say about these; the pattern is exactly the same as the one you used to test bad input to <tt class="function">toRoman</tt>.  I will briefly note that you have another exception: <tt class="errorcode">roman.InvalidRomanNumeralError</tt>.  That makes a total of three custom exceptions that will need to be defined in <tt class="filename">roman.py</tt> (along with <tt class="errorcode">roman.OutOfRangeError</tt> and <tt class="errorcode">roman.NotIntegerError</tt>).  You'll see how to define these custom exceptions when you actually start writing <tt class="filename">roman.py</tt>, later in this chapter.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="testing_for_success.html">&lt;&lt;&nbsp;Testing for success</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#roman.intro" title="13.1.&nbsp;Introduction to Roman numerals">1</a> <span class="divider">|</span> <a href="diving_in.html" title="13.2.&nbsp;Diving in">2</a> <span class="divider">|</span> <a href="romantest.html" title="13.3.&nbsp;Introducing romantest.py">3</a> <span class="divider">|</span> <a href="testing_for_success.html" title="13.4.&nbsp;Testing for success">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="testing_for_sanity.html" title="13.6.&nbsp;Testing for sanity">6</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="testing_for_sanity.html">Testing for sanity&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

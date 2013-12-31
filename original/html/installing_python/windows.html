@@ -1,0 +1,154 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>1.2.&nbsp;Python on Windows</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;1.&nbsp;Installing Python">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;1.&nbsp;Installing Python">
+      <link rel="next" href="macosx.html" title="1.3.&nbsp;Python on Mac OS X">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Installing Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Python on Windows</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;Installing Python&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="macosx.html" title="Next: &#8220;Python on Mac OS X&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="install.windows"></a>1.2.&nbsp;<span class="application">Python</span> on Windows
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>On Windows, you have a couple choices for installing <span class="application">Python</span>.
+            </p>
+         </div>
+         <p>ActiveState makes a Windows installer for <span class="application">Python</span> called <span class="application">ActivePython</span>, which includes a complete version of <span class="application">Python</span>, an <span class="acronym">IDE</span> with a <span class="application">Python</span>-aware code editor, plus some Windows extensions for <span class="application">Python</span> that allow complete access to Windows-specific services, <span class="acronym">API</span>s, and the Windows Registry.
+         </p>
+         <p><span class="application">ActivePython</span> is freely downloadable, although it is not open source.  It is the <span class="acronym">IDE</span> I used to learn <span class="application">Python</span>, and I recommend you try it unless you have a specific reason not to.  One such reason might be that ActiveState is generally
+            several months behind in updating their <span class="application">ActivePython</span> installer when new version of <span class="application">Python</span> are released.  If you absolutely need the latest version of <span class="application">Python</span> and <span class="application">ActivePython</span> is still a version behind as you read this, you'll want to use the second option for installing <span class="application">Python</span> on Windows.
+         </p>
+         <p>The second option is the &#8220;<span class="quote">official</span>&#8221; <span class="application">Python</span> installer, distributed by the people who develop <span class="application">Python</span> itself.  It is freely downloadable and open source, and it is always current with the latest version of <span class="application">Python</span>.
+         </p>
+         <div class="procedure">
+            <h3 class="title">Procedure&nbsp;1.1.&nbsp;Option 1: Installing <span class="application">ActivePython</span></h3>
+            <p>Here is the procedure for installing <span class="application">ActivePython</span>:
+            </p>
+            <ol type="1">
+               <li>
+                  <p>Download <span class="application">ActivePython</span> from <a href="http://www.activestate.com/Products/ActivePython/">http://www.activestate.com/Products/ActivePython/</a>.
+                  </p>
+               </li>
+               <li>
+                  <p>If you are using Windows 95, Windows 98, or Windows ME, you will also need to download and install <a href="http://download.microsoft.com/download/WindowsInstaller/Install/2.0/W9XMe/EN-US/InstMsiA.exe">Windows Installer 2.0</a> before installing <span class="application">ActivePython</span>.
+                  </p>
+               </li>
+               <li>
+                  <p>Double-click the installer, <tt class="filename">ActivePython-2.2.2-224-win32-ix86.msi</tt>.
+                  </p>
+               </li>
+               <li>
+                  <p>Step through the installer program.</p>
+               </li>
+               <li>
+                  <p>If space is tight, you can do a custom installation and deselect the documentation, but I don't recommend this unless you
+                     absolutely can't spare the 14MB.
+                  </p>
+               </li>
+               <li>
+                  <p>After the installation is complete, close the installer and choose <span class="guimenu">Start</span>-&gt;<span class="guimenuitem">Programs</span>-&gt;<span class="guimenuitem">ActiveState ActivePython 2.2</span>-&gt;<span class="guimenuitem">PythonWin IDE</span>.  You'll see something like the following:
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <div class="informalexample"><pre class="screen">
+<span class="computeroutput">PythonWin 2.2.2 (#37, Nov 26 2002, 10:24:37) [MSC 32 bit (Intel)] on win32.
+Portions Copyright 1994-2001 Mark Hammond (mhammond@skippinet.com.au) -
+see 'Help/About PythonWin' for further copyright information.</span>
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre></div>
+         <div class="procedure">
+            <h3 class="title">Procedure&nbsp;1.2.&nbsp;Option 2: Installing <span class="application">Python</span> from <a href="http://www.python.org/" title="Python language home page">Python.org</a></h3>
+            <ol type="1">
+               <li>
+                  <p>Download the latest <span class="application">Python</span> Windows installer by going to <a href="http://www.python.org/ftp/python/">http://www.python.org/ftp/python/</a> and selecting the highest version number listed, then downloading the <tt class="literal">.exe</tt> installer.
+                  </p>
+               </li>
+               <li>
+                  <p>Double-click the installer, <tt class="filename">Python-2.xxx.yyy.exe</tt>.  The name will depend on the version of <span class="application">Python</span> available when you read this.
+                  </p>
+               </li>
+               <li>
+                  <p>Step through the installer program.</p>
+               </li>
+               <li>
+                  <p>If disk space is tight, you can deselect the HTMLHelp file, the utility scripts (<tt class="filename">Tools/</tt>), and/or the test suite (<tt class="filename">Lib/test/</tt>).
+                  </p>
+               </li>
+               <li>
+                  <p>If you do not have administrative rights on your machine, you can select <span class="guibutton">Advanced Options</span>, then choose <span class="guilabel">Non-Admin Install</span>.  This just affects where Registry entries and Start menu shortcuts are created.
+                  </p>
+               </li>
+               <li>
+                  <p>After the installation is complete, close the installer and select <span class="guimenu">Start</span>-&gt;<span class="guimenuitem">Programs</span>-&gt;<span class="guimenuitem">Python 2.3</span>-&gt;<span class="guimenuitem">IDLE (Python GUI)</span>.  You'll see something like the following:
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <div class="informalexample"><pre class="screen">
+<span class="computeroutput">Python 2.3.2 (#49, Oct  2 2003, 20:02:00) [MSC v.1200 32 bit (Intel)] on win32
+Type "copyright", "credits" or "license()" for more information.
+
+    ****************************************************************
+    Personal firewall software may warn about the connection IDLE
+    makes to its subprocess using this computer's internal loopback
+    interface.  This connection is not visible on any external
+    interface and no data is sent to or received from the Internet.
+    ****************************************************************
+    
+IDLE 1.0</span>
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre></div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;Installing Python</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#install.choosing" title="1.1.&nbsp;Which Python is right for you?">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="macosx.html" title="1.3.&nbsp;Python on Mac OS X">3</a> <span class="divider">|</span> <a href="macos9.html" title="1.4.&nbsp;Python on Mac OS 9">4</a> <span class="divider">|</span> <a href="redhat.html" title="1.5.&nbsp;Python on RedHat Linux">5</a> <span class="divider">|</span> <a href="debian.html" title="1.6.&nbsp;Python on Debian GNU/Linux">6</a> <span class="divider">|</span> <a href="source.html" title="1.7.&nbsp;Python Installation from Source">7</a> <span class="divider">|</span> <a href="shell.html" title="1.8.&nbsp;The Interactive Shell">8</a> <span class="divider">|</span> <a href="summary.html" title="1.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="macosx.html">Python on Mac OS X&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

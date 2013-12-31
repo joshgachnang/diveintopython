@@ -1,0 +1,180 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>3.6.&nbsp;Mapping Lists</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;3.&nbsp;Native Datatypes">
+      <link rel="previous" href="formatting_strings.html" title="3.5.&nbsp;Formatting Strings">
+      <link rel="next" href="joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Native Datatypes</a>&nbsp;&gt;&nbsp;<span class="thispage">Mapping Lists</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="formatting_strings.html" title="Prev: &#8220;Formatting Strings&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="joining_lists.html" title="Next: &#8220;Joining Lists and Splitting Strings&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.map"></a>3.6.&nbsp;Mapping Lists
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>One of the most powerful features of <span class="application">Python</span> is the list comprehension, which provides a compact way of mapping a list into another list by applying a function to each
+               of the elements of the list.
+            </p>
+         </div>
+         <div class="example"><a name="d0e7412"></a><h3 class="title">Example&nbsp;3.24.&nbsp;Introducing List Comprehensions</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [1, 9, 8, 4]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[elem*2 <span class='pykeyword'>for</span> elem <span class='pykeyword'>in</span> li]</span>      <a name="odbchelper.map.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">[2, 18, 16, 8]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>                           <a name="odbchelper.map.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">[1, 9, 8, 4]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [elem*2 <span class='pykeyword'>for</span> elem <span class='pykeyword'>in</span> li]</span> <a name="odbchelper.map.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">[2, 18, 16, 8]</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To make sense of this, look at it from right to left.  <tt class="varname">li</tt> is the list you're mapping.  <span class="application">Python</span> loops through <tt class="varname">li</tt> one element at a time, temporarily assigning the value of each element to the variable <tt class="varname">elem</tt>.  <span class="application">Python</span> then applies the function <tt class="literal"><tt class="varname">elem</tt>*2</tt> and appends that result to the returned list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note that list comprehensions do not change the original list.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">It is safe to assign the result of a list comprehension to the variable that you're mapping.  <span class="application">Python</span> constructs the new list in memory, and when the list comprehension is complete, it assigns the result to the variable.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="informalexample">
+            <p>Here are the list comprehensions in the <tt class="function">buildConnectionString</tt> function that you declared in <a href="../getting_to_know_python/index.html">Chapter 2</a>:
+            </p><pre class="programlisting">
+[<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()]</pre></div>
+         <p>First, notice that you're calling the <tt class="function">items</tt> function of the <tt class="varname">params</tt> dictionary.  This function returns a list of tuples of all the data in the dictionary.
+         </p>
+         <div class="example"><a name="odbchelper.items"></a><h3 class="title">Example&nbsp;3.25.&nbsp;The <tt class="function">keys</tt>, <tt class="function">values</tt>, and <tt class="function">items</tt> Functions
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class='pystring'>"server"</span>:<span class='pystring'>"mpilgrim"</span>, <span class='pystring'>"database"</span>:<span class='pystring'>"master"</span>, <span class='pystring'>"uid"</span>:<span class='pystring'>"sa"</span>, <span class='pystring'>"pwd"</span>:<span class='pystring'>"secret"</span>}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params.keys()</span>   <a name="odbchelper.map.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['server', 'uid', 'database', 'pwd']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params.values()</span> <a name="odbchelper.map.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['mpilgrim', 'sa', 'master', 'secret']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params.items()</span>  <a name="odbchelper.map.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">[('server', 'mpilgrim'), ('uid', 'sa'), ('database', 'master'), ('pwd', 'secret')]</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">keys</tt> method of a dictionary returns a list of all the keys.  The list is not in the order in which the dictionary was defined
+                        (remember that elements in a dictionary are unordered), but it is a list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">values</tt> method returns a list of all the values.  The list is in the same order as the list returned by <tt class="function">keys</tt>, so <tt class="literal">params.values()[n] == params[params.keys()[n]]</tt> for all values of <tt class="varname">n</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">items</tt> method returns a list of tuples of the form <tt class="literal">(<i class="replaceable">key</i>, <i class="replaceable">value</i>)</tt>.  The list contains all the data in the dictionary.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Now let's see what <tt class="function">buildConnectionString</tt> does.  It takes a list, <tt class="literal"><tt class="varname">params</tt>.<tt class="function">items</tt>()</tt>, and maps it to a new list by applying string formatting to each element.  The new list will have the same number of elements
+            as <tt class="literal"><tt class="varname">params</tt>.<tt class="function">items</tt>()</tt>, but each element in the new list will be a string that contains both a key and its associated value from the <tt class="varname">params</tt> dictionary.
+         </p>
+         <div class="example"><a name="d0e7615"></a><h3 class="title">Example&nbsp;3.26.&nbsp;List Comprehensions in <tt class="function">buildConnectionString</tt>, Step by Step
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class='pystring'>"server"</span>:<span class='pystring'>"mpilgrim"</span>, <span class='pystring'>"database"</span>:<span class='pystring'>"master"</span>, <span class='pystring'>"uid"</span>:<span class='pystring'>"sa"</span>, <span class='pystring'>"pwd"</span>:<span class='pystring'>"secret"</span>}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params.items()</span>
+<span class="computeroutput">[('server', 'mpilgrim'), ('uid', 'sa'), ('database', 'master'), ('pwd', 'secret')]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[k <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()]</span>                <a name="odbchelper.map.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['server', 'uid', 'database', 'pwd']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[v <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()]</span>                <a name="odbchelper.map.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['mpilgrim', 'sa', 'master', 'secret']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()]</span> <a name="odbchelper.map.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note that you're using two variables to iterate through the <tt class="literal">params.items()</tt> list.  This is another use of <a href="declaring_variables.html#odbchelper.multiassign" title="3.4.2.&nbsp;Assigning Multiple Values at Once">multi-variable assignment</a>.  The first element of <tt class="literal">params.items()</tt> is <tt class="literal">('server', 'mpilgrim')</tt>, so in the first iteration of the list comprehension, <tt class="varname">k</tt> will get <tt class="literal">'server'</tt> and <tt class="varname">v</tt> will get <tt class="literal">'mpilgrim'</tt>.  In this case, you're ignoring the value of <tt class="varname">v</tt> and only including the value of <tt class="varname">k</tt> in the returned list, so this list comprehension ends up being equivalent to <tt class="literal"><tt class="varname">params</tt>.<tt class="function">keys</tt>()</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Here you're doing the same thing, but ignoring the value of <tt class="varname">k</tt>, so this list comprehension ends up being equivalent to <tt class="literal"><tt class="varname">params</tt>.<tt class="function">values</tt>()</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.map.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Combining the previous two examples with some simple <a href="formatting_strings.html" title="3.5.&nbsp;Formatting Strings">string formatting</a>, you get a list of strings that include both the key and value of each element of the dictionary.  This looks suspiciously
+                        like the <a href="../getting_to_know_python/index.html#odbchelper.output">output</a> of the program.  All that remains is to join the elements in this list into a single string.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Further Reading on List Comprehensions</h3>
+            <ul>
+               <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discusses another way to map lists <a href="http://www.python.org/doc/current/tut/node7.html#SECTION007130000000000000000">using the built-in <tt class="function">map</tt> function</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> shows how to <a href="http://www.python.org/doc/current/tut/node7.html#SECTION007140000000000000000">do nested list comprehensions</a>.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="formatting_strings.html">&lt;&lt;&nbsp;Formatting Strings</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">1</a> <span class="divider">|</span> <a href="lists.html" title="3.2.&nbsp;Introducing Lists">2</a> <span class="divider">|</span> <a href="tuples.html" title="3.3.&nbsp;Introducing Tuples">3</a> <span class="divider">|</span> <a href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">4</a> <span class="divider">|</span> <a href="formatting_strings.html" title="3.5.&nbsp;Formatting Strings">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings">7</a> <span class="divider">|</span> <a href="summary.html" title="3.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="joining_lists.html">Joining Lists and Splitting Strings&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

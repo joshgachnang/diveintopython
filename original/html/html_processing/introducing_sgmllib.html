@@ -1,0 +1,173 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.2.&nbsp;Introducing sgmllib.py</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+      <link rel="next" href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Introducing sgmllib.py</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;HTML Processing&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="extracting_data.html" title="Next: &#8220;Extracting data from HTML documents&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.sgmllib"></a>8.2.&nbsp;Introducing <tt class="filename">sgmllib.py</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><span class="acronym">HTML</span> processing is broken into three steps: breaking down the <span class="acronym">HTML</span> into its constituent pieces, fiddling with the pieces, and reconstructing the pieces into <span class="acronym">HTML</span> again.  The first step is done by <tt class="filename">sgmllib.py</tt>, a part of the standard <span class="application">Python</span> library.
+            </p>
+         </div>
+         <p>The key to understanding this chapter is to realize that <span class="acronym">HTML</span> is not just text, it is structured text.  The structure is derived from the more-or-less-hierarchical sequence of start tags
+            and end tags.  Usually you don't work with <span class="acronym">HTML</span> this way; you work with it <span class="emphasis"><em>textually</em></span> in a text editor, or <span class="emphasis"><em>visually</em></span> in a web browser or web authoring tool.  <tt class="filename">sgmllib.py</tt> presents <span class="acronym">HTML</span> <span class="emphasis"><em>structurally</em></span>.
+         </p>
+         <p><tt class="filename">sgmllib.py</tt> contains one important class: <tt class="classname">SGMLParser</tt>.  <tt class="classname">SGMLParser</tt> parses <span class="acronym">HTML</span> into useful pieces, like start tags and end tags.  As soon as it succeeds in breaking down some data into a useful piece,
+            it calls a method on itself based on what it found.  In order to use the parser, you subclass the <tt class="classname">SGMLParser</tt> class and override these methods.  This is what I meant when I said that it presents <span class="acronym">HTML</span> <span class="emphasis"><em>structurally</em></span>: the structure of the <span class="acronym">HTML</span> determines the sequence of method calls and the arguments passed to each method.
+         </p>
+         <p><tt class="classname">SGMLParser</tt> parses <span class="acronym">HTML</span> into 8 kinds of data, and calls a separate method for each of them:
+         </p>
+         <div class="variablelist">
+            <dl>
+               <dt><span class="term">Start tag</span></dt>
+               <dd>An <span class="acronym">HTML</span> tag that starts a block, like <tt class="sgmltag-element">&lt;html&gt;</tt>, <tt class="sgmltag-element">&lt;head&gt;</tt>, <tt class="sgmltag-element">&lt;body&gt;</tt>, or <tt class="sgmltag-element">&lt;pre&gt;</tt>, or a standalone tag like <tt class="sgmltag-element">&lt;br&gt;</tt> or <tt class="sgmltag-element">&lt;img&gt;</tt>.  When it finds a start tag <i class="replaceable"><tt>tagname</tt></i>, <tt class="classname">SGMLParser</tt> will look for a method called <tt class="function">start_<i class="replaceable"><tt>tagname</tt></i></tt> or <tt class="function">do_<i class="replaceable"><tt>tagname</tt></i></tt>.  For instance, when it finds a <tt class="sgmltag-element">&lt;pre&gt;</tt> tag, it will look for a <tt class="function">start_pre</tt> or <tt class="function">do_pre</tt> method.  If found, <tt class="classname">SGMLParser</tt> calls this method with a list of the tag's attributes; otherwise, it calls <tt class="function">unknown_starttag</tt> with the tag name and list of attributes.
+               </dd>
+               <dt><span class="term">End tag</span></dt>
+               <dd>An <span class="acronym">HTML</span> tag that ends a block, like <tt class="sgmltag-element">&lt;/html&gt;</tt>, <tt class="sgmltag-element">&lt;/head&gt;</tt>, <tt class="sgmltag-element">&lt;/body&gt;</tt>, or <tt class="sgmltag-element">&lt;/pre&gt;</tt>.  When it finds an end tag, <tt class="classname">SGMLParser</tt> will look for a method called <tt class="function">end_<i class="replaceable"><tt>tagname</tt></i></tt>.  If found, <tt class="classname">SGMLParser</tt> calls this method, otherwise it calls <tt class="function">unknown_endtag</tt> with the tag name.
+               </dd>
+               <dt><span class="term">Character reference</span></dt>
+               <dd>An escaped character referenced by its decimal or hexadecimal equivalent, like <tt class="literal">&amp;#160;</tt>.  When found, <tt class="classname">SGMLParser</tt> calls <tt class="function">handle_charref</tt> with the text of the decimal or hexadecimal character equivalent.
+               </dd>
+               <dt><span class="term">Entity reference</span></dt>
+               <dd>An <span class="acronym">HTML</span> entity, like <tt class="literal">&amp;copy;</tt>.  When found, <tt class="classname">SGMLParser</tt> calls <tt class="function">handle_entityref</tt> with the name of the <span class="acronym">HTML</span> entity.
+               </dd>
+               <dt><span class="term">Comment</span></dt>
+               <dd>An <span class="acronym">HTML</span> comment, enclosed in <tt class="literal">&lt;!-- ... --&gt;</tt>.  When found, <tt class="classname">SGMLParser</tt> calls <tt class="function">handle_comment</tt> with the body of the comment.
+               </dd>
+               <dt><span class="term">Processing instruction</span></dt>
+               <dd>An <span class="acronym">HTML</span> processing instruction, enclosed in <tt class="literal">&lt;? ... &gt;</tt>.  When found, <tt class="classname">SGMLParser</tt> calls <tt class="function">handle_pi</tt> with the body of the processing instruction.
+               </dd>
+               <dt><span class="term">Declaration</span></dt>
+               <dd>An <span class="acronym">HTML</span> declaration, such as a <tt class="sgmltag-element">DOCTYPE</tt>, enclosed in <tt class="literal">&lt;! ... &gt;</tt>.  When found, <tt class="classname">SGMLParser</tt> calls <tt class="function">handle_decl</tt> with the body of the declaration.
+               </dd>
+               <dt><span class="term">Text data</span></dt>
+               <dd>A block of text.  Anything that doesn't fit into the other 7 categories.  When found, <tt class="classname">SGMLParser</tt> calls <tt class="function">handle_data</tt> with the text.
+               </dd>
+            </dl>
+         </div><a name="d0e20023"></a><table class="important" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/important.png" alt="Important" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> 2.0 had a bug where <tt class="classname">SGMLParser</tt> would not recognize declarations at all (<tt class="function">handle_decl</tt> would never be called), which meant that <tt class="sgmltag-element">DOCTYPE</tt>s were silently ignored.  This is fixed in <span class="application">Python</span> 2.1.
+               </td>
+            </tr>
+         </table>
+         <p><tt class="filename">sgmllib.py</tt> comes with a test suite to illustrate this.  You can run <tt class="filename">sgmllib.py</tt>, passing the name of an <span class="acronym">HTML</span> file on the command line, and it will print out the tags and other elements as it parses them.  It does this by subclassing
+            the <tt class="classname">SGMLParser</tt> class and defining <tt class="function">unknown_starttag</tt>, <tt class="function">unknown_endtag</tt>, <tt class="function">handle_data</tt> and other methods which simply print their arguments.
+         </p><a name="tip.commandline.windows"></a><table class="tip" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">In the <span class="application">ActivePython</span> <span class="acronym">IDE</span> on Windows, you can specify command line arguments in the &#8220;<span class="quote">Run script</span>&#8221; dialog.  Separate multiple arguments with spaces.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="d0e20080"></a><h3 class="title">Example&nbsp;8.4.&nbsp;Sample test of <tt class="filename">sgmllib.py</tt></h3>
+            <p>Here is a snippet from the table of contents of the <span class="acronym">HTML</span> version of this book.  Of course your paths may vary.  (If you haven't downloaded the <span class="acronym">HTML</span> version of the book, you can do so at <a href="http://diveintopython.org/">http://diveintopython.org/</a>.
+            </p><pre class="screen">
+<tt class="prompt">c:\python23\lib&gt;</tt> <span class="userinput">type <span class='pystring'>"c:\downloads\diveintopython\html\toc\index.html"</span></span>
+<tt class="literal">
+&lt;!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;
+&lt;html lang="en"&gt;
+   &lt;head&gt;
+      &lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"&gt;
+   
+      &lt;title&gt;Dive Into Python&lt;/title&gt;
+      &lt;link rel="stylesheet" href="diveintopython.css" type="text/css"&gt;
+
+... rest of file omitted for brevity ...
+</tt></pre><p>Running this through the test suite of <tt class="filename">sgmllib.py</tt> yields this output:
+            </p><pre class="screen">
+<tt class="prompt">c:\python23\lib&gt;</tt> <span class="userinput">python sgmllib.py <span class='pystring'>"c:\downloads\diveintopython\html\toc\index.html"</span></span>
+<span class="computeroutput">data: '\n\n'
+start tag: &lt;html lang="en" &gt;
+data: '\n   '
+start tag: &lt;head&gt;
+data: '\n      '
+start tag: &lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" &gt;
+data: '\n   \n      '
+start tag: &lt;title&gt;
+data: 'Dive Into Python'
+end tag: &lt;/title&gt;
+data: '\n      '
+start tag: &lt;link rel="stylesheet" href="diveintopython.css" type="text/css" &gt;
+data: '\n      '
+
+... rest of output omitted for brevity ...
+</span></pre></div>
+         <p>Here's the roadmap for the rest of the chapter:</p>
+         <div class="itemizedlist">
+            <ul>
+               <li>Subclass <tt class="classname">SGMLParser</tt> to create classes that extract interesting data out of <span class="acronym">HTML</span> documents.
+               </li>
+               <li>Subclass <tt class="classname">SGMLParser</tt> to create <tt class="classname">BaseHTMLProcessor</tt>, which overrides all 8 handler methods and uses them to reconstruct the original <span class="acronym">HTML</span> from the pieces.
+               </li>
+               <li>Subclass <tt class="classname">BaseHTMLProcessor</tt> to create <tt class="classname">Dialectizer</tt>, which adds some methods to process specific <span class="acronym">HTML</span> tags specially, and overrides the <tt class="function">handle_data</tt> method to provide a framework for processing the text blocks between the <span class="acronym">HTML</span> tags.
+               </li>
+               <li>Subclass <tt class="classname">Dialectizer</tt> to create classes that define text processing rules used by <tt class="function">Dialectizer.handle_data</tt>.
+               </li>
+               <li>Write a test suite that grabs a real web page from <tt class="systemitem">http://diveintopython.org/</tt> and processes it.
+               </li>
+            </ul>
+         </div>
+         <p>Along the way, you'll also learn about <tt class="function">locals</tt>, <tt class="function">globals</tt>, and dictionary-based string formatting.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;HTML Processing</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">3</a> <span class="divider">|</span> <a href="basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <a href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <a href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <a href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <a href="all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="extracting_data.html">Extracting data from HTML documents&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,144 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>5.7.&nbsp;Advanced Special Class Methods</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;5.&nbsp;Objects and Object-Orientation">
+      <link rel="previous" href="special_class_methods.html" title="5.6.&nbsp;Special Class Methods">
+      <link rel="next" href="class_attributes.html" title="5.8.&nbsp;Introducing Class Attributes">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Objects and Object-Orientation</a>&nbsp;&gt;&nbsp;<span class="thispage">Advanced Special Class Methods</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="special_class_methods.html" title="Prev: &#8220;Special Class Methods&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="class_attributes.html" title="Next: &#8220;Introducing Class Attributes&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.morespecial"></a>5.7.&nbsp;Advanced Special Class Methods
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Python</span> has more special methods than just <tt class="function">__getitem__</tt> and <tt class="function">__setitem__</tt>.  Some of them let you emulate functionality that you may not even know about.
+            </p>
+         </div>
+         <p>This example shows some of the other special methods in <tt class="filename">UserDict</tt>.
+         </p>
+         <div class="example"><a name="fileinfo.morespecial.example"></a><h3 class="title">Example&nbsp;5.16.&nbsp;More Special Methods in <tt class="classname">UserDict</tt></h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> __repr__</span>(self): <span class='pykeyword'>return</span> repr(self.data)     <a name="fileinfo.morespecial.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> __cmp__</span>(self, dict):                       <a name="fileinfo.morespecial.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> isinstance(dict, UserDict):            
+            <span class='pykeyword'>return</span> cmp(self.data, dict.data)      
+        <span class='pykeyword'>else</span>:                                     
+            <span class='pykeyword'>return</span> cmp(self.data, dict)           
+    <span class='pykeyword'>def</span><span class='pyclass'> __len__</span>(self): <span class='pykeyword'>return</span> len(self.data)       <a name="fileinfo.morespecial.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> __delitem__</span>(self, key): <span class='pykeyword'>del</span> self.data[key] <a name="fileinfo.morespecial.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.morespecial.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">__repr__</tt> is a special method that is called when you call <tt class="literal">repr(<i class="replaceable">instance</i>)</tt>.  The <tt class="function">repr</tt> function is a built-in function that returns a string representation of an object.  It works on any object, not just class
+                        instances.  You're already intimately familiar with <tt class="function">repr</tt> and you don't even know it.  In the interactive window, when you type just a variable name and press the <span><b class="keycap">ENTER</b></span> key, <span class="application">Python</span> uses <tt class="function">repr</tt> to display the variable's value.  Go create a dictionary <tt class="varname">d</tt> with some data and then <tt class="literal">print repr(d)</tt> to see for yourself.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.morespecial.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">__cmp__</tt> is called when you compare class instances.  In general, you can compare any two <span class="application">Python</span> objects, not just class instances, by using <tt class="literal">==</tt>.  There are rules that define when built-in datatypes are considered equal; for instance, dictionaries are equal when they
+                        have all the same keys and values, and strings are equal when they are the same length and contain the same sequence of characters.
+                         For class instances, you can define the <tt class="function">__cmp__</tt> method and code the comparison logic yourself, and then you can use <tt class="literal">==</tt> to compare instances of your class and <span class="application">Python</span> will call your <tt class="function">__cmp__</tt> special method for you.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.morespecial.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">__len__</tt> is called when you call <tt class="literal">len(<i class="replaceable">instance</i>)</tt>.  The <tt class="function">len</tt> function is a built-in function that returns the length of an object.  It works on any object that could reasonably be thought
+                        of as having a length.  The <tt class="function">len</tt> of a string is its number of characters; the <tt class="function">len</tt> of a dictionary is its number of keys; the <tt class="function">len</tt> of a list or tuple is its number of elements.  For class instances, define the <tt class="function">__len__</tt> method and code the length calculation yourself, and then call <tt class="literal">len(<i class="replaceable">instance</i>)</tt> and <span class="application">Python</span> will call your <tt class="function">__len__</tt> special method for you.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.morespecial.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">__delitem__</tt> is called when you call <tt class="literal">del <i class="replaceable">instance</i>[<i class="replaceable">key</i>]</tt>, which you may remember as the way to <a href="../native_data_types/index.html#odbchelper.dict.del" title="Example&nbsp;3.5.&nbsp;Deleting Items from a Dictionary">delete individual items from a dictionary</a>.  When you use <tt class="function">del</tt> on a class instance, <span class="application">Python</span> calls the <tt class="function">__delitem__</tt> special method for you.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="compare.strequals.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Java</span>, you determine whether two string variables reference the same physical memory location by using <tt class="literal">str1 == str2</tt>.  This is called <span class="emphasis"><em>object identity</em></span>, and it is written in <span class="application">Python</span> as <tt class="literal">str1 is str2</tt>.  To compare string values in <span class="application">Java</span>, you would use <tt class="literal">str1.equals(str2)</tt>; in <span class="application">Python</span>, you would use <tt class="literal">str1 == str2</tt>.  <span class="application">Java</span> programmers who have been taught to believe that the world is a better place because <tt class="literal">==</tt> in <span class="application">Java</span> compares by identity instead of by value may have a difficult time adjusting to <span class="application">Python</span>'s lack of such &#8220;<span class="quote">gotchas</span>&#8221;.
+               </td>
+            </tr>
+         </table>
+         <p>At this point, you may be thinking, &#8220;<span class="quote">All this work just to do something in a class that I can do with a built-in datatype.</span>&#8221;  And it's true that life would be easier (and the entire <tt class="classname">UserDict</tt> class would be unnecessary) if you could inherit from built-in datatypes like a dictionary.  But even if you could, special
+            methods would still be useful, because they can be used in any class, not just wrapper classes like <tt class="classname">UserDict</tt>.
+         </p>
+         <p>Special methods mean that <span class="emphasis"><em>any class</em></span> can store key/value pairs like a dictionary, just by defining the <tt class="function">__setitem__</tt> method.  <span class="emphasis"><em>Any class</em></span> can act like a sequence, just by defining the <tt class="function">__getitem__</tt> method.  Any class that defines the <tt class="function">__cmp__</tt> method can be compared with <tt class="literal">==</tt>.  And if your class represents something that has a length, don't define a <tt class="function">GetLength</tt> method; define the <tt class="function">__len__</tt> method and use <tt class="literal">len(<i class="replaceable">instance</i>)</tt>.
+         </p><a name="note.physical.v.logical"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">While other object-oriented languages only let you define the physical model of an object (&#8220;<span class="quote">this object has a <tt class="function">GetLength</tt> method</span>&#8221;), <span class="application">Python</span>'s special class methods like <tt class="function">__len__</tt> allow you to define the logical model of an object (&#8220;<span class="quote">this object has a length</span>&#8221;).
+               </td>
+            </tr>
+         </table>
+         <p><span class="application">Python</span> has a lot of other special methods.  There's a whole set of them that let classes act like numbers, allowing you to add,
+            subtract, and do other arithmetic operations on class instances.  (The canonical example of this is a class that represents
+            complex numbers, numbers with both real and imaginary components.)  The <tt class="function">__call__</tt> method lets a class act like a function, allowing you to call a class instance directly.  And there are other special methods
+            that allow classes to have read-only and write-only data attributes; you'll talk more about those in later chapters.
+         </p>
+         <div class="furtherreading">
+            <h3>Further Reading on Special Class Methods</h3>
+            <ul>
+               <li><a href="http://www.python.org/doc/current/ref/"><i class="citetitle"><span class="application">Python</span> Reference Manual</i></a> documents <a href="http://www.python.org/doc/current/ref/specialnames.html">all the special class methods</a>.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="special_class_methods.html">&lt;&lt;&nbsp;Special Class Methods</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.divein" title="5.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="importing_modules.html" title="5.2.&nbsp;Importing Modules Using from module import">2</a> <span class="divider">|</span> <a href="defining_classes.html" title="5.3.&nbsp;Defining Classes">3</a> <span class="divider">|</span> <a href="instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">4</a> <span class="divider">|</span> <a href="userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">5</a> <span class="divider">|</span> <a href="special_class_methods.html" title="5.6.&nbsp;Special Class Methods">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="class_attributes.html" title="5.8.&nbsp;Introducing Class Attributes">8</a> <span class="divider">|</span> <a href="private_functions.html" title="5.9.&nbsp;Private Functions">9</a> <span class="divider">|</span> <a href="summary.html" title="5.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="class_attributes.html">Introducing Class Attributes&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

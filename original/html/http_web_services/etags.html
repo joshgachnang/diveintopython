@@ -1,0 +1,279 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>11.6.&nbsp;Handling Last-Modified and ETag</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;11.&nbsp;HTTP Web Services">
+      <link rel="previous" href="user_agent.html" title="11.5.&nbsp;Setting the User-Agent">
+      <link rel="next" href="redirects.html" title="11.7.&nbsp;Handling redirects">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Handling Last-Modified and ETag</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="user_agent.html" title="Prev: &#8220;Setting the User-Agent&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="redirects.html" title="Next: &#8220;Handling redirects&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="oa.etags"></a>11.6.&nbsp;Handling <tt class="literal">Last-Modified</tt> and <tt class="literal">ETag</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Now that you know how to add custom HTTP headers to your web service requests, let's look at adding support for <tt class="literal">Last-Modified</tt> and <tt class="literal">ETag</tt> headers.
+            </p>
+         </div>
+         <p>These examples show the output with debugging turned off.  If you still have it turned on from the previous section, you can
+            turn it off by setting <tt class="literal">httplib.HTTPConnection.debuglevel = 0</tt>.  Or you can just leave debugging on, if that helps you.
+         </p>
+         <div class="example"><a name="oa.etags.example.1"></a><h3 class="title">Example&nbsp;11.6.&nbsp;Testing <tt class="literal">Last-Modified</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request = urllib2.Request(<span class='pystring'>'http://diveintomark.org/xml/atom.xml'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">opener = urllib2.build_opener()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">firstdatastream = opener.open(request)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">firstdatastream.headers.dict</span>                       <a name="oa.etags.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">{'date': 'Thu, 15 Apr 2004 20:42:41 GMT', 
+ 'server': 'Apache/2.0.49 (Debian GNU/Linux)', 
+ 'content-type': 'application/atom+xml',
+ 'last-modified': 'Thu, 15 Apr 2004 19:45:21 GMT', 
+ 'etag': '"e842a-3e53-55d97640"',
+ 'content-length': '15955', 
+ 'accept-ranges': 'bytes', 
+ 'connection': 'close'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request.add_header(<span class='pystring'>'If-Modified-Since'</span>,</span>
+<tt class="prompt">...     </tt><span class="userinput">firstdatastream.headers.get(<span class='pystring'>'Last-Modified'</span>))</span>  <a name="oa.etags.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">seconddatastream = opener.open(request)</span>            <a name="oa.etags.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in ?
+  File "c:\python23\lib\urllib2.py", line 326, in open
+    '_open', req)
+  File "c:\python23\lib\urllib2.py", line 306, in _call_chain
+    result = func(*args)
+  File "c:\python23\lib\urllib2.py", line 901, in http_open
+    return self.do_open(httplib.HTTP, req)
+  File "c:\python23\lib\urllib2.py", line 895, in do_open
+    return self.parent.error('http', req, fp, code, msg, hdrs)
+  File "c:\python23\lib\urllib2.py", line 352, in error
+    return self._call_chain(*args)
+  File "c:\python23\lib\urllib2.py", line 306, in _call_chain
+    result = func(*args)
+  File "c:\python23\lib\urllib2.py", line 412, in http_error_default
+    raise HTTPError(req.get_full_url(), code, msg, hdrs, fp)
+urllib2.HTTPError: HTTP Error 304: Not Modified</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Remember all those HTTP headers you saw printed out when you turned on debugging?  This is how you can get access to them
+                        programmatically: <tt class="varname">firstdatastream.headers</tt> is <a href="../object_oriented_framework/userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">an object that acts like a dictionary</a> and allows you to get any of the individual headers returned from the HTTP server.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">On the second request, you add the <tt class="literal">If-Modified-Since</tt> header with the last-modified date from the first request.  If the data hasn't changed, the server should return a <tt class="literal">304</tt> status code.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Sure enough, the data hasn't changed.  You can see from the traceback that <tt class="filename">urllib2</tt> throws a special exception, <tt class="classname">HTTPError</tt>, in response to the <tt class="literal">304</tt> status code.  This is a little unusual, and not entirely helpful.  After all, it's not an error; you specifically asked the
+                        server not to send you any data if it hadn't changed, and the data didn't change, so the server told you it wasn't sending
+                        you any data.  That's not an error; that's exactly what you were hoping for.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p><tt class="filename">urllib2</tt> also raises an <tt class="classname">HTTPError</tt> exception for conditions that you would think of as errors, such as <tt class="literal">404</tt> (page not found).  In fact, it will raise <tt class="classname">HTTPError</tt> for <span class="emphasis"><em>any</em></span> status code other than <tt class="literal">200</tt> (OK), <tt class="literal">301</tt> (permanent redirect), or <tt class="literal">302</tt> (temporary redirect).  It would be more helpful for your purposes to capture the status code and simply return it, without
+            throwing an exception.  To do that, you'll need to define a custom URL handler.
+         </p>
+         <div class="example"><a name="d0e28385"></a><h3 class="title">Example&nbsp;11.7.&nbsp;Defining URL handlers</h3>
+            <p>This custom URL handler is part of <tt class="filename">openanything.py</tt>.
+            </p><pre class="programlisting"><span class='pykeyword'>
+class</span> DefaultErrorHandler(urllib2.HTTPDefaultErrorHandler):    <a name="oa.etags.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> http_error_default</span>(self, req, fp, code, msg, headers): <a name="oa.etags.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        result = urllib2.HTTPError(                           
+            req.get_full_url(), code, msg, headers, fp)       
+        result.status = code                                   <a name="oa.etags.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> result                                         
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="filename">urllib2</tt> is designed around URL handlers.  Each handler is just a class that can define any number of methods.  When something happens
+                        -- like an HTTP error, or even a <tt class="literal">304</tt> code -- <tt class="filename">urllib2</tt> introspects into the list of defined handlers for a method that can handle it.  You used a similar introspection in <a href="../xml_processing/index.html" title="Chapter&nbsp;9.&nbsp;XML Processing">Chapter&nbsp;9, <i>XML Processing</i></a> to define handlers for different node types, but <tt class="filename">urllib2</tt> is more flexible, and introspects over as many handlers as are defined for the current request.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="filename">urllib2</tt> searches through the defined handlers and calls the <tt class="methodname">http_error_default</tt> method when it encounters a <tt class="literal">304</tt> status code from the server. By defining a custom error handler, you can prevent <tt class="filename">urllib2</tt> from raising an exception.  Instead, you create the <tt class="classname">HTTPError</tt> object, but return it instead of raising it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the key part: before returning, you save the status code returned by the HTTP server.  This will allow you easy access
+                        to it from the calling program.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e28438"></a><h3 class="title">Example&nbsp;11.8.&nbsp;Using custom URL handlers</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request.headers</span>                           <a name="oa.etags.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">{'If-modified-since': 'Thu, 15 Apr 2004 19:45:21 GMT'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> openanything</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">opener = urllib2.build_opener(</span>
+<tt class="prompt">...     </tt><span class="userinput">openanything.DefaultErrorHandler())</span>   <a name="oa.etags.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">seconddatastream = opener.open(request)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">seconddatastream.status</span>                   <a name="oa.etags.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">304</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">seconddatastream.read()</span>                   <a name="oa.etags.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">''</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You're continuing the previous example, so the <tt class="classname">Request</tt> object is already set up, and you've already added the <tt class="literal">If-Modified-Since</tt> header.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the key: now that you've defined your custom URL handler, you need to tell <tt class="filename">urllib2</tt> to use it.  Remember how I said that <tt class="filename">urllib2</tt> broke up the process of accessing an HTTP resource into three steps, and for good reason?  This is why building the URL opener
+                        is its own step, because you can build it with your own custom URL handlers that override <tt class="filename">urllib2</tt>'s default behavior.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now you can quietly open the resource, and what you get back is an object that, along with the usual headers (use <tt class="varname">seconddatastream.headers.dict</tt> to acess them), also contains the HTTP status code.  In this case, as you expected, the status is <tt class="literal">304</tt>, meaning this data hasn't changed since the last time you asked for it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note that when the server sends back a <tt class="literal">304</tt> status code, it doesn't re-send the data.  That's the whole point: to save bandwidth by not re-downloading data that hasn't
+                        changed.  So if you actually want that data, you'll need to cache it locally the first time you get it.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Handling <tt class="literal">ETag</tt> works much the same way, but instead of checking for <tt class="literal">Last-Modified</tt> and sending <tt class="literal">If-Modified-Since</tt>, you check for <tt class="literal">ETag</tt> and send <tt class="literal">If-None-Match</tt>.  Let's start with a fresh <span class="acronym">IDE</span> session.
+         </p>
+         <div class="example"><a name="oa.etags.example"></a><h3 class="title">Example&nbsp;11.9.&nbsp;Supporting <tt class="literal">ETag</tt>/<tt class="literal">If-None-Match</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib2, openanything</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request = urllib2.Request(<span class='pystring'>'http://diveintomark.org/xml/atom.xml'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">opener = urllib2.build_opener(</span>
+<tt class="prompt">...     </tt><span class="userinput">openanything.DefaultErrorHandler())</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">firstdatastream = opener.open(request)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">firstdatastream.headers.get(<span class='pystring'>'ETag'</span>)</span>        <a name="oa.etags.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'"e842a-3e53-55d97640"'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">firstdata = firstdatastream.read()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> firstdata</span>                            <a name="oa.etags.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;feed version="0.3"
+  xmlns="http://purl.org/atom/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xml:lang="en"&gt;
+  &lt;title mode="escaped"&gt;dive into mark&lt;/title&gt;
+  &lt;link rel="alternate" type="text/html" href="http://diveintomark.org/"/&gt;
+  &lt;-- rest of feed omitted for brevity --&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request.add_header(<span class='pystring'>'If-None-Match'</span>,</span>
+<tt class="prompt">...     </tt><span class="userinput">firstdatastream.headers.get(<span class='pystring'>'ETag'</span>))</span>   <a name="oa.etags.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">seconddatastream = opener.open(request)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">seconddatastream.status</span>                    <a name="oa.etags.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">304</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">seconddatastream.read()</span>                    <a name="oa.etags.4.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">''</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Using the <tt class="varname">firstdatastream.headers</tt> pseudo-dictionary, you can get the <tt class="literal">ETag</tt> returned from the server.  (What happens if the server didn't send back an <tt class="literal">ETag</tt>?  Then this line would return <tt class="literal">None</tt>.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">OK, you got the data.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now set up the second call by setting the <tt class="literal">If-None-Match</tt> header to the <tt class="literal">ETag</tt> you got from the first call.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The second call succeeds quietly (without throwing an exception), and once again you see that the server has sent back a <tt class="literal">304</tt> status code.  Based on the <tt class="literal">ETag</tt> you sent the second time, it knows that the data hasn't changed.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.etags.4.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Regardless of whether the <tt class="literal">304</tt> is triggered by <tt class="literal">Last-Modified</tt> date checking or <tt class="literal">ETag</tt> hash matching, you'll never get the data along with the <tt class="literal">304</tt>.  That's the whole point.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="tip.etag.vs.lastmodified"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">In these examples, the HTTP server has supported both <tt class="literal">Last-Modified</tt> and <tt class="literal">ETag</tt> headers, but not all servers do.  As a web services client, you should be prepared to support both, but you must code defensively
+                  in case a server only supports one or the other, or neither.
+               </td>
+            </tr>
+         </table>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="user_agent.html">&lt;&lt;&nbsp;Setting the User-Agent</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="redirects.html">Handling redirects&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

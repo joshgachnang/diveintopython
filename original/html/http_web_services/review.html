@@ -1,0 +1,100 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>11.2.&nbsp;How not to fetch data over HTTP</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;11.&nbsp;HTTP Web Services">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;11.&nbsp;HTTP Web Services">
+      <link rel="next" href="http_features.html" title="11.3.&nbsp;Features of HTTP">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">How not to fetch data over HTTP</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;HTTP Web Services&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http_features.html" title="Next: &#8220;Features of HTTP&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="oa.review"></a>11.2.&nbsp;How not to fetch data over HTTP
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Let's say you want to download a resource over HTTP, such as a syndicated Atom feed.  But you don't just want to download
+               it once; you want to download it over and over again, every hour, to get the latest news from the site that's offering the
+               news feed.  Let's do it the quick-and-dirty way first, and then see how you can do better.
+            </p>
+         </div>
+         <div class="example"><a name="d0e27543"></a><h3 class="title">Example&nbsp;11.2.&nbsp;Downloading a feed the quick-and-dirty way</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">data = urllib.urlopen(<span class='pystring'>'http://diveintomark.org/xml/atom.xml'</span>).read()</span>    <a name="oa.review.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> data</span>
+<span class="computeroutput">&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;feed version="0.3"
+  xmlns="http://purl.org/atom/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xml:lang="en"&gt;
+  &lt;title mode="escaped"&gt;dive into mark&lt;/title&gt;
+  &lt;link rel="alternate" type="text/html" href="http://diveintomark.org/"/&gt;
+  &lt;-- rest of feed omitted for brevity --&gt;</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.review.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Downloading anything over HTTP is incredibly easy in <span class="application">Python</span>; in fact, it's a one-liner.  The <tt class="filename">urllib</tt> module has a handy <tt class="function">urlopen</tt> function that takes the address of the page you want, and returns a file-like object that you can just <tt class="function">read()</tt> from to get the full contents of the page.  It just can't get much easier.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So what's wrong with this?  Well, for a quick one-off during testing or development, there's nothing wrong with it.  I do
+            it all the time.  I wanted the contents of the feed, and I got the contents of the feed.  The same technique works for any
+            web page.  But once you start thinking in terms of a web service that you want to access on a regular basis -- and remember,
+            you said you were planning on retrieving this syndicated feed once an hour -- then you're being inefficient, and you're being
+            rude.
+         </p>
+         <p>Let's talk about some of the basic features of HTTP.</p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;HTTP Web Services</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="http_features.html">Features of HTTP&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

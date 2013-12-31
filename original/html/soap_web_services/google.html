@@ -1,0 +1,236 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>12.7.&nbsp;Searching Google</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;12.&nbsp;SOAP Web Services">
+      <link rel="previous" href="introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">
+      <link rel="next" href="troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">SOAP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Searching Google</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="introspection.html" title="Prev: &#8220;Introspecting SOAP Web Services with WSDL&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="troubleshooting.html" title="Next: &#8220;Troubleshooting SOAP Web Services&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soap.google"></a>12.7.&nbsp;Searching Google
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Let's finally turn to the sample code that you saw that the beginning of this chapter, which does something more useful and
+               exciting than get the current temperature.
+            </p>
+         </div>
+         <p>Google provides a <span class="acronym">SOAP</span> <span class="acronym">API</span> for programmatically accessing Google search results.  To use it, you will need to sign up for Google Web Services.
+         </p>
+         <div class="procedure">
+            <h3 class="title">Procedure&nbsp;12.4.&nbsp;Signing Up for Google Web Services</h3>
+            <ol type="1">
+               <li>
+                  <p>Go to <a href="http://www.google.com/apis/">http://www.google.com/apis/</a> and create a Google account.  This requires only an email address.  After you sign up you will receive your Google API license
+                     key by email.  You will need this key to pass as a parameter whenever you call Google's search functions.
+                  </p>
+               </li>
+               <li>
+                  <p>Also on <a href="http://www.google.com/apis/">http://www.google.com/apis/</a>, download the Google Web APIs developer kit.  This includes some sample code in several programming languages (but not <span class="application">Python</span>), and more importantly, it includes the <span class="acronym">WSDL</span> file.
+                  </p>
+               </li>
+               <li>
+                  <p>Decompress the developer kit file and find <tt class="filename">GoogleSearch.wsdl</tt>.  Copy this file to some permanent location on your local drive.  You will need it later in this chapter.
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <p>Once you have your developer key and your Google <span class="acronym">WSDL</span> file in a known place, you can start poking around with Google Web Services.
+         </p>
+         <div class="example"><a name="d0e31206"></a><h3 class="title">Example&nbsp;12.12.&nbsp;Introspecting Google Web Services</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> SOAPpy <span class='pykeyword'>import</span> WSDL</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = WSDL.Proxy(<span class='pystring'>'/path/to/your/GoogleSearch.wsdl'</span>)</span> <a name="soap.google.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.methods.keys()</span>                                  <a name="soap.google.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">[u'doGoogleSearch', u'doGetCachedPage', u'doSpellingSuggestion']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callInfo = server.methods[<span class='pystring'>'doGoogleSearch'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> arg <span class='pykeyword'>in</span> callInfo.inparams:</span>                          <a name="soap.google.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> arg.name.ljust(15), arg.type</span>
+<span class="computeroutput">key             (u'http://www.w3.org/2001/XMLSchema', u'string')
+q               (u'http://www.w3.org/2001/XMLSchema', u'string')
+start           (u'http://www.w3.org/2001/XMLSchema', u'int')
+maxResults      (u'http://www.w3.org/2001/XMLSchema', u'int')
+filter          (u'http://www.w3.org/2001/XMLSchema', u'boolean')
+restrict        (u'http://www.w3.org/2001/XMLSchema', u'string')
+safeSearch      (u'http://www.w3.org/2001/XMLSchema', u'boolean')
+lr              (u'http://www.w3.org/2001/XMLSchema', u'string')
+ie              (u'http://www.w3.org/2001/XMLSchema', u'string')
+oe              (u'http://www.w3.org/2001/XMLSchema', u'string')</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Getting started with Google web services is easy: just create a <tt class="classname">WSDL.Proxy</tt> object and point it at your local copy of Google's <span class="acronym">WSDL</span> file.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">According to the <span class="acronym">WSDL</span> file, Google offers three functions: <tt class="function">doGoogleSearch</tt>, <tt class="function">doGetCachedPage</tt>, and <tt class="function">doSpellingSuggestion</tt>.  These do exactly what they sound like: perform a Google search and return the results programmatically, get access to the
+                        cached version of a page from the last time Google saw it, and offer spelling suggestions for commonly misspelled search words.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">doGoogleSearch</tt> function takes a number of parameters of various types.  Note that while the <span class="acronym">WSDL</span> file can tell you what the arguments are called and what datatype they are, it can't tell you what they mean or how to use
+                        them.  It could theoretically tell you the acceptable range of values for each parameter, if only specific values were allowed,
+                        but Google's <span class="acronym">WSDL</span> file is not that detailed.  <tt class="classname">WSDL.Proxy</tt> can't work magic; it can only give you the information provided in the <span class="acronym">WSDL</span> file.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Here is a brief synopsis of all the parameters to the <tt class="function">doGoogleSearch</tt> function:
+         </p>
+         <div class="itemizedlist">
+            <ul>
+               <li><tt class="varname">key</tt> - Your Google API key, which you received when you signed up for Google web services.
+               </li>
+               <li><tt class="varname">q</tt> - The search word or phrase you're looking for.  The syntax is exactly the same as Google's web form, so if you know any
+                  advanced search syntax or tricks, they all work here as well.
+               </li>
+               <li><tt class="varname">start</tt> - The index of the result to start on.  Like the interactive web version of Google, this function returns 10 results at a
+                  time.  If you wanted to get the second &#8220;<span class="quote">page</span>&#8221; of results, you would set <tt class="varname">start</tt> to 10.
+               </li>
+               <li><tt class="varname">maxResults</tt> - The number of results to return.  Currently capped at 10, although you can specify fewer if you are only interested in
+                  a few results and want to save a little bandwidth.
+               </li>
+               <li><tt class="varname">filter</tt> - If <tt class="constant">True</tt>, Google will filter out duplicate pages from the results.
+               </li>
+               <li><tt class="varname">restrict</tt> - Set this to <tt class="literal">country</tt> plus a country code to get results only from a particular country.  Example: <tt class="literal">countryUK</tt> to search pages in the United Kingdom.  You can also specify <tt class="literal">linux</tt>, <tt class="literal">mac</tt>, or <tt class="literal">bsd</tt> to search a Google-defined set of technical sites, or <tt class="literal">unclesam</tt> to search sites about the United States government.
+               </li>
+               <li><tt class="varname">safeSearch</tt> - If <tt class="constant">True</tt>, Google will filter out porn sites.
+               </li>
+               <li><tt class="varname">lr</tt> (&#8220;<span class="quote">language restrict</span>&#8221;) - Set this to a language code to get results only in a particular language.
+               </li>
+               <li><tt class="varname">ie</tt> and <tt class="varname">oe</tt> (&#8220;<span class="quote">input encoding</span>&#8221; and &#8220;<span class="quote">output encoding</span>&#8221;) - Deprecated, both must be <tt class="literal">utf-8</tt>.
+               </li>
+            </ul>
+         </div>
+         <div class="example"><a name="d0e31392"></a><h3 class="title">Example&nbsp;12.13.&nbsp;Searching Google</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> SOAPpy <span class='pykeyword'>import</span> WSDL</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = WSDL.Proxy(<span class='pystring'>'/path/to/your/GoogleSearch.wsdl'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">key = <span class='pystring'>'YOUR_GOOGLE_API_KEY'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results = server.doGoogleSearch(key, <span class='pystring'>'mark'</span>, 0, 10, False, <span class='pystring'>""</span>,</span>
+<tt class="prompt">...     </tt><span class="userinput">False, <span class='pystring'>""</span>, <span class='pystring'>"utf-8"</span>, <span class='pystring'>"utf-8"</span>)</span>             <a name="soap.google.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">len(results.resultElements)</span>                  <a name="soap.google.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">10</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results.resultElements[0].URL</span>                <a name="soap.google.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'http://diveintomark.org/'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results.resultElements[0].title</span>
+<span class="computeroutput">'dive into &lt;b&gt;mark&lt;/b&gt;'</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">After setting up the <tt class="classname">WSDL.Proxy</tt> object, you can call <tt class="function">server.doGoogleSearch</tt> with all ten parameters.  Remember to use your own Google API key that you received when you signed up for Google web services.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">There's a lot of information returned, but let's look at the actual search results first.  They're stored in <tt class="varname">results.resultElements</tt>, and you can access them just like a normal <span class="application">Python</span> list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Each element in the <tt class="varname">resultElements</tt> is an object that has a <tt class="varname">URL</tt>, <tt class="varname">title</tt>, <tt class="varname">snippet</tt>, and other useful attributes.  At this point you can use normal <span class="application">Python</span> introspection techniques like <b class="userinput"><tt>dir(results.resultElements[0])</tt></b> to see the available attributes.  Or you can introspect through the <span class="acronym">WSDL</span> proxy object and look through the function's <tt class="varname">outparams</tt>.  Each technique will give you the same information.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The <tt class="varname">results</tt> object contains more than the actual search results.  It also contains information about the search itself, such as how long
+            it took and how many results were found (even though only 10 were returned).  The Google web interface shows this information,
+            and you can access it programmatically too.
+         </p>
+         <div class="example"><a name="d0e31503"></a><h3 class="title">Example&nbsp;12.14.&nbsp;Accessing Secondary Information From Google</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results.searchTime</span>                     <a name="soap.google.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">0.224919</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results.estimatedTotalResultsCount</span>     <a name="soap.google.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">29800000</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results.directoryCategories</span>            <a name="soap.google.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;SOAPpy.Types.structType item at 14367400&gt;:
+ {'fullViewableName':
+  'Top/Arts/Literature/World_Literature/American/19th_Century/Twain,_Mark',
+  'specialEncoding': ''}]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">results.directoryCategories[0].fullViewableName</span>
+<span class="computeroutput">'Top/Arts/Literature/World_Literature/American/19th_Century/Twain,_Mark'</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This search took 0.224919 seconds.  That does not include the time spent sending and receiving the actual <span class="acronym">SOAP</span> XML documents.  It's just the time that Google spent processing your request once it received it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In total, there were approximately 30 million results.  You can access them 10 at a time by changing the <tt class="varname">start</tt> parameter and calling <tt class="function">server.doGoogleSearch</tt> again.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.google.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">For some queries, Google also returns a list of related categories in the <a href="http://directory.google.com/">Google Directory</a>.  You can append these URLs to <a href="http://directory.google.com/">http://directory.google.com/</a> to construct the link to the directory category page.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="introspection.html">&lt;&lt;&nbsp;Introspecting SOAP Web Services with WSDL</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soap.divein" title="12.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="install.html" title="12.2.&nbsp;Installing the SOAP Libraries">2</a> <span class="divider">|</span> <a href="first_steps.html" title="12.3.&nbsp;First Steps with SOAP">3</a> <span class="divider">|</span> <a href="debugging.html" title="12.4.&nbsp;Debugging SOAP Web Services">4</a> <span class="divider">|</span> <a href="wsdl.html" title="12.5.&nbsp;Introducing WSDL">5</a> <span class="divider">|</span> <a href="introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">8</a> <span class="divider">|</span> <a href="summary.html" title="12.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="troubleshooting.html">Troubleshooting SOAP Web Services&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

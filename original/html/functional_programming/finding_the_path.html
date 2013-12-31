@@ -1,0 +1,251 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>16.2.&nbsp;Finding the path</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">
+      <link rel="next" href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Finding the path</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;Functional Programming&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="filtering_lists.html" title="Next: &#8220;Filtering lists revisited&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="regression.path"></a>16.2.&nbsp;Finding the path
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>When running <span class="application">Python</span> scripts from the command line, it is sometimes useful to know where the currently running script is located on disk.
+            </p>
+         </div>
+         <p>This is one of those obscure little tricks that is virtually impossible to figure out on your own, but simple to remember
+            once you see it.  The key to it is <tt class="literal">sys.argv</tt>.  As you saw in <a href="../xml_processing/index.html" title="Chapter&nbsp;9.&nbsp;XML Processing">Chapter&nbsp;9, <i>XML Processing</i></a>, this is a list that holds the list of command-line arguments.  However, it also holds the name of the running script, exactly
+            as it was called from the command line, and this is enough information to determine its location.
+         </p>
+         <div class="example"><a name="d0e35359"></a><h3 class="title">Example&nbsp;16.3.&nbsp;<tt class="filename">fullpath.py</tt></h3>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting"><span class='pykeyword'>
+import</span> sys, os
+
+<span class='pykeyword'>print</span> <span class='pystring'>'sys.argv[0] ='</span>, sys.argv[0]             <a name="regression.path.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+pathname = os.path.dirname(sys.argv[0])        <a name="regression.path.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"><span class='pykeyword'>
+print</span> <span class='pystring'>'path ='</span>, pathname
+<span class='pykeyword'>print</span> <span class='pystring'>'full path ='</span>, os.path.abspath(pathname) <a name="regression.path.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Regardless of how you run a script, <tt class="literal">sys.argv[0]</tt> will always contain the name of the script, exactly as it appears on the command line.  This may or may not include any path
+                        information, as you'll see shortly.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">os.path.dirname</tt> takes a filename as a string and returns the directory path portion.  If the given filename does not include any path information,
+                        <tt class="function">os.path.dirname</tt> returns an empty string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">os.path.abspath</tt> is the key here.  It takes a pathname, which can be partial or even blank, and returns a fully qualified pathname.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p><tt class="function">os.path.abspath</tt> deserves further explanation.  It is very flexible; it can take any kind of pathname.
+         </p>
+         <div class="example"><a name="d0e35399"></a><h3 class="title">Example&nbsp;16.4.&nbsp;Further explanation of <tt class="function">os.path.abspath</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> os</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.getcwd()</span>                        <a name="regression.path.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">/home/you</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.abspath(<span class='pystring'>''</span>)</span>                <a name="regression.path.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">/home/you</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.abspath(<span class='pystring'>'.ssh'</span>)</span>            <a name="regression.path.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">/home/you/.ssh</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.abspath(<span class='pystring'>'/home/you/.ssh'</span>)</span> <a name="regression.path.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">/home/you/.ssh</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os.path.abspath(<span class='pystring'>'.ssh/../foo/'</span>)</span>    <a name="regression.path.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">/home/you/foo</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">os.getcwd()</tt> returns the current working directory.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Calling <tt class="function">os.path.abspath</tt> with an empty string returns the current working directory, same as <tt class="function">os.getcwd()</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Calling <tt class="function">os.path.abspath</tt> with a partial pathname constructs a fully qualified pathname out of it, based on the current working directory.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Calling <tt class="function">os.path.abspath</tt> with a full pathname simply returns it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">os.path.abspath</tt> also <span class="emphasis"><em>normalizes</em></span> the pathname it returns.  Note that this example worked even though I don't actually have a 'foo' directory.  <tt class="function">os.path.abspath</tt> never checks your actual disk; this is all just string manipulation.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="os.path.abspath.exist.note"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">The pathnames and filenames you pass to <tt class="function">os.path.abspath</tt> do not need to exist.
+               </td>
+            </tr>
+         </table><a name="os.path.normpath.note"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><tt class="function">os.path.abspath</tt> not only constructs full path names, it also normalizes them.  That means that if you are in the <tt class="filename">/usr/</tt> directory, <tt class="literal">os.path.abspath('bin/../local/bin')</tt> will return <tt class="filename">/usr/local/bin</tt>.  It normalizes the path by making it as simple as possible.  If you just want to normalize a pathname like this without
+                  turning it into a full pathname, use <tt class="function">os.path.normpath</tt> instead.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="d0e35527"></a><h3 class="title">Example&nbsp;16.5.&nbsp;Sample output from <tt class="filename">fullpath.py</tt></h3><pre class="screen">
+<tt class="prompt">[you@localhost py]$ </tt><span class="userinput">python /home/you/diveintopython/common/py/fullpath.py</span> <a name="regression.path.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">sys.argv[0] = /home/you/diveintopython/common/py/fullpath.py
+path = /home/you/diveintopython/common/py
+full path = /home/you/diveintopython/common/py</span>
+<tt class="prompt">[you@localhost diveintopython]$ </tt><span class="userinput">python common/py/fullpath.py</span>               <a name="regression.path.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">sys.argv[0] = common/py/fullpath.py
+path = common/py
+full path = /home/you/diveintopython/common/py</span>
+<tt class="prompt">[you@localhost diveintopython]$ </tt><span class="userinput">cd common/py</span>
+<tt class="prompt">[you@localhost py]$ </tt><span class="userinput">python fullpath.py</span>                                     <a name="regression.path.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">sys.argv[0] = fullpath.py
+path = 
+full path = /home/you/diveintopython/common/py</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In the first case, <tt class="literal">sys.argv[0]</tt> includes the full path of the script.  You can then use the <tt class="function">os.path.dirname</tt> function to strip off the script name and return the full directory name, and <tt class="function">os.path.abspath</tt> simply returns what you give it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If the script is run by using a partial pathname, <tt class="literal">sys.argv[0]</tt> will still contain exactly what appears on the command line.  <tt class="function">os.path.dirname</tt> will then give you a partial pathname (relative to the current directory), and <tt class="function">os.path.abspath</tt> will construct a full pathname from the partial pathname.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If the script is run from the current directory without giving any path, <tt class="function">os.path.dirname</tt> will simply return an empty string.  Given an empty string, <tt class="function">os.path.abspath</tt> returns the current directory, which is what you want, since the script was run from the current directory.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="os.path.abspath.crossplatform.note"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Like the other functions in the <tt class="filename">os</tt> and <tt class="filename">os.path</tt> modules, <tt class="function">os.path.abspath</tt> is cross-platform.  Your results will look slightly different than my examples if you're running on Windows (which uses backslash
+                  as a path separator) or <span class="abbrev">Mac</span> <span class="acronym">OS</span> (which uses colons), but they'll still work.  That's the whole point of the <tt class="filename">os</tt> module.
+               </td>
+            </tr>
+         </table>
+         <p><b>Addendum.&nbsp;</b>One reader was dissatisfied with this solution, and wanted to be able to run all the unit tests in the current directory,
+            not the directory where <tt class="filename">regression.py</tt> is located.  He suggests this approach instead:
+         </p>
+         <div class="example"><a name="regression.path.cwd.example"></a><h3 class="title">Example&nbsp;16.6.&nbsp;Running scripts in the current directory</h3><pre class="programlisting"><span class='pykeyword'>import</span> sys, os, re, unittest
+
+<span class='pykeyword'>def</span><span class='pyclass'> regressionTest</span>():
+    path = os.getcwd()       <a name="regression.path.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    sys.path.append(path)    <a name="regression.path.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    files = os.listdir(path) <a name="regression.path.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Instead of setting <tt class="varname">path</tt> to the directory where the currently running script is located, you set it to the current working directory instead.  This
+                        will be whatever directory you were in before you ran the script, which is not necessarily the same as the directory the script
+                        is in. (Read that sentence a few times until you get it.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Append this directory to the <span class="application">Python</span> library search path, so that when you dynamically import the unit test modules later, <span class="application">Python</span> can find them.  You didn't need to do this when <tt class="varname">path</tt> was the directory of the currently running script, because <span class="application">Python</span> always looks in that directory.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.path.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The rest of the function is the same.</td>
+                  </tr>
+               </table>
+            </div>
+            <p>This technique will allow you to re-use this <tt class="filename">regression.py</tt> script on multiple projects.  Just put the script in a common directory, then change to the project's directory before running
+               it.  All of that project's unit tests will be found and tested, instead of the unit tests in the common directory where <tt class="filename">regression.py</tt> is located.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;Functional Programming</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <a href="data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <a href="dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <a href="all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="filtering_lists.html">Filtering lists revisited&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,178 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;12.&nbsp;SOAP Web Services</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../http_web_services/summary.html" title="11.10.&nbsp;Summary">
+      <link rel="next" href="install.html" title="12.2.&nbsp;Installing the SOAP Libraries">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">SOAP Web Services</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../http_web_services/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="install.html" title="Next: &#8220;Installing the SOAP Libraries&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soap"></a>Chapter&nbsp;12.&nbsp;<span class="acronym">SOAP</span> Web Services
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#soap.divein">12.1. Diving In</a></span></li>
+               <li><span class="section"><a href="install.html">12.2. Installing the SOAP Libraries</a></span><ul>
+                     <li><span class="section"><a href="install.html#d0e29967">12.2.1. Installing PyXML</a></span></li>
+                     <li><span class="section"><a href="install.html#d0e30070">12.2.2. Installing fpconst</a></span></li>
+                     <li><span class="section"><a href="install.html#d0e30171">12.2.3. Installing SOAPpy</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="first_steps.html">12.3. First Steps with SOAP</a></span></li>
+               <li><span class="section"><a href="debugging.html">12.4. Debugging SOAP Web Services</a></span></li>
+               <li><span class="section"><a href="wsdl.html">12.5. Introducing WSDL</a></span></li>
+               <li><span class="section"><a href="introspection.html">12.6. Introspecting SOAP Web Services with WSDL</a></span></li>
+               <li><span class="section"><a href="google.html">12.7. Searching Google</a></span></li>
+               <li><span class="section"><a href="troubleshooting.html">12.8. Troubleshooting SOAP Web Services</a></span></li>
+               <li><span class="section"><a href="summary.html">12.9. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p><a href="../http_web_services/index.html">Chapter 11</a> focused on document-oriented web services over HTTP.  The &#8220;<span class="quote">input parameter</span>&#8221; was the <span class="acronym">URL</span>, and the &#8220;<span class="quote">return value</span>&#8221; was an actual XML document which it was your responsibility to parse.
+            </p>
+            <p>This chapter will focus on <span class="acronym">SOAP</span> web services, which take a more structured approach.  Rather than dealing with HTTP requests and XML documents directly,
+               <span class="acronym">SOAP</span> allows you to simulate calling functions that return native data types.  As you will see, the illusion is almost perfect;
+               you can &#8220;<span class="quote">call</span>&#8221; a function through a <span class="acronym">SOAP</span> library, with the standard <span class="application">Python</span> calling syntax, and the function appears to return <span class="application">Python</span> objects and values.  But under the covers, the <span class="acronym">SOAP</span> library has actually performed a complex transaction involving multiple XML documents and a remote server.
+            </p>
+            <p><span class="acronym">SOAP</span> is a complex specification, and it is somewhat misleading to say that <span class="acronym">SOAP</span> is all about calling remote functions.  Some people would pipe up to add that <span class="acronym">SOAP</span> allows for one-way asynchronous message passing, and document-oriented web services.  And those people would be correct;
+               <span class="acronym">SOAP</span> can be used that way, and in many different ways.  But this chapter will focus on so-called &#8220;<span class="quote">RPC-style</span>&#8221; <span class="acronym">SOAP</span> -- calling a remote function and getting results back.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="soap.divein"></a>12.1.&nbsp;Diving In
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>You use Google, right?  It's a popular search engine.  Have you ever wished you could programmatically access Google search
+                  results?  Now you can.  Here is a program to search Google from <span class="application">Python</span>.
+               </p>
+            </div>
+            <div class="example"><a name="d0e29893"></a><h3 class="title">Example&nbsp;12.1.&nbsp;<tt class="filename">search.py</tt></h3><pre class="programlisting"><span class='pykeyword'>from</span> SOAPpy <span class='pykeyword'>import</span> WSDL
+
+<span class='pycomment'># you'll need to configure these two values;</span>
+<span class='pycomment'># see http://www.google.com/apis/</span>
+WSDLFILE = <span class='pystring'>'/path/to/copy/of/GoogleSearch.wsdl'</span>
+APIKEY = <span class='pystring'>'YOUR_GOOGLE_API_KEY'</span>
+
+_server = WSDL.Proxy(WSDLFILE)
+<span class='pykeyword'>def</span><span class='pyclass'> search</span>(q):
+    <span class='pystring'>"""Search Google and return list of {title, link, description}"""</span>
+    results = _server.doGoogleSearch(
+        APIKEY, q, 0, 10, False, <span class='pystring'>""</span>, False, <span class='pystring'>""</span>, <span class='pystring'>"utf-8"</span>, <span class='pystring'>"utf-8"</span>)
+    <span class='pykeyword'>return</span> [{<span class='pystring'>"title"</span>: r.title.encode(<span class='pystring'>"utf-8"</span>),
+             <span class='pystring'>"link"</span>: r.URL.encode(<span class='pystring'>"utf-8"</span>),
+             <span class='pystring'>"description"</span>: r.snippet.encode(<span class='pystring'>"utf-8"</span>)}
+            <span class='pykeyword'>for</span> r <span class='pykeyword'>in</span> results.resultElements]
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>'__main__'</span>:
+    <span class='pykeyword'>import</span> sys
+    <span class='pykeyword'>for</span> r <span class='pykeyword'>in</span> search(sys.argv[1])[:5]:
+        <span class='pykeyword'>print</span> r[<span class='pystring'>'title'</span>]
+        <span class='pykeyword'>print</span> r[<span class='pystring'>'link'</span>]
+        <span class='pykeyword'>print</span> r[<span class='pystring'>'description'</span>]
+        print</pre></div>
+            <p>You can import this as a module and use it from a larger program, or you can run the script from the command line.  On the
+               command line, you give the search query as a command-line argument, and it prints out the URL, title, and description of the
+               top five Google search results.
+            </p>
+            <p>Here is the sample output for a search for the word &#8220;<span class="quote">python</span>&#8221;.
+            </p>
+            <div class="example"><a name="d0e29906"></a><h3 class="title">Example&nbsp;12.2.&nbsp;Sample Usage of <tt class="filename">search.py</tt></h3><pre class="screen">
+<tt class="prompt">C:\diveintopython\common\py&gt;</tt> <span class="userinput">python search.py <span class='pystring'>"python"</span></span>
+<span class="computeroutput">&lt;b&gt;Python&lt;/b&gt; Programming Language
+http://www.python.org/
+Home page for &lt;b&gt;Python&lt;/b&gt;, an interpreted, interactive, object-oriented,
+extensible&lt;br&gt; programming language. &lt;b&gt;...&lt;/b&gt; &lt;b&gt;Python&lt;/b&gt;
+is OSI Certified Open Source: OSI Certified.
+
+&lt;b&gt;Python&lt;/b&gt; Documentation Index
+http://www.python.org/doc/
+ &lt;b&gt;...&lt;/b&gt; New-style classes (aka descrintro). Regular expressions. Database
+API. Email Us.&lt;br&gt; docs@&lt;b&gt;python&lt;/b&gt;.org. (c) 2004. &lt;b&gt;Python&lt;/b&gt;
+Software Foundation. &lt;b&gt;Python&lt;/b&gt; Documentation. &lt;b&gt;...&lt;/b&gt;
+
+Download &lt;b&gt;Python&lt;/b&gt; Software
+http://www.python.org/download/
+Download Standard &lt;b&gt;Python&lt;/b&gt; Software. &lt;b&gt;Python&lt;/b&gt; 2.3.3 is the
+current production&lt;br&gt; version of &lt;b&gt;Python&lt;/b&gt;. &lt;b&gt;...&lt;/b&gt;
+&lt;b&gt;Python&lt;/b&gt; is OSI Certified Open Source:
+
+Pythonline
+http://www.pythonline.com/
+
+
+Dive Into &lt;b&gt;Python&lt;/b&gt;
+http://diveintopython.org/
+Dive Into &lt;b&gt;Python&lt;/b&gt;. &lt;b&gt;Python&lt;/b&gt; from novice to pro. Find:
+&lt;b&gt;...&lt;/b&gt; It is also available in multiple&lt;br&gt; languages. Read
+Dive Into &lt;b&gt;Python&lt;/b&gt;. This book is still being written. &lt;b&gt;...&lt;/b&gt;</span>
+</pre></div>
+            <div class="furtherreading">
+               <h3>Further Reading on <span class="acronym">SOAP</span></h3>
+               <ul>
+                  <li><a href="http://www.xmethods.net/">http://www.xmethods.net/</a> is a repository of public access <span class="acronym">SOAP</span> web services.
+                  </li>
+                  <li>The <a href="http://www.w3.org/TR/soap/"><span class="acronym">SOAP</span> specification</a> is surprisingly readable, if you like that sort of thing.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../http_web_services/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="install.html" title="12.2.&nbsp;Installing the SOAP Libraries">2</a> <span class="divider">|</span> <a href="first_steps.html" title="12.3.&nbsp;First Steps with SOAP">3</a> <span class="divider">|</span> <a href="debugging.html" title="12.4.&nbsp;Debugging SOAP Web Services">4</a> <span class="divider">|</span> <a href="wsdl.html" title="12.5.&nbsp;Introducing WSDL">5</a> <span class="divider">|</span> <a href="introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">6</a> <span class="divider">|</span> <a href="google.html" title="12.7.&nbsp;Searching Google">7</a> <span class="divider">|</span> <a href="troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">8</a> <span class="divider">|</span> <a href="summary.html" title="12.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="install.html">Installing the SOAP Libraries&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

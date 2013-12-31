@@ -1,0 +1,181 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.9.&nbsp;Putting it all together</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+      <link rel="previous" href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">
+      <link rel="next" href="summary.html" title="8.10.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="dialect.html" title="Prev: &#8220;Introducing dialect.py&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.alltogether"></a>8.9.&nbsp;Putting it all together
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>It's time to put everything you've learned so far to good use.  I hope you were paying attention.</p>
+         </div>
+         <div class="example"><a name="d0e22387"></a><h3 class="title">Example&nbsp;8.20.&nbsp;The <tt class="function">translate</tt> function, part 1
+            </h3><pre class="programlisting"><span class='pykeyword'>
+def</span> translate(url, dialectName=<span class='pystring'>"chef"</span>): <a name="dialect.alltogether.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>import</span> urllib                       <a name="dialect.alltogether.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    sock = urllib.urlopen(url)          <a name="dialect.alltogether.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+    htmlSource = sock.read()           
+    sock.close()                       
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">translate</tt> function has an <a href="../power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">optional argument</a> <tt class="varname">dialectName</tt>, which is a string that specifies the dialect you'll be using.  You'll see how this is used in a minute.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Hey, wait a minute, there's an <a href="../getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&nbsp;2.3.&nbsp;Accessing the buildConnectionString Function's doc string"><tt class="literal">import</tt></a> statement in this function!  That's perfectly legal in <span class="application">Python</span>.  You're used to seeing <tt class="literal">import</tt> statements at the top of a program, which means that the imported module is available anywhere in the program.  But you can
+                        also import modules within a function, which means that the imported module is only available within the function.  If you
+                        have a module that is only ever used in one function, this is an easy way to make your code more modular.  (When you find
+                        that your weekend hack has turned into an 800-line work of art and decide to split it up into a dozen reusable modules, you'll
+                        appreciate this.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now you <a href="extracting_data.html#dialect.extract.urllib" title="Example&nbsp;8.5.&nbsp;Introducing urllib">get the source of the given URL</a>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e22433"></a><h3 class="title">Example&nbsp;8.21.&nbsp;The <tt class="function">translate</tt> function, part 2: curiouser and curiouser
+            </h3><pre class="programlisting">
+    parserName = <span class='pystring'>"%sDialectizer"</span> % dialectName.capitalize() <a name="dialect.alltogether.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    parserClass = globals()[parserName]                     <a name="dialect.alltogether.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    parser = parserClass()                                  <a name="dialect.alltogether.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">capitalize</tt> is a string method you haven't seen before; it simply capitalizes the first letter of a string and forces everything else
+                        to lowercase.  Combined with some <a href="../native_data_types/formatting_strings.html" title="3.5.&nbsp;Formatting Strings">string formatting</a>, you've taken the name of a dialect and transformed it into the name of the corresponding Dialectizer class.  If <tt class="varname">dialectName</tt> is the string <tt class="literal">'chef'</tt>, <tt class="varname">parserName</tt> will be the string <tt class="literal">'ChefDialectizer'</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You have the name of a class as a string (<tt class="varname">parserName</tt>), and you have the global namespace as a dictionary (<tt class="function">globals</tt>()).  Combined, you can get a reference to the class which the string names.  (Remember, <a href="../object_oriented_framework/class_attributes.html" title="5.8.&nbsp;Introducing Class Attributes">classes are objects</a>, and they can be assigned to variables just like any other object.)  If <tt class="varname">parserName</tt> is the string <tt class="literal">'ChefDialectizer'</tt>, <tt class="varname">parserClass</tt> will be the class <tt class="literal">ChefDialectizer</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Finally, you have a class object (<tt class="varname">parserClass</tt>), and you want an instance of the class.  Well, you already know how to do that: <a href="../object_oriented_framework/instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">call the class like a function</a>.  The fact that the class is being stored in a local variable makes absolutely no difference; you just call the local variable
+                        like a function, and out pops an instance of the class.  If <tt class="varname">parserClass</tt> is the class <tt class="literal">ChefDialectizer</tt>, <tt class="varname">parser</tt> will be an instance of the class <tt class="literal">ChefDialectizer</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Why bother?  After all, there are only 3 <tt class="classname">Dialectizer</tt> classes; why not just use a <tt class="function">case</tt> statement?  (Well, there's no <tt class="function">case</tt> statement in <span class="application">Python</span>, but why not just use a series of <tt class="literal">if</tt> statements?)  One reason: extensibility.  The <tt class="function">translate</tt> function has absolutely no idea how many Dialectizer classes you've defined.  Imagine if you defined a new <tt class="classname">FooDialectizer</tt> tomorrow; <tt class="function">translate</tt> would work by passing <tt class="literal">'foo'</tt> as the <tt class="varname">dialectName</tt>.
+         </p>
+         <p>Even better, imagine putting <tt class="classname">FooDialectizer</tt> in a separate module, and importing it with <tt class="literal">from <i class="replaceable">module</i> import</tt>.  You've already seen that this <a href="locals_and_globals.html#dialect.globals.example" title="Example&nbsp;8.11.&nbsp;Introducing globals">includes it in <tt class="function">globals</tt>()</a>, so <tt class="function">translate</tt> would still work without modification, even though <tt class="classname">FooDialectizer</tt> was in a separate file.
+         </p>
+         <p>Now imagine that the name of the dialect is coming from somewhere outside the program, maybe from a database or from a user-inputted
+            value on a form.  You can use any number of server-side <span class="application">Python</span> scripting architectures to dynamically generate web pages; this function could take a <span class="acronym">URL</span> and a dialect name (both strings) in the query string of a web page request, and output the &#8220;<span class="quote">translated</span>&#8221; web page.
+         </p>
+         <p>Finally, imagine a <tt class="classname">Dialectizer</tt> framework with a plug-in architecture.  You could put each <tt class="classname">Dialectizer</tt> class in a separate file, leaving only the <tt class="function">translate</tt> function in <tt class="filename">dialect.py</tt>.  Assuming a consistent naming scheme, the <tt class="function">translate</tt> function could dynamic import the appropiate class from the appropriate file, given nothing but the dialect name.  (You haven't
+            seen dynamic importing yet, but I promise to cover it in a later chapter.)  To add a new dialect, you would simply add an
+            appropriately-named file in the plug-ins directory (like <tt class="filename">foodialect.py</tt> which contains the <tt class="classname">FooDialectizer</tt> class).  Calling the <tt class="function">translate</tt> function with the dialect name <tt class="literal">'foo'</tt> would find the module <tt class="filename">foodialect.py</tt>, import the class <tt class="classname">FooDialectizer</tt>, and away you go.
+         </p>
+         <div class="example"><a name="d0e22614"></a><h3 class="title">Example&nbsp;8.22.&nbsp;The <tt class="function">translate</tt> function, part 3
+            </h3><pre class="programlisting">
+    parser.feed(htmlSource) <a name="dialect.alltogether.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    parser.close()          <a name="dialect.alltogether.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>return</span> parser.output()  <a name="dialect.alltogether.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">After all that imagining, this is going to seem pretty boring, but the <tt class="function">feed</tt> function is what <a href="extracting_data.html#dialect.feed.example" title="Example&nbsp;8.7.&nbsp;Using urllister.py">does the entire transformation</a>.  You had the entire <span class="acronym">HTML</span> source in a single string, so you only had to call <tt class="function">feed</tt> once.  However, you can call <tt class="function">feed</tt> as often as you want, and the parser will just keep parsing.  So if you were worried about memory usage (or you knew you
+                        were going to be dealing with very large <span class="acronym">HTML</span> pages), you could set this up in a loop, where you read a few bytes of <span class="acronym">HTML</span> and fed it to the parser.  The result would be the same.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Because <tt class="function">feed</tt> maintains an internal buffer, you should always call the parser's <tt class="function">close</tt> method when you're done (even if you fed it all at once, like you did).  Otherwise you may find that your output is missing
+                        the last few bytes.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.alltogether.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Remember, <tt class="function">output</tt> is the function you defined on <tt class="classname">BaseHTMLProcessor</tt> that <a href="basehtmlprocessor.html#dialect.output.example" title="Example&nbsp;8.9.&nbsp;BaseHTMLProcessor output">joins all the pieces of output you've buffered</a> and returns them in a single string.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>And just like that, you've &#8220;<span class="quote">translated</span>&#8221; a web page, given nothing but a <span class="acronym">URL</span> and the name of a dialect.
+         </p>
+         <div class="furtherreading">
+            <h3>Further reading</h3>
+            <ul>
+               <li>You thought I was kidding about the server-side scripting idea.  So did I, until I found <a href="http://rinkworks.com/dialect/">this web-based dialectizer</a>.  Unfortunately, source code does not appear to be available.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="dialect.html">&lt;&lt;&nbsp;Introducing dialect.py</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">3</a> <span class="divider">|</span> <a href="basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <a href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <a href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <a href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

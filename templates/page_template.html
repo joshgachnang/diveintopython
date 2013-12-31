@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ title }}</title>
+        <link rev="made" href="josh@servercobra.com" />
+        <meta name="generator" content="convert_to_jinja2.py" />
+        <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+        <meta name="description" content="Python from novice to pro" />
+        <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+        {% if up %}
+        <link rel="up" href="{{ up.href }}" title=" {{ up.title }}" />
+        {% endif %}
+        {% if prev %}
+        <link rel="previous" href="{{ previous.href }}" title=" {{ previous.title }}" />
+        {% endif %}
+        {% if next %}
+        <link rel="next" href="{{ next.href }}" title=" {{ next.title }}" />
+        {% endif %}
+         <link rel="stylesheet" href="../css/normalize.css">
+         <link rel="stylesheet" href="../css/foundation.css">
+         <link rel="stylesheet" href="../css/diveintopython.css" type="text/css" />
+
+
+         <script src="../js/modernizr.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="small-12 columns" id="Header">
+                <div class="row">
+                    <div class="small-11 columns">
+                        {% if breadcrumb %}
+                        {{ breadcrumb }}
+                        {% endif %}
+                    </div>
+                    <div class="small-1 columns">
+                        {% if navigation %}
+                        {{ navigation }}
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                <div id="logocontainer">
+                    <h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+                    <p id="tagline">Python from novice to pro</p>
+                    <a href="http://www.amazon.com/gp/product/B001GIOFN8/ref=as_li_tf_tl?ie=UTF8&tag=diveintopython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=B001GIOFN8"><img src="../images/amazon-buy-button.gif"></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        {% if titlepage %}{{ titlepage }}{% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        {% if toc %}{{ toc }}{% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        {% if abstract %}{{ abstract }}{% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        {% if section %}{{ section }}{% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        {% if footer %}{{ footer }}{% endif %}
+        {% include "footer.html" %}
+            </div>
+        </div>
+        {% include "google_analytics.html" %}
+        <script src="../js/jquery.js"></script>
+        <script src="../js/foundation.min.js"></script>
+        <script>
+          $(document).foundation();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,256 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>17.7.&nbsp;plural.py, stage 6</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;17.&nbsp;Dynamic functions">
+      <link rel="previous" href="stage5.html" title="17.6.&nbsp;plural.py, stage 5">
+      <link rel="next" href="summary.html" title="17.8.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Dynamic functions</a>&nbsp;&gt;&nbsp;<span class="thispage">plural.py, stage 6</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="stage5.html" title="Prev: &#8220;plural.py, stage 5&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="plural.stage6"></a>17.7.&nbsp;<tt class="filename">plural.py</tt>, stage 6
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Now you're ready to talk about generators.</p>
+         </div>
+         <div class="example"><a name="d0e38279"></a><h3 class="title">Example&nbsp;17.17.&nbsp;<tt class="filename">plural6.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> re
+
+<span class='pykeyword'>def</span><span class='pyclass'> rules</span>(language):                                                                 
+    <span class='pykeyword'>for</span> line <span class='pykeyword'>in</span> file(<span class='pystring'>'rules.%s'</span> % language):                                         
+        pattern, search, replace = line.split()                                      
+        <span class='pykeyword'>yield</span> <span class='pykeyword'>lambda</span> word: re.search(pattern, word) <span class='pykeyword'>and</span> re.sub(search, replace, word)
+
+<span class='pykeyword'>def</span><span class='pyclass'> plural</span>(noun, language=<span class='pystring'>'en'</span>):      
+    <span class='pykeyword'>for</span> applyRule <span class='pykeyword'>in</span> rules(language): 
+        result = applyRule(noun)      
+        <span class='pykeyword'>if</span> result: <span class='pykeyword'>return</span> result      
+</pre></div>
+         <p>This uses a technique called generators, which I'm not even going to try to explain until you look at a simpler example first.</p>
+         <div class="example"><a name="plural.introducing.generators"></a><h3 class="title">Example&nbsp;17.18.&nbsp;Introducing generators</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>def</span><span class='pyclass'> make_counter</span>(x):</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>'entering make_counter'</span></span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>while</span> 1:</span>
+<tt class="prompt">...     </tt><span class="userinput">    <span class='pykeyword'>yield</span> x</span>               <a name="plural.stage6.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput">    <span class='pykeyword'>print</span> <span class='pystring'>'incrementing x'</span></span>
+<tt class="prompt">...     </tt><span class="userinput">    x = x + 1</span>
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter = make_counter(2)</span> <a name="plural.stage6.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter</span>                   <a name="plural.stage6.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;generator object at 0x001C9C10&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.next()</span>            <a name="plural.stage6.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">entering make_counter
+2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.next()</span>            <a name="plural.stage6.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">incrementing x
+3</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">counter.next()</span>            <a name="plural.stage6.2.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+<span class="computeroutput">incrementing x
+4</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The presence of the <tt class="literal">yield</tt> keyword in <tt class="function">make_counter</tt> means that this is not a normal function.  It is a special kind of function which generates values one at a time.  You can
+                        think of it as a resumable function.  Calling it will return a generator that can be used to generate successive values of
+                        <tt class="varname">x</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To create an instance of the <tt class="function">make_counter</tt> generator, just call it like any other function.  Note that this does not actually execute the function code.  You can tell
+                        this because the first line of <tt class="function">make_counter</tt> is a <tt class="function">print</tt> statement, but nothing has been printed yet.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">make_counter</tt> function returns a generator object.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The first time you call the <tt class="function">next()</tt> method on the generator object, it executes the code in <tt class="function">make_counter</tt> up to the first <tt class="literal">yield</tt> statement, and then returns the value that was yielded.  In this case, that will be <tt class="literal">2</tt>, because you originally created the generator by calling <tt class="function">make_counter(2)</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Repeatedly calling <tt class="function">next()</tt> on the generator object <span class="emphasis"><em>resumes where you left off</em></span> and continues until you hit the next <tt class="literal">yield</tt> statement.  The next line of code waiting to be executed is the <tt class="function">print</tt> statement that prints <tt class="literal">incrementing x</tt>, and then after that the <tt class="literal">x = x + 1</tt> statement that actually increments it.  Then you loop through the <tt class="literal">while</tt> loop again, and the first thing you do is <tt class="literal">yield x</tt>, which returns the current value of <tt class="varname">x</tt> (now 3).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.2.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The second time you call <tt class="function">counter.next()</tt>, you do all the same things again, but this time <tt class="varname">x</tt> is now <tt class="literal">4</tt>.  And so forth.  Since <tt class="function">make_counter</tt> sets up an infinite loop, you could theoretically do this forever, and it would just keep incrementing <tt class="varname">x</tt> and spitting out values.  But let's look at more productive uses of generators instead.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="plural.fib.example"></a><h3 class="title">Example&nbsp;17.19.&nbsp;Using generators instead of recursion</h3><pre class="programlisting"><span class='pykeyword'>
+def</span> fibonacci(max):
+    a, b = 0, 1       <a name="plural.stage6.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>while</span> a &lt; max:
+        <span class='pykeyword'>yield</span> a       <a name="plural.stage6.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        a, b = b, a+b <a name="plural.stage6.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The Fibonacci sequence is a sequence of numbers where each number is the sum of the two numbers before it.  It starts with
+                        <tt class="constant">0</tt> and <tt class="constant">1</tt>, goes up slowly at first, then more and more rapidly.  To start the sequence, you need two variables: <tt class="varname">a</tt> starts at <tt class="constant">0</tt>, and <tt class="varname">b</tt> starts at <tt class="constant">1</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">a</tt> is the current number in the sequence, so yield it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">b</tt> is the next number in the sequence, so assign that to <tt class="varname">a</tt>, but also calculate the next value (<tt class="literal">a+b</tt>) and assign that to <tt class="varname">b</tt> for later use.  Note that this happens in parallel; if <tt class="varname">a</tt> is <tt class="literal">3</tt> and <tt class="varname">b</tt> is <tt class="literal">5</tt>, then <tt class="literal">a, b = b, a+b</tt> will set <tt class="varname">a</tt> to <tt class="literal">5</tt> (the previous value of <tt class="varname">b</tt>) and <tt class="varname">b</tt> to <tt class="literal">8</tt> (the sum of the previous values of <tt class="varname">a</tt> and <tt class="varname">b</tt>).
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So you have a function that spits out successive Fibonacci numbers.  Sure, you could do that with recursion, but this way
+            is easier to read.  Also, it works well with <tt class="literal">for</tt> loops.
+         </p>
+         <div class="example"><a name="d0e38564"></a><h3 class="title">Example&nbsp;17.20.&nbsp;Generators in <tt class="literal">for</tt> loops
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> n <span class='pykeyword'>in</span> fibonacci(1000):</span> <a name="plural.stage6.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> n,</span>              <a name="plural.stage6.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can use a generator like <tt class="function">fibonacci</tt> in a <tt class="literal">for</tt> loop directly.  The <tt class="literal">for</tt> loop will create the generator object and successively call the <tt class="function">next()</tt> method to get values to assign to the <tt class="literal">for</tt> loop index variable (<tt class="varname">n</tt>).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Each time through the <tt class="literal">for</tt> loop, <tt class="varname">n</tt> gets a new value from the <tt class="literal">yield</tt> statement in <tt class="function">fibonacci</tt>, and all you do is print it out.  Once <tt class="function">fibonacci</tt> runs out of numbers (<tt class="varname">a</tt> gets bigger than <tt class="varname">max</tt>, which in this case is <tt class="literal">1000</tt>), then the <tt class="literal">for</tt> loop exits gracefully.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>OK, let's go back to the <tt class="function">plural</tt> function and see how you're using this.
+         </p>
+         <div class="example"><a name="d0e38646"></a><h3 class="title">Example&nbsp;17.21.&nbsp;Generators that generate dynamic functions</h3><pre class="programlisting"><span class='pykeyword'>
+def</span> rules(language):                                                                 
+    <span class='pykeyword'>for</span> line <span class='pykeyword'>in</span> file(<span class='pystring'>'rules.%s'</span> % language):                                          <a name="plural.stage6.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        pattern, search, replace = line.split()                                       <a name="plural.stage6.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>yield</span> <span class='pykeyword'>lambda</span> word: re.search(pattern, word) <span class='pykeyword'>and</span> re.sub(search, replace, word) <a name="plural.stage6.5.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+
+<span class='pykeyword'>def</span><span class='pyclass'> plural</span>(noun, language=<span class='pystring'>'en'</span>):      
+    <span class='pykeyword'>for</span> applyRule <span class='pykeyword'>in</span> rules(language):  <a name="plural.stage6.5.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        result = applyRule(noun)      
+        <span class='pykeyword'>if</span> result: <span class='pykeyword'>return</span> result      
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">for line in file(...)</tt> is a common idiom for reading lines from a file, one line at a time.  It works because <span class="emphasis"><em><tt class="function">file</tt> actually returns a generator</em></span> whose <tt class="function">next()</tt> method returns the next line of the file.  That is so insanely cool, I wet myself just thinking about it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">No magic here.  Remember that the lines of the rules file have three values separated by whitespace, so <tt class="literal">line.split()</tt> returns a tuple of 3 values, and you assign those values to 3 local variables.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.5.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><span class="emphasis"><em>And then you yield.</em></span>  What do you yield?  A function, built dynamically with <tt class="literal">lambda</tt>, that is actually a closure (it uses the local variables <tt class="varname">pattern</tt>, <tt class="varname">search</tt>, and <tt class="varname">replace</tt> as constants).  In other words, <tt class="function">rules</tt> is a generator that spits out rule functions.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage6.5.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Since <tt class="function">rules</tt> is a generator, you can use it directly in a <tt class="literal">for</tt> loop.  The first time through the <tt class="literal">for</tt> loop, you will call the <tt class="function">rules</tt> function, which will open the rules file, read the first line out of it, dynamically build a function that matches and applies
+                        the first rule defined in the rules file, and yields the dynamically built function.  The second time through the <tt class="literal">for</tt> loop, you will pick up where you left off in <tt class="function">rules</tt> (which was in the middle of the <tt class="literal">for line in file(...)</tt> loop), read the second line of the rules file, dynamically build another function that matches and applies the second rule
+                        defined in the rules file, and yields it.  And so forth.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>What have you gained over <a href="stage5.html" title="17.6.&nbsp;plural.py, stage 5">stage 5</a>?  In stage 5, you read the entire rules file and built a list of all the possible rules before you even tried the first one.
+             Now with generators, you can do everything lazily: you open the first and read the first rule and create a function to try
+            it, but if that works you don't ever read the rest of the file or create any other functions.
+         </p>
+         <div class="furtherreading">
+            <h3>Further reading</h3>
+            <ul>
+               <li><a href="http://www.python.org/peps/pep-0255.html">PEP 255</a> defines generators.
+               </li>
+               <li><a href="http://www.activestate.com/ASPN/Python/Cookbook/" title="growing archive of annotated code samples"><span class="application">Python</span> Cookbook</a> has <a href="http://www.google.com/search?q=generators+cookbook+site:aspn.activestate.com">many more examples of generators</a>.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="stage5.html">&lt;&lt;&nbsp;plural.py, stage 5</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#plural.divein" title="17.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="stage1.html" title="17.2.&nbsp;plural.py, stage 1">2</a> <span class="divider">|</span> <a href="stage2.html" title="17.3.&nbsp;plural.py, stage 2">3</a> <span class="divider">|</span> <a href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">4</a> <span class="divider">|</span> <a href="stage4.html" title="17.5.&nbsp;plural.py, stage 4">5</a> <span class="divider">|</span> <a href="stage5.html" title="17.6.&nbsp;plural.py, stage 5">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="summary.html" title="17.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

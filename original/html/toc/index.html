@@ -1,0 +1,393 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Dive Into Python</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="description" content=" This book lives at .  If you're reading it somewhere else, you may not have the latest version.">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="index.html" title="Dive Into Python">
+      <link rel="next" href="../installing_python/index.html" title="Chapter&nbsp;1.&nbsp;Installing Python">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<span class="thispage">Dive Into Python</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../installing_python/index.html" title="Next: &#8220;Installing Python&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="book" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title"><a name="d0e1"></a>Dive Into <span class="application">Python</span></h1>
+               </div>
+               <div>
+                  <p class="pubdate">20 May 2004</p>
+               </div>
+               <div>
+                  <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+               </div>
+               <div>
+                  <div class="abstract">
+                     <h3 class="title"></h3>
+                     <p>This book lives at <a href="http://diveintopython.org/">http://diveintopython.org/</a>.  If you're reading it somewhere else, you may not have the latest version.
+                     </p>
+                  </div>
+               </div>
+               <div>
+                  <div class="legalnotice">
+                     <p>Permission is granted to copy, distribute, and/or modify this document under the terms of the <span class="acronym">GNU</span> Free Documentation License, Version 1.1 or any later version published by the Free Software Foundation; with no Invariant
+                        Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of the license is included in <a href="../appendix/fdl.html" title="Appendix&nbsp;G.&nbsp;GNU Free Documentation License">Appendix&nbsp;G, <i>GNU Free Documentation License</i></a>.
+                     </p>
+                     <p>The example programs in this book are free software; you can redistribute and/or modify them under the terms of the <span class="application">Python</span> license as published by the <span class="application">Python</span> Software Foundation. A copy of the license is included in <a href="../appendix/license.html" title="Appendix&nbsp;H.&nbsp;Python license">Appendix&nbsp;H, <i>Python license</i></a>.
+                     </p>
+                  </div>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <p><b>Table of Contents</b></p>
+            <ul>
+               <li><span class="chapter"><a href="../installing_python/index.html">1. Installing Python</a></span><ul>
+                     <li><span class="section"><a href="../installing_python/index.html#install.choosing">1.1. Which Python is right for you?</a></span></li>
+                     <li><span class="section"><a href="../installing_python/windows.html">1.2. Python on Windows</a></span></li>
+                     <li><span class="section"><a href="../installing_python/macosx.html">1.3. Python on Mac OS X</a></span></li>
+                     <li><span class="section"><a href="../installing_python/macos9.html">1.4. Python on Mac OS 9</a></span></li>
+                     <li><span class="section"><a href="../installing_python/redhat.html">1.5. Python on RedHat Linux</a></span></li>
+                     <li><span class="section"><a href="../installing_python/debian.html">1.6. Python on Debian GNU/Linux</a></span></li>
+                     <li><span class="section"><a href="../installing_python/source.html">1.7. Python Installation from Source</a></span></li>
+                     <li><span class="section"><a href="../installing_python/shell.html">1.8. The Interactive Shell</a></span></li>
+                     <li><span class="section"><a href="../installing_python/summary.html">1.9. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../getting_to_know_python/index.html">2. Your First Python Program</a></span><ul>
+                     <li><span class="section"><a href="../getting_to_know_python/index.html#odbchelper.divein">2.1. Diving in</a></span></li>
+                     <li><span class="section"><a href="../getting_to_know_python/declaring_functions.html">2.2. Declaring Functions</a></span><ul>
+                           <li><span class="section"><a href="../getting_to_know_python/declaring_functions.html#d0e4188">2.2.1. How Python's Datatypes Compare to Other Programming Languages</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../getting_to_know_python/documenting_functions.html">2.3. Documenting Functions</a></span></li>
+                     <li><span class="section"><a href="../getting_to_know_python/everything_is_an_object.html">2.4. Everything Is an Object</a></span><ul>
+                           <li><span class="section"><a href="../getting_to_know_python/everything_is_an_object.html#d0e4550">2.4.1. The Import Search Path</a></span></li>
+                           <li><span class="section"><a href="../getting_to_know_python/everything_is_an_object.html#d0e4665">2.4.2. What's an Object?</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../getting_to_know_python/indenting_code.html">2.5. Indenting Code</a></span></li>
+                     <li><span class="section"><a href="../getting_to_know_python/testing_modules.html">2.6. Testing Modules</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../native_data_types/index.html">3. Native Datatypes</a></span><ul>
+                     <li><span class="section"><a href="../native_data_types/index.html#odbchelper.dict">3.1. Introducing Dictionaries</a></span><ul>
+                           <li><span class="section"><a href="../native_data_types/index.html#d0e5174">3.1.1. Defining Dictionaries</a></span></li>
+                           <li><span class="section"><a href="../native_data_types/index.html#d0e5269">3.1.2. Modifying Dictionaries</a></span></li>
+                           <li><span class="section"><a href="../native_data_types/index.html#d0e5450">3.1.3. Deleting Items From Dictionaries</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../native_data_types/lists.html">3.2. Introducing Lists</a></span><ul>
+                           <li><span class="section"><a href="../native_data_types/lists.html#d0e5623">3.2.1. Defining Lists</a></span></li>
+                           <li><span class="section"><a href="../native_data_types/lists.html#d0e5887">3.2.2. Adding Elements to Lists</a></span></li>
+                           <li><span class="section"><a href="../native_data_types/lists.html#d0e6115">3.2.3. Searching Lists</a></span></li>
+                           <li><span class="section"><a href="../native_data_types/lists.html#d0e6277">3.2.4. Deleting List Elements</a></span></li>
+                           <li><span class="section"><a href="../native_data_types/lists.html#d0e6392">3.2.5. Using List Operators</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../native_data_types/tuples.html">3.3. Introducing Tuples</a></span></li>
+                     <li><span class="section"><a href="../native_data_types/declaring_variables.html">3.4. Declaring variables</a></span><ul>
+                           <li><span class="section"><a href="../native_data_types/declaring_variables.html#d0e6873">3.4.1. Referencing Variables</a></span></li>
+                           <li><span class="section"><a href="../native_data_types/declaring_variables.html#odbchelper.multiassign">3.4.2. Assigning Multiple Values at Once</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../native_data_types/formatting_strings.html">3.5. Formatting Strings</a></span></li>
+                     <li><span class="section"><a href="../native_data_types/mapping_lists.html">3.6. Mapping Lists</a></span></li>
+                     <li><span class="section"><a href="../native_data_types/joining_lists.html">3.7. Joining Lists and Splitting Strings</a></span><ul>
+                           <li><span class="section"><a href="../native_data_types/joining_lists.html#d0e7982">3.7.1. Historical Note on String Methods</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../native_data_types/summary.html">3.8. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../power_of_introspection/index.html">4. The Power Of Introspection</a></span><ul>
+                     <li><span class="section"><a href="../power_of_introspection/index.html#apihelper.divein">4.1. Diving In</a></span></li>
+                     <li><span class="section"><a href="../power_of_introspection/optional_arguments.html">4.2. Using Optional and Named Arguments</a></span></li>
+                     <li><span class="section"><a href="../power_of_introspection/built_in_functions.html">4.3. Using type, str, dir, and Other Built-In Functions</a></span><ul>
+                           <li><span class="section"><a href="../power_of_introspection/built_in_functions.html#d0e8510">4.3.1. The type Function</a></span></li>
+                           <li><span class="section"><a href="../power_of_introspection/built_in_functions.html#d0e8609">4.3.2. The str Function</a></span></li>
+                           <li><span class="section"><a href="../power_of_introspection/built_in_functions.html#d0e8958">4.3.3. Built-In Functions</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../power_of_introspection/getattr.html">4.4. Getting Object References With getattr</a></span><ul>
+                           <li><span class="section"><a href="../power_of_introspection/getattr.html#d0e9194">4.4.1. getattr with Modules</a></span></li>
+                           <li><span class="section"><a href="../power_of_introspection/getattr.html#d0e9362">4.4.2. getattr As a Dispatcher</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../power_of_introspection/filtering_lists.html">4.5. Filtering Lists</a></span></li>
+                     <li><span class="section"><a href="../power_of_introspection/and_or.html">4.6. The Peculiar Nature of and and or</a></span><ul>
+                           <li><span class="section"><a href="../power_of_introspection/and_or.html#d0e9975">4.6.1. Using the and-or Trick</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../power_of_introspection/lambda_functions.html">4.7. Using lambda Functions</a></span><ul>
+                           <li><span class="section"><a href="../power_of_introspection/lambda_functions.html#d0e10403">4.7.1. Real-World lambda Functions</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../power_of_introspection/all_together.html">4.8. Putting It All Together</a></span></li>
+                     <li><span class="section"><a href="../power_of_introspection/summary.html">4.9. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../object_oriented_framework/index.html">5. Objects and Object-Orientation</a></span><ul>
+                     <li><span class="section"><a href="../object_oriented_framework/index.html#fileinfo.divein">5.1. Diving In</a></span></li>
+                     <li><span class="section"><a href="../object_oriented_framework/importing_modules.html">5.2. Importing Modules Using from module import</a></span></li>
+                     <li><span class="section"><a href="../object_oriented_framework/defining_classes.html">5.3. Defining Classes</a></span><ul>
+                           <li><span class="section"><a href="../object_oriented_framework/defining_classes.html#d0e11720">5.3.1. Initializing and Coding Classes</a></span></li>
+                           <li><span class="section"><a href="../object_oriented_framework/defining_classes.html#d0e11896">5.3.2. Knowing When to Use self and __init__</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../object_oriented_framework/instantiating_classes.html">5.4. Instantiating Classes</a></span><ul>
+                           <li><span class="section"><a href="../object_oriented_framework/instantiating_classes.html#d0e12165">5.4.1. Garbage Collection</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../object_oriented_framework/userdict.html">5.5. Exploring UserDict: A Wrapper Class</a></span></li>
+                     <li><span class="section"><a href="../object_oriented_framework/special_class_methods.html">5.6. Special Class Methods</a></span><ul>
+                           <li><span class="section"><a href="../object_oriented_framework/special_class_methods.html#d0e12822">5.6.1. Getting and Setting Items</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../object_oriented_framework/special_class_methods2.html">5.7. Advanced Special Class Methods</a></span></li>
+                     <li><span class="section"><a href="../object_oriented_framework/class_attributes.html">5.8. Introducing Class Attributes</a></span></li>
+                     <li><span class="section"><a href="../object_oriented_framework/private_functions.html">5.9. Private Functions</a></span></li>
+                     <li><span class="section"><a href="../object_oriented_framework/summary.html">5.10. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../file_handling/index.html">6. Exceptions and File Handling</a></span><ul>
+                     <li><span class="section"><a href="../file_handling/index.html#fileinfo.exception">6.1. Handling Exceptions</a></span><ul>
+                           <li><span class="section"><a href="../file_handling/index.html#d0e14344">6.1.1. Using Exceptions For Other Purposes</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../file_handling/file_objects.html">6.2. Working with File Objects</a></span><ul>
+                           <li><span class="section"><a href="../file_handling/file_objects.html#d0e14670">6.2.1. Reading Files</a></span></li>
+                           <li><span class="section"><a href="../file_handling/file_objects.html#d0e14800">6.2.2. Closing Files</a></span></li>
+                           <li><span class="section"><a href="../file_handling/file_objects.html#d0e14928">6.2.3. Handling I/O Errors</a></span></li>
+                           <li><span class="section"><a href="../file_handling/file_objects.html#d0e15055">6.2.4. Writing to Files</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../file_handling/for_loops.html">6.3. Iterating with for Loops</a></span></li>
+                     <li><span class="section"><a href="../file_handling/more_on_modules.html">6.4. Using sys.modules</a></span></li>
+                     <li><span class="section"><a href="../file_handling/os_module.html">6.5. Working with Directories</a></span></li>
+                     <li><span class="section"><a href="../file_handling/all_together.html">6.6. Putting It All Together</a></span></li>
+                     <li><span class="section"><a href="../file_handling/summary.html">6.7. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../regular_expressions/index.html">7. Regular Expressions</a></span><ul>
+                     <li><span class="section"><a href="../regular_expressions/index.html#re.intro">7.1. Diving In</a></span></li>
+                     <li><span class="section"><a href="../regular_expressions/street_addresses.html">7.2. Case Study: Street Addresses</a></span></li>
+                     <li><span class="section"><a href="../regular_expressions/roman_numerals.html">7.3. Case Study: Roman Numerals</a></span><ul>
+                           <li><span class="section"><a href="../regular_expressions/roman_numerals.html#d0e17592">7.3.1. Checking for Thousands</a></span></li>
+                           <li><span class="section"><a href="../regular_expressions/roman_numerals.html#d0e17785">7.3.2. Checking for Hundreds</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../regular_expressions/n_m_syntax.html">7.4. Using the {n,m} Syntax</a></span><ul>
+                           <li><span class="section"><a href="../regular_expressions/n_m_syntax.html#d0e18326">7.4.1. Checking for Tens and Ones</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../regular_expressions/verbose.html">7.5. Verbose Regular Expressions</a></span></li>
+                     <li><span class="section"><a href="../regular_expressions/phone_numbers.html">7.6. Case study: Parsing Phone Numbers</a></span></li>
+                     <li><span class="section"><a href="../regular_expressions/summary.html">7.7. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../html_processing/index.html">8. HTML Processing</a></span><ul>
+                     <li><span class="section"><a href="../html_processing/index.html#dialect.divein">8.1. Diving in</a></span></li>
+                     <li><span class="section"><a href="../html_processing/introducing_sgmllib.html">8.2. Introducing sgmllib.py</a></span></li>
+                     <li><span class="section"><a href="../html_processing/extracting_data.html">8.3. Extracting data from HTML documents</a></span></li>
+                     <li><span class="section"><a href="../html_processing/basehtmlprocessor.html">8.4. Introducing BaseHTMLProcessor.py</a></span></li>
+                     <li><span class="section"><a href="../html_processing/locals_and_globals.html">8.5. locals and globals</a></span></li>
+                     <li><span class="section"><a href="../html_processing/dictionary_based_string_formatting.html">8.6. Dictionary-based string formatting</a></span></li>
+                     <li><span class="section"><a href="../html_processing/quoting_attribute_values.html">8.7. Quoting attribute values</a></span></li>
+                     <li><span class="section"><a href="../html_processing/dialect.html">8.8. Introducing dialect.py</a></span></li>
+                     <li><span class="section"><a href="../html_processing/all_together.html">8.9. Putting it all together</a></span></li>
+                     <li><span class="section"><a href="../html_processing/summary.html">8.10. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../xml_processing/index.html">9. XML Processing</a></span><ul>
+                     <li><span class="section"><a href="../xml_processing/index.html#kgp.divein">9.1. Diving in</a></span></li>
+                     <li><span class="section"><a href="../xml_processing/packages.html">9.2. Packages</a></span></li>
+                     <li><span class="section"><a href="../xml_processing/parsing_xml.html">9.3. Parsing XML</a></span></li>
+                     <li><span class="section"><a href="../xml_processing/unicode.html">9.4. Unicode</a></span></li>
+                     <li><span class="section"><a href="../xml_processing/searching.html">9.5. Searching for elements</a></span></li>
+                     <li><span class="section"><a href="../xml_processing/attributes.html">9.6. Accessing element attributes</a></span></li>
+                     <li><span class="section"><a href="../xml_processing/summary.html">9.7. Segue</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../scripts_and_streams/index.html">10. Scripts and Streams</a></span><ul>
+                     <li><span class="section"><a href="../scripts_and_streams/index.html#kgp.openanything">10.1. Abstracting input sources</a></span></li>
+                     <li><span class="section"><a href="../scripts_and_streams/stdin_stdout_stderr.html">10.2. Standard input, output, and error</a></span></li>
+                     <li><span class="section"><a href="../scripts_and_streams/caching.html">10.3. Caching node lookups</a></span></li>
+                     <li><span class="section"><a href="../scripts_and_streams/child_nodes.html">10.4. Finding direct children of a node</a></span></li>
+                     <li><span class="section"><a href="../scripts_and_streams/handlers_by_node_type.html">10.5. Creating separate handlers by node type</a></span></li>
+                     <li><span class="section"><a href="../scripts_and_streams/command_line_arguments.html">10.6. Handling command-line arguments</a></span></li>
+                     <li><span class="section"><a href="../scripts_and_streams/all_together.html">10.7. Putting it all together</a></span></li>
+                     <li><span class="section"><a href="../scripts_and_streams/summary.html">10.8. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../http_web_services/index.html">11. HTTP Web Services</a></span><ul>
+                     <li><span class="section"><a href="../http_web_services/index.html#oa.divein">11.1. Diving in</a></span></li>
+                     <li><span class="section"><a href="../http_web_services/review.html">11.2. How not to fetch data over HTTP</a></span></li>
+                     <li><span class="section"><a href="../http_web_services/http_features.html">11.3. Features of HTTP</a></span><ul>
+                           <li><span class="section"><a href="../http_web_services/http_features.html#d0e27596">11.3.1. User-Agent</a></span></li>
+                           <li><span class="section"><a href="../http_web_services/http_features.html#d0e27616">11.3.2. Redirects</a></span></li>
+                           <li><span class="section"><a href="../http_web_services/http_features.html#d0e27689">11.3.3. Last-Modified/If-Modified-Since</a></span></li>
+                           <li><span class="section"><a href="../http_web_services/http_features.html#d0e27724">11.3.4. ETag/If-None-Match</a></span></li>
+                           <li><span class="section"><a href="../http_web_services/http_features.html#d0e27752">11.3.5. Compression</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../http_web_services/debugging.html">11.4. Debugging HTTP web services</a></span></li>
+                     <li><span class="section"><a href="../http_web_services/user_agent.html">11.5. Setting the User-Agent</a></span></li>
+                     <li><span class="section"><a href="../http_web_services/etags.html">11.6. Handling Last-Modified and ETag</a></span></li>
+                     <li><span class="section"><a href="../http_web_services/redirects.html">11.7. Handling redirects</a></span></li>
+                     <li><span class="section"><a href="../http_web_services/gzip_compression.html">11.8. Handling compressed data</a></span></li>
+                     <li><span class="section"><a href="../http_web_services/alltogether.html">11.9. Putting it all together</a></span></li>
+                     <li><span class="section"><a href="../http_web_services/summary.html">11.10. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../soap_web_services/index.html">12. SOAP Web Services</a></span><ul>
+                     <li><span class="section"><a href="../soap_web_services/index.html#soap.divein">12.1. Diving In</a></span></li>
+                     <li><span class="section"><a href="../soap_web_services/install.html">12.2. Installing the SOAP Libraries</a></span><ul>
+                           <li><span class="section"><a href="../soap_web_services/install.html#d0e29967">12.2.1. Installing PyXML</a></span></li>
+                           <li><span class="section"><a href="../soap_web_services/install.html#d0e30070">12.2.2. Installing fpconst</a></span></li>
+                           <li><span class="section"><a href="../soap_web_services/install.html#d0e30171">12.2.3. Installing SOAPpy</a></span></li>
+                        </ul>
+                     </li>
+                     <li><span class="section"><a href="../soap_web_services/first_steps.html">12.3. First Steps with SOAP</a></span></li>
+                     <li><span class="section"><a href="../soap_web_services/debugging.html">12.4. Debugging SOAP Web Services</a></span></li>
+                     <li><span class="section"><a href="../soap_web_services/wsdl.html">12.5. Introducing WSDL</a></span></li>
+                     <li><span class="section"><a href="../soap_web_services/introspection.html">12.6. Introspecting SOAP Web Services with WSDL</a></span></li>
+                     <li><span class="section"><a href="../soap_web_services/google.html">12.7. Searching Google</a></span></li>
+                     <li><span class="section"><a href="../soap_web_services/troubleshooting.html">12.8. Troubleshooting SOAP Web Services</a></span></li>
+                     <li><span class="section"><a href="../soap_web_services/summary.html">12.9. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../unit_testing/index.html">13. Unit Testing</a></span><ul>
+                     <li><span class="section"><a href="../unit_testing/index.html#roman.intro">13.1. Introduction to Roman numerals</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/diving_in.html">13.2. Diving in</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/romantest.html">13.3. Introducing romantest.py</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/testing_for_success.html">13.4. Testing for success</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/testing_for_failure.html">13.5. Testing for failure</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/testing_for_sanity.html">13.6. Testing for sanity</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../unit_testing/stage_1.html">14. Test-First Programming</a></span><ul>
+                     <li><span class="section"><a href="../unit_testing/stage_1.html#roman.stage1">14.1. roman.py, stage 1</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/stage_2.html">14.2. roman.py, stage 2</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/stage_3.html">14.3. roman.py, stage 3</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/stage_4.html">14.4. roman.py, stage 4</a></span></li>
+                     <li><span class="section"><a href="../unit_testing/stage_5.html">14.5. roman.py, stage 5</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../refactoring/index.html">15. Refactoring</a></span><ul>
+                     <li><span class="section"><a href="../refactoring/index.html#roman.bugs">15.1. Handling bugs</a></span></li>
+                     <li><span class="section"><a href="../refactoring/handling_changing_requirements.html">15.2. Handling changing requirements</a></span></li>
+                     <li><span class="section"><a href="../refactoring/refactoring.html">15.3. Refactoring</a></span></li>
+                     <li><span class="section"><a href="../refactoring/postscript.html">15.4. Postscript</a></span></li>
+                     <li><span class="section"><a href="../refactoring/summary.html">15.5. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../functional_programming/index.html">16. Functional Programming</a></span><ul>
+                     <li><span class="section"><a href="../functional_programming/index.html#regression.divein">16.1. Diving in</a></span></li>
+                     <li><span class="section"><a href="../functional_programming/finding_the_path.html">16.2. Finding the path</a></span></li>
+                     <li><span class="section"><a href="../functional_programming/filtering_lists.html">16.3. Filtering lists revisited</a></span></li>
+                     <li><span class="section"><a href="../functional_programming/mapping_lists.html">16.4. Mapping lists revisited</a></span></li>
+                     <li><span class="section"><a href="../functional_programming/data_centric.html">16.5. Data-centric programming</a></span></li>
+                     <li><span class="section"><a href="../functional_programming/dynamic_import.html">16.6. Dynamically importing modules</a></span></li>
+                     <li><span class="section"><a href="../functional_programming/all_together.html">16.7. Putting it all together</a></span></li>
+                     <li><span class="section"><a href="../functional_programming/summary.html">16.8. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../dynamic_functions/index.html">17. Dynamic functions</a></span><ul>
+                     <li><span class="section"><a href="../dynamic_functions/index.html#plural.divein">17.1. Diving in</a></span></li>
+                     <li><span class="section"><a href="../dynamic_functions/stage1.html">17.2. plural.py, stage 1</a></span></li>
+                     <li><span class="section"><a href="../dynamic_functions/stage2.html">17.3. plural.py, stage 2</a></span></li>
+                     <li><span class="section"><a href="../dynamic_functions/stage3.html">17.4. plural.py, stage 3</a></span></li>
+                     <li><span class="section"><a href="../dynamic_functions/stage4.html">17.5. plural.py, stage 4</a></span></li>
+                     <li><span class="section"><a href="../dynamic_functions/stage5.html">17.6. plural.py, stage 5</a></span></li>
+                     <li><span class="section"><a href="../dynamic_functions/stage6.html">17.7. plural.py, stage 6</a></span></li>
+                     <li><span class="section"><a href="../dynamic_functions/summary.html">17.8. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="chapter"><a href="../performance_tuning/index.html">18. Performance Tuning</a></span><ul>
+                     <li><span class="section"><a href="../performance_tuning/index.html#soundex.divein">18.1. Diving in</a></span></li>
+                     <li><span class="section"><a href="../performance_tuning/timeit.html">18.2. Using the timeit Module</a></span></li>
+                     <li><span class="section"><a href="../performance_tuning/regular_expressions.html">18.3. Optimizing Regular Expressions</a></span></li>
+                     <li><span class="section"><a href="../performance_tuning/dictionary_lookups.html">18.4. Optimizing Dictionary Lookups</a></span></li>
+                     <li><span class="section"><a href="../performance_tuning/list_operations.html">18.5. Optimizing List Operations</a></span></li>
+                     <li><span class="section"><a href="../performance_tuning/string_manipulation.html">18.6. Optimizing String Manipulation</a></span></li>
+                     <li><span class="section"><a href="../performance_tuning/summary.html">18.7. Summary</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="appendix"><a href="../appendix/furtherreading.html">A. Further reading</a></span></li>
+               <li><span class="appendix"><a href="../appendix/abstracts.html">B. A 5-minute review</a></span></li>
+               <li><span class="appendix"><a href="../appendix/tips.html">C. Tips and tricks</a></span></li>
+               <li><span class="appendix"><a href="../appendix/examples.html">D. List of examples</a></span></li>
+               <li><span class="appendix"><a href="../appendix/history.html">E. Revision history</a></span></li>
+               <li><span class="appendix"><a href="../appendix/about.html">F. About the book</a></span></li>
+               <li><span class="appendix"><a href="../appendix/fdl.html">G. GNU Free Documentation License</a></span><ul>
+                     <li><span class="section"><a href="../appendix/fdl.html#d0e40006">G.0. Preamble</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_applicability.html">G.1. Applicability and definitions</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_copying.html">G.2. Verbatim copying</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_copyinginquantity.html">G.3. Copying in quantity</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_modifications.html">G.4. Modifications</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_combining.html">G.5. Combining documents</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_collections.html">G.6. Collections of documents</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_aggregation.html">G.7. Aggregation with independent works</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_translation.html">G.8. Translation</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_termination.html">G.9. Termination</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_future.html">G.10. Future revisions of this license</a></span></li>
+                     <li><span class="section"><a href="../appendix/fdl_howto.html">G.11. How to use this License for your documents</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="appendix"><a href="../appendix/license.html">H. Python license</a></span><ul>
+                     <li><span class="section"><a href="../appendix/license.html#d0e40180">H.A. History of the software</a></span></li>
+                     <li><span class="section"><a href="../appendix/license_terms.html">H.B. Terms and conditions for accessing or otherwise using Python</a></span><ul>
+                           <li><span class="section"><a href="../appendix/license_terms.html#d0e40195">H.B.1. PSF license agreement</a></span></li>
+                           <li><span class="section"><a href="../appendix/license_terms.html#d0e40223">H.B.2. BeOpen Python open source license agreement version 1</a></span></li>
+                           <li><span class="section"><a href="../appendix/license_terms.html#d0e40248">H.B.3. CNRI open source GPL-compatible license agreement</a></span></li>
+                           <li><span class="section"><a href="../appendix/license_terms.html#d0e40276">H.B.4. CWI permissions statement and disclaimer</a></span></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="../installing_python/index.html">Installing Python&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

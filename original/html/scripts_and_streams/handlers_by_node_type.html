@@ -1,0 +1,187 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>10.5.&nbsp;Creating separate handlers by node type</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;10.&nbsp;Scripts and Streams">
+      <link rel="previous" href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">
+      <link rel="next" href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Creating separate handlers by node type</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="child_nodes.html" title="Prev: &#8220;Finding direct children of a node&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="command_line_arguments.html" title="Next: &#8220;Handling command-line arguments&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.handler"></a>10.5.&nbsp;Creating separate handlers by node type
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The third useful <span class="acronym">XML</span> processing tip involves separating your code into logical functions, based on node types and element names.  Parsed <span class="acronym">XML</span> documents are made up of various types of nodes, each represented by a <span class="application">Python</span> object.  The root level of the document itself is represented by a <tt class="classname">Document</tt> object.  The <tt class="classname">Document</tt> then contains one or more <tt class="classname">Element</tt> objects (for actual <span class="acronym">XML</span> tags), each of which may contain other <tt class="classname">Element</tt> objects, <tt class="classname">Text</tt> objects (for bits of text), or <tt class="classname">Comment</tt> objects (for embedded comments).  <span class="application">Python</span> makes it easy to write a dispatcher to separate the logic for each node type.
+            </p>
+         </div>
+         <div class="example"><a name="d0e26627"></a><h3 class="title">Example&nbsp;10.17.&nbsp;Class names of parsed <span class="acronym">XML</span> objects
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> xml.dom <span class='pykeyword'>import</span> minidom</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class='pystring'>'kant.xml'</span>)</span> <a name="kgp.handler.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc</span>
+<span class="computeroutput">&lt;xml.dom.minidom.Document instance at 0x01359DE8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.__class__</span>                   <a name="kgp.handler.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;class xml.dom.minidom.Document at 0x01105D40&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.__class__.__name__</span>          <a name="kgp.handler.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'Document'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Assume for a moment that <tt class="filename">kant.xml</tt> is in the current directory.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../xml_processing/packages.html" title="9.2.&nbsp;Packages">Section&nbsp;9.2, &#8220;Packages&#8221;</a>, the object returned by parsing an <span class="acronym">XML</span> document is a <tt class="classname">Document</tt> object, as defined in the <tt class="filename">minidom.py</tt> in the <tt class="filename">xml.dom</tt> package.  As you saw in <a href="../object_oriented_framework/instantiating_classes.html" title="5.4.&nbsp;Instantiating Classes">Section&nbsp;5.4, &#8220;Instantiating Classes&#8221;</a>, <tt class="literal">__class__</tt> is built-in attribute of every <span class="application">Python</span> object.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Furthermore, <tt class="literal">__name__</tt> is a built-in attribute of every <span class="application">Python</span> class, and it is a string.  This string is not mysterious; it's the same as the class name you type when you define a class
+                        yourself.  (See <a href="../object_oriented_framework/defining_classes.html" title="5.3.&nbsp;Defining Classes">Section&nbsp;5.3, &#8220;Defining Classes&#8221;</a>.)
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Fine, so now you can get the class name of any particular <span class="acronym">XML</span> node (since each <span class="acronym">XML</span> node is represented as a <span class="application">Python</span> object).  How can you use this to your advantage to separate the logic of parsing each node type?  The answer is <tt class="function">getattr</tt>, which you first saw in <a href="../power_of_introspection/getattr.html" title="4.4.&nbsp;Getting Object References With getattr">Section&nbsp;4.4, &#8220;Getting Object References With getattr&#8221;</a>.
+         </p>
+         <div class="example"><a name="d0e26733"></a><h3 class="title">Example&nbsp;10.18.&nbsp;<tt class="function">parse</tt>, a generic <span class="acronym">XML</span> node dispatcher
+            </h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> parse</span>(self, node):          
+        parseMethod = getattr(self, <span class='pystring'>"parse_%s"</span> % node.__class__.__name__) <a name="kgp.handler.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="kgp.handler.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        parseMethod(node) <a name="kgp.handler.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">First off, notice that you're constructing a larger string based on the class name of the node you were passed (in the <tt class="varname">node</tt> argument).  So if you're passed a <tt class="classname">Document</tt> node, you're constructing the string <tt class="literal">'parse_Document'</tt>, and so forth.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now you can treat that string as a function name, and get a reference to the function itself using <tt class="function">getattr</tt></td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Finally, you can call that function and pass the node itself as an argument.  The next example shows the definitions of each
+                        of these functions.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e26769"></a><h3 class="title">Example&nbsp;10.19.&nbsp;Functions called by the <tt class="function">parse</tt> dispatcher
+            </h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Document</span>(self, node): <a name="kgp.handler.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        self.parse(node.documentElement)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Text</span>(self, node):    <a name="kgp.handler.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        text = node.data
+        <span class='pykeyword'>if</span> self.capitalizeNextWord:
+            self.pieces.append(text[0].upper())
+            self.pieces.append(text[1:])
+            self.capitalizeNextWord = 0
+        <span class='pykeyword'>else</span>:
+            self.pieces.append(text)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Comment</span>(self, node): <a name="kgp.handler.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pykeyword'>pass</span>
+
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Element</span>(self, node): <a name="kgp.handler.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        handlerMethod = getattr(self, <span class='pystring'>"do_%s"</span> % node.tagName)
+        handlerMethod(node)</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">parse_Document</tt> is only ever called once, since there is only one <tt class="classname">Document</tt> node in an <span class="acronym">XML</span> document, and only one <tt class="classname">Document</tt> object in the parsed <span class="acronym">XML</span> representation.  It simply turns around and parses the root element of the grammar file.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">parse_Text</tt> is called on nodes that represent bits of text.  The function itself does some special processing to handle automatic capitalization
+                        of the first word of a sentence, but otherwise simply appends the represented text to a list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">parse_Comment</tt> is just a <tt class="literal">pass</tt>, since you don't care about embedded comments in the grammar files.  Note, however, that you still need to define the function
+                        and explicitly make it do nothing.  If the function did not exist, the generic <tt class="function">parse</tt> function would fail as soon as it stumbled on a comment, because it would try to find the non-existent <tt class="function">parse_Comment</tt> function.  Defining a separate function for every node type, even ones you don't use, allows the generic <tt class="function">parse</tt> function to stay simple and dumb.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.handler.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">parse_Element</tt> method is actually itself a dispatcher, based on the name of the element's tag.  The basic idea is the same: take what distinguishes
+                        elements from each other (their tag names) and dispatch to a separate function for each of them.  You construct a string like
+                        <tt class="literal">'do_xref'</tt> (for an <tt class="sgmltag-element">&lt;xref&gt;</tt> tag), find a function of that name, and call it.  And so forth for each of the other tag names that might be found in the
+                        course of parsing a grammar file (<tt class="sgmltag-element">&lt;p&gt;</tt> tags, <tt class="sgmltag-element">&lt;choice&gt;</tt> tags).
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>In this example, the dispatch functions <tt class="function">parse</tt> and <tt class="function">parse_Element</tt> simply find other methods in the same class.  If your processing is very complex (or you have many different tag names),
+            you could break up your code into separate modules, and use dynamic importing to import each module and call whatever functions
+            you needed.  Dynamic importing will be discussed in <a href="../functional_programming/index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">Chapter&nbsp;16, <i>Functional Programming</i></a>.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="child_nodes.html">&lt;&lt;&nbsp;Finding direct children of a node</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="command_line_arguments.html">Handling command-line arguments&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

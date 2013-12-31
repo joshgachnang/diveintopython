@@ -1,0 +1,161 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>16.6.&nbsp;Dynamically importing modules</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">
+      <link rel="previous" href="data_centric.html" title="16.5.&nbsp;Data-centric programming">
+      <link rel="next" href="all_together.html" title="16.7.&nbsp;Putting it all together">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Dynamically importing modules</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="data_centric.html" title="Prev: &#8220;Data-centric programming&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="all_together.html" title="Next: &#8220;Putting it all together&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="regression.import"></a>16.6.&nbsp;Dynamically importing modules
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>OK, enough philosophizing.  Let's talk about dynamically importing modules.</p>
+         </div>
+         <p>First, let's look at how you normally import modules.  The <tt class="literal">import <i class="replaceable">module</i></tt> syntax looks in the search path for the named module and imports it by name.  You can even import multiple modules at once
+            this way, with a comma-separated list.  You did this on the very first line of this chapter's script.
+         </p>
+         <div class="example"><a name="d0e36316"></a><h3 class="title">Example&nbsp;16.13.&nbsp;Importing multiple modules at once</h3><pre class="programlisting"><span class='pykeyword'>
+import</span> sys, os, re, unittest <a name="regression.import.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.import.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This imports four modules at once: <tt class="filename">sys</tt> (for system functions and access to the command line parameters), <tt class="filename">os</tt> (for operating system functions like directory listings), <tt class="filename">re</tt> (for regular expressions), and <tt class="filename">unittest</tt> (for unit testing).
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Now let's do the same thing, but with dynamic imports.</p>
+         <div class="example"><a name="d0e36341"></a><h3 class="title">Example&nbsp;16.14.&nbsp;Importing modules dynamically</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys = __import__(<span class='pystring'>'sys'</span>)</span>           <a name="regression.import.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os = __import__(<span class='pystring'>'os'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re = __import__(<span class='pystring'>'re'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">unittest = __import__(<span class='pystring'>'unittest'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys</span>                               <a name="regression.import.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="computeroutput">&lt;module 'sys' (built-in)&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">os</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="computeroutput">&lt;module 'os' from '/usr/local/lib/python2.2/os.pyc'&gt;</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.import.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The built-in <tt class="function">__import__</tt> function accomplishes the same goal as using the <tt class="literal">import</tt> statement, but it's an actual function, and it takes a string as an argument.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.import.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The variable <tt class="varname">sys</tt> is now the <tt class="filename">sys</tt> module, just as if you had said <tt class="literal">import sys</tt>.  The variable <tt class="varname">os</tt> is now the <tt class="filename">os</tt> module, and so forth.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So <tt class="function">__import__</tt> imports a module, but takes a string argument to do it.  In this case the module you imported was just a hard-coded string,
+            but it could just as easily be a variable, or the result of a function call.  And the variable that you assign the module
+            to doesn't need to match the module name, either.  You could import a series of modules and assign them to a list.
+         </p>
+         <div class="example"><a name="d0e36423"></a><h3 class="title">Example&nbsp;16.15.&nbsp;Importing a list of modules dynamically</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">moduleNames = [<span class='pystring'>'sys'</span>, <span class='pystring'>'os'</span>, <span class='pystring'>'re'</span>, <span class='pystring'>'unittest'</span>]</span> <a name="regression.import.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">moduleNames</span>
+<span class="computeroutput">['sys', 'os', 're', 'unittest']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules = map(__import__, moduleNames)</span>        <a name="regression.import.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules</span>                                       <a name="regression.import.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;module 'sys' (built-in)&gt;,
+&lt;module 'os' from 'c:\Python22\lib\os.pyc'&gt;,
+&lt;module 're' from 'c:\Python22\lib\re.pyc'&gt;,
+&lt;module 'unittest' from 'c:\Python22\lib\unittest.pyc'&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules[0].version</span>                            <a name="regression.import.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'2.2.2 (#37, Nov 26 2002, 10:24:37) [MSC 32 bit (Intel)]'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> sys</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.version</span>
+<span class="computeroutput">'2.2.2 (#37, Nov 26 2002, 10:24:37) [MSC 32 bit (Intel)]'</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.import.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">moduleNames</tt> is just a list of strings.  Nothing fancy, except that the strings happen to be names of modules that you could import, if
+                        you wanted to.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.import.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Surprise, you wanted to import them, and you did, by mapping the <tt class="function">__import__</tt> function onto the list.  Remember, this takes each element of the list (<tt class="varname">moduleNames</tt>) and calls the function (<tt class="function">__import__</tt>) over and over, once with each element of the list, builds a list of the return values, and returns the result.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.import.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">So now from a list of strings, you've created a list of actual modules.  (Your paths may be different, depending on your operating
+                        system, where you installed Python, the phase of the moon, etc.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.import.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To drive home the point that these are real modules, let's look at some module attributes.  Remember, <tt class="varname">modules[0]</tt> <span class="emphasis"><em>is</em></span> the <tt class="filename">sys</tt> module, so <tt class="varname">modules[0].version</tt> <span class="emphasis"><em>is</em></span> <tt class="varname">sys.version</tt>.  All the other attributes and methods of these modules are also available.  There's nothing magic about the <tt class="literal">import</tt> statement, and there's nothing magic about modules.  Modules are objects.  Everything is an object.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Now you should be able to put this all together and figure out what most of this chapter's code sample is doing.</p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="data_centric.html">&lt;&lt;&nbsp;Data-centric programming</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <a href="data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="all_together.html">Putting it all together&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

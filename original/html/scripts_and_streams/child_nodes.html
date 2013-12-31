@@ -1,0 +1,106 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>10.4.&nbsp;Finding direct children of a node</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;10.&nbsp;Scripts and Streams">
+      <link rel="previous" href="caching.html" title="10.3.&nbsp;Caching node lookups">
+      <link rel="next" href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Finding direct children of a node</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="caching.html" title="Prev: &#8220;Caching node lookups&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="handlers_by_node_type.html" title="Next: &#8220;Creating separate handlers by node type&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.child"></a>10.4.&nbsp;Finding direct children of a node
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Another useful techique when parsing <span class="acronym">XML</span> documents is finding all the direct child elements of a particular element.  For instance, in the grammar files, a <tt class="sgmltag-element">ref</tt> element can have several <tt class="sgmltag-element">p</tt> elements, each of which can contain many things, including other <tt class="sgmltag-element">p</tt> elements.  You want to find just the <tt class="sgmltag-element">p</tt> elements that are children of the <tt class="sgmltag-element">ref</tt>, not <tt class="sgmltag-element">p</tt> elements that are children of other <tt class="sgmltag-element">p</tt> elements.
+            </p>
+         </div>
+         <p>You might think you could simply use <tt class="function">getElementsByTagName</tt> for this, but you can't.  <tt class="function">getElementsByTagName</tt> searches recursively and returns a single list for all the elements it finds.  Since <tt class="sgmltag-element">p</tt> elements can contain other <tt class="sgmltag-element">p</tt> elements, you can't use <tt class="function">getElementsByTagName</tt>, because it would return nested <tt class="sgmltag-element">p</tt> elements that you don't want.  To find only direct child elements, you'll need to do it yourself.
+         </p>
+         <div class="example"><a name="d0e26500"></a><h3 class="title">Example&nbsp;10.16.&nbsp;Finding direct child elements</h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> randomChildElement</span>(self, node):
+        choices = [e <span class='pykeyword'>for</span> e <span class='pykeyword'>in</span> node.childNodes
+                   <span class='pykeyword'>if</span> e.nodeType == e.ELEMENT_NODE] <a name="kgp.child.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="kgp.child.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="kgp.child.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        chosen = random.choice(choices)             <a name="kgp.child.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> chosen                              </pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.child.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../xml_processing/parsing_xml.html#kgp.parse.gettingchildnodes.example" title="Example&nbsp;9.9.&nbsp;Getting child nodes">Example&nbsp;9.9, &#8220;Getting child nodes&#8221;</a>, the <tt class="function">childNodes</tt> attribute returns a list of all the child nodes of an element.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.child.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">However, as you saw in <a href="../xml_processing/parsing_xml.html#kgp.parse.childnodescanbetext.example" title="Example&nbsp;9.11.&nbsp;Child nodes can be text">Example&nbsp;9.11, &#8220;Child nodes can be text&#8221;</a>, the list returned by <tt class="function">childNodes</tt> contains all different types of nodes, including text nodes.  That's not what you're looking for here.  You only want the
+                        children that are elements.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.child.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Each node has a <tt class="varname">nodeType</tt> attribute, which can be <tt class="literal">ELEMENT_NODE</tt>, <tt class="literal">TEXT_NODE</tt>, <tt class="literal">COMMENT_NODE</tt>, or any number of other values.  The complete list of possible values is in the <tt class="filename">__init__.py</tt> file in the <tt class="classname">xml.dom</tt> package.  (See <a href="../xml_processing/packages.html" title="9.2.&nbsp;Packages">Section&nbsp;9.2, &#8220;Packages&#8221;</a> for more on packages.)  But you're just interested in nodes that are elements, so you can filter the list to only include
+                        those nodes whose <tt class="varname">nodeType</tt> is <tt class="literal">ELEMENT_NODE</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.child.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Once you have a list of actual elements, choosing a random one is easy.  <span class="application">Python</span> comes with a module called <tt class="filename">random</tt> which includes several useful functions.  The <tt class="function">random.choice</tt> function takes a list of any number of items and returns a random item.  For example, if the <tt class="sgmltag-element">ref</tt> elements contains several <tt class="sgmltag-element">p</tt> elements, then <tt class="varname">choices</tt> would be a list of <tt class="sgmltag-element">p</tt> elements, and <tt class="varname">chosen</tt> would end up being assigned exactly one of them, selected at random.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="caching.html">&lt;&lt;&nbsp;Caching node lookups</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="handlers_by_node_type.html">Creating separate handlers by node type&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -3,24 +3,27 @@ import os
 import sys
 import hashlib
 
-BUCKET_NAME = 'www.diveintopython.net'
-ignored_folders = ('save', 'www.diveintopython.org', 'diveintopythonbak', '.git')
+BUCKET_NAME = 'new.diveintopython.net'
+ignored_folders = ('save', 'www.diveintopython.org', 'diveintopythonbak', '.git', '.Python', '.DS_Store')
 ignored_files = ('scrape.py', 'upload.py', 'scrape.py~', 'upload.py~', '.gitignore')
 
 conn = boto.connect_s3()
 bucket = conn.get_bucket(BUCKET_NAME)
-base_dir = '/home/josh/programming/diveintopython/new'
+base_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'pages')
+
 
 files_changed = False
 def check_ignore(adir, file):
     if adir is not None:
         for fol in ignored_folders:
             if fol in adir:
+                print "ignoring", file
                 return True
     for f in ignored_files:
         if f == file:
             return True
     return False
+
 
 # Handy tip from https://groups.google.com/forum/#!topic/boto-users/eg_Qae9Tz2U
 def md5(fname):
@@ -33,6 +36,7 @@ def md5(fname):
             break
         md5.update(data)
     return md5
+
 
 def upload_file(root, files):
     for filename in files:
@@ -61,8 +65,9 @@ def upload_file(root, files):
         key.set_contents_from_filename(file_path, cb=status, num_cb=10, policy="public-read",)
         files_changed = True
 
+
 def upload(directory):
-    sys.stdout.write("Beginning upload to %s\n" % BUCKET_NAME)
+    sys.stdout.write("Beginning upload from {0} to {1}\n".format(directory, BUCKET_NAME))
     sys.stdout.flush()
     
     for (root, dirs, files) in os.walk(base_dir):
@@ -70,11 +75,12 @@ def upload(directory):
     
     if files_changed == False:
         print "\nNo files needed to be uploaded."
-    
+
+
 def status(complete, total):
     sys.stdout.write('.')
     sys.stdout.flush()
 
     
 if __name__ == '__main__':
-    upload('/home/josh/programming/diveintopython/new')
+    upload(os.path.join(base_dir, 'pages'))

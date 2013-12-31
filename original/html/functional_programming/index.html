@@ -1,0 +1,187 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;16.&nbsp;Functional Programming</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../refactoring/summary.html" title="15.5.&nbsp;Summary">
+      <link rel="next" href="finding_the_path.html" title="16.2.&nbsp;Finding the path">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Functional Programming</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../refactoring/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="finding_the_path.html" title="Next: &#8220;Finding the path&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="regression"></a>Chapter&nbsp;16.&nbsp;Functional Programming
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#regression.divein">16.1. Diving in</a></span></li>
+               <li><span class="section"><a href="finding_the_path.html">16.2. Finding the path</a></span></li>
+               <li><span class="section"><a href="filtering_lists.html">16.3. Filtering lists revisited</a></span></li>
+               <li><span class="section"><a href="mapping_lists.html">16.4. Mapping lists revisited</a></span></li>
+               <li><span class="section"><a href="data_centric.html">16.5. Data-centric programming</a></span></li>
+               <li><span class="section"><a href="dynamic_import.html">16.6. Dynamically importing modules</a></span></li>
+               <li><span class="section"><a href="all_together.html">16.7. Putting it all together</a></span></li>
+               <li><span class="section"><a href="summary.html">16.8. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="regression.divein"></a>16.1.&nbsp;Diving in
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>In <a href="../unit_testing/index.html" title="Chapter&nbsp;13.&nbsp;Unit Testing">Chapter&nbsp;13, <i>Unit Testing</i></a>, you learned about the philosophy of unit testing.  In <a href="../unit_testing/stage_1.html" title="Chapter&nbsp;14.&nbsp;Test-First Programming">Chapter&nbsp;14, <i>Test-First Programming</i></a>, you stepped through the implementation of basic unit tests in <span class="application">Python</span>.  In <a href="../refactoring/index.html" title="Chapter&nbsp;15.&nbsp;Refactoring">Chapter&nbsp;15, <i>Refactoring</i></a>, you saw how unit testing makes large-scale refactoring easier.  This chapter will build on those sample programs, but here
+                  we will focus more on advanced <span class="application">Python</span>-specific techniques, rather than on unit testing itself.
+               </p>
+            </div>
+            <p>The following is a complete <span class="application">Python</span> program that acts as a cheap and simple regression testing framework.  It takes unit tests that you've written for individual
+               modules, collects them all into one big test suite, and runs them all at once.  I actually use this script as part of the
+               build process for this book; I have unit tests for several of the example programs (not just the <tt class="filename">roman.py</tt> module featured in <a href="../unit_testing/index.html" title="Chapter&nbsp;13.&nbsp;Unit Testing">Chapter&nbsp;13, <i>Unit Testing</i></a>), and the first thing my automated build script does is run this program to make sure all my examples still work.  If this
+               regression test fails, the build immediately stops.  I don't want to release non-working examples any more than you want to
+               download them and sit around scratching your head and yelling at your monitor and wondering why they don't work.
+            </p>
+            <div class="example"><a name="d0e35275"></a><h3 class="title">Example&nbsp;16.1.&nbsp;<tt class="filename">regression.py</tt></h3>
+               <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+               </p><pre class="programlisting">
+<span class='pystring'>"""Regression testing framework
+
+This module will search for scripts in the same directory named
+XYZtest.py.  Each such script should be a test suite that tests a
+module through PyUnit.  (As of Python 2.1, PyUnit is included in
+the standard library as "unittest".)  This script will aggregate all
+found test suites into one big test suite and run them all at once.
+"""</span>
+
+<span class='pykeyword'>import</span> sys, os, re, unittest
+
+<span class='pykeyword'>def</span><span class='pyclass'> regressionTest</span>():
+    path = os.path.abspath(os.path.dirname(sys.argv[0]))   
+    files = os.listdir(path)                               
+    test = re.compile(<span class='pystring'>"test\.py$"</span>, re.IGNORECASE)          
+    files = filter(test.search, files)                     
+    filenameToModuleName = <span class='pykeyword'>lambda</span> f: os.path.splitext(f)[0]
+    moduleNames = map(filenameToModuleName, files)         
+    modules = map(__import__, moduleNames)                 
+    load = unittest.defaultTestLoader.loadTestsFromModule  
+    <span class='pykeyword'>return</span> unittest.TestSuite(map(load, modules))          
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:                   
+    unittest.main(defaultTest=<span class='pystring'>"regressionTest"</span>)
+</pre></div>
+            <p>Running this script in the same directory as the rest of the example scripts that come with this book will find all the unit
+               tests, named <tt class="filename"><i class="replaceable"><tt>module</tt></i>test.py</tt>, run them as a single test, and pass or fail them all at once.
+            </p>
+            <div class="example"><a name="d0e35293"></a><h3 class="title">Example&nbsp;16.2.&nbsp;Sample output of <tt class="filename">regression.py</tt></h3><pre class="screen">
+<tt class="prompt">[you@localhost py]$ </tt><span class="userinput">python regression.py -v</span>
+<span class="computeroutput">help should fail with no object ... ok                             </span><a name="regression.divein.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+help should return known result for apihelper ... ok
+help should honor collapse argument ... ok
+help should honor spacing argument ... ok
+buildConnectionString should fail with list input ... ok           </span><a name="regression.divein.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"><span class="computeroutput">
+buildConnectionString should fail with string input ... ok
+buildConnectionString should fail with tuple input ... ok
+buildConnectionString handles empty dictionary ... ok
+buildConnectionString returns known result with known input ... ok
+fromRoman should only accept uppercase input ... ok                </span><a name="regression.divein.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"><span class="computeroutput">
+toRoman should always return uppercase ... ok
+fromRoman should fail with blank string ... ok
+fromRoman should fail with malformed antecedents ... ok
+fromRoman should fail with repeated pairs of numerals ... ok
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ok
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+kgp a ref test ... ok
+kgp b ref test ... ok
+kgp c ref test ... ok
+kgp d ref test ... ok
+kgp e ref test ... ok
+kgp f ref test ... ok
+kgp g ref test ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 2.799s
+
+OK</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#regression.divein.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The first 5 tests are from <tt class="filename">apihelpertest.py</tt>, which tests the example script from <a href="../power_of_introspection/index.html" title="Chapter&nbsp;4.&nbsp;The Power Of Introspection">Chapter&nbsp;4, <i>The Power Of Introspection</i></a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#regression.divein.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The next 5 tests are from <tt class="filename">odbchelpertest.py</tt>, which tests the example script from <a href="../getting_to_know_python/index.html" title="Chapter&nbsp;2.&nbsp;Your First Python Program">Chapter&nbsp;2, <i>Your First Python Program</i></a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#regression.divein.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The rest are from <tt class="filename">romantest.py</tt>, which you studied in depth in <a href="../unit_testing/index.html" title="Chapter&nbsp;13.&nbsp;Unit Testing">Chapter&nbsp;13, <i>Unit Testing</i></a>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../refactoring/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <a href="data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <a href="dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <a href="all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="finding_the_path.html">Finding the path&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

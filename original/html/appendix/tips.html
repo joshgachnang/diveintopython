@@ -1,0 +1,839 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Appendix&nbsp;C.&nbsp;Tips and tricks</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="abstracts.html" title="Appendix&nbsp;B.&nbsp;A 5-minute review">
+      <link rel="next" href="examples.html" title="Appendix&nbsp;D.&nbsp;List of examples">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Tips and tricks</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="abstracts.html" title="Prev: &#8220;A 5-minute review&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="examples.html" title="Next: &#8220;List of examples&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="appendix" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="tips"></a>Appendix&nbsp;C.&nbsp;Tips and tricks
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <p><a href="../installing_python/index.html">Chapter&nbsp;1.&nbsp;Installing Python</a></p>
+         <ul></ul>
+         <p><a href="../getting_to_know_python/index.html">Chapter&nbsp;2.&nbsp;Your First Python Program</a></p>
+         <ul>
+            <li><a href="../getting_to_know_python/index.html#odbchelper.divein">2.1.&nbsp;Diving in</a><a name="tip.run.windows"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In the <span class="application">ActivePython</span> <span class="acronym">IDE</span> on Windows, you can run the <span class="application">Python</span> program you're editing by choosing
+                        <span class="guimenu">File</span>-&gt;<span class="guimenuitem"><span class="accel">R</span>un...</span> (<span><b class="shortcut"><span><b class="keycap">Ctrl</b></span>-<span class="keysym">R</span></b></span>).  Output is displayed in the interactive window.
+                     </td>
+                  </tr>
+               </table><a name="tip.run.mac"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In the <span class="application">Python</span> <span class="acronym">IDE</span> on <span class="abbrev">Mac</span> <span class="acronym">OS</span>, you can run a <span class="application">Python</span> program with
+                        <span class="guimenu">Python</span>-&gt;<span class="guimenuitem">Run window...</span> (<span><b class="shortcut"><span><b class="keycap">Cmd</b></span>-<span class="keysym">R</span></b></span>), but there is an important option you must set first.  Open the <tt class="filename">.py</tt> file in the <span class="acronym">IDE</span>, pop up the options menu by clicking the black triangle in the upper-right corner of the window, and make sure the <span class="guimenuitem">Run as __main__</span> option is checked.  This is a per-file setting, but you'll only need to do it once per file.
+                     </td>
+                  </tr>
+               </table><a name="tip.run.unix"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">On <span class="acronym">UNIX</span>-compatible systems (including <span class="abbrev">Mac</span> <span class="acronym">OS</span> X), you can run a <span class="application">Python</span> program from the command line: <b class="userinput"><tt>python <tt class="filename">odbchelper.py</tt></tt></b></td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../getting_to_know_python/declaring_functions.html">2.2.&nbsp;Declaring Functions</a><a name="compare.funcdef.vb"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Visual Basic</span>, functions (that return a value) start with <tt class="literal">function</tt>, and subroutines (that do not return a value) start with <tt class="literal">sub</tt>.  There are no subroutines in <span class="application">Python</span>.  Everything is a function, all functions return a value (even if it's <tt class="literal">None</tt>), and all functions start with <tt class="literal">def</tt>.
+                     </td>
+                  </tr>
+               </table><a name="compare.funcdef.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Java</span>, <span class="application"><span class="acronym">C++</span></span>, and other statically-typed languages, you must specify the datatype of the function return value and each function argument.
+                         In <span class="application">Python</span>, you never explicitly specify the datatype of anything.  Based on what value you assign, <span class="application">Python</span> keeps track of the datatype internally.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../getting_to_know_python/documenting_functions.html">2.3.&nbsp;Documenting Functions</a><a name="compare.quoting.perl"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Triple quotes are also an easy way to define a string with both single and double quotes, like <tt class="literal">qq/.../</tt> in <span class="application">Perl</span>.
+                     </td>
+                  </tr>
+               </table><a name="tip.docstring"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Many <span class="application">Python</span> <span class="acronym">IDE</span>s use the <tt class="literal">doc string</tt> to provide context-sensitive documentation, so that when you type a function name, its <tt class="literal">doc string</tt> appears as a tooltip.  This can be incredibly helpful, but it's only as good as the <tt class="literal">doc string</tt>s you write.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../getting_to_know_python/everything_is_an_object.html">2.4.&nbsp;Everything Is an Object</a><a name="compare.import.perl"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="literal">import</tt> in <span class="application">Python</span> is like <tt class="literal">require</tt> in <span class="application">Perl</span>.  Once you <tt class="literal">import</tt> a <span class="application">Python</span> module, you access its functions with <tt class="literal"><i class="replaceable">module</i>.<i class="replaceable">function</i></tt>; once you <tt class="literal">require</tt> a <span class="application">Perl</span> module, you access its functions with <tt class="literal"><i class="replaceable">module</i>::<i class="replaceable">function</i></tt>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../getting_to_know_python/indenting_code.html">2.5.&nbsp;Indenting Code</a><a name="compare.lineend.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> uses carriage returns to separate statements and a colon and indentation to separate code blocks.  <span class="application"><span class="acronym">C++</span></span> and <span class="application">Java</span> use semicolons to separate statements and curly braces to separate code blocks.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../getting_to_know_python/testing_modules.html">2.6.&nbsp;Testing Modules</a><a name="compare.equals.c"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Like <span class="application"><span class="acronym">C</span></span>, <span class="application">Python</span> uses <tt class="literal">==</tt> for comparison and <tt class="literal">=</tt> for assignment.  Unlike <span class="application"><span class="acronym">C</span></span>, <span class="application">Python</span> does not support in-line assignment, so there's no chance of accidentally assigning the value you thought you were comparing.
+                     </td>
+                  </tr>
+               </table><a name="tip.mac.runasmain"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">On <span class="application">MacPython</span>, there is an additional step to make the <tt class="literal">if</tt> <tt class="literal">__name__</tt> trick work.  Pop up the module's options menu by clicking the black triangle in the upper-right corner of the window, and
+                        make sure <span class="guimenuitem">Run as __main__</span> is checked.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../native_data_types/index.html">Chapter&nbsp;3.&nbsp;Native Datatypes</a></p>
+         <ul>
+            <li><a href="../native_data_types/index.html#odbchelper.dict">3.1.&nbsp;Introducing Dictionaries</a><a name="compare.dict.perl"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">A dictionary in <span class="application">Python</span> is like a hash in <span class="application">Perl</span>.  In <span class="application">Perl</span>, variables that store hashes always start with a <tt class="literal">%</tt> character.  In <span class="application">Python</span>, variables can be named anything, and <span class="application">Python</span> keeps track of the datatype internally.
+                     </td>
+                  </tr>
+               </table><a name="compare.dict.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">A dictionary in <span class="application">Python</span> is like an instance of the <tt class="classname">Hashtable</tt> class in <span class="application">Java</span>.
+                     </td>
+                  </tr>
+               </table><a name="compare.dict.vb"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">A dictionary in <span class="application">Python</span> is like an instance of the <tt class="classname">Scripting.Dictionary</tt> object in <span class="application">Visual Basic</span>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../native_data_types/index.html#d0e5269">3.1.2.&nbsp;Modifying Dictionaries</a><a name="tip.dictorder"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Dictionaries have no concept of order among elements.  It is incorrect to say that the elements are &#8220;<span class="quote">out of order</span>&#8221;; they are simply unordered.  This is an important distinction that will annoy you when you want to access the elements of
+                        a dictionary in a specific, repeatable order (like alphabetical order by key).  There are ways of doing this, but they're
+                        not built into the dictionary.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../native_data_types/lists.html">3.2.&nbsp;Introducing Lists</a><a name="compare.list.perl"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">A list in <span class="application">Python</span> is like an array in <span class="application">Perl</span>.  In <span class="application">Perl</span>, variables that store arrays always start with the <tt class="literal">@</tt> character; in <span class="application">Python</span>, variables can be named anything, and <span class="application">Python</span> keeps track of the datatype internally.
+                     </td>
+                  </tr>
+               </table><a name="compare.list.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">A list in <span class="application">Python</span> is much more than an array in <span class="application">Java</span> (although it can be used as one if that's really all you want out of life).  A better analogy would be to the <tt class="classname">ArrayList</tt> class, which can hold arbitrary objects and can expand dynamically as new items are added.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../native_data_types/lists.html#d0e6115">3.2.3.&nbsp;Searching Lists</a><a name="tip.boolean"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Before version 2.2.1, <span class="application">Python</span> had no separate boolean datatype.  To compensate for this, <span class="application">Python</span> accepted almost anything in a boolean context (like an <tt class="literal">if</tt> statement), according to the following rules:
+                        <div class="itemizedlist">
+                           <ul>
+                              <li><tt class="constant">0</tt> is false; all other numbers are true.
+                              </li>
+                              <li>An empty string (<tt class="literal">""</tt>) is false, all other strings are true.
+                              </li>
+                              <li>An empty list (<tt class="literal">[]</tt>) is false; all other lists are true.
+                              </li>
+                              <li>An empty tuple (<tt class="literal">()</tt>) is false; all other tuples are true.
+                              </li>
+                              <li>An empty dictionary (<tt class="literal">{}</tt>) is false; all other dictionaries are true.
+                              </li>
+                           </ul>
+                        </div>These rules still apply in <span class="application">Python</span> 2.2.1 and beyond, but now you can also use an actual boolean, which has a value of <tt class="literal">True</tt> or <tt class="literal">False</tt>.  Note the capitalization; these values, like everything else in <span class="application">Python</span>, are case-sensitive.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../native_data_types/tuples.html">3.3.&nbsp;Introducing Tuples</a><a name="tip.tuple"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Tuples can be converted into lists, and vice-versa.  The built-in <tt class="function">tuple</tt> function takes a list and returns a tuple with the same elements, and the <tt class="function">list</tt> function takes a tuple and returns a list.  In effect, <tt class="function">tuple</tt> freezes a list, and <tt class="function">list</tt> thaws a tuple.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../native_data_types/declaring_variables.html">3.4.&nbsp;Declaring variables</a><a name="tip.multiline"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">When a command is split among several lines with the line-continuation marker (&#8220;<span class="quote"><tt class="literal">\</tt></span>&#8221;), the continued lines can be indented in any manner; <span class="application">Python</span>'s normally stringent indentation rules do not apply.  If your <span class="application">Python</span> <span class="acronym">IDE</span> auto-indents the continued line, you should probably accept its default unless you have a burning reason not to.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../native_data_types/formatting_strings.html">3.5.&nbsp;Formatting Strings</a><a name="compare.stringformatting.c"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">String formatting in <span class="application">Python</span> uses the same syntax as the <tt class="function">sprintf</tt> function in <span class="application"><span class="acronym">C</span></span>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../native_data_types/joining_lists.html">3.7.&nbsp;Joining Lists and Splitting Strings</a><a name="tip.join"></a><table class="caution" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/caution.png" alt="Caution" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="function">join</tt> works only on lists of strings; it does not do any type coercion.  Joining a list that has one or more non-string elements
+                        will raise an exception.
+                     </td>
+                  </tr>
+               </table><a name="tip.split"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="literal"><i class="replaceable">anystring</i>.<tt class="function">split</tt>(<i class="replaceable">delimiter</i>, 1)</tt> is a useful technique when you want to search a string for a substring and then work with everything before the substring
+                        (which ends up in the first element of the returned list) and everything after it (which ends up in the second element).
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../power_of_introspection/index.html">Chapter&nbsp;4.&nbsp;The Power Of Introspection</a></p>
+         <ul>
+            <li><a href="../power_of_introspection/optional_arguments.html">4.2.&nbsp;Using Optional and Named Arguments</a><a name="tip.arguments"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">The only thing you need to do to call a function is specify a value (somehow) for each required argument; the manner and order
+                        in which you do that is up to you.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../power_of_introspection/built_in_functions.html#d0e8958">4.3.3.&nbsp;Built-In Functions</a><a name="tip.manuals"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> comes with excellent reference manuals, which you should peruse thoroughly to learn all the modules <span class="application">Python</span> has to offer.  But unlike most languages, where you would find yourself referring back to the manuals or man pages to remind
+                        yourself how to use these modules, <span class="application">Python</span> is largely self-documenting.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../power_of_introspection/lambda_functions.html">4.7.&nbsp;Using lambda Functions</a><a name="tip.lambda"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="literal">lambda</tt> functions are a matter of style.  Using them is never required; anywhere you could use them, you could define a separate
+                        normal function and use that instead.  I use them in places where I want to encapsulate specific, non-reusable code without
+                        littering my code with a lot of little one-line functions.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../power_of_introspection/all_together.html">4.8.&nbsp;Putting It All Together</a><a name="compare.isnull.sql"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In <span class="acronym">SQL</span>, you must use <tt class="literal">IS NULL</tt> instead of <tt class="literal">= NULL</tt> to compare a null value.  In <span class="application">Python</span>, you can use either <tt class="literal">== None</tt> or <tt class="literal">is None</tt>, but <tt class="literal">is None</tt> is faster.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../object_oriented_framework/index.html">Chapter&nbsp;5.&nbsp;Objects and Object-Orientation</a></p>
+         <ul>
+            <li><a href="../object_oriented_framework/importing_modules.html">5.2.&nbsp;Importing Modules Using from module import</a><a name="compare.fromimport.perl"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="literal">from <i class="replaceable">module</i> import *</tt> in <span class="application">Python</span> is like <tt class="literal">use <i class="replaceable">module</i></tt> in <span class="application">Perl</span>; <tt class="literal">import <i class="replaceable">module</i></tt> in <span class="application">Python</span> is like <tt class="literal">require <i class="replaceable">module</i></tt> in <span class="application">Perl</span>.
+                     </td>
+                  </tr>
+               </table><a name="compare.fromimport.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="literal">from <i class="replaceable">module</i> import *</tt> in <span class="application">Python</span> is like <tt class="literal">import <i class="replaceable">module</i>.*</tt> in <span class="application">Java</span>; <tt class="literal">import <i class="replaceable">module</i></tt> in <span class="application">Python</span> is like <tt class="literal">import <i class="replaceable">module</i></tt> in <span class="application">Java</span>.
+                     </td>
+                  </tr>
+               </table><a name="d0e11495"></a><table class="caution" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/caution.png" alt="Caution" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Use <tt class="literal">from module import *</tt> sparingly, because it makes it difficult to determine where a particular function or attribute came from, and that makes
+                        debugging and refactoring more difficult.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/defining_classes.html">5.3.&nbsp;Defining Classes</a><a name="compare.pass.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">The <tt class="literal">pass</tt> statement in <span class="application">Python</span> is like an empty set of braces (<tt class="literal">{}</tt>) in <span class="application">Java</span> or <span class="application"><span class="acronym">C</span></span>.
+                     </td>
+                  </tr>
+               </table><a name="compare.extends.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Python</span>, the ancestor of a class is simply listed in parentheses immediately after the class name.  There is no special keyword like
+                        <tt class="literal">extends</tt> in <span class="application">Java</span>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/defining_classes.html#d0e11720">5.3.1.&nbsp;Initializing and Coding Classes</a><a name="compare.self.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">By convention, the first argument of any <span class="application">Python</span> class method (the reference to the current instance) is called <tt class="literal">self</tt>.  This argument fills the role of the reserved word <tt class="literal">this</tt> in <span class="application"><span class="acronym">C++</span></span> or <span class="application">Java</span>, but <tt class="literal">self</tt> is not a reserved word in <span class="application">Python</span>, merely a naming convention.  Nonetheless, please don't call it anything but <tt class="literal">self</tt>; this is a very strong convention.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/defining_classes.html#d0e11896">5.3.2.&nbsp;Knowing When to Use self and __init__</a><a name="tip.initoptional"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="function">__init__</tt> methods are optional, but when you define one, you must remember to explicitly call the ancestor's <tt class="function">__init__</tt> method (if it defines one).  This is more generally true: whenever a descendant wants to extend the behavior of the ancestor,
+                        the descendant method must explicitly call the ancestor method at the proper time, with the proper arguments.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/instantiating_classes.html">5.4.&nbsp;Instantiating Classes</a><a name="compare.new.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Python</span>, simply call a class as if it were a function to create a new instance of the class.  There is no explicit <tt class="literal">new</tt> operator like <span class="application"><span class="acronym">C++</span></span> or <span class="application">Java</span>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/userdict.html">5.5.&nbsp;Exploring UserDict: A Wrapper Class</a><a name="tip.locate"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In the <span class="application">ActivePython</span> <span class="acronym">IDE</span> on Windows, you can quickly open any module in your library path by selecting
+                        <span class="guimenu">File</span>-&gt;<span class="guimenuitem"><span class="accel">L</span>ocate...</span> (<span><b class="shortcut"><span><b class="keycap">Ctrl</b></span>-<span class="keysym">L</span></b></span>).
+                     </td>
+                  </tr>
+               </table><a name="compare.overloading"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><span class="application">Java</span> and <span class="application">Powerbuilder</span> support function overloading by argument list, <span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> one class can have multiple methods with the same name but a different number of arguments, or arguments of different types.
+                         Other languages (most notably <span class="acronym">PL/SQL</span>) even support function overloading by argument name; <span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> one class can have multiple methods with the same name and the same number of arguments of the same type but different argument
+                        names.  <span class="application">Python</span> supports neither of these; it has no form of function overloading whatsoever.  Methods are defined solely by their name,
+                        and there can be only one method per class with a given name.  So if a descendant class has an <tt class="function">__init__</tt> method, it <span class="emphasis"><em>always</em></span> overrides the ancestor <tt class="function">__init__</tt> method, even if the descendant defines it with a different argument list.  And the same rule applies to any other method.
+                     </td>
+                  </tr>
+               </table><a name="fileinfo.derivedclasses"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Guido, the original author of <span class="application">Python</span>, explains method overriding this way: "Derived classes may override methods of their base classes. Because methods have no
+                        special privileges when calling other methods of the same object, a method of a base class that calls another method defined
+                        in the same base class, may in fact end up calling a method of a derived class that overrides it. (For <span class="application"><span class="acronym">C++</span></span> programmers: all methods in <span class="application">Python</span> are effectively virtual.)"  If that doesn't make sense to you (it confuses the hell out of me), feel free to ignore it. 
+                        I just thought I'd pass it along.
+                     </td>
+                  </tr>
+               </table><a name="note.dataattributes"></a><table class="caution" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/caution.png" alt="Caution" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Always assign an initial value to all of an instance's data attributes in the <tt class="function">__init__</tt> method.  It will save you hours of debugging later, tracking down <tt class="classname">AttributeError</tt> exceptions because you're referencing uninitialized (and therefore non-existent) attributes.
+                     </td>
+                  </tr>
+               </table><a name="d0e12692"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In versions of <span class="application">Python</span> prior to 2.2, you could not directly subclass built-in datatypes like strings, lists, and dictionaries.  To compensate for
+                        this, <span class="application">Python</span> comes with wrapper classes that mimic the behavior of these built-in datatypes: <tt class="classname">UserString</tt>, <tt class="classname">UserList</tt>, and <tt class="classname">UserDict</tt>.  Using a combination of normal and special methods, the <tt class="classname">UserDict</tt> class does an excellent imitation of a dictionary.  In <span class="application">Python</span> 2.2 and later, you can inherit classes directly from built-in datatypes like <tt class="classname">dict</tt>.  An example of this is given in the examples that come with this book, in <tt class="filename">fileinfo_fromdict.py</tt>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/special_class_methods.html#d0e12822">5.6.1.&nbsp;Getting and Setting Items</a><a name="tip.self.call"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">When accessing data attributes within a class, you need to qualify the attribute name: <tt class="literal">self.<i class="replaceable">attribute</i></tt>.  When calling other methods within a class, you need to qualify the method name: <tt class="literal">self.<i class="replaceable">method</i></tt>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/special_class_methods2.html">5.7.&nbsp;Advanced Special Class Methods</a><a name="compare.strequals.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Java</span>, you determine whether two string variables reference the same physical memory location by using <tt class="literal">str1 == str2</tt>.  This is called <span class="emphasis"><em>object identity</em></span>, and it is written in <span class="application">Python</span> as <tt class="literal">str1 is str2</tt>.  To compare string values in <span class="application">Java</span>, you would use <tt class="literal">str1.equals(str2)</tt>; in <span class="application">Python</span>, you would use <tt class="literal">str1 == str2</tt>.  <span class="application">Java</span> programmers who have been taught to believe that the world is a better place because <tt class="literal">==</tt> in <span class="application">Java</span> compares by identity instead of by value may have a difficult time adjusting to <span class="application">Python</span>'s lack of such &#8220;<span class="quote">gotchas</span>&#8221;.
+                     </td>
+                  </tr>
+               </table><a name="note.physical.v.logical"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">While other object-oriented languages only let you define the physical model of an object (&#8220;<span class="quote">this object has a <tt class="function">GetLength</tt> method</span>&#8221;), <span class="application">Python</span>'s special class methods like <tt class="function">__len__</tt> allow you to define the logical model of an object (&#8220;<span class="quote">this object has a length</span>&#8221;).
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/class_attributes.html">5.8.&nbsp;Introducing Class Attributes</a><a name="compare.classattr.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Java</span>, both static variables (called class attributes in <span class="application">Python</span>) and instance variables (called data attributes in <span class="application">Python</span>) are defined immediately after the class definition (one with the <tt class="literal">static</tt> keyword, one without).  In <span class="application">Python</span>, only class attributes can be defined here; data attributes are defined in the <tt class="function">__init__</tt> method.
+                     </td>
+                  </tr>
+               </table><a name="d0e13711"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">There are no constants in <span class="application">Python</span>.  Everything can be changed if you try hard enough.  This fits with one of the core principles of <span class="application">Python</span>: bad behavior should be discouraged but not banned.  If you really want to change the value of <tt class="literal">None</tt>, you can do it, but don't come running to me when your code is impossible to debug.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../object_oriented_framework/private_functions.html">5.9.&nbsp;Private Functions</a><a name="tip.specialmethodnames"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In <span class="application">Python</span>, all special methods (like <a href="special_class_methods.html#fileinfo.specialmethods.setitem.example" title="Example&nbsp;5.13.&nbsp;The __setitem__ Special Method"><tt class="function">__setitem__</tt></a>) and built-in attributes (like <a href="../getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&nbsp;2.3.&nbsp;Accessing the buildConnectionString Function's doc string"><tt class="literal">__doc__</tt></a>) follow a standard naming convention: they both start with and end with two underscores.  Don't name your own methods and
+                        attributes this way, because it will only confuse you (and others) later.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../file_handling/index.html">Chapter&nbsp;6.&nbsp;Exceptions and File Handling</a></p>
+         <ul>
+            <li><a href="../file_handling/index.html#fileinfo.exception">6.1.&nbsp;Handling Exceptions</a><a name="compare.exceptions.java"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> uses <tt class="literal">try...except</tt> to handle exceptions and <tt class="literal">raise</tt> to generate them.  <span class="application">Java</span> and <span class="application"><span class="acronym">C++</span></span> use <tt class="literal">try...catch</tt> to handle exceptions, and <tt class="literal">throw</tt> to generate them.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../file_handling/os_module.html">6.5.&nbsp;Working with Directories</a><a name="tip.os"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Whenever possible, you should use the functions in <tt class="filename">os</tt> and <tt class="filename">os.path</tt> for file, directory, and path manipulations.  These modules are wrappers for platform-specific modules, so functions like
+                        <tt class="function">os.path.split</tt> work on <span class="acronym">UNIX</span>, Windows, <span class="abbrev">Mac</span> <span class="acronym">OS</span>, and any other platform supported by <span class="application">Python</span>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../regular_expressions/index.html">Chapter&nbsp;7.&nbsp;Regular Expressions</a></p>
+         <ul>
+            <li><a href="../regular_expressions/n_m_syntax.html">7.4.&nbsp;Using the {n,m} Syntax</a><a name="d0e18321"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">There is no way to programmatically determine that two regular expressions are equivalent.  The best you can do is write a
+                        lot of test cases to make sure they behave the same way on all relevant inputs.  You'll talk more about writing test cases
+                        later in this book.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../html_processing/index.html">Chapter&nbsp;8.&nbsp;HTML Processing</a></p>
+         <ul>
+            <li><a href="../html_processing/introducing_sgmllib.html">8.2.&nbsp;Introducing sgmllib.py</a><a name="d0e20023"></a><table class="important" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/important.png" alt="Important" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> 2.0 had a bug where <tt class="classname">SGMLParser</tt> would not recognize declarations at all (<tt class="function">handle_decl</tt> would never be called), which meant that <tt class="sgmltag-element">DOCTYPE</tt>s were silently ignored.  This is fixed in <span class="application">Python</span> 2.1.
+                     </td>
+                  </tr>
+               </table><a name="tip.commandline.windows"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In the <span class="application">ActivePython</span> <span class="acronym">IDE</span> on Windows, you can specify command line arguments in the &#8220;<span class="quote">Run script</span>&#8221; dialog.  Separate multiple arguments with spaces.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../html_processing/basehtmlprocessor.html">8.4.&nbsp;Introducing BaseHTMLProcessor.py</a><a name="d0e20845"></a><table class="important" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/important.png" alt="Important" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">The <span class="acronym">HTML</span> specification requires that all non-<span class="acronym">HTML</span> (like client-side <span class="application">JavaScript</span>) must be enclosed in <span class="acronym">HTML</span> comments, but not all web pages do this properly (and all modern web browsers are forgiving if they don't).  <tt class="classname">BaseHTMLProcessor</tt> is not forgiving; if script is improperly embedded, it will be parsed as if it were <span class="acronym">HTML</span>.  For instance, if the script contains less-than and equals signs, <tt class="classname">SGMLParser</tt> may incorrectly think that it has found tags and attributes.  <tt class="classname">SGMLParser</tt> always converts tags and attribute names to lowercase, which may break the script, and <tt class="classname">BaseHTMLProcessor</tt> always encloses attribute values in double quotes (even if the original <span class="acronym">HTML</span> document used single quotes or no quotes), which will certainly break the script.  Always protect your client-side script
+                        within <span class="acronym">HTML</span> comments.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../html_processing/locals_and_globals.html">8.5.&nbsp;locals and globals</a><a name="d0e21061"></a><table class="important" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/important.png" alt="Important" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> 2.2 introduced a subtle but important change that affects the namespace search order: nested scopes.  In versions of <span class="application">Python</span> prior to 2.2, when you reference a variable within a <a href="../file_handling/all_together.html#fileinfo.nested" title="Example&nbsp;6.21.&nbsp;listDirectory">nested function</a> or <a href="../power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions"><tt class="literal">lambda</tt> function</a>, <span class="application">Python</span> will search for that variable in the current (nested or <tt class="literal">lambda</tt>) function's namespace, then in the module's namespace.  <span class="application">Python</span> 2.2 will search for the variable in the current (nested or <tt class="literal">lambda</tt>) function's namespace, <span class="emphasis"><em>then in the parent function's namespace</em></span>, then in the module's namespace.  <span class="application">Python</span> 2.1 can work either way; by default, it works like <span class="application">Python</span> 2.0, but you can add the following line of code at the top of your module to make your module work like <span class="application">Python</span> 2.2:<pre class="programlisting"><span class='pykeyword'>
+from</span> __future__ <span class='pykeyword'>import</span> nested_scopes</pre></td>
+                  </tr>
+               </table><a name="tip.localsbyname"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Using the <tt class="function">locals</tt> and <tt class="function">globals</tt> functions, you can get the value of arbitrary variables dynamically, providing the variable name as a string.  This mirrors
+                        the functionality of the <a href="../power_of_introspection/getattr.html" title="4.4.&nbsp;Getting Object References With getattr"><tt class="function">getattr</tt></a> function, which allows you to access arbitrary functions dynamically by providing the function name as a string.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../html_processing/dictionary_based_string_formatting.html">8.6.&nbsp;Dictionary-based string formatting</a><a name="d0e21731"></a><table class="important" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/important.png" alt="Important" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Using dictionary-based string formatting with <tt class="function">locals</tt> is a convenient way of making complex string formatting expressions more readable, but it comes with a price.  There is a
+                        slight performance hit in making the call to <tt class="function">locals</tt>, since <a href="locals_and_globals.html#dialect.locals.readonly.example" title="Example&nbsp;8.12.&nbsp;locals is read-only, globals is not"><tt class="function">locals</tt> builds a copy</a> of the local namespace.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../xml_processing/index.html">Chapter&nbsp;9.&nbsp;XML Processing</a></p>
+         <ul>
+            <li><a href="../xml_processing/packages.html">9.2.&nbsp;Packages</a><a name="d0e23185"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">A package is a directory with the special <tt class="filename">__init__.py</tt> file in it.  The <tt class="filename">__init__.py</tt> file defines the attributes and methods of the package.  It doesn't need to define anything; it can just be an empty file,
+                        but it has to exist.  But if <tt class="filename">__init__.py</tt> doesn't exist, the directory is just a directory, not a package, and it can't be imported or contain modules or nested packages.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../xml_processing/attributes.html">9.6.&nbsp;Accessing element attributes</a><a name="d0e24744"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">This section may be a little confusing, because of some overlapping terminology.  Elements in an <span class="acronym">XML</span> document have attributes, and <span class="application">Python</span> objects also have attributes.  When you parse an <span class="acronym">XML</span> document, you get a bunch of <span class="application">Python</span> objects that represent all the pieces of the <span class="acronym">XML</span> document, and some of these <span class="application">Python</span> objects represent attributes of the <span class="acronym">XML</span> elements.  But the (<span class="application">Python</span>) objects that represent the (<span class="acronym">XML</span>) attributes also have (<span class="application">Python</span>) attributes, which are used to access various parts of the (<span class="acronym">XML</span>) attribute that the object represents.  I told you it was confusing.  I am open to suggestions on how to distinguish these
+                        more clearly.
+                     </td>
+                  </tr>
+               </table><a name="d0e24990"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Like a dictionary, attributes of an <span class="acronym">XML</span> element have no ordering.  Attributes may <span class="emphasis"><em>happen to be</em></span> listed in a certain order in the original <span class="acronym">XML</span> document, and the <tt class="classname">Attr</tt> objects may <span class="emphasis"><em>happen to be</em></span> listed in a certain order when the <span class="acronym">XML</span> document is parsed into <span class="application">Python</span> objects, but these orders are arbitrary and should carry no special meaning.  You should always access individual attributes
+                        by name, like the keys of a dictionary.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../scripts_and_streams/index.html">Chapter&nbsp;10.&nbsp;Scripts and Streams</a></p>
+         <ul></ul>
+         <p><a href="../http_web_services/index.html">Chapter&nbsp;11.&nbsp;HTTP Web Services</a></p>
+         <ul>
+            <li><a href="../http_web_services/etags.html">11.6.&nbsp;Handling Last-Modified and ETag</a><a name="tip.etag.vs.lastmodified"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">In these examples, the HTTP server has supported both <tt class="literal">Last-Modified</tt> and <tt class="literal">ETag</tt> headers, but not all servers do.  As a web services client, you should be prepared to support both, but you must code defensively
+                        in case a server only supports one or the other, or neither.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../soap_web_services/index.html">Chapter&nbsp;12.&nbsp;SOAP Web Services</a></p>
+         <ul></ul>
+         <p><a href="../unit_testing/index.html">Chapter&nbsp;13.&nbsp;Unit Testing</a></p>
+         <ul>
+            <li><a href="../unit_testing/diving_in.html">13.2.&nbsp;Diving in</a><a name="note.unittest"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="filename">unittest</tt> is included with <span class="application">Python</span> 2.1 and later.  <span class="application">Python</span> 2.0 users can download it from <a href="http://pyunit.sourceforge.net/"><tt class="systemitem">pyunit.sourceforge.net</tt></a>.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../unit_testing/stage_1.html">Chapter&nbsp;14.&nbsp;Test-First Programming</a></p>
+         <ul>
+            <li><a href="../unit_testing/stage_3.html">14.3.&nbsp;roman.py, stage 3</a><a name="d0e33558"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">The most important thing that comprehensive unit testing can tell you is when to stop coding.  When all the unit tests for
+                        a function pass, stop coding the function.  When all the unit tests for an entire module pass, stop coding the module.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+            <li><a href="../unit_testing/stage_5.html">14.5.&nbsp;roman.py, stage 5</a><a name="d0e34136"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">When all of your tests pass, stop coding.</td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../refactoring/index.html">Chapter&nbsp;15.&nbsp;Refactoring</a></p>
+         <ul>
+            <li><a href="../refactoring/refactoring.html">15.3.&nbsp;Refactoring</a><a name="d0e34764"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Whenever you are going to use a regular expression more than once, you should compile it to get a pattern object, then call
+                        the methods on the pattern object directly.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../functional_programming/index.html">Chapter&nbsp;16.&nbsp;Functional Programming</a></p>
+         <ul>
+            <li><a href="../functional_programming/finding_the_path.html">16.2.&nbsp;Finding the path</a><a name="os.path.abspath.exist.note"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">The pathnames and filenames you pass to <tt class="function">os.path.abspath</tt> do not need to exist.
+                     </td>
+                  </tr>
+               </table><a name="os.path.normpath.note"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%"><tt class="function">os.path.abspath</tt> not only constructs full path names, it also normalizes them.  That means that if you are in the <tt class="filename">/usr/</tt> directory, <tt class="literal">os.path.abspath('bin/../local/bin')</tt> will return <tt class="filename">/usr/local/bin</tt>.  It normalizes the path by making it as simple as possible.  If you just want to normalize a pathname like this without
+                        turning it into a full pathname, use <tt class="function">os.path.normpath</tt> instead.
+                     </td>
+                  </tr>
+               </table><a name="os.path.abspath.crossplatform.note"></a><table class="note" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">Like the other functions in the <tt class="filename">os</tt> and <tt class="filename">os.path</tt> modules, <tt class="function">os.path.abspath</tt> is cross-platform.  Your results will look slightly different than my examples if you're running on Windows (which uses backslash
+                        as a path separator) or <span class="abbrev">Mac</span> <span class="acronym">OS</span> (which uses colons), but they'll still work.  That's the whole point of the <tt class="filename">os</tt> module.
+                     </td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+         <p><a href="../dynamic_functions/index.html">Chapter&nbsp;17.&nbsp;Dynamic functions</a></p>
+         <ul></ul>
+         <p><a href="../performance_tuning/index.html">Chapter&nbsp;18.&nbsp;Performance Tuning</a></p>
+         <ul>
+            <li><a href="../performance_tuning/timeit.html">18.2.&nbsp;Using the timeit Module</a><a name="d0e39049"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">You can use the <tt class="filename">timeit</tt> module on the command line to test an existing <span class="application">Python</span> program, without modifying the code.  See <a href="http://docs.python.org/lib/node396.html">http://docs.python.org/lib/node396.html</a> for documentation on the command-line flags.
+                     </td>
+                  </tr>
+               </table><a name="d0e39097"></a><table class="tip" border="0" summary="">
+                  <tr>
+                     <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" align="left" valign="top" width="99%">The <tt class="filename">timeit</tt> module only works if you already know what piece of code you need to optimize.  If you have a larger <span class="application">Python</span> program and don't know where your performance problems are, check out <a href="http://docs.python.org/lib/module-hotshot.html">the <tt class="filename">hotshot</tt> module.</a></td>
+                  </tr>
+               </table>
+               <p></p>
+            </li>
+         </ul>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="abstracts.html">&lt;&lt;&nbsp;A 5-minute review</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="examples.html">List of examples&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

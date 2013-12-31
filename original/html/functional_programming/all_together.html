@@ -1,0 +1,261 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>16.7.&nbsp;Putting it all together</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">
+      <link rel="previous" href="dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">
+      <link rel="next" href="summary.html" title="16.8.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="dynamic_import.html" title="Prev: &#8220;Dynamically importing modules&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="regression.alltogether"></a>16.7.&nbsp;Putting it all together
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>You've learned enough now to deconstruct the first seven lines of this chapter's code sample: reading a directory and importing
+               selected modules within it.
+            </p>
+         </div>
+         <div class="example"><a name="d0e36538"></a><h3 class="title">Example&nbsp;16.16.&nbsp;The <tt class="function">regressionTest</tt> function
+            </h3><pre class="programlisting"><span class='pykeyword'>
+def</span> regressionTest():
+    path = os.path.abspath(os.path.dirname(sys.argv[0]))   
+    files = os.listdir(path)                               
+    test = re.compile(<span class='pystring'>"test\.py$"</span>, re.IGNORECASE)          
+    files = filter(test.search, files)                     
+    filenameToModuleName = <span class='pykeyword'>lambda</span> f: os.path.splitext(f)[0]
+    moduleNames = map(filenameToModuleName, files)         
+    modules = map(__import__, moduleNames)                 
+load = unittest.defaultTestLoader.loadTestsFromModule  
+<span class='pykeyword'>return</span> unittest.TestSuite(map(load, modules))          
+</pre></div>
+         <p>Let's look at it line by line, interactively.  Assume that the current directory is <tt class="filename">c:\diveintopython\py</tt>, which contains the examples that come with this book, including this chapter's script.  As you saw in <a href="finding_the_path.html" title="16.2.&nbsp;Finding the path">Section&nbsp;16.2, &#8220;Finding the path&#8221;</a>, the script directory will end up in the <tt class="varname">path</tt> variable, so let's start hard-code that and go from there.
+         </p>
+         <div class="example"><a name="d0e36556"></a><h3 class="title">Example&nbsp;16.17.&nbsp;Step 1: Get all the files</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> sys, os, re, unittest</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">path = r<span class='pystring'>'c:\diveintopython\py'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">files = os.listdir(path)                               </span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">files</span> <a name="regression.alltogether.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['BaseHTMLProcessor.py', 'LICENSE.txt', 'apihelper.py', 'apihelpertest.py',
+'argecho.py', 'autosize.py', 'builddialectexamples.py', 'dialect.py',
+'fileinfo.py', 'fullpath.py', 'kgptest.py', 'makerealworddoc.py',
+'odbchelper.py', 'odbchelpertest.py', 'parsephone.py', 'piglatin.py',
+'plural.py', 'pluraltest.py', 'pyfontify.py', 'regression.py', 'roman.py', 'romantest.py',
+'uncurly.py', 'unicode2koi8r.py', 'urllister.py', 'kgp', 'plural', 'roman',
+'colorize.py']</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">files</tt> is a list of all the files and directories in the script's directory.  (If you've been running some of the examples already,
+                        you may also see some <tt class="filename">.pyc</tt> files in there as well.)
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e36595"></a><h3 class="title">Example&nbsp;16.18.&nbsp;Step 2: Filter to find the files you care about</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">test = re.compile(<span class='pystring'>"test\.py$"</span>, re.IGNORECASE)          </span> <a name="regression.alltogether.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">files = filter(test.search, files)                     </span> <a name="regression.alltogether.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">files</span>                                                   <a name="regression.alltogether.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['apihelpertest.py', 'kgptest.py', 'odbchelpertest.py', 'pluraltest.py', 'romantest.py']</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This regular expression will match any string that ends with <tt class="literal">test.py</tt>.  Note that you need to escape the period, since a period in a regular expression usually means &#8220;<span class="quote">match any single character</span>&#8221;, but you actually want to match a literal period instead.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The compiled regular expression acts like a function, so you can use it to filter the large list of files and directories,
+                        to find the ones that match the regular expression.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">And you're left with the list of unit testing scripts, because they were the only ones named <tt class="filename">SOMETHINGtest.py</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e36643"></a><h3 class="title">Example&nbsp;16.19.&nbsp;Step 3: Map filenames to module names</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filenameToModuleName = <span class='pykeyword'>lambda</span> f: os.path.splitext(f)[0]</span> <a name="regression.alltogether.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filenameToModuleName(<span class='pystring'>'romantest.py'</span>)</span>                    <a name="regression.alltogether.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'romantest'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">filenameToModuleName(<span class='pystring'>'odchelpertest.py'</span>)</span>
+<span class="computeroutput">'odbchelpertest'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">moduleNames = map(filenameToModuleName, files)         </span> <a name="regression.alltogether.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">moduleNames</span>                                             <a name="regression.alltogether.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">['apihelpertest', 'kgptest', 'odbchelpertest', 'pluraltest', 'romantest']</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">Section&nbsp;4.7, &#8220;Using lambda Functions&#8221;</a>, <tt class="literal">lambda</tt> is a quick-and-dirty way of creating an inline, one-line function.  This one takes a filename with an extension and returns
+                        just the filename part, using the standard library function <tt class="function">os.path.splitext</tt> that you saw in <a href="../file_handling/os_module.html#splittingpathnames.example" title="Example&nbsp;6.17.&nbsp;Splitting Pathnames">Example&nbsp;6.17, &#8220;Splitting Pathnames&#8221;</a>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">filenameToModuleName</tt> is a function.  There's nothing magic about <tt class="literal">lambda</tt> functions as opposed to regular functions that you define with a <tt class="literal">def</tt> statement.  You can call the <tt class="varname">filenameToModuleName</tt> function like any other, and it does just what you wanted it to do: strips the file extension off of its argument.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now you can apply this function to each file in the list of unit test files, using <tt class="function">map</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">And the result is just what you wanted: a list of modules, as strings.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e36727"></a><h3 class="title">Example&nbsp;16.20.&nbsp;Step 4: Mapping module names to modules</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules = map(__import__, moduleNames)                 </span> <a name="regression.alltogether.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules</span>                                                 <a name="regression.alltogether.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;module 'apihelpertest' from 'apihelpertest.py'&gt;,
+&lt;module 'kgptest' from 'kgptest.py'&gt;,
+&lt;module 'odbchelpertest' from 'odbchelpertest.py'&gt;,
+&lt;module 'pluraltest' from 'pluraltest.py'&gt;,
+&lt;module 'romantest' from 'romantest.py'&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">modules[-1]</span>                                             <a name="regression.alltogether.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;module 'romantest' from 'romantest.py'&gt;</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">Section&nbsp;16.6, &#8220;Dynamically importing modules&#8221;</a>, you can use a combination of <tt class="function">map</tt> and <tt class="function">__import__</tt> to map a list of module names (as strings) into actual modules (which you can call or access like any other module).
+                        
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">modules</tt> is now a list of modules, fully accessible like any other module.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The last module in the list <span class="emphasis"><em>is</em></span> the <tt class="filename">romantest</tt> module, just as if you had said <tt class="literal">import romantest</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e36788"></a><h3 class="title">Example&nbsp;16.21.&nbsp;Step 5: Loading the modules into a test suite</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">load = unittest.defaultTestLoader.loadTestsFromModule  </span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">map(load, modules)</span>                     <a name="regression.alltogether.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;unittest.TestSuite tests=[
+  &lt;unittest.TestSuite tests=[&lt;apihelpertest.BadInput testMethod=testNoObject&gt;]&gt;,
+  &lt;unittest.TestSuite tests=[&lt;apihelpertest.KnownValues testMethod=testApiHelper&gt;]&gt;,
+  &lt;unittest.TestSuite tests=[
+    &lt;apihelpertest.ParamChecks testMethod=testCollapse&gt;, 
+    &lt;apihelpertest.ParamChecks testMethod=testSpacing&gt;]&gt;, 
+    ...
+  ]
+]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">unittest.TestSuite(map(load, modules))</span> <a name="regression.alltogether.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">These are real module objects.  Not only can you access them like any other module, instantiate classes and call functions,
+                        you can also introspect into the module to figure out which classes and functions it has in the first place.  That's what
+                        the <tt class="function">loadTestsFromModule</tt> method does: it introspects into each module and returns a <tt class="literal">unittest.TestSuite</tt> object for each module.  Each <tt class="literal">TestSuite</tt> object actually contains a list of <tt class="literal">TestSuite</tt> objects, one for each <tt class="literal">TestCase</tt> class in your module, and each of those <tt class="literal">TestSuite</tt> objects contains a list of tests, one for each test method in your module.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.alltogether.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Finally, you wrap the list of <tt class="literal">TestSuite</tt> objects into one big test suite.  The <tt class="filename">unittest</tt> module has no problem traversing this tree of nested test suites within test suites; eventually it gets down to an individual
+                        test method and executes it, verifies that it passes or fails, and moves on to the next one.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>This introspection process is what the <tt class="filename">unittest</tt> module usually does for us.  Remember that magic-looking <tt class="literal">unittest.main()</tt> function that our individual test modules called to kick the whole thing off?  <tt class="function">unittest.main()</tt> actually creates an instance of <tt class="literal">unittest.TestProgram</tt>, which in turn creates an instance of a <tt class="literal">unittest.defaultTestLoader</tt> and loads it up with the module that called it.  (How does it get a reference to the module that called it if you don't give
+            it one?  By using the equally-magic <tt class="literal">__import__('__main__')</tt> command, which dynamically imports the currently-running module.  I could write a book on all the tricks and techniques used
+            in the <tt class="filename">unittest</tt> module, but then I'd never finish this one.)
+         </p>
+         <div class="example"><a name="d0e36869"></a><h3 class="title">Example&nbsp;16.22.&nbsp;Step 6: Telling <tt class="filename">unittest</tt> to use your test suite
+            </h3><pre class="programlisting"><span class='pykeyword'>
+if</span> __name__ == <span class='pystring'>"__main__"</span>:                   
+    unittest.main(defaultTest=<span class='pystring'>"regressionTest"</span>) <a name="regression.alltogether.6.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre></div>
+         <div class="calloutlist">
+            <table border="0" summary="Callout list">
+               <tr>
+                  <td width="12" valign="top" align="left"><a href="#regression.alltogether.6.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                  </td>
+                  <td valign="top" align="left">Instead of letting the <tt class="filename">unittest</tt> module do all its magic for us, you've done most of it yourself.  You've created a function (<tt class="function">regressionTest</tt>) that imports the modules yourself, calls <tt class="literal">unittest.defaultTestLoader</tt> yourself, and wraps it all up in a test suite.  Now all you need to do is tell <tt class="filename">unittest</tt> that, instead of looking for tests and building a test suite in the usual way, it should just call the <tt class="function">regressionTest</tt> function, which returns a ready-to-use <tt class="literal">TestSuite</tt>.
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="dynamic_import.html">&lt;&lt;&nbsp;Dynamically importing modules</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <a href="data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <a href="dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

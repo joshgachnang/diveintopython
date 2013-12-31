@@ -1,0 +1,226 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>12.2.&nbsp;Installing the SOAP Libraries</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;12.&nbsp;SOAP Web Services">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;12.&nbsp;SOAP Web Services">
+      <link rel="next" href="first_steps.html" title="12.3.&nbsp;First Steps with SOAP">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">SOAP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Installing the SOAP Libraries</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;SOAP Web Services&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="first_steps.html" title="Next: &#8220;First Steps with SOAP&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soap.install"></a>12.2.&nbsp;Installing the SOAP Libraries
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="install.html#d0e29967">12.2.1. Installing PyXML</a></span></li>
+               <li><span class="section"><a href="install.html#d0e30070">12.2.2. Installing fpconst</a></span></li>
+               <li><span class="section"><a href="install.html#d0e30171">12.2.3. Installing SOAPpy</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Unlike the other code in this book, this chapter relies on libraries that do not come pre-installed with <span class="application">Python</span>.
+            </p>
+         </div>
+         <p>Before you can dive into <span class="acronym">SOAP</span> web services, you'll need to install three libraries: <span class="application">PyXML</span>, <span class="application">fpconst</span>, and <span class="application">SOAPpy</span>.
+         </p>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e29967"></a>12.2.1.&nbsp;Installing <span class="application">PyXML</span></h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>The first library you need is <span class="application">PyXML</span>, an advanced set of <span class="acronym">XML</span> libraries that provide more functionality than the built-in <span class="acronym">XML</span> libraries we studied in <a href="../xml_processing/index.html">Chapter 9</a>.
+            </p>
+            <div class="procedure">
+               <h3 class="title">Procedure&nbsp;12.1.&nbsp;</h3>
+               <p>Here is the procedure for installing <span class="application">PyXML</span>:
+               </p>
+               <ol type="1">
+                  <li>
+                     <p>Go to <a href="http://pyxml.sourceforge.net/">http://pyxml.sourceforge.net/</a>, click Downloads, and download the latest version for your operating system.
+                     </p>
+                  </li>
+                  <li>
+                     <p>If you are using Windows, there are several choices.  Make sure to download the version of <span class="application">PyXML</span> that matches the version of <span class="application">Python</span> you are using.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Double-click the installer.  If you download <span class="application">PyXML</span> 0.8.3 for Windows and <span class="application">Python</span> 2.3, the installer program will be <tt class="filename">PyXML-0.8.3.win32-py2.3.exe</tt>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Step through the installer program.</p>
+                  </li>
+                  <li>
+                     <p>After the installation is complete, close the installer.  There will not be any visible indication of success (no programs
+                        installed on the Start Menu or shortcuts installed on the desktop).  <span class="application">PyXML</span> is simply a collection of <span class="acronym">XML</span> libraries used by other programs.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+            <p>To verify that you installed <span class="application">PyXML</span> correctly, run your <span class="application">Python</span> <span class="acronym">IDE</span> and check the version of the <span class="acronym">XML</span> libraries you have installed, as shown here.
+            </p>
+            <div class="example"><a name="d0e30044"></a><h3 class="title">Example&nbsp;12.3.&nbsp;Verifying <span class="application">PyXML</span> Installation
+               </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> xml</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xml.__version__</span>
+<span class="computeroutput">'0.8.3'</span>
+</pre><p>This version number should match the version number of the <span class="application">PyXML</span> installer program you downloaded and ran.
+               </p>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e30070"></a>12.2.2.&nbsp;Installing <span class="application">fpconst</span></h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>The second library you need is <span class="application">fpconst</span>, a set of constants and functions for working with IEEE754 double-precision special values.  This provides support for the
+               special values Not-a-Number (NaN), Positive Infinity (Inf), and Negative Infinity (-Inf), which are part of the <span class="acronym">SOAP</span> datatype specification.
+            </p>
+            <div class="procedure">
+               <h3 class="title">Procedure&nbsp;12.2.&nbsp;</h3>
+               <p>Here is the procedure for installing <span class="application">fpconst</span>:
+               </p>
+               <ol type="1">
+                  <li>
+                     <p>Download the latest version of <span class="application">fpconst</span> from <a href="http://www.analytics.washington.edu/statcomp/projects/rzope/fpconst/">http://www.analytics.washington.edu/statcomp/projects/rzope/fpconst/</a>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>There are two downloads available, one in <tt class="filename">.tar.gz</tt> format, the other in <tt class="filename">.zip</tt> format.  If you are using Windows, download the <tt class="filename">.zip</tt> file; otherwise, download the <tt class="filename">.tar.gz</tt> file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Decompress the downloaded file.  On Windows XP, you can right-click on the file and choose Extract All; on earlier versions
+                        of Windows, you will need a third-party program such as WinZip.  On <span class="abbrev">Mac</span> <span class="acronym">OS</span> X, you can double-click the compressed file to decompress it with Stuffit Expander.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Open a command prompt and navigate to the directory where you decompressed the <span class="application">fpconst</span> files.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Type <b class="userinput"><tt>python setup.py install</tt></b> to run the installation program.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+            <p>To verify that you installed <span class="application">fpconst</span> correctly, run your <span class="application">Python</span> <span class="acronym">IDE</span> and check the version number.
+            </p>
+            <div class="example"><a name="d0e30145"></a><h3 class="title">Example&nbsp;12.4.&nbsp;Verifying <span class="application">fpconst</span> Installation
+               </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> fpconst</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fpconst.__version__</span>
+<span class="computeroutput">'0.6.0'</span>
+</pre><p>This version number should match the version number of the <span class="application">fpconst</span> archive you downloaded and installed.
+               </p>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e30171"></a>12.2.3.&nbsp;Installing <span class="application">SOAPpy</span></h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>The third and final requirement is the <span class="acronym">SOAP</span> library itself: <span class="application">SOAPpy</span>.
+            </p>
+            <div class="procedure">
+               <h3 class="title">Procedure&nbsp;12.3.&nbsp;</h3>
+               <p>Here is the procedure for installing <span class="application">SOAPpy</span>:
+               </p>
+               <ol type="1">
+                  <li>
+                     <p>Go to <a href="http://pywebsvcs.sourceforge.net/">http://pywebsvcs.sourceforge.net/</a> and select Latest Official Release under the <span class="application">SOAPpy</span> section.
+                     </p>
+                  </li>
+                  <li>
+                     <p>There are two downloads available.  If you are using Windows, download the <tt class="filename">.zip</tt> file; otherwise, download the <tt class="filename">.tar.gz</tt> file.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Decompress the downloaded file, just as you did with <span class="application">fpconst</span>.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Open a command prompt and navigate to the directory where you decompressed the <span class="application">SOAPpy</span> files.
+                     </p>
+                  </li>
+                  <li>
+                     <p>Type <b class="userinput"><tt>python setup.py install</tt></b> to run the installation program.
+                     </p>
+                  </li>
+               </ol>
+            </div>
+            <p>To verify that you installed <span class="application">SOAPpy</span> correctly, run your <span class="application">Python</span> <span class="acronym">IDE</span> and check the version number.
+            </p>
+            <div class="example"><a name="d0e30237"></a><h3 class="title">Example&nbsp;12.5.&nbsp;Verifying <span class="application">SOAPpy</span> Installation
+               </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> SOAPpy</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">SOAPpy.__version__</span>
+<span class="computeroutput">'0.11.4'</span>
+</pre><p>This version number should match the version number of the <span class="application">SOAPpy</span> archive you downloaded and installed.
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;SOAP Web Services</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soap.divein" title="12.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="first_steps.html" title="12.3.&nbsp;First Steps with SOAP">3</a> <span class="divider">|</span> <a href="debugging.html" title="12.4.&nbsp;Debugging SOAP Web Services">4</a> <span class="divider">|</span> <a href="wsdl.html" title="12.5.&nbsp;Introducing WSDL">5</a> <span class="divider">|</span> <a href="introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">6</a> <span class="divider">|</span> <a href="google.html" title="12.7.&nbsp;Searching Google">7</a> <span class="divider">|</span> <a href="troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">8</a> <span class="divider">|</span> <a href="summary.html" title="12.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="first_steps.html">First Steps with SOAP&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

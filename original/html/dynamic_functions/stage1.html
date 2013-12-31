@@ -1,0 +1,235 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>17.2.&nbsp;plural.py, stage 1</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;17.&nbsp;Dynamic functions">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;17.&nbsp;Dynamic functions">
+      <link rel="next" href="stage2.html" title="17.3.&nbsp;plural.py, stage 2">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Dynamic functions</a>&nbsp;&gt;&nbsp;<span class="thispage">plural.py, stage 1</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;Dynamic functions&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="stage2.html" title="Next: &#8220;plural.py, stage 2&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="plural.stage1"></a>17.2.&nbsp;<tt class="filename">plural.py</tt>, stage 1
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>So you're looking at words, which at least in English are strings of characters.  And you have rules that say you need to
+               find different combinations of characters, and then do different things to them.  This sounds like a job for regular expressions.
+            </p>
+         </div>
+         <div class="example"><a name="d0e37108"></a><h3 class="title">Example&nbsp;17.1.&nbsp;<tt class="filename">plural1.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> re
+
+<span class='pykeyword'>def</span><span class='pyclass'> plural</span>(noun):                            
+    <span class='pykeyword'>if</span> re.search(<span class='pystring'>'[sxz]$'</span>, noun):             <a name="plural.stage1.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>, noun)        <a name="plural.stage1.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>elif</span> re.search(<span class='pystring'>'[^aeioudgkprt]h$'</span>, noun):
+        <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>, noun)       
+    <span class='pykeyword'>elif</span> re.search(<span class='pystring'>'[^aeiou]y$'</span>, noun):      
+        <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'y$'</span>, <span class='pystring'>'ies'</span>, noun)     
+    <span class='pykeyword'>else</span>:                                    
+        <span class='pykeyword'>return</span> noun + <span class='pystring'>'s'</span>                    
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">OK, this is a regular expression, but it uses a syntax you didn't see in <a href="../regular_expressions/index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">Chapter&nbsp;7, <i>Regular Expressions</i></a>.  The square brackets mean &#8220;<span class="quote">match exactly one of these characters</span>&#8221;.  So <tt class="literal">[sxz]</tt> means &#8220;<span class="quote"><tt class="literal">s</tt>, or <tt class="literal">x</tt>, or <tt class="literal">z</tt></span>&#8221;, but only one of them.  The <tt class="literal">$</tt> should be familiar; it matches the end of string.  So you're checking to see if <tt class="varname">noun</tt> ends with <tt class="literal">s</tt>, <tt class="literal">x</tt>, or <tt class="literal">z</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This <tt class="function">re.sub</tt> function performs regular expression-based string substitutions.  Let's look at it in more detail.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e37161"></a><h3 class="title">Example&nbsp;17.2.&nbsp;Introducing <tt class="function">re.sub</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(<span class='pystring'>'[abc]'</span>, <span class='pystring'>'Mark'</span>)</span>   <a name="plural.stage1.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x001C1FA8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'[abc]'</span>, <span class='pystring'>'o'</span>, <span class='pystring'>'Mark'</span>)</span> <a name="plural.stage1.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'Mork'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'[abc]'</span>, <span class='pystring'>'o'</span>, <span class='pystring'>'rock'</span>)</span> <a name="plural.stage1.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'rook'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'[abc]'</span>, <span class='pystring'>'o'</span>, <span class='pystring'>'caps'</span>)</span> <a name="plural.stage1.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'oops'</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Does the string <tt class="literal">Mark</tt> contain <tt class="literal">a</tt>, <tt class="literal">b</tt>, or <tt class="literal">c</tt>?  Yes, it contains <tt class="literal">a</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">OK, now find <tt class="literal">a</tt>, <tt class="literal">b</tt>, or <tt class="literal">c</tt>, and replace it with <tt class="literal">o</tt>.  <tt class="literal">Mark</tt> becomes <tt class="literal">Mork</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The same function turns <tt class="literal">rock</tt> into <tt class="literal">rook</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You might think this would turn <tt class="literal">caps</tt> into <tt class="literal">oaps</tt>, but it doesn't.  <tt class="literal">re.sub</tt> replaces <span class="emphasis"><em>all</em></span> of the matches, not just the first one.  So this regular expression turns <tt class="literal">caps</tt> into <tt class="literal">oops</tt>, because both the <tt class="literal">c</tt> and the <tt class="literal">a</tt> get turned into <tt class="literal">o</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e37292"></a><h3 class="title">Example&nbsp;17.3.&nbsp;Back to <tt class="filename">plural1.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> re
+
+<span class='pykeyword'>def</span><span class='pyclass'> plural</span>(noun):                            
+    <span class='pykeyword'>if</span> re.search(<span class='pystring'>'[sxz]$'</span>, noun):            
+        <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>, noun)        <a name="plural.stage1.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>elif</span> re.search(<span class='pystring'>'[^aeioudgkprt]h$'</span>, noun): <a name="plural.stage1.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>, noun)        <a name="plural.stage1.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+    <span class='pykeyword'>elif</span> re.search(<span class='pystring'>'[^aeiou]y$'</span>, noun):      
+        <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'y$'</span>, <span class='pystring'>'ies'</span>, noun)     
+    <span class='pykeyword'>else</span>:                                    
+        <span class='pykeyword'>return</span> noun + <span class='pystring'>'s'</span>                    
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Back to the <tt class="function">plural</tt> function.  What are you doing?  You're replacing the end of string with <tt class="literal">es</tt>.  In other words, adding <tt class="literal">es</tt> to the string.  You could accomplish the same thing with string concatenation, for example <tt class="literal">noun + 'es'</tt>, but I'm using regular expressions for everything, for consistency, for reasons that will become clear later in the chapter.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Look closely, this is another new variation.  The <tt class="literal">^</tt> as the first character inside the square brackets means something special: negation.  <tt class="literal">[^abc]</tt> means &#8220;<span class="quote">any single character <span class="emphasis"><em>except</em></span> <tt class="literal">a</tt>, <tt class="literal">b</tt>, or <tt class="literal">c</tt></span>&#8221;.  So <tt class="literal">[^aeioudgkprt]</tt> means any character except <tt class="literal">a</tt>, <tt class="literal">e</tt>, <tt class="literal">i</tt>, <tt class="literal">o</tt>, <tt class="literal">u</tt>, <tt class="literal">d</tt>, <tt class="literal">g</tt>, <tt class="literal">k</tt>, <tt class="literal">p</tt>, <tt class="literal">r</tt>, or <tt class="literal">t</tt>.  Then that character needs to be followed by <tt class="literal">h</tt>, followed by end of string.  You're looking for words that end in H where the H can be heard.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Same pattern here: match words that end in Y, where the character before the Y is <span class="emphasis"><em>not</em></span> <tt class="literal">a</tt>, <tt class="literal">e</tt>, <tt class="literal">i</tt>, <tt class="literal">o</tt>, or <tt class="literal">u</tt>.  You're looking for words that end in Y that sounds like I.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e37404"></a><h3 class="title">Example&nbsp;17.4.&nbsp;More on negation regular expressions</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(<span class='pystring'>'[^aeiou]y$'</span>, <span class='pystring'>'vacancy'</span>)</span> <a name="plural.stage1.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x001C1FA8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(<span class='pystring'>'[^aeiou]y$'</span>, <span class='pystring'>'boy'</span>)</span>     <a name="plural.stage1.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(<span class='pystring'>'[^aeiou]y$'</span>, <span class='pystring'>'day'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(<span class='pystring'>'[^aeiou]y$'</span>, <span class='pystring'>'pita'</span>)</span>    <a name="plural.stage1.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">vacancy</tt> matches this regular expression, because it ends in <tt class="literal">cy</tt>, and <tt class="literal">c</tt> is not <tt class="literal">a</tt>, <tt class="literal">e</tt>, <tt class="literal">i</tt>, <tt class="literal">o</tt>, or <tt class="literal">u</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">boy</tt> does not match, because it ends in <tt class="literal">oy</tt>, and you specifically said that the character before the <tt class="literal">y</tt> could not be <tt class="literal">o</tt>.  <tt class="literal">day</tt> does not match, because it ends in <tt class="literal">ay</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">pita</tt> does not match, because it does not end in <tt class="literal">y</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e37507"></a><h3 class="title">Example&nbsp;17.5.&nbsp;More on <tt class="function">re.sub</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'y$'</span>, <span class='pystring'>'ies'</span>, <span class='pystring'>'vacancy'</span>)</span>              <a name="plural.stage1.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'vacancies'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'y$'</span>, <span class='pystring'>'ies'</span>, <span class='pystring'>'agency'</span>)</span>
+<span class="computeroutput">'agencies'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.sub(<span class='pystring'>'([^aeiou])y$'</span>, r<span class='pystring'>'\1ies'</span>, <span class='pystring'>'vacancy'</span>)</span> <a name="plural.stage1.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'vacancies'</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This regular expression turns <tt class="literal">vacancy</tt> into <tt class="literal">vacancies</tt> and <tt class="literal">agency</tt> into <tt class="literal">agencies</tt>, which is what you wanted.  Note that it would also turn <tt class="literal">boy</tt> into <tt class="literal">boies</tt>, but that will never happen in the function because you did that <tt class="function">re.search</tt> first to find out whether you should do this <tt class="function">re.sub</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage1.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Just in passing, I want to point out that it is possible to combine these two regular expressions (one to find out if the
+                        rule applies, and another to actually apply it) into a single regular expression.  Here's what that would look like.  Most
+                        of it should look familiar: you're using a remembered group, which you learned in <a href="../regular_expressions/phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">Section&nbsp;7.6, &#8220;Case study: Parsing Phone Numbers&#8221;</a>, to remember the character before the <tt class="literal">y</tt>.  Then in the substitution string, you use a new syntax, <tt class="literal">\1</tt>, which means &#8220;<span class="quote">hey, that first group you remembered?  put it here</span>&#8221;.  In this case, you remember the <tt class="literal">c</tt> before the <tt class="literal">y</tt>, and then when you do the substitution, you substitute <tt class="literal">c</tt> in place of <tt class="literal">c</tt>, and <tt class="literal">ies</tt> in place of <tt class="literal">y</tt>.  (If you have more than one remembered group, you can use <tt class="literal">\2</tt> and <tt class="literal">\3</tt> and so on.)
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Regular expression substitutions are extremely powerful, and the <tt class="literal">\1</tt> syntax makes them even more powerful.  But combining the entire operation into one regular expression is also much harder
+            to read, and it doesn't directly map to the way you first described the pluralizing rules.  You originally laid out rules
+            like &#8220;<span class="quote">if the word ends in S, X, or Z, then add ES</span>&#8221;.  And if you look at this function, you have two lines of code that say &#8220;<span class="quote">if the word ends in S, X, or Z, then add ES</span>&#8221;.  It doesn't get much more direct than that.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;Dynamic functions</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#plural.divein" title="17.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="stage2.html" title="17.3.&nbsp;plural.py, stage 2">3</a> <span class="divider">|</span> <a href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">4</a> <span class="divider">|</span> <a href="stage4.html" title="17.5.&nbsp;plural.py, stage 4">5</a> <span class="divider">|</span> <a href="stage5.html" title="17.6.&nbsp;plural.py, stage 5">6</a> <span class="divider">|</span> <a href="stage6.html" title="17.7.&nbsp;plural.py, stage 6">7</a> <span class="divider">|</span> <a href="summary.html" title="17.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="stage2.html">plural.py, stage 2&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

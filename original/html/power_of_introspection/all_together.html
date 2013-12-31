@@ -1,0 +1,211 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>4.8.&nbsp;Putting It All Together</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;4.&nbsp;The Power Of Introspection">
+      <link rel="previous" href="lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">
+      <link rel="next" href="summary.html" title="4.9.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">The Power Of Introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting It All Together</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="lambda_functions.html" title="Prev: &#8220;Using lambda Functions&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="apihelper.alltogether"></a>4.8.&nbsp;Putting It All Together
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The last line of code, the only one you haven't deconstructed yet, is the one that does all the work.  But by now the work
+               is easy, because everything you need is already set up just the way you need it.  All the dominoes are in place; it's time
+               to knock them down.
+            </p>
+         </div>
+         <div class="informalexample">
+            <p>This is the meat of <tt class="filename">apihelper.py</tt>:
+            </p><pre class="programlisting">
+    <span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join([<span class='pystring'>"%s %s"</span> %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     <span class='pykeyword'>for</span> method <span class='pykeyword'>in</span> methodList])</pre></div>
+         <p>Note that this is one command, split over multiple lines, but it doesn't use the line continuation character (<tt class="literal">\</tt>).  Remember when I said that <a href="../native_data_types/declaring_variables.html#tip.implicitmultiline">some expressions can be split into multiple lines</a> without using a backslash?  A list comprehension is one of those expressions, since the entire expression is contained in
+            square brackets.
+         </p>
+         <p>Now, let's take it from the end and work backwards.  The </p><pre class="programlisting"><span class='pykeyword'>
+for</span> method <span class='pykeyword'>in</span> methodList</pre><p>shows that this is a <a href="../native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehension</a>.  As you know, <tt class="varname">methodList</tt> is a list of <a href="filtering_lists.html#apihelper.filter.care">all the methods you care about</a> in <tt class="varname">object</tt>.  So you're looping through that list with <tt class="varname">method</tt>.
+         </p>
+         <div class="example"><a name="d0e10681"></a><h3 class="title">Example&nbsp;4.22.&nbsp;Getting a <tt class="literal">doc string</tt> Dynamically
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> odbchelper</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">object = odbchelper</span>                   <a name="apihelper.alltogether.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">method = <span class='pystring'>'buildConnectionString'</span></span>      <a name="apihelper.alltogether.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(object, method)</span>               <a name="apihelper.alltogether.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;function buildConnectionString at 010D6D74&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> getattr(object, method).__doc__</span> <a name="apihelper.alltogether.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">Build a connection string from a dictionary of parameters.
+
+    Returns string.</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In the <tt class="function">info</tt> function, <tt class="varname">object</tt> is the object you're getting help on, passed in as an argument.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you're looping through <tt class="varname">methodList</tt>, <tt class="varname">method</tt> is the name of the current method.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Using the <a href="getattr.html" title="4.4.&nbsp;Getting Object References With getattr"><tt class="function">getattr</tt></a> function, you're getting a reference to the <i class="replaceable"><tt>method</tt></i> function in the <i class="replaceable"><tt>object</tt></i> module.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now, printing the actual <tt class="literal">doc string</tt> of the method is easy.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The next piece of the puzzle is the use of <tt class="function">str</tt> around the <tt class="literal">doc string</tt>.  As you may recall, <tt class="function">str</tt> is a built-in function that <a href="built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">coerces data into a string</a>.  But a <tt class="literal">doc string</tt> is always a string, so why bother with the <tt class="function">str</tt> function?  The answer is that not every function has a <tt class="literal">doc string</tt>, and if it doesn't, its <tt class="literal">__doc__</tt> attribute is <tt class="literal">None</tt>.
+         </p>
+         <div class="example"><a name="d0e10793"></a><h3 class="title">Example&nbsp;4.23.&nbsp;Why Use <tt class="function">str</tt> on a <tt class="literal">doc string</tt>?
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">&gt;&gt;&gt; <span class='pykeyword'>def</span><span class='pyclass'> foo</span>(): <span class='pykeyword'>print</span> 2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">&gt;&gt;&gt; foo()</span>
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">&gt;&gt;&gt; foo.__doc__</span>     <a name="apihelper.alltogether.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">foo.__doc__ == None</span> <a name="apihelper.alltogether.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">True</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">str(foo.__doc__)</span>    <a name="apihelper.alltogether.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'None'</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can easily define a function that has no <tt class="literal">doc string</tt>, so its <tt class="literal">__doc__</tt> attribute is <tt class="literal">None</tt>.  Confusingly, if you evaluate the <tt class="literal">__doc__</tt> attribute directly, the <span class="application">Python</span> <span class="acronym">IDE</span> prints nothing at all, which makes sense if you think about it, but is still unhelpful.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can verify that the value of the <tt class="literal">__doc__</tt> attribute is actually <tt class="literal">None</tt> by comparing it directly.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">str</tt> function takes the null value and returns a string representation of it, <tt class="literal">'None'</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="compare.isnull.sql"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">In <span class="acronym">SQL</span>, you must use <tt class="literal">IS NULL</tt> instead of <tt class="literal">= NULL</tt> to compare a null value.  In <span class="application">Python</span>, you can use either <tt class="literal">== None</tt> or <tt class="literal">is None</tt>, but <tt class="literal">is None</tt> is faster.
+               </td>
+            </tr>
+         </table>
+         <p>Now that you are guaranteed to have a string, you can pass the string to <tt class="varname">processFunc</tt>, which you have <a href="lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">already defined</a> as a function that either does or doesn't collapse whitespace.  Now you see why it was important to use <tt class="function">str</tt> to convert a <tt class="literal">None</tt> value into a string representation.  <tt class="varname">processFunc</tt> is assuming a string argument and calling its <tt class="function">split</tt> method, which would crash if you passed it <tt class="literal">None</tt> because <tt class="literal">None</tt> doesn't have a <tt class="function">split</tt> method.
+         </p>
+         <p>Stepping back even further, you see that you're using string formatting again to concatenate the return value of <tt class="varname">processFunc</tt> with the return value of <tt class="varname">method</tt>'s <tt class="function">ljust</tt> method.  This is a new string method that you haven't seen before.
+         </p>
+         <div class="example"><a name="d0e10958"></a><h3 class="title">Example&nbsp;4.24.&nbsp;Introducing <tt class="function">ljust</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class='pystring'>'buildConnectionString'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.ljust(30)</span> <a name="apihelper.alltogether.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'buildConnectionString         '</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.ljust(20)</span> <a name="apihelper.alltogether.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'buildConnectionString'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">ljust</tt> pads the string with spaces to the given length.  This is what the <tt class="function">info</tt> function uses to make two columns of output and line up all the <tt class="literal">doc string</tt>s in the second column.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If the given length is smaller than the length of the string, <tt class="function">ljust</tt> will simply return the string unchanged.  It never truncates the string.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>You're almost finished.  Given the padded method name from the <tt class="function">ljust</tt> method and the (possibly collapsed) <tt class="literal">doc string</tt> from the call to <tt class="varname">processFunc</tt>, you concatenate the two and get a single string.  Since you're mapping <tt class="varname">methodList</tt>, you end up with a list of strings.  Using the <tt class="function">join</tt> method of the string <tt class="literal">"\n"</tt>, you join this list into a single string, with each element of the list on a separate line, and print the result.
+         </p>
+         <div class="example"><a name="d0e11026"></a><h3 class="title">Example&nbsp;4.25.&nbsp;Printing a List</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'a'</span>, <span class='pystring'>'b'</span>, <span class='pystring'>'c'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join(li)</span> <a name="apihelper.alltogether.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">a
+b
+c</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.alltogether.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is also a useful debugging trick when you're working with lists.  And in <span class="application">Python</span>, you're always working with lists.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>That's the last piece of the puzzle.  You should now understand this code.</p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join([<span class='pystring'>"%s %s"</span> %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     <span class='pykeyword'>for</span> method <span class='pykeyword'>in</span> methodList])</pre></div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="lambda_functions.html">&lt;&lt;&nbsp;Using lambda Functions</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#apihelper.divein" title="4.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <a href="built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">3</a> <span class="divider">|</span> <a href="getattr.html" title="4.4.&nbsp;Getting Object References With getattr">4</a> <span class="divider">|</span> <a href="filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <a href="and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">6</a> <span class="divider">|</span> <a href="lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="summary.html" title="4.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

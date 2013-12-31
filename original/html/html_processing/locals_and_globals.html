@@ -1,0 +1,267 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.5.&nbsp;locals and globals</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+      <link rel="previous" href="basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">
+      <link rel="next" href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">locals and globals</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="basehtmlprocessor.html" title="Prev: &#8220;Introducing BaseHTMLProcessor.py&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="dictionary_based_string_formatting.html" title="Next: &#8220;Dictionary-based string formatting&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.locals"></a>8.5.&nbsp;<tt class="function">locals</tt> and <tt class="function">globals</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Let's digress from <span class="acronym">HTML</span> processing for a minute and talk about how <span class="application">Python</span> handles variables.  <span class="application">Python</span> has two built-in functions, <tt class="function">locals</tt> and <tt class="function">globals</tt>, which provide dictionary-based access to local and global variables.
+            </p>
+         </div>
+         <p>Remember <tt class="function">locals</tt>?  You first saw it here:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> unknown_starttag</span>(self, tag, attrs):
+        strattrs = <span class='pystring'>""</span>.join([<span class='pystring'>' %s="%s"'</span> % (key, value) <span class='pykeyword'>for</span> key, value <span class='pykeyword'>in</span> attrs])
+        self.pieces.append(<span class='pystring'>"&lt;%(tag)s%(strattrs)s&gt;"</span> % locals())
+</pre></div>
+         <p>No, wait, you can't learn about <tt class="function">locals</tt> yet.  First, you need to learn about namespaces.  This is dry stuff, but it's important, so pay attention.
+         </p>
+         <p><span class="application">Python</span> uses what are called namespaces to keep track of variables.  A namespace is just like a dictionary where the keys are names
+            of variables and the dictionary values are the values of those variables.  In fact, you can access a namespace as a <span class="application">Python</span> dictionary, as you'll see in a minute.
+         </p>
+         <p>At any particular point in a <span class="application">Python</span> program, there are several namespaces available.  Each function has its own namespace, called the local namespace, which
+            keeps track of the function's variables, including function arguments and locally defined variables.  Each module has its
+            own namespace, called the global namespace, which keeps track of the module's variables, including functions, classes, any
+            other imported modules, and module-level variables and constants.  And there is the built-in namespace, accessible from any
+            module, which holds built-in functions and exceptions.
+         </p>
+         <p>When a line of code asks for the value of a variable <tt class="varname">x</tt>, <span class="application">Python</span> will search for that variable in all the available namespaces, in order:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>local namespace - specific to the current function or class method.  If the function defines a local variable <tt class="varname">x</tt>, or has an argument <tt class="varname">x</tt>, <span class="application">Python</span> will use this and stop searching.
+               </li>
+               <li>global namespace - specific to the current module.  If the module has defined a variable, function, or class called <tt class="varname">x</tt>, <span class="application">Python</span> will use that and stop searching.
+               </li>
+               <li>built-in namespace - global to all modules.  As a last resort, <span class="application">Python</span> will assume that <tt class="varname">x</tt> is the name of built-in function or variable.
+               </li>
+            </ol>
+         </div>
+         <p>If <span class="application">Python</span> doesn't find <tt class="varname">x</tt> in any of these namespaces, it gives up and raises a <tt class="errorcode">NameError</tt> with the message <tt class="errorname">There is no variable named 'x'</tt>, which you saw back in <a href="../native_data_types/declaring_variables.html#odbchelper.unboundvariable" title="Example&nbsp;3.18.&nbsp;Referencing an Unbound Variable">Example&nbsp;3.18, &#8220;Referencing an Unbound Variable&#8221;</a>, but you didn't appreciate how much work <span class="application">Python</span> was doing before giving you that error.
+         </p><a name="d0e21061"></a><table class="important" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/important.png" alt="Important" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> 2.2 introduced a subtle but important change that affects the namespace search order: nested scopes.  In versions of <span class="application">Python</span> prior to 2.2, when you reference a variable within a <a href="../file_handling/all_together.html#fileinfo.nested" title="Example&nbsp;6.21.&nbsp;listDirectory">nested function</a> or <a href="../power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions"><tt class="literal">lambda</tt> function</a>, <span class="application">Python</span> will search for that variable in the current (nested or <tt class="literal">lambda</tt>) function's namespace, then in the module's namespace.  <span class="application">Python</span> 2.2 will search for the variable in the current (nested or <tt class="literal">lambda</tt>) function's namespace, <span class="emphasis"><em>then in the parent function's namespace</em></span>, then in the module's namespace.  <span class="application">Python</span> 2.1 can work either way; by default, it works like <span class="application">Python</span> 2.0, but you can add the following line of code at the top of your module to make your module work like <span class="application">Python</span> 2.2:<pre class="programlisting"><span class='pykeyword'>
+from</span> __future__ <span class='pykeyword'>import</span> nested_scopes</pre></td>
+            </tr>
+         </table>
+         <p>Are you confused yet?  Don't despair!  This is really cool, I promise.  Like many things in <span class="application">Python</span>, namespaces are <span class="emphasis"><em>directly accessible at run-time</em></span>.  How?  Well, the local namespace is accessible via the built-in <tt class="function">locals</tt> function, and the global (module level) namespace is accessible via the built-in <tt class="function">globals</tt> function.
+         </p>
+         <div class="example"><a name="d0e21119"></a><h3 class="title">Example&nbsp;8.10.&nbsp;Introducing <tt class="function">locals</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>def</span><span class='pyclass'> foo</span>(arg):</span> <a name="dialect.locals.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput">x = 1</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> locals()</span>
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">foo(7)</span>        <a name="dialect.locals.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">{'arg': 7, 'x': 1}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">foo(<span class='pystring'>'bar'</span>)</span>    <a name="dialect.locals.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">{'arg': 'bar', 'x': 1}</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The function <tt class="function">foo</tt> has two variables in its local namespace: <tt class="varname">arg</tt>, whose value is passed in to the function, and <tt class="varname">x</tt>, which is defined within the function.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">locals</tt> returns a dictionary of name/value pairs.  The keys of this dictionary are the names of the variables as strings; the values
+                        of the dictionary are the actual values of the variables.  So calling <tt class="function">foo</tt> with <tt class="literal">7</tt> prints the dictionary containing the function's two local variables: <tt class="varname">arg</tt> (<tt class="literal">7</tt>) and <tt class="varname">x</tt> (<tt class="constant">1</tt>).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Remember, <span class="application">Python</span> has dynamic typing, so you could just as easily pass a string in for <tt class="varname">arg</tt>; the function (and the call to <tt class="function">locals</tt>) would still work just as well.  <tt class="function">locals</tt> works with all variables of all datatypes.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>What <tt class="function">locals</tt> does for the local (function) namespace, <tt class="function">globals</tt> does for the global (module) namespace.  <tt class="function">globals</tt> is more exciting, though, because a module's namespace is more exciting.<sup>[<a name="d0e21226" href="#ftn.d0e21226">3</a>]</sup>  Not only does the module's namespace include module-level variables and constants, it includes all the functions and classes
+            defined in the module.  Plus, it includes anything that was imported into the module.
+         </p>
+         <p>Remember the difference between <a href="../object_oriented_framework/importing_modules.html" title="5.2.&nbsp;Importing Modules Using from module import"><tt class="literal">from <i class="replaceable">module</i> import</tt></a> and <a href="../getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&nbsp;2.3.&nbsp;Accessing the buildConnectionString Function's doc string"><tt class="literal">import <i class="replaceable">module</i></tt></a>?  With <tt class="literal">import <i class="replaceable">module</i></tt>, the module itself is imported, but it retains its own namespace, which is why you need to use the module name to access
+            any of its functions or attributes: <tt class="literal"><i class="replaceable">module</i>.<i class="replaceable">function</i></tt>.  But with <tt class="literal">from <i class="replaceable">module</i> import</tt>, you're actually importing specific functions and attributes from another module into your own namespace, which is why you
+            access them directly without referencing the original module they came from.  With the <tt class="function">globals</tt> function, you can actually see this happen.
+         </p>
+         <div class="example"><a name="dialect.globals.example"></a><h3 class="title">Example&nbsp;8.11.&nbsp;Introducing <tt class="function">globals</tt></h3>
+            <p>Look at the following block of code at the bottom of <tt class="filename">BaseHTMLProcessor.py</tt>:
+            </p><pre class="programlisting"><span class='pykeyword'>
+if</span> __name__ == <span class='pystring'>"__main__"</span>:
+    <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> globals().items():             <a name="dialect.locals.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>print</span> k, <span class='pystring'>"="</span>, v</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Just so you don't get intimidated, remember that you've seen all this before.  The <tt class="function">globals</tt> function returns a dictionary, and you're <a href="../file_handling/for_loops.html#dictionaryiter.example" title="Example&nbsp;6.10.&nbsp;Iterating Through a Dictionary">iterating through the dictionary</a> using the <tt class="function">items</tt> method and <a href="../native_data_types/declaring_variables.html#odbchelper.multiassign" title="3.4.2.&nbsp;Assigning Multiple Values at Once">multi-variable assignment</a>.  The only thing new here is the <tt class="function">globals</tt> function.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p>Now running the script from the command line gives this output (note that your output may be slightly different, depending
+               on your platform and where you installed <span class="application">Python</span>):
+            </p><pre class="screen"><tt class="prompt">c:\docbook\dip\py&gt;</tt> <span class="userinput">python BaseHTMLProcessor.py</span></pre><pre class="programlisting">
+SGMLParser = sgmllib.SGMLParser                <a name="dialect.locals.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+htmlentitydefs = &lt;module <span class='pystring'>'htmlentitydefs'</span> <span class='pykeyword'>from</span> <span class='pystring'>'C:\Python23\lib\htmlentitydefs.py'</span>&gt; <a name="dialect.locals.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+BaseHTMLProcessor = __main__.BaseHTMLProcessor <a name="dialect.locals.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+__name__ = __main__                            <a name="dialect.locals.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+... rest of output omitted <span class='pykeyword'>for</span> brevity...</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="classname">SGMLParser</tt> was imported from <tt class="filename">sgmllib</tt>, using <tt class="literal">from <i class="replaceable">module</i> import</tt>.  That means that it was imported directly into the module's namespace, and here it is.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Contrast this with <tt class="filename">htmlentitydefs</tt>, which was imported using <tt class="literal">import</tt>.  That means that the <tt class="filename">htmlentitydefs</tt> module itself is in the namespace, but the <tt class="varname">entitydefs</tt> variable defined within <tt class="filename">htmlentitydefs</tt> is not.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This module only defines one class, <tt class="classname">BaseHTMLProcessor</tt>, and here it is.  Note that the value here is <a href="../object_oriented_framework/class_attributes.html#fileinfo.classattributes.intro" title="Example&nbsp;5.17.&nbsp;Introducing Class Attributes">the class itself</a>, not a specific instance of the class.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Remember the <a href="../getting_to_know_python/testing_modules.html#odbchelper.ifnametrick"><tt class="literal">if <span class="literal">__name__</span></tt> trick</a>?  When running a module (as opposed to importing it from another module), the built-in <tt class="literal">__name__</tt> attribute is a special value, <tt class="literal">__main__</tt>.  Since you ran this module as a script from the command line, <tt class="literal">__name__</tt> is <tt class="literal">__main__</tt>, which is why the little test code to print the <tt class="function">globals</tt> got executed.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="tip.localsbyname"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Using the <tt class="function">locals</tt> and <tt class="function">globals</tt> functions, you can get the value of arbitrary variables dynamically, providing the variable name as a string.  This mirrors
+                  the functionality of the <a href="../power_of_introspection/getattr.html" title="4.4.&nbsp;Getting Object References With getattr"><tt class="function">getattr</tt></a> function, which allows you to access arbitrary functions dynamically by providing the function name as a string.
+               </td>
+            </tr>
+         </table>
+         <p>There is one other important difference between the <tt class="function">locals</tt> and <tt class="function">globals</tt> functions, which you should learn now before it bites you.  It will bite you anyway, but at least then you'll remember learning
+            it.
+         </p>
+         <div class="example"><a name="dialect.locals.readonly.example"></a><h3 class="title">Example&nbsp;8.12.&nbsp;<tt class="function">locals</tt> is read-only, <tt class="function">globals</tt> is not
+            </h3><pre class="programlisting"><span class='pykeyword'>
+def</span> foo(arg):
+    x = 1
+    <span class='pykeyword'>print</span> locals()    <a name="dialect.locals.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    locals()[<span class='pystring'>"x"</span>] = 2 <a name="dialect.locals.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>print</span> <span class='pystring'>"x="</span>,x      <a name="dialect.locals.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+
+z = 7
+<span class='pykeyword'>print</span> <span class='pystring'>"z="</span>,z
+foo(3)
+globals()[<span class='pystring'>"z"</span>] = 8    <a name="dialect.locals.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"><span class='pykeyword'>
+print</span> <span class='pystring'>"z="</span>,z          <a name="dialect.locals.4.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Since <tt class="function">foo</tt> is called with <tt class="literal">3</tt>, this will print <tt class="literal">{'arg': 3, 'x': 1}</tt>.  This should not be a surprise.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">locals</tt> is a function that returns a dictionary, and here you are setting a value in that dictionary.  You might think that this
+                        would change the value of the local variable <tt class="varname">x</tt> to <tt class="literal">2</tt>, but it doesn't.  <tt class="function">locals</tt> does not actually return the local namespace, it returns a copy.  So changing it does nothing to the value of the variables
+                        in the local namespace.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This prints <tt class="literal">x= 1</tt>, not <tt class="literal">x= 2</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">After being burned by <tt class="function">locals</tt>, you might think that this <span class="emphasis"><em>wouldn't</em></span> change the value of <tt class="varname">z</tt>, but it does.  Due to internal differences in how <span class="application">Python</span> is implemented (which I'd rather not go into, since I don't fully understand them myself), <tt class="function">globals</tt> returns the actual global namespace, not a copy: the exact opposite behavior of <tt class="function">locals</tt>.  So any changes to the dictionary returned by <tt class="function">globals</tt> directly affect your global variables.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.locals.4.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This prints <tt class="literal">z= 8</tt>, not <tt class="literal">z= 7</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footnotes">
+            <h3 class="footnotetitle">Footnotes</h3>
+            <div class="footnote">
+               <p><sup>[<a name="ftn.d0e21226" href="#d0e21226">3</a>] </sup>I don't get out much.
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="basehtmlprocessor.html">&lt;&lt;&nbsp;Introducing BaseHTMLProcessor.py</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">3</a> <span class="divider">|</span> <a href="basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <a href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <a href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <a href="all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="dictionary_based_string_formatting.html">Dictionary-based string formatting&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

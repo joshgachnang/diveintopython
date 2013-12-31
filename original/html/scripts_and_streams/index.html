@@ -1,0 +1,366 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;10.&nbsp;Scripts and Streams</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../xml_processing/summary.html" title="9.7.&nbsp;Segue">
+      <link rel="next" href="stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Scripts and Streams</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../xml_processing/summary.html" title="Prev: &#8220;Segue&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="stdin_stdout_stderr.html" title="Next: &#8220;Standard input, output, and error&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="streams"></a>Chapter&nbsp;10.&nbsp;Scripts and Streams
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#kgp.openanything">10.1. Abstracting input sources</a></span></li>
+               <li><span class="section"><a href="stdin_stdout_stderr.html">10.2. Standard input, output, and error</a></span></li>
+               <li><span class="section"><a href="caching.html">10.3. Caching node lookups</a></span></li>
+               <li><span class="section"><a href="child_nodes.html">10.4. Finding direct children of a node</a></span></li>
+               <li><span class="section"><a href="handlers_by_node_type.html">10.5. Creating separate handlers by node type</a></span></li>
+               <li><span class="section"><a href="command_line_arguments.html">10.6. Handling command-line arguments</a></span></li>
+               <li><span class="section"><a href="all_together.html">10.7. Putting it all together</a></span></li>
+               <li><span class="section"><a href="summary.html">10.8. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="kgp.openanything"></a>10.1.&nbsp;Abstracting input sources
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>One of <span class="application">Python</span>'s greatest strengths is its dynamic binding, and one powerful use of dynamic binding is the <span class="emphasis"><em>file-like object</em></span>.
+               </p>
+            </div>
+            <p>Many functions which require an input source could simply take a filename, go open the file for reading, read it, and close
+               it when they're done.  But they don't.  Instead, they take a <span class="emphasis"><em>file-like object</em></span>.
+            </p>
+            <p>In the simplest case, a <span class="emphasis"><em>file-like object</em></span> is any object with a <tt class="function">read</tt> method with an optional <tt class="varname">size</tt> parameter, which returns a string.  When called with no <tt class="varname">size</tt> parameter, it reads everything there is to read from the input source and returns all the data as a single string.  When
+               called with a <tt class="varname">size</tt> parameter, it reads that much from the input source and returns that much data; when called again, it picks up where it left
+               off and returns the next chunk of data.
+            </p>
+            <p>This is how <a href="../file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">reading from real files</a> works; the difference is that you're not limiting yourself to real files.  The input source could be anything: a file on
+               disk, a web page, even a hard-coded string.  As long as you pass a file-like object to the function, and the function simply
+               calls the object's <tt class="function">read</tt> method, the function can handle any kind of input source without specific code to handle each kind.
+            </p>
+            <p>In case you were wondering how this relates to <span class="acronym">XML</span> processing, <tt class="function">minidom.parse</tt> is one such function which can take a file-like object.
+            </p>
+            <div class="example"><a name="d0e25118"></a><h3 class="title">Example&nbsp;10.1.&nbsp;Parsing <span class="acronym">XML</span> from a file
+               </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> xml.dom <span class='pykeyword'>import</span> minidom</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fsock = open(<span class='pystring'>'binary.xml'</span>)</span>    <a name="kgp.openanything.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(fsock)</span> <a name="kgp.openanything.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fsock.close()</span>                 <a name="kgp.openanything.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> xmldoc.toxml()</span>          <a name="kgp.openanything.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">First, you open the file on disk.  This gives you a <a href="../file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">file object</a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You pass the file object to <tt class="function">minidom.parse</tt>, which calls the <tt class="function">read</tt> method of <tt class="varname">fsock</tt> and reads the <span class="acronym">XML</span> document from the file on disk.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Be sure to call the <tt class="function">close</tt> method of the file object after you're done with it.  <tt class="function">minidom.parse</tt> will not do this for you.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Calling the <tt class="methodname">toxml()</tt> method on the returned <span class="acronym">XML</span> document prints out the entire thing.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Well, that all seems like a colossal waste of time.  After all, you've already seen that <tt class="function">minidom.parse</tt> can simply take the filename and do all the opening and closing nonsense automatically.  And it's true that if you know you're
+               just going to be parsing a local file, you can pass the filename and <tt class="function">minidom.parse</tt> is smart enough to <span class="trademark">Do The Right Thing</span>&#8482;.  But notice how similar -- and easy -- it is to parse an <span class="acronym">XML</span> document straight from the Internet.
+            </p>
+            <div class="example"><a name="kgp.openanything.urllib"></a><h3 class="title">Example&nbsp;10.2.&nbsp;Parsing <span class="acronym">XML</span> from a <span class="acronym">URL</span></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">usock = urllib.urlopen(<span class='pystring'>'http://slashdot.org/slashdot.rdf'</span>)</span> <a name="kgp.openanything.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(usock)</span>                              <a name="kgp.openanything.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">usock.close()</span>                                              <a name="kgp.openanything.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> xmldoc.toxml()</span>                                       <a name="kgp.openanything.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;rdf:RDF xmlns="http://my.netscape.com/rdf/simple/0.9/"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+
+&lt;channel&gt;
+&lt;title&gt;Slashdot&lt;/title&gt;
+&lt;link&gt;http://slashdot.org/&lt;/link&gt;
+&lt;description&gt;News for nerds, stuff that matters&lt;/description&gt;
+&lt;/channel&gt;
+
+&lt;image&gt;
+&lt;title&gt;Slashdot&lt;/title&gt;
+&lt;url&gt;http://images.slashdot.org/topics/topicslashdot.gif&lt;/url&gt;
+&lt;link&gt;http://slashdot.org/&lt;/link&gt;
+&lt;/image&gt;
+
+&lt;item&gt;
+&lt;title&gt;To HDTV or Not to HDTV?&lt;/title&gt;
+&lt;link&gt;http://slashdot.org/article.pl?sid=01/12/28/0421241&lt;/link&gt;
+&lt;/item&gt;
+
+[...snip...]</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">As you saw <a href="../html_processing/extracting_data.html#dialect.extract.urllib" title="Example&nbsp;8.5.&nbsp;Introducing urllib">in a previous chapter</a>, <tt class="function">urlopen</tt> takes a web page <span class="acronym">URL</span> and returns a file-like object.  Most importantly, this object has a <tt class="function">read</tt> method which returns the <span class="acronym">HTML</span> source of the web page.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Now you pass the file-like object to <tt class="function">minidom.parse</tt>, which obediently calls the <tt class="function">read</tt> method of the object and parses the <span class="acronym">XML</span> data that the <tt class="function">read</tt> method returns.  The fact that this <span class="acronym">XML</span> data is now coming straight from a web page is completely irrelevant.  <tt class="function">minidom.parse</tt> doesn't know about web pages, and it doesn't care about web pages; it just knows about file-like objects.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">As soon as you're done with it, be sure to close the file-like object that <tt class="function">urlopen</tt> gives you.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">By the way, this <span class="acronym">URL</span> is real, and it really is <span class="acronym">XML</span>.  It's an <span class="acronym">XML</span> representation of the current headlines on <a href="http://slashdot.org/">Slashdot</a>, a technical news and gossip site.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="d0e25321"></a><h3 class="title">Example&nbsp;10.3.&nbsp;Parsing <span class="acronym">XML</span> from a string (the easy but inflexible way)
+               </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">contents = <span class='pystring'>"&lt;grammar&gt;&lt;ref id='bit'&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parseString(contents)</span> <a name="kgp.openanything.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> xmldoc.toxml()</span>
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;grammar&gt;&lt;ref id="bit"&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="filename">minidom</tt> has a method, <tt class="function">parseString</tt>, which takes an entire <span class="acronym">XML</span> document as a string and parses it.  You can use this instead of <tt class="function">minidom.parse</tt> if you know you already have your entire <span class="acronym">XML</span> document in a string.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>OK, so you can use the <tt class="function">minidom.parse</tt> function for parsing both local files and remote <span class="acronym">URL</span>s, but for parsing strings, you use... a different function.  That means that if you want to be able to take input from a
+               file, a <span class="acronym">URL</span>, or a string, you'll need special logic to check whether it's a string, and call the <tt class="function">parseString</tt> function instead.  How unsatisfying.
+            </p>
+            <p>If there were a way to turn a string into a file-like object, then you could simply pass this object to <tt class="function">minidom.parse</tt>.  And in fact, there is a module specifically designed for doing just that: <tt class="filename">StringIO</tt>.
+            </p>
+            <div class="example"><a name="kgp.openanything.stringio.example"></a><h3 class="title">Example&nbsp;10.4.&nbsp;Introducing <tt class="filename">StringIO</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">contents = <span class='pystring'>"&lt;grammar&gt;&lt;ref id='bit'&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> StringIO</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock = StringIO.StringIO(contents)</span>   <a name="kgp.openanything.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read()</span>                          <a name="kgp.openanything.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">"&lt;grammar&gt;&lt;ref id='bit'&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;"</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read()</span>                          <a name="kgp.openanything.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">''</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.seek(0)</span>                         <a name="kgp.openanything.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read(15)</span>                        <a name="kgp.openanything.4.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">'&lt;grammar&gt;&lt;ref i'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read(15)</span>
+<span class="computeroutput">"d='bit'&gt;&lt;p&gt;0&lt;/p"</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.read()</span>
+<span class="computeroutput">'&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.close()</span>                         <a name="kgp.openanything.4.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="filename">StringIO</tt> module contains a single class, also called <tt class="classname">StringIO</tt>, which allows you to turn a string into a file-like object.  The <tt class="classname">StringIO</tt> class takes the string as a parameter when creating an instance.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Now you have a file-like object, and you can do all sorts of file-like things with it.  Like <tt class="function">read</tt>, which returns the original string.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Calling <tt class="function">read</tt> again returns an empty string.  This is how real file objects work too; once you read the entire file, you can't read any
+                           more without explicitly seeking to the beginning of the file.  The <tt class="classname">StringIO</tt> object works the same way.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You can explicitly seek to the beginning of the string, just like seeking through a file, by using the <tt class="function">seek</tt> method of the <tt class="classname">StringIO</tt> object.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.4.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You can also read the string in chunks, by passing a <tt class="varname">size</tt> parameter to the <tt class="function">read</tt> method.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.4.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">At any time, <tt class="function">read</tt> will return the rest of the string that you haven't read yet.  All of this is exactly how file objects work; hence the term
+                           <span class="emphasis"><em>file-like object</em></span>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="d0e25526"></a><h3 class="title">Example&nbsp;10.5.&nbsp;Parsing <span class="acronym">XML</span> from a string (the file-like object way)
+               </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">contents = <span class='pystring'>"&lt;grammar&gt;&lt;ref id='bit'&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock = StringIO.StringIO(contents)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(ssock)</span> <a name="kgp.openanything.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">ssock.close()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> xmldoc.toxml()</span>
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;grammar&gt;&lt;ref id="bit"&gt;&lt;p&gt;0&lt;/p&gt;&lt;p&gt;1&lt;/p&gt;&lt;/ref&gt;&lt;/grammar&gt;</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Now you can pass the file-like object (really a <tt class="classname">StringIO</tt>) to <tt class="function">minidom.parse</tt>, which will call the object's <tt class="function">read</tt> method and happily parse away, never knowing that its input came from a hard-coded string.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>So now you know how to use a single function, <tt class="function">minidom.parse</tt>, to parse an <span class="acronym">XML</span> document stored on a web page, in a local file, or in a hard-coded string.  For a web page, you use <tt class="function">urlopen</tt> to get a file-like object; for a local file, you use <tt class="function">open</tt>; and for a string, you use <tt class="classname">StringIO</tt>.  Now let's take it one step further and generalize <span class="emphasis"><em>these</em></span> differences as well.
+            </p>
+            <div class="example"><a name="kgp.openanything.example"></a><h3 class="title">Example&nbsp;10.6.&nbsp;<tt class="function">openAnything</tt></h3><pre class="programlisting"><span class='pykeyword'>
+def</span> openAnything(source):                  <a name="kgp.openanything.6.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pycomment'># try to open with urllib (if source is http, ftp, or file URL)</span>
+    <span class='pykeyword'>import</span> urllib                         
+    <span class='pykeyword'>try</span>:                                  
+        <span class='pykeyword'>return</span> urllib.urlopen(source)      <a name="kgp.openanything.6.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>except</span> (IOError, OSError):            
+        <span class='pykeyword'>pass</span>                              
+
+    <span class='pycomment'># try to open with native open function (if source is pathname)</span>
+    <span class='pykeyword'>try</span>:                                  
+        <span class='pykeyword'>return</span> open(source)                <a name="kgp.openanything.6.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+    <span class='pykeyword'>except</span> (IOError, OSError):            
+        <span class='pykeyword'>pass</span>                              
+
+    <span class='pycomment'># treat source as string</span>
+    <span class='pykeyword'>import</span> StringIO                       
+    <span class='pykeyword'>return</span> StringIO.StringIO(str(source))  <a name="kgp.openanything.6.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.6.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">openAnything</tt> function takes a single parameter, <tt class="varname">source</tt>, and returns a file-like object.  <tt class="varname">source</tt> is a string of some sort; it can either be a <span class="acronym">URL</span> (like <tt class="literal">'http://slashdot.org/slashdot.rdf'</tt>), a full or partial pathname to a local file (like <tt class="literal">'binary.xml'</tt>), or a string that contains actual <span class="acronym">XML</span> data to be parsed.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.6.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">First, you see if <tt class="varname">source</tt> is a <span class="acronym">URL</span>.  You do this through brute force: you try to open it as a <span class="acronym">URL</span> and silently ignore errors caused by trying to open something which is not a <span class="acronym">URL</span>.  This is actually elegant in the sense that, if <tt class="filename">urllib</tt> ever supports new types of <span class="acronym">URL</span>s in the future, you will also support them without recoding.  If <tt class="filename">urllib</tt> is able to open <tt class="varname">source</tt>, then the <tt class="literal">return</tt> kicks you out of the function immediately and the following <tt class="literal">try</tt> statements never execute.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.6.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">On the other hand, if <tt class="filename">urllib</tt> yelled at you and told you that <tt class="varname">source</tt> wasn't a valid <span class="acronym">URL</span>, you assume it's a path to a file on disk and try to open it.  Again, you don't do anything fancy to check whether <tt class="varname">source</tt> is a valid filename or not (the rules for valid filenames vary wildly between different platforms anyway, so you'd probably
+                           get them wrong anyway).  Instead, you just blindly open the file, and silently trap any errors.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#kgp.openanything.6.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">By this point, you need to assume that <tt class="varname">source</tt> is a string that has hard-coded data in it (since nothing else worked), so you use <tt class="classname">StringIO</tt> to create a file-like object out of it and return that.  (In fact, since you're using the <tt class="function">str</tt> function, <tt class="varname">source</tt> doesn't even need to be a string; it could be any object, and you'll use its string representation, as defined by its <tt class="function">__str__</tt> <a href="../object_oriented_framework/special_class_methods2.html" title="5.7.&nbsp;Advanced Special Class Methods">special method</a>.)
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Now you can use this <tt class="function">openAnything</tt> function in conjunction with <tt class="function">minidom.parse</tt> to make a function that takes a <tt class="varname">source</tt> that refers to an <span class="acronym">XML</span> document somehow (either as a <span class="acronym">URL</span>, or a local filename, or a hard-coded <span class="acronym">XML</span> document in a string) and parses it.
+            </p>
+            <div class="example"><a name="d0e25723"></a><h3 class="title">Example&nbsp;10.7.&nbsp;Using <tt class="function">openAnything</tt> in <tt class="filename">kgp.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+class</span> KantGenerator:
+    <span class='pykeyword'>def</span><span class='pyclass'> _load</span>(self, source):
+        sock = toolbox.openAnything(source)
+        xmldoc = minidom.parse(sock).documentElement
+        sock.close()
+        <span class='pykeyword'>return</span> xmldoc</pre></div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../xml_processing/summary.html">&lt;&lt;&nbsp;Segue</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="stdin_stdout_stderr.html">Standard input, output, and error&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

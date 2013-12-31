@@ -1,0 +1,165 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>3.7.&nbsp;Joining Lists and Splitting Strings</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;3.&nbsp;Native Datatypes">
+      <link rel="previous" href="mapping_lists.html" title="3.6.&nbsp;Mapping Lists">
+      <link rel="next" href="summary.html" title="3.8.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Native Datatypes</a>&nbsp;&gt;&nbsp;<span class="thispage">Joining Lists and Splitting Strings</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="mapping_lists.html" title="Prev: &#8220;Mapping Lists&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.join"></a>3.7.&nbsp;Joining Lists and Splitting Strings
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="joining_lists.html#d0e7982">3.7.1. Historical Note on String Methods</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>You have a list of key-value pairs in the form <tt class="literal"><i class="replaceable">key</i>=<i class="replaceable">value</i></tt>, and you want to join them into a single string.  To join any list of strings into a single string, use the <tt class="function">join</tt> method of a string object.
+            </p>
+         </div>
+         <div class="informalexample">
+            <p>Here is an example of joining a list from the <tt class="function">buildConnectionString</tt> function:
+            </p><pre class="programlisting">
+    <span class='pykeyword'>return</span> <span class='pystring'>";"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()])</pre></div>
+         <p>One interesting note before you continue.  I keep repeating that functions are objects, strings are objects... everything
+            is an object.  You might have thought I meant that string <span class="emphasis"><em>variables</em></span> are objects.  But no, look closely at this example and you'll see that the string <tt class="literal">";"</tt> itself is an object, and you are calling its <tt class="function">join</tt> method.
+         </p>
+         <p>The <tt class="function">join</tt> method joins the elements of the list into a single string, with each element separated by a semi-colon.  The delimiter doesn't
+            need to be a semi-colon; it doesn't even need to be a single character.  It can be any string.
+         </p><a name="tip.join"></a><table class="caution" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/caution.png" alt="Caution" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><tt class="function">join</tt> works only on lists of strings; it does not do any type coercion.  Joining a list that has one or more non-string elements
+                  will raise an exception.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="odbchelper.join.example"></a><h3 class="title">Example&nbsp;3.27.&nbsp;Output of <tt class="filename">odbchelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class='pystring'>"server"</span>:<span class='pystring'>"mpilgrim"</span>, <span class='pystring'>"database"</span>:<span class='pystring'>"master"</span>, <span class='pystring'>"uid"</span>:<span class='pystring'>"sa"</span>, <span class='pystring'>"pwd"</span>:<span class='pystring'>"secret"</span>}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()]</span>
+<span class="computeroutput">['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>";"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()])</span>
+<span class="computeroutput">'server=mpilgrim;uid=sa;database=master;pwd=secret'</span></pre></div>
+         <p>This string is then returned from the <tt class="function">odbchelper</tt> function and printed by the calling block, which gives you the output that you marveled at when you started reading this
+            chapter.
+         </p>
+         <p>You're probably wondering if there's an analogous method to split a string into a list.  And of course there is, and it's
+            called <tt class="function">split</tt>.
+         </p>
+         <div class="example"><a name="odbchelper.split.example"></a><h3 class="title">Example&nbsp;3.28.&nbsp;Splitting a String</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'server=mpilgrim'</span>, <span class='pystring'>'uid=sa'</span>, <span class='pystring'>'database=master'</span>, <span class='pystring'>'pwd=secret'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class='pystring'>";"</span>.join(li)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s</span>
+<span class="computeroutput">'server=mpilgrim;uid=sa;database=master;pwd=secret'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.split(<span class='pystring'>";"</span>)</span>    <a name="odbchelper.join.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.split(<span class='pystring'>";"</span>, 1)</span> <a name="odbchelper.join.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['server=mpilgrim', 'uid=sa;database=master;pwd=secret']</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.join.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">split</tt> reverses <tt class="function">join</tt> by splitting a string into a multi-element list.  Note that the delimiter (&#8220;<span class="quote"><tt class="literal">;</tt></span>&#8221;) is stripped out completely; it does not appear in any of the elements of the returned list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.join.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">split</tt> takes an optional second argument, which is the number of times to split.  (&#8220;<span class="quote">"Oooooh, optional arguments...</span>&#8221;  You'll learn how to do this in your own functions in the next chapter.)
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="tip.split"></a><table class="tip" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><tt class="literal"><i class="replaceable">anystring</i>.<tt class="function">split</tt>(<i class="replaceable">delimiter</i>, 1)</tt> is a useful technique when you want to search a string for a substring and then work with everything before the substring
+                  (which ends up in the first element of the returned list) and everything after it (which ends up in the second element).
+               </td>
+            </tr>
+         </table>
+         <div class="furtherreading">
+            <h3>Further Reading on String Methods</h3>
+            <ul>
+               <li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> answers <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/480">common questions about strings</a> and has a lot of <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/539">example code using strings</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes <a href="http://www.python.org/doc/current/lib/string-methods.html">all the string methods</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents the <a href="http://www.python.org/doc/current/lib/module-string.html"><tt class="filename">string</tt> module</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/FAQ.html"><i class="citetitle">The Whole <span class="application">Python</span> <span class="acronym">FAQ</span></i></a> explains <a href="http://www.python.org/cgi-bin/faqw.py?query=4.96&amp;querytype=simple&amp;casefold=yes&amp;req=search">why <tt class="function">join</tt> is a string method</a> instead of a list method.
+               </li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e7982"></a>3.7.1.&nbsp;Historical Note on String Methods
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>When I first learned <span class="application">Python</span>, I expected <tt class="function">join</tt> to be a method of a list, which would take the delimiter as an argument.  Many people feel the same way, and there's a story
+               behind the <tt class="function">join</tt> method.  Prior to <span class="application">Python</span> 1.6, strings didn't have all these useful methods.  There was a separate <tt class="filename">string</tt> module that contained all the string functions; each function took a string as its first argument.  The functions were deemed
+               important enough to put onto the strings themselves, which made sense for functions like <tt class="function">lower</tt>, <tt class="function">upper</tt>, and <tt class="function">split</tt>.  But many hard-core <span class="application">Python</span> programmers objected to the new <tt class="function">join</tt> method, arguing that it should be a method of the list instead, or that it shouldn't move at all but simply stay a part of
+               the old <tt class="filename">string</tt> module (which still has a lot of useful stuff in it).  I use the new <tt class="function">join</tt> method exclusively, but you will see code written either way, and if it really bothers you, you can use the old <tt class="function">string.join</tt> function instead.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="mapping_lists.html">&lt;&lt;&nbsp;Mapping Lists</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">1</a> <span class="divider">|</span> <a href="lists.html" title="3.2.&nbsp;Introducing Lists">2</a> <span class="divider">|</span> <a href="tuples.html" title="3.3.&nbsp;Introducing Tuples">3</a> <span class="divider">|</span> <a href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">4</a> <span class="divider">|</span> <a href="formatting_strings.html" title="3.5.&nbsp;Formatting Strings">5</a> <span class="divider">|</span> <a href="mapping_lists.html" title="3.6.&nbsp;Mapping Lists">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="summary.html" title="3.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

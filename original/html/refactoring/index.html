@@ -1,0 +1,223 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;15.&nbsp;Refactoring</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../unit_testing/stage_5.html" title="14.5.&nbsp;roman.py, stage 5">
+      <link rel="next" href="handling_changing_requirements.html" title="15.2.&nbsp;Handling changing requirements">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Refactoring</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../unit_testing/stage_5.html" title="Prev: &#8220;roman.py, stage 5&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="handling_changing_requirements.html" title="Next: &#8220;Handling changing requirements&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman2"></a>Chapter&nbsp;15.&nbsp;Refactoring
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#roman.bugs">15.1. Handling bugs</a></span></li>
+               <li><span class="section"><a href="handling_changing_requirements.html">15.2. Handling changing requirements</a></span></li>
+               <li><span class="section"><a href="refactoring.html">15.3. Refactoring</a></span></li>
+               <li><span class="section"><a href="postscript.html">15.4. Postscript</a></span></li>
+               <li><span class="section"><a href="summary.html">15.5. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="roman.bugs"></a>15.1.&nbsp;Handling bugs
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>Despite your best efforts to write comprehensive unit tests, bugs happen.  What do I mean by &#8220;<span class="quote">bug</span>&#8221;?  A bug is a test case you haven't written yet.
+               </p>
+            </div>
+            <div class="example"><a name="d0e34158"></a><h3 class="title">Example&nbsp;15.1.&nbsp;The bug</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> roman5</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">roman5.fromRoman(<span class='pystring'>""</span>)</span> <a name="roman.bugs.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">0</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#roman.bugs.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Remember in the <a href="../unit_testing/stage_5.html" title="14.5.&nbsp;roman.py, stage 5">previous section</a> when you kept seeing that an empty string would match the regular expression you were using to check for valid Roman numerals?
+                            Well, it turns out that this is still true for the final version of the regular expression.  And that's a bug; you want an
+                           empty string to raise an <tt class="errorcode">InvalidRomanNumeralError</tt> exception just like any other sequence of characters that don't represent a valid Roman numeral.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>After reproducing the bug, and before fixing it, you should write a test case that fails, thus illustrating the bug.</p>
+            <div class="example"><a name="d0e34188"></a><h3 class="title">Example&nbsp;15.2.&nbsp;Testing for the bug (<tt class="filename">romantest61.py</tt>)
+               </h3><pre class="programlisting"><span class='pykeyword'>
+class</span> FromRomanBadInput(unittest.TestCase):                                      
+
+    <span class='pycomment'># previous test cases omitted for clarity (they haven't changed)</span>
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testBlank</span>(self):
+        <span class='pystring'>"""fromRoman should fail with blank string"""</span>
+        self.assertRaises(roman.InvalidRomanNumeralError, roman.fromRoman, <span class='pystring'>""</span>) <a name="roman.bugs.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#roman.bugs.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Pretty simple stuff here.  Call <tt class="function">fromRoman</tt> with an empty string and make sure it raises an <tt class="errorcode">InvalidRomanNumeralError</tt> exception.  The hard part was finding the bug; now that you know about it, testing for it is the easy part.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Since your code has a bug, and you now have a test case that tests this bug, the test case will fail:</p>
+            <div class="example"><a name="d0e34210"></a><h3 class="title">Example&nbsp;15.3.&nbsp;Output of <tt class="filename">romantest61.py</tt> against <tt class="filename">roman61.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... ok
+toRoman should always return uppercase ... ok
+fromRoman should fail with blank string ... FAIL
+fromRoman should fail with malformed antecedents ... ok
+fromRoman should fail with repeated pairs of numerals ... ok
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ok
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+
+======================================================================
+FAIL: fromRoman should fail with blank string
+----------------------------------------------------------------------
+</span><span class="traceback">Traceback (most recent call last):
+  File "C:\docbook\dip\py\roman\stage6\romantest61.py", line 137, in testBlank
+    self.assertRaises(roman61.InvalidRomanNumeralError, roman61.fromRoman, "")
+  File "c:\python21\lib\unittest.py", line 266, in failUnlessRaises
+    raise self.failureException, excName
+AssertionError: InvalidRomanNumeralError</span><span class="computeroutput">
+----------------------------------------------------------------------
+Ran 13 tests in 2.864s
+
+FAILED (failures=1)</span></pre></div>
+            <p><span class="emphasis"><em>Now</em></span> you can fix the bug.
+            </p>
+            <div class="example"><a name="d0e34229"></a><h3 class="title">Example&nbsp;15.4.&nbsp;Fixing the bug (<tt class="filename">roman62.py</tt>)
+               </h3>
+               <p>This file is available in <tt class="filename">py/roman/stage6/</tt> in the examples directory.
+               </p><pre class="programlisting"><span class='pykeyword'>
+def</span> fromRoman(s):
+    <span class='pystring'>"""convert Roman numeral to integer"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> s: <a name="roman.bugs.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>'Input can not be blank'</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> re.search(romanNumeralPattern, s):
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>'Invalid Roman numeral: %s'</span> % s
+
+    result = 0
+    index = 0
+    <span class='pykeyword'>for</span> numeral, integer <span class='pykeyword'>in</span> romanNumeralMap:
+        <span class='pykeyword'>while</span> s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    <span class='pykeyword'>return</span> result
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#roman.bugs.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Only two lines of code are required: an explicit check for an empty string, and a <tt class="literal">raise</tt> statement.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="example"><a name="d0e34251"></a><h3 class="title">Example&nbsp;15.5.&nbsp;Output of <tt class="filename">romantest62.py</tt> against <tt class="filename">roman62.py</tt></h3><pre class="screen"><span class="computeroutput">fromRoman should only accept uppercase input ... ok
+toRoman should always return uppercase ... ok
+fromRoman should fail with blank string ... ok </span><a name="roman.bugs.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"><span class="computeroutput">
+fromRoman should fail with malformed antecedents ... ok
+fromRoman should fail with repeated pairs of numerals ... ok
+fromRoman should fail with too many repeated numerals ... ok
+fromRoman should give known result with known input ... ok
+toRoman should give known result with known input ... ok
+fromRoman(toRoman(n))==n for all n ... ok
+toRoman should fail with non-integer input ... ok
+toRoman should fail with negative input ... ok
+toRoman should fail with large input ... ok
+toRoman should fail with 0 input ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 2.834s
+
+OK</span> <a name="roman.bugs.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#roman.bugs.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The blank string test case now passes, so the bug is fixed.</td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#roman.bugs.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">All the other test cases still pass, which means that this bug fix didn't break anything else.  Stop coding.</td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Coding this way does not make fixing bugs any easier.  Simple bugs (like this one) require simple test cases; complex bugs
+               will require complex test cases.  In a testing-centric environment, it may <span class="emphasis"><em>seem</em></span> like it takes longer to fix a bug, since you need to articulate in code exactly what the bug is (to write the test case),
+               then fix the bug itself.  Then if the test case doesn't pass right away, you need to figure out whether the fix was wrong,
+               or whether the test case itself has a bug in it.  However, in the long run, this back-and-forth between test code and code
+               tested pays for itself, because it makes it more likely that bugs are fixed correctly the first time.  Also, since you can
+               easily re-run <span class="emphasis"><em>all</em></span> the test cases along with your new one, you are much less likely to break old code when fixing new code.  Today's unit test
+               is tomorrow's regression test.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../unit_testing/stage_5.html">&lt;&lt;&nbsp;roman.py, stage 5</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="handling_changing_requirements.html" title="15.2.&nbsp;Handling changing requirements">2</a> <span class="divider">|</span> <a href="refactoring.html" title="15.3.&nbsp;Refactoring">3</a> <span class="divider">|</span> <a href="postscript.html" title="15.4.&nbsp;Postscript">4</a> <span class="divider">|</span> <a href="summary.html" title="15.5.&nbsp;Summary">5</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="handling_changing_requirements.html">Handling changing requirements&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,200 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>6.4.&nbsp;Using sys.modules</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;6.&nbsp;Exceptions and File Handling">
+      <link rel="previous" href="for_loops.html" title="6.3.&nbsp;Iterating with for Loops">
+      <link rel="next" href="os_module.html" title="6.5.&nbsp;Working with Directories">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Exceptions and File Handling</a>&nbsp;&gt;&nbsp;<span class="thispage">Using sys.modules</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="for_loops.html" title="Prev: &#8220;Iterating with for Loops&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="os_module.html" title="Next: &#8220;Working with Directories&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.modules"></a>6.4.&nbsp;Using <tt class="literal"><tt class="filename">sys</tt>.modules</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Modules, like everything else in <span class="application">Python</span>, are objects.  Once imported, you can always get a reference to a module through the global dictionary <tt class="literal"><tt class="filename">sys</tt>.modules</tt>.
+            </p>
+         </div>
+         <div class="example"><a name="d0e15693"></a><h3 class="title">Example&nbsp;6.12.&nbsp;Introducing <tt class="literal"><tt class="filename">sys</tt>.modules</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> sys</span>                          <a name="fileinfo.modules.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>'\n'</span>.join(sys.modules.keys())</span> <a name="fileinfo.modules.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">win32api
+os.path
+os
+exceptions
+__main__
+ntpath
+nt
+sys
+__builtin__
+site
+signal
+UserDict
+stat</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="filename">sys</tt> module contains system-level information, such as the version of <span class="application">Python</span> you're running (<tt class="literal"><tt class="filename">sys</tt>.version</tt> or <tt class="literal"><tt class="filename">sys</tt>.version_info</tt>), and system-level options such as the maximum allowed recursion depth (<tt class="literal"><tt class="filename">sys</tt>.getrecursionlimit()</tt> and <tt class="literal"><tt class="filename">sys</tt>.setrecursionlimit()</tt>).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal"><tt class="filename">sys</tt>.modules</tt> is a dictionary containing all the modules that have ever been imported since <span class="application">Python</span> was started; the key is the module name, the value is the module object.  Note that this is more than just the modules <span class="emphasis"><em>your</em></span> program has imported.  <span class="application">Python</span> preloads some modules on startup, and if you're using a <span class="application">Python</span> <span class="acronym">IDE</span>, <tt class="literal"><tt class="filename">sys</tt>.modules</tt> contains all the modules imported by all the programs you've run within the <span class="acronym">IDE</span>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>This example demonstrates how to use <tt class="literal"><tt class="filename">sys</tt>.modules</tt>.
+         </p>
+         <div class="example"><a name="d0e15784"></a><h3 class="title">Example&nbsp;6.13.&nbsp;Using <tt class="literal"><tt class="filename">sys</tt>.modules</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> fileinfo</span>         <a name="fileinfo.modules.1.3"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>'\n'</span>.join(sys.modules.keys())</span>
+<span class="computeroutput">win32api
+os.path
+os
+fileinfo
+exceptions
+__main__
+ntpath
+nt
+sys
+__builtin__
+site
+signal
+UserDict
+stat</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">fileinfo</span>
+<span class="computeroutput">&lt;module 'fileinfo' from 'fileinfo.pyc'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.modules[<span class='pystring'>"fileinfo"</span>]</span> <a name="fileinfo.modules.1.4"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;module 'fileinfo' from 'fileinfo.pyc'&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.1.3"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As new modules are imported, they are added to <tt class="literal"><tt class="filename">sys</tt>.modules</tt>.  This explains why importing the same module twice is very fast: <span class="application">Python</span> has already loaded and cached the module in <tt class="literal"><tt class="filename">sys</tt>.modules</tt>, so importing the second time is simply a dictionary lookup.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.1.4"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Given the name (as a string) of any previously-imported module, you can get a reference to the module itself through the <tt class="literal"><tt class="filename">sys</tt>.modules</tt> dictionary.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The next example shows how to use the <tt class="literal">__module__</tt> class attribute with the <tt class="literal"><tt class="filename">sys</tt>.modules</tt> dictionary to get a reference to the module in which a class is defined.
+         </p>
+         <div class="example"><a name="d0e15859"></a><h3 class="title">Example&nbsp;6.14.&nbsp;The <tt class="literal">__module__</tt> Class Attribute
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> fileinfo <span class='pykeyword'>import</span> MP3FileInfo</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">MP3FileInfo.__module__</span>              <a name="fileinfo.modules.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'fileinfo'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">sys.modules[MP3FileInfo.__module__]</span> <a name="fileinfo.modules.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;module 'fileinfo' from 'fileinfo.pyc'&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Every <span class="application">Python</span> class has a built-in <a href="../object_oriented_framework/class_attributes.html" title="5.8.&nbsp;Introducing Class Attributes">class attribute</a> <tt class="literal">__module__</tt>, which is the name of the module in which the class is defined.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Combining this with the <tt class="literal"><tt class="filename">sys</tt>.modules</tt> dictionary, you can get a reference to the module in which a class is defined.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Now you're ready to see how <tt class="literal"><tt class="filename">sys</tt>.modules</tt> is used in <tt class="filename">fileinfo.py</tt>, the sample program introduced in <a href="../object_oriented_framework/index.html">Chapter 5</a>.  This example shows that portion of the code.
+         </p>
+         <div class="example"><a name="d0e15923"></a><h3 class="title">Example&nbsp;6.15.&nbsp;<tt class="literal"><tt class="filename">sys</tt>.modules</tt> in <tt class="filename">fileinfo.py</tt></h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> getFileInfoClass</span>(filename, module=sys.modules[FileInfo.__module__]):       <a name="fileinfo.modules.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pystring'>"get file info class from filename extension"</span>                             
+        subclass = <span class='pystring'>"%sFileInfo"</span> % os.path.splitext(filename)[1].upper()[1:]        <a name="fileinfo.modules.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> hasattr(module, subclass) <span class='pykeyword'>and</span> getattr(module, subclass) <span class='pykeyword'>or</span> FileInfo <a name="fileinfo.modules.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a function with two arguments; <tt class="varname">filename</tt> is required, but <tt class="varname">module</tt> is <a href="../power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">optional</a> and defaults to the module that contains the <tt class="classname">FileInfo</tt> class.  This looks inefficient, because you might expect <span class="application">Python</span> to evaluate the <tt class="literal"><tt class="filename">sys</tt>.modules</tt> expression every time the function is called.  In fact, <span class="application">Python</span> evaluates default expressions only once, the first time the module is imported.  As you'll see later, you never call this
+                        function with a <tt class="varname">module</tt> argument, so <tt class="varname">module</tt> serves as a function-level constant.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You'll plow through this line later, after you dive into the <tt class="filename">os</tt> module.  For now, take it on faith that <tt class="varname">subclass</tt> ends up as the name of a class, like <tt class="classname">MP3FileInfo</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.modules.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You already know about <a href="../power_of_introspection/getattr.html" title="4.4.&nbsp;Getting Object References With getattr"><tt class="function">getattr</tt></a>, which gets a reference to an object by name.  <tt class="function">hasattr</tt> is a complementary function that checks whether an object has a particular attribute; in this case, whether a module has
+                        a particular class (although it works for any object and any attribute, just like <tt class="function">getattr</tt>).  In English, this line of code says, &#8220;<span class="quote">If this module has the class named by <tt class="varname">subclass</tt> then return it, otherwise return the base class <tt class="classname">FileInfo</tt>.</span>&#8221;
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Further Reading on Modules</h3>
+            <ul>
+               <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discusses exactly <a href="http://www.python.org/doc/current/tut/node6.html#SECTION006710000000000000000">when and how default arguments are evaluated</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents the <a href="http://www.python.org/doc/current/lib/module-sys.html"><tt class="filename">sys</tt></a> module.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="for_loops.html">&lt;&lt;&nbsp;Iterating with for Loops</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions">1</a> <span class="divider">|</span> <a href="file_objects.html" title="6.2.&nbsp;Working with File Objects">2</a> <span class="divider">|</span> <a href="for_loops.html" title="6.3.&nbsp;Iterating with for Loops">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="os_module.html" title="6.5.&nbsp;Working with Directories">5</a> <span class="divider">|</span> <a href="all_together.html" title="6.6.&nbsp;Putting It All Together">6</a> <span class="divider">|</span> <a href="summary.html" title="6.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="os_module.html">Working with Directories&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

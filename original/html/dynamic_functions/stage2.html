@@ -1,0 +1,158 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>17.3.&nbsp;plural.py, stage 2</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;17.&nbsp;Dynamic functions">
+      <link rel="previous" href="stage1.html" title="17.2.&nbsp;plural.py, stage 1">
+      <link rel="next" href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Dynamic functions</a>&nbsp;&gt;&nbsp;<span class="thispage">plural.py, stage 2</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="stage1.html" title="Prev: &#8220;plural.py, stage 1&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="stage3.html" title="Next: &#8220;plural.py, stage 3&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="plural.stage2"></a>17.3.&nbsp;<tt class="filename">plural.py</tt>, stage 2
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Now you're going to add a level of abstraction.  You started by defining a list of rules: if this, then do that, otherwise
+               go to the next rule.  Let's temporarily complicate part of the program so you can simplify another part.
+            </p>
+         </div>
+         <div class="example"><a name="d0e37629"></a><h3 class="title">Example&nbsp;17.6.&nbsp;<tt class="filename">plural2.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> re
+
+<span class='pykeyword'>def</span><span class='pyclass'> match_sxz</span>(noun):                          
+    <span class='pykeyword'>return</span> re.search(<span class='pystring'>'[sxz]$'</span>, noun)          
+
+<span class='pykeyword'>def</span><span class='pyclass'> apply_sxz</span>(noun):                          
+    <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>, noun)            
+
+<span class='pykeyword'>def</span><span class='pyclass'> match_h</span>(noun):                            
+    <span class='pykeyword'>return</span> re.search(<span class='pystring'>'[^aeioudgkprt]h$'</span>, noun)
+
+<span class='pykeyword'>def</span><span class='pyclass'> apply_h</span>(noun):                            
+    <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'$'</span>, <span class='pystring'>'es'</span>, noun)            
+
+<span class='pykeyword'>def</span><span class='pyclass'> match_y</span>(noun):                            
+    <span class='pykeyword'>return</span> re.search(<span class='pystring'>'[^aeiou]y$'</span>, noun)      
+        
+<span class='pykeyword'>def</span><span class='pyclass'> apply_y</span>(noun):                            
+    <span class='pykeyword'>return</span> re.sub(<span class='pystring'>'y$'</span>, <span class='pystring'>'ies'</span>, noun)          
+
+<span class='pykeyword'>def</span><span class='pyclass'> match_default</span>(noun):                      
+    <span class='pykeyword'>return</span> 1                                  
+        
+<span class='pykeyword'>def</span><span class='pyclass'> apply_default</span>(noun):                      
+    <span class='pykeyword'>return</span> noun + <span class='pystring'>'s'</span>                         
+
+rules = ((match_sxz, apply_sxz),
+         (match_h, apply_h),
+         (match_y, apply_y),
+         (match_default, apply_default)
+         )                                     <a name="plural.stage2.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+
+<span class='pykeyword'>def</span><span class='pyclass'> plural</span>(noun):                             
+    <span class='pykeyword'>for</span> matchesRule, applyRule <span class='pykeyword'>in</span> rules:       <a name="plural.stage2.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> matchesRule(noun):                  <a name="plural.stage2.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+            <span class='pykeyword'>return</span> applyRule(noun)             <a name="plural.stage2.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage2.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This version looks more complicated (it's certainly longer), but it does exactly the same thing: try to match four different
+                        rules, in order, and apply the appropriate regular expression when a match is found.  The difference is that each individual
+                        match and apply rule is defined in its own function, and the functions are then listed in this <tt class="varname">rules</tt> variable, which is a tuple of tuples.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage2.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Using a <tt class="literal">for</tt> loop, you can pull out the match and apply rules two at a time (one match, one apply) from the <tt class="varname">rules</tt> tuple.  On the first iteration of the <tt class="literal">for</tt> loop, <tt class="varname">matchesRule</tt> will get <tt class="function">match_sxz</tt>, and <tt class="varname">applyRule</tt> will get <tt class="function">apply_sxz</tt>.  On the second iteration (assuming you get that far), <tt class="varname">matchesRule</tt> will be assigned <tt class="function">match_h</tt>, and <tt class="varname">applyRule</tt> will be assigned <tt class="function">apply_h</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage2.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Remember that <a href="../getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object">everything in <span class="application">Python</span> is an object</a>, including functions.  <tt class="varname">rules</tt> contains actual functions; not names of functions, but actual functions.  When they get assigned in the <tt class="literal">for</tt> loop, then <tt class="varname">matchesRule</tt> and <tt class="varname">applyRule</tt> are actual functions that you can call.  So on the first iteration of the <tt class="literal">for</tt> loop, this is equivalent to calling <tt class="function">matches_sxz(noun)</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage2.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">On the first iteration of the <tt class="literal">for</tt> loop, this is equivalent to calling <tt class="function">apply_sxz(noun)</tt>, and so forth.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>If this additional level of abstraction is confusing, try unrolling the function to see the equivalence.  This <tt class="literal">for</tt> loop is equivalent to the following:
+         </p>
+         <div class="example"><a name="d0e37727"></a><h3 class="title">Example&nbsp;17.7.&nbsp;Unrolling the <tt class="function">plural</tt> function
+            </h3><pre class="programlisting"><span class='pykeyword'>
+def</span> plural(noun):
+    <span class='pykeyword'>if</span> match_sxz(noun):
+        <span class='pykeyword'>return</span> apply_sxz(noun)
+    <span class='pykeyword'>if</span> match_h(noun):
+        <span class='pykeyword'>return</span> apply_h(noun)
+    <span class='pykeyword'>if</span> match_y(noun):
+        <span class='pykeyword'>return</span> apply_y(noun)
+    <span class='pykeyword'>if</span> match_default(noun):
+        <span class='pykeyword'>return</span> apply_default(noun)
+</pre></div>
+         <p>The benefit here is that that <tt class="function">plural</tt> function is now simplified.  It takes a list of rules, defined elsewhere, and iterates through them in a generic fashion.
+             Get a match rule; does it match?  Then call the apply rule.  The rules could be defined anywhere, in any way.  The <tt class="function">plural</tt> function doesn't care.
+         </p>
+         <p>Now, was adding this level of abstraction worth it?  Well, not yet.  Let's consider what it would take to add a new rule to
+            the function.  Well, in the previous example, it would require adding an <tt class="literal">if</tt> statement to the <tt class="function">plural</tt> function.  In this example, it would require adding two functions, <tt class="function">match_foo</tt> and <tt class="function">apply_foo</tt>, and then updating the <tt class="varname">rules</tt> list to specify where in the order the new match and apply functions should be called relative to the other rules.
+         </p>
+         <p>This is really just a stepping stone to the next section.  Let's move on.</p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="stage1.html">&lt;&lt;&nbsp;plural.py, stage 1</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#plural.divein" title="17.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="stage1.html" title="17.2.&nbsp;plural.py, stage 1">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">4</a> <span class="divider">|</span> <a href="stage4.html" title="17.5.&nbsp;plural.py, stage 4">5</a> <span class="divider">|</span> <a href="stage5.html" title="17.6.&nbsp;plural.py, stage 5">6</a> <span class="divider">|</span> <a href="stage6.html" title="17.7.&nbsp;plural.py, stage 6">7</a> <span class="divider">|</span> <a href="summary.html" title="17.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="stage3.html">plural.py, stage 3&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

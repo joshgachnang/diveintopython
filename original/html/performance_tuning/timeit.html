@@ -1,0 +1,146 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>18.2.&nbsp;Using the timeit Module</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;18.&nbsp;Performance Tuning">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;18.&nbsp;Performance Tuning">
+      <link rel="next" href="regular_expressions.html" title="18.3.&nbsp;Optimizing Regular Expressions">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Performance Tuning</a>&nbsp;&gt;&nbsp;<span class="thispage">Using the timeit Module</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;Performance Tuning&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="regular_expressions.html" title="Next: &#8220;Optimizing Regular Expressions&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soundex.timeit"></a>18.2.&nbsp;Using the <tt class="filename">timeit</tt> Module
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The most important thing you need to know about optimizing <span class="application">Python</span> code is that you shouldn't write your own timing function.
+            </p>
+         </div>
+         <p>Timing short pieces of code is incredibly complex.  How much processor time is your computer devoting to running this code?
+             Are there things running in the background?  Are you sure?  Every modern computer has background processes running, some
+            all the time, some intermittently.  Cron jobs fire off at consistent intervals; background services occasionally &#8220;<span class="quote">wake up</span>&#8221; to do useful things like check for new mail, connect to instant messaging servers, check for application updates, scan for
+            viruses, check whether a disk has been inserted into your CD drive in the last 100 nanoseconds, and so on.  Before you start
+            your timing tests, turn everything off and disconnect from the network.  Then turn off all the things you forgot to turn off
+            the first time, then turn off the service that's incessantly checking whether the network has come back yet, then ...
+         </p>
+         <p>And then there's the matter of the variations introduced by the timing framework itself.  Does the <span class="application">Python</span> interpreter cache method name lookups?  Does it cache code block compilations?  Regular expressions?  Will your code have
+            side effects if run more than once?  Don't forget that you're dealing with small fractions of a second, so small mistakes
+            in your timing framework will irreparably skew your results.
+         </p>
+         <p>The <span class="application">Python</span> community has a saying: &#8220;<span class="quote"><span class="application">Python</span> comes with batteries included.</span>&#8221;  Don't write your own timing framework.  <span class="application">Python</span> 2.3 comes with a perfectly good one called <tt class="filename">timeit</tt>.
+         </p>
+         <div class="example"><a name="d0e38948"></a><h3 class="title">Example&nbsp;18.2.&nbsp;Introducing <tt class="filename">timeit</tt></h3>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> timeit</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t = timeit.Timer(<span class='pystring'>"soundex.soundex('Pilgrim')"</span>,</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pystring'>"import soundex"</span>)</span>   <a name="soundex.timeit.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t.timeit()</span>              <a name="soundex.timeit.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">8.21683733547</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t.repeat(3, 2000000)</span>    <a name="soundex.timeit.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">[16.48319309109, 16.46128984923, 16.44203948912]</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soundex.timeit.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="filename">timeit</tt> module defines one class, <tt class="classname">Timer</tt>, which takes two arguments.  Both arguments are strings.  The first argument is the statement you wish to time; in this case,
+                        you are timing a call to the Soundex function within the <tt class="filename">soundex</tt> with an argument of <tt class="literal">'Pilgrim'</tt>.  The second argument to the <tt class="classname">Timer</tt> class is the import statement that sets up the environment for the statement.  Internally, <tt class="filename">timeit</tt> sets up an isolated virtual environment, manually executes the setup statement (importing the <tt class="filename">soundex</tt> module), then manually compiles and executes the timed statement (calling the Soundex function).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soundex.timeit.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Once you have the <tt class="classname">Timer</tt> object, the easiest thing to do is call <tt class="methodname">timeit()</tt>, which calls your function 1 million times and returns the number of seconds it took to do it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soundex.timeit.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The other major method of the <tt class="classname">Timer</tt> object is <tt class="methodname">repeat()</tt>, which takes two optional arguments.  The first argument is the number of times to repeat the entire test, and the second
+                        argument is the number of times to call the timed statement within each test.  Both arguments are optional, and they default
+                        to <tt class="literal">3</tt> and <tt class="literal">1000000</tt> respectively.  The <tt class="methodname">repeat()</tt> method returns a list of the times each test cycle took, in seconds.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e39049"></a><table class="tip" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">You can use the <tt class="filename">timeit</tt> module on the command line to test an existing <span class="application">Python</span> program, without modifying the code.  See <a href="http://docs.python.org/lib/node396.html">http://docs.python.org/lib/node396.html</a> for documentation on the command-line flags.
+               </td>
+            </tr>
+         </table>
+         <p>Note that <tt class="methodname">repeat()</tt> returns a list of times.  The times will almost never be identical, due to slight variations in how much processor time the
+            <span class="application">Python</span> interpreter is getting (and those pesky background processes that you can't get rid of).  Your first thought might be to
+            say &#8220;<span class="quote">Let's take the average and call that The True Number.</span>&#8221;
+         </p>
+         <p>In fact, that's almost certainly wrong.  The tests that took longer didn't take longer because of variations in your code
+            or in the <span class="application">Python</span> interpreter; they took longer because of those pesky background processes, or other factors outside of the <span class="application">Python</span> interpreter that you can't fully eliminate.  If the different timing results differ by more than a few percent, you still
+            have too much variability to trust the results.  Otherwise, take the minimum time and discard the rest.
+         </p>
+         <p><span class="application">Python</span> has a handy <tt class="function">min</tt> function that takes a list and returns the smallest value:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">min(t.repeat(3, 1000000))</span>
+<span class="computeroutput">8.22203948912</span>
+</pre></div><a name="d0e39097"></a><table class="tip" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/tip.png" alt="Tip" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">The <tt class="filename">timeit</tt> module only works if you already know what piece of code you need to optimize.  If you have a larger <span class="application">Python</span> program and don't know where your performance problems are, check out <a href="http://docs.python.org/lib/module-hotshot.html">the <tt class="filename">hotshot</tt> module.</a></td>
+            </tr>
+         </table>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;Performance Tuning</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soundex.divein" title="18.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="regular_expressions.html" title="18.3.&nbsp;Optimizing Regular Expressions">3</a> <span class="divider">|</span> <a href="dictionary_lookups.html" title="18.4.&nbsp;Optimizing Dictionary Lookups">4</a> <span class="divider">|</span> <a href="list_operations.html" title="18.5.&nbsp;Optimizing List Operations">5</a> <span class="divider">|</span> <a href="string_manipulation.html" title="18.6.&nbsp;Optimizing String Manipulation">6</a> <span class="divider">|</span> <a href="summary.html" title="18.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="regular_expressions.html">Optimizing Regular Expressions&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,189 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>4.7.&nbsp;Using lambda Functions</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;4.&nbsp;The Power Of Introspection">
+      <link rel="previous" href="and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">
+      <link rel="next" href="all_together.html" title="4.8.&nbsp;Putting It All Together">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">The Power Of Introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">Using lambda Functions</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="and_or.html" title="Prev: &#8220;The Peculiar Nature of and and or&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="all_together.html" title="Next: &#8220;Putting It All Together&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="apihelper.lambda"></a>4.7.&nbsp;Using <tt class="literal">lambda</tt> Functions
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="lambda_functions.html#d0e10403">4.7.1. Real-World lambda Functions</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Python</span> supports an interesting syntax that lets you define one-line mini-functions on the fly.  Borrowed from <span class="application">Lisp</span>, these so-called <tt class="literal">lambda</tt> functions can be used anywhere a function is required.
+            </p>
+         </div>
+         <div class="example"><a name="d0e10311"></a><h3 class="title">Example&nbsp;4.20.&nbsp;Introducing <tt class="literal">lambda</tt> Functions
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>def</span><span class='pyclass'> f</span>(x):</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>return</span> x*2</span>
+<tt class="prompt">...     </tt><span class="userinput"></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f(3)</span>
+<span class="computeroutput">6</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">g = <span class='pykeyword'>lambda</span> x: x*2</span>  <a name="apihelper.lambda.1.2"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">g(3)</span>
+<span class="computeroutput">6</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>(lambda</span> x: x*2)(3)</span> <a name="apihelper.lambda.1.3"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">6</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.lambda.1.2"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a <tt class="literal">lambda</tt> function that accomplishes the same thing as the normal function above it.  Note the abbreviated syntax here: there are no
+                        parentheses around the argument list, and the <tt class="literal">return</tt> keyword is missing (it is implied, since the entire function can only be one expression).  Also, the function has no name,
+                        but it can be called through the variable it is assigned to.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.lambda.1.3"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can use a <tt class="literal">lambda</tt> function without even assigning it to a variable.  This may not be the most useful thing in the world, but it just goes to
+                        show that a lambda is just an in-line function.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>To generalize, a <tt class="literal">lambda</tt> function is a function that takes any number of arguments (including <a href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">optional arguments</a>) and returns the value of a single expression.  <tt class="literal">lambda</tt> functions can not contain commands, and they can not contain more than one expression.  Don't try to squeeze too much into
+            a <tt class="literal">lambda</tt> function; if you need something more complex, define a normal function instead and make it as long as you want.
+         </p><a name="tip.lambda"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><tt class="literal">lambda</tt> functions are a matter of style.  Using them is never required; anywhere you could use them, you could define a separate
+                  normal function and use that instead.  I use them in places where I want to encapsulate specific, non-reusable code without
+                  littering my code with a lot of little one-line functions.
+               </td>
+            </tr>
+         </table>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e10403"></a>4.7.1.&nbsp;Real-World <tt class="literal">lambda</tt> Functions
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="informalexample">
+               <p>Here are the <tt class="literal">lambda</tt> functions in <tt class="filename">apihelper.py</tt>:
+               </p><pre class="programlisting">
+    processFunc = collapse <span class='pykeyword'>and</span> (<span class='pykeyword'>lambda</span> s: <span class='pystring'>" "</span>.join(s.split())) <span class='pykeyword'>or</span> (<span class='pykeyword'>lambda</span> s: s)</pre></div>
+            <p>Notice that this uses the simple form of the <a href="and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or"><tt class="literal">and-or</tt></a> trick, which is okay, because a <tt class="literal">lambda</tt> function is always true <a href="../native_data_types/lists.html#tip.boolean">in a boolean context</a>.  (That doesn't mean that a <tt class="literal">lambda</tt> function can't return a false value.  The function is always true; its return value could be anything.)
+            </p>
+            <p>Also notice that you're using the <tt class="function">split</tt> function with no arguments.  You've already seen it used with <a href="../native_data_types/joining_lists.html#odbchelper.split.example" title="Example&nbsp;3.28.&nbsp;Splitting a String">one or two arguments</a>, but without any arguments it splits on whitespace.
+            </p>
+            <div class="example"><a name="d0e10444"></a><h3 class="title">Example&nbsp;4.21.&nbsp;<tt class="function">split</tt> With No Arguments
+               </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class='pystring'>"this   is\na\ttest"</span></span>  <a name="apihelper.split.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> s</span>
+<span class="computeroutput">this   is
+a	test</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> s.split()</span>           <a name="apihelper.split.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['this', 'is', 'a', 'test']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>" "</span>.join(s.split())</span> <a name="apihelper.split.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'this is a test'</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.split.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This is a multiline string, defined by escape characters instead of <a href="../getting_to_know_python/documenting_functions.html#odbchelper.triplequotes" title="Example&nbsp;2.2.&nbsp;Defining the buildConnectionString Function's doc string">triple quotes</a>.  <tt class="literal">\n</tt> is a carriage return, and <tt class="literal">\t</tt> is a tab character.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.split.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">split</tt> without any arguments splits on whitespace.  So three spaces, a carriage return, and a tab character are all the same.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.split.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You can normalize whitespace by splitting a string with <tt class="function">split</tt> and then rejoining it with <tt class="function">join</tt>, using a single space as a delimiter.  This is what the <tt class="function">info</tt> function does to collapse multi-line <tt class="literal">doc string</tt>s into a single line.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>So what is the <tt class="function">info</tt> function actually doing with these <tt class="literal">lambda</tt> functions, <tt class="function">split</tt>s, and <tt class="literal">and-or</tt> tricks?
+            </p>
+            <div class="informalexample"><a name="apihelper.funcassign"></a><pre class="programlisting">
+    processFunc = collapse <span class='pykeyword'>and</span> (<span class='pykeyword'>lambda</span> s: <span class='pystring'>" "</span>.join(s.split())) <span class='pykeyword'>or</span> (<span class='pykeyword'>lambda</span> s: s)</pre></div>
+            <p><tt class="varname">processFunc</tt> is now a function, but which function it is depends on the value of the <tt class="varname">collapse</tt> variable.  If <tt class="varname">collapse</tt> is true, <tt class="literal"><tt class="varname">processFunc</tt>(<i class="replaceable">string</i>)</tt> will collapse whitespace; otherwise, <tt class="literal"><tt class="varname">processFunc</tt>(<i class="replaceable">string</i>)</tt> will return its argument unchanged.
+            </p>
+            <p>To do this in a less robust language, like <span class="application">Visual Basic</span>, you would probably create a function that took a string and a <i class="parameter"><tt>collapse</tt></i> argument and used an <tt class="literal">if</tt> statement to decide whether to collapse the whitespace or not, then returned the appropriate value.  This would be inefficient,
+               because the function would need to handle every possible case.  Every time you called it, it would need to decide whether
+               to collapse whitespace before it could give you what you wanted.  In <span class="application">Python</span>, you can take that decision logic out of the function and define a <tt class="literal">lambda</tt> function that is custom-tailored to give you exactly (and only) what you want.  This is more efficient, more elegant, and
+               less prone to those nasty oh-I-thought-those-arguments-were-reversed kinds of errors.
+            </p>
+            <div class="furtherreading">
+               <h3>Further Reading on <tt class="literal">lambda</tt> Functions
+               </h3>
+               <ul>
+                  <li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> discusses using <tt class="literal">lambda</tt> to <a href="http://www.faqts.com/knowledge-base/view.phtml/aid/6081/fid/241">call functions indirectly</a>.
+                  </li>
+                  <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> shows how to <a href="http://www.python.org/doc/current/tut/node6.html#SECTION006740000000000000000">access outside variables from inside a <tt class="literal">lambda</tt> function</a>.  (<a href="http://python.sourceforge.net/peps/pep-0227.html"><span class="acronym">PEP</span> 227</a> explains how this will change in future versions of <span class="application">Python</span>.)
+                  </li>
+                  <li><a href="http://www.python.org/doc/FAQ.html"><i class="citetitle">The Whole <span class="application">Python</span> <span class="acronym">FAQ</span></i></a> has examples of <a href="http://www.python.org/cgi-bin/faqw.py?query=4.15&amp;querytype=simple&amp;casefold=yes&amp;req=search">obfuscated one-liners using <tt class="literal">lambda</tt></a>.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="and_or.html">&lt;&lt;&nbsp;The Peculiar Nature of and and or</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#apihelper.divein" title="4.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <a href="built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">3</a> <span class="divider">|</span> <a href="getattr.html" title="4.4.&nbsp;Getting Object References With getattr">4</a> <span class="divider">|</span> <a href="filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <a href="and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="all_together.html" title="4.8.&nbsp;Putting It All Together">8</a> <span class="divider">|</span> <a href="summary.html" title="4.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="all_together.html">Putting It All Together&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,235 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>18.3.&nbsp;Optimizing Regular Expressions</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;18.&nbsp;Performance Tuning">
+      <link rel="previous" href="timeit.html" title="18.2.&nbsp;Using the timeit Module">
+      <link rel="next" href="dictionary_lookups.html" title="18.4.&nbsp;Optimizing Dictionary Lookups">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Performance Tuning</a>&nbsp;&gt;&nbsp;<span class="thispage">Optimizing Regular Expressions</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="timeit.html" title="Prev: &#8220;Using the timeit Module&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="dictionary_lookups.html" title="Next: &#8220;Optimizing Dictionary Lookups&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soundex.stage1"></a>18.3.&nbsp;Optimizing Regular Expressions
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The first thing the Soundex function checks is whether the input is a non-empty string of letters.  What's the best way to
+               do this?
+            </p>
+         </div>
+         <p>If you answered &#8220;<span class="quote">regular expressions</span>&#8221;, go sit in the corner and contemplate your bad instincts.  Regular expressions are almost never the right answer; they should
+            be avoided whenever possible.  Not only for performance reasons, but simply because they're difficult to debug and maintain.
+             Also for performance reasons.
+         </p>
+         <p>This code fragment from <tt class="filename">soundex/stage1/soundex1a.py</tt> checks whether the function argument <tt class="varname">source</tt> is a word made entirely of letters, with at least one letter (not the empty string):
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    allChars = string.uppercase + string.lowercase
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> re.search(<span class='pystring'>'^[%s]+$'</span> % allChars, source):
+        <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+</pre></div>
+         <p>How does <tt class="filename">soundex1a.py</tt> perform?  For convenience, the <tt class="literal">__main__</tt> section of the script contains this code that calls the <tt class="filename">timeit</tt> module, sets up a timing test with three different names, tests each name three times, and displays the minimum time for
+            each:
+         </p>
+         <div class="informalexample"><pre class="programlisting"><span class='pykeyword'>
+if</span> __name__ == <span class='pystring'>'__main__'</span>:
+    <span class='pykeyword'>from</span> timeit <span class='pykeyword'>import</span> Timer
+    names = (<span class='pystring'>'Woo'</span>, <span class='pystring'>'Pilgrim'</span>, <span class='pystring'>'Flingjingwaller'</span>)
+    <span class='pykeyword'>for</span> name <span class='pykeyword'>in</span> names:
+        statement = <span class='pystring'>"soundex('%s')"</span> % name
+        t = Timer(statement, <span class='pystring'>"from __main__ import soundex"</span>)
+        <span class='pykeyword'>print</span> name.ljust(15), soundex(name), min(t.repeat())
+</pre></div>
+         <p>So how does <tt class="filename">soundex1a.py</tt> perform with this regular expression?
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage1&gt;</tt><span class="userinput">python soundex1a.py</span>
+<span class="computeroutput">Woo             W000 19.3356647283
+Pilgrim         P426 24.0772053431
+Flingjingwaller F452 35.0463220884</span>
+</pre></div>
+         <p>As you might expect, the algorithm takes significantly longer when called with longer names.  There will be a few things we
+            can do to narrow that gap (make the function take less relative time for longer input), but the nature of the algorithm dictates
+            that it will never run in constant time.
+         </p>
+         <p>The other thing to keep in mind is that we are testing a representative sample of names.  <tt class="literal">Woo</tt> is a kind of trivial case, in that it gets shorted down to a single letter and then padded with zeros.  <tt class="literal">Pilgrim</tt> is a normal case, of average length and a mixture of significant and ignored letters.  <tt class="literal">Flingjingwaller</tt> is extraordinarily long and contains consecutive duplicates.  Other tests might also be helpful, but this hits a good range
+            of different cases.
+         </p>
+         <p>So what about that regular expression?  Well, it's inefficient.  Since the expression is testing for ranges of characters
+            (<tt class="literal">A-Z</tt> in uppercase, and <tt class="literal">a-z</tt> in lowercase), we can use a shorthand regular expression syntax.  Here is <tt class="filename">soundex/stage1/soundex1b.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> re.search(<span class='pystring'>'^[A-Za-z]+$'</span>, source):
+        <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+</pre></div>
+         <p><tt class="filename">timeit</tt> says <tt class="filename">soundex1b.py</tt> is slightly faster than <tt class="filename">soundex1a.py</tt>, but nothing to get terribly excited about:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage1&gt;</tt><span class="userinput">python soundex1b.py</span>
+<span class="computeroutput">Woo             W000 17.1361133887
+Pilgrim         P426 21.8201693232
+Flingjingwaller F452 32.7262294509</span>
+</pre></div>
+         <p>We saw in <a href="../refactoring/refactoring.html" title="15.3.&nbsp;Refactoring">Section&nbsp;15.3, &#8220;Refactoring&#8221;</a> that regular expressions can be compiled and reused for faster results.  Since this regular expression never changes across
+            function calls, we can compile it once and use the compiled version.  Here is <tt class="filename">soundex/stage1/soundex1c.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+isOnlyChars = re.compile(<span class='pystring'>'^[A-Za-z]+$'</span>).search
+<span class='pykeyword'>def</span><span class='pyclass'> soundex</span>(source):
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> isOnlyChars(source):
+        <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+</pre></div>
+         <p>Using a compiled regular expression in <tt class="filename">soundex1c.py</tt> is significantly faster:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage1&gt;</tt><span class="userinput">python soundex1c.py</span>
+<span class="computeroutput">Woo             W000 14.5348347346
+Pilgrim         P426 19.2784703084
+Flingjingwaller F452 30.0893873383</span>
+</pre></div>
+         <p>But is this the wrong path?  The logic here is simple: the input <tt class="varname">source</tt> needs to be non-empty, and it needs to be composed entirely of letters.  Wouldn't it be faster to write a loop checking each
+            character, and do away with regular expressions altogether?
+         </p>
+         <p>Here is <tt class="filename">soundex/stage1/soundex1d.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> source:
+        <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+    <span class='pykeyword'>for</span> c <span class='pykeyword'>in</span> source:
+        <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> (<span class='pystring'>'A'</span> &lt;= c &lt;= <span class='pystring'>'Z'</span>) <span class='pykeyword'>and</span> <span class='pykeyword'>not</span> (<span class='pystring'>'a'</span> &lt;= c &lt;= <span class='pystring'>'z'</span>):
+            <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+</pre></div>
+         <p>It turns out that this technique in <tt class="filename">soundex1d.py</tt> is <span class="emphasis"><em>not</em></span> faster than using a compiled regular expression (although it is faster than using a non-compiled regular expression):
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage1&gt;</tt><span class="userinput">python soundex1d.py</span>
+<span class="computeroutput">Woo             W000 15.4065058548
+Pilgrim         P426 22.2753567842
+Flingjingwaller F452 37.5845122774</span>
+</pre></div>
+         <p>Why isn't <tt class="filename">soundex1d.py</tt> faster?  The answer lies in the interpreted nature of <span class="application">Python</span>.  The regular expression engine is written in C, and compiled to run natively on your computer.  On the other hand, this
+            loop is written in <span class="application">Python</span>, and runs through the <span class="application">Python</span> interpreter.  Even though the loop is relatively simple, it's not simple enough to make up for the overhead of being interpreted.
+             Regular expressions are never the right answer... except when they are.
+         </p>
+         <p>It turns out that <span class="application">Python</span> offers an obscure string method.  You can be excused for not knowing about it, since it's never been mentioned in this book.
+             The method is called <tt class="methodname">isalpha()</tt>, and it checks whether a string contains only letters.
+         </p>
+         <p>This is <tt class="filename">soundex/stage1/soundex1e.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    <span class='pykeyword'>if</span> (<span class='pykeyword'>not</span> source) <span class='pykeyword'>and</span> (<span class='pykeyword'>not</span> source.isalpha()):
+        <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+</pre></div>
+         <p>How much did we gain by using this specific method in <tt class="filename">soundex1e.py</tt>?  Quite a bit.
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage1&gt;</tt><span class="userinput">python soundex1e.py</span>
+<span class="computeroutput">Woo             W000 13.5069504644
+Pilgrim         P426 18.2199394057
+Flingjingwaller F452 28.9975225902</span>
+</pre></div>
+         <div class="example"><a name="d0e39318"></a><h3 class="title">Example&nbsp;18.3.&nbsp;Best Result So Far: <tt class="filename">soundex/stage1/soundex1e.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> string, re
+
+charToSoundex = {<span class='pystring'>"A"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"B"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"C"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"D"</span>: <span class='pystring'>"3"</span>,
+                 <span class='pystring'>"E"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"F"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"G"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"H"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"I"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"J"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"K"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"L"</span>: <span class='pystring'>"4"</span>,
+                 <span class='pystring'>"M"</span>: <span class='pystring'>"5"</span>,
+                 <span class='pystring'>"N"</span>: <span class='pystring'>"5"</span>,
+                 <span class='pystring'>"O"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"P"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"Q"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"R"</span>: <span class='pystring'>"6"</span>,
+                 <span class='pystring'>"S"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"T"</span>: <span class='pystring'>"3"</span>,
+                 <span class='pystring'>"U"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"V"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"W"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"X"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"Y"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"Z"</span>: <span class='pystring'>"2"</span>}
+
+<span class='pykeyword'>def</span><span class='pyclass'> soundex</span>(source):
+    <span class='pykeyword'>if</span> (<span class='pykeyword'>not</span> source) <span class='pykeyword'>and</span> (<span class='pykeyword'>not</span> source.isalpha()):
+        <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+    source = source[0].upper() + source[1:]
+    digits = source[0]
+    <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> source[1:]:
+        s = s.upper()
+        digits += charToSoundex[s]
+    digits2 = digits[0]
+    <span class='pykeyword'>for</span> d <span class='pykeyword'>in</span> digits[1:]:
+        <span class='pykeyword'>if</span> digits2[-1] != d:
+            digits2 += d
+    digits3 = re.sub(<span class='pystring'>'9'</span>, <span class='pystring'>''</span>, digits2)
+    <span class='pykeyword'>while</span> len(digits3) &lt; 4:
+        digits3 += <span class='pystring'>"0"</span>
+    <span class='pykeyword'>return</span> digits3[:4]
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>'__main__'</span>:
+    <span class='pykeyword'>from</span> timeit <span class='pykeyword'>import</span> Timer
+    names = (<span class='pystring'>'Woo'</span>, <span class='pystring'>'Pilgrim'</span>, <span class='pystring'>'Flingjingwaller'</span>)
+    <span class='pykeyword'>for</span> name <span class='pykeyword'>in</span> names:
+        statement = <span class='pystring'>"soundex('%s')"</span> % name
+        t = Timer(statement, <span class='pystring'>"from __main__ import soundex"</span>)
+        <span class='pykeyword'>print</span> name.ljust(15), soundex(name), min(t.repeat())
+</pre></div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="timeit.html">&lt;&lt;&nbsp;Using the timeit Module</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soundex.divein" title="18.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="timeit.html" title="18.2.&nbsp;Using the timeit Module">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="dictionary_lookups.html" title="18.4.&nbsp;Optimizing Dictionary Lookups">4</a> <span class="divider">|</span> <a href="list_operations.html" title="18.5.&nbsp;Optimizing List Operations">5</a> <span class="divider">|</span> <a href="string_manipulation.html" title="18.6.&nbsp;Optimizing String Manipulation">6</a> <span class="divider">|</span> <a href="summary.html" title="18.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="dictionary_lookups.html">Optimizing Dictionary Lookups&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

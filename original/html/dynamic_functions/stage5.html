@@ -1,0 +1,148 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>17.6.&nbsp;plural.py, stage 5</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;17.&nbsp;Dynamic functions">
+      <link rel="previous" href="stage4.html" title="17.5.&nbsp;plural.py, stage 4">
+      <link rel="next" href="stage6.html" title="17.7.&nbsp;plural.py, stage 6">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Dynamic functions</a>&nbsp;&gt;&nbsp;<span class="thispage">plural.py, stage 5</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="stage4.html" title="Prev: &#8220;plural.py, stage 4&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="stage6.html" title="Next: &#8220;plural.py, stage 6&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="plural.stage5"></a>17.6.&nbsp;<tt class="filename">plural.py</tt>, stage 5
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>You've factored out all the duplicate code and added enough abstractions so that the pluralization rules are defined in a
+               list of strings.  The next logical step is to take these strings and put them in a separate file, where they can be maintained
+               separately from the code that uses them.
+            </p>
+         </div>
+         <p>First, let's create a text file that contains the rules you want.  No fancy data structures, just space- (or tab-)delimited
+            strings in three columns.  You'll call it <tt class="filename">rules.en</tt>; &#8220;<span class="quote">en</span>&#8221; stands for English.  These are the rules for pluralizing English nouns.  You could add other rule files for other languages
+            later.
+         </p>
+         <div class="example"><a name="d0e38148"></a><h3 class="title">Example&nbsp;17.15.&nbsp;<tt class="filename">rules.en</tt></h3><pre class="programlisting">
+[sxz]$                  $               es
+[^aeioudgkprt]h$        $               es
+[^aeiou]y$              y$              ies
+$                       $               s
+</pre></div>
+         <p>Now let's see how you can use this rules file.</p>
+         <div class="example"><a name="d0e38156"></a><h3 class="title">Example&nbsp;17.16.&nbsp;<tt class="filename">plural5.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> re
+<span class='pykeyword'>import</span> string                                                                     
+
+<span class='pykeyword'>def</span><span class='pyclass'> buildRule</span>((pattern, search, replace)):                                        
+    <span class='pykeyword'>return</span> <span class='pykeyword'>lambda</span> word: re.search(pattern, word) <span class='pykeyword'>and</span> re.sub(search, replace, word) <a name="plural.stage5.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+
+<span class='pykeyword'>def</span><span class='pyclass'> plural</span>(noun, language=<span class='pystring'>'en'</span>):                             <a name="plural.stage5.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    lines = file(<span class='pystring'>'rules.%s'</span> % language).readlines()          <a name="plural.stage5.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+    patterns = map(string.split, lines)                      <a name="plural.stage5.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+    rules = map(buildRule, patterns)                         <a name="plural.stage5.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+    <span class='pykeyword'>for</span> rule <span class='pykeyword'>in</span> rules:                                      
+        result = rule(noun)                                  <a name="plural.stage5.1.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> result: <span class='pykeyword'>return</span> result                            
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage5.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You're still using the closures technique here (building a function dynamically that uses variables defined outside the function),
+                        but now you've combined the separate match and apply functions into one.  (The reason for this change will become clear in
+                        the next section.)  This will let you accomplish the same thing as having two functions, but you'll need to call it differently,
+                        as you'll see in a minute.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage5.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Our <tt class="function">plural</tt> function now takes an optional second parameter, <tt class="varname">language</tt>, which defaults to <tt class="literal">en</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage5.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You use the <tt class="varname">language</tt> parameter to construct a filename, then open the file and read the contents into a list.  If <tt class="varname">language</tt> is <tt class="literal">en</tt>, then you'll open the <tt class="filename">rules.en</tt> file, read the entire thing, break it up by carriage returns, and return a list.  Each line of the file will be one element
+                        in the list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage5.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw, each line in the file really has three values, but they're separated by whitespace (tabs or spaces, it makes no
+                        difference).  Mapping the <tt class="function">string.split</tt> function onto this list will create a new list where each element is a tuple of three strings.  So a line like <tt class="literal">[sxz]$ $ es</tt> will be broken up into the tuple <tt class="literal">('[sxz]$', '$', 'es')</tt>.  This means that <tt class="varname">patterns</tt> will end up as a list of tuples, just like you hard-coded it in <a href="stage4.html" title="17.5.&nbsp;plural.py, stage 4">stage 4</a>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage5.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If <tt class="varname">patterns</tt> is a list of tuples, then <tt class="varname">rules</tt> will be a list of the functions created dynamically by each call to <tt class="function">buildRule</tt>.  Calling <tt class="function">buildRule(('[sxz]$', '$', 'es'))</tt> returns a function that takes a single parameter, <tt class="varname">word</tt>.  When this returned function is called, it will execute <tt class="literal">re.search('[sxz]$', word) and re.sub('$', 'es', word)</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#plural.stage5.1.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Because you're now building a combined match-and-apply function, you need to call it differently.  Just call the function,
+                        and if it returns something, then that's the plural; if it returns nothing (<tt class="literal">None</tt>), then the rule didn't match and you need to try another rule.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So the improvement here is that you've completely separated the pluralization rules into an external file.  Not only can the
+            file be maintained separately from the code, but you've set up a naming scheme where the same <tt class="function">plural</tt> function can use different rule files, based on the <tt class="varname">language</tt> parameter.
+         </p>
+         <p>The downside here is that you're reading that file every time you call the <tt class="function">plural</tt> function.  I thought I could get through this entire book without using the phrase &#8220;<span class="quote">left as an exercise for the reader</span>&#8221;, but here you go: building a caching mechanism for the language-specific rule files that auto-refreshes itself if the rule
+            files change between calls <span class="emphasis"><em>is left as an exercise for the reader</em></span>.  Have fun.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="stage4.html">&lt;&lt;&nbsp;plural.py, stage 4</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#plural.divein" title="17.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="stage1.html" title="17.2.&nbsp;plural.py, stage 1">2</a> <span class="divider">|</span> <a href="stage2.html" title="17.3.&nbsp;plural.py, stage 2">3</a> <span class="divider">|</span> <a href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">4</a> <span class="divider">|</span> <a href="stage4.html" title="17.5.&nbsp;plural.py, stage 4">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="stage6.html" title="17.7.&nbsp;plural.py, stage 6">7</a> <span class="divider">|</span> <a href="summary.html" title="17.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="stage6.html">plural.py, stage 6&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

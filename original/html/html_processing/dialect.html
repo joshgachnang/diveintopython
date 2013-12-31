@@ -1,0 +1,227 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.8.&nbsp;Introducing dialect.py</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+      <link rel="previous" href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">
+      <link rel="next" href="all_together.html" title="8.9.&nbsp;Putting it all together">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Introducing dialect.py</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="quoting_attribute_values.html" title="Prev: &#8220;Quoting attribute values&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="all_together.html" title="Next: &#8220;Putting it all together&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.dialectizer"></a>8.8.&nbsp;Introducing <tt class="filename">dialect.py</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><tt class="classname">Dialectizer</tt> is a simple (and silly) descendant of <tt class="classname">BaseHTMLProcessor</tt>.  It runs blocks of text through a series of substitutions, but it makes sure that anything within a <tt class="literal"><tt class="sgmltag-element">&lt;pre&gt;</tt>...<tt class="sgmltag-element">&lt;/pre&gt;</tt></tt> block passes through unaltered.
+            </p>
+         </div>
+         <p>To handle the <tt class="sgmltag-element">&lt;pre&gt;</tt> blocks, you define two methods in <tt class="classname">Dialectizer</tt>: <tt class="function">start_pre</tt> and <tt class="function">end_pre</tt>.
+         </p>
+         <div class="example"><a name="dialect.specifictags.example"></a><h3 class="title">Example&nbsp;8.17.&nbsp;Handling specific tags</h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> start_pre</span>(self, attrs):             <a name="dialect.dialectizer.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        self.verbatim += 1                  <a name="dialect.dialectizer.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        self.unknown_starttag(<span class='pystring'>"pre"</span>, attrs) <a name="dialect.dialectizer.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+
+    <span class='pykeyword'>def</span><span class='pyclass'> end_pre</span>(self):                      <a name="dialect.dialectizer.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        self.unknown_endtag(<span class='pystring'>"pre"</span>)          <a name="dialect.dialectizer.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+        self.verbatim -= 1                  <a name="dialect.dialectizer.1.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">start_pre</tt> is called every time <tt class="classname">SGMLParser</tt> finds a <tt class="sgmltag-element">&lt;pre&gt;</tt> tag in the <span class="acronym">HTML</span> source.  (In a minute, you'll see exactly how this happens.)  The method takes a single parameter, <tt class="varname">attrs</tt>, which contains the attributes of the tag (if any).  <tt class="varname">attrs</tt> is a list of key/value tuples, just like <a href="dictionary_based_string_formatting.html#dialect.unknownstarttag" title="Example&nbsp;8.14.&nbsp;Dictionary-based string formatting in BaseHTMLProcessor.py"><tt class="function">unknown_starttag</tt></a> takes.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In the <tt class="function">reset</tt> method, you initialize a data attribute that serves as a counter for <tt class="sgmltag-element">&lt;pre&gt;</tt> tags.  Every time you hit a <tt class="sgmltag-element">&lt;pre&gt;</tt> tag, you increment the counter; every time you hit a <tt class="sgmltag-element">&lt;/pre&gt;</tt> tag, you'll decrement the counter.  (You could just use this as a flag and set it to <tt class="constant">1</tt> and reset it to <tt class="constant">0</tt>, but it's just as easy to do it this way, and this handles the odd (but possible) case of nested <tt class="sgmltag-element">&lt;pre&gt;</tt> tags.)  In a minute, you'll see how this counter is put to good use.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">That's it, that's the only special processing you do for <tt class="sgmltag-element">&lt;pre&gt;</tt> tags.  Now you pass the list of attributes along to <tt class="function">unknown_starttag</tt> so it can do the default processing.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">end_pre</tt> is called every time <tt class="classname">SGMLParser</tt> finds a <tt class="sgmltag-element">&lt;/pre&gt;</tt> tag.  Since end tags can not contain attributes, the method takes no parameters.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">First, you want to do the default processing, just like any other end tag.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.1.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Second, you decrement your counter to signal that this <tt class="sgmltag-element">&lt;pre&gt;</tt> block has been closed.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>At this point, it's worth digging a little further into <tt class="classname">SGMLParser</tt>.  I've claimed repeatedly (and you've taken it on faith so far) that <tt class="classname">SGMLParser</tt> looks for and calls specific methods for each tag, if they exist.  For instance, you just saw the definition of <tt class="function">start_pre</tt> and <tt class="function">end_pre</tt> to handle <tt class="sgmltag-element">&lt;pre&gt;</tt> and <tt class="sgmltag-element">&lt;/pre&gt;</tt>.  But how does this happen?  Well, it's not magic, it's just good <span class="application">Python</span> coding.
+         </p>
+         <div class="example"><a name="dialect.dialectizer.example"></a><h3 class="title">Example&nbsp;8.18.&nbsp;<tt class="classname">SGMLParser</tt></h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> finish_starttag</span>(self, tag, attrs):               <a name="dialect.dialectizer.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>try</span>:                                            
+            method = getattr(self, <span class='pystring'>'start_'</span> + tag)       <a name="dialect.dialectizer.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>except</span> AttributeError:                           <a name="dialect.dialectizer.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+            <span class='pykeyword'>try</span>:                                        
+                method = getattr(self, <span class='pystring'>'do_'</span> + tag)      <a name="dialect.dialectizer.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+            <span class='pykeyword'>except</span> AttributeError:                      
+                self.unknown_starttag(tag, attrs)        <a name="dialect.dialectizer.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+                <span class='pykeyword'>return</span> -1                               
+            <span class='pykeyword'>else</span>:                                       
+                self.handle_starttag(tag, method, attrs) <a name="dialect.dialectizer.2.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+                <span class='pykeyword'>return</span> 0                                
+        <span class='pykeyword'>else</span>:                                           
+            self.stack.append(tag)                      
+            self.handle_starttag(tag, method, attrs)    
+            <span class='pykeyword'>return</span> 1                                     <a name="dialect.dialectizer.2.7"></a><img src="../images/callouts/7.png" alt="7" border="0" width="12" height="12">
+
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_starttag</span>(self, tag, method, attrs):      
+        method(attrs)                                    <a name="dialect.dialectizer.2.8"></a><img src="../images/callouts/8.png" alt="8" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">At this point, <tt class="classname">SGMLParser</tt> has already found a start tag and parsed the attribute list.  The only thing left to do is figure out whether there is a
+                        specific handler method for this tag, or whether you should fall back on the default method (<tt class="function">unknown_starttag</tt>).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The &#8220;<span class="quote">magic</span>&#8221; of <tt class="classname">SGMLParser</tt> is nothing more than your old friend, <a href="../power_of_introspection/getattr.html" title="4.4.&nbsp;Getting Object References With getattr"><tt class="function">getattr</tt></a>.  What you may not have realized before is that <tt class="function">getattr</tt> will find methods defined in descendants of an object as well as the object itself.  Here the object is <tt class="literal">self</tt>, the current instance.  So if <tt class="varname">tag</tt> is <tt class="literal">'pre'</tt>, this call to <tt class="function">getattr</tt> will look for a <tt class="function">start_pre</tt> method on the current instance, which is an instance of the <tt class="classname">Dialectizer</tt> class.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">getattr</tt> raises an <tt class="errorcode">AttributeError</tt> if the method it's looking for doesn't exist in the object (or any of its descendants), but that's okay, because you wrapped
+                        the call to <tt class="function">getattr</tt> inside a <a href="../file_handling/index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions"><tt class="literal">try...except</tt></a> block and explicitly caught the <tt class="errorcode">AttributeError</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Since you didn't find a <tt class="function">start_xxx</tt> method, you'll also look for a <tt class="function">do_xxx</tt> method before giving up.  This alternate naming scheme is generally used for standalone tags, like <tt class="sgmltag-element">&lt;br&gt;</tt>, which have no corresponding end tag.  But you can use either naming scheme; as you can see, <tt class="classname">SGMLParser</tt> tries both for every tag.  (You shouldn't define both a <tt class="function">start_xxx</tt> and <tt class="function">do_xxx</tt> handler method for the same tag, though; only the <tt class="function">start_xxx</tt> method will get called.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Another <tt class="errorcode">AttributeError</tt>, which means that the call to <tt class="function">getattr</tt> failed with <tt class="function">do_xxx</tt>.  Since you found neither a <tt class="function">start_xxx</tt> nor a <tt class="function">do_xxx</tt> method for this tag, you catch the exception and fall back on the default method, <tt class="function">unknown_starttag</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.2.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Remember, <tt class="literal">try...except</tt> blocks can have an <tt class="literal">else</tt> clause, which is called if <a href="../file_handling/index.html#crossplatform.example" title="Example&nbsp;6.2.&nbsp;Supporting Platform-Specific Functionality">no exception is raised</a> during the <tt class="literal">try...except</tt> block.  Logically, that means that you <span class="emphasis"><em>did</em></span> find a <tt class="function">do_xxx</tt> method for this tag, so you're going to call it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.2.7"><img src="../images/callouts/7.png" alt="7" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">By the way, don't worry about these different return values; in theory they mean something, but they're never actually used.
+                         Don't worry about the <tt class="literal">self.stack.append(tag)</tt> either; <tt class="classname">SGMLParser</tt> keeps track internally of whether your start tags are balanced by appropriate end tags, but it doesn't do anything with this
+                        information either.  In theory, you could use this module to validate that your tags were fully balanced, but it's probably
+                        not worth it, and it's beyond the scope of this chapter.  You have better things to worry about right now.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.2.8"><img src="../images/callouts/8.png" alt="8" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">start_xxx</tt> and <tt class="function">do_xxx</tt> methods are not called directly; the tag, method, and attributes are passed to this function, <tt class="function">handle_starttag</tt>, so that descendants can override it and change the way <span class="emphasis"><em>all</em></span> start tags are dispatched.  You don't need that level of control, so you just let this method do its thing, which is to call
+                        the method (<tt class="function">start_xxx</tt> or <tt class="function">do_xxx</tt>) with the list of attributes.  Remember, <tt class="varname">method</tt> is a function, returned from <tt class="function">getattr</tt>, and functions are objects.  (I know you're getting tired of hearing it, and I promise I'll stop saying it as soon as I run
+                        out of ways to use it to my advantage.)  Here, the function object is passed into this dispatch method as an argument, and
+                        this method turns around and calls the function.  At this point, you don't need to know what the function is, what it's named,
+                        or where it's defined; the only thing you need to know about the function is that it is called with one argument, <tt class="varname">attrs</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Now back to our regularly scheduled program: <tt class="classname">Dialectizer</tt>.  When you left, you were in the process of defining specific handler methods for <tt class="sgmltag-element">&lt;pre&gt;</tt> and <tt class="sgmltag-element">&lt;/pre&gt;</tt> tags.  There's only one thing left to do, and that is to process text blocks with the pre-defined substitutions.  For that,
+            you need to override the <tt class="function">handle_data</tt> method.
+         </p>
+         <div class="example"><a name="d0e22310"></a><h3 class="title">Example&nbsp;8.19.&nbsp;Overriding the <tt class="function">handle_data</tt> method
+            </h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_data</span>(self, text):                                         <a name="dialect.dialectizer.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        self.pieces.append(self.verbatim <span class='pykeyword'>and</span> text <span class='pykeyword'>or</span> self.process(text)) <a name="dialect.dialectizer.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">handle_data</tt> is called with only one argument, the text to process.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dialectizer.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In the ancestor <a href="basehtmlprocessor.html#dialect.basehtml.intro" title="Example&nbsp;8.8.&nbsp;Introducing BaseHTMLProcessor"><tt class="classname">BaseHTMLProcessor</tt></a>, the <tt class="function">handle_data</tt> method simply appended the text to the output buffer, <tt class="varname">self.pieces</tt>.  Here the logic is only slightly more complicated.  If you're in the middle of a <tt class="literal"><tt class="sgmltag-element">&lt;pre&gt;</tt>...<tt class="sgmltag-element">&lt;/pre&gt;</tt></tt> block, <tt class="varname">self.verbatim</tt> will be some value greater than <tt class="constant">0</tt>, and you want to put the text in the output buffer unaltered.  Otherwise, you will call a separate method to process the
+                        substitutions, then put the result of that into the output buffer.  In <span class="application">Python</span>, this is a one-liner, using <a href="../power_of_introspection/and_or.html#apihelper.andortrick.intro" title="Example&nbsp;4.17.&nbsp;Introducing the and-or Trick">the <tt class="literal">and-or</tt> trick</a>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>You're close to completely understanding <tt class="classname">Dialectizer</tt>.  The only missing link is the nature of the text substitutions themselves.  If you know any <span class="application">Perl</span>, you know that when complex text substitutions are required, the only real solution is regular expressions.  The classes
+            later in <tt class="filename">dialect.py</tt> define a series of regular expressions that operate on the text between the <span class="acronym">HTML</span> tags.  But you just had <a href="../regular_expressions/index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">a whole chapter on regular expressions</a>.  You don't really want to slog through regular expressions again, do you?  God knows I don't.  I think you've learned enough
+            for one chapter.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="quoting_attribute_values.html">&lt;&lt;&nbsp;Quoting attribute values</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">3</a> <span class="divider">|</span> <a href="basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <a href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <a href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="all_together.html">Putting it all together&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

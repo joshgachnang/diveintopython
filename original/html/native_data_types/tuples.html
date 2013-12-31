@@ -1,0 +1,185 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>3.3.&nbsp;Introducing Tuples</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;3.&nbsp;Native Datatypes">
+      <link rel="previous" href="lists.html" title="3.2.&nbsp;Introducing Lists">
+      <link rel="next" href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Native Datatypes</a>&nbsp;&gt;&nbsp;<span class="thispage">Introducing Tuples</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="lists.html" title="Prev: &#8220;Introducing Lists&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="declaring_variables.html" title="Next: &#8220;Declaring variables&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.tuple"></a>3.3.&nbsp;Introducing Tuples
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>A tuple is an immutable list.  A tuple can not be changed in any way once it is created.</p>
+         </div>
+         <div class="example"><a name="d0e6568"></a><h3 class="title">Example&nbsp;3.15.&nbsp;Defining a tuple</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t = (<span class='pystring'>"a"</span>, <span class='pystring'>"b"</span>, <span class='pystring'>"mpilgrim"</span>, <span class='pystring'>"z"</span>, <span class='pystring'>"example"</span>)</span> <a name="odbchelper.tuple.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t</span>
+<span class="computeroutput">('a', 'b', 'mpilgrim', 'z', 'example')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t[0]</span>                                       <a name="odbchelper.tuple.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'a'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t[-1]</span>                                      <a name="odbchelper.tuple.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'example'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t[1:3]</span>                                     <a name="odbchelper.tuple.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">('b', 'mpilgrim')</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.tuple.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">A tuple is defined in the same way as a list, except that the whole set of elements is enclosed in parentheses instead of
+                        square brackets.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.tuple.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The elements of a tuple have a defined order, just like a list.  Tuples indices are zero-based, just like a list, so the first
+                        element of a non-empty tuple is always <tt class="literal">t[0]</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.tuple.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Negative indices count from the end of the tuple, just as with a list.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.tuple.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Slicing works too, just like a list.  Note that when you slice a list, you get a new list; when you slice a tuple, you get
+                        a new tuple.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="odbchelper.tuplemethods"></a><h3 class="title">Example&nbsp;3.16.&nbsp;Tuples Have No Methods</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t</span>
+<span class="computeroutput">('a', 'b', 'mpilgrim', 'z', 'example')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t.append(<span class='pystring'>"new"</span>)</span>    <a name="odbchelper.tuple.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'append'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t.remove(<span class='pystring'>"z"</span>)</span>      <a name="odbchelper.tuple.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'remove'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">t.index(<span class='pystring'>"example"</span>)</span> <a name="odbchelper.tuple.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'index'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"z"</span> <span class='pykeyword'>in</span> t</span>           <a name="odbchelper.tuple.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">True</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.tuple.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can't add elements to a tuple.  Tuples have no <tt class="function">append</tt> or <tt class="function">extend</tt> method.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.tuple.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can't remove elements from a tuple.  Tuples have no <tt class="function">remove</tt> or <tt class="function">pop</tt> method.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.tuple.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can't find elements in a tuple.  Tuples have no <tt class="function">index</tt> method.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.tuple.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can, however, use <tt class="function">in</tt> to see if an element exists in the tuple.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So what are tuples good for?</p>
+         <div class="itemizedlist">
+            <ul>
+               <li>Tuples are faster than lists.  If you're defining a constant set of values and all you're ever going to do with it is iterate
+                  through it, use a tuple instead of a list.
+               </li>
+               <li>It makes your code safer if you &#8220;<span class="quote">write-protect</span>&#8221; data that does not need to be changed.  Using a tuple instead of a list is like having an implied <tt class="literal">assert</tt> statement that shows this data is constant, and that special thought (and a specific function) is required to override that.
+               </li>
+               <li>Remember that I said that <a href="index.html#odbchelper.dictionarytypes" title="Example&nbsp;3.4.&nbsp;Mixing Datatypes in a Dictionary">dictionary keys</a> can be integers, strings, and &#8220;<span class="quote">a few other types</span>&#8221;?  Tuples are one of those types.  Tuples can be used as keys in a dictionary, but lists can't be used this way.Actually,
+                  it's more complicated than that.  Dictionary keys must be immutable.  Tuples themselves are immutable, but if you have a tuple
+                  of lists, that counts as mutable and isn't safe to use as a dictionary key.  Only tuples of strings, numbers, or other dictionary-safe
+                  tuples can be used as dictionary keys.
+               </li>
+               <li>Tuples are used in string formatting, as you'll see shortly.</li>
+            </ul>
+         </div><a name="tip.tuple"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Tuples can be converted into lists, and vice-versa.  The built-in <tt class="function">tuple</tt> function takes a list and returns a tuple with the same elements, and the <tt class="function">list</tt> function takes a tuple and returns a list.  In effect, <tt class="function">tuple</tt> freezes a list, and <tt class="function">list</tt> thaws a tuple.
+               </td>
+            </tr>
+         </table>
+         <div class="furtherreading">
+            <h3>Further Reading on Tuples</h3>
+            <ul>
+               <li><a href="http://www.ibiblio.org/obp/thinkCSpy/" title="Python book for computer science majors"><i class="citetitle">How to Think Like a Computer Scientist</i></a> teaches about tuples and shows how to <a href="http://www.ibiblio.org/obp/thinkCSpy/chap10.htm">concatenate tuples</a>.
+               </li>
+               <li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> shows how to <a href="http://www.faqts.com/knowledge-base/view.phtml/aid/4553/fid/587">sort a tuple</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> shows how to <a href="http://www.python.org/doc/current/tut/node7.html#SECTION007300000000000000000">define a tuple with one element</a>.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="lists.html">&lt;&lt;&nbsp;Introducing Lists</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">1</a> <span class="divider">|</span> <a href="lists.html" title="3.2.&nbsp;Introducing Lists">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">4</a> <span class="divider">|</span> <a href="formatting_strings.html" title="3.5.&nbsp;Formatting Strings">5</a> <span class="divider">|</span> <a href="mapping_lists.html" title="3.6.&nbsp;Mapping Lists">6</a> <span class="divider">|</span> <a href="joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings">7</a> <span class="divider">|</span> <a href="summary.html" title="3.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="declaring_variables.html">Declaring variables&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

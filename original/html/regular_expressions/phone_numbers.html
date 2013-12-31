@@ -1,0 +1,401 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>7.6.&nbsp;Case study: Parsing Phone Numbers</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">
+      <link rel="previous" href="verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">
+      <link rel="next" href="summary.html" title="7.7.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Case study: Parsing Phone Numbers</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="verbose.html" title="Prev: &#8220;Verbose Regular Expressions&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="re.phone"></a>7.6.&nbsp;Case study: Parsing Phone Numbers
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>So far you've concentrated on matching whole patterns.  Either the pattern matches, or it doesn't.  But regular expressions
+               are much more powerful than that.  When a regular expression <span class="emphasis"><em>does</em></span> match, you can pick out specific pieces of it.  You can find out what matched where.
+            </p>
+         </div>
+         <p>This example came from another real-world problem I encountered, again from a previous day job.  The problem: parsing an American
+            phone number.  The client wanted to be able to enter the number free-form (in a single field), but then wanted to store the
+            area code, trunk, number, and optionally an extension separately in the company's database.  I scoured the Web and found many
+            examples of regular expressions that purported to do this, but none of them were permissive enough.
+         </p>
+         <p>Here are the phone numbers I needed to be able to accept:</p>
+         <div class="itemizedlist">
+            <ul>
+               <li><tt class="literal">800-555-1212</tt></li>
+               <li><tt class="literal">800 555 1212</tt></li>
+               <li><tt class="literal">800.555.1212</tt></li>
+               <li><tt class="literal">(800) 555-1212</tt></li>
+               <li><tt class="literal">1-800-555-1212</tt></li>
+               <li><tt class="literal">800-555-1212-1234</tt></li>
+               <li><tt class="literal">800-555-1212x1234</tt></li>
+               <li><tt class="literal">800-555-1212 ext. 1234</tt></li>
+               <li><tt class="literal">work 1-(800) 555.1212 #1234</tt></li>
+            </ul>
+         </div>
+         <p>Quite a variety!  In each of these cases, I need to know that the area code was <tt class="literal">800</tt>, the trunk was <tt class="literal">555</tt>, and the rest of the phone number was <tt class="literal">1212</tt>.  For those with an extension, I need to know that the extension was <tt class="literal">1234</tt>.
+         </p>
+         <p>Let's work through developing a solution for phone number parsing.  This example shows the first step.</p>
+         <div class="example"><a name="re.phone.example"></a><h3 class="title">Example&nbsp;7.10.&nbsp;Finding Numbers</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern = re.compile(r<span class='pystring'>'^(\d{3})-(\d{3})-(\d{4})$'</span>)</span> <a name="re.phone.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212'</span>).groups()</span>            <a name="re.phone.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212-1234'</span>)</span>                <a name="re.phone.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Always read regular expressions from left to right.  This one matches the beginning of the string, and then <tt class="literal">(\d{3})</tt>.  What's <tt class="literal">\d{3}</tt>?  Well, the <tt class="literal">{3}</tt> means &#8220;<span class="quote">match exactly three numeric digits</span>&#8221;; it's a variation on the <a href="n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax"><tt class="literal">{n,m} syntax</tt></a> you saw earlier.  <tt class="literal">\d</tt> means &#8220;<span class="quote">any numeric digit</span>&#8221; (<tt class="literal">0</tt> through <tt class="literal">9</tt>).  Putting it in parentheses means &#8220;<span class="quote">match exactly three numeric digits, <span class="emphasis"><em>and then remember them as a group that I can ask for later</em></span></span>&#8221;.  Then match a literal hyphen.  Then match another group of exactly three digits.  Then another literal hyphen.  Then another
+                        group of exactly four digits.  Then match the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To get access to the groups that the regular expression parser remembered along the way, use the <tt class="function">groups()</tt> method on the object that the <tt class="function">search</tt> function returns.  It will return a tuple of however many groups were defined in the regular expression.  In this case, you
+                        defined three groups, one with three digits, one with three digits, and one with four digits.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This regular expression is not the final answer, because it doesn't handle a phone number with an extension on the end.  For
+                        that, you'll need to expand the regular expression.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e19043"></a><h3 class="title">Example&nbsp;7.11.&nbsp;Finding the Extension</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern = re.compile(r<span class='pystring'>'^(\d{3})-(\d{3})-(\d{4})-(\d+)$'</span>)</span> <a name="re.phone.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212-1234'</span>).groups()</span>             <a name="re.phone.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800 555 1212 1234'</span>)</span>                      <a name="re.phone.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212'</span>)</span>                           <a name="re.phone.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This regular expression is almost identical to the previous one.  Just as before, you match the beginning of the string, then
+                        a remembered group of three digits, then a hyphen, then a remembered group of three digits, then a hyphen, then a remembered
+                        group of four digits.  What's new is that you then match another hyphen, and a remembered group of one or more digits, then
+                        the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">groups()</tt> method now returns a tuple of four elements, since the regular expression now defines four groups to remember.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Unfortunately, this regular expression is not the final answer either, because it assumes that the different parts of the
+                        phone number are separated by hyphens.  What if they're separated by spaces, or commas, or dots?  You need a more general
+                        solution to match several different types of separators.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Oops!  Not only does this regular expression not do everything you want, it's actually a step backwards, because now you can't
+                        parse phone numbers <span class="emphasis"><em>without</em></span> an extension.  That's not what you wanted at all; if the extension is there, you want to know what it is, but if it's not
+                        there, you still want to know what the different parts of the main number are.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The next example shows the regular expression to handle separators between the different parts of the phone number.</p>
+         <div class="example"><a name="d0e19106"></a><h3 class="title">Example&nbsp;7.12.&nbsp;Handling Different Separators</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern = re.compile(r<span class='pystring'>'^(\d{3})\D+(\d{3})\D+(\d{4})\D+(\d+)$'</span>)</span> <a name="re.phone.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800 555 1212 1234'</span>).groups()</span>                   <a name="re.phone.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212-1234'</span>).groups()</span>                   <a name="re.phone.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'80055512121234'</span>)</span>                               <a name="re.phone.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212'</span>)</span>                                 <a name="re.phone.3.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Hang on to your hat.  You're matching the beginning of the string, then a group of three digits, then <tt class="literal">\D+</tt>.  What the heck is that?  Well, <tt class="literal">\D</tt> matches any character <span class="emphasis"><em>except</em></span> a numeric digit, and <tt class="literal">+</tt> means &#8220;<span class="quote">1 or more</span>&#8221;.  So <tt class="literal">\D+</tt> matches one or more characters that are not digits.  This is what you're using instead of a literal hyphen, to try to match
+                        different separators.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Using <tt class="literal">\D+</tt> instead of <tt class="literal">-</tt> means you can now match phone numbers where the parts are separated by spaces instead of hyphens.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Of course, phone numbers separated by hyphens still work too.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Unfortunately, this is still not the final answer, because it assumes that there is a separator at all.  What if the phone
+                        number is entered without any spaces or hyphens at all?
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Oops!  This still hasn't fixed the problem of requiring extensions.  Now you have two problems, but you can solve both of
+                        them with the same technique.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The next example shows the regular expression for handling phone numbers <span class="emphasis"><em>without</em></span> separators.
+         </p>
+         <div class="example"><a name="d0e19203"></a><h3 class="title">Example&nbsp;7.13.&nbsp;Handling Numbers Without Separators</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern = re.compile(r<span class='pystring'>'^(\d{3})\D*(\d{3})\D*(\d{4})\D*(\d*)$'</span>)</span> <a name="re.phone.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'80055512121234'</span>).groups()</span>                      <a name="re.phone.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800.555.1212 x1234'</span>).groups()</span>                  <a name="re.phone.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212'</span>).groups()</span>                        <a name="re.phone.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'(800)5551212 x1234'</span>)</span>                           <a name="re.phone.4.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The only change you've made since that last step is changing all the <tt class="literal">+</tt> to <tt class="literal">*</tt>.  Instead of <tt class="literal">\D+</tt> between the parts of the phone number, you now match on <tt class="literal">\D*</tt>.  Remember that <tt class="literal">+</tt> means &#8220;<span class="quote">1 or more</span>&#8221;?  Well, <tt class="literal">*</tt> means &#8220;<span class="quote">zero or more</span>&#8221;.  So now you should be able to parse phone numbers even when there is no separator character at all.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Lo and behold, it actually works.  Why?  You matched the beginning of the string, then a remembered group of three digits
+                        (<tt class="literal">800</tt>), then zero non-numeric characters, then a remembered group of three digits (<tt class="literal">555</tt>), then zero non-numeric characters, then a remembered group of four digits (<tt class="literal">1212</tt>), then zero non-numeric characters, then a remembered group of an arbitrary number of digits (<tt class="literal">1234</tt>), then the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Other variations work now too: dots instead of hyphens, and both a space and an <tt class="literal">x</tt> before the extension.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Finally, you've solved the other long-standing problem: extensions are optional again.  If no extension is found, the <tt class="function">groups()</tt> method still returns a tuple of four elements, but the fourth element is just an empty string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.4.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">I hate to be the bearer of bad news, but you're not finished yet.  What's the problem here?  There's an extra character before
+                        the area code, but the regular expression assumes that the area code is the first thing at the beginning of the string.  No
+                        problem, you can use the same technique of &#8220;<span class="quote">zero or more non-numeric characters</span>&#8221; to skip over the leading characters before the area code.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The next example shows how to handle leading characters in phone numbers.</p>
+         <div class="example"><a name="d0e19318"></a><h3 class="title">Example&nbsp;7.14.&nbsp;Handling Leading Characters</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern = re.compile(r<span class='pystring'>'^\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*(\d*)$'</span>)</span> <a name="re.phone.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'(800)5551212 ext. 1234'</span>).groups()</span>                 <a name="re.phone.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212'</span>).groups()</span>                           <a name="re.phone.5.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'work 1-(800) 555.1212 #1234'</span>)</span>                     <a name="re.phone.5.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the same as in the previous example, except now you're matching <tt class="literal">\D*</tt>, zero or more non-numeric characters, before the first remembered group (the area code).  Notice that you're not remembering
+                        these non-numeric characters (they're not in parentheses).  If you find them, you'll just skip over them and then start remembering
+                        the area code whenever you get to it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can successfully parse the phone number, even with the leading left parenthesis before the area code.  (The right parenthesis
+                        after the area code is already handled; it's treated as a non-numeric separator and matched by the <tt class="literal">\D*</tt> after the first remembered group.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.5.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Just a sanity check to make sure you haven't broken anything that used to work.  Since the leading characters are entirely
+                        optional, this matches the beginning of the string, then zero non-numeric characters, then a remembered group of three digits
+                        (<tt class="literal">800</tt>), then one non-numeric character (the hyphen), then a remembered group of three digits (<tt class="literal">555</tt>), then one non-numeric character (the hyphen), then a remembered group of four digits (<tt class="literal">1212</tt>), then zero non-numeric characters, then a remembered group of zero digits, then the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.5.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is where regular expressions make me want to gouge my eyes out with a blunt object.  Why doesn't this phone number match?
+                         Because there's a <tt class="literal">1</tt> before the area code, but you assumed that all the leading characters before the area code were non-numeric characters (<tt class="literal">\D*</tt>).  Aargh.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Let's back up for a second.  So far the regular expressions have all matched from the beginning of the string.  But now you
+            see that there may be an indeterminate amount of stuff at the beginning of the string that you want to ignore.  Rather than
+            trying to match it all just so you can skip over it, let's take a different approach: don't explicitly match the beginning
+            of the string at all.  This approach is shown in the next example.
+         </p>
+         <div class="example"><a name="d0e19396"></a><h3 class="title">Example&nbsp;7.15.&nbsp;Phone Number, Wherever I May Find Ye</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern = re.compile(r<span class='pystring'>'(\d{3})\D*(\d{3})\D*(\d{4})\D*(\d*)$'</span>)</span> <a name="re.phone.6.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'work 1-(800) 555.1212 #1234'</span>).groups()</span>        <a name="re.phone.6.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212'</span>)</span>                                <a name="re.phone.6.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'80055512121234'</span>)</span>                              <a name="re.phone.6.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.6.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note the lack of <tt class="literal">^</tt> in this regular expression.  You are not matching the beginning of the string anymore.  There's nothing that says you need
+                        to match the entire input with your regular expression.  The regular expression engine will do the hard work of figuring out
+                        where the input string starts to match, and go from there.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.6.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now you can successfully parse a phone number that includes leading characters and a leading digit, plus any number of any
+                        kind of separators around each part of the phone number.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.6.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Sanity check.  this still works.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.6.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">That still works too.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>See how quickly a regular expression can get out of control?  Take a quick glance at any of the previous iterations.  Can
+            you tell the difference between one and the next?
+         </p>
+         <p>While you still understand the final answer (and it is the final answer; if you've discovered a case it doesn't handle, I
+            don't want to know about it), let's write it out as a verbose regular expression, before you forget why you made the choices
+            you made.
+         </p>
+         <div class="example"><a name="d0e19458"></a><h3 class="title">Example&nbsp;7.16.&nbsp;Parsing Phone Numbers (Final Version)</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern = re.compile(r<span class='pystring'>'''
+                # don't match beginning of string, number can start anywhere
+    (\d{3})     # area code is 3 digits (e.g. '800')
+    \D*         # optional separator is any number of non-digits
+    (\d{3})     # trunk is 3 digits (e.g. '555')
+    \D*         # optional separator
+    (\d{4})     # rest of number is 4 digits (e.g. '1212')
+    \D*         # optional separator
+    (\d*)       # extension is optional and can be any number of digits
+    $           # end of string
+    '''</span>, re.VERBOSE)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'work 1-(800) 555.1212 #1234'</span>).groups()</span>        <a name="re.phone.7.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '1234')</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">phonePattern.search(<span class='pystring'>'800-555-1212'</span>)</span>                                <a name="re.phone.7.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">('800', '555', '1212', '')</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.7.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Other than being spread out over multiple lines, this is exactly the same regular expression as the last step, so it's no
+                        surprise that it parses the same inputs.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.phone.7.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Final sanity check.  Yes, this still works.  You're done.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Further Reading on Regular Expressions</h3>
+            <ul>
+               <li><a href="http://py-howto.sourceforge.net/regex/regex.html">Regular Expression HOWTO</a> teaches about regular expressions and how to use them in <span class="application">Python</span>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes the <a href="http://www.python.org/doc/current/lib/module-re.html"><tt class="filename">re</tt> module</a>.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="verbose.html">&lt;&lt;&nbsp;Verbose Regular Expressions</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <a href="roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">3</a> <span class="divider">|</span> <a href="n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax">4</a> <span class="divider">|</span> <a href="verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

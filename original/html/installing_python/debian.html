@@ -1,0 +1,102 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>1.6.&nbsp;Python on Debian GNU/Linux</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;1.&nbsp;Installing Python">
+      <link rel="previous" href="redhat.html" title="1.5.&nbsp;Python on RedHat Linux">
+      <link rel="next" href="source.html" title="1.7.&nbsp;Python Installation from Source">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Installing Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Python on Debian GNU/Linux</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="redhat.html" title="Prev: &#8220;Python on RedHat Linux&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="source.html" title="Next: &#8220;Python Installation from Source&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="install.debian"></a>1.6.&nbsp;<span class="application">Python</span> on Debian <span class="acronym">GNU</span>/Linux
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>If you are lucky enough to be running Debian <span class="acronym">GNU</span>/Linux, you install <span class="application">Python</span> through the <span><b class="command">apt</b></span> command.
+            </p>
+         </div>
+         <div class="example"><a name="d0e3634"></a><h3 class="title">Example&nbsp;1.3.&nbsp;Installing on Debian <span class="acronym">GNU</span>/Linux
+            </h3><pre class="screen">
+<tt class="prompt">localhost:~$ </tt><span class="userinput">su -</span>
+<tt class="prompt">Password: </tt><span class="userinput">[enter your root password]</span>
+<tt class="prompt">localhost:~# </tt><span class="userinput">apt-get install python</span>
+<span class="computeroutput">Reading Package Lists... Done
+Building Dependency Tree... Done
+The following extra packages will be installed:
+  python2.3
+Suggested packages:
+  python-tk python2.3-doc
+The following NEW packages will be installed:
+  python python2.3
+0 upgraded, 2 newly installed, 0 to remove and 3 not upgraded.
+Need to get 0B/2880kB of archives.
+After unpacking 9351kB of additional disk space will be used.</span>
+<tt class="prompt">Do you want to continue? [Y/n] </tt><span class="userinput">Y</span>
+<span class="computeroutput">Selecting previously deselected package python2.3.
+(Reading database ... 22848 files and directories currently installed.)
+Unpacking python2.3 (from .../python2.3_2.3.1-1_i386.deb) ...
+Selecting previously deselected package python.
+Unpacking python (from .../python_2.3.1-1_all.deb) ...
+Setting up python (2.3.1-1) ...
+Setting up python2.3 (2.3.1-1) ...
+Compiling python modules in /usr/lib/python2.3 ...
+Compiling optimized python modules in /usr/lib/python2.3 ...</span>
+<tt class="prompt">localhost:~# </tt><span class="userinput">exit</span>
+<span class="computeroutput">logout</span>
+<tt class="prompt">localhost:~$ </tt><span class="userinput">python</span>
+<span class="computeroutput">Python 2.3.1 (#2, Sep 24 2003, 11:39:14)
+[GCC 3.3.2 20030908 (Debian prerelease)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[press Ctrl+D to exit]</span>
+</pre></div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="redhat.html">&lt;&lt;&nbsp;Python on RedHat Linux</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#install.choosing" title="1.1.&nbsp;Which Python is right for you?">1</a> <span class="divider">|</span> <a href="windows.html" title="1.2.&nbsp;Python on Windows">2</a> <span class="divider">|</span> <a href="macosx.html" title="1.3.&nbsp;Python on Mac OS X">3</a> <span class="divider">|</span> <a href="macos9.html" title="1.4.&nbsp;Python on Mac OS 9">4</a> <span class="divider">|</span> <a href="redhat.html" title="1.5.&nbsp;Python on RedHat Linux">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="source.html" title="1.7.&nbsp;Python Installation from Source">7</a> <span class="divider">|</span> <a href="shell.html" title="1.8.&nbsp;The Interactive Shell">8</a> <span class="divider">|</span> <a href="summary.html" title="1.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="source.html">Python Installation from Source&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

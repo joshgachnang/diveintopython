@@ -1,0 +1,223 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;18.&nbsp;Performance Tuning</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../dynamic_functions/summary.html" title="17.8.&nbsp;Summary">
+      <link rel="next" href="timeit.html" title="18.2.&nbsp;Using the timeit Module">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Performance Tuning</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../dynamic_functions/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="timeit.html" title="Next: &#8220;Using the timeit Module&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soundex"></a>Chapter&nbsp;18.&nbsp;Performance Tuning
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#soundex.divein">18.1. Diving in</a></span></li>
+               <li><span class="section"><a href="timeit.html">18.2. Using the timeit Module</a></span></li>
+               <li><span class="section"><a href="regular_expressions.html">18.3. Optimizing Regular Expressions</a></span></li>
+               <li><span class="section"><a href="dictionary_lookups.html">18.4. Optimizing Dictionary Lookups</a></span></li>
+               <li><span class="section"><a href="list_operations.html">18.5. Optimizing List Operations</a></span></li>
+               <li><span class="section"><a href="string_manipulation.html">18.6. Optimizing String Manipulation</a></span></li>
+               <li><span class="section"><a href="summary.html">18.7. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>Performance tuning is a many-splendored thing.  Just because <span class="application">Python</span> is an interpreted language doesn't mean you shouldn't worry about code optimization.  But don't worry about it <span class="emphasis"><em>too</em></span> much.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="soundex.divein"></a>18.1.&nbsp;Diving in
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>There are so many pitfalls involved in optimizing your code, it's hard to know where to start.</p>
+            </div>
+            <p>Let's start here: <span class="emphasis"><em>are you sure you need to do it at all?</em></span>  Is your code really so bad?  Is it worth the time to tune it?  Over the lifetime of your application, how much time is going
+               to be spent running that code, compared to the time spent waiting for a remote database server, or waiting for user input?
+            </p>
+            <p>Second, <span class="emphasis"><em>are you sure you're done coding?</em></span>  Premature optimization is like spreading frosting on a half-baked cake.  You spend hours or days (or more) optimizing your
+               code for performance, only to discover it doesn't do what you need it to do.  That's time down the drain.
+            </p>
+            <p>This is not to say that code optimization is worthless, but you need to look at the whole system and decide whether it's the
+               best use of your time.  Every minute you spend optimizing code is a minute you're not spending adding new features, or writing
+               documentation, or playing with your kids, or writing unit tests.
+            </p>
+            <p>Oh yes, unit tests.  It should go without saying that you need a complete set of unit tests before you begin performance tuning.
+                The last thing you need is to introduce new bugs while fiddling with your algorithms.
+            </p>
+            <p>With these caveats in place, let's look at some techniques for optimizing <span class="application">Python</span> code.  The code in question is an implementation of the Soundex algorithm.  Soundex was a method used in the early 20th century
+               for categorizing surnames in the United States census.  It grouped similar-sounding names together, so even if a name was
+               misspelled, researchers had a chance of finding it.  Soundex is still used today for much the same reason, although of course
+               we use computerized database servers now.  Most database servers include a Soundex function.
+            </p>
+            <p>There are several subtle variations of the Soundex algorithm.  This is the one used in this chapter:</p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>Keep the first letter of the name as-is.</li>
+                  <li>Convert the remaining letters to digits, according to a specific table:
+                     <div class="itemizedlist">
+                        <ul>
+                           <li>B, F, P, and V become 1.</li>
+                           <li>C, G, J, K, Q, S, X, and Z become 2.</li>
+                           <li>D and T become 3.</li>
+                           <li>L becomes 4.</li>
+                           <li>M and N become 5.</li>
+                           <li>R becomes 6.</li>
+                           <li>All other letters become 9.</li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li>Remove consecutive duplicates.</li>
+                  <li>Remove all 9s altogether.</li>
+                  <li>If the result is shorter than four characters (the first letter plus three digits), pad the result with trailing zeros.</li>
+                  <li>if the result is longer than four characters, discard everything after the fourth character.</li>
+               </ol>
+            </div>
+            <p>For example, my name, <tt class="literal">Pilgrim</tt>, becomes P942695.  That has no consecutive duplicates, so nothing to do there.  Then you remove the 9s, leaving P4265.  That's
+               too long, so you discard the excess character, leaving P426.
+            </p>
+            <p>Another example: <tt class="literal">Woo</tt> becomes W99, which becomes W9, which becomes W, which gets padded with zeros to become W000.
+            </p>
+            <p>Here's a first attempt at a Soundex function:</p>
+            <div class="example"><a name="d0e38889"></a><h3 class="title">Example&nbsp;18.1.&nbsp;<tt class="filename">soundex/stage1/soundex1a.py</tt></h3>
+               <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+               </p><pre class="programlisting"><span class='pykeyword'>
+import</span> string, re
+
+charToSoundex = {<span class='pystring'>"A"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"B"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"C"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"D"</span>: <span class='pystring'>"3"</span>,
+                 <span class='pystring'>"E"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"F"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"G"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"H"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"I"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"J"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"K"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"L"</span>: <span class='pystring'>"4"</span>,
+                 <span class='pystring'>"M"</span>: <span class='pystring'>"5"</span>,
+                 <span class='pystring'>"N"</span>: <span class='pystring'>"5"</span>,
+                 <span class='pystring'>"O"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"P"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"Q"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"R"</span>: <span class='pystring'>"6"</span>,
+                 <span class='pystring'>"S"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"T"</span>: <span class='pystring'>"3"</span>,
+                 <span class='pystring'>"U"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"V"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"W"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"X"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"Y"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"Z"</span>: <span class='pystring'>"2"</span>}
+
+<span class='pykeyword'>def</span><span class='pyclass'> soundex</span>(source):
+    <span class='pystring'>"convert string to Soundex equivalent"</span>
+
+    <span class='pycomment'># Soundex requirements:</span>
+    <span class='pycomment'># source string must be at least 1 character</span>
+    <span class='pycomment'># and must consist entirely of letters</span>
+    allChars = string.uppercase + string.lowercase
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> re.search(<span class='pystring'>'^[%s]+$'</span> % allChars, source):
+        <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+
+    <span class='pycomment'># Soundex algorithm:</span>
+    <span class='pycomment'># 1. make first character uppercase</span>
+    source = source[0].upper() + source[1:]
+    
+    <span class='pycomment'># 2. translate all other characters to Soundex digits</span>
+    digits = source[0]
+    <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> source[1:]:
+        s = s.upper()
+        digits += charToSoundex[s]
+
+    <span class='pycomment'># 3. remove consecutive duplicates</span>
+    digits2 = digits[0]
+    <span class='pykeyword'>for</span> d <span class='pykeyword'>in</span> digits[1:]:
+        <span class='pykeyword'>if</span> digits2[-1] != d:
+            digits2 += d
+        
+    <span class='pycomment'># 4. remove all "9"s</span>
+    digits3 = re.sub(<span class='pystring'>'9'</span>, <span class='pystring'>''</span>, digits2)
+    
+    <span class='pycomment'># 5. pad end with "0"s to 4 characters</span>
+    <span class='pykeyword'>while</span> len(digits3) &lt; 4:
+        digits3 += <span class='pystring'>"0"</span>
+        
+    <span class='pycomment'># 6. return first 4 characters</span>
+    <span class='pykeyword'>return</span> digits3[:4]
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>'__main__'</span>:
+    <span class='pykeyword'>from</span> timeit <span class='pykeyword'>import</span> Timer
+    names = (<span class='pystring'>'Woo'</span>, <span class='pystring'>'Pilgrim'</span>, <span class='pystring'>'Flingjingwaller'</span>)
+    <span class='pykeyword'>for</span> name <span class='pykeyword'>in</span> names:
+        statement = <span class='pystring'>"soundex('%s')"</span> % name
+        t = Timer(statement, <span class='pystring'>"from __main__ import soundex"</span>)
+        <span class='pykeyword'>print</span> name.ljust(15), soundex(name), min(t.repeat())
+</pre></div>
+            <div class="furtherreading">
+               <h3>Further Reading on Soundex</h3>
+               <ul>
+                  <li><a href="http://www.avotaynu.com/soundex.html">Soundexing and Genealogy</a> gives a chronology of the evolution of the Soundex and its regional variations.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../dynamic_functions/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="timeit.html" title="18.2.&nbsp;Using the timeit Module">2</a> <span class="divider">|</span> <a href="regular_expressions.html" title="18.3.&nbsp;Optimizing Regular Expressions">3</a> <span class="divider">|</span> <a href="dictionary_lookups.html" title="18.4.&nbsp;Optimizing Dictionary Lookups">4</a> <span class="divider">|</span> <a href="list_operations.html" title="18.5.&nbsp;Optimizing List Operations">5</a> <span class="divider">|</span> <a href="string_manipulation.html" title="18.6.&nbsp;Optimizing String Manipulation">6</a> <span class="divider">|</span> <a href="summary.html" title="18.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="timeit.html">Using the timeit Module&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

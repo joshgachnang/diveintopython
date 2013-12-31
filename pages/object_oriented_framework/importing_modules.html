@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>5.2. Importing Modules Using from module import</title>
+        <link rev="made" href="josh@servercobra.com" />
+        <meta name="generator" content="convert_to_jinja2.py" />
+        <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+        <meta name="description" content="Python from novice to pro" />
+        <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+        
+        <link rel="up" href="index.html" title=" Chapter5.Objects and Object-Orientation" />
+        
+        
+        
+        <link rel="next" href="defining_classes.html" title=" 5.3.Defining Classes" />
+        
+         <link rel="stylesheet" href="../css/normalize.css">
+         <link rel="stylesheet" href="../css/foundation.css">
+         <link rel="stylesheet" href="../css/diveintopython.css" type="text/css" />
+
+
+         <script src="../js/modernizr.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="small-12 columns" id="Header">
+                <div class="row">
+                    <div class="small-11 columns">
+                        
+                        <td align="left" colspan="5" id="breadcrumb" valign="top">You are here: <a href="../index.html">Home</a>&#160;&gt;&#160;<a href="../toc/index.html">Dive Into Python</a>&#160;&gt;&#160;<a href="index.html">Objects and Object-Orientation</a>&#160;&gt;&#160;<span class="thispage">Importing Modules Using from module import</span></td>
+                        
+                    </div>
+                    <div class="small-1 columns">
+                        
+                        <td align="right" id="navigation" valign="top">&#160;&#160;&#160;<a href="index.html" title="Prev: &#8220;Objects and Object-Orientation&#8221;">&lt;&lt;</a>&#160;&#160;&#160;<a href="defining_classes.html" title="Next: &#8220;Defining Classes&#8221;">&gt;&gt;</a></td>
+                        
+                    </div>
+                </div>
+
+
+                <div id="logocontainer">
+                    <h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+                    <p id="tagline">Python from novice to pro</p>
+                    <a href="http://www.amazon.com/gp/product/B001GIOFN8/ref=as_li_tf_tl?ie=UTF8&tag=diveintopython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=B001GIOFN8"><img src="../images/amazon-buy-button.gif"></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="fileinfo.fromimport"></a>5.2.&#160;Importing Modules Using <tt class="literal">from <i class="replaceable">module</i> import</tt></h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p><span class="application">Python</span> has two ways of importing modules.  Both are useful, and you should know when to use each.  One way, <tt class="literal">import <i class="replaceable">module</i></tt>, you've already seen in <a href="../getting_to_know_python/everything_is_an_object.html" title="2.4.&#160;Everything Is an Object">Section&#160;2.4, &#8220;Everything Is an Object&#8221;</a>.  The other way accomplishes the same thing, but it has subtle and important differences.
+            </p>
+</div>
+<div class="informalexample">
+<p>Here is the basic <tt class="literal">from <i class="replaceable">module</i> import</tt> syntax:
+            </p><pre class="programlisting"><span class="pykeyword">
+from</span> UserDict <span class="pykeyword">import</span> UserDict
+</pre></div>
+<p>This is similar to the <a href="../getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&#160;2.3.&#160;Accessing the buildConnectionString Function's doc string"><tt class="literal">import <i class="replaceable">module</i></tt></a> syntax that you know and love, but with an important difference: the attributes and methods of the imported module <tt class="filename">types</tt> are imported directly into the local namespace, so they are available directly, without qualification by module name.  You
+            can import individual items or use <tt class="literal">from <i class="replaceable">module</i> import *</tt> to import everything.
+         </p><a name="compare.fromimport.perl"></a><table border="0" class="note" summary="">
+<tr>
+<td align="center" rowspan="2" valign="top" width="1%"><img alt="Note" height="24" src="../images/note.png" title="" width="24"/></td>
+</tr>
+<tr>
+<td align="left" colspan="2" valign="top" width="99%"><tt class="literal">from <i class="replaceable">module</i> import *</tt> in <span class="application">Python</span> is like <tt class="literal">use <i class="replaceable">module</i></tt> in <span class="application">Perl</span>; <tt class="literal">import <i class="replaceable">module</i></tt> in <span class="application">Python</span> is like <tt class="literal">require <i class="replaceable">module</i></tt> in <span class="application">Perl</span>.
+               </td>
+</tr>
+</table><a name="compare.fromimport.java"></a><table border="0" class="note" summary="">
+<tr>
+<td align="center" rowspan="2" valign="top" width="1%"><img alt="Note" height="24" src="../images/note.png" title="" width="24"/></td>
+</tr>
+<tr>
+<td align="left" colspan="2" valign="top" width="99%"><tt class="literal">from <i class="replaceable">module</i> import *</tt> in <span class="application">Python</span> is like <tt class="literal">import <i class="replaceable">module</i>.*</tt> in <span class="application">Java</span>; <tt class="literal">import <i class="replaceable">module</i></tt> in <span class="application">Python</span> is like <tt class="literal">import <i class="replaceable">module</i></tt> in <span class="application">Java</span>.
+               </td>
+</tr>
+</table>
+<div class="example"><a name="d0e11355"></a><h3 class="title">Example&#160;5.2.&#160;<tt class="literal">import <i class="replaceable">module</i></tt> <span class="foreignphrase"><i class="foreignphrase"><span class="acronym">vs.</span></i></span> <tt class="literal">from <i class="replaceable">module</i> import</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> types</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">types.FunctionType</span>             <a name="fileinfo.import.1.1"></a><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12">
+<span class="computeroutput">&lt;type 'function'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">FunctionType</span>                   <a name="fileinfo.import.1.2"></a><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+NameError: There is no variable named 'FunctionType'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">from</span> types <span class="pykeyword">import</span> FunctionType</span> <a name="fileinfo.import.1.3"></a><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">FunctionType</span>                   <a name="fileinfo.import.1.4"></a><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12">
+<span class="computeroutput">&lt;type 'function'&gt;</span></img></img></img></img></pre><div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="12"><a href="#fileinfo.import.1.1"><img alt="1" border="0" height="12" src="../images/callouts/1.png" width="12"/></a>
+</td>
+<td align="left" valign="top">The <tt class="filename">types</tt> module contains no methods; it just has attributes for each <span class="application">Python</span> object type.  Note that the attribute, <tt class="constant">FunctionType</tt>, must be qualified by the module name, <tt class="filename">types</tt>.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#fileinfo.import.1.2"><img alt="2" border="0" height="12" src="../images/callouts/2.png" width="12"/></a>
+</td>
+<td align="left" valign="top"><tt class="constant">FunctionType</tt> by itself has not been defined in this namespace; it exists only in the context of <tt class="filename">types</tt>.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#fileinfo.import.1.3"><img alt="3" border="0" height="12" src="../images/callouts/3.png" width="12"/></a>
+</td>
+<td align="left" valign="top">This syntax imports the attribute <tt class="constant">FunctionType</tt> from the <tt class="filename">types</tt> module directly into the local namespace.
+                     </td>
+</tr>
+<tr>
+<td align="left" valign="top" width="12"><a href="#fileinfo.import.1.4"><img alt="4" border="0" height="12" src="../images/callouts/4.png" width="12"/></a>
+</td>
+<td align="left" valign="top">Now <tt class="constant">FunctionType</tt> can be accessed directly, without reference to <tt class="filename">types</tt>.
+                     </td>
+</tr>
+</table>
+</div>
+</div>
+<p>When should you use <tt class="literal">from <i class="replaceable">module</i> import</tt>?
+         </p>
+<div class="itemizedlist">
+<ul>
+<li>If you will be accessing attributes and methods often and don't want to type the module name over and over, use <tt class="literal">from <i class="replaceable">module</i> import</tt>.
+               </li>
+<li>If you want to selectively import some attributes and methods but not others, use <tt class="literal">from <i class="replaceable">module</i> import</tt>.
+               </li>
+<li>If the module contains attributes or functions with the same name as ones in your module, you must use <tt class="literal">import <i class="replaceable">module</i></tt> to avoid name conflicts.
+               </li>
+</ul>
+</div>
+<p>Other than that, it's just a matter of style, and you will see <span class="application">Python</span> code written both ways.
+         </p><a name="d0e11495"></a><table border="0" class="caution" summary="">
+<tr>
+<td align="center" rowspan="2" valign="top" width="1%"><img alt="Caution" height="24" src="../images/caution.png" title="" width="24"/></td>
+</tr>
+<tr>
+<td align="left" colspan="2" valign="top" width="99%">Use <tt class="literal">from module import *</tt> sparingly, because it makes it difficult to determine where a particular function or attribute came from, and that makes
+                  debugging and refactoring more difficult.
+               </td>
+</tr>
+</table>
+<div class="furtherreading">
+<h3>Further Reading on Module Importing Techniques</h3>
+<ul>
+<li><a href="http://www.effbot.org/guides/">eff-bot</a> has more to say on <a href="http://www.effbot.org/guides/import-confusion.htm"><tt class="literal">import <i class="replaceable">module</i></tt> <span class="foreignphrase"><i class="foreignphrase"><span class="acronym">vs.</span></i></span> <tt class="literal">from <i class="replaceable">module</i> import</tt></a>.
+               </li>
+<li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discusses advanced import techniques, including <a href="http://www.python.org/doc/current/tut/node8.html#SECTION008410000000000000000"><tt class="literal">from <i class="replaceable">module</i> import *</tt></a>.
+               </li>
+</ul>
+</div>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <table border="0" cellpadding="0" cellspacing="0" class="Footer" summary="" width="100%">
+<tr>
+<td align="left" width="35%"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&#160;Objects and Object-Orientation</a></br></td>
+<td align="center" width="30%"><br>&#160;<span class="divider">|</span>&#160;<a href="index.html#fileinfo.divein" title="5.1.&#160;Diving In">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="defining_classes.html" title="5.3.&#160;Defining Classes">3</a> <span class="divider">|</span> <a href="instantiating_classes.html" title="5.4.&#160;Instantiating Classes">4</a> <span class="divider">|</span> <a href="userdict.html" title="5.5.&#160;Exploring UserDict: A Wrapper Class">5</a> <span class="divider">|</span> <a href="special_class_methods.html" title="5.6.&#160;Special Class Methods">6</a> <span class="divider">|</span> <a href="special_class_methods2.html" title="5.7.&#160;Advanced Special Class Methods">7</a> <span class="divider">|</span> <a href="class_attributes.html" title="5.8.&#160;Introducing Class Attributes">8</a> <span class="divider">|</span> <a href="private_functions.html" title="5.9.&#160;Private Functions">9</a> <span class="divider">|</span> <a href="summary.html" title="5.10.&#160;Summary">10</a>&#160;<span class="divider">|</span>&#160;
+            </br></td>
+<td align="right" width="35%"><br><a class="NavigationArrow" href="defining_classes.html">Defining Classes&#160;&gt;&gt;</a></br></td>
+</tr>
+<tr>
+<td colspan="3"><br/></td>
+</tr>
+</table>
+        <!-- Footer -->
+<div class="Footer">
+    <p><a href="https://github.com/pcsforeducation/diveintopython/issues?sort=created&state=open">Report issues<img style="margin-left:10px" height="40" src="../images/logo_github.png"></a></p>
+    <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a>. Maintained by Josh Gachnang.</p>
+</div>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1879314568120827";
+/* DiveIntoPython */
+google_ad_slot = "8002881514";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<!-- End Footer -->
+            </div>
+        </div>
+        <!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google Analytics -->
+        <script src="../js/jquery.js"></script>
+        <script src="../js/foundation.min.js"></script>
+        <script>
+          $(document).foundation();
+        </script>
+    </body>
+</html>

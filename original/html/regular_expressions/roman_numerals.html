@@ -1,0 +1,288 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>7.3.&nbsp;Case Study: Roman Numerals</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">
+      <link rel="previous" href="street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">
+      <link rel="next" href="n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Case Study: Roman Numerals</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="street_addresses.html" title="Prev: &#8220;Case Study: Street Addresses&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="n_m_syntax.html" title="Next: &#8220;Using the {n,m} Syntax&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="re.roman"></a>7.3.&nbsp;Case Study: Roman Numerals
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="roman_numerals.html#d0e17592">7.3.1. Checking for Thousands</a></span></li>
+               <li><span class="section"><a href="roman_numerals.html#d0e17785">7.3.2. Checking for Hundreds</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>You've most likely seen Roman numerals, even if you didn't recognize them.  You may have seen them in copyrights of old movies
+               and television shows (&#8220;<span class="quote">Copyright <tt class="literal">MCMXLVI</tt></span>&#8221; instead of &#8220;<span class="quote">Copyright <tt class="literal">1946</tt></span>&#8221;), or on the dedication walls of libraries or universities (&#8220;<span class="quote">established <tt class="literal">MDCCCLXXXVIII</tt></span>&#8221; instead of &#8220;<span class="quote">established <tt class="literal">1888</tt></span>&#8221;).  You may also have seen them in outlines and bibliographical references.  It's a system of representing numbers that really
+               does date back to the ancient Roman empire (hence the name).
+            </p>
+         </div>
+         <p>In Roman numerals, there are seven characters that are repeated and combined in various ways to represent numbers.</p>
+         <div class="itemizedlist">
+            <ul>
+               <li><tt class="literal">I</tt> = <tt class="literal">1</tt></li>
+               <li><tt class="literal">V</tt> = <tt class="literal">5</tt></li>
+               <li><tt class="literal">X</tt> = <tt class="literal">10</tt></li>
+               <li><tt class="literal">L</tt> = <tt class="literal">50</tt></li>
+               <li><tt class="literal">C</tt> = <tt class="literal">100</tt></li>
+               <li><tt class="literal">D</tt> = <tt class="literal">500</tt></li>
+               <li><tt class="literal">M</tt> = <tt class="literal">1000</tt></li>
+            </ul>
+         </div>
+         <p>The following are some general rules for constructing Roman numerals:</p>
+         <div class="itemizedlist">
+            <ul>
+               <li>Characters are additive.  <tt class="literal">I</tt> is <tt class="constant">1</tt>, <tt class="literal">II</tt> is <tt class="literal">2</tt>, and <tt class="literal">III</tt> is <tt class="literal">3</tt>.  <tt class="literal">VI</tt> is <tt class="literal">6</tt> (literally, &#8220;<span class="quote"><tt class="literal">5</tt> and <tt class="literal">1</tt></span>&#8221;), <tt class="literal">VII</tt> is <tt class="literal">7</tt>, and <tt class="literal">VIII</tt> is <tt class="literal">8</tt>.
+               </li>
+               <li>The tens characters (<tt class="literal">I</tt>, <tt class="literal">X</tt>, <tt class="literal">C</tt>, and <tt class="literal">M</tt>) can be repeated up to three times.  At <tt class="literal">4</tt>, you need to subtract from the next highest fives character.  You can't represent <tt class="literal">4</tt> as <tt class="literal">IIII</tt>; instead, it is represented as <tt class="literal">IV</tt> (&#8220;<span class="quote"><tt class="literal">1</tt> less than <tt class="literal">5</tt></span>&#8221;).  The number <tt class="literal">40</tt> is written as <tt class="literal">XL</tt> (<tt class="literal">10</tt> less than <tt class="literal">50</tt>), <tt class="literal">41</tt> as <tt class="literal">XLI</tt>, <tt class="literal">42</tt> as <tt class="literal">XLII</tt>, <tt class="literal">43</tt> as <tt class="literal">XLIII</tt>, and then <tt class="literal">44</tt> as <tt class="literal">XLIV</tt> (<tt class="literal">10</tt> less than <tt class="literal">50</tt>, then <tt class="literal">1</tt> less than <tt class="literal">5</tt>).
+               </li>
+               <li>Similarly, at <tt class="literal">9</tt>, you need to subtract from the next highest tens character: <tt class="literal">8</tt> is <tt class="literal">VIII</tt>, but <tt class="literal">9</tt> is <tt class="literal">IX</tt> (<tt class="literal">1</tt> less than <tt class="literal">10</tt>), not <tt class="literal">VIIII</tt> (since the <tt class="literal">I</tt> character can not be repeated four times).  The number <tt class="literal">90</tt> is <tt class="literal">XC</tt>, <tt class="literal">900</tt> is <tt class="literal">CM</tt>.
+               </li>
+               <li>The fives characters can not be repeated.  The number <tt class="literal">10</tt> is always represented as <tt class="literal">X</tt>, never as <tt class="literal">VV</tt>.  The number <tt class="literal">100</tt> is always <tt class="literal">C</tt>, never <tt class="literal">LL</tt>.
+               </li>
+               <li>Roman numerals are always written highest to lowest, and read left to right, so the order the of characters matters very much.
+                   <tt class="literal">DC</tt> is <tt class="literal">600</tt>; <tt class="literal">CD</tt> is a completely different number (<tt class="literal">400</tt>, <tt class="literal">100</tt> less than <tt class="literal">500</tt>).  <tt class="literal">CI</tt> is <tt class="literal">101</tt>; <tt class="literal">IC</tt> is not even a valid Roman numeral (because you can't subtract <tt class="literal">1</tt> directly from <tt class="literal">100</tt>; you would need to write it as <tt class="literal">XCIX</tt>, for <tt class="literal">10</tt> less than <tt class="literal">100</tt>, then <tt class="literal">1</tt> less than <tt class="literal">10</tt>).
+               </li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e17592"></a>7.3.1.&nbsp;Checking for Thousands
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>What would it take to validate that an arbitrary string is a valid Roman numeral?  Let's take it one digit at a time.  Since
+               Roman numerals are always written highest to lowest, let's start with the highest: the thousands place.  For numbers 1000
+               and higher, the thousands are represented by a series of <tt class="literal">M</tt> characters.
+            </p>
+            <div class="example"><a name="d0e17600"></a><h3 class="title">Example&nbsp;7.3.&nbsp;Checking for Thousands</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>       <a name="re.roman.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'M'</span>)</span>    <a name="re.roman.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 0106FB58&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MM'</span>)</span>   <a name="re.roman.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 0106C290&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMM'</span>)</span>  <a name="re.roman.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 0106AA38&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMM'</span>)</span> <a name="re.roman.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>''</span>)</span>     <a name="re.roman.1.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 0106F4A8&gt;</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This pattern has three parts:
+                           <div class="itemizedlist">
+                              <ul>
+                                 <li><tt class="literal">^</tt> to match what follows only at the beginning of the string.  If this were not specified, the pattern would match no matter
+                                    where the <tt class="literal">M</tt> characters were, which is not what you want.  You want to make sure that the <tt class="literal">M</tt> characters, if they're there, are at the beginning of the string.
+                                 </li>
+                                 <li><tt class="literal">M?</tt> to optionally match a single <tt class="literal">M</tt> character.  Since this is repeated three times, you're matching anywhere from zero to three <tt class="literal">M</tt> characters in a row.
+                                 </li>
+                                 <li><tt class="literal">$</tt> to match what precedes only at the end of the string.  When combined with the <tt class="literal">^</tt> character at the beginning, this means that the pattern must match the entire string, with no other characters before or
+                                    after the <tt class="literal">M</tt> characters.
+                                 </li>
+                              </ul>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The essence of the <tt class="filename">re</tt> module is the <tt class="function">search</tt> function, that takes a regular expression (<tt class="varname">pattern</tt>) and a string (<tt class="literal">'M'</tt>) to try to match against the regular expression.  If a match is found, <tt class="function">search</tt> returns an object which has various methods to describe the match; if no match is found, <tt class="function">search</tt> returns <tt class="literal">None</tt>, the <span class="application">Python</span> null value.  All you care about at the moment is whether the pattern matches, which you can tell by just looking at the return
+                           value of <tt class="function">search</tt>.  <tt class="literal">'M'</tt> matches this regular expression, because the first optional <tt class="literal">M</tt> matches and the second and third optional <tt class="literal">M</tt> characters are ignored.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MM'</tt> matches because the first and second optional <tt class="literal">M</tt> characters match and the third <tt class="literal">M</tt> is ignored.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MMM'</tt> matches because all three <tt class="literal">M</tt> characters match.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MMMM'</tt> does not match.  All three <tt class="literal">M</tt> characters match, but then the regular expression insists on the string ending (because of the <tt class="literal">$</tt> character), and the string doesn't end yet (because of the fourth <tt class="literal">M</tt>).  So <tt class="function">search</tt> returns <tt class="literal">None</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.1.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Interestingly, an empty string also matches this regular expression, since all the <tt class="literal">M</tt> characters are optional.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e17785"></a>7.3.2.&nbsp;Checking for Hundreds
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>The hundreds place is more difficult than the thousands, because there are several mutually exclusive ways it could be expressed,
+               depending on its value.
+            </p>
+            <div class="itemizedlist">
+               <ul>
+                  <li><tt class="literal">100</tt> = <tt class="literal">C</tt></li>
+                  <li><tt class="literal">200</tt> = <tt class="literal">CC</tt></li>
+                  <li><tt class="literal">300</tt> = <tt class="literal">CCC</tt></li>
+                  <li><tt class="literal">400</tt> = <tt class="literal">CD</tt></li>
+                  <li><tt class="literal">500</tt> = <tt class="literal">D</tt></li>
+                  <li><tt class="literal">600</tt> = <tt class="literal">DC</tt></li>
+                  <li><tt class="literal">700</tt> = <tt class="literal">DCC</tt></li>
+                  <li><tt class="literal">800</tt> = <tt class="literal">DCCC</tt></li>
+                  <li><tt class="literal">900</tt> = <tt class="literal">CM</tt></li>
+               </ul>
+            </div>
+            <p>So there are four possible patterns:</p>
+            <div class="itemizedlist">
+               <ul>
+                  <li><tt class="literal">CM</tt></li>
+                  <li><tt class="literal">CD</tt></li>
+                  <li>Zero to three <tt class="literal">C</tt> characters (zero if the hundreds place is 0)
+                  </li>
+                  <li><tt class="literal">D</tt>, followed by zero to three <tt class="literal">C</tt> characters
+                  </li>
+               </ul>
+            </div>
+            <p>The last two patterns can be combined:</p>
+            <div class="itemizedlist">
+               <ul>
+                  <li>an optional <tt class="literal">D</tt>, followed by zero to three <tt class="literal">C</tt> characters
+                  </li>
+               </ul>
+            </div>
+            <p>This example shows how to validate the hundreds place of a Roman numeral.</p>
+            <div class="example"><a name="re.roman.hundreds"></a><h3 class="title">Example&nbsp;7.4.&nbsp;Checking for Hundreds</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?(CM|CD|D?C?C?C?)$'</span></span> <a name="re.roman.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCM'</span>)</span>            <a name="re.roman.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 01070390&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MD'</span>)</span>             <a name="re.roman.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 01073A50&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMCCC'</span>)</span>         <a name="re.roman.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 010748A8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMC'</span>)</span>           <a name="re.roman.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>''</span>)</span>               <a name="re.roman.2.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+<span class="computeroutput">&lt;SRE_Match object at 01071D98&gt;</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This pattern starts out the same as the previous one, checking for the beginning of the string (<tt class="literal">^</tt>), then the thousands place (<tt class="literal">M?M?M?</tt>).  Then it has the new part, in parentheses, which defines a set of three mutually exclusive patterns, separated by vertical
+                           bars: <tt class="literal">CM</tt>, <tt class="literal">CD</tt>, and <tt class="literal">D?C?C?C?</tt> (which is an optional <tt class="literal">D</tt> followed by zero to three optional <tt class="literal">C</tt> characters).  The regular expression parser checks for each of these patterns in order (from left to right), takes the first
+                           one that matches, and ignores the rest.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MCM'</tt> matches because the first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">CM</tt> matches (so the <tt class="literal">CD</tt> and <tt class="literal">D?C?C?C?</tt> patterns are never even considered).  <tt class="literal">MCM</tt> is the Roman numeral representation of <tt class="literal">1900</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MD'</tt> matches because the first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">D?C?C?C?</tt> pattern matches <tt class="literal">D</tt> (each of the three <tt class="literal">C</tt> characters are optional and are ignored).  <tt class="literal">MD</tt> is the Roman numeral representation of <tt class="literal">1500</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MMMCCC'</tt> matches because all three <tt class="literal">M</tt> characters match, and the <tt class="literal">D?C?C?C?</tt> pattern matches <tt class="literal">CCC</tt> (the <tt class="literal">D</tt> is optional and is ignored).  <tt class="literal">MMMCCC</tt> is the Roman numeral representation of <tt class="literal">3300</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="literal">'MCMC'</tt> does not match.  The first <tt class="literal">M</tt> matches, the second and third <tt class="literal">M</tt> characters are ignored, and the <tt class="literal">CM</tt> matches, but then the <tt class="literal">$</tt> does not match because you're not at the end of the string yet (you still have an unmatched <tt class="literal">C</tt> character).  The <tt class="literal">C</tt> does <span class="emphasis"><em>not</em></span> match as part of the <tt class="literal">D?C?C?C?</tt> pattern, because the mutually exclusive <tt class="literal">CM</tt> pattern has already matched.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.roman.2.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Interestingly, an empty string still matches this pattern, because all the <tt class="literal">M</tt> characters are optional and ignored, and the empty string matches the <tt class="literal">D?C?C?C?</tt> pattern where all the characters are optional and ignored.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>Whew!  See how quickly regular expressions can get nasty?  And you've only covered the thousands and hundreds places of Roman
+               numerals.  But if you followed all that, the tens and ones places are easy, because they're exactly the same pattern.  But
+               let's look at another way to express the pattern.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="street_addresses.html">&lt;&lt;&nbsp;Case Study: Street Addresses</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax">4</a> <span class="divider">|</span> <a href="verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <a href="phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">6</a> <span class="divider">|</span> <a href="summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="n_m_syntax.html">Using the {n,m} Syntax&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

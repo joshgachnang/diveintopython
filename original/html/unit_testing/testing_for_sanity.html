@@ -1,0 +1,181 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>13.6.&nbsp;Testing for sanity</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;13.&nbsp;Unit Testing">
+      <link rel="previous" href="testing_for_failure.html" title="13.5.&nbsp;Testing for failure">
+      <link rel="next" href="stage_1.html" title="Chapter&nbsp;14.&nbsp;Test-First Programming">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Unit Testing</a>&nbsp;&gt;&nbsp;<span class="thispage">Testing for sanity</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="testing_for_failure.html" title="Prev: &#8220;Testing for failure&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="stage_1.html" title="Next: &#8220;Test-First Programming&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.sanity"></a>13.6.&nbsp;Testing for sanity
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Often, you will find that a unit of code contains a set of reciprocal functions, usually in the form of conversion functions
+               where one converts A to B and the other converts B to A.  In these cases, it is useful to create a &#8220;<span class="quote">sanity check</span>&#8221; to make sure that you can convert A to B and back to A without losing precision, incurring rounding errors, or triggering
+               any other sort of bug.
+            </p>
+         </div>
+         <p>Consider this <a href="index.html#roman.requirements">requirement</a>:
+         </p>
+         <div class="orderedlist">
+            <ol start="6" type="1">
+               <li>If you take a number, convert it to Roman numerals, then convert that back to a number, you should end up with the number
+                  you started with.  So <tt class="literal">fromRoman(toRoman(n)) == n</tt> for all <tt class="varname">n</tt> in <tt class="literal">1..3999</tt>.
+               </li>
+            </ol>
+         </div>
+         <div class="example"><a name="roman.sanity.example"></a><h3 class="title">Example&nbsp;13.5.&nbsp;Testing <tt class="function">toRoman</tt> against <tt class="function">fromRoman</tt></h3><pre class="programlisting"><span class='pykeyword'>
+class</span> SanityCheck(unittest.TestCase):        
+    <span class='pykeyword'>def</span><span class='pyclass'> testSanity</span>(self):                    
+        <span class='pystring'>"""fromRoman(toRoman(n))==n for all n"""</span>
+        <span class='pykeyword'>for</span> integer <span class='pykeyword'>in</span> range(1, 4000):        <a name="roman.sanity.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="roman.sanity.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+            numeral = roman.toRoman(integer) 
+            result = roman.fromRoman(numeral)
+            self.assertEqual(integer, result) <a name="roman.sanity.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.sanity.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You've seen <a href="../native_data_types/declaring_variables.html#odbchelper.multiassign.range" title="Example&nbsp;3.20.&nbsp;Assigning Consecutive Values">the <tt class="function">range</tt> function</a> before, but here it is called with two arguments, which returns a list of integers starting at the first argument (<tt class="constant">1</tt>) and counting consecutively up to <span class="emphasis"><em>but not including</em></span> the second argument (<tt class="literal">4000</tt>).  Thus, <tt class="literal">1..3999</tt>, which is the valid range for converting to Roman numerals.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.sanity.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">I just wanted to mention in passing that <tt class="varname">integer</tt> is not a keyword in <span class="application">Python</span>; here it's just a variable name like any other.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.sanity.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The actual testing logic here is straightforward: take a number (<tt class="varname">integer</tt>), convert it to a Roman numeral (<tt class="varname">numeral</tt>), then convert it back to a number (<tt class="varname">result</tt>) and make sure you end up with the same number you started with.  If not, <tt class="function">assertEqual</tt> will raise an exception and the test will immediately be considered failed.  If all the numbers match, <tt class="function">assertEqual</tt> will always return silently, the entire <tt class="function">testSanity</tt> method will eventually return silently, and the test will be considered passed.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The <a href="index.html#roman.requirements">last two requirements</a> are different from the others because they seem both arbitrary and trivial:
+         </p>
+         <div class="orderedlist">
+            <ol start="7" type="1">
+               <li><tt class="function">toRoman</tt> should always return a Roman numeral using uppercase letters.
+               </li>
+               <li><tt class="function">fromRoman</tt> should only accept uppercase Roman numerals (<span class="foreignphrase"><i class="foreignphrase"><span class="acronym">i.e.</span></i></span> it should fail when given lowercase input).
+               </li>
+            </ol>
+         </div>
+         <p>In fact, they are somewhat arbitrary.  You could, for instance, have stipulated that <tt class="function">fromRoman</tt> accept lowercase and mixed case input.  But they are not completely arbitrary; if <tt class="function">toRoman</tt> is always returning uppercase output, then <tt class="function">fromRoman</tt> must at least accept uppercase input, or the &#8220;<span class="quote">sanity check</span>&#8221; (requirement #6) would fail.  The fact that it <span class="emphasis"><em>only</em></span> accepts uppercase input is arbitrary, but as any systems integrator will tell you, case always matters, so it's worth specifying
+            the behavior up front.  And if it's worth specifying, it's worth testing.
+         </p>
+         <div class="example"><a name="d0e32750"></a><h3 class="title">Example&nbsp;13.6.&nbsp;Testing for case</h3><pre class="programlisting"><span class='pykeyword'>
+class</span> CaseCheck(unittest.TestCase):                   
+    <span class='pykeyword'>def</span><span class='pyclass'> testToRomanCase</span>(self):                        
+        <span class='pystring'>"""toRoman should always return uppercase"""</span>  
+        <span class='pykeyword'>for</span> integer <span class='pykeyword'>in</span> range(1, 4000):                
+            numeral = roman.toRoman(integer)          
+            self.assertEqual(numeral, numeral.upper())         <a name="roman.sanity.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testFromRomanCase</span>(self):                      
+        <span class='pystring'>"""fromRoman should only accept uppercase input"""</span>
+        <span class='pykeyword'>for</span> integer <span class='pykeyword'>in</span> range(1, 4000):                
+            numeral = roman.toRoman(integer)          
+            roman.fromRoman(numeral.upper())                   <a name="roman.sanity.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="roman.sanity.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+            self.assertRaises(roman.InvalidRomanNumeralError,
+                              roman.fromRoman, numeral.lower())   <a name="roman.sanity.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.sanity.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The most interesting thing about this test case is all the things it doesn't test.  It doesn't test that the value returned
+                        from <tt class="function">toRoman</tt> is <a href="testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues">right</a> or even <a href="testing_for_sanity.html#roman.sanity.example" title="Example&nbsp;13.5.&nbsp;Testing toRoman against fromRoman">consistent</a>; those questions are answered by separate test cases.  You have a whole test case just to test for uppercase-ness.  You might
+                        be tempted to combine this with the <a href="testing_for_sanity.html#roman.sanity.example" title="Example&nbsp;13.5.&nbsp;Testing toRoman against fromRoman">sanity check</a>, since both run through the entire range of values and call <tt class="function">toRoman</tt>.<sup>[<a name="d0e32781" href="#ftn.d0e32781">6</a>]</sup>  But that would violate one of the <a href="testing_for_success.html" title="13.4.&nbsp;Testing for success">fundamental rules</a>: each test case should answer only a single question.  Imagine that you combined this case check with the sanity check, and
+                        then that test case failed.  You would need to do further analysis to figure out which part of the test case failed to determine
+                        what the problem was.  If you need to analyze the results of your unit testing just to figure out what they mean, it's a sure
+                        sign that you've mis-designed your test cases.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.sanity.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">There's a similar lesson to be learned here: even though &#8220;<span class="quote">you know</span>&#8221; that <tt class="function">toRoman</tt> always returns uppercase, you are explicitly converting its return value to uppercase here to test that <tt class="function">fromRoman</tt> accepts uppercase input.  Why?  Because the fact that <tt class="function">toRoman</tt> always returns uppercase is an independent requirement.  If you changed that requirement so that, for instance, it always
+                        returned lowercase, the <tt class="function">testToRomanCase</tt> test case would need to change, but this test case would still work.  This was another of the <a href="testing_for_success.html" title="13.4.&nbsp;Testing for success">fundamental rules</a>: each test case must be able to work in isolation from any of the others.  Every test case is an island.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.sanity.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note that you're not assigning the return value of <tt class="function">fromRoman</tt> to anything.  This is legal syntax in <span class="application">Python</span>; if a function returns a value but nobody's listening, <span class="application">Python</span> just throws away the return value.  In this case, that's what you want.  This test case doesn't test anything about the return
+                        value; it just tests that <tt class="function">fromRoman</tt> accepts the uppercase input without raising an exception.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.sanity.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a complicated line, but it's very similar to what you did in the <tt class="classname">ToRomanBadInput</tt> and <tt class="classname">FromRomanBadInput</tt> tests.  You are testing to make sure that calling a particular function (<tt class="function">roman.fromRoman</tt>) with a particular value (<tt class="literal">numeral.lower()</tt>, the lowercase version of the current Roman numeral in the loop) raises a particular exception (<tt class="literal">roman.InvalidRomanNumeralError</tt>).  If it does (each time through the loop), the test passes; if even one time it does something else (like raises a different
+                        exception, or returning a value without raising an exception at all), the test fails.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>In the next chapter, you'll see how to write code that passes these tests.</p>
+         <div class="footnotes">
+            <h3 class="footnotetitle">Footnotes</h3>
+            <div class="footnote">
+               <p><sup>[<a name="ftn.d0e32781" href="#d0e32781">6</a>] </sup>&#8220;<span class="quote">I can resist everything except temptation.</span>&#8221; --Oscar Wilde
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="testing_for_failure.html">&lt;&lt;&nbsp;Testing for failure</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#roman.intro" title="13.1.&nbsp;Introduction to Roman numerals">1</a> <span class="divider">|</span> <a href="diving_in.html" title="13.2.&nbsp;Diving in">2</a> <span class="divider">|</span> <a href="romantest.html" title="13.3.&nbsp;Introducing romantest.py">3</a> <span class="divider">|</span> <a href="testing_for_success.html" title="13.4.&nbsp;Testing for success">4</a> <span class="divider">|</span> <a href="testing_for_failure.html" title="13.5.&nbsp;Testing for failure">5</a> <span class="divider">|</span> <span class="thispage">6</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="stage_1.html">Test-First Programming&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,118 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>10.3.&nbsp;Caching node lookups</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;10.&nbsp;Scripts and Streams">
+      <link rel="previous" href="stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">
+      <link rel="next" href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Caching node lookups</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="stdin_stdout_stderr.html" title="Prev: &#8220;Standard input, output, and error&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="child_nodes.html" title="Next: &#8220;Finding direct children of a node&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.cache"></a>10.3.&nbsp;Caching node lookups
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><tt class="filename">kgp.py</tt> employs several tricks which may or may not be useful to you in your <span class="acronym">XML</span> processing.  The first one takes advantage of the consistent structure of the input documents to build a cache of nodes.
+            </p>
+         </div>
+         <p>A grammar file defines a series of <tt class="sgmltag-element">ref</tt> elements.  Each <tt class="sgmltag-element">ref</tt> contains one or more <tt class="sgmltag-element">p</tt> elements, which can contain a lot of different things, including <tt class="sgmltag-element">xref</tt>s.  Whenever you encounter an <tt class="sgmltag-element">xref</tt>, you look for a corresponding <tt class="sgmltag-element">ref</tt> element with the same <tt class="sgmltag-element">id</tt> attribute, and choose one of the <tt class="sgmltag-element">ref</tt> element's children and parse it.  (You'll see how this random choice is made in the next section.)
+         </p>
+         <p>This is how you build up the grammar: define <tt class="sgmltag-element">ref</tt> elements for the smallest pieces, then define <tt class="sgmltag-element">ref</tt> elements which "include" the first <tt class="sgmltag-element">ref</tt> elements by using <tt class="sgmltag-element">xref</tt>, and so forth.  Then you parse the "largest" reference and follow each <tt class="sgmltag-element">xref</tt>, and eventually output real text.  The text you output depends on the (random) decisions you make each time you fill in an
+            <tt class="sgmltag-element">xref</tt>, so the output is different each time.
+         </p>
+         <p>This is all very flexible, but there is one downside: performance.  When you find an <tt class="sgmltag-element">xref</tt> and need to find the corresponding <tt class="sgmltag-element">ref</tt> element, you have a problem.  The <tt class="sgmltag-element">xref</tt> has an <tt class="sgmltag-element">id</tt> attribute, and you want to find the <tt class="sgmltag-element">ref</tt> element that has that same <tt class="sgmltag-element">id</tt> attribute, but there is no easy way to do that.  The slow way to do it would be to get the entire list of <tt class="sgmltag-element">ref</tt> elements each time, then manually loop through and look at each <tt class="sgmltag-element">id</tt> attribute.  The fast way is to do that once and build a cache, in the form of a dictionary.
+         </p>
+         <div class="example"><a name="d0e26362"></a><h3 class="title">Example&nbsp;10.14.&nbsp;<tt class="function">loadGrammar</tt></h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> loadGrammar</span>(self, grammar):                         
+        self.grammar = self._load(grammar)                  
+        self.refs = {}                                       <a name="kgp.cache.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>for</span> ref <span class='pykeyword'>in</span> self.grammar.getElementsByTagName(<span class='pystring'>"ref"</span>): <a name="kgp.cache.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+            self.refs[ref.attributes[<span class='pystring'>"id"</span>].value] = ref      <a name="kgp.cache.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"> <a name="kgp.cache.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.cache.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Start by creating an empty dictionary, <tt class="varname">self.refs</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.cache.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../xml_processing/searching.html" title="9.5.&nbsp;Searching for elements">Section&nbsp;9.5, &#8220;Searching for elements&#8221;</a>, <tt class="function">getElementsByTagName</tt> returns a list of all the elements of a particular name.  You easily can get a list of all the <tt class="sgmltag-element">ref</tt> elements, then simply loop through that list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.cache.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../xml_processing/attributes.html" title="9.6.&nbsp;Accessing element attributes">Section&nbsp;9.6, &#8220;Accessing element attributes&#8221;</a>, you can access individual attributes of an element by name, using standard dictionary syntax.  So the keys of the <tt class="varname">self.refs</tt> dictionary will be the values of the <tt class="sgmltag-element">id</tt> attribute of each <tt class="sgmltag-element">ref</tt> element.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.cache.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The values of the <tt class="varname">self.refs</tt> dictionary will be the <tt class="sgmltag-element">ref</tt> elements themselves.  As you saw in <a href="../xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">Section&nbsp;9.3, &#8220;Parsing XML&#8221;</a>, each element, each node, each comment, each piece of text in a parsed <span class="acronym">XML</span> document is an object.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Once you build this cache, whenever you come across an <tt class="sgmltag-element">xref</tt> and need to find the <tt class="sgmltag-element">ref</tt> element with the same <tt class="sgmltag-element">id</tt> attribute, you can simply look it up in <tt class="varname">self.refs</tt>.
+         </p>
+         <div class="example"><a name="d0e26435"></a><h3 class="title">Example&nbsp;10.15.&nbsp;Using the <tt class="sgmltag-element">ref</tt> element cache
+            </h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> do_xref</span>(self, node):
+        id = node.attributes[<span class='pystring'>"id"</span>].value
+        self.parse(self.randomChildElement(self.refs[id]))</pre></div>
+         <p>You'll explore the <tt class="function">randomChildElement</tt> function in the next section.
+         </p>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="stdin_stdout_stderr.html">&lt;&lt;&nbsp;Standard input, output, and error</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="child_nodes.html">Finding direct children of a node&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

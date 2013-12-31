@@ -1,0 +1,279 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>9.3.&nbsp;Parsing XML</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;9.&nbsp;XML Processing">
+      <link rel="previous" href="packages.html" title="9.2.&nbsp;Packages">
+      <link rel="next" href="unicode.html" title="9.4.&nbsp;Unicode">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">XML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Parsing XML</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="packages.html" title="Prev: &#8220;Packages&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="unicode.html" title="Next: &#8220;Unicode&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.parse"></a>9.3.&nbsp;Parsing <span class="acronym">XML</span></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>As I was saying, actually parsing an <span class="acronym">XML</span> document is very simple: one line of code.  Where you go from there is up to you.
+            </p>
+         </div>
+         <div class="example"><a name="d0e23245"></a><h3 class="title">Example&nbsp;9.8.&nbsp;Loading an <span class="acronym">XML</span> document (for real this time)
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> xml.dom <span class='pykeyword'>import</span> minidom</span>                                          <a name="kgp.parse.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class='pystring'>'~/diveintopython/common/py/kgp/binary.xml'</span>)</span>  <a name="kgp.parse.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc</span>                                                               <a name="kgp.parse.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;xml.dom.minidom.Document instance at 010BE87C&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> xmldoc.toxml()</span>                                                 <a name="kgp.parse.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;?xml version="1.0" ?&gt;
+&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in the <a href="packages.html" title="9.2.&nbsp;Packages">previous section</a>, this imports the <tt class="filename">minidom</tt> module from the <tt class="filename">xml.dom</tt> package.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Here is the one line of code that does all the work: <tt class="function">minidom.parse</tt> takes one argument and returns a parsed representation of the <span class="acronym">XML</span> document.  The argument can be many things; in this case, it's simply a filename of an <span class="acronym">XML</span> document on my local disk.  (To follow along, you'll need to change the path to point to your downloaded examples directory.)
+                         But you can also pass a <a href="../file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">file object</a>, or even a <a href="../html_processing/extracting_data.html#dialect.extract.urllib" title="Example&nbsp;8.5.&nbsp;Introducing urllib">file-like object</a>.  You'll take advantage of this flexibility later in this chapter.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The object returned from <tt class="function">minidom.parse</tt> is a <tt class="classname">Document</tt> object, a descendant of the <tt class="classname">Node</tt> class.  This <tt class="classname">Document</tt> object is the root level of a complex tree-like structure of interlocking <span class="application">Python</span> objects that completely represent the <span class="acronym">XML</span> document you passed to <tt class="function">minidom.parse</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">toxml</tt> is a method of the <tt class="classname">Node</tt> class (and is therefore available on the <tt class="classname">Document</tt> object you got from <tt class="function">minidom.parse</tt>).  <tt class="function">toxml</tt> prints out the <span class="acronym">XML</span> that this <tt class="classname">Node</tt> represents.  For the <tt class="classname">Document</tt> node, this prints out the entire <span class="acronym">XML</span> document.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Now that you have an <span class="acronym">XML</span> document in memory, you can start traversing through it.
+         </p>
+         <div class="example"><a name="kgp.parse.gettingchildnodes.example"></a><h3 class="title">Example&nbsp;9.9.&nbsp;Getting child nodes</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.childNodes</span>    <a name="kgp.parse.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;DOM Element: grammar at 17538908&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.childNodes[0]</span> <a name="kgp.parse.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;DOM Element: grammar at 17538908&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc.firstChild</span>    <a name="kgp.parse.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;DOM Element: grammar at 17538908&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Every <tt class="classname">Node</tt> has a <tt class="function">childNodes</tt> attribute, which is a list of the <tt class="classname">Node</tt> objects.  A <tt class="classname">Document</tt> always has only one child node, the root element of the <span class="acronym">XML</span> document (in this case, the <tt class="sgmltag-element">grammar</tt> element).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To get the first (and in this case, the only) child node, just use regular list syntax.  Remember, there is nothing special
+                        going on here; this is just a regular <span class="application">Python</span> list of regular <span class="application">Python</span> objects.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Since getting the first child node of a node is a useful and common activity, the <tt class="classname">Node</tt> class has a <tt class="function">firstChild</tt> attribute, which is synonymous with <tt class="literal">childNodes[0]</tt>.  (There is also a <tt class="function">lastChild</tt> attribute, which is synonymous with <tt class="literal">childNodes[-1]</tt>.)
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e23458"></a><h3 class="title">Example&nbsp;9.10.&nbsp;<tt class="function">toxml</tt> works on any node
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">grammarNode = xmldoc.firstChild</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> grammarNode.toxml()</span> <a name="kgp.parse.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Since the <tt class="function">toxml</tt> method is defined in the <tt class="classname">Node</tt> class, it is available on any <span class="acronym">XML</span> node, not just the <tt class="classname">Document</tt> element.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="kgp.parse.childnodescanbetext.example"></a><h3 class="title">Example&nbsp;9.11.&nbsp;Child nodes can be text</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">grammarNode.childNodes</span>                  <a name="kgp.parse.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;DOM Text node "\n"&gt;, &lt;DOM Element: ref at 17533332&gt;, \
+&lt;DOM Text node "\n"&gt;, &lt;DOM Element: ref at 17549660&gt;, &lt;DOM Text node "\n"&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> grammarNode.firstChild.toxml()</span>    <a name="kgp.parse.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">
+
+</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> grammarNode.childNodes[1].toxml()</span> <a name="kgp.parse.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> grammarNode.childNodes[3].toxml()</span> <a name="kgp.parse.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> grammarNode.lastChild.toxml()</span>     <a name="kgp.parse.4.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">
+
+</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Looking at the <span class="acronym">XML</span> in <tt class="filename">binary.xml</tt>, you might think that the <tt class="sgmltag-element">grammar</tt> has only two child nodes, the two <tt class="sgmltag-element">ref</tt> elements.  But you're missing something: the carriage returns!  After the <tt class="literal">'&lt;grammar&gt;'</tt> and before the first <tt class="literal">'&lt;ref&gt;'</tt> is a carriage return, and this text counts as a child node of the <tt class="sgmltag-element">grammar</tt> element.  Similarly, there is a carriage return after each <tt class="literal">'&lt;/ref&gt;'</tt>; these also count as child nodes.  So <tt class="literal">grammar.childNodes</tt> is actually a list of 5 objects: 3 <tt class="classname">Text</tt> objects and 2 <tt class="classname">Element</tt> objects.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The first child is a <tt class="classname">Text</tt> object representing the carriage return after the <tt class="literal">'&lt;grammar&gt;'</tt> tag and before the first <tt class="literal">'&lt;ref&gt;'</tt> tag.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The second child is an <tt class="classname">Element</tt> object representing the first <tt class="sgmltag-element">ref</tt> element.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The fourth child is an <tt class="classname">Element</tt> object representing the second <tt class="sgmltag-element">ref</tt> element.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.4.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The last child is a <tt class="classname">Text</tt> object representing the carriage return after the <tt class="literal">'&lt;/ref&gt;'</tt> end tag and before the <tt class="literal">'&lt;/grammar&gt;'</tt> end tag.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e23628"></a><h3 class="title">Example&nbsp;9.12.&nbsp;Drilling down all the way to text</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">grammarNode</span>
+<span class="computeroutput">&lt;DOM Element: grammar at 19167148&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">refNode = grammarNode.childNodes[1]</span> <a name="kgp.parse.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">refNode</span>
+<span class="computeroutput">&lt;DOM Element: ref at 17987740&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">refNode.childNodes</span>                  <a name="kgp.parse.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;DOM Text node "\n"&gt;, &lt;DOM Text node "  "&gt;, &lt;DOM Element: p at 19315844&gt;, \
+&lt;DOM Text node "\n"&gt;, &lt;DOM Text node "  "&gt;, \
+&lt;DOM Element: p at 19462036&gt;, &lt;DOM Text node "\n"&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pNode = refNode.childNodes[2]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pNode</span>
+<span class="computeroutput">&lt;DOM Element: p at 19315844&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> pNode.toxml()</span>                 <a name="kgp.parse.5.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;p&gt;0&lt;/p&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pNode.firstChild</span>                    <a name="kgp.parse.5.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;DOM Text node "0"&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pNode.firstChild.data</span>               <a name="kgp.parse.5.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">u'0'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in the previous example, the first <tt class="sgmltag-element">ref</tt> element is <tt class="literal">grammarNode.childNodes[1]</tt>, since childNodes[0] is a <tt class="classname">Text</tt> node for the carriage return.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="sgmltag-element">ref</tt> element has its own set of child nodes, one for the carriage return, a separate one for the spaces, one for the <tt class="sgmltag-element">p</tt> element, and so forth.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.5.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can even use the <tt class="function">toxml</tt> method here, deeply nested within the document.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.5.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="sgmltag-element">p</tt> element has only one child node (you can't tell that from this example, but look at <tt class="literal">pNode.childNodes</tt> if you don't believe me), and it is a <tt class="classname">Text</tt> node for the single character <tt class="literal">'0'</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.parse.5.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="literal">.data</tt> attribute of a <tt class="classname">Text</tt> node gives you the actual string that the text node represents.  But what is that <tt class="literal">'u'</tt> in front of the string?  The answer to that deserves its own section.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="packages.html">&lt;&lt;&nbsp;Packages</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.divein" title="9.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="packages.html" title="9.2.&nbsp;Packages">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="unicode.html" title="9.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="unicode.html">Unicode&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

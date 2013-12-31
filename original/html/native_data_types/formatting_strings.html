@@ -1,0 +1,187 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>3.5.&nbsp;Formatting Strings</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;3.&nbsp;Native Datatypes">
+      <link rel="previous" href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">
+      <link rel="next" href="mapping_lists.html" title="3.6.&nbsp;Mapping Lists">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Native Datatypes</a>&nbsp;&gt;&nbsp;<span class="thispage">Formatting Strings</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="declaring_variables.html" title="Prev: &#8220;Declaring variables&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="mapping_lists.html" title="Next: &#8220;Mapping Lists&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.stringformatting"></a>3.5.&nbsp;Formatting Strings
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Python</span> supports formatting values into strings.  Although this can include very complicated expressions, the most basic usage is
+               to insert values into a string with the <tt class="literal">%s</tt> placeholder.
+            </p>
+         </div><a name="compare.stringformatting.c"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">String formatting in <span class="application">Python</span> uses the same syntax as the <tt class="function">sprintf</tt> function in <span class="application"><span class="acronym">C</span></span>.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="d0e7165"></a><h3 class="title">Example&nbsp;3.21.&nbsp;Introducing String Formatting</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">k = <span class='pystring'>"uid"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">v = <span class='pystring'>"sa"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"%s=%s"</span> % (k, v)</span> <a name="odbchelper.stringformatting.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'uid=sa'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The whole expression evaluates to a string.  The first <tt class="literal">%s</tt> is replaced by the value of <tt class="varname">k</tt>; the second <tt class="literal">%s</tt> is replaced by the value of <tt class="varname">v</tt>.  All other characters in the string (in this case, the equal sign) stay as they are.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Note that <tt class="literal">(k, v)</tt> is a tuple.  I told you they were good for something.
+         </p>
+         <p>You might be thinking that this is a lot of work just to do simple string concatentation, and you would be right, except that
+            string formatting isn't just concatenation.  It's not even just formatting.  It's also type coercion.
+         </p>
+         <div class="example"><a name="odbchelper.stringformatting.coerce"></a><h3 class="title">Example&nbsp;3.22.&nbsp;String Formatting vs. Concatenating</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">uid = <span class='pystring'>"sa"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pwd = <span class='pystring'>"secret"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> pwd + <span class='pystring'>" is not a good password for "</span> + uid</span>      <a name="odbchelper.stringformatting.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">secret is not a good password for sa</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"%s is not a good password for %s"</span> % (pwd, uid)</span> <a name="odbchelper.stringformatting.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">secret is not a good password for sa</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">userCount = 6</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"Users connected: %d"</span> % (userCount, )</span>           <a name="odbchelper.stringformatting.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"> <a name="odbchelper.stringformatting.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">Users connected: 6</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"Users connected: "</span> + userCount</span>                 <a name="odbchelper.stringformatting.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+TypeError: cannot concatenate 'str' and 'int' objects</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">+</tt> is the string concatenation operator.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In this trivial case, string formatting accomplishes the same result as concatentation.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">(userCount, )</tt> is a tuple with one element.  Yes, the syntax is a little strange, but there's a good reason for it: it's unambiguously a
+                        tuple.  In fact, you can always include a comma after the last element when defining a list, tuple, or dictionary, but the
+                        comma is required when defining a tuple with one element.  If the comma weren't required, <span class="application">Python</span> wouldn't know whether <tt class="literal">(userCount)</tt> was a tuple with one element or just the value of <tt class="varname">userCount</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">String formatting works with integers by specifying <tt class="literal">%d</tt> instead of <tt class="literal">%s</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Trying to concatenate a string with a non-string raises an exception.  Unlike string formatting, string concatenation works
+                        only when everything is already a string.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>As with <tt class="function">printf</tt> in <span class="application"><span class="acronym">C</span></span>, string formatting in <span class="application">Python</span> is like a Swiss Army knife.  There are options galore, and modifier strings to specially format many different types of values.
+         </p>
+         <div class="example"><a name="odbchelper.stringformatting.numbers"></a><h3 class="title">Example&nbsp;3.23.&nbsp;Formatting Numbers</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"Today's stock price: %f"</span> % 50.4625</span>   <a name="odbchelper.stringformatting.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">50.462500</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"Today's stock price: %.2f"</span> % 50.4625</span> <a name="odbchelper.stringformatting.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">50.46</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"Change since yesterday: %+.2f"</span> % 1.5</span> <a name="odbchelper.stringformatting.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">+1.50</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="literal">%f</tt> string formatting option treats the value as a decimal, and prints it to six decimal places.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The ".2" modifier of the <tt class="literal">%f</tt> option truncates the value to two decimal places.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.stringformatting.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can even combine modifiers.  Adding the <tt class="literal">+</tt> modifier displays a plus or minus sign before the value.   Note that the ".2" modifier is still in place, and is padding
+                        the value to exactly two decimal places.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Further Reading on String Formatting</h3>
+            <ul>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes <a href="http://www.python.org/doc/current/lib/typesseq-strings.html">all the string formatting format characters</a>.
+               </li>
+               <li><a href="http://www-gnats.gnu.org:8080/cgi-bin/info2www?(gawk)Top"><i class="citetitle">Effective <span class="acronym">AWK</span> Programming</i></a> discusses <a href="http://www-gnats.gnu.org:8080/cgi-bin/info2www?(gawk)Control+Letters">all the format characters</a> and advanced string formatting techniques like <a href="http://www-gnats.gnu.org:8080/cgi-bin/info2www?(gawk)Format+Modifiers">specifying width, precision, and zero-padding</a>.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="declaring_variables.html">&lt;&lt;&nbsp;Declaring variables</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">1</a> <span class="divider">|</span> <a href="lists.html" title="3.2.&nbsp;Introducing Lists">2</a> <span class="divider">|</span> <a href="tuples.html" title="3.3.&nbsp;Introducing Tuples">3</a> <span class="divider">|</span> <a href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="mapping_lists.html" title="3.6.&nbsp;Mapping Lists">6</a> <span class="divider">|</span> <a href="joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings">7</a> <span class="divider">|</span> <a href="summary.html" title="3.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="mapping_lists.html">Mapping Lists&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

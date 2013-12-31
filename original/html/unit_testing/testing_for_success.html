@@ -1,0 +1,195 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>13.4.&nbsp;Testing for success</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;13.&nbsp;Unit Testing">
+      <link rel="previous" href="romantest.html" title="13.3.&nbsp;Introducing romantest.py">
+      <link rel="next" href="testing_for_failure.html" title="13.5.&nbsp;Testing for failure">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Unit Testing</a>&nbsp;&gt;&nbsp;<span class="thispage">Testing for success</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="romantest.html" title="Prev: &#8220;Introducing romantest.py&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="testing_for_failure.html" title="Next: &#8220;Testing for failure&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.success"></a>13.4.&nbsp;Testing for success
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The most fundamental part of unit testing is constructing individual test cases.  A test case answers a single question about
+               the code it is testing.
+            </p>
+         </div>
+         <p>A test case should be able to...</p>
+         <div class="itemizedlist">
+            <ul>
+               <li>...run completely by itself, without any human input.  Unit testing is about automation.</li>
+               <li>...determine by itself whether the function it is testing has passed or failed, without a human interpreting the results.</li>
+               <li>...run in isolation, separate from any other test cases (even if they test the same functions).  Each test case is an island.</li>
+            </ul>
+         </div>
+         <p>Given that, let's build the first test case.  You have the following <a href="index.html#roman.requirements">requirement</a>:
+         </p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li><tt class="function">toRoman</tt> should return the Roman numeral representation for all integers <tt class="constant">1</tt> to <tt class="literal">3999</tt>.
+               </li>
+            </ol>
+         </div>
+         <div class="example"><a name="roman.testtoromanknownvalues.example"></a><h3 class="title">Example&nbsp;13.2.&nbsp;<tt class="function">testToRomanKnownValues</tt></h3><pre class="programlisting"><span class='pykeyword'>
+class</span> KnownValues(unittest.TestCase):                           <a name="roman.success.1.0"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    knownValues = ( (1, <span class='pystring'>'I'</span>),
+                    (2, <span class='pystring'>'II'</span>),
+                    (3, <span class='pystring'>'III'</span>),
+                    (4, <span class='pystring'>'IV'</span>),
+                    (5, <span class='pystring'>'V'</span>),
+                    (6, <span class='pystring'>'VI'</span>),
+                    (7, <span class='pystring'>'VII'</span>),
+                    (8, <span class='pystring'>'VIII'</span>),
+                    (9, <span class='pystring'>'IX'</span>),
+                    (10, <span class='pystring'>'X'</span>),
+                    (50, <span class='pystring'>'L'</span>),
+                    (100, <span class='pystring'>'C'</span>),
+                    (500, <span class='pystring'>'D'</span>),
+                    (1000, <span class='pystring'>'M'</span>),
+                    (31, <span class='pystring'>'XXXI'</span>),
+                    (148, <span class='pystring'>'CXLVIII'</span>),
+                    (294, <span class='pystring'>'CCXCIV'</span>),
+                    (312, <span class='pystring'>'CCCXII'</span>),
+                    (421, <span class='pystring'>'CDXXI'</span>),
+                    (528, <span class='pystring'>'DXXVIII'</span>),
+                    (621, <span class='pystring'>'DCXXI'</span>),
+                    (782, <span class='pystring'>'DCCLXXXII'</span>),
+                    (870, <span class='pystring'>'DCCCLXX'</span>),
+                    (941, <span class='pystring'>'CMXLI'</span>),
+                    (1043, <span class='pystring'>'MXLIII'</span>),
+                    (1110, <span class='pystring'>'MCX'</span>),
+                    (1226, <span class='pystring'>'MCCXXVI'</span>),
+                    (1301, <span class='pystring'>'MCCCI'</span>),
+                    (1485, <span class='pystring'>'MCDLXXXV'</span>),
+                    (1509, <span class='pystring'>'MDIX'</span>),
+                    (1607, <span class='pystring'>'MDCVII'</span>),
+                    (1754, <span class='pystring'>'MDCCLIV'</span>),
+                    (1832, <span class='pystring'>'MDCCCXXXII'</span>),
+                    (1993, <span class='pystring'>'MCMXCIII'</span>),
+                    (2074, <span class='pystring'>'MMLXXIV'</span>),
+                    (2152, <span class='pystring'>'MMCLII'</span>),
+                    (2212, <span class='pystring'>'MMCCXII'</span>),
+                    (2343, <span class='pystring'>'MMCCCXLIII'</span>),
+                    (2499, <span class='pystring'>'MMCDXCIX'</span>),
+                    (2574, <span class='pystring'>'MMDLXXIV'</span>),
+                    (2646, <span class='pystring'>'MMDCXLVI'</span>),
+                    (2723, <span class='pystring'>'MMDCCXXIII'</span>),
+                    (2892, <span class='pystring'>'MMDCCCXCII'</span>),
+                    (2975, <span class='pystring'>'MMCMLXXV'</span>),
+                    (3051, <span class='pystring'>'MMMLI'</span>),
+                    (3185, <span class='pystring'>'MMMCLXXXV'</span>),
+                    (3250, <span class='pystring'>'MMMCCL'</span>),
+                    (3313, <span class='pystring'>'MMMCCCXIII'</span>),
+                    (3408, <span class='pystring'>'MMMCDVIII'</span>),
+                    (3501, <span class='pystring'>'MMMDI'</span>),
+                    (3610, <span class='pystring'>'MMMDCX'</span>),
+                    (3743, <span class='pystring'>'MMMDCCXLIII'</span>),
+                    (3844, <span class='pystring'>'MMMDCCCXLIV'</span>),
+                    (3888, <span class='pystring'>'MMMDCCCLXXXVIII'</span>),
+                    (3940, <span class='pystring'>'MMMCMXL'</span>),
+                    (3999, <span class='pystring'>'MMMCMXCIX'</span>))                        <a name="roman.success.1.1"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+
+    <span class='pykeyword'>def</span><span class='pyclass'> testToRomanKnownValues</span>(self):                           <a name="roman.success.1.2"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pystring'>"""toRoman should give known result with known input"""</span>
+        <span class='pykeyword'>for</span> integer, numeral <span class='pykeyword'>in</span> self.knownValues:              
+            result = roman.toRoman(integer)                     <a name="roman.success.1.3"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"> <a name="roman.success.1.4"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+            self.assertEqual(numeral, result)                   <a name="roman.success.1.5"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.success.1.0"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To write a test case, first subclass the <tt class="classname">TestCase</tt> class of the <tt class="filename">unittest</tt> module.  This class provides many useful methods which you can use in your test case to test specific conditions.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.success.1.1"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a list of integer/numeral pairs that I verified manually.  It includes the lowest ten numbers, the highest number,
+                        every number that translates to a single-character Roman numeral, and a random sampling of other valid numbers.  The point
+                        of a unit test is not to test every possible input, but to test a representative sample.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.success.1.2"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Every individual test is its own method, which must take no parameters and return no value.  If the method exits normally
+                        without raising an exception, the test is considered passed; if the method raises an exception, the test is considered failed.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.success.1.3"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Here you call the actual <tt class="function">toRoman</tt> function.  (Well, the function hasn't be written yet, but once it is, this is the line that will call it.)  Notice that you
+                        have now defined the <span class="acronym">API</span> for the <tt class="function">toRoman</tt> function: it must take an integer (the number to convert) and return a string (the Roman numeral representation).  If the
+                        <span class="acronym">API</span> is different than that, this test is considered failed.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.success.1.4"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Also notice that you are not trapping any exceptions when you call <tt class="function">toRoman</tt>.  This is intentional.  <tt class="function">toRoman</tt> shouldn't raise an exception when you call it with valid input, and these input values are all valid.  If <tt class="function">toRoman</tt> raises an exception, this test is considered failed.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#roman.success.1.5"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Assuming the <tt class="function">toRoman</tt> function was defined correctly, called correctly, completed successfully, and returned a value, the last step is to check
+                        whether it returned the <span class="emphasis"><em>right</em></span> value.  This is a common question, and the <tt class="classname">TestCase</tt> class provides a method, <tt class="function">assertEqual</tt>, to check whether two values are equal.  If the result returned from <tt class="function">toRoman</tt> (<tt class="varname">result</tt>) does not match the known value you were expecting (<tt class="varname">numeral</tt>), <tt class="function">assertEqual</tt> will raise an exception and the test will fail.  If the two values are equal, <tt class="function">assertEqual</tt> will do nothing.  If every value returned from <tt class="function">toRoman</tt> matches the known value you expect, <tt class="function">assertEqual</tt> never raises an exception, so <tt class="function">testToRomanKnownValues</tt> eventually exits normally, which means <tt class="function">toRoman</tt> has passed this test.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="romantest.html">&lt;&lt;&nbsp;Introducing romantest.py</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#roman.intro" title="13.1.&nbsp;Introduction to Roman numerals">1</a> <span class="divider">|</span> <a href="diving_in.html" title="13.2.&nbsp;Diving in">2</a> <span class="divider">|</span> <a href="romantest.html" title="13.3.&nbsp;Introducing romantest.py">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="testing_for_failure.html" title="13.5.&nbsp;Testing for failure">5</a> <span class="divider">|</span> <a href="testing_for_sanity.html" title="13.6.&nbsp;Testing for sanity">6</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="testing_for_failure.html">Testing for failure&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

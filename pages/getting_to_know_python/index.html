@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chapter 2. Your First Python Program</title>
+        <link rev="made" href="josh@servercobra.com" />
+        <meta name="generator" content="convert_to_jinja2.py" />
+        <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
+        <meta name="description" content="Python from novice to pro" />
+        <link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
+        
+        <link rel="up" href="../toc/index.html" title=" Dive Into Python" />
+        
+        
+        
+        <link rel="next" href="declaring_functions.html" title=" 2.2.Declaring Functions" />
+        
+         <link rel="stylesheet" href="../css/normalize.css">
+         <link rel="stylesheet" href="../css/foundation.css">
+         <link rel="stylesheet" href="../css/diveintopython.css" type="text/css" />
+
+
+         <script src="../js/modernizr.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="small-12 columns" id="Header">
+                <div class="row">
+                    <div class="small-11 columns">
+                        
+                        <td align="left" colspan="5" id="breadcrumb" valign="top">You are here: <a href="../index.html">Home</a>&#160;&gt;&#160;<a href="../toc/index.html">Dive Into Python</a>&#160;&gt;&#160;<span class="thispage">Your First Python Program</span></td>
+                        
+                    </div>
+                    <div class="small-1 columns">
+                        
+                        <td align="right" id="navigation" valign="top">&#160;&#160;&#160;<a href="../installing_python/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&#160;&#160;&#160;<a href="declaring_functions.html" title="Next: &#8220;Declaring Functions&#8221;">&gt;&gt;</a></td>
+                        
+                    </div>
+                </div>
+
+
+                <div id="logocontainer">
+                    <h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+                    <p id="tagline">Python from novice to pro</p>
+                    <a href="http://www.amazon.com/gp/product/B001GIOFN8/ref=as_li_tf_tl?ie=UTF8&tag=diveintopython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=B001GIOFN8"><img src="../images/amazon-buy-button.gif"></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="odbchelper"></a>Chapter&#160;2.&#160;Your First <span class="application">Python</span> Program
+                  </h2>
+</div>
+</div>
+<div></div>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="toc">
+<ul>
+<li><span class="section"><a href="index.html#odbchelper.divein">2.1. Diving in</a></span></li>
+<li><span class="section"><a href="declaring_functions.html">2.2. Declaring Functions</a></span><ul>
+<li><span class="section"><a href="declaring_functions.html#d0e4188">2.2.1. How Python's Datatypes Compare to Other Programming Languages</a></span></li>
+</ul>
+</li>
+<li><span class="section"><a href="documenting_functions.html">2.3. Documenting Functions</a></span></li>
+<li><span class="section"><a href="everything_is_an_object.html">2.4. Everything Is an Object</a></span><ul>
+<li><span class="section"><a href="everything_is_an_object.html#d0e4550">2.4.1. The Import Search Path</a></span></li>
+<li><span class="section"><a href="everything_is_an_object.html#d0e4665">2.4.2. What's an Object?</a></span></li>
+</ul>
+</li>
+<li><span class="section"><a href="indenting_code.html">2.5. Indenting Code</a></span></li>
+<li><span class="section"><a href="testing_modules.html">2.6. Testing Modules</a></span></li>
+</ul>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="abstract">
+<p>You know how other books go on and on about programming fundamentals and finally work up to building a complete, working program?
+                Let's skip all that.
+            </p>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <div class="section" lang="en">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="odbchelper.divein"></a>2.1.&#160;Diving in
+                     </h2>
+</div>
+</div>
+<div></div>
+</div>
+<div class="abstract">
+<p>Here is a complete, working <span class="application">Python</span> program.
+               </p>
+</div>
+<p>It probably makes absolutely no sense to you.  Don't worry about that, because you're going to dissect it line by line.  But
+               read through it first and see what, if anything, you can make of it.
+            </p>
+<div class="example"><a name="d0e3948"></a><h3 class="title">Example&#160;2.1.&#160;<tt class="filename">odbchelper.py</tt></h3>
+<p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+               </p><pre class="programlisting"><span class="pykeyword">
+def</span> buildConnectionString(params):
+    <span class="pystring">"""Build a connection string from a dictionary of parameters.
+
+    Returns string."""</span>
+    <span class="pykeyword">return</span> <span class="pystring">";"</span>.join([<span class="pystring">"%s=%s"</span> % (k, v) <span class="pykeyword">for</span> k, v <span class="pykeyword">in</span> params.items()])
+
+<span class="pykeyword">if</span> __name__ == <span class="pystring">"__main__"</span>:
+    myParams = {<span class="pystring">"server"</span>:<span class="pystring">"mpilgrim"</span>, \
+                <span class="pystring">"database"</span>:<span class="pystring">"master"</span>, \
+                <span class="pystring">"uid"</span>:<span class="pystring">"sa"</span>, \
+                <span class="pystring">"pwd"</span>:<span class="pystring">"secret"</span> \
+                }
+    <span class="pykeyword">print</span> buildConnectionString(myParams)</pre></div>
+<p>Now run this program and see what happens.</p><a name="tip.run.windows"></a><table border="0" class="tip" summary="">
+<tr>
+<td align="center" rowspan="2" valign="top" width="1%"><img alt="Tip" height="24" src="../images/tip.png" title="" width="24"/></td>
+</tr>
+<tr>
+<td align="left" colspan="2" valign="top" width="99%">In the <span class="application">ActivePython</span> <span class="acronym">IDE</span> on Windows, you can run the <span class="application">Python</span> program you're editing by choosing
+                     <span class="guimenu">File</span>-&gt;<span class="guimenuitem"><span class="accel">R</span>un...</span> (<span><b class="shortcut"><span><b class="keycap">Ctrl</b></span>-<span class="keysym">R</span></b></span>).  Output is displayed in the interactive window.
+                  </td>
+</tr>
+</table><a name="tip.run.mac"></a><table border="0" class="tip" summary="">
+<tr>
+<td align="center" rowspan="2" valign="top" width="1%"><img alt="Tip" height="24" src="../images/tip.png" title="" width="24"/></td>
+</tr>
+<tr>
+<td align="left" colspan="2" valign="top" width="99%">In the <span class="application">Python</span> <span class="acronym">IDE</span> on <span class="abbrev">Mac</span> <span class="acronym">OS</span>, you can run a <span class="application">Python</span> program with
+                     <span class="guimenu">Python</span>-&gt;<span class="guimenuitem">Run window...</span> (<span><b class="shortcut"><span><b class="keycap">Cmd</b></span>-<span class="keysym">R</span></b></span>), but there is an important option you must set first.  Open the <tt class="filename">.py</tt> file in the <span class="acronym">IDE</span>, pop up the options menu by clicking the black triangle in the upper-right corner of the window, and make sure the <span class="guimenuitem">Run as __main__</span> option is checked.  This is a per-file setting, but you'll only need to do it once per file.
+                  </td>
+</tr>
+</table><a name="tip.run.unix"></a><table border="0" class="tip" summary="">
+<tr>
+<td align="center" rowspan="2" valign="top" width="1%"><img alt="Tip" height="24" src="../images/tip.png" title="" width="24"/></td>
+</tr>
+<tr>
+<td align="left" colspan="2" valign="top" width="99%">On <span class="acronym">UNIX</span>-compatible systems (including <span class="abbrev">Mac</span> <span class="acronym">OS</span> X), you can run a <span class="application">Python</span> program from the command line: <b class="userinput"><tt>python <tt class="filename">odbchelper.py</tt></tt></b></td>
+</tr>
+</table>
+<div class="informalexample"><a name="odbchelper.output"></a><p>The output of <tt class="filename">odbchelper.py</tt> will look like this:
+               </p><pre class="screen"><span class="computeroutput">server=mpilgrim;uid=sa;database=master;pwd=secret</span></pre></div>
+</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+        <table border="0" cellpadding="0" cellspacing="0" class="Footer" summary="" width="100%">
+<tr>
+<td align="left" width="35%"><br><a class="NavigationArrow" href="../installing_python/summary.html">&lt;&lt;&#160;Summary</a></br></td>
+<td align="center" width="30%"><br>&#160;<span class="divider">|</span>&#160;<span class="thispage">1</span> <span class="divider">|</span> <a href="declaring_functions.html" title="2.2.&#160;Declaring Functions">2</a> <span class="divider">|</span> <a href="documenting_functions.html" title="2.3.&#160;Documenting Functions">3</a> <span class="divider">|</span> <a href="everything_is_an_object.html" title="2.4.&#160;Everything Is an Object">4</a> <span class="divider">|</span> <a href="indenting_code.html" title="2.5.&#160;Indenting Code">5</a> <span class="divider">|</span> <a href="testing_modules.html" title="2.6.&#160;Testing Modules">6</a>&#160;<span class="divider">|</span>&#160;
+            </br></td>
+<td align="right" width="35%"><br><a class="NavigationArrow" href="declaring_functions.html">Declaring Functions&#160;&gt;&gt;</a></br></td>
+</tr>
+<tr>
+<td colspan="3"><br/></td>
+</tr>
+</table>
+        <!-- Footer -->
+<div class="Footer">
+    <p><a href="https://github.com/pcsforeducation/diveintopython/issues?sort=created&state=open">Report issues<img style="margin-left:10px" height="40" src="../images/logo_github.png"></a></p>
+    <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@servercobra.com">Mark Pilgrim</a>. Maintained by Josh Gachnang.</p>
+</div>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1879314568120827";
+/* DiveIntoPython */
+google_ad_slot = "8002881514";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<!-- End Footer -->
+            </div>
+        </div>
+        <!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9740779-18']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google Analytics -->
+        <script src="../js/jquery.js"></script>
+        <script src="../js/foundation.min.js"></script>
+        <script>
+          $(document).foundation();
+        </script>
+    </body>
+</html>

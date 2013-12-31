@@ -1,0 +1,224 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>6.3.&nbsp;Iterating with for Loops</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;6.&nbsp;Exceptions and File Handling">
+      <link rel="previous" href="file_objects.html" title="6.2.&nbsp;Working with File Objects">
+      <link rel="next" href="more_on_modules.html" title="6.4.&nbsp;Using sys.modules">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Exceptions and File Handling</a>&nbsp;&gt;&nbsp;<span class="thispage">Iterating with for Loops</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="file_objects.html" title="Prev: &#8220;Working with File Objects&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="more_on_modules.html" title="Next: &#8220;Using sys.modules&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.for"></a>6.3.&nbsp;Iterating with <tt class="literal">for</tt> Loops
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Like most other languages, <span class="application">Python</span> has <tt class="literal">for</tt> loops.  The only reason you haven't seen them until now is that <span class="application">Python</span> is good at so many other things that you don't need them as often.
+            </p>
+         </div>
+         <p>Most other languages don't have a powerful list datatype like <span class="application">Python</span>, so you end up doing a lot of manual work, specifying a start, end, and step to define a range of integers or characters
+            or other iteratable entities.  But in <span class="application">Python</span>, a <tt class="literal">for</tt> loop simply iterates over a list, the same way <a href="../native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehensions</a> work.
+         </p>
+         <div class="example"><a name="d0e15255"></a><h3 class="title">Example&nbsp;6.8.&nbsp;Introducing the <tt class="literal">for</tt> Loop
+            </h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'a'</span>, <span class='pystring'>'b'</span>, <span class='pystring'>'e'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> li:</span>         <a name="fileinfo.for.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> s</span>          <a name="fileinfo.for.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">a
+b
+e</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join(li)</span>  <a name="fileinfo.for.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">a
+b
+e</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.for.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The syntax for a <tt class="literal">for</tt> loop is similar to <a href="../native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehensions</a>.  <tt class="varname">li</tt> is a list, and <tt class="varname">s</tt> will take the value of each element in turn, starting from the first element.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.for.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Like an <tt class="literal">if</tt> statement or any other <a href="../getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indenting Code">indented block</a>, a <tt class="literal">for</tt> loop can have any number of lines of code in it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.for.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the reason you haven't seen the <tt class="literal">for</tt> loop yet: you haven't needed it yet.  It's amazing how often you use <tt class="literal">for</tt> loops in other languages when all you really want is a <tt class="function">join</tt> or a list comprehension.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Doing a &#8220;<span class="quote">normal</span>&#8221; (by <span class="application">Visual Basic</span> standards) counter <tt class="literal">for</tt> loop is also simple.
+         </p>
+         <div class="example"><a name="fileinfo.for.counter"></a><h3 class="title">Example&nbsp;6.9.&nbsp;Simple Counters</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> i <span class='pykeyword'>in</span> range(5):</span>             <a name="fileinfo.for.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> i</span>
+<span class="computeroutput">0
+1
+2
+3
+4</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>'a'</span>, <span class='pystring'>'b'</span>, <span class='pystring'>'c'</span>, <span class='pystring'>'d'</span>, <span class='pystring'>'e'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> i <span class='pykeyword'>in</span> range(len(li)):</span>       <a name="fileinfo.for.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> li[i]</span>
+<span class="computeroutput">a
+b
+c
+d
+e</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.for.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../native_data_types/declaring_variables.html#odbchelper.multiassign.range" title="Example&nbsp;3.20.&nbsp;Assigning Consecutive Values">Example&nbsp;3.20, &#8220;Assigning Consecutive Values&#8221;</a>, <tt class="function">range</tt> produces a list of integers, which you then loop through.  I know it looks a bit odd, but it is occasionally (and I stress
+                        <span class="emphasis"><em>occasionally</em></span>) useful to have a counter loop.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.for.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Don't ever do this.  This is <span class="application">Visual Basic</span>-style thinking.  Break out of it.  Just iterate through the list, as shown in the previous example.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p><tt class="literal">for</tt> loops are not just for simple counters.  They can iterate through all kinds of things.  Here is an example of using a <tt class="literal">for</tt> loop to iterate through a dictionary.
+         </p>
+         <div class="example"><a name="dictionaryiter.example"></a><h3 class="title">Example&nbsp;6.10.&nbsp;Iterating Through a Dictionary</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> os</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> os.environ.items():</span>      <a name="fileinfo.for.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="fileinfo.for.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"%s=%s"</span> % (k, v)</span>
+<span class="computeroutput">USERPROFILE=C:\Documents and Settings\mpilgrim
+OS=Windows_NT
+COMPUTERNAME=MPILGRIM
+USERNAME=mpilgrim
+
+[...snip...]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v)</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> os.environ.items()])</span> <a name="fileinfo.for.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">USERPROFILE=C:\Documents and Settings\mpilgrim
+OS=Windows_NT
+COMPUTERNAME=MPILGRIM
+USERNAME=mpilgrim
+
+[...snip...]</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.for.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">os.environ</tt> is a dictionary of the environment variables defined on your system.  In Windows, these are your user and system variables
+                        accessible from <span class="acronym">MS-DOS</span>.  In <span class="acronym">UNIX</span>, they are the variables exported in your shell's startup scripts.  In <span class="abbrev">Mac</span> <span class="acronym">OS</span>, there is no concept of environment variables, so this dictionary is empty.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.for.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">os.environ.items()</tt> returns a list of tuples: <tt class="literal">[(<i class="replaceable">key1</i>, <i class="replaceable">value1</i>), (<i class="replaceable">key2</i>, <i class="replaceable">value2</i>), ...]</tt>.  The <tt class="literal">for</tt> loop iterates through this list.  The first round, it assigns <tt class="literal"><i class="replaceable">key1</i></tt> to <tt class="varname">k</tt> and <tt class="literal"><i class="replaceable">value1</i></tt> to <tt class="varname">v</tt>, so <tt class="varname">k</tt> = <tt class="literal">USERPROFILE</tt> and <tt class="varname">v</tt> = <tt class="literal">C:\Documents and Settings\mpilgrim</tt>.  In the second round, <tt class="varname">k</tt> gets the second key, <tt class="literal">OS</tt>, and <tt class="varname">v</tt> gets the corresponding value, <tt class="literal">Windows_NT</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.for.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">With <a href="../native_data_types/declaring_variables.html#odbchelper.multiassign" title="3.4.2.&nbsp;Assigning Multiple Values at Once">multi-variable assignment</a> and <a href="../native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehensions</a>, you can replace the entire <tt class="literal">for</tt> loop with a single statement.  Whether you actually do this in real code is a matter of personal coding style.  I like it
+                        because it makes it clear that what I'm doing is mapping a dictionary into a list, then joining the list into a single string.
+                         Other programmers prefer to write this out as a <tt class="literal">for</tt> loop.  The output is the same in either case, although this version is slightly faster, because there is only one <tt class="function">print</tt> statement instead of many.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Now we can look at the <tt class="literal">for</tt> loop in <tt class="classname">MP3FileInfo</tt>, from the sample <tt class="filename">fileinfo.py</tt> program introduced in <a href="../object_oriented_framework/index.html">Chapter 5</a>.
+         </p>
+         <div class="example"><a name="fileinfo.multiassign.for.example"></a><h3 class="title">Example&nbsp;6.11.&nbsp;<tt class="literal">for</tt> Loop in <tt class="classname">MP3FileInfo</tt></h3><pre class="programlisting">
+    tagDataMap = {<span class='pystring'>"title"</span>   : (  3,  33, stripnulls),
+                  <span class='pystring'>"artist"</span>  : ( 33,  63, stripnulls),
+                  <span class='pystring'>"album"</span>   : ( 63,  93, stripnulls),
+                  <span class='pystring'>"year"</span>    : ( 93,  97, stripnulls),
+                  <span class='pystring'>"comment"</span> : ( 97, 126, stripnulls),
+                  <span class='pystring'>"genre"</span>   : (127, 128, ord)}                               <a name="fileinfo.multiassign.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    .
+    .
+    .
+            <span class='pykeyword'>if</span> tagdata[:3] == <span class='pystring'>"TAG"</span>:
+                <span class='pykeyword'>for</span> tag, (start, end, parseFunc) <span class='pykeyword'>in</span> self.tagDataMap.items(): <a name="fileinfo.multiassign.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+                    self[tag] = parseFunc(tagdata[start:end])                <a name="fileinfo.multiassign.5.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.multiassign.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="varname">tagDataMap</tt> is a <a href="../object_oriented_framework/class_attributes.html" title="5.8.&nbsp;Introducing Class Attributes">class attribute</a> that defines the tags you're looking for in an <span class="abbrev">MP3</span> file.  Tags are stored in fixed-length fields.  Once you read the last 128 bytes of the file, bytes 3 through 32 of those
+                        are always the song title, 33 through 62 are always the artist name, 63 through 92 are the album name, and so forth.  Note
+                        that <tt class="varname">tagDataMap</tt> is a dictionary of tuples, and each tuple contains two integers and a function reference.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.multiassign.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This looks complicated, but it's not.  The structure of the <tt class="literal">for</tt> variables matches the structure of the elements of the list returned by <tt class="function">items</tt>.  Remember that <tt class="function">items</tt> returns a list of tuples of the form <tt class="literal">(<i class="replaceable">key</i>, <i class="replaceable">value</i>)</tt>.  The first element of that list is <tt class="literal">("title", (3, 33, &lt;function stripnulls&gt;))</tt>, so the first time around the loop, <tt class="varname">tag</tt> gets <tt class="literal">"title"</tt>, <tt class="varname">start</tt> gets <tt class="literal">3</tt>, <tt class="varname">end</tt> gets <tt class="literal">33</tt>, and <tt class="varname">parseFunc</tt> gets the function <tt class="function">stripnulls</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.multiassign.5.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now that you've extracted all the parameters for a single <span class="abbrev">MP3</span> tag, saving the tag data is easy.  You <a href="../native_data_types/lists.html#odbchelper.list.slice" title="Example&nbsp;3.8.&nbsp;Slicing a List">slice</a> <tt class="varname">tagdata</tt> from <tt class="varname">start</tt> to <tt class="varname">end</tt> to get the actual data for this tag, call <tt class="varname">parseFunc</tt> to post-process the data, and assign this as the value for the key <tt class="varname">tag</tt> in the pseudo-dictionary <tt class="varname">self</tt>.  After iterating through all the elements in <tt class="varname">tagDataMap</tt>, <tt class="varname">self</tt> has the values for all the tags, and <a href="../object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.setname" title="Example&nbsp;5.15.&nbsp;Setting an MP3FileInfo's name">you know what that looks like</a>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="file_objects.html">&lt;&lt;&nbsp;Working with File Objects</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions">1</a> <span class="divider">|</span> <a href="file_objects.html" title="6.2.&nbsp;Working with File Objects">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="more_on_modules.html" title="6.4.&nbsp;Using sys.modules">4</a> <span class="divider">|</span> <a href="os_module.html" title="6.5.&nbsp;Working with Directories">5</a> <span class="divider">|</span> <a href="all_together.html" title="6.6.&nbsp;Putting It All Together">6</a> <span class="divider">|</span> <a href="summary.html" title="6.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="more_on_modules.html">Using sys.modules&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

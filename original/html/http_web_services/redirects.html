@@ -1,0 +1,345 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>11.7.&nbsp;Handling redirects</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;11.&nbsp;HTTP Web Services">
+      <link rel="previous" href="etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">
+      <link rel="next" href="gzip_compression.html" title="11.8.&nbsp;Handling compressed data">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Handling redirects</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="etags.html" title="Prev: &#8220;Handling Last-Modified and ETag&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="gzip_compression.html" title="Next: &#8220;Handling compressed data&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="oa.redirect"></a>11.7.&nbsp;Handling redirects
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>You can support permanent and temporary redirects using a different kind of custom URL handler.</p>
+         </div>
+         <p>First, let's see why a redirect handler is necessary in the first place.</p>
+         <div class="example"><a name="d0e28730"></a><h3 class="title">Example&nbsp;11.10.&nbsp;Accessing web services without a redirect handler</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib2, httplib</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">httplib.HTTPConnection.debuglevel = 1</span>           <a name="oa.redirect.1.0"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request = urllib2.Request(</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pystring'>'http://diveintomark.org/redir/example301.xml'</span>)</span> <a name="oa.redirect.1.1"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">opener = urllib2.build_opener()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = opener.open(request)</span>
+<span class="computeroutput">connect: (diveintomark.org, 80)
+send: '
+GET /redir/example301.xml HTTP/1.0
+Host: diveintomark.org
+User-agent: Python-urllib/2.1
+'
+reply: 'HTTP/1.1 301 Moved Permanently\r\n'</span>             <a name="oa.redirect.1.2"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">header: Date: Thu, 15 Apr 2004 22:06:25 GMT
+header: Server: Apache/2.0.49 (Debian GNU/Linux)
+header: Location: http://diveintomark.org/xml/atom.xml</span>  <a name="oa.redirect.1.3"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">header: Content-Length: 338
+header: Connection: close
+header: Content-Type: text/html; charset=iso-8859-1
+connect: (diveintomark.org, 80)
+send: '
+GET /xml/atom.xml HTTP/1.0</span>                              <a name="oa.redirect.1.4"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">Host: diveintomark.org
+User-agent: Python-urllib/2.1
+'
+reply: 'HTTP/1.1 200 OK\r\n'
+header: Date: Thu, 15 Apr 2004 22:06:25 GMT
+header: Server: Apache/2.0.49 (Debian GNU/Linux)
+header: Last-Modified: Thu, 15 Apr 2004 19:45:21 GMT
+header: ETag: "e842a-3e53-55d97640"
+header: Accept-Ranges: bytes
+header: Content-Length: 15955
+header: Connection: close
+header: Content-Type: application/atom+xml</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.url</span>                                               <a name="oa.redirect.1.5"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+<span class="computeroutput">'http://diveintomark.org/xml/atom.xml'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.headers.dict</span>
+<span class="computeroutput">{'content-length': '15955', 
+'accept-ranges': 'bytes', 
+'server': 'Apache/2.0.49 (Debian GNU/Linux)', 
+'last-modified': 'Thu, 15 Apr 2004 19:45:21 GMT', 
+'connection': 'close', 
+'etag': '"e842a-3e53-55d97640"', 
+'date': 'Thu, 15 Apr 2004 22:06:25 GMT', 
+'content-type': 'application/atom+xml'}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.status</span>
+<span class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in ?
+AttributeError: addinfourl instance has no attribute 'status'</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.1.0"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You'll be better able to see what's happening if you turn on debugging.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.1.1"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a URL which I have set up to permanently redirect to my Atom feed at <tt class="literal">http://diveintomark.org/xml/atom.xml</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.1.2"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Sure enough, when you try to download the data at that address, the server sends back a <tt class="literal">301</tt> status code, telling you that the resource has moved permanently.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.1.3"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The server also sends back a <tt class="literal">Location:</tt> header that gives the new address of this data.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.1.4"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="filename">urllib2</tt> notices the redirect status code and automatically tries to retrieve the data at the new location specified in the <tt class="literal">Location:</tt> header.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.1.5"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The object you get back from the <tt class="varname">opener</tt> contains the new permanent address and all the headers returned from the second request (retrieved from the new permanent
+                        address).  But the status code is missing, so you have no way of knowing programmatically whether this redirect was temporary
+                        or permanent.  And that matters very much: if it was a temporary redirect, then you should continue to ask for the data at
+                        the old location.  But if it was a permanent redirect (as this was), you should ask for the data at the new location from
+                        now on.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>This is suboptimal, but easy to fix.  <tt class="filename">urllib2</tt> doesn't behave exactly as you want it to when it encounters a <tt class="literal">301</tt> or <tt class="literal">302</tt>, so let's override its behavior.  How?  With a custom URL handler, <a href="etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">just like you did to handle <tt class="literal">304</tt> codes</a>.
+         </p>
+         <div class="example"><a name="d0e28866"></a><h3 class="title">Example&nbsp;11.11.&nbsp;Defining the redirect handler</h3>
+            <p>This class is defined in <tt class="filename">openanything.py</tt>.
+            </p><pre class="programlisting"><span class='pykeyword'>
+class</span> SmartRedirectHandler(urllib2.HTTPRedirectHandler):     <a name="oa.redirect.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>def</span><span class='pyclass'> http_error_301</span>(self, req, fp, code, msg, headers):  
+        result = urllib2.HTTPRedirectHandler.http_error_301( <a name="oa.redirect.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+            self, req, fp, code, msg, headers)              
+        result.status = code                                 <a name="oa.redirect.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> result                                       
+
+    <span class='pykeyword'>def</span><span class='pyclass'> http_error_302</span>(self, req, fp, code, msg, headers):   <a name="oa.redirect.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        result = urllib2.HTTPRedirectHandler.http_error_302(
+            self, req, fp, code, msg, headers)              
+        result.status = code                                
+        <span class='pykeyword'>return</span> result                                       
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Redirect behavior is defined in <tt class="filename">urllib2</tt> in a class called <tt class="classname">HTTPRedirectHandler</tt>.  You don't want to completely override the behavior, you just want to extend it a little, so you'll subclass <tt class="classname">HTTPRedirectHandler</tt> so you can call the ancestor class to do all the hard work.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">When it encounters a <tt class="literal">301</tt> status code from the server, <tt class="filename">urllib2</tt> will search through its handlers and call the <tt class="methodname">http_error_301</tt> method.   The first thing ours does is just call the <tt class="methodname">http_error_301</tt> method in the ancestor, which handles the grunt work of looking for the <tt class="literal">Location:</tt> header and following the redirect to the new address.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Here's the key: before you return, you store the status code (<tt class="literal">301</tt>), so that the calling program can access it later.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Temporary redirects (status code <tt class="literal">302</tt>) work the same way: override the <tt class="literal">http_error_302</tt> method, call the ancestor, and save the status code before returning.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So what has this bought us?  You can now build a URL opener with the custom redirect handler, and it will still automatically
+            follow redirects, but now it will also expose the redirect status code.
+         </p>
+         <div class="example"><a name="d0e28932"></a><h3 class="title">Example&nbsp;11.12.&nbsp;Using the redirect handler to detect permanent redirects</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request = urllib2.Request(<span class='pystring'>'http://diveintomark.org/redir/example301.xml'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> openanything, httplib</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">httplib.HTTPConnection.debuglevel = 1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">opener = urllib2.build_opener(</span>
+<tt class="prompt">...     </tt><span class="userinput">openanything.SmartRedirectHandler())</span>           <a name="oa.redirect.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = opener.open(request)</span>
+<span class="computeroutput">connect: (diveintomark.org, 80)
+send: 'GET /redir/example301.xml HTTP/1.0
+Host: diveintomark.org
+User-agent: Python-urllib/2.1
+'
+reply: 'HTTP/1.1 301 Moved Permanently\r\n'</span>            <a name="oa.redirect.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">header: Date: Thu, 15 Apr 2004 22:13:21 GMT
+header: Server: Apache/2.0.49 (Debian GNU/Linux)
+header: Location: http://diveintomark.org/xml/atom.xml
+header: Content-Length: 338
+header: Connection: close
+header: Content-Type: text/html; charset=iso-8859-1
+connect: (diveintomark.org, 80)
+send: '
+GET /xml/atom.xml HTTP/1.0
+Host: diveintomark.org
+User-agent: Python-urllib/2.1
+'
+reply: 'HTTP/1.1 200 OK\r\n'
+header: Date: Thu, 15 Apr 2004 22:13:21 GMT
+header: Server: Apache/2.0.49 (Debian GNU/Linux)
+header: Last-Modified: Thu, 15 Apr 2004 19:45:21 GMT
+header: ETag: "e842a-3e53-55d97640"
+header: Accept-Ranges: bytes
+header: Content-Length: 15955
+header: Connection: close
+header: Content-Type: application/atom+xml
+</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.status</span>                                           <a name="oa.redirect.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">301</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.url</span>
+<span class="computeroutput">'http://diveintomark.org/xml/atom.xml'</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">First, build a URL opener with the redirect handler you just defined.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You sent off a request, and you got a <tt class="literal">301</tt> status code in response.  At this point, the <tt class="methodname">http_error_301</tt> method gets called.  You call the ancestor method, which follows the redirect and sends a request at the new location (<tt class="literal">http://diveintomark.org/xml/atom.xml</tt>).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the payoff: now, not only do you have access to the new URL, but you have access to the redirect status code, so you
+                        can tell that this was a permanent redirect.  The next time you request this data, you should request it from the new location
+                        (<tt class="literal">http://diveintomark.org/xml/atom.xml</tt>, as specified in <tt class="varname">f.url</tt>).  If you had stored the location in a configuration file or a database, you need to update that so you don't keep pounding
+                        the server with requests at the old address.  It's time to update your address book.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>The same redirect handler can also tell you that you <span class="emphasis"><em>shouldn't</em></span> update your address book.
+         </p>
+         <div class="example"><a name="d0e29025"></a><h3 class="title">Example&nbsp;11.13.&nbsp;Using the redirect handler to detect temporary redirects</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request = urllib2.Request(</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pystring'>'http://diveintomark.org/redir/example302.xml'</span>)</span>   <a name="oa.redirect.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = opener.open(request)</span>
+<span class="computeroutput">connect: (diveintomark.org, 80)
+send: '
+GET /redir/example302.xml HTTP/1.0
+Host: diveintomark.org
+User-agent: Python-urllib/2.1
+'
+reply: 'HTTP/1.1 302 Found\r\n'</span>                           <a name="oa.redirect.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">header: Date: Thu, 15 Apr 2004 22:18:21 GMT
+header: Server: Apache/2.0.49 (Debian GNU/Linux)
+header: Location: http://diveintomark.org/xml/atom.xml
+header: Content-Length: 314
+header: Connection: close
+header: Content-Type: text/html; charset=iso-8859-1
+connect: (diveintomark.org, 80)
+send: '
+GET /xml/atom.xml HTTP/1.0</span>                                <a name="oa.redirect.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">Host: diveintomark.org
+User-agent: Python-urllib/2.1
+'
+reply: 'HTTP/1.1 200 OK\r\n'
+header: Date: Thu, 15 Apr 2004 22:18:21 GMT
+header: Server: Apache/2.0.49 (Debian GNU/Linux)
+header: Last-Modified: Thu, 15 Apr 2004 19:45:21 GMT
+header: ETag: "e842a-3e53-55d97640"
+header: Accept-Ranges: bytes
+header: Content-Length: 15955
+header: Connection: close
+header: Content-Type: application/atom+xml</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.status</span>                                              <a name="oa.redirect.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">302</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.url</span>
+<span class="computeroutput">http://diveintomark.org/xml/atom.xml</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a sample URL I've set up that is configured to tell clients to <span class="emphasis"><em>temporarily</em></span> redirect to <tt class="literal">http://diveintomark.org/xml/atom.xml</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The server sends back a <tt class="literal">302</tt> status code, indicating a temporary redirect.  The temporary new location of the data is given in the <tt class="literal">Location:</tt> header.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="filename">urllib2</tt> calls your <tt class="methodname">http_error_302</tt> method, which calls the ancestor method of the same name in <tt class="classname">urllib2.HTTPRedirectHandler</tt>, which follows the redirect to the new location.  Then your <tt class="methodname">http_error_302</tt> method stores the status code (<tt class="literal">302</tt>) so the calling application can get it later.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.redirect.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">And here you are, having successfully followed the redirect to <tt class="literal">http://diveintomark.org/xml/atom.xml</tt>.  <tt class="varname">f.status</tt> tells you that this was a temporary redirect, which means that you should continue to request data from the original address
+                        (<tt class="literal">http://diveintomark.org/redir/example302.xml</tt>).  Maybe it will redirect next time too, but maybe not.  Maybe it will redirect to a different address.  It's not for you
+                        to say.  The server said this redirect was only temporary, so you should respect that.  And now you're exposing enough information
+                        that the calling application can respect that.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="etags.html">&lt;&lt;&nbsp;Handling Last-Modified and ETag</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="gzip_compression.html">Handling compressed data&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

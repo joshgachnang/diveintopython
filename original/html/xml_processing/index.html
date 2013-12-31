@@ -1,0 +1,447 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;9.&nbsp;XML Processing</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../html_processing/summary.html" title="8.10.&nbsp;Summary">
+      <link rel="next" href="packages.html" title="9.2.&nbsp;Packages">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">XML Processing</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../html_processing/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="packages.html" title="Next: &#8220;Packages&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp"></a>Chapter&nbsp;9.&nbsp;<span class="acronym">XML</span> Processing
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#kgp.divein">9.1. Diving in</a></span></li>
+               <li><span class="section"><a href="packages.html">9.2. Packages</a></span></li>
+               <li><span class="section"><a href="parsing_xml.html">9.3. Parsing XML</a></span></li>
+               <li><span class="section"><a href="unicode.html">9.4. Unicode</a></span></li>
+               <li><span class="section"><a href="searching.html">9.5. Searching for elements</a></span></li>
+               <li><span class="section"><a href="attributes.html">9.6. Accessing element attributes</a></span></li>
+               <li><span class="section"><a href="summary.html">9.7. Segue</a></span></li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="kgp.divein"></a>9.1.&nbsp;Diving in
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>These next two chapters are about <span class="acronym">XML</span> processing in <span class="application">Python</span>.  It would be helpful if you already knew what an <span class="acronym">XML</span> document looks like, that it's made up of structured tags to form a hierarchy of elements, and so on.  If this doesn't make
+               sense to you, there are <a href="http://directory.google.com/Top/Computers/Data_Formats/Markup_Languages/XML/Resources/FAQs,_Help,_and_Tutorials/">many <span class="acronym">XML</span> tutorials</a> that can explain the basics.
+            </p>
+            <p>If you're not particularly interested in XML, you should still read these chapters, which cover important topics like <span class="application">Python</span> packages, Unicode, command line arguments, and how to use <tt class="function">getattr</tt> for method dispatching.
+            </p>
+            <p>Being a philosophy major is not required, although if you have ever had the misfortune of being subjected to the writings
+               of Immanuel Kant, you will appreciate the example program a lot more than if you majored in something useful, like computer
+               science.
+            </p>
+            <div class="abstract">
+               <p>There are two basic ways to work with <span class="acronym">XML</span>.  One is called <span class="acronym">SAX</span> (&#8220;<span class="quote">Simple <span class="acronym">API</span> for <span class="acronym">XML</span></span>&#8221;), and it works by reading the <span class="acronym">XML</span> a little bit at a time and calling a method for each element it finds.  (If you read <a href="../html_processing/index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">Chapter&nbsp;8, <i>HTML Processing</i></a>, this should sound familiar, because that's how the <tt class="filename">sgmllib</tt> module works.)  The other is called <span class="acronym">DOM</span> (&#8220;<span class="quote">Document Object Model</span>&#8221;), and it works by reading in the entire <span class="acronym">XML</span> document at once and creating an internal representation of it using native <span class="application">Python</span> classes linked in a tree structure.  <span class="application">Python</span> has standard modules for both kinds of parsing, but this chapter will only deal with using the <span class="acronym">DOM</span>.
+               </p>
+            </div>
+            <p>The following is a complete <span class="application">Python</span> program which generates pseudo-random output based on a context-free grammar defined in an <span class="acronym">XML</span> format.  Don't worry yet if you don't understand what that means; you'll examine both the program's input and its output
+               in more depth throughout these next two chapters.
+            </p>
+            <div class="example"><a name="d0e22845"></a><h3 class="title">Example&nbsp;9.1.&nbsp;<tt class="filename">kgp.py</tt></h3>
+               <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+               </p><pre class="programlisting">
+<span class='pystring'>"""Kant Generator for Python
+
+Generates mock philosophy based on a context-free grammar
+
+Usage: python kgp.py [options] [source]
+
+Options:
+  -g ..., --grammar=...   use specified grammar file or URL
+  -h, --help              show this help
+  -d                      show debugging information while parsing
+
+Examples:
+  kgp.py                  generates several paragraphs of Kantian philosophy
+  kgp.py -g husserl.xml   generates several paragraphs of Husserl
+  kpg.py "&lt;xref id='paragraph'/&gt;"  generates a paragraph of Kant
+  kgp.py template.xml     reads from template.xml to decide what to generate
+"""</span>
+<span class='pykeyword'>from</span> xml.dom <span class='pykeyword'>import</span> minidom
+<span class='pykeyword'>import</span> random
+<span class='pykeyword'>import</span> toolbox
+<span class='pykeyword'>import</span> sys
+<span class='pykeyword'>import</span> getopt
+
+_debug = 0
+
+<span class='pykeyword'>class</span><span class='pyclass'> NoSourceError</span>(Exception): <span class='pykeyword'>pass</span>
+
+<span class='pykeyword'>class</span><span class='pyclass'> KantGenerator</span>:
+    <span class='pystring'>"""generates mock philosophy based on a context-free grammar"""</span>
+
+    <span class='pykeyword'>def</span><span class='pyclass'> __init__</span>(self, grammar, source=None):
+        self.loadGrammar(grammar)
+        self.loadSource(source <span class='pykeyword'>and</span> source <span class='pykeyword'>or</span> self.getDefaultSource())
+        self.refresh()
+
+    <span class='pykeyword'>def</span><span class='pyclass'> _load</span>(self, source):
+        <span class='pystring'>"""load XML input source, return parsed XML document
+
+        - a URL of a remote XML file ("http://diveintopython.org/kant.xml")
+        - a filename of a local XML file ("~/diveintopython/common/py/kant.xml")
+        - standard input ("-")
+        - the actual XML document, as a string
+        """</span>
+        sock = toolbox.openAnything(source)
+        xmldoc = minidom.parse(sock).documentElement
+        sock.close()
+        <span class='pykeyword'>return</span> xmldoc
+
+    <span class='pykeyword'>def</span><span class='pyclass'> loadGrammar</span>(self, grammar):                         
+        <span class='pystring'>"""load context-free grammar"""</span>                     
+        self.grammar = self._load(grammar)                  
+        self.refs = {}                                      
+        <span class='pykeyword'>for</span> ref <span class='pykeyword'>in</span> self.grammar.getElementsByTagName(<span class='pystring'>"ref"</span>):
+            self.refs[ref.attributes[<span class='pystring'>"id"</span>].value] = ref     
+
+    <span class='pykeyword'>def</span><span class='pyclass'> loadSource</span>(self, source):
+        <span class='pystring'>"""load source"""</span>
+        self.source = self._load(source)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> getDefaultSource</span>(self):
+        <span class='pystring'>"""guess default source of the current grammar
+        
+        The default source will be one of the &lt;ref&gt;s that is not
+        cross-referenced.  This sounds complicated but it's not.
+        Example: The default source for kant.xml is
+        "&lt;xref id='section'/&gt;", because 'section' is the one &lt;ref&gt;
+        that is not &lt;xref&gt;'d anywhere in the grammar.
+        In most grammars, the default source will produce the
+        longest (and most interesting) output.
+        """</span>
+        xrefs = {}
+        <span class='pykeyword'>for</span> xref <span class='pykeyword'>in</span> self.grammar.getElementsByTagName(<span class='pystring'>"xref"</span>):
+            xrefs[xref.attributes[<span class='pystring'>"id"</span>].value] = 1
+        xrefs = xrefs.keys()
+        standaloneXrefs = [e <span class='pykeyword'>for</span> e <span class='pykeyword'>in</span> self.refs.keys() <span class='pykeyword'>if</span> e <span class='pykeyword'>not</span> <span class='pykeyword'>in</span> xrefs]
+        <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> standaloneXrefs:
+            <span class='pykeyword'>raise</span> NoSourceError, <span class='pystring'>"can't guess source, and no source specified"</span>
+        <span class='pykeyword'>return</span> <span class='pystring'>'&lt;xref id="%s"/&gt;'</span> % random.choice(standaloneXrefs)
+        
+    <span class='pykeyword'>def</span><span class='pyclass'> reset</span>(self):
+        <span class='pystring'>"""reset parser"""</span>
+        self.pieces = []
+        self.capitalizeNextWord = 0
+
+    <span class='pykeyword'>def</span><span class='pyclass'> refresh</span>(self):
+        <span class='pystring'>"""reset output buffer, re-parse entire source file, and return output
+        
+        Since parsing involves a good deal of randomness, this is an
+        easy way to get new output without having to reload a grammar file
+        each time.
+        """</span>
+        self.reset()
+        self.parse(self.source)
+        <span class='pykeyword'>return</span> self.output()
+
+    <span class='pykeyword'>def</span><span class='pyclass'> output</span>(self):
+        <span class='pystring'>"""output generated text"""</span>
+        <span class='pykeyword'>return</span> <span class='pystring'>""</span>.join(self.pieces)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> randomChildElement</span>(self, node):
+        <span class='pystring'>"""choose a random child element of a node
+        
+        This is a utility method used by do_xref and do_choice.
+        """</span>
+        choices = [e <span class='pykeyword'>for</span> e <span class='pykeyword'>in</span> node.childNodes
+                   <span class='pykeyword'>if</span> e.nodeType == e.ELEMENT_NODE]
+        chosen = random.choice(choices)            
+        <span class='pykeyword'>if</span> _debug:                                 
+            sys.stderr.write(<span class='pystring'>'%s available choices: %s\n'</span> % \
+                (len(choices), [e.toxml() <span class='pykeyword'>for</span> e <span class='pykeyword'>in</span> choices]))
+            sys.stderr.write(<span class='pystring'>'Chosen: %s\n'</span> % chosen.toxml())
+        <span class='pykeyword'>return</span> chosen                              
+
+    <span class='pykeyword'>def</span><span class='pyclass'> parse</span>(self, node):         
+        <span class='pystring'>"""parse a single XML node
+        
+        A parsed XML document (from minidom.parse) is a tree of nodes
+        of various types.  Each node is represented by an instance of the
+        corresponding Python class (Element for a tag, Text for
+        text data, Document for the top-level document).  The following
+        statement constructs the name of a class method based on the type
+        of node we're parsing ("parse_Element" for an Element node,
+        "parse_Text" for a Text node, etc.) and then calls the method.
+        """</span>
+        parseMethod = getattr(self, <span class='pystring'>"parse_%s"</span> % node.__class__.__name__)
+        parseMethod(node)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Document</span>(self, node):
+        <span class='pystring'>"""parse the document node
+        
+        The document node by itself isn't interesting (to us), but
+        its only child, node.documentElement, is: it's the root node
+        of the grammar.
+        """</span>
+        self.parse(node.documentElement)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Text</span>(self, node):    
+        <span class='pystring'>"""parse a text node
+        
+        The text of a text node is usually added to the output buffer
+        verbatim.  The one exception is that &lt;p class='sentence'&gt; sets
+        a flag to capitalize the first letter of the next word.  If
+        that flag is set, we capitalize the text and reset the flag.
+        """</span>
+        text = node.data
+        <span class='pykeyword'>if</span> self.capitalizeNextWord:
+            self.pieces.append(text[0].upper())
+            self.pieces.append(text[1:])
+            self.capitalizeNextWord = 0
+        <span class='pykeyword'>else</span>:
+            self.pieces.append(text)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Element</span>(self, node): 
+        <span class='pystring'>"""parse an element
+        
+        An XML element corresponds to an actual tag in the source:
+        &lt;xref id='...'&gt;, &lt;p chance='...'&gt;, &lt;choice&gt;, etc.
+        Each element type is handled in its own method.  Like we did in
+        parse(), we construct a method name based on the name of the
+        element ("do_xref" for an &lt;xref&gt; tag, etc.) and
+        call the method.
+        """</span>
+        handlerMethod = getattr(self, <span class='pystring'>"do_%s"</span> % node.tagName)
+        handlerMethod(node)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> parse_Comment</span>(self, node):
+        <span class='pystring'>"""parse a comment
+        
+        The grammar can contain XML comments, but we ignore them
+        """</span>
+        <span class='pykeyword'>pass</span>
+    
+    <span class='pykeyword'>def</span><span class='pyclass'> do_xref</span>(self, node):
+        <span class='pystring'>"""handle &lt;xref id='...'&gt; tag
+        
+        An &lt;xref id='...'&gt; tag is a cross-reference to a &lt;ref id='...'&gt;
+        tag.  &lt;xref id='sentence'/&gt; evaluates to a randomly chosen child of
+        &lt;ref id='sentence'&gt;.
+        """</span>
+        id = node.attributes[<span class='pystring'>"id"</span>].value
+        self.parse(self.randomChildElement(self.refs[id]))
+
+    <span class='pykeyword'>def</span><span class='pyclass'> do_p</span>(self, node):
+        <span class='pystring'>"""handle &lt;p&gt; tag
+        
+        The &lt;p&gt; tag is the core of the grammar.  It can contain almost
+        anything: freeform text, &lt;choice&gt; tags, &lt;xref&gt; tags, even other
+        &lt;p&gt; tags.  If a "class='sentence'" attribute is found, a flag
+        is set and the next word will be capitalized.  If a "chance='X'"
+        attribute is found, there is an X% chance that the tag will be
+        evaluated (and therefore a (100-X)% chance that it will be
+        completely ignored)
+        """</span>
+        keys = node.attributes.keys()
+        <span class='pykeyword'>if</span> <span class='pystring'>"class"</span> <span class='pykeyword'>in</span> keys:
+            <span class='pykeyword'>if</span> node.attributes[<span class='pystring'>"class"</span>].value == <span class='pystring'>"sentence"</span>:
+                self.capitalizeNextWord = 1
+        <span class='pykeyword'>if</span> <span class='pystring'>"chance"</span> <span class='pykeyword'>in</span> keys:
+            chance = int(node.attributes[<span class='pystring'>"chance"</span>].value)
+            doit = (chance &gt; random.randrange(100))
+        <span class='pykeyword'>else</span>:
+            doit = 1
+        <span class='pykeyword'>if</span> doit:
+            <span class='pykeyword'>for</span> child <span class='pykeyword'>in</span> node.childNodes: self.parse(child)
+
+    <span class='pykeyword'>def</span><span class='pyclass'> do_choice</span>(self, node):
+        <span class='pystring'>"""handle &lt;choice&gt; tag
+        
+        A &lt;choice&gt; tag contains one or more &lt;p&gt; tags.  One &lt;p&gt; tag
+        is chosen at random and evaluated; the rest are ignored.
+        """</span>
+        self.parse(self.randomChildElement(node))
+
+<span class='pykeyword'>def</span><span class='pyclass'> usage</span>():
+    <span class='pykeyword'>print</span> __doc__
+
+<span class='pykeyword'>def</span><span class='pyclass'> main</span>(argv):                         
+    grammar = <span class='pystring'>"kant.xml"</span>                
+    <span class='pykeyword'>try</span>:                                
+        opts, args = getopt.getopt(argv, <span class='pystring'>"hg:d"</span>, [<span class='pystring'>"help"</span>, <span class='pystring'>"grammar="</span>])
+    <span class='pykeyword'>except</span> getopt.GetoptError:          
+        usage()                         
+        sys.exit(2)                     
+    <span class='pykeyword'>for</span> opt, arg <span class='pykeyword'>in</span> opts:               
+        <span class='pykeyword'>if</span> opt <span class='pykeyword'>in</span> (<span class='pystring'>"-h"</span>, <span class='pystring'>"--help"</span>):     
+            usage()                     
+            sys.exit()                  
+        <span class='pykeyword'>elif</span> opt == <span class='pystring'>'-d'</span>:               
+            <span class='pykeyword'>global</span> _debug               
+            _debug = 1                  
+        <span class='pykeyword'>elif</span> opt <span class='pykeyword'>in</span> (<span class='pystring'>"-g"</span>, <span class='pystring'>"--grammar"</span>):
+            grammar = arg               
+    
+    source = <span class='pystring'>""</span>.join(args)              
+
+    k = KantGenerator(grammar, source)
+    <span class='pykeyword'>print</span> k.output()
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:
+    main(sys.argv[1:])
+</pre></div>
+            <div class="example"><a name="d0e22856"></a><h3 class="title">Example&nbsp;9.2.&nbsp;<tt class="filename">toolbox.py</tt></h3><pre class="programlisting">
+<span class='pystring'>"""Miscellaneous utility functions"""</span>
+
+<span class='pykeyword'>def</span><span class='pyclass'> openAnything</span>(source):            
+    <span class='pystring'>"""URI, filename, or string --&gt; stream
+
+    This function lets you define parsers that take any input source
+    (URL, pathname to local or network file, or actual data as a string)
+    and deal with it in a uniform manner.  Returned object is guaranteed
+    to have all the basic stdio read methods (read, readline, readlines).
+    Just .close() the object when you're done with it.
+    
+    Examples:
+    &gt;&gt;&gt; from xml.dom import minidom
+    &gt;&gt;&gt; sock = openAnything("http://localhost/kant.xml")
+    &gt;&gt;&gt; doc = minidom.parse(sock)
+    &gt;&gt;&gt; sock.close()
+    &gt;&gt;&gt; sock = openAnything("c:\\inetpub\\wwwroot\\kant.xml")
+    &gt;&gt;&gt; doc = minidom.parse(sock)
+    &gt;&gt;&gt; sock.close()
+    &gt;&gt;&gt; sock = openAnything("&lt;ref id='conjunction'&gt;&lt;text&gt;and&lt;/text&gt;&lt;text&gt;or&lt;/text&gt;&lt;/ref&gt;")
+    &gt;&gt;&gt; doc = minidom.parse(sock)
+    &gt;&gt;&gt; sock.close()
+    """</span>
+    <span class='pykeyword'>if</span> hasattr(source, <span class='pystring'>"read"</span>):
+        <span class='pykeyword'>return</span> source
+
+    <span class='pykeyword'>if</span> source == <span class='pystring'>'-'</span>:
+        <span class='pykeyword'>import</span> sys
+        <span class='pykeyword'>return</span> sys.stdin
+
+    <span class='pycomment'># try to open with urllib (if source is http, ftp, or file URL)</span>
+    <span class='pykeyword'>import</span> urllib                         
+    <span class='pykeyword'>try</span>:                                  
+        <span class='pykeyword'>return</span> urllib.urlopen(source)     
+    <span class='pykeyword'>except</span> (IOError, OSError):            
+        <span class='pykeyword'>pass</span>                              
+    
+    <span class='pycomment'># try to open with native open function (if source is pathname)</span>
+    <span class='pykeyword'>try</span>:                                  
+        <span class='pykeyword'>return</span> open(source)               
+    <span class='pykeyword'>except</span> (IOError, OSError):            
+        <span class='pykeyword'>pass</span>                              
+    
+    <span class='pycomment'># treat source as string</span>
+    <span class='pykeyword'>import</span> StringIO                       
+    <span class='pykeyword'>return</span> StringIO.StringIO(str(source)) 
+</pre></div>
+            <p>Run the program <tt class="filename">kgp.py</tt> by itself, and it will parse the default <span class="acronym">XML</span>-based grammar, in <tt class="filename">kant.xml</tt>, and print several paragraphs worth of philosophy in the style of Immanuel Kant.
+            </p>
+            <div class="example"><a name="d0e22873"></a><h3 class="title">Example&nbsp;9.3.&nbsp;Sample output of <tt class="filename">kgp.py</tt></h3><pre class="screen"><tt class="prompt">[you@localhost kgp]$ python kgp.py</tt>
+<span class="computeroutput">     As is shown in the writings of Hume, our a priori concepts, in
+reference to ends, abstract from all content of knowledge; in the study
+of space, the discipline of human reason, in accordance with the
+principles of philosophy, is the clue to the discovery of the
+Transcendental Deduction.  The transcendental aesthetic, in all
+theoretical sciences, occupies part of the sphere of human reason
+concerning the existence of our ideas in general; still, the
+never-ending regress in the series of empirical conditions constitutes
+the whole content for the transcendental unity of apperception.  What
+we have alone been able to show is that, even as this relates to the
+architectonic of human reason, the Ideal may not contradict itself, but
+it is still possible that it may be in contradictions with the
+employment of the pure employment of our hypothetical judgements, but
+natural causes (and I assert that this is the case) prove the validity
+of the discipline of pure reason.  As we have already seen, time (and
+it is obvious that this is true) proves the validity of time, and the
+architectonic of human reason, in the full sense of these terms,
+abstracts from all content of knowledge.  I assert, in the case of the
+discipline of practical reason, that the Antinomies are just as
+necessary as natural causes, since knowledge of the phenomena is a
+posteriori.
+    The discipline of human reason, as I have elsewhere shown, is by
+its very nature contradictory, but our ideas exclude the possibility of
+the Antinomies.  We can deduce that, on the contrary, the pure
+employment of philosophy, on the contrary, is by its very nature
+contradictory, but our sense perceptions are a representation of, in
+the case of space, metaphysics.  The thing in itself is a
+representation of philosophy.  Applied logic is the clue to the
+discovery of natural causes.  However, what we have alone been able to
+show is that our ideas, in other words, should only be used as a canon
+for the Ideal, because of our necessary ignorance of the conditions.
+
+[...snip...]</span></pre></div>
+            <p>This is, of course, complete gibberish.  Well, not complete gibberish.  It is syntactically and grammatically correct (although
+               very verbose -- Kant wasn't what you would call a get-to-the-point kind of guy).  Some of it may actually be true (or at least
+               the sort of thing that Kant would have agreed with), some of it is blatantly false, and most of it is simply incoherent. 
+               But all of it is in the style of Immanuel Kant.
+            </p>
+            <p>Let me repeat that this is much, much funnier if you are now or have ever been a philosophy major.</p>
+            <p>The interesting thing about this program is that there is nothing Kant-specific about it.  All the content in the previous
+               example was derived from the grammar file, <tt class="filename">kant.xml</tt>.  If you tell the program to use a different grammar file (which you can specify on the command line), the output will be
+               completely different.
+            </p>
+            <div class="example"><a name="d0e22893"></a><h3 class="title">Example&nbsp;9.4.&nbsp;Simpler output from <tt class="filename">kgp.py</tt></h3><pre class="screen"><tt class="prompt">[you@localhost kgp]$ python kgp.py -g binary.xml</tt>
+<span class="computeroutput">00101001</span>
+<tt class="prompt">[you@localhost kgp]$ python kgp.py -g binary.xml</tt>
+<span class="computeroutput">10110100</span></pre></div>
+            <p>You will take a closer look at the structure of the grammar file later in this chapter.  For now, all you need to know is
+               that the grammar file defines the structure of the output, and the <tt class="filename">kgp.py</tt> program reads through the grammar and makes random decisions about which words to plug in where.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../html_processing/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="packages.html" title="9.2.&nbsp;Packages">2</a> <span class="divider">|</span> <a href="parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <a href="unicode.html" title="9.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="packages.html">Packages&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

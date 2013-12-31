@@ -1,0 +1,193 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;4.&nbsp;The Power Of Introspection</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../native_data_types/summary.html" title="3.8.&nbsp;Summary">
+      <link rel="next" href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">The Power Of Introspection</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../native_data_types/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="optional_arguments.html" title="Next: &#8220;Using Optional and Named Arguments&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="apihelper"></a>Chapter&nbsp;4.&nbsp;The Power Of Introspection
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#apihelper.divein">4.1. Diving In</a></span></li>
+               <li><span class="section"><a href="optional_arguments.html">4.2. Using Optional and Named Arguments</a></span></li>
+               <li><span class="section"><a href="built_in_functions.html">4.3. Using type, str, dir, and Other Built-In Functions</a></span><ul>
+                     <li><span class="section"><a href="built_in_functions.html#d0e8510">4.3.1. The type Function</a></span></li>
+                     <li><span class="section"><a href="built_in_functions.html#d0e8609">4.3.2. The str Function</a></span></li>
+                     <li><span class="section"><a href="built_in_functions.html#d0e8958">4.3.3. Built-In Functions</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="getattr.html">4.4. Getting Object References With getattr</a></span><ul>
+                     <li><span class="section"><a href="getattr.html#d0e9194">4.4.1. getattr with Modules</a></span></li>
+                     <li><span class="section"><a href="getattr.html#d0e9362">4.4.2. getattr As a Dispatcher</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="filtering_lists.html">4.5. Filtering Lists</a></span></li>
+               <li><span class="section"><a href="and_or.html">4.6. The Peculiar Nature of and and or</a></span><ul>
+                     <li><span class="section"><a href="and_or.html#d0e9975">4.6.1. Using the and-or Trick</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="lambda_functions.html">4.7. Using lambda Functions</a></span><ul>
+                     <li><span class="section"><a href="lambda_functions.html#d0e10403">4.7.1. Real-World lambda Functions</a></span></li>
+                  </ul>
+               </li>
+               <li><span class="section"><a href="all_together.html">4.8. Putting It All Together</a></span></li>
+               <li><span class="section"><a href="summary.html">4.9. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>This chapter covers one of <span class="application">Python</span>'s strengths: introspection.  As you know, <a href="../getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object">everything in <span class="application">Python</span> is an object</a>, and introspection is code looking at other modules and functions in memory as objects, getting information about them, and
+               manipulating them.  Along the way, you'll define functions with no name, call functions with arguments out of order, and reference
+               functions whose names you don't even know ahead of time.
+            </p>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="apihelper.divein"></a>4.1.&nbsp;Diving In
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>Here is a complete, working <span class="application">Python</span> program.  You should understand a good deal about it just by looking at it.  The numbered lines illustrate concepts covered
+                  in <a href="../getting_to_know_python/index.html" title="Chapter&nbsp;2.&nbsp;Your First Python Program">Chapter&nbsp;2, <i>Your First Python Program</i></a>.  Don't worry if the rest of the code looks intimidating; you'll learn all about it throughout this chapter.
+               </p>
+            </div>
+            <div class="example"><a name="d0e8158"></a><h3 class="title">Example&nbsp;4.1.&nbsp;<tt class="filename">apihelper.py</tt></h3>
+               <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+               </p><pre class="programlisting"><span class='pykeyword'>
+def</span> info(object, spacing=10, collapse=1): <a name="apihelper.intro.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"> <a name="apihelper.intro.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="apihelper.intro.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+    <span class='pystring'>"""Print methods and doc strings.
+    
+    Takes module, class, list, dictionary, or string."""</span>
+    methodList = [method <span class='pykeyword'>for</span> method <span class='pykeyword'>in</span> dir(object) <span class='pykeyword'>if</span> callable(getattr(object, method))]
+    processFunc = collapse <span class='pykeyword'>and</span> (<span class='pykeyword'>lambda</span> s: <span class='pystring'>" "</span>.join(s.split())) <span class='pykeyword'>or</span> (<span class='pykeyword'>lambda</span> s: s)
+    <span class='pykeyword'>print</span> <span class='pystring'>"\n"</span>.join([<span class='pystring'>"%s %s"</span> %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     <span class='pykeyword'>for</span> method <span class='pykeyword'>in</span> methodList])
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:                <a name="apihelper.intro.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"> <a name="apihelper.intro.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+    <span class='pykeyword'>print</span> info.__doc__</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.intro.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This module has one function, <tt class="function">info</tt>.  According to its <a href="../getting_to_know_python/declaring_functions.html" title="2.2.&nbsp;Declaring Functions">function declaration</a>, it takes three parameters: <tt class="varname">object</tt>, <tt class="varname">spacing</tt>, and <tt class="varname">collapse</tt>.  The last two are actually optional parameters, as you'll see shortly.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.intro.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">info</tt> function has a multi-line <a href="../getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documenting Functions"><tt class="literal">doc string</tt></a> that succinctly describes the function's purpose.  Note that no return value is mentioned; this function will be used solely
+                           for its effects, rather than its value.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.intro.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Code within the function is <a href="../getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indenting Code">indented</a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.intro.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="literal"><span class="literal">if</span> <span class="literal">__name__</span></tt> <a href="../getting_to_know_python/testing_modules.html#odbchelper.ifnametrick">trick</a> allows this program do something useful when run by itself, without interfering with its use as a module for other programs.
+                            In this case, the program simply prints out the <tt class="literal">doc string</tt> of the <tt class="function">info</tt> function.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.intro.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><a href="../getting_to_know_python/testing_modules.html#odbchelper.ifnametrick"><tt class="literal">if</tt> statements</a> use <tt class="literal">==</tt> for comparison, and parentheses are not required.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>The <tt class="function">info</tt> function is designed to be used by you, the programmer, while working in the <span class="application">Python</span> <span class="acronym">IDE</span>.  It takes any object that has functions or methods (like a module, which has functions, or a list, which has methods) and
+               prints out the functions and their <tt class="literal">doc string</tt>s.
+            </p>
+            <div class="example"><a name="d0e8257"></a><h3 class="title">Example&nbsp;4.2.&nbsp;Sample Usage of <tt class="filename">apihelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> apihelper <span class='pykeyword'>import</span> info</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = []</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">info(li)</span>
+<span class="computeroutput">append     L.append(object) -- append object to end
+count      L.count(value) -&gt; integer -- return number of occurrences of value
+extend     L.extend(list) -- extend list by appending list elements
+index      L.index(value) -&gt; integer -- return index of first occurrence of value
+insert     L.insert(index, object) -- insert object before index
+pop        L.pop([index]) -&gt; item -- remove and return item at index (default last)
+remove     L.remove(value) -- remove first occurrence of value
+reverse    L.reverse() -- reverse *IN PLACE*
+sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -&gt; -1, 0, 1</span></pre></div>
+            <p>By default the output is formatted to be easy to read.  Multi-line <tt class="literal">doc string</tt>s are collapsed into a single long line, but this option can be changed by specifying <tt class="constant">0</tt> for the <i class="parameter"><tt>collapse</tt></i> argument.  If the function names are longer than 10 characters, you can specify a larger value for the <i class="parameter"><tt>spacing</tt></i> argument to make the output easier to read.
+            </p>
+            <div class="example"><a name="d0e8294"></a><h3 class="title">Example&nbsp;4.3.&nbsp;Advanced Usage of <tt class="filename">apihelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> odbchelper</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">info(odbchelper)</span>
+<span class="computeroutput">buildConnectionString Build a connection string from a dictionary Returns string.</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">info(odbchelper, 30)</span>
+<span class="computeroutput">buildConnectionString          Build a connection string from a dictionary Returns string.</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">info(odbchelper, 30, 0)</span>
+<span class="computeroutput">buildConnectionString          Build a connection string from a dictionary
+    
+    Returns string.
+</span></pre></div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../native_data_types/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <a href="built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">3</a> <span class="divider">|</span> <a href="getattr.html" title="4.4.&nbsp;Getting Object References With getattr">4</a> <span class="divider">|</span> <a href="filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <a href="and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">6</a> <span class="divider">|</span> <a href="lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">7</a> <span class="divider">|</span> <a href="all_together.html" title="4.8.&nbsp;Putting It All Together">8</a> <span class="divider">|</span> <a href="summary.html" title="4.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="optional_arguments.html">Using Optional and Named Arguments&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

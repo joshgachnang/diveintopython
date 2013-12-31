@@ -1,0 +1,155 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>16.4.&nbsp;Mapping lists revisited</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">
+      <link rel="previous" href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">
+      <link rel="next" href="data_centric.html" title="16.5.&nbsp;Data-centric programming">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Mapping lists revisited</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="filtering_lists.html" title="Prev: &#8220;Filtering lists revisited&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="data_centric.html" title="Next: &#8220;Data-centric programming&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="regression.map"></a>16.4.&nbsp;Mapping lists revisited
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>You're already familiar with using <a href="../native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehensions</a> to map one list into another.  There is another way to accomplish the same thing, using the built-in <tt class="function">map</tt> function.  It works much the same way as the <a href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited"><tt class="function">filter</tt></a> function.
+            </p>
+         </div>
+         <div class="example"><a name="d0e36003"></a><h3 class="title">Example&nbsp;16.10.&nbsp;Introducing <tt class="function">map</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>def</span><span class='pyclass'> double</span>(n):</span>
+<tt class="prompt">...     </tt>return n*2
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [1, 2, 3, 5, 9, 10, 256, -3]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">map(double, li)</span>                       <a name="regression.map.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">[2, 4, 6, 10, 18, 20, 512, -6]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">[double(n) <span class='pykeyword'>for</span> n <span class='pykeyword'>in</span> li]</span>               <a name="regression.map.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">[2, 4, 6, 10, 18, 20, 512, -6]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">newlist = []</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> n <span class='pykeyword'>in</span> li:</span>                          <a name="regression.map.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">...     </tt><span class="userinput">newlist.append(double(n))</span>
+<tt class="prompt">...     </tt>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">newlist</span>
+<span class="computeroutput">[2, 4, 6, 10, 18, 20, 512, -6]</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.map.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">map</tt> takes a function and a list<sup>[<a name="d0e36079" href="#ftn.d0e36079">8</a>]</sup> and returns a new list by calling the function with each element of the list in order.  In this case, the function simply
+                        multiplies each element by 2.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.map.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You could accomplish the same thing with a list comprehension.  List comprehensions were first introduced in <span class="application">Python</span> 2.0; <tt class="function">map</tt> has been around forever.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.map.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You could, if you insist on thinking like a <span class="application">Visual Basic</span> programmer, use a <tt class="literal">for</tt> loop to accomplish the same thing.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e36107"></a><h3 class="title">Example&nbsp;16.11.&nbsp;<tt class="function">map</tt> with lists of mixed datatypes
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [5, <span class='pystring'>'a'</span>, (2, <span class='pystring'>'b'</span>)]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">map(double, li)</span>                       <a name="regression.map.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">[10, 'aa', (2, 'b', 2, 'b')]</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.map.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As a side note, I'd like to point out that <tt class="function">map</tt> works just as well with lists of mixed datatypes, as long as the function you're using correctly handles each type.  In this
+                        case, the <tt class="function">double</tt> function simply multiplies the given argument by 2, and <span class="application">Python</span> Does The Right Thing depending on the datatype of the argument.  For integers, this means actually multiplying it by 2; for
+                        strings, it means concatenating the string with itself; for tuples, it means making a new tuple that has all of the elements
+                        of the original, then all of the elements of the original again.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>All right, enough play time.  Let's look at some real code.</p>
+         <div class="example"><a name="d0e36143"></a><h3 class="title">Example&nbsp;16.12.&nbsp;<tt class="function">map</tt> in <tt class="filename">regression.py</tt></h3><pre class="programlisting">
+    filenameToModuleName = <span class='pykeyword'>lambda</span> f: os.path.splitext(f)[0] <a name="regression.map.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    moduleNames = map(filenameToModuleName, files)          <a name="regression.map.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.map.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">Section&nbsp;4.7, &#8220;Using lambda Functions&#8221;</a>, <tt class="literal">lambda</tt> defines an inline function.  And as you saw in <a href="../file_handling/os_module.html#splittingpathnames.example" title="Example&nbsp;6.17.&nbsp;Splitting Pathnames">Example&nbsp;6.17, &#8220;Splitting Pathnames&#8221;</a>, <tt class="function">os.path.splitext</tt> takes a filename and returns a tuple <tt class="literal">(<i class="replaceable">name</i>, <i class="replaceable">extension</i>)</tt>.  So <tt class="function">filenameToModuleName</tt> is a function which will take a filename and strip off the file extension, and return just the name.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#regression.map.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Calling <tt class="function">map</tt> takes each filename listed in <tt class="varname">files</tt>, passes it to the function <tt class="function">filenameToModuleName</tt>, and returns a list of the return values of each of those function calls.  In other words, you strip the file extension off
+                        of each filename, and store the list of all those stripped filenames in <tt class="varname">moduleNames</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>As you'll see in the rest of the chapter, you can extend this type of data-centric thinking all the way to the final goal,
+            which is to define and execute a single test suite that contains the tests from all of those individual test suites.
+         </p>
+         <div class="footnotes">
+            <h3 class="footnotetitle">Footnotes</h3>
+            <div class="footnote">
+               <p><sup>[<a name="ftn.d0e36079" href="#d0e36079">8</a>] </sup>Again, I should point out that <tt class="function">map</tt> can take a list, a tuple, or any object that acts like a sequence.  See previous footnote about <tt class="function">filter</tt>.
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="filtering_lists.html">&lt;&lt;&nbsp;Filtering lists revisited</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <a href="dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <a href="all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="data_centric.html">Data-centric programming&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

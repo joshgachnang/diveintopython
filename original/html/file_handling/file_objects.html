@@ -1,0 +1,403 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>6.2.&nbsp;Working with File Objects</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;6.&nbsp;Exceptions and File Handling">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;6.&nbsp;Exceptions and File Handling">
+      <link rel="next" href="for_loops.html" title="6.3.&nbsp;Iterating with for Loops">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Exceptions and File Handling</a>&nbsp;&gt;&nbsp;<span class="thispage">Working with File Objects</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;Exceptions and File Handling&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="for_loops.html" title="Next: &#8220;Iterating with for Loops&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="fileinfo.files"></a>6.2.&nbsp;Working with File Objects
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="file_objects.html#d0e14670">6.2.1. Reading Files</a></span></li>
+               <li><span class="section"><a href="file_objects.html#d0e14800">6.2.2. Closing Files</a></span></li>
+               <li><span class="section"><a href="file_objects.html#d0e14928">6.2.3. Handling I/O Errors</a></span></li>
+               <li><span class="section"><a href="file_objects.html#d0e15055">6.2.4. Writing to Files</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Python</span> has a built-in function, <tt class="function">open</tt>, for opening a file on disk.  <tt class="function">open</tt> returns a file object, which has methods and attributes for getting information about and manipulating the opened file.
+            </p>
+         </div>
+         <div class="example"><a name="d0e14596"></a><h3 class="title">Example&nbsp;6.3.&nbsp;Opening a File</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f = open(<span class='pystring'>"/music/_singles/kairo.mp3"</span>, <span class='pystring'>"rb"</span>)</span> <a name="fileinfo.files.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>                                           <a name="fileinfo.files.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;open file '/music/_singles/kairo.mp3', mode 'rb' at 010E3988&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.mode</span>                                      <a name="fileinfo.files.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'rb'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.name</span>                                      <a name="fileinfo.files.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'/music/_singles/kairo.mp3'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.files.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">open</tt> method can take up to three parameters: a filename, a mode, and a buffering parameter.  Only the first one, the filename,
+                        is required; the other two are <a href="../power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">optional</a>.  If not specified, the file is opened for reading in text mode.  Here you are opening the file for reading in binary mode.
+                         (<tt class="literal">print open.__doc__</tt> displays a great explanation of all the possible modes.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.files.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">open</tt> function returns an object (by now, <a href="../getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object">this should not surprise you</a>).  A file object has several useful attributes.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.files.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="varname">mode</tt> attribute of a file object tells you in which mode the file was opened.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#fileinfo.files.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="varname">name</tt> attribute of a file object tells you the name of the file that the file object has open.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e14670"></a>6.2.1.&nbsp;Reading Files
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>After you open a file, the first thing you'll want to do is read from it, as shown in the next example.</p>
+            <div class="example"><a name="d0e14675"></a><h3 class="title">Example&nbsp;6.4.&nbsp;Reading a File</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">&lt;open file '/music/_singles/kairo.mp3', mode 'rb' at 010E3988&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.tell()</span>              <a name="fileinfo.files.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">0</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.seek(-128, 2)</span>       <a name="fileinfo.files.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.tell()</span>              <a name="fileinfo.files.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">7542909</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">tagData = f.read(128)</span> <a name="fileinfo.files.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">tagData</span>
+<span class="computeroutput">'TAGKAIRO****THE BEST GOA         ***DJ MARY-JANE***            
+Rave Mix                      2000http://mp3.com/DJMARYJANE     \037'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.tell()</span>              <a name="fileinfo.files.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">7543037</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">A file object maintains state about the file it has open.  The <tt class="function">tell</tt> method of a file object tells you your current position in the open file.  Since you haven't done anything with this file
+                           yet, the current position is <tt class="constant">0</tt>, which is the beginning of the file.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">seek</tt> method of a file object moves to another position in the open file.  The second parameter specifies what the first one means;
+                           <tt class="constant">0</tt> means move to an absolute position (counting from the start of the file), <tt class="constant">1</tt> means move to a relative position (counting from the current position), and <tt class="literal">2</tt> means move to a position relative to the end of the file.  Since the <span class="abbrev">MP3</span> tags you're looking for are stored at the end of the file, you use <tt class="literal">2</tt> and tell the file object to move to a position <tt class="literal">128</tt> bytes from the end of the file.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">tell</tt> method confirms that the current file position has moved.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">read</tt> method reads a specified number of bytes from the open file and returns a string with the data that was read.  The optional
+                           parameter specifies the maximum number of bytes to read.  If no parameter is specified, <tt class="function">read</tt> will read until the end of the file.  (You could have simply said <tt class="literal">read()</tt> here, since you know exactly where you are in the file and you are, in fact, reading the last 128 bytes.)  The read data
+                           is assigned to the <tt class="varname">tagData</tt> variable, and the current position is updated based on how many bytes were read.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">tell</tt> method confirms that the current position has moved.  If you do the math, you'll see that after reading 128 bytes, the position
+                           has been incremented by 128.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e14800"></a>6.2.2.&nbsp;Closing Files
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Open files consume system resources, and depending on the file mode, other programs may not be able to access them.  It's
+               important to close files as soon as you're finished with them.
+            </p>
+            <div class="example"><a name="d0e14805"></a><h3 class="title">Example&nbsp;6.5.&nbsp;Closing a File</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">&lt;open file '/music/_singles/kairo.mp3', mode 'rb' at 010E3988&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.closed</span>       <a name="fileinfo.files.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">False</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.close()</span>      <a name="fileinfo.files.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f</span>
+<span class="computeroutput">&lt;closed file '/music/_singles/kairo.mp3', mode 'rb' at 010E3988&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.closed</span>       <a name="fileinfo.files.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">True</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.seek(0)</span>      <a name="fileinfo.files.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: I/O operation on closed file</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.tell()</span>
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: I/O operation on closed file</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.read()</span>
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: I/O operation on closed file</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">f.close()</span>      <a name="fileinfo.files.3.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="varname">closed</tt> attribute of a file object indicates whether the object has a file open or not.  In this case, the file is still open (<tt class="varname">closed</tt> is <tt class="constant">False</tt>).
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">To close a file, call the <tt class="function">close</tt> method of the file object.  This frees the lock (if any) that you were holding on the file, flushes buffered writes (if any)
+                           that the system hadn't gotten around to actually writing yet, and releases the system resources.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="varname">closed</tt> attribute confirms that the file is closed.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Just because a file is closed doesn't mean that the file object ceases to exist.  The variable <tt class="varname">f</tt> will continue to exist until it <a href="../object_oriented_framework/instantiating_classes.html#fileinfo.scope" title="Example&nbsp;5.8.&nbsp;Trying to Implement a Memory Leak">goes out of scope</a> or gets manually deleted.  However, none of the methods that manipulate an open file will work once the file has been closed;
+                           they all raise an exception.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.3.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Calling <tt class="function">close</tt> on a file object whose file is already closed does <span class="emphasis"><em>not</em></span> raise an exception; it fails silently.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e14928"></a>6.2.3.&nbsp;Handling <span class="acronym">I/O</span> Errors
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Now you've seen enough to understand the file handling code in the <tt class="filename">fileinfo.py</tt> sample code from teh previous chapter.  This example shows how to safely open and read from a file and gracefully handle
+               errors.
+            </p>
+            <div class="example"><a name="fileinfo.files.incode"></a><h3 class="title">Example&nbsp;6.6.&nbsp;File Objects in <tt class="classname">MP3FileInfo</tt></h3><pre class="programlisting">
+        <span class='pykeyword'>try</span>:                                <a name="fileinfo.files.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+            fsock = open(filename, <span class='pystring'>"rb"</span>, 0) <a name="fileinfo.files.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+            <span class='pykeyword'>try</span>:                           
+                fsock.seek(-128, 2)         <a name="fileinfo.files.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+                tagdata = fsock.read(128)   <a name="fileinfo.files.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+            <span class='pykeyword'>finally</span>:                        <a name="fileinfo.files.4.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+                fsock.close()              
+            .
+            .
+            .
+        <span class='pykeyword'>except</span> IOError:                     <a name="fileinfo.files.4.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+            <span class='pykeyword'>pass</span>                           </pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Because opening and reading files is risky and may raise an exception, all of this code is wrapped in a <tt class="literal">try...except</tt> block.  (Hey, isn't <a href="../getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indenting Code">standardized indentation</a> great?  This is where you start to appreciate it.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">open</tt> function may raise an <tt class="errorcode">IOError</tt>.  (Maybe the file doesn't exist.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">seek</tt> method may raise an <tt class="errorcode">IOError</tt>.  (Maybe the file is smaller than 128 bytes.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">The <tt class="function">read</tt> method may raise an <tt class="errorcode">IOError</tt>.  (Maybe the disk has a bad sector, or it's on a network drive and the network just went down.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.4.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This is new: a <tt class="literal">try...finally</tt> block.  Once the file has been opened successfully by the <tt class="function">open</tt> function, you want to make absolutely sure that you close it, even if an exception is raised by the <tt class="function">seek</tt> or <tt class="function">read</tt> methods.  That's what a <tt class="literal">try...finally</tt> block is for: code in the <tt class="literal">finally</tt> block will <span class="emphasis"><em>always</em></span> be executed, even if something in the <tt class="literal">try</tt> block raises an exception.  Think of it as code that gets executed on the way out, regardless of what happened before.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.4.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">At last, you handle your <tt class="errorcode">IOError</tt> exception.  This could be the <tt class="errorcode">IOError</tt> exception raised by the call to <tt class="function">open</tt>, <tt class="function">seek</tt>, or <tt class="function">read</tt>.  Here, you really don't care, because all you're going to do is ignore it silently and continue.  (Remember, <tt class="literal">pass</tt> is a <span class="application">Python</span> statement that <a href="../object_oriented_framework/defining_classes.html#fileinfo.class.simplest" title="Example&nbsp;5.3.&nbsp;The Simplest Python Class">does nothing</a>.)  That's perfectly legal; &#8220;<span class="quote">handling</span>&#8221; an exception can mean explicitly doing nothing.  It still counts as handled, and processing will continue normally on the
+                           next line of code after the <tt class="literal">try...except</tt> block.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e15055"></a>6.2.4.&nbsp;Writing to Files
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>As you would expect, you can also write to files in much the same way that you read from them.  There are two basic file modes:</p>
+            <div class="itemizedlist">
+               <ul>
+                  <li>"Append" mode will add data to the end of the file.</li>
+                  <li>"write" mode will overwrite the file.</li>
+               </ul>
+            </div>
+            <p>Either mode will create the file automatically if it doesn't already exist, so there's never a need for any sort of fiddly
+               "if the log file doesn't exist yet, create a new empty file just so you can open it for the first time" logic.  Just open
+               it and start writing.
+            </p>
+            <div class="example"><a name="fileinfo.files.writeandappend"></a><h3 class="title">Example&nbsp;6.7.&nbsp;Writing to Files</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">logfile = open(<span class='pystring'>'test.log'</span>, <span class='pystring'>'w'</span>)</span> <a name="fileinfo.files.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">logfile.write(<span class='pystring'>'test succeeded'</span>)</span> <a name="fileinfo.files.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">logfile.close()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> file(<span class='pystring'>'test.log'</span>).read()</span>   <a name="fileinfo.files.5.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">test succeeded</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">logfile = open(<span class='pystring'>'test.log'</span>, <span class='pystring'>'a'</span>)</span> <a name="fileinfo.files.5.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">logfile.write(<span class='pystring'>'line 2'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">logfile.close()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> file(<span class='pystring'>'test.log'</span>).read()</span>   <a name="fileinfo.files.5.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">test succeededline 2</span>
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You start boldly by creating either the new file <tt class="filename">test.log</tt> or overwrites the existing file, and opening the file for writing.  (The second parameter <tt class="literal">"w"</tt> means open the file for writing.)  Yes, that's all as dangerous as it sounds.  I hope you didn't care about the previous
+                           contents of that file, because it's gone now.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You can add data to the newly opened file with the <tt class="function">write</tt> method of the file object returned by <tt class="function">open</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.5.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left"><tt class="function">file</tt> is a synonym for <tt class="function">open</tt>.  This one-liner opens the file, reads its contents, and prints them.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.5.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">You happen to know that <tt class="filename">test.log</tt> exists (since you just finished writing to it), so you can open it and append to it.  (The <tt class="literal">"a"</tt> parameter means open the file for appending.)  Actually you could do this even if the file didn't exist, because opening
+                           the file for appending will create the file if necessary.  But appending will <span class="emphasis"><em>never</em></span> harm the existing contents of the file.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#fileinfo.files.5.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">As you can see, both the original line you wrote and the second line you appended are now in <tt class="filename">test.log</tt>.  Also note that carriage returns are not included.  Since you didn't write them explicitly to the file either time, the
+                           file doesn't include them.  You can write a carriage return with the <tt class="literal">"\n"</tt> character.  Since you didn't do this, everything you wrote to the file ended up smooshed together on the same line.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="furtherreading">
+               <h3>Further Reading on File Handling</h3>
+               <ul>
+                  <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Python</span> Tutorial</i></a> discusses reading and writing files, including how to <a href="http://www.python.org/doc/current/tut/node9.html#SECTION009210000000000000000">read a file one line at a time into a list</a>.
+                  </li>
+                  <li><a href="http://www.effbot.org/guides/">eff-bot</a> discusses efficiency and performance of <a href="http://www.effbot.org/guides/readline-performance.htm">various ways of reading a file</a>.
+                  </li>
+                  <li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> answers <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/552">common questions about files</a>.
+                  </li>
+                  <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes <a href="http://www.python.org/doc/current/lib/bltin-file-objects.html">all the file object methods</a>.
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;Exceptions and File Handling</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="for_loops.html" title="6.3.&nbsp;Iterating with for Loops">3</a> <span class="divider">|</span> <a href="more_on_modules.html" title="6.4.&nbsp;Using sys.modules">4</a> <span class="divider">|</span> <a href="os_module.html" title="6.5.&nbsp;Working with Directories">5</a> <span class="divider">|</span> <a href="all_together.html" title="6.6.&nbsp;Putting It All Together">6</a> <span class="divider">|</span> <a href="summary.html" title="6.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="for_loops.html">Iterating with for Loops&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,130 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.7.&nbsp;Quoting attribute values</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+      <link rel="previous" href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">
+      <link rel="next" href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Quoting attribute values</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="dictionary_based_string_formatting.html" title="Prev: &#8220;Dictionary-based string formatting&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="dialect.html" title="Next: &#8220;Introducing dialect.py&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.quoting"></a>8.7.&nbsp;Quoting attribute values
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>A common question on <a href="http://groups.google.com/groups?group=comp.lang.python">comp.lang.python</a> is &#8220;<span class="quote">I have a bunch of <span class="acronym">HTML</span> documents with unquoted attribute values, and I want to properly quote them all.  How can I do this?</span>&#8221;<sup>[<a name="d0e21764" href="#ftn.d0e21764">4</a>]</sup>  (This is generally precipitated by a project manager who has found the <span class="acronym">HTML</span>-is-a-standard religion joining a large project and proclaiming that all pages must validate against an <span class="acronym">HTML</span> validator.  Unquoted attribute values are a common violation of the <span class="acronym">HTML</span> standard.)  Whatever the reason, unquoted attribute values are easy to fix by feeding <span class="acronym">HTML</span> through <tt class="classname">BaseHTMLProcessor</tt>.
+            </p>
+         </div>
+         <p><tt class="classname">BaseHTMLProcessor</tt> consumes <span class="acronym">HTML</span> (since it's descended from <tt class="classname">SGMLParser</tt>) and produces equivalent <span class="acronym">HTML</span>, but the <span class="acronym">HTML</span> output is not identical to the input.  Tags and attribute names will end up in lowercase, even if they started in uppercase
+            or mixed case, and attribute values will be enclosed in double quotes, even if they started in single quotes or with no quotes
+            at all.  It is this last side effect that you can take advantage of.
+         </p>
+         <div class="example"><a name="dialect.quoting.example"></a><h3 class="title">Example&nbsp;8.16.&nbsp;Quoting attribute values</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">htmlSource = <span class='pystring'>""</span>"</span>        <a name="dialect.basehtml.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">...     </tt>&lt;html&gt;
+<tt class="prompt">...     </tt>&lt;head&gt;
+<tt class="prompt">...     </tt>&lt;title&gt;Test page&lt;/title&gt;
+<tt class="prompt">...     </tt>&lt;/head&gt;
+<tt class="prompt">...     </tt>&lt;body&gt;
+<tt class="prompt">...     </tt>&lt;ul&gt;
+<tt class="prompt">...     </tt>&lt;li&gt;&lt;a href=index.html&gt;Home&lt;/a&gt;&lt;/li&gt;
+<tt class="prompt">...     </tt>&lt;li&gt;&lt;a href=toc.html&gt;Table of contents&lt;/a&gt;&lt;/li&gt;
+<tt class="prompt">...     </tt>&lt;li&gt;&lt;a href=history.html&gt;Revision history&lt;/a&gt;&lt;/li&gt;
+<tt class="prompt">...     </tt>&lt;/body&gt;
+<tt class="prompt">...     </tt>&lt;/html&gt;
+<tt class="prompt">...     </tt><span class="userinput"><span class='pystring'>""</span>"</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> BaseHTMLProcessor <span class='pykeyword'>import</span> BaseHTMLProcessor</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser = BaseHTMLProcessor()</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">parser.feed(htmlSource)</span> <a name="dialect.basehtml.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> parser.output()</span>   <a name="dialect.basehtml.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Test page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="toc.html"&gt;Table of contents&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="history.html"&gt;Revision history&lt;/a&gt;&lt;/li&gt;
+&lt;/body&gt;
+&lt;/html&gt;</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note that the attribute values of the <tt class="literal">href</tt> attributes in the <tt class="sgmltag-element">&lt;a&gt;</tt> tags are not properly quoted.  (Also note that you're using <a href="../getting_to_know_python/documenting_functions.html#odbchelper.triplequotes" title="Example&nbsp;2.2.&nbsp;Defining the buildConnectionString Function's doc string">triple quotes</a> for something other than a <tt class="literal">doc string</tt>.  And directly in the <span class="acronym">IDE</span>, no less.  They're very useful.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Feed the parser.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.basehtml.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Using the <tt class="function">output</tt> function defined in <tt class="classname">BaseHTMLProcessor</tt>, you get the output as a single string, complete with quoted attribute values.  While this may seem anti-climactic, think
+                        about how much has actually happened here: <tt class="classname">SGMLParser</tt> parsed the entire <span class="acronym">HTML</span> document, breaking it down into tags, refs, data, and so forth; <tt class="classname">BaseHTMLProcessor</tt> used those elements to reconstruct pieces of <span class="acronym">HTML</span> (which are still stored in <tt class="varname">parser.pieces</tt>, if you want to see them); finally, you called <tt class="function">parser.output</tt>, which joined all the pieces of <span class="acronym">HTML</span> into one string.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footnotes">
+            <h3 class="footnotetitle">Footnotes</h3>
+            <div class="footnote">
+               <p><sup>[<a name="ftn.d0e21764" href="#d0e21764">4</a>] </sup>All right, it's not that common a question.  It's not up there with &#8220;<span class="quote">What editor should I use to write <span class="application">Python</span> code?</span>&#8221; (answer: <span class="application">Emacs</span>) or &#8220;<span class="quote">Is <span class="application">Python</span> better or worse than <span class="application">Perl</span>?</span>&#8221; (answer: &#8220;<span class="quote"><span class="application">Perl</span> is worse than <span class="application">Python</span> because people wanted it worse.</span>&#8221; -Larry Wall, 10/14/1998)  But questions about <span class="acronym">HTML</span> processing pop up in one form or another about once a month, and among those questions, this is a popular one.
+               </p>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="dictionary_based_string_formatting.html">&lt;&lt;&nbsp;Dictionary-based string formatting</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">3</a> <span class="divider">|</span> <a href="basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <a href="dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <a href="all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="dialect.html">Introducing dialect.py&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

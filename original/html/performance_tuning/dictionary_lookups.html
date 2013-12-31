@@ -1,0 +1,210 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>18.4.&nbsp;Optimizing Dictionary Lookups</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;18.&nbsp;Performance Tuning">
+      <link rel="previous" href="regular_expressions.html" title="18.3.&nbsp;Optimizing Regular Expressions">
+      <link rel="next" href="list_operations.html" title="18.5.&nbsp;Optimizing List Operations">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Performance Tuning</a>&nbsp;&gt;&nbsp;<span class="thispage">Optimizing Dictionary Lookups</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="regular_expressions.html" title="Prev: &#8220;Optimizing Regular Expressions&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="list_operations.html" title="Next: &#8220;Optimizing List Operations&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soundex.stage2"></a>18.4.&nbsp;Optimizing Dictionary Lookups
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The second step of the Soundex algorithm is to convert characters to digits in a specific pattern.  What's the best way to
+               do this?
+            </p>
+         </div>
+         <p>The most obvious solution is to define a dictionary with individual characters as keys and their corresponding digits as values,
+            and do dictionary lookups on each character.  This is what we have in <tt class="filename">soundex/stage1/soundex1c.py</tt> (the current best result so far):
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+charToSoundex = {<span class='pystring'>"A"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"B"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"C"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"D"</span>: <span class='pystring'>"3"</span>,
+                 <span class='pystring'>"E"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"F"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"G"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"H"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"I"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"J"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"K"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"L"</span>: <span class='pystring'>"4"</span>,
+                 <span class='pystring'>"M"</span>: <span class='pystring'>"5"</span>,
+                 <span class='pystring'>"N"</span>: <span class='pystring'>"5"</span>,
+                 <span class='pystring'>"O"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"P"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"Q"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"R"</span>: <span class='pystring'>"6"</span>,
+                 <span class='pystring'>"S"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"T"</span>: <span class='pystring'>"3"</span>,
+                 <span class='pystring'>"U"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"V"</span>: <span class='pystring'>"1"</span>,
+                 <span class='pystring'>"W"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"X"</span>: <span class='pystring'>"2"</span>,
+                 <span class='pystring'>"Y"</span>: <span class='pystring'>"9"</span>,
+                 <span class='pystring'>"Z"</span>: <span class='pystring'>"2"</span>}
+
+<span class='pykeyword'>def</span><span class='pyclass'> soundex</span>(source):
+    <span class='pycomment'># ... input check omitted for brevity ...</span>
+    source = source[0].upper() + source[1:]
+    digits = source[0]
+    <span class='pykeyword'>for</span> s <span class='pykeyword'>in</span> source[1:]:
+        s = s.upper()
+        digits += charToSoundex[s]
+</pre></div>
+         <p>You timed <tt class="filename">soundex1c.py</tt> already; this is how it performs:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage1&gt;</tt><span class="userinput">python soundex1c.py</span>
+<span class="computeroutput">Woo             W000 14.5341678901
+Pilgrim         P426 19.2650071448
+Flingjingwaller F452 30.1003563302</span>
+</pre></div>
+         <p>This code is straightforward, but is it the best solution?  Calling <tt class="methodname">upper()</tt> on each individual character seems inefficient; it would probably be better to call <tt class="methodname">upper()</tt> once on the entire string.
+         </p>
+         <p>Then there's the matter of incrementally building the <tt class="varname">digits</tt> string.  Incrementally building strings like this is horribly inefficient; internally, the <span class="application">Python</span> interpreter needs to create a new string each time through the loop, then discard the old one.
+         </p>
+         <p><span class="application">Python</span> is good at lists, though.  It can treat a string as a list of characters automatically.  And lists are easy to combine into
+            strings again, using the string method <tt class="methodname">join()</tt>.
+         </p>
+         <p>Here is <tt class="filename">soundex/stage2/soundex2a.py</tt>, which converts letters to digits by using &#8614; and <tt class="literal">lambda</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting"><span class='pykeyword'>
+def</span> soundex(source):
+    <span class='pycomment'># ...</span>
+    source = source.upper()
+    digits = source[0] + <span class='pystring'>""</span>.join(map(<span class='pykeyword'>lambda</span> c: charToSoundex[c], source[1:]))
+</pre></div>
+         <p>Surprisingly, <tt class="filename">soundex2a.py</tt> is not faster:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage2&gt;</tt><span class="userinput">python soundex2a.py</span>
+<span class="computeroutput">Woo             W000 15.0097526362
+Pilgrim         P426 19.254806407
+Flingjingwaller F452 29.3790847719</span>
+</pre></div>
+         <p>The overhead of the anonymous <tt class="literal">lambda</tt> function kills any performance you gain by dealing with the string as a list of characters.
+         </p>
+         <p><tt class="filename">soundex/stage2/soundex2b.py</tt> uses a list comprehension instead of &#8614; and <tt class="literal">lambda</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+    source = source.upper()
+    digits = source[0] + <span class='pystring'>""</span>.join([charToSoundex[c] <span class='pykeyword'>for</span> c <span class='pykeyword'>in</span> source[1:]])
+</pre></div>
+         <p>Using a list comprehension in <tt class="filename">soundex2b.py</tt> is faster than using &#8614; and <tt class="literal">lambda</tt> in <tt class="filename">soundex2a.py</tt>, but still not faster than the original code (incrementally building a string in <tt class="filename">soundex1c.py</tt>):
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage2&gt;</tt><span class="userinput">python soundex2b.py</span>
+<span class="computeroutput">Woo             W000 13.4221324219
+Pilgrim         P426 16.4901234654
+Flingjingwaller F452 25.8186157738</span>
+</pre></div>
+         <p>It's time for a radically different approach.  Dictionary lookups are a general purpose tool.  Dictionary keys can be any
+            length string (or many other data types), but in this case we are only dealing with single-character keys <span class="emphasis"><em>and</em></span> single-character values.  It turns out that <span class="application">Python</span> has a specialized function for handling exactly this situation: the <tt class="function">string.maketrans</tt> function.
+         </p>
+         <p>This is <tt class="filename">soundex/stage2/soundex2c.py</tt>:
+         </p>
+         <div class="informalexample"><pre class="programlisting">
+allChar = string.uppercase + string.lowercase
+charToSoundex = string.maketrans(allChar, <span class='pystring'>"91239129922455912623919292"</span> * 2)
+<span class='pykeyword'>def</span><span class='pyclass'> soundex</span>(source):
+    <span class='pycomment'># ...</span>
+    digits = source[0].upper() + source[1:].translate(charToSoundex)
+</pre></div>
+         <p>What the heck is going on here?  <tt class="function">string.maketrans</tt> creates a translation matrix between two strings: the first argument and the second argument.  In this case, the first argument
+            is the string <tt class="literal">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</tt>, and the second argument is the string <tt class="literal">9123912992245591262391929291239129922455912623919292</tt>.  See the pattern?  It's the same conversion pattern we were setting up longhand with a dictionary.  A maps to 9, B maps
+            to 1, C maps to 2, and so forth.  But it's not a dictionary; it's a specialized data structure that you can access using the
+            string method <tt class="methodname">translate</tt>, which translates each character into the corresponding digit, according to the matrix defined by <tt class="function">string.maketrans</tt>.
+         </p>
+         <p><tt class="filename">timeit</tt> shows that <tt class="filename">soundex2c.py</tt> is significantly faster than defining a dictionary and looping through the input and building the output incrementally:
+         </p>
+         <div class="informalexample"><pre class="screen">
+<tt class="prompt">C:\samples\soundex\stage2&gt;</tt><span class="userinput">python soundex2c.py</span>
+<span class="computeroutput">Woo             W000 11.437645008
+Pilgrim         P426 13.2825062962
+Flingjingwaller F452 18.5570110168</span>
+</pre></div>
+         <p>You're not going to get much better than that.  <span class="application">Python</span> has a specialized function that does exactly what you want to do; use it and move on.
+         </p>
+         <div class="example"><a name="d0e39507"></a><h3 class="title">Example&nbsp;18.4.&nbsp;Best Result So Far: <tt class="filename">soundex/stage2/soundex2c.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> string, re
+
+allChar = string.uppercase + string.lowercase
+charToSoundex = string.maketrans(allChar, <span class='pystring'>"91239129922455912623919292"</span> * 2)
+isOnlyChars = re.compile(<span class='pystring'>'^[A-Za-z]+$'</span>).search
+
+<span class='pykeyword'>def</span><span class='pyclass'> soundex</span>(source):
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> isOnlyChars(source):
+        <span class='pykeyword'>return</span> <span class='pystring'>"0000"</span>
+    digits = source[0].upper() + source[1:].translate(charToSoundex)
+    digits2 = digits[0]
+    <span class='pykeyword'>for</span> d <span class='pykeyword'>in</span> digits[1:]:
+        <span class='pykeyword'>if</span> digits2[-1] != d:
+            digits2 += d
+    digits3 = re.sub(<span class='pystring'>'9'</span>, <span class='pystring'>''</span>, digits2)
+    <span class='pykeyword'>while</span> len(digits3) &lt; 4:
+        digits3 += <span class='pystring'>"0"</span>
+    <span class='pykeyword'>return</span> digits3[:4]
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>'__main__'</span>:
+    <span class='pykeyword'>from</span> timeit <span class='pykeyword'>import</span> Timer
+    names = (<span class='pystring'>'Woo'</span>, <span class='pystring'>'Pilgrim'</span>, <span class='pystring'>'Flingjingwaller'</span>)
+    <span class='pykeyword'>for</span> name <span class='pykeyword'>in</span> names:
+        statement = <span class='pystring'>"soundex('%s')"</span> % name
+        t = Timer(statement, <span class='pystring'>"from __main__ import soundex"</span>)
+        <span class='pykeyword'>print</span> name.ljust(15), soundex(name), min(t.repeat())
+</pre></div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="regular_expressions.html">&lt;&lt;&nbsp;Optimizing Regular Expressions</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soundex.divein" title="18.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="timeit.html" title="18.2.&nbsp;Using the timeit Module">2</a> <span class="divider">|</span> <a href="regular_expressions.html" title="18.3.&nbsp;Optimizing Regular Expressions">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="list_operations.html" title="18.5.&nbsp;Optimizing List Operations">5</a> <span class="divider">|</span> <a href="string_manipulation.html" title="18.6.&nbsp;Optimizing String Manipulation">6</a> <span class="divider">|</span> <a href="summary.html" title="18.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="list_operations.html">Optimizing List Operations&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

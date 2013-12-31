@@ -1,0 +1,169 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>15.4.&nbsp;Postscript</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;15.&nbsp;Refactoring">
+      <link rel="previous" href="refactoring.html" title="15.3.&nbsp;Refactoring">
+      <link rel="next" href="summary.html" title="15.5.&nbsp;Summary">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Refactoring</a>&nbsp;&gt;&nbsp;<span class="thispage">Postscript</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="refactoring.html" title="Prev: &#8220;Refactoring&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="summary.html" title="Next: &#8220;Summary&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.postscript"></a>15.4.&nbsp;Postscript
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>A clever reader read the <a href="refactoring.html" title="15.3.&nbsp;Refactoring">previous section</a> and took it to the next level.  The biggest headache (and performance drain) in the program as it is currently written is
+               the regular expression, which is required because you have no other way of breaking down a Roman numeral.  But there's only
+               5000 of them; why don't you just build a lookup table once, then simply read that?  This idea gets even better when you realize
+               that you don't need to use regular expressions at all.  As you build the lookup table for converting integers to Roman numerals,
+               you can build the reverse lookup table to convert Roman numerals to integers.
+            </p>
+         </div>
+         <p>And best of all, he already had a complete set of unit tests.  He changed over half the code in the module, but the unit tests
+            stayed the same, so he could prove that his code worked just as well as the original.
+         </p>
+         <div class="example"><a name="d0e35088"></a><h3 class="title">Example&nbsp;15.17.&nbsp;<tt class="filename">roman9.py</tt></h3>
+            <p>This file is available in <tt class="filename">py/roman/stage9/</tt> in the examples directory.
+            </p>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pycomment'>#Define exceptions</span>
+<span class='pykeyword'>class</span><span class='pyclass'> RomanError</span>(Exception): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> OutOfRangeError</span>(RomanError): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> NotIntegerError</span>(RomanError): <span class='pykeyword'>pass</span>
+<span class='pykeyword'>class</span><span class='pyclass'> InvalidRomanNumeralError</span>(RomanError): <span class='pykeyword'>pass</span>
+
+<span class='pycomment'>#Roman numerals must be less than 5000</span>
+MAX_ROMAN_NUMERAL = 4999
+
+<span class='pycomment'>#Define digit mapping</span>
+romanNumeralMap = ((<span class='pystring'>'M'</span>,  1000),
+                   (<span class='pystring'>'CM'</span>, 900),
+                   (<span class='pystring'>'D'</span>,  500),
+                   (<span class='pystring'>'CD'</span>, 400),
+                   (<span class='pystring'>'C'</span>,  100),
+                   (<span class='pystring'>'XC'</span>, 90),
+                   (<span class='pystring'>'L'</span>,  50),
+                   (<span class='pystring'>'XL'</span>, 40),
+                   (<span class='pystring'>'X'</span>,  10),
+                   (<span class='pystring'>'IX'</span>, 9),
+                   (<span class='pystring'>'V'</span>,  5),
+                   (<span class='pystring'>'IV'</span>, 4),
+                   (<span class='pystring'>'I'</span>,  1))
+
+<span class='pycomment'>#Create tables for fast conversion of roman numerals.</span>
+<span class='pycomment'>#See fillLookupTables() below.</span>
+toRomanTable = [ None ]  <span class='pycomment'># Skip an index since Roman numerals have no zero</span>
+fromRomanTable = {}
+
+<span class='pykeyword'>def</span><span class='pyclass'> toRoman</span>(n):
+    <span class='pystring'>"""convert integer to Roman numeral"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> (0 &lt; n &lt;= MAX_ROMAN_NUMERAL):
+        <span class='pykeyword'>raise</span> OutOfRangeError, <span class='pystring'>"number out of range (must be 1..%s)"</span> % MAX_ROMAN_NUMERAL
+    <span class='pykeyword'>if</span> int(n) &lt;&gt; n:
+        <span class='pykeyword'>raise</span> NotIntegerError, <span class='pystring'>"non-integers can not be converted"</span>
+    <span class='pykeyword'>return</span> toRomanTable[n]
+
+<span class='pykeyword'>def</span><span class='pyclass'> fromRoman</span>(s):
+    <span class='pystring'>"""convert Roman numeral to integer"""</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> s:
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>"Input can not be blank"</span>
+    <span class='pykeyword'>if</span> <span class='pykeyword'>not</span> fromRomanTable.has_key(s):
+        <span class='pykeyword'>raise</span> InvalidRomanNumeralError, <span class='pystring'>"Invalid Roman numeral: %s"</span> % s
+    <span class='pykeyword'>return</span> fromRomanTable[s]
+
+<span class='pykeyword'>def</span><span class='pyclass'> toRomanDynamic</span>(n):
+    <span class='pystring'>"""convert integer to Roman numeral using dynamic programming"""</span>
+    result = <span class='pystring'>""</span>
+    <span class='pykeyword'>for</span> numeral, integer <span class='pykeyword'>in</span> romanNumeralMap:
+        <span class='pykeyword'>if</span> n &gt;= integer:
+            result = numeral
+            n -= integer
+            <span class='pykeyword'>break</span>
+    <span class='pykeyword'>if</span> n &gt; 0:
+        result += toRomanTable[n]
+    <span class='pykeyword'>return</span> result
+
+<span class='pykeyword'>def</span><span class='pyclass'> fillLookupTables</span>():
+    <span class='pystring'>"""compute all the possible roman numerals"""</span>
+    <span class='pycomment'>#Save the values in two global tables to convert to and from integers.</span>
+    <span class='pykeyword'>for</span> integer <span class='pykeyword'>in</span> range(1, MAX_ROMAN_NUMERAL + 1):
+        romanNumber = toRomanDynamic(integer)
+        toRomanTable.append(romanNumber)
+        fromRomanTable[romanNumber] = integer
+
+fillLookupTables()
+</pre></div>
+         <p>So how fast is it?</p>
+         <div class="example"><a name="d0e35106"></a><h3 class="title">Example&nbsp;15.18.&nbsp;Output of <tt class="filename">romantest9.py</tt> against <tt class="filename">roman9.py</tt></h3><pre class="screen">
+<span class="computeroutput">
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.791s
+
+OK
+</span>
+</pre></div>
+         <p>Remember, the best performance you ever got in the original version was 13 tests in 3.315 seconds.  Of course, it's not entirely
+            a fair comparison, because this version will take longer to import (when it fills the lookup tables).  But since import is
+            only done once, this is negligible in the long run.
+         </p>
+         <p>The moral of the story?</p>
+         <div class="itemizedlist">
+            <ul>
+               <li>Simplicity is a virtue.</li>
+               <li>Especially when regular expressions are involved.</li>
+               <li>And unit tests can give you the confidence to do large-scale refactoring... even if you didn't write the original code.</li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="refactoring.html">&lt;&lt;&nbsp;Refactoring</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#roman.bugs" title="15.1.&nbsp;Handling bugs">1</a> <span class="divider">|</span> <a href="handling_changing_requirements.html" title="15.2.&nbsp;Handling changing requirements">2</a> <span class="divider">|</span> <a href="refactoring.html" title="15.3.&nbsp;Refactoring">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="summary.html" title="15.5.&nbsp;Summary">5</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="summary.html">Summary&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

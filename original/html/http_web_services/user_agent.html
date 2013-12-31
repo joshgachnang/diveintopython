@@ -1,0 +1,178 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>11.5.&nbsp;Setting the User-Agent</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;11.&nbsp;HTTP Web Services">
+      <link rel="previous" href="debugging.html" title="11.4.&nbsp;Debugging HTTP web services">
+      <link rel="next" href="etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Setting the User-Agent</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="debugging.html" title="Prev: &#8220;Debugging HTTP web services&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="etags.html" title="Next: &#8220;Handling Last-Modified and ETag&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="oa.useragent"></a>11.5.&nbsp;Setting the <tt class="literal">User-Agent</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The first step to improving your HTTP web services client is to identify yourself properly with a <tt class="literal">User-Agent</tt>.  To do that, you need to move beyond the basic <tt class="filename">urllib</tt> and dive into <tt class="filename">urllib2</tt>.
+            </p>
+         </div>
+         <div class="example"><a name="d0e27984"></a><h3 class="title">Example&nbsp;11.4.&nbsp;Introducing <tt class="filename">urllib2</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> httplib</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">httplib.HTTPConnection.debuglevel = 1</span>                             <a name="oa.useragent.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> urllib2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request = urllib2.Request(<span class='pystring'>'http://diveintomark.org/xml/atom.xml'</span>)</span> <a name="oa.useragent.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">opener = urllib2.build_opener()</span>                                   <a name="oa.useragent.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">feeddata = opener.open(request).read()</span>                            <a name="oa.useragent.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">connect: (diveintomark.org, 80)</span>
+<span class="computeroutput">send: '</span>
+<span class="computeroutput">GET /xml/atom.xml HTTP/1.0</span>
+<span class="computeroutput">Host: diveintomark.org</span>
+<span class="computeroutput">User-agent: Python-urllib/2.1</span>
+<span class="computeroutput">'</span>
+<span class="computeroutput">reply: 'HTTP/1.1 200 OK\r\n'</span>
+<span class="computeroutput">header: Date: Wed, 14 Apr 2004 23:23:12 GMT</span>
+<span class="computeroutput">header: Server: Apache/2.0.49 (Debian GNU/Linux)</span>
+<span class="computeroutput">header: Content-Type: application/atom+xml</span>
+<span class="computeroutput">header: Last-Modified: Wed, 14 Apr 2004 22:14:38 GMT</span>
+<span class="computeroutput">header: ETag: "e8284-68e0-4de30f80"</span>
+<span class="computeroutput">header: Accept-Ranges: bytes</span>
+<span class="computeroutput">header: Content-Length: 26848</span>
+<span class="computeroutput">header: Connection: close</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.useragent.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If you still have your <span class="application">Python</span> <span class="acronym">IDE</span> open from the previous section's example, you can skip this, but this turns on <a href="debugging.html" title="11.4.&nbsp;Debugging HTTP web services">HTTP debugging</a> so you can see what you're actually sending over the wire, and what gets sent back.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.useragent.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Fetching an HTTP resource with <tt class="filename">urllib2</tt> is a three-step process, for good reasons that will become clear shortly.  The first step is to create a <tt class="classname">Request</tt> object, which takes the URL of the resource you'll eventually get around to retrieving.  Note that this step doesn't actually
+                        retrieve anything yet.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.useragent.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The second step is to build a URL opener.  This can take any number of handlers, which control how responses are handled.
+                         But you can also build an opener without any custom handlers, which is what you're doing here.  You'll see how to define
+                        and use custom handlers later in this chapter when you explore redirects.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.useragent.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The final step is to tell the opener to open the URL, using the <tt class="classname">Request</tt> object you created.  As you can see from all the debugging information that gets printed, this step actually retrieves the
+                        resource and stores the returned data in <tt class="varname">feeddata</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e28108"></a><h3 class="title">Example&nbsp;11.5.&nbsp;Adding headers with the <tt class="classname">Request</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request</span>                                                <a name="oa.useragent.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;urllib2.Request instance at 0x00250AA8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request.get_full_url()</span>
+<span class="computeroutput">http://diveintomark.org/xml/atom.xml</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">request.add_header(<span class='pystring'>'User-Agent'</span>,
+<tt class="prompt">...     </tt><span class='pystring'>'OpenAnything/1.0 +http://diveintopython.org/'</span>)</span>    <a name="oa.useragent.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">feeddata = opener.open(request).read()</span>                 <a name="oa.useragent.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">connect: (diveintomark.org, 80)</span>
+<span class="computeroutput">send: '</span>
+<span class="computeroutput">GET /xml/atom.xml HTTP/1.0</span>
+<span class="computeroutput">Host: diveintomark.org</span>
+<span class="computeroutput">User-agent: OpenAnything/1.0 +http://diveintopython.org/</span>   <a name="oa.useragent.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'</span>
+<span class="computeroutput">reply: 'HTTP/1.1 200 OK\r\n'</span>
+<span class="computeroutput">header: Date: Wed, 14 Apr 2004 23:45:17 GMT</span>
+<span class="computeroutput">header: Server: Apache/2.0.49 (Debian GNU/Linux)</span>
+<span class="computeroutput">header: Content-Type: application/atom+xml</span>
+<span class="computeroutput">header: Last-Modified: Wed, 14 Apr 2004 22:14:38 GMT</span>
+<span class="computeroutput">header: ETag: "e8284-68e0-4de30f80"</span>
+<span class="computeroutput">header: Accept-Ranges: bytes</span>
+<span class="computeroutput">header: Content-Length: 26848</span>
+<span class="computeroutput">header: Connection: close</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.useragent.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You're continuing from the previous example; you've already created a <tt class="classname">Request</tt> object with the URL you want to access.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.useragent.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Using the <tt class="function">add_header</tt> method on the <tt class="classname">Request</tt> object, you can add arbitrary HTTP headers to the request.  The first argument is the header, the second is the value you're
+                        providing for that header.  Convention dictates that a <tt class="literal">User-Agent</tt> should be in this specific format: an application name, followed by a slash, followed by a version number.  The rest is free-form,
+                        and you'll see a lot of variations in the wild, but somewhere it should include a URL of your application.  The <tt class="literal">User-Agent</tt> is usually logged by the server along with other details of your request, and including a URL of your application allows
+                        server administrators looking through their access logs to contact you if something is wrong.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.useragent.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="varname">opener</tt> object you created before can be reused too, and it will retrieve the same feed again, but with your custom <tt class="literal">User-Agent</tt> header.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#oa.useragent.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">And here's you sending your custom <tt class="literal">User-Agent</tt>, in place of the generic one that <span class="application">Python</span> sends by default.  If you look closely, you'll notice that you defined a <tt class="literal">User-Agent</tt> header, but you actually sent a <tt class="literal">User-agent</tt> header.  See the difference?  <tt class="filename">urllib2</tt> changed the case so that only the first letter was capitalized.  It doesn't really matter; HTTP specifies that header field
+                        names are completely case-insensitive.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="debugging.html">&lt;&lt;&nbsp;Debugging HTTP web services</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="etags.html">Handling Last-Modified and ETag&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

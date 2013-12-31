@@ -1,0 +1,121 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>Chapter&nbsp;17.&nbsp;Dynamic functions</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="../toc/index.html" title="Dive Into Python">
+      <link rel="previous" href="../functional_programming/summary.html" title="16.8.&nbsp;Summary">
+      <link rel="next" href="stage1.html" title="17.2.&nbsp;plural.py, stage 1">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">Dynamic functions</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="../functional_programming/summary.html" title="Prev: &#8220;Summary&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="stage1.html" title="Next: &#8220;plural.py, stage 1&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="chapter" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="plural"></a>Chapter&nbsp;17.&nbsp;Dynamic functions
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="index.html#plural.divein">17.1. Diving in</a></span></li>
+               <li><span class="section"><a href="stage1.html">17.2. plural.py, stage 1</a></span></li>
+               <li><span class="section"><a href="stage2.html">17.3. plural.py, stage 2</a></span></li>
+               <li><span class="section"><a href="stage3.html">17.4. plural.py, stage 3</a></span></li>
+               <li><span class="section"><a href="stage4.html">17.5. plural.py, stage 4</a></span></li>
+               <li><span class="section"><a href="stage5.html">17.6. plural.py, stage 5</a></span></li>
+               <li><span class="section"><a href="stage6.html">17.7. plural.py, stage 6</a></span></li>
+               <li><span class="section"><a href="summary.html">17.8. Summary</a></span></li>
+            </ul>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="plural.divein"></a>17.1.&nbsp;Diving in
+                     </h2>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <div class="abstract">
+               <p>I want to talk about plural nouns.  Also, functions that return other functions, advanced regular expressions, and generators.
+                   Generators are new in <span class="application">Python</span> 2.3.  But first, let's talk about how to make plural nouns.
+               </p>
+            </div>
+            <p>If you haven't read <a href="../regular_expressions/index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">Chapter&nbsp;7, <i>Regular Expressions</i></a>, now would be a good time.  This chapter assumes you understand the basics of regular expressions, and quickly descends into
+               more advanced uses.
+            </p>
+            <p>English is a schizophrenic language that borrows from a lot of other languages, and the rules for making singular nouns into
+               plural nouns are varied and complex.  There are rules, and then there are exceptions to those rules, and then there are exceptions
+               to the exceptions.
+            </p>
+            <p>If you grew up in an English-speaking country or learned English in a formal school setting, you're probably familiar with
+               the basic rules:
+            </p>
+            <div class="orderedlist">
+               <ol type="1">
+                  <li>If a word ends in S, X, or Z, add ES.  &#8220;<span class="quote">Bass</span>&#8221; becomes &#8220;<span class="quote">basses</span>&#8221;, &#8220;<span class="quote">fax</span>&#8221; becomes &#8220;<span class="quote">faxes</span>&#8221;, and &#8220;<span class="quote">waltz</span>&#8221; becomes &#8220;<span class="quote">waltzes</span>&#8221;.
+                  </li>
+                  <li>If a word ends in a noisy H, add ES; if it ends in a silent H, just add S.  What's a noisy H?  One that gets combined with
+                     other letters to make a sound that you can hear.  So &#8220;<span class="quote">coach</span>&#8221; becomes &#8220;<span class="quote">coaches</span>&#8221; and &#8220;<span class="quote">rash</span>&#8221; becomes &#8220;<span class="quote">rashes</span>&#8221;, because you can hear the CH and SH sounds when you say them.  But &#8220;<span class="quote">cheetah</span>&#8221; becomes &#8220;<span class="quote">cheetahs</span>&#8221;, because the H is silent.
+                  </li>
+                  <li>If a word ends in Y that sounds like I, change the Y to IES; if the Y is combined with a vowel to sound like something else,
+                     just add S.  So &#8220;<span class="quote">vacancy</span>&#8221; becomes &#8220;<span class="quote">vacancies</span>&#8221;, but &#8220;<span class="quote">day</span>&#8221; becomes &#8220;<span class="quote">days</span>&#8221;.
+                  </li>
+                  <li>If all else fails, just add S and hope for the best.</li>
+               </ol>
+            </div>
+            <p>(I know, there are a lot of exceptions.  &#8220;<span class="quote">Man</span>&#8221; becomes &#8220;<span class="quote">men</span>&#8221; and &#8220;<span class="quote">woman</span>&#8221; becomes &#8220;<span class="quote">women</span>&#8221;, but &#8220;<span class="quote">human</span>&#8221; becomes &#8220;<span class="quote">humans</span>&#8221;.  &#8220;<span class="quote">Mouse</span>&#8221; becomes &#8220;<span class="quote">mice</span>&#8221; and &#8220;<span class="quote">louse</span>&#8221; becomes &#8220;<span class="quote">lice</span>&#8221;, but &#8220;<span class="quote">house</span>&#8221; becomes &#8220;<span class="quote">houses</span>&#8221;.  &#8220;<span class="quote">Knife</span>&#8221; becomes &#8220;<span class="quote">knives</span>&#8221; and &#8220;<span class="quote">wife</span>&#8221; becomes &#8220;<span class="quote">wives</span>&#8221;, but &#8220;<span class="quote">lowlife</span>&#8221; becomes &#8220;<span class="quote">lowlifes</span>&#8221;.  And don't even get me started on words that are their own plural, like &#8220;<span class="quote">sheep</span>&#8221;, &#8220;<span class="quote">deer</span>&#8221;, and &#8220;<span class="quote">haiku</span>&#8221;.)
+            </p>
+            <p>Other languages are, of course, completely different.</p>
+            <p>Let's design a module that pluralizes nouns.  Start with just English nouns, and just these four rules, but keep in mind that
+               you'll inevitably need to add more rules, and you may eventually need to add more languages.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="../functional_programming/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="stage1.html" title="17.2.&nbsp;plural.py, stage 1">2</a> <span class="divider">|</span> <a href="stage2.html" title="17.3.&nbsp;plural.py, stage 2">3</a> <span class="divider">|</span> <a href="stage3.html" title="17.4.&nbsp;plural.py, stage 3">4</a> <span class="divider">|</span> <a href="stage4.html" title="17.5.&nbsp;plural.py, stage 4">5</a> <span class="divider">|</span> <a href="stage5.html" title="17.6.&nbsp;plural.py, stage 5">6</a> <span class="divider">|</span> <a href="stage6.html" title="17.7.&nbsp;plural.py, stage 6">7</a> <span class="divider">|</span> <a href="summary.html" title="17.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="stage1.html">plural.py, stage 1&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

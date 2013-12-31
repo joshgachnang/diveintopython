@@ -1,0 +1,116 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>15.5.&nbsp;Summary</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;15.&nbsp;Refactoring">
+      <link rel="previous" href="postscript.html" title="15.4.&nbsp;Postscript">
+      <link rel="next" href="../functional_programming/index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Refactoring</a>&nbsp;&gt;&nbsp;<span class="thispage">Summary</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="postscript.html" title="Prev: &#8220;Postscript&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="../functional_programming/index.html" title="Next: &#8220;Functional Programming&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="roman.summary"></a>15.5.&nbsp;Summary
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Unit testing is a powerful concept which, if properly implemented, can both reduce maintenance costs and increase flexibility
+               in any long-term project.  It is also important to understand that unit testing is not a panacea, a Magic Problem Solver,
+               or a silver bullet.  Writing good test cases is hard, and keeping them up to date takes discipline (especially when customers
+               are screaming for critical bug fixes).  Unit testing is not a replacement for other forms of testing, including functional
+               testing, integration testing, and user acceptance testing.  But it is feasible, and it does work, and once you've seen it
+               work, you'll wonder how you ever got along without it.
+            </p>
+         </div>
+         <p>This chapter covered a lot of ground, and much of it wasn't even <span class="application">Python</span>-specific.  There are unit testing frameworks for many languages, all of which require you to understand the same basic concepts:
+         </p>
+         <div class="highlights">
+            <div class="itemizedlist">
+               <ul>
+                  <li>Designing test cases that are specific, automated, and independent</li>
+                  <li>Writing test cases <span class="emphasis"><em>before</em></span> the code they are testing
+                  </li>
+                  <li>Writing tests that <a href="../unit_testing/testing_for_success.html" title="13.4.&nbsp;Testing for success">test good input</a> and check for proper results
+                  </li>
+                  <li>Writing tests that <a href="../unit_testing/testing_for_failure.html" title="13.5.&nbsp;Testing for failure">test bad input</a> and check for proper failures
+                  </li>
+                  <li>Writing and updating test cases to <a href="index.html#roman.bugs" title="15.1.&nbsp;Handling bugs">illustrate bugs</a> or <a href="handling_changing_requirements.html" title="15.2.&nbsp;Handling changing requirements">reflect new requirements</a></li>
+                  <li><a href="refactoring.html" title="15.3.&nbsp;Refactoring">Refactoring</a> mercilessly to improve performance, scalability, readability, maintainability, or whatever other -ility you're lacking
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <p>Additionally, you should be comfortable doing all of the following <span class="application">Python</span>-specific things:
+         </p>
+         <div class="highlights">
+            <div class="itemizedlist">
+               <ul>
+                  <li><a href="../unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues">Subclassing <tt class="literal">unittest.TestCase</tt></a> and writing methods for individual test cases
+                  </li>
+                  <li>Using <a href="../unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues"><tt class="function">assertEqual</tt></a> to check that a function returns a known value
+                  </li>
+                  <li>Using <a href="../unit_testing/testing_for_failure.html#roman.tobadinput.example" title="Example&nbsp;13.3.&nbsp;Testing bad input to toRoman"><tt class="function">assertRaises</tt></a> to check that a function raises a known exception
+                  </li>
+                  <li>Calling <a href="../unit_testing/stage_1.html#roman.stage1.output" title="Example&nbsp;14.2.&nbsp;Output of romantest1.py against roman1.py"><tt class="literal">unittest.main()</tt></a> in your <tt class="literal">if __name__</tt> clause to run all your test cases at once
+                  </li>
+                  <li>Running unit tests in <a href="../unit_testing/stage_1.html#roman.stage1.output" title="Example&nbsp;14.2.&nbsp;Output of romantest1.py against roman1.py">verbose</a> or <a href="refactoring.html#roman.stage8.1.output" title="Example&nbsp;15.12.&nbsp;Output of romantest81.py against roman81.py">regular</a> mode
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Further reading</h3>
+            <ul>
+               <li><a href="http://www.xprogramming.com/">XProgramming.com</a> has links to <a href="http://www.xprogramming.com/software.htm">download unit testing frameworks</a> for many different languages.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="postscript.html">&lt;&lt;&nbsp;Postscript</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#roman.bugs" title="15.1.&nbsp;Handling bugs">1</a> <span class="divider">|</span> <a href="handling_changing_requirements.html" title="15.2.&nbsp;Handling changing requirements">2</a> <span class="divider">|</span> <a href="refactoring.html" title="15.3.&nbsp;Refactoring">3</a> <span class="divider">|</span> <a href="postscript.html" title="15.4.&nbsp;Postscript">4</a> <span class="divider">|</span> <span class="thispage">5</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="../functional_programming/index.html">Functional Programming&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

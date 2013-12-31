@@ -1,0 +1,260 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>4.4.&nbsp;Getting Object References With getattr</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;4.&nbsp;The Power Of Introspection">
+      <link rel="previous" href="built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">
+      <link rel="next" href="filtering_lists.html" title="4.5.&nbsp;Filtering Lists">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">The Power Of Introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">Getting Object References With getattr</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="built_in_functions.html" title="Prev: &#8220;Using type, str, dir, and Other Built-In Functions&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="filtering_lists.html" title="Next: &#8220;Filtering Lists&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="apihelper.getattr"></a>4.4.&nbsp;Getting Object References With <tt class="function">getattr</tt></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="getattr.html#d0e9194">4.4.1. getattr with Modules</a></span></li>
+               <li><span class="section"><a href="getattr.html#d0e9362">4.4.2. getattr As a Dispatcher</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>You already know that <a href="../getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object"><span class="application">Python</span> functions are objects</a>.  What you don't know is that you can get a reference to a function without knowing its name until run-time, by using the
+               <tt class="function">getattr</tt> function.
+            </p>
+         </div>
+         <div class="example"><a name="apihelper.getattr.intro"></a><h3 class="title">Example&nbsp;4.10.&nbsp;Introducing <tt class="function">getattr</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class='pystring'>"Larry"</span>, <span class='pystring'>"Curly"</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.pop</span>                       <a name="apihelper.getattr.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;built-in method pop of list object at 010DF884&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(li, <span class='pystring'>"pop"</span>)</span>           <a name="apihelper.getattr.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;built-in method pop of list object at 010DF884&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(li, <span class='pystring'>"append"</span>)(<span class='pystring'>"Moe"</span>)</span> <a name="apihelper.getattr.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">["Larry", "Curly", "Moe"]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr({}, <span class='pystring'>"clear"</span>)</span>         <a name="apihelper.getattr.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;built-in method clear of dictionary object at 00F113D4&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr((), <span class='pystring'>"pop"</span>)</span>           <a name="apihelper.getattr.1.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'pop'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.getattr.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This gets a reference to the <tt class="function">pop</tt> method of the list.  Note that this is not calling the <tt class="function">pop</tt> method; that would be <tt class="literal">li.pop()</tt>.  This is the method itself.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.getattr.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This also returns a reference to the <tt class="function">pop</tt> method, but this time, the method name is specified as a string argument to the <tt class="function">getattr</tt> function.  <tt class="function">getattr</tt> is an incredibly useful built-in function that returns any attribute of any object.  In this case, the object is a list,
+                        and the attribute is the <tt class="function">pop</tt> method.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.getattr.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In case it hasn't sunk in just how incredibly useful this is, try this: the return value of <tt class="function">getattr</tt> <span class="emphasis"><em>is</em></span> the method, which you can then call just as if you had said <tt class="literal">li.append("Moe")</tt> directly.  But you didn't call the function directly; you specified the function name as a string instead.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.getattr.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">getattr</tt> also works on dictionaries.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.getattr.1.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In theory, <tt class="function">getattr</tt> would work on tuples, except that <a href="../native_data_types/tuples.html#odbchelper.tuplemethods" title="Example&nbsp;3.16.&nbsp;Tuples Have No Methods">tuples have no methods</a>, so <tt class="function">getattr</tt> will raise an exception no matter what attribute name you give.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e9194"></a>4.4.1.&nbsp;<tt class="function">getattr</tt> with Modules
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p><tt class="function">getattr</tt> isn't just for built-in datatypes.  It also works on modules.
+            </p>
+            <div class="example"><a name="apihelper.getattr.example"></a><h3 class="title">Example&nbsp;4.11.&nbsp;The <tt class="function">getattr</tt> Function in <tt class="filename">apihelper.py</tt></h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> odbchelper</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">odbchelper.buildConnectionString</span>             <a name="apihelper.getattr.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;function buildConnectionString at 00D18DD4&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(odbchelper, <span class='pystring'>"buildConnectionString"</span>)</span> <a name="apihelper.getattr.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;function buildConnectionString at 00D18DD4&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">object = odbchelper</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">method = <span class='pystring'>"buildConnectionString"</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">getattr(object, method)</span>                      <a name="apihelper.getattr.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;function buildConnectionString at 00D18DD4&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">type(getattr(object, method))</span>                <a name="apihelper.getattr.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;type 'function'&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> types</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">type(getattr(object, method)) == types.FunctionType</span>
+<span class="computeroutput">True</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callable(getattr(object, method))</span>            <a name="apihelper.getattr.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<span class="computeroutput">True</span></pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.getattr.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This returns a reference to the <tt class="function">buildConnectionString</tt> function in the <tt class="filename">odbchelper</tt> module, which you studied in <a href="../getting_to_know_python/index.html" title="Chapter&nbsp;2.&nbsp;Your First Python Program">Chapter&nbsp;2, <i>Your First Python Program</i></a>.  (The hex address you see is specific to my machine; your output will be different.)
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.getattr.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Using <tt class="function">getattr</tt>, you can get the same reference to the same function.  In general, <tt class="literal"><tt class="function">getattr</tt>(<i class="replaceable">object</i>, "<i class="replaceable">attribute</i>")</tt> is equivalent to <tt class="literal"><i class="replaceable">object</i>.<i class="replaceable">attribute</i></tt>.  If <i class="replaceable"><tt>object</tt></i> is a module, then <i class="replaceable"><tt>attribute</tt></i> can be anything defined in the module: a function, class, or global variable.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.getattr.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">And this is what you actually use in the <tt class="function">info</tt> function.  <tt class="varname">object</tt> is passed into the function as an argument; <tt class="varname">method</tt> is a string which is the name of a method or function.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.getattr.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">In this case, <tt class="varname">method</tt> is the name of a function, which you can prove by getting its <a href="built_in_functions.html#apihelper.type.intro" title="Example&nbsp;4.5.&nbsp;Introducing type"><tt class="function">type</tt></a>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.getattr.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Since <tt class="varname">method</tt> is a function, it is <a href="built_in_functions.html#apihelper.builtin.callable" title="Example&nbsp;4.8.&nbsp;Introducing callable">callable</a>.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e9362"></a>4.4.2.&nbsp;<tt class="function">getattr</tt> As a Dispatcher
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>A common usage pattern of <tt class="function">getattr</tt> is as a dispatcher.  For example, if you had a program that could output data in a variety of different formats, you could
+               define separate functions for each output format and use a single dispatch function to call the right one.
+            </p>
+            <p>For example, let's imagine a program that prints site statistics in <span class="acronym">HTML</span>, <span class="acronym">XML</span>, and plain text formats.  The choice of output format could be specified on the command line, or stored in a configuration
+               file.  A <tt class="filename">statsout</tt> module defines three functions, <tt class="function">output_html</tt>, <tt class="function">output_xml</tt>, and <tt class="function">output_text</tt>.  Then the main program defines a single output function, like this:
+            </p>
+            <div class="example"><a name="apihelper.getattr.dispatch"></a><h3 class="title">Example&nbsp;4.12.&nbsp;Creating a Dispatcher with <tt class="function">getattr</tt></h3><pre class="programlisting"><span class='pykeyword'>
+import</span> statsout
+
+<span class='pykeyword'>def</span><span class='pyclass'> output</span>(data, format=<span class='pystring'>"text"</span>):                              <a name="apihelper.getattr.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    output_function = getattr(statsout, <span class='pystring'>"output_%s"</span> % format) <a name="apihelper.getattr.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>return</span> output_function(data)                              <a name="apihelper.getattr.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+</pre></div>
+            <div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.getattr.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="function">output</tt> function takes one required argument, <tt class="varname">data</tt>, and one optional argument, <tt class="varname">format</tt>.  If <tt class="varname">format</tt> is not specified, it defaults to <tt class="literal">text</tt>, and you will end up calling the plain text output function.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.getattr.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You concatenate the <tt class="varname">format</tt> argument with "output_" to produce a function name, and then go get that function from the <tt class="filename">statsout</tt> module.  This allows you to easily extend the program later to support other output formats, without changing this dispatch
+                        function.  Just add another function to <tt class="filename">statsout</tt> named, for instance, <tt class="function">output_pdf</tt>, and pass "pdf" as the <tt class="varname">format</tt> into the <tt class="function">output</tt> function.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#apihelper.getattr.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now you can simply call the output function in the same way as any other function.  The <tt class="varname">output_function</tt> variable is a reference to the appropriate function from the <tt class="filename">statsout</tt> module.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p>Did you see the bug in the previous example?  This is a very loose coupling of strings and functions, and there is no error
+               checking.  What happens if the user passes in a format that doesn't have a corresponding function defined in <tt class="filename">statsout</tt>?  Well, <tt class="function">getattr</tt> will return <tt class="literal">None</tt>, which will be assigned to <tt class="varname">output_function</tt> instead of a valid function, and the next line that attempts to call that function will crash and raise an exception.  That's
+               bad.
+            </p>
+            <p>Luckily, <tt class="function">getattr</tt> takes an optional third argument, a default value.
+            </p>
+            <div class="example"><a name="apihelper.getattr.default"></a><h3 class="title">Example&nbsp;4.13.&nbsp;<tt class="function">getattr</tt> Default Values
+               </h3><pre class="programlisting"><span class='pykeyword'>
+import</span> statsout
+
+<span class='pykeyword'>def</span><span class='pyclass'> output</span>(data, format=<span class='pystring'>"text"</span>):
+    output_function = getattr(statsout, <span class='pystring'>"output_%s"</span> % format, statsout.output_text)
+    <span class='pykeyword'>return</span> output_function(data) <a name="apihelper.getattr.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#apihelper.getattr.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This function call is guaranteed to work, because you added a third argument to the call to <tt class="function">getattr</tt>.  The third argument is a default value that is returned if the attribute or method specified by the second argument wasn't
+                           found.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>As you can see, <tt class="function">getattr</tt> is quite powerful.  It is the heart of introspection, and you'll see even more powerful examples of it in later chapters.
+            </p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="built_in_functions.html">&lt;&lt;&nbsp;Using type, str, dir, and Other Built-In Functions</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#apihelper.divein" title="4.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <a href="built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <a href="and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">6</a> <span class="divider">|</span> <a href="lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">7</a> <span class="divider">|</span> <a href="all_together.html" title="4.8.&nbsp;Putting It All Together">8</a> <span class="divider">|</span> <a href="summary.html" title="4.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="filtering_lists.html">Filtering Lists&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,232 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>12.6.&nbsp;Introspecting SOAP Web Services with WSDL</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;12.&nbsp;SOAP Web Services">
+      <link rel="previous" href="wsdl.html" title="12.5.&nbsp;Introducing WSDL">
+      <link rel="next" href="google.html" title="12.7.&nbsp;Searching Google">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">SOAP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Introspecting SOAP Web Services with WSDL</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="wsdl.html" title="Prev: &#8220;Introducing WSDL&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="google.html" title="Next: &#8220;Searching Google&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="soap.introspection"></a>12.6.&nbsp;Introspecting <span class="acronym">SOAP</span> Web Services with <span class="acronym">WSDL</span></h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Like many things in the web services arena, <span class="acronym">WSDL</span> has a long and checkered history, full of political strife and intrigue.  I will skip over this history entirely, since it
+               bores me to tears.  There were other standards that tried to do similar things, but <span class="acronym">WSDL</span> won, so let's learn how to use it.
+            </p>
+         </div>
+         <p>The most fundamental thing that <span class="acronym">WSDL</span> allows you to do is discover the available methods offered by a <span class="acronym">SOAP</span> server.
+         </p>
+         <div class="example"><a name="d0e30755"></a><h3 class="title">Example&nbsp;12.8.&nbsp;Discovering The Available Methods</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> SOAPpy <span class='pykeyword'>import</span> WSDL</span>          <a name="soap.introspection.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">wsdlFile = <span class='pystring'>'http://www.xmethods.net/sd/2001/TemperatureService.wsdl'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = WSDL.Proxy(wsdlFile)</span>    <a name="soap.introspection.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.methods.keys()</span>            <a name="soap.introspection.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">[u'getTemp']</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><span class="application">SOAPpy</span> includes a <span class="acronym">WSDL</span> parser.  At the time of this writing, it was labeled as being in the early stages of development, but I had no problem parsing
+                        any of the <span class="acronym">WSDL</span> files I tried.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To use a <span class="acronym">WSDL</span> file, you again use a proxy class, <tt class="classname">WSDL.Proxy</tt>, which takes a single argument: the <span class="acronym">WSDL</span> file.  Note that in this case you are passing in the <span class="acronym">URL</span> of a <span class="acronym">WSDL</span> file stored on the remote server, but the proxy class works just as well with a local copy of the <span class="acronym">WSDL</span> file.  The act of creating the <span class="acronym">WSDL</span> proxy will download the <span class="acronym">WSDL</span> file and parse it, so it there are any errors in the <span class="acronym">WSDL</span> file (or it can't be fetched due to networking problems), you'll know about it immediately.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <span class="acronym">WSDL</span> proxy class exposes the available functions as a <span class="application">Python</span> dictionary, <tt class="varname">server.methods</tt>.  So getting the list of available methods is as simple as calling the dictionary method <tt class="methodname">keys()</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Okay, so you know that this <span class="acronym">SOAP</span> server offers a single method: <tt class="methodname">getTemp</tt>.  But how do you call it?  The <span class="acronym">WSDL</span> proxy object can tell you that too.
+         </p>
+         <div class="example"><a name="d0e30857"></a><h3 class="title">Example&nbsp;12.9.&nbsp;Discovering A Method's Arguments</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callInfo = server.methods[<span class='pystring'>'getTemp'</span>]</span>  <a name="soap.introspection.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callInfo.inparams</span>                     <a name="soap.introspection.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;SOAPpy.wstools.WSDLTools.ParameterInfo instance at 0x00CF3AD0&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callInfo.inparams[0].name</span>             <a name="soap.introspection.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">u'zipcode'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callInfo.inparams[0].type</span>             <a name="soap.introspection.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">(u'http://www.w3.org/2001/XMLSchema', u'string')</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="varname">server.methods</tt> dictionary is filled with a <span class="application">SOAPpy</span>-specific structure called <tt class="classname">CallInfo</tt>.  A <tt class="classname">CallInfo</tt> object contains information about one specific function, including the function arguments.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The function arguments are stored in <tt class="varname">callInfo.inparams</tt>, which is a <span class="application">Python</span> list of <tt class="classname">ParameterInfo</tt> objects that hold information about each parameter.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Each <tt class="classname">ParameterInfo</tt> object contains a <tt class="varname">name</tt> attribute, which is the argument name.  You are not required to know the argument name to call the function through <span class="acronym">SOAP</span>, but <span class="acronym">SOAP</span> does support calling functions with named arguments (just like <span class="application">Python</span>), and <tt class="classname">WSDL.Proxy</tt> will correctly handle mapping named arguments to the remote function if you choose to use them.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Each parameter is also explicitly typed, using datatypes defined in XML Schema.  You saw this in the wire trace in the previous
+                        section; the XML Schema namespace was part of the &#8220;<span class="quote">boilerplate</span>&#8221; I told you to ignore.  For our purposes here, you may continue to ignore it.  The <tt class="varname">zipcode</tt> parameter is a string, and if you pass in a <span class="application">Python</span> string to the <tt class="classname">WSDL.Proxy</tt> object, it will map it correctly and send it to the server.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p><span class="acronym">WSDL</span> also lets you introspect into a function's return values.
+         </p>
+         <div class="example"><a name="d0e30967"></a><h3 class="title">Example&nbsp;12.10.&nbsp;Discovering A Method's Return Values</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callInfo.outparams</span>            <a name="soap.introspection.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">[&lt;SOAPpy.wstools.WSDLTools.ParameterInfo instance at 0x00CF3AF8&gt;]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callInfo.outparams[0].name</span>    <a name="soap.introspection.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">u'return'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">callInfo.outparams[0].type</span>
+<span class="computeroutput">(u'http://www.w3.org/2001/XMLSchema', u'float')</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The adjunct to <tt class="varname">callInfo.inparams</tt> for function arguments is <tt class="varname">callInfo.outparams</tt> for return value.  It is also a list, because functions called through <span class="acronym">SOAP</span> can return multiple values, just like <span class="application">Python</span> functions.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Each <tt class="classname">ParameterInfo</tt> object contains <tt class="varname">name</tt> and <tt class="varname">type</tt>.  This function returns a single value, named <tt class="varname">return</tt>, which is a float.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Let's put it all together, and call a <span class="acronym">SOAP</span> web service through a <span class="acronym">WSDL</span> proxy.
+         </p>
+         <div class="example"><a name="d0e31039"></a><h3 class="title">Example&nbsp;12.11.&nbsp;Calling A Web Service Through A <span class="acronym">WSDL</span> Proxy
+            </h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>from</span> SOAPpy <span class='pykeyword'>import</span> WSDL</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">wsdlFile = <span class='pystring'>'http://www.xmethods.net/sd/2001/TemperatureService.wsdl'</span>)</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server = WSDL.Proxy(wsdlFile)</span>               <a name="soap.introspection.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.getTemp(<span class='pystring'>'90210'</span>)</span>                     <a name="soap.introspection.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">66.0</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.soapproxy.config.dumpSOAPOut = 1</span>     <a name="soap.introspection.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">server.soapproxy.config.dumpSOAPIn = 1</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">temperature = server.getTemp(<span class='pystring'>'90210'</span>)</span>
+<span class="computeroutput">*** Outgoing SOAP ******************************************************
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:xsd="http://www.w3.org/1999/XMLSchema"&gt;
+&lt;SOAP-ENV:Body&gt;
+&lt;ns1:getTemp xmlns:ns1="urn:xmethods-Temperature" SOAP-ENC:root="1"&gt;
+&lt;v1 xsi:type="xsd:string"&gt;90210&lt;/v1&gt;
+&lt;/ns1:getTemp&gt;
+&lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+************************************************************************
+*** Incoming SOAP ******************************************************
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+&lt;SOAP-ENV:Body&gt;
+&lt;ns1:getTempResponse xmlns:ns1="urn:xmethods-Temperature"
+  SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"&gt;
+&lt;return xsi:type="xsd:float"&gt;66.0&lt;/return&gt;
+&lt;/ns1:getTempResponse&gt;
+
+&lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+************************************************************************
+</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">temperature</span>
+<span class="computeroutput">66.0</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The configuration is simpler than calling the <span class="acronym">SOAP</span> service directly, since the <span class="acronym">WSDL</span> file contains the both service <span class="acronym">URL</span> and namespace you need to call the service.  Creating the <tt class="classname">WSDL.Proxy</tt> object downloads the <span class="acronym">WSDL</span> file, parses it, and configures a <tt class="classname">SOAPProxy</tt> object that it uses to call the actual <span class="acronym">SOAP</span> web service.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Once the <tt class="classname">WSDL.Proxy</tt> object is created, you can call a function as easily as you did with the <tt class="classname">SOAPProxy</tt> object.  This is not surprising; the <tt class="classname">WSDL.Proxy</tt> is just a wrapper around the <tt class="classname">SOAPProxy</tt> with some introspection methods added, so the syntax for calling functions is the same.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#soap.introspection.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can access the <tt class="classname">WSDL.Proxy</tt>'s <tt class="classname">SOAPProxy</tt> with <tt class="varname">server.soapproxy</tt>.  This is useful to turning on debugging, so that when you can call functions through the <span class="acronym">WSDL</span> proxy, its <tt class="classname">SOAPProxy</tt> will dump the outgoing and incoming XML documents that are going over the wire.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="wsdl.html">&lt;&lt;&nbsp;Introducing WSDL</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#soap.divein" title="12.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="install.html" title="12.2.&nbsp;Installing the SOAP Libraries">2</a> <span class="divider">|</span> <a href="first_steps.html" title="12.3.&nbsp;First Steps with SOAP">3</a> <span class="divider">|</span> <a href="debugging.html" title="12.4.&nbsp;Debugging SOAP Web Services">4</a> <span class="divider">|</span> <a href="wsdl.html" title="12.5.&nbsp;Introducing WSDL">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="google.html" title="12.7.&nbsp;Searching Google">7</a> <span class="divider">|</span> <a href="troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">8</a> <span class="divider">|</span> <a href="summary.html" title="12.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="google.html">Searching Google&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

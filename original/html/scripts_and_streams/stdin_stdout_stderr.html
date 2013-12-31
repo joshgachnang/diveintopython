@@ -1,0 +1,317 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>10.2.&nbsp;Standard input, output, and error</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;10.&nbsp;Scripts and Streams">
+      <link rel="previous" href="index.html" title="Chapter&nbsp;10.&nbsp;Scripts and Streams">
+      <link rel="next" href="caching.html" title="10.3.&nbsp;Caching node lookups">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Standard input, output, and error</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="index.html" title="Prev: &#8220;Scripts and Streams&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="caching.html" title="Next: &#8220;Caching node lookups&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.stdio"></a>10.2.&nbsp;Standard input, output, and error
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><span class="acronym">UNIX</span> users are already familiar with the concept of standard input, standard output, and standard error.  This section is for
+               the rest of you.
+            </p>
+         </div>
+         <p>Standard output and standard error (commonly abbreviated <tt class="literal">stdout</tt> and <tt class="literal">stderr</tt>) are pipes that are built into every <span class="acronym">UNIX</span> system.  When you <tt class="function">print</tt> something, it goes to the <tt class="literal">stdout</tt> pipe; when your program crashes and prints out debugging information (like a traceback in <span class="application">Python</span>), it goes to the <tt class="literal">stderr</tt> pipe.  Both of these pipes are ordinarily just connected to the terminal window where you are working, so when a program
+            prints, you see the output, and when a program crashes, you see the debugging information.  (If you're working on a system
+            with a window-based <span class="application">Python</span> <span class="acronym">IDE</span>, <tt class="literal">stdout</tt> and <tt class="literal">stderr</tt> default to your &#8220;<span class="quote">Interactive Window</span>&#8221;.)
+         </p>
+         <div class="example"><a name="d0e25781"></a><h3 class="title">Example&nbsp;10.8.&nbsp;Introducing <tt class="literal">stdout</tt> and <tt class="literal">stderr</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> i <span class='pykeyword'>in</span> range(3):</span>
+<tt class="prompt">...     </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>'Dive in'</span></span>             <a name="kgp.stdio.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">Dive in
+Dive in
+Dive in</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> sys</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> i <span class='pykeyword'>in</span> range(3):</span>
+<tt class="prompt">...     </tt><span class="userinput">sys.stdout.write(<span class='pystring'>'Dive in'</span>)</span> <a name="kgp.stdio.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">Dive inDive inDive in</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>for</span> i <span class='pykeyword'>in</span> range(3):</span>
+<tt class="prompt">...     </tt><span class="userinput">sys.stderr.write(<span class='pystring'>'Dive in'</span>)</span> <a name="kgp.stdio.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">Dive inDive inDive in</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../file_handling/for_loops.html#fileinfo.for.counter" title="Example&nbsp;6.9.&nbsp;Simple Counters">Example&nbsp;6.9, &#8220;Simple Counters&#8221;</a>, you can use <span class="application">Python</span>'s built-in <tt class="function">range</tt> function to build simple counter loops that repeat something a set number of times.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">stdout</tt> is a file-like object; calling its <tt class="function">write</tt> function will print out whatever string you give it.  In fact, this is what the <tt class="function">print</tt> function really does; it adds a carriage return to the end of the string you're printing, and calls <tt class="function">sys.stdout.write</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">In the simplest case, <tt class="literal">stdout</tt> and <tt class="literal">stderr</tt> send their output to the same place: the <span class="application">Python</span> <span class="acronym">IDE</span> (if you're in one), or the terminal (if you're running <span class="application">Python</span> from the command line).  Like <tt class="literal">stdout</tt>, <tt class="literal">stderr</tt> does not add carriage returns for you; if you want them, add them yourself.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p><tt class="literal">stdout</tt> and <tt class="literal">stderr</tt> are both file-like objects, like the ones you discussed in <a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">Section&nbsp;10.1, &#8220;Abstracting input sources&#8221;</a>, but they are both write-only.  They have no <tt class="function">read</tt> method, only <tt class="function">write</tt>.  Still, they are file-like objects, and you can assign any other file- or file-like object to them to redirect their output.
+         </p>
+         <div class="example"><a name="d0e25905"></a><h3 class="title">Example&nbsp;10.9.&nbsp;Redirecting output</h3><pre class="screen">
+<tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">python stdout.py</span>
+<span class="computeroutput">Dive in</span>
+<tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">cat out.log</span>
+<span class="computeroutput">This message will be logged instead of displayed</span></pre><p>(On Windows, you can use <tt class="literal">type</tt> instead of <tt class="literal">cat</tt> to display the contents of a file.)
+            </p>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pycomment'>#stdout.py</span>
+<span class='pykeyword'>import</span> sys
+
+<span class='pykeyword'>print</span> <span class='pystring'>'Dive in'</span>                                          <a name="kgp.stdio.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+saveout = sys.stdout                                     <a name="kgp.stdio.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+fsock = open(<span class='pystring'>'out.log'</span>, <span class='pystring'>'w'</span>)                             <a name="kgp.stdio.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+sys.stdout = fsock                                       <a name="kgp.stdio.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"><span class='pykeyword'>
+print</span> <span class='pystring'>'This message will be logged instead of displayed'</span> <a name="kgp.stdio.2.5"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+sys.stdout = saveout                                     <a name="kgp.stdio.2.6"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+fsock.close()                                            <a name="kgp.stdio.2.7"></a><img src="../images/callouts/7.png" alt="7" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This will print to the <span class="acronym">IDE</span> &#8220;<span class="quote">Interactive Window</span>&#8221; (or the terminal, if running the script from the command line).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Always save <tt class="literal">stdout</tt> before redirecting it, so you can set it back to normal later.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Open a file for writing.  If the file doesn't exist, it will be created.  If the file does exist, it will be overwritten.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Redirect all further output to the new file you just opened.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.2.5"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This will be &#8220;<span class="quote">printed</span>&#8221; to the log file only; it will not be visible in the <span class="acronym">IDE</span> window or on the screen.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.2.6"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Set <tt class="literal">stdout</tt> back to the way it was before you mucked with it.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.2.7"><img src="../images/callouts/7.png" alt="7" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Close the log file.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Redirecting <tt class="literal">stderr</tt> works exactly the same way, using <tt class="function">sys.stderr</tt> instead of <tt class="function">sys.stdout</tt>.
+         </p>
+         <div class="example"><a name="d0e26005"></a><h3 class="title">Example&nbsp;10.10.&nbsp;Redirecting error information</h3><pre class="screen">
+<tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">python stderr.py</span>
+<tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">cat error.log</span>
+<span class="computeroutput">Traceback (most recent line last):
+  File "stderr.py", line 5, in ?
+    raise Exception, 'this error will be logged'
+Exception: this error will be logged</span></pre><p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pycomment'>#stderr.py</span>
+<span class='pykeyword'>import</span> sys
+
+fsock = open(<span class='pystring'>'error.log'</span>, <span class='pystring'>'w'</span>)               <a name="kgp.stdio.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+sys.stderr = fsock                           <a name="kgp.stdio.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"><span class='pykeyword'>
+raise</span> Exception, <span class='pystring'>'this error will be logged'</span> <a name="kgp.stdio.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"> <a name="kgp.stdio.3.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Open the log file where you want to store debugging information.</td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Redirect standard error by assigning the file object of the newly-opened log file to <tt class="literal">stderr</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Raise an exception.  Note from the screen output that this does <span class="emphasis"><em>not</em></span> print anything on screen.  All the normal traceback information has been written to <tt class="filename">error.log</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.3.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Also note that you're not explicitly closing your log file, nor are you setting <tt class="literal">stderr</tt> back to its original value.  This is fine, since once the program crashes (because of the exception), <span class="application">Python</span> will clean up and close the file for us, and it doesn't make any difference that <tt class="literal">stderr</tt> is never restored, since, as I mentioned, the program crashes and <span class="application">Python</span> ends.  Restoring the original is more important for <tt class="literal">stdout</tt>, if you expect to go do other stuff within the same script afterwards.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Since it is so common to write error messages to standard error, there is a shorthand syntax that can be used instead of going
+            through the hassle of redirecting it outright.
+         </p>
+         <div class="example"><a name="kgp.stdio.print.example"></a><h3 class="title">Example&nbsp;10.11.&nbsp;Printing to <tt class="literal">stderr</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> <span class='pystring'>'entering function'</span></span>
+<span class="computeroutput">entering function</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> sys</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>print</span> &gt;&gt; sys.stderr, <span class='pystring'>'entering function'</span></span> <a name="kgp.stdio.6.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">entering function</span>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.6.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This shorthand syntax of the <tt class="function">print</tt> statement can be used to write to any open file, or file-like object.  In this case, you can redirect a single <tt class="function">print</tt> statement to <tt class="literal">stderr</tt> without affecting subsequent <tt class="function">print</tt> statements.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>Standard input, on the other hand, is a read-only file object, and it represents the data flowing into the program from some
+            previous program.  This will likely not make much sense to classic <span class="abbrev">Mac</span> <span class="acronym">OS</span> users, or even Windows users unless you were ever fluent on the <span class="acronym">MS-DOS</span> command line.  The way it works is that you can construct a chain of commands in a single line, so that one program's output
+            becomes the input for the next program in the chain.  The first program simply outputs to standard output (without doing any
+            special redirecting itself, just doing normal <tt class="function">print</tt> statements or whatever), and the next program reads from standard input, and the operating system takes care of connecting
+            one program's output to the next program's input.
+         </p>
+         <div class="example"><a name="d0e26136"></a><h3 class="title">Example&nbsp;10.12.&nbsp;Chaining commands</h3><pre class="screen">
+<tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">python kgp.py -g binary.xml</span>         <a name="kgp.stdio.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">01100111</span>
+<tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">cat binary.xml</span>                      <a name="kgp.stdio.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE grammar PUBLIC "-//diveintopython.org//DTD Kant Generator Pro v1.0//EN" "kgp.dtd"&gt;
+&lt;grammar&gt;
+&lt;ref id="bit"&gt;
+  &lt;p&gt;0&lt;/p&gt;
+  &lt;p&gt;1&lt;/p&gt;
+&lt;/ref&gt;
+&lt;ref id="byte"&gt;
+  &lt;p&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;\
+&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;xref id="bit"/&gt;&lt;/p&gt;
+&lt;/ref&gt;
+&lt;/grammar&gt;</span>
+<tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">cat binary.xml | python kgp.py -g -</span> <a name="kgp.stdio.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"> <a name="kgp.stdio.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">10110001</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As you saw in <a href="../xml_processing/index.html#kgp.divein" title="9.1.&nbsp;Diving in">Section&nbsp;9.1, &#8220;Diving in&#8221;</a>, this will print a string of eight random bits, <tt class="constant">0</tt> or <tt class="constant">1</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This simply prints out the entire contents of <tt class="filename">binary.xml</tt>.  (Windows users should use <tt class="literal">type</tt> instead of <tt class="literal">cat</tt>.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This prints the contents of <tt class="filename">binary.xml</tt>, but the &#8220;<span class="quote"><tt class="literal">|</tt></span>&#8221; character, called the &#8220;<span class="quote">pipe</span>&#8221; character, means that the contents will not be printed to the screen.  Instead, they will become the standard input of the
+                        next command, which in this case calls your <span class="application">Python</span> script.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Instead of specifying a module (like <tt class="filename">binary.xml</tt>), you specify &#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;, which causes your script to load the grammar from standard input instead of from a specific file on disk.  (More on how
+                        this happens in the next example.)  So the effect is the same as the first syntax, where you specified the grammar filename
+                        directly, but think of the expansion possibilities here.  Instead of simply doing <tt class="literal">cat binary.xml</tt>, you could run a script that dynamically generates the grammar, then you can pipe it into your script.  It could come from
+                        anywhere: a database, or some grammar-generating meta-script, or whatever.  The point is that you don't need to change your
+                        <tt class="filename">kgp.py</tt> script at all to incorporate any of this functionality.  All you need to do is be able to take grammar files from standard
+                        input, and you can separate all the other logic into another program.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So how does the script &#8220;<span class="quote">know</span>&#8221; to read from standard input when the grammar file is &#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;?  It's not magic; it's just code.
+         </p>
+         <div class="example"><a name="d0e26237"></a><h3 class="title">Example&nbsp;10.13.&nbsp;Reading from standard input in <tt class="filename">kgp.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+def</span> openAnything(source):
+    <span class='pykeyword'>if</span> source == <span class='pystring'>"-"</span>:    <a name="kgp.stdio.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        <span class='pykeyword'>import</span> sys
+        <span class='pykeyword'>return</span> sys.stdin
+
+    <span class='pycomment'># try to open with urllib (if source is http, ftp, or file URL)</span>
+    <span class='pykeyword'>import</span> urllib
+    <span class='pykeyword'>try</span>:
+
+[... snip ...]</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.stdio.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is the <tt class="function">openAnything</tt> function from <tt class="filename">toolbox.py</tt>, which you previously examined in <a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">Section&nbsp;10.1, &#8220;Abstracting input sources&#8221;</a>.  All you've done is add three lines of code at the beginning of the function to check if the source is &#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;; if so, you return <tt class="literal">sys.stdin</tt>.  Really, that's it!  Remember, <tt class="literal">stdin</tt> is a file-like object with a <tt class="function">read</tt> method, so the rest of the code (in <tt class="filename">kgp.py</tt>, where you call <tt class="function">openAnything</tt>) doesn't change a bit.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="index.html">&lt;&lt;&nbsp;Scripts and Streams</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="caching.html">Caching node lookups&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,142 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>2.5.&nbsp;Indenting Code</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;2.&nbsp;Your First Python Program">
+      <link rel="previous" href="everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object">
+      <link rel="next" href="testing_modules.html" title="2.6.&nbsp;Testing Modules">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Your First Python Program</a>&nbsp;&gt;&nbsp;<span class="thispage">Indenting Code</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="everything_is_an_object.html" title="Prev: &#8220;Everything Is an Object&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="testing_modules.html" title="Next: &#8220;Testing Modules&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.indenting"></a>2.5.&nbsp;Indenting Code
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Python</span> functions have no explicit <tt class="literal">begin</tt> or <tt class="literal">end</tt>, and no curly braces to mark where the function code starts and stops.  The only delimiter is a colon (<tt class="literal">:</tt>) and the indentation of the code itself.
+            </p>
+         </div>
+         <div class="example"><a name="d0e4759"></a><h3 class="title">Example&nbsp;2.5.&nbsp;Indenting the <tt class="function">buildConnectionString</tt> Function
+            </h3><pre class="programlisting"><span class='pykeyword'>
+def</span> buildConnectionString(params):
+    <span class='pystring'>"""Build a connection string from a dictionary of parameters.
+
+    Returns string."""</span>
+    <span class='pykeyword'>return</span> <span class='pystring'>";"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()])</pre></div>
+         <p>Code blocks are defined by their indentation.  By "code block", I mean functions, <tt class="literal">if</tt> statements, <tt class="literal">for</tt> loops, <tt class="literal">while</tt> loops, and so forth.  Indenting starts a block and unindenting ends it.  There are no explicit braces, brackets, or keywords.
+             This means that whitespace is significant, and must be consistent.  In this example, the function code (including the <tt class="literal">doc string</tt>) is indented four spaces.  It doesn't need to be four spaces, it just needs to be consistent.  The first line that is not
+            indented is outside the function.
+         </p>
+         <p><a href="indenting_code.html#odbchelper.indenting.if" title="Example&nbsp;2.6.&nbsp;if Statements">Example&nbsp;2.6, &#8220;if Statements&#8221;</a> shows an example of code indentation with <tt class="literal">if</tt> statements.
+         </p>
+         <div class="example"><a name="odbchelper.indenting.if"></a><h3 class="title">Example&nbsp;2.6.&nbsp;<tt class="literal">if</tt> Statements
+            </h3><pre class="programlisting"><span class='pykeyword'>
+def</span> fib(n):                   <a name="odbchelper.indenting.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>print</span> <span class='pystring'>'n ='</span>, n            <a name="odbchelper.indenting.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>if</span> n &gt; 1:                 <a name="odbchelper.indenting.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        <span class='pykeyword'>return</span> n * fib(n - 1)
+    <span class='pykeyword'>else</span>:                     <a name="odbchelper.indenting.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        <span class='pykeyword'>print</span> <span class='pystring'>'end of the line'</span>
+        <span class='pykeyword'>return</span> 1
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.indenting.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is a function named <tt class="function">fib</tt> that takes one argument, <tt class="varname">n</tt>.  All the code within the function is indented.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.indenting.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Printing to the screen is very easy in <span class="application">Python</span>, just use <tt class="function">print</tt>.  <tt class="function">print</tt> statements can take any data type, including strings, integers, and other native types like dictionaries and lists that you'll
+                        learn about in the next chapter.  You can even mix and match to print several things on one line by using a comma-separated
+                        list of values.  Each value is printed on the same line, separated by spaces (the commas don't print).  So when <tt class="function">fib</tt> is called with <tt class="literal">5</tt>, this will print "n = 5".
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.indenting.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="literal">if</tt> statements are a type of code block.  If the <tt class="literal">if</tt> expression evaluates to true, the indented block is executed, otherwise it falls to the <tt class="literal">else</tt> block.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.indenting.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Of course <tt class="literal">if</tt> and <tt class="literal">else</tt> blocks can contain multiple lines, as long as they are all indented the same amount.  This <tt class="literal">else</tt> block has two lines of code in it.  There is no other special syntax for multi-line code blocks.  Just indent and get on
+                        with your life.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>After some initial protests and several snide analogies to <span class="application">Fortran</span>, you will make peace with this and start seeing its benefits.  One major benefit is that all <span class="application">Python</span> programs look similar, since indentation is a language requirement and not a matter of style.  This makes it easier to read
+            and understand other people's <span class="application">Python</span> code.
+         </p><a name="compare.lineend.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%"><span class="application">Python</span> uses carriage returns to separate statements and a colon and indentation to separate code blocks.  <span class="application"><span class="acronym">C++</span></span> and <span class="application">Java</span> use semicolons to separate statements and curly braces to separate code blocks.
+               </td>
+            </tr>
+         </table>
+         <div class="furtherreading">
+            <h3>Further Reading on Code Indentation</h3>
+            <ul>
+               <li><a href="http://www.python.org/doc/current/ref/"><i class="citetitle"><span class="application">Python</span> Reference Manual</i></a> discusses cross-platform indentation issues and <a href="http://www.python.org/doc/current/ref/indentation.html">shows various indentation errors</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/essays/styleguide.html"><i class="citetitle"><span class="application">Python</span> Style Guide</i></a> discusses good indentation style.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="everything_is_an_object.html">&lt;&lt;&nbsp;Everything Is an Object</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#odbchelper.divein" title="2.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="declaring_functions.html" title="2.2.&nbsp;Declaring Functions">2</a> <span class="divider">|</span> <a href="documenting_functions.html" title="2.3.&nbsp;Documenting Functions">3</a> <span class="divider">|</span> <a href="everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="testing_modules.html" title="2.6.&nbsp;Testing Modules">6</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="testing_modules.html">Testing Modules&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

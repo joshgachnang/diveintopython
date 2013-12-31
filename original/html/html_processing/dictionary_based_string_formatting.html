@@ -1,0 +1,167 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>8.6.&nbsp;Dictionary-based string formatting</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">
+      <link rel="previous" href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">
+      <link rel="next" href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Dictionary-based string formatting</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="locals_and_globals.html" title="Prev: &#8220;locals and globals&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="quoting_attribute_values.html" title="Next: &#8220;Quoting attribute values&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="dialect.dictsub"></a>8.6.&nbsp;Dictionary-based string formatting
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <p>Why did you learn about <tt class="function">locals</tt> and <tt class="function">globals</tt>?  So you can learn about dictionary-based string formatting.  As you recall, <a href="../native_data_types/formatting_strings.html" title="3.5.&nbsp;Formatting Strings">regular string formatting</a> provides an easy way to insert values into strings.  Values are listed in a tuple and inserted in order into the string in
+            place of each formatting marker.  While this is efficient, it is not always the easiest code to read, especially when multiple
+            values are being inserted.  You can't simply scan through the string in one pass and understand what the result will be; you're
+            constantly switching between reading the string and reading the tuple of values.
+         </p>
+         <div class="abstract">
+            <p>There is an alternative form of string formatting that uses dictionaries instead of tuples of values.</p>
+         </div>
+         <div class="example"><a name="d0e21518"></a><h3 class="title">Example&nbsp;8.13.&nbsp;Introducing dictionary-based string formatting</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">params = {<span class='pystring'>"server"</span>:<span class='pystring'>"mpilgrim"</span>, <span class='pystring'>"database"</span>:<span class='pystring'>"master"</span>, <span class='pystring'>"uid"</span>:<span class='pystring'>"sa"</span>, <span class='pystring'>"pwd"</span>:<span class='pystring'>"secret"</span>}</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"%(pwd)s"</span> % params</span>                                    <a name="dialect.dictsub.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'secret'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"%(pwd)s is not a good password for %(uid)s"</span> % params</span> <a name="dialect.dictsub.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'secret is not a good password for sa'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pystring'>"%(database)s of mind, %(database)s of body"</span> % params</span> <a name="dialect.dictsub.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'master of mind, master of body'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dictsub.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Instead of a tuple of explicit values, this form of string formatting uses a dictionary, <tt class="varname">params</tt>.  And instead of a simple <tt class="literal">%s</tt> marker in the string, the marker contains a name in parentheses.  This name is used as a key in the <tt class="varname">params</tt> dictionary and subsitutes the corresponding value, <tt class="literal">secret</tt>, in place of the <tt class="literal">%(pwd)s</tt> marker.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dictsub.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Dictionary-based string formatting works with any number of named keys.  Each key must exist in the given dictionary, or the
+                        formatting will fail with a <tt class="errorcode">KeyError</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dictsub.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can even specify the same key twice; each occurrence will be replaced with the same value.</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So why would you use dictionary-based string formatting?  Well, it does seem like overkill to set up a dictionary of keys
+            and values simply to do string formatting in the next line; it's really most useful when you happen to have a dictionary of
+            meaningful keys and values already.  Like <a href="locals_and_globals.html" title="8.5.&nbsp;locals and globals"><tt class="function">locals</tt></a>.
+         </p>
+         <div class="example"><a name="dialect.unknownstarttag"></a><h3 class="title">Example&nbsp;8.14.&nbsp;Dictionary-based string formatting in <tt class="filename">BaseHTMLProcessor.py</tt></h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> handle_comment</span>(self, text):        
+        self.pieces.append(<span class='pystring'>"&lt;!--%(text)s--&gt;"</span> % locals()) <a name="dialect.dictsub.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dictsub.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Using the built-in <tt class="function">locals</tt> function is the most common use of dictionary-based string formatting.  It means that you can use the names of local variables
+                        within your string (in this case, <tt class="varname">text</tt>, which was passed to the class method as an argument) and each named variable will be replaced by its value.  If <tt class="varname">text</tt> is <tt class="literal">'Begin page footer'</tt>, the string formatting <tt class="literal">"&lt;!--%(text)s--&gt;" % locals()</tt> will resolve to the string <tt class="literal">'&lt;!--Begin page footer--&gt;'</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e21622"></a><h3 class="title">Example&nbsp;8.15.&nbsp;More dictionary-based string formatting</h3><pre class="programlisting">
+    <span class='pykeyword'>def</span><span class='pyclass'> unknown_starttag</span>(self, tag, attrs):
+        strattrs = <span class='pystring'>""</span>.join([<span class='pystring'>' %s="%s"'</span> % (key, value) <span class='pykeyword'>for</span> key, value <span class='pykeyword'>in</span> attrs]) <a name="dialect.dictsub.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+        self.pieces.append(<span class='pystring'>"&lt;%(tag)s%(strattrs)s&gt;"</span> % locals())                      <a name="dialect.dictsub.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dictsub.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">When this method is called, <tt class="varname">attrs</tt> is a list of key/value tuples, just like the <a href="../native_data_types/mapping_lists.html#odbchelper.items" title="Example&nbsp;3.25.&nbsp;The keys, values, and items Functions"><tt class="function">items</tt> of a dictionary</a>, which means you can use <a href="../native_data_types/declaring_variables.html#odbchelper.multiassign" title="3.4.2.&nbsp;Assigning Multiple Values at Once">multi-variable assignment</a> to iterate through it.  This should be a familiar pattern by now, but there's a lot going on here, so let's break it down:
+                        <div class="orderedlist">
+                           <ol type="a">
+                              <li>Suppose <tt class="varname">attrs</tt> is <tt class="literal">[('href', 'index.html'), ('title', 'Go to home page')]</tt>.
+                              </li>
+                              <li>In the first round of the list comprehension, <tt class="varname">key</tt> will get <tt class="literal">'href'</tt>, and <tt class="varname">value</tt> will get <tt class="literal">'index.html'</tt>.
+                              </li>
+                              <li>The string formatting <tt class="literal">'&nbsp;%s="%s"' % (key, value)</tt> will resolve to <tt class="literal">'&nbsp;href="index.html"'</tt>.  This string becomes the first element of the list comprehension's return value.
+                              </li>
+                              <li>In the second round, <tt class="varname">key</tt> will get <tt class="literal">'title'</tt>, and <tt class="varname">value</tt> will get <tt class="literal">'Go to home page'</tt>.
+                              </li>
+                              <li>The string formatting will resolve to <tt class="literal">' title="Go to home page"'</tt>.
+                              </li>
+                              <li>The list comprehension returns a list of these two resolved strings, and <tt class="varname">strattrs</tt> will join both elements of this list together to form <tt class="literal">'&nbsp;href="index.html" title="Go to home page"'</tt>.
+                              </li>
+                           </ol>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#dialect.dictsub.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Now, using dictionary-based string formatting, you insert the value of <tt class="varname">tag</tt> and <tt class="varname">strattrs</tt> into a string.  So if <tt class="varname">tag</tt> is <tt class="literal">'a'</tt>, the final result would be <tt class="literal">'&lt;a href="index.html" title="Go to home page"&gt;'</tt>, and that is what gets appended to <tt class="varname">self.pieces</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e21731"></a><table class="important" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/important.png" alt="Important" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Using dictionary-based string formatting with <tt class="function">locals</tt> is a convenient way of making complex string formatting expressions more readable, but it comes with a price.  There is a
+                  slight performance hit in making the call to <tt class="function">locals</tt>, since <a href="locals_and_globals.html#dialect.locals.readonly.example" title="Example&nbsp;8.12.&nbsp;locals is read-only, globals is not"><tt class="function">locals</tt> builds a copy</a> of the local namespace.
+               </td>
+            </tr>
+         </table>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="locals_and_globals.html">&lt;&lt;&nbsp;locals and globals</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <a href="extracting_data.html" title="8.3.&nbsp;Extracting data from HTML documents">3</a> <span class="divider">|</span> <a href="basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <a href="dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <a href="all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="quoting_attribute_values.html">Quoting attribute values&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

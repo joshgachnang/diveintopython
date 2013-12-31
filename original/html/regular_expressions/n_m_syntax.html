@@ -1,0 +1,283 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>7.4.&nbsp;Using the {n,m} Syntax</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;7.&nbsp;Regular Expressions">
+      <link rel="previous" href="roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">
+      <link rel="next" href="verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Using the {n,m} Syntax</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="roman_numerals.html" title="Prev: &#8220;Case Study: Roman Numerals&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="verbose.html" title="Next: &#8220;Verbose Regular Expressions&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="re.nm"></a>7.4.&nbsp;Using the <tt class="literal">{n,m}</tt> Syntax
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="toc">
+            <ul>
+               <li><span class="section"><a href="n_m_syntax.html#d0e18326">7.4.1. Checking for Tens and Ones</a></span></li>
+            </ul>
+         </div>
+         <div class="abstract">
+            <p>In <a href="roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">the previous section</a>, you were dealing with a pattern where the same character could be repeated up to three times.  There is another way to express
+               this in regular expressions, which some people find more readable.  First look at the method we already used in the previous
+               example.
+            </p>
+         </div>
+         <div class="example"><a name="d0e18113"></a><h3 class="title">Example&nbsp;7.5.&nbsp;The Old Way: Every Character Optional</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class='pykeyword'>import</span> re</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'M'</span>)</span>    <a name="re.nm.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EE090&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MM'</span>)</span>   <a name="re.nm.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMM'</span>)</span>  <a name="re.nm.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EE090&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMM'</span>)</span> <a name="re.nm.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This matches the start of the string, and then the first optional <tt class="literal">M</tt>, but not the second and third <tt class="literal">M</tt> (but that's okay because they're optional), and then the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This matches the start of the string, and then the first and second optional <tt class="literal">M</tt>, but not the third <tt class="literal">M</tt> (but that's okay because it's optional), and then the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This matches the start of the string, and then all three optional <tt class="literal">M</tt>, and then the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This matches the start of the string, and then all three optional <tt class="literal">M</tt>, but then does not match the the end of the string (because there is still one unmatched <tt class="literal">M</tt>), so the pattern does not match and returns <tt class="literal">None</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e18215"></a><h3 class="title">Example&nbsp;7.6.&nbsp;The New Way: From <tt class="literal">n</tt> o <tt class="literal">m</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M{0,3}$'</span></span>       <a name="re.nm.2.0"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'M'</span>)</span>    <a name="re.nm.2.1"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MM'</span>)</span>   <a name="re.nm.2.2"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EE090&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMM'</span>)</span>  <a name="re.nm.2.3"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEDA8&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMM'</span>)</span> <a name="re.nm.2.4"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.2.0"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This pattern says: &#8220;<span class="quote">Match the start of the string, then anywhere from zero to three <tt class="literal">M</tt> characters, then the end of the string.</span>&#8221;  The 0 and 3 can be any numbers; if you want to match at least one but no more than three <tt class="literal">M</tt> characters, you could say <tt class="literal">M{1,3}</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.2.1"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This matches the start of the string, then one <tt class="literal">M</tt> out of a possible three, then the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.2.2"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This matches the start of the string, then two <tt class="literal">M</tt> out of a possible three, then the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.2.3"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This matches the start of the string, then three <tt class="literal">M</tt> out of a possible three, then the end of the string.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#re.nm.2.4"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This matches the start of the string, then three <tt class="literal">M</tt> out of a possible three, but then <span class="emphasis"><em>does not match</em></span> the end of the string.  The regular expression allows for up to only three <tt class="literal">M</tt> characters before the end of the string, but you have four, so the pattern does not match and returns <tt class="literal">None</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="d0e18321"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">There is no way to programmatically determine that two regular expressions are equivalent.  The best you can do is write a
+                  lot of test cases to make sure they behave the same way on all relevant inputs.  You'll talk more about writing test cases
+                  later in this book.
+               </td>
+            </tr>
+         </table>
+         <div class="section" lang="en">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title"><a name="d0e18326"></a>7.4.1.&nbsp;Checking for Tens and Ones
+                     </h3>
+                  </div>
+               </div>
+               <div></div>
+            </div>
+            <p>Now let's expand the Roman numeral regular expression to cover the tens and ones place.  This example shows the check for
+               tens.
+            </p>
+            <div class="example"><a name="re.tens.example"></a><h3 class="title">Example&nbsp;7.7.&nbsp;Checking for Tens</h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMXL'</span>)</span>    <a name="re.nm.3.3"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCML'</span>)</span>     <a name="re.nm.3.4"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMLX'</span>)</span>    <a name="re.nm.3.5"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMLXXX'</span>)</span>  <a name="re.nm.3.7"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MCMLXXXX'</span>)</span> <a name="re.nm.3.8"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt>
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.3.3"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then <tt class="literal">XL</tt>, then the end of the string.  Remember, the <tt class="literal">(A|B|C)</tt> syntax means &#8220;<span class="quote">match exactly one of A, B, or C</span>&#8221;.  You match <tt class="literal">XL</tt>, so you ignore the <tt class="literal">XC</tt> and <tt class="literal">L?X?X?X?</tt> choices, and then move on to the end of the string.  <tt class="literal">MCML</tt> is the Roman numeral representation of <tt class="literal">1940</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.3.4"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then <tt class="literal">L?X?X?X?</tt>.  Of the <tt class="literal">L?X?X?X?</tt>, it matches the <tt class="literal">L</tt> and skips all three optional <tt class="literal">X</tt> characters.  Then you move to the end of the string.  <tt class="literal">MCML</tt> is the Roman numeral representation of <tt class="literal">1950</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.3.5"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then the optional <tt class="literal">L</tt> and the first optional <tt class="literal">X</tt>, skips the second and third optional <tt class="literal">X</tt>, then the end of the string.  <tt class="literal">MCMLX</tt> is the Roman numeral representation of <tt class="literal">1960</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.3.7"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then the optional <tt class="literal">L</tt> and all three optional <tt class="literal">X</tt> characters, then the end of the string.  <tt class="literal">MCMLXXX</tt> is the Roman numeral representation of <tt class="literal">1980</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.3.8"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then the optional <tt class="literal">L</tt> and all three optional <tt class="literal">X</tt> characters, then <span class="emphasis"><em>fails to match</em></span> the end of the string because there is still one more <tt class="literal">X</tt> unaccounted for.  So the entire pattern fails to match, and returns <tt class="literal">None</tt>.  <tt class="literal">MCMLXXXX</tt> is not a valid Roman numeral.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>The expression for the ones place follows the same pattern.  I'll spare you the details and show you the end result.</p>
+            <div class="informalexample"><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'</span></span>
+</pre></div>
+            <p>So what does that look like using this alternate <tt class="literal">{n,m}</tt> syntax?  This example shows the new syntax.
+            </p>
+            <div class="example"><a name="re.nm.example"></a><h3 class="title">Example&nbsp;7.8.&nbsp;Validating Roman Numerals with <tt class="literal">{n,m}</tt></h3><pre class="screen">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">pattern = <span class='pystring'>'^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$'</span></span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MDLV'</span>)</span>             <a name="re.nm.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMDCLXVI'</span>)</span>         <a name="re.nm.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'MMMMDCCCLXXXVIII'</span>)</span> <a name="re.nm.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">re.search(pattern, <span class='pystring'>'I'</span>)</span>                <a name="re.nm.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">&lt;_sre.SRE_Match object at 0x008EEB48&gt;</span>
+</pre><div class="calloutlist">
+                  <table border="0" summary="Callout list">
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This matches the start of the string, then one of a possible four <tt class="literal">M</tt> characters, then <tt class="literal">D?C{0,3}</tt>.  Of that, it matches the optional <tt class="literal">D</tt> and zero of three possible <tt class="literal">C</tt> characters.  Moving on, it matches <tt class="literal">L?X{0,3}</tt> by matching the optional <tt class="literal">L</tt> and zero of three possible <tt class="literal">X</tt> characters.  Then it matches <tt class="literal">V?I{0,3}</tt> by matching the optional V and zero of three possible <tt class="literal">I</tt> characters, and finally the end of the string.  <tt class="literal">MDLV</tt> is the Roman numeral representation of <tt class="literal">1555</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This matches the start of the string, then two of a possible four <tt class="literal">M</tt> characters, then the <tt class="literal">D?C{0,3}</tt> with a <tt class="literal">D</tt> and one of three possible <tt class="literal">C</tt> characters; then <tt class="literal">L?X{0,3}</tt> with an <tt class="literal">L</tt> and one of three possible <tt class="literal">X</tt> characters; then <tt class="literal">V?I{0,3}</tt> with a <tt class="literal">V</tt> and one of three possible <tt class="literal">I</tt> characters; then the end of the string.  <tt class="literal">MMDCLXVI</tt> is the Roman numeral representation of <tt class="literal">2666</tt>.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">This matches the start of the string, then four out of four <tt class="literal">M</tt> characters, then <tt class="literal">D?C{0,3}</tt> with a <tt class="literal">D</tt> and three out of three <tt class="literal">C</tt> characters; then <tt class="literal">L?X{0,3}</tt> with an <tt class="literal">L</tt> and three out of three <tt class="literal">X</tt> characters; then <tt class="literal">V?I{0,3}</tt> with a <tt class="literal">V</tt> and three out of three <tt class="literal">I</tt> characters; then the end of the string.  <tt class="literal">MMMMDCCCLXXXVIII</tt> is the Roman numeral representation of <tt class="literal">3888</tt>, and it's the longest Roman numeral you can write without extended syntax.
+                        </td>
+                     </tr>
+                     <tr>
+                        <td width="12" valign="top" align="left"><a href="#re.nm.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                        </td>
+                        <td valign="top" align="left">Watch closely.  (I feel like a magician.  &#8220;<span class="quote">Watch closely, kids, I'm going to pull a rabbit out of my hat.</span>&#8221;)  This matches the start of the string, then zero out of four <tt class="literal">M</tt>, then matches <tt class="literal">D?C{0,3}</tt> by skipping the optional <tt class="literal">D</tt> and matching zero out of three <tt class="literal">C</tt>, then matches <tt class="literal">L?X{0,3}</tt> by skipping the optional <tt class="literal">L</tt> and matching zero out of three <tt class="literal">X</tt>, then matches <tt class="literal">V?I{0,3}</tt> by skipping the optional <tt class="literal">V</tt> and matching one out of three <tt class="literal">I</tt>.  Then the end of the string.  Whoa.
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <p>If you followed all that and understood it on the first try, you're doing better than I did.  Now imagine trying to understand
+               someone else's regular expressions, in the middle of a critical function of a large program.  Or even imagine coming back
+               to your own regular expressions a few months later.  I've done it, and it's not a pretty sight.
+            </p>
+            <p>In the next section you'll explore an alternate syntax that can help keep your expressions maintainable.</p>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="roman_numerals.html">&lt;&lt;&nbsp;Case Study: Roman Numerals</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <a href="roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <a href="phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">6</a> <span class="divider">|</span> <a href="summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="verbose.html">Verbose Regular Expressions&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

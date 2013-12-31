@@ -1,0 +1,293 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>10.6.&nbsp;Handling command-line arguments</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;10.&nbsp;Scripts and Streams">
+      <link rel="previous" href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">
+      <link rel="next" href="all_together.html" title="10.7.&nbsp;Putting it all together">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Handling command-line arguments</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="handlers_by_node_type.html" title="Prev: &#8220;Creating separate handlers by node type&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="all_together.html" title="Next: &#8220;Putting it all together&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="kgp.commandline"></a>10.6.&nbsp;Handling command-line arguments
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p><span class="application">Python</span> fully supports creating programs that can be run on the command line, complete with command-line arguments and either short-
+               or long-style flags to specify various options.  None of this is <span class="acronym">XML</span>-specific, but this script makes good use of command-line processing, so it seemed like a good time to mention it.
+            </p>
+         </div>
+         <p>It's difficult to talk about command-line processing without understanding how command-line arguments are exposed to your
+            <span class="application">Python</span> program, so let's write a simple program to see them.
+         </p>
+         <div class="example"><a name="d0e26871"></a><h3 class="title">Example&nbsp;10.20.&nbsp;Introducing <tt class="varname">sys.argv</tt></h3>
+            <p>If you have not already done so, you can <a href="http://diveintopython.org/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+            </p><pre class="programlisting">
+<span class='pycomment'>#argecho.py</span>
+<span class='pykeyword'>import</span> sys
+
+<span class='pykeyword'>for</span> arg <span class='pykeyword'>in</span> sys.argv: <a name="kgp.commandline.0.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>print</span> arg</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.0.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Each command-line argument passed to the program will be in <tt class="varname">sys.argv</tt>, which is just a list.  Here you are printing each argument on a separate line.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e26892"></a><h3 class="title">Example&nbsp;10.21.&nbsp;The contents of <tt class="varname">sys.argv</tt></h3><pre class="screen">
+<tt class="prompt">[you@localhost py]$ </tt><span class="userinput">python argecho.py</span>             <a name="kgp.commandline.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">argecho.py</span>
+<tt class="prompt">[you@localhost py]$ </tt><span class="userinput">python argecho.py abc def</span>     <a name="kgp.commandline.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">argecho.py
+abc
+def</span>
+<tt class="prompt">[you@localhost py]$ </tt><span class="userinput">python argecho.py --help</span>      <a name="kgp.commandline.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">argecho.py
+--help</span>
+<tt class="prompt">[you@localhost py]$ </tt><span class="userinput">python argecho.py -m kant.xml</span> <a name="kgp.commandline.1.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">argecho.py
+-m
+kant.xml</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The first thing to know about <tt class="varname">sys.argv</tt> is that it contains the name of the script you're calling.  You will actually use this knowledge to your advantage later,
+                        in <a href="../functional_programming/index.html" title="Chapter&nbsp;16.&nbsp;Functional Programming">Chapter&nbsp;16, <i>Functional Programming</i></a>.  Don't worry about it for now.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Command-line arguments are separated by spaces, and each shows up as a separate element in the <tt class="varname">sys.argv</tt> list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Command-line flags, like <tt class="literal">--help</tt>, also show up as their own element in the <tt class="varname">sys.argv</tt> list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.1.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To make things even more interesting, some command-line flags themselves take arguments.  For instance, here you have a flag
+                        (<tt class="literal">-m</tt>) which takes an argument (<tt class="literal">kant.xml</tt>).  Both the flag itself and the flag's argument are simply sequential elements in the <tt class="varname">sys.argv</tt> list.  No attempt is made to associate one with the other; all you get is a list.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So as you can see, you certainly have all the information passed on the command line, but then again, it doesn't look like
+            it's going to be all that easy to actually use it.  For simple programs that only take a single argument and have no flags,
+            you can simply use <tt class="literal">sys.argv[1]</tt> to access the argument.  There's no shame in this; I do it all the time.  For more complex programs, you need the <tt class="filename">getopt</tt> module.
+         </p>
+         <div class="example"><a name="d0e26982"></a><h3 class="title">Example&nbsp;10.22.&nbsp;Introducing <tt class="filename">getopt</tt></h3><pre class="programlisting"><span class='pykeyword'>
+def</span> main(argv):                         
+    grammar = <span class='pystring'>"kant.xml"</span>                 <a name="kgp.commandline.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    <span class='pykeyword'>try</span>:                                
+        opts, args = getopt.getopt(argv, <span class='pystring'>"hg:d"</span>, [<span class='pystring'>"help"</span>, <span class='pystring'>"grammar="</span>]) <a name="kgp.commandline.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+    <span class='pykeyword'>except</span> getopt.GetoptError:           <a name="kgp.commandline.2.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+        usage()                          <a name="kgp.commandline.2.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+        sys.exit(2)                     
+
+...
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:
+    main(sys.argv[1:])</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">First off, look at the bottom of the example and notice that you're calling the <tt class="function">main</tt> function with <tt class="literal">sys.argv[1:]</tt>.  Remember, <tt class="literal">sys.argv[0]</tt> is the name of the script that you're running; you don't care about that for command-line processing, so you chop it off
+                        and pass the rest of the list.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">This is where all the interesting processing happens.  The <tt class="function">getopt</tt> function of the <tt class="filename">getopt</tt> module takes three parameters: the argument list (which you got from <tt class="literal">sys.argv[1:]</tt>), a string containing all the possible single-character command-line flags that this program accepts, and a list of longer
+                        command-line flags that are equivalent to the single-character versions.  This is quite confusing at first glance, and is
+                        explained in more detail below.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.2.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If anything goes wrong trying to parse these command-line flags, <tt class="filename">getopt</tt> will raise an exception, which you catch.  You told <tt class="filename">getopt</tt> all the flags you understand, so this probably means that the end user passed some command-line flag that you don't understand.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.2.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">As is standard practice in the <span class="acronym">UNIX</span> world, when the script is passed flags it doesn't understand, you print out a summary of proper usage and exit gracefully.
+                         Note that I haven't shown the <tt class="function">usage</tt> function here.  You would still need to code that somewhere and have it print out the appropriate summary; it's not automatic.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <p>So what are all those parameters you pass to the <tt class="function">getopt</tt> function?  Well, the first one is simply the raw list of command-line flags and arguments (not including the first element,
+            the script name, which you already chopped off before calling the <tt class="function">main</tt> function).  The second is the list of short command-line flags that the script accepts.
+         </p>
+         <div class="variablelist">
+            <h3 class="title"><tt class="literal">"hg:d"</tt></h3>
+            <dl>
+               <dt><span class="term"><tt class="literal">-h</tt></span></dt>
+               <dd>print usage summary</dd>
+               <dt><span class="term"><tt class="literal">-g ...</tt></span></dt>
+               <dd>use specified grammar file or URL</dd>
+               <dt><span class="term"><tt class="literal">-d</tt></span></dt>
+               <dd>show debugging information while parsing</dd>
+            </dl>
+         </div>
+         <p>The first and third flags are simply standalone flags; you specify them or you don't, and they do things (print help) or change
+            state (turn on debugging).  However, the second flag (<tt class="literal">-g</tt>) <span class="emphasis"><em>must</em></span> be followed by an argument, which is the name of the grammar file to read from.  In fact it can be a filename or a web address,
+            and you don't know which yet (you'll figure it out later), but you know it has to be <span class="emphasis"><em>something</em></span>.  So you tell <tt class="filename">getopt</tt> this by putting a colon after the <tt class="literal">g</tt> in that second parameter to the <tt class="function">getopt</tt> function.
+         </p>
+         <p>To further complicate things, the script accepts either short flags (like <tt class="literal">-h</tt>) or long flags (like <tt class="literal">--help</tt>), and you want them to do the same thing.  This is what the third parameter to <tt class="function">getopt</tt> is for, to specify a list of the long flags that correspond to the short flags you specified in the second parameter.
+         </p>
+         <div class="variablelist">
+            <h3 class="title"><tt class="literal">["help", "grammar="]</tt></h3>
+            <dl>
+               <dt><span class="term"><tt class="literal">--help</tt></span></dt>
+               <dd>print usage summary</dd>
+               <dt><span class="term"><tt class="literal">--grammar ...</tt></span></dt>
+               <dd>use specified grammar file or URL</dd>
+            </dl>
+         </div>
+         <p>Three things of note here:</p>
+         <div class="orderedlist">
+            <ol type="1">
+               <li>All long flags are preceded by two dashes on the command line, but you don't include those dashes when calling <tt class="function">getopt</tt>.  They are understood.
+               </li>
+               <li>The <tt class="literal">--grammar</tt> flag must always be followed by an additional argument, just like the <tt class="literal">-g</tt> flag.  This is notated by an equals sign, <tt class="literal">"grammar="</tt>.
+               </li>
+               <li>The list of long flags is shorter than the list of short flags, because the <tt class="literal">-d</tt> flag does not have a corresponding long version.  This is fine; only <tt class="literal">-d</tt> will turn on debugging.  But the order of short and long flags needs to be the same, so you'll need to specify all the short
+                  flags that <span class="emphasis"><em>do</em></span> have corresponding long flags first, then all the rest of the short flags.
+               </li>
+            </ol>
+         </div>
+         <p>Confused yet?  Let's look at the actual code and see if it makes sense in context.</p>
+         <div class="example"><a name="d0e27157"></a><h3 class="title">Example&nbsp;10.23.&nbsp;Handling command-line arguments in <tt class="filename">kgp.py</tt></h3><pre class="programlisting"><span class='pykeyword'>
+def</span> main(argv):                          <a name="kgp.commandline.3.0"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+    grammar = <span class='pystring'>"kant.xml"</span>                
+    <span class='pykeyword'>try</span>:                                
+        opts, args = getopt.getopt(argv, <span class='pystring'>"hg:d"</span>, [<span class='pystring'>"help"</span>, <span class='pystring'>"grammar="</span>])
+    <span class='pykeyword'>except</span> getopt.GetoptError:          
+        usage()                         
+        sys.exit(2)                     
+    <span class='pykeyword'>for</span> opt, arg <span class='pykeyword'>in</span> opts:                <a name="kgp.commandline.3.1"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+        <span class='pykeyword'>if</span> opt <span class='pykeyword'>in</span> (<span class='pystring'>"-h"</span>, <span class='pystring'>"--help"</span>):      <a name="kgp.commandline.3.2"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+            usage()                     
+            sys.exit()                  
+        <span class='pykeyword'>elif</span> opt == <span class='pystring'>'-d'</span>:                <a name="kgp.commandline.3.3"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+            <span class='pykeyword'>global</span> _debug               
+            _debug = 1                  
+        <span class='pykeyword'>elif</span> opt <span class='pykeyword'>in</span> (<span class='pystring'>"-g"</span>, <span class='pystring'>"--grammar"</span>): <a name="kgp.commandline.3.4"></a><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12">
+            grammar = arg               
+
+    source = <span class='pystring'>""</span>.join(args)               <a name="kgp.commandline.3.5"></a><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12">
+
+    k = KantGenerator(grammar, source)
+    <span class='pykeyword'>print</span> k.output()</pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.3.0"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="varname">grammar</tt> variable will keep track of the grammar file you're using.  You initialize it here in case it's not specified on the command
+                        line (using either the <tt class="literal">-g</tt> or the <tt class="literal">--grammar</tt> flag).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.3.1"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="varname">opts</tt> variable that you get back from <tt class="function">getopt</tt> contains a list of tuples: <tt class="varname">flag</tt> and <tt class="varname">argument</tt>.  If the flag doesn't take an argument, then <tt class="varname">arg</tt> will simply be <tt class="literal">None</tt>.  This makes it easier to loop through the flags.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.3.2"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">getopt</tt> validates that the command-line flags are acceptable, but it doesn't do any sort of conversion between short and long flags.
+                         If you specify the <tt class="literal">-h</tt> flag, <tt class="varname">opt</tt> will contain <tt class="literal">"-h"</tt>; if you specify the <tt class="literal">--help</tt> flag, <tt class="varname">opt</tt> will contain <tt class="literal">"--help"</tt>.  So you need to check for both.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.3.3"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Remember, the <tt class="literal">-d</tt> flag didn't have a corresponding long flag, so you only need to check for the short form.  If you find it, you set a global
+                        variable that you'll refer to later to print out debugging information.  (I used this during the development of the script.
+                         What, you thought all these examples worked on the first try?)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.3.4"><img src="../images/callouts/5.png" alt="5" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If you find a grammar file, either with a <tt class="literal">-g</tt> flag or a <tt class="literal">--grammar</tt> flag, you save the argument that followed it (stored in <tt class="varname">arg</tt>) into the <tt class="varname">grammar</tt> variable, overwriting the default that you initialized at the top of the <tt class="function">main</tt> function.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#kgp.commandline.3.5"><img src="../images/callouts/6.png" alt="6" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">That's it.  You've looped through and dealt with all the command-line flags.  That means that anything left must be command-line
+                        arguments.  These come back from the <tt class="function">getopt</tt> function in the <tt class="varname">args</tt> variable.  In this case, you're treating them as source material for the parser.  If there are no command-line arguments
+                        specified, <tt class="varname">args</tt> will be an empty list, and <tt class="varname">source</tt> will end up as the empty string.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="handlers_by_node_type.html">&lt;&lt;&nbsp;Creating separate handlers by node type</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="all_together.html">Putting it all together&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>

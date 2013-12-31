@@ -1,0 +1,107 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>3.8.&nbsp;Summary</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;3.&nbsp;Native Datatypes">
+      <link rel="previous" href="joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings">
+      <link rel="next" href="../power_of_introspection/index.html" title="Chapter&nbsp;4.&nbsp;The Power Of Introspection">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="index.html">Native Datatypes</a>&nbsp;&gt;&nbsp;<span class="thispage">Summary</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="joining_lists.html" title="Prev: &#8220;Joining Lists and Splitting Strings&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="../power_of_introspection/index.html" title="Next: &#8220;The Power Of Introspection&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Python</a></h1>
+               <p id="tagline">Python from novice to pro</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      <!--#include virtual="/inc/ads" -->
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.summary"></a>3.8.&nbsp;Summary
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>The <tt class="filename">odbchelper.py</tt> program and its output should now make perfect sense.
+            </p>
+         </div>
+         <div class="informalexample"><pre class="programlisting"><span class='pykeyword'>
+def</span> buildConnectionString(params):
+    <span class='pystring'>"""Build a connection string from a dictionary of parameters.
+
+    Returns string."""</span>
+    <span class='pykeyword'>return</span> <span class='pystring'>";"</span>.join([<span class='pystring'>"%s=%s"</span> % (k, v) <span class='pykeyword'>for</span> k, v <span class='pykeyword'>in</span> params.items()])
+
+<span class='pykeyword'>if</span> __name__ == <span class='pystring'>"__main__"</span>:
+    myParams = {<span class='pystring'>"server"</span>:<span class='pystring'>"mpilgrim"</span>, \
+                <span class='pystring'>"database"</span>:<span class='pystring'>"master"</span>, \
+                <span class='pystring'>"uid"</span>:<span class='pystring'>"sa"</span>, \
+                <span class='pystring'>"pwd"</span>:<span class='pystring'>"secret"</span> \
+                }
+    <span class='pykeyword'>print</span> buildConnectionString(myParams)</pre></div>
+         <div class="informalexample">
+            <p>Here is the output of <tt class="filename">odbchelper.py</tt>:
+            </p><pre class="screen"><span class="computeroutput">server=mpilgrim;uid=sa;database=master;pwd=secret</span></pre></div>
+         <div class="highlights">
+            <p>Before diving into the next chapter, make sure you're comfortable doing all of these things:</p>
+            <div class="itemizedlist">
+               <ul>
+                  <li>Using the <span class="application">Python</span> <span class="acronym">IDE</span> to test expressions interactively
+                  </li>
+                  <li>Writing <span class="application">Python</span> programs and <a href="../getting_to_know_python/testing_modules.html" title="2.6.&nbsp;Testing Modules">running them from within your <span class="acronym">IDE</span></a>, or from the command line
+                  </li>
+                  <li><a href="../getting_to_know_python/everything_is_an_object.html#odbchelper.import" title="Example&nbsp;2.3.&nbsp;Accessing the buildConnectionString Function's doc string">Importing modules</a> and calling their functions
+                  </li>
+                  <li><a href="../getting_to_know_python/declaring_functions.html" title="2.2.&nbsp;Declaring Functions">Declaring functions</a> and using <a href="../getting_to_know_python/documenting_functions.html" title="2.3.&nbsp;Documenting Functions"><tt class="literal">doc string</tt>s</a>, <a href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">local variables</a>, and <a href="../getting_to_know_python/indenting_code.html" title="2.5.&nbsp;Indenting Code">proper indentation</a></li>
+                  <li>Defining <a href="index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">dictionaries</a>, <a href="tuples.html" title="3.3.&nbsp;Introducing Tuples">tuples</a>, and <a href="lists.html" title="3.2.&nbsp;Introducing Lists">lists</a></li>
+                  <li>Accessing attributes and methods of <a href="../getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object">any object</a>, including strings, lists, dictionaries, functions, and modules
+                  </li>
+                  <li>Concatenating values through <a href="formatting_strings.html" title="3.5.&nbsp;Formatting Strings">string formatting</a></li>
+                  <li><a href="mapping_lists.html" title="3.6.&nbsp;Mapping Lists">Mapping lists</a> into other lists using list comprehensions
+                  </li>
+                  <li><a href="joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings">Splitting strings</a> into lists and joining lists into strings
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="joining_lists.html">&lt;&lt;&nbsp;Joining Lists and Splitting Strings</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">1</a> <span class="divider">|</span> <a href="lists.html" title="3.2.&nbsp;Introducing Lists">2</a> <span class="divider">|</span> <a href="tuples.html" title="3.3.&nbsp;Introducing Tuples">3</a> <span class="divider">|</span> <a href="declaring_variables.html" title="3.4.&nbsp;Declaring variables">4</a> <span class="divider">|</span> <a href="formatting_strings.html" title="3.5.&nbsp;Formatting Strings">5</a> <span class="divider">|</span> <a href="mapping_lists.html" title="3.6.&nbsp;Mapping Lists">6</a> <span class="divider">|</span> <a href="joining_lists.html" title="3.7.&nbsp;Joining Lists and Splitting Strings">7</a> <span class="divider">|</span> <span class="thispage">8</span>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="../power_of_introspection/index.html">The Power Of Introspection&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:mark@diveintopython.org">Mark Pilgrim</a></p>
+      </div>
+   </body>
+</html>
