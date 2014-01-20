@@ -1,0 +1,48 @@
+{% raw %}{% extends "base.html" %}{% endraw %}
+<!--Intermediate template to generate modifiable templates-->
+{% raw %}{% block title %}{% endraw %}
+    {{ title }}
+{% raw %}{% endblock %}{% endraw %}
+
+{% raw %}{% block nav %}{% endraw %}
+    {% if up %}
+    <link rel="up" href="{{ up.href }}" title=" {{ up.title }}" />
+    {% endif %}
+    {% if prev %}
+    <link rel="previous" href="{{ previous.href }}" title=" {{ previous.title }}" />
+    {% endif %}
+    {% if next %}
+    <link rel="next" href="{{ next.href }}" title=" {{ next.title }}" />
+    {% endif %}
+{% raw %}{% endblock %}{% endraw %}
+
+{% raw %}{% block breadcrumb %}{% endraw %}
+    {% if breadcrumb %}
+    {{ breadcrumb }}
+    {% endif %}
+{% raw %}{% endblock %}{% endraw %}
+
+{% raw %}{% block navigation %}{% endraw %}
+    {% if navigation %}{{ navigation }}{% endif %}
+{% raw %}{% endblock %}{% endraw %}
+
+{% raw %}{% block titlepage %}{% endraw %}
+    {% if titlepage %}{{ titlepage }}{% endif %}
+{% raw %}{% endblock %}{% endraw %}
+
+{% raw %}{% block toc %}{% endraw %}
+    {% if toc %}{{ toc }}{% endif %}
+{% raw %}{% endblock %}{% endraw %}
+
+{% raw %}{% block abstract %}{% endraw %}
+    {% if abstract %}{{ abstract }}{% endif %}
+{% raw %}{% endblock %}{% endraw %}
+
+{% raw %}{% block section %}{% endraw %}s
+    {% if section %}{{ section }}{% endif %}
+{% raw %}{% endblock %}{% endraw %}
+
+{% raw %}{% block footer %}{% endraw %}
+    {% if footer %}{{ footer }}{% endif %}
+{% raw %}{% endblock %}{% endraw %}
+

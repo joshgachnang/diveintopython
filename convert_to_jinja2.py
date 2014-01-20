@@ -13,7 +13,7 @@ import distutils
 
 root_dir = os.getcwd()
 template_dir = os.path.join(root_dir, 'templates')
-output_dir = os.path.join(root_dir, 'pages')
+output_dir = os.path.join(root_dir, 'page_templates')
 original_dir = os.path.join(root_dir, 'original/html')
 
 
@@ -50,6 +50,11 @@ def convert(old_dir, page, new_dir):
         if data['abstract'] is not None and data['abstract'] in data['section']:
             # print "abs in sectionr"
             data['abstract'] = None
+    for k, v in data.items():
+        # print k, v
+        if v is not None and k not in ['previous', 'next', 'up', 'document_links']:
+            data[k] = BeautifulSoup(v).prettify()
+            # print data[k]
     # print 'prev', data['previous']['href']
     # for k, v in data.items():
     #     print k
@@ -58,10 +63,11 @@ def convert(old_dir, page, new_dir):
     env = Environment(loader=FileSystemLoader(template_dir))
     output_file = os.path.join(output_dir, new_dir, page)
     with open(output_file, 'w') as out:
-        template = env.get_template("page_template.html")
+        template = env.get_template("template.html")
         html = template.render(data).encode("utf-8")
         # print "writing to ", old_dir, page, new_dir
         out.write(html)
+
 
 
 def link_builder(soup):
@@ -85,6 +91,9 @@ def encode(soup):
 
 
 def convert_all(root_directory):
+    """
+    Run this only if you want to overwrite everything in pages/ with modified versions of the original 5.4 zip file.
+    """
     # print os.listdir(root_directory)
     # return
     for ob in os.listdir(root_directory):
@@ -130,12 +139,18 @@ def copy_replacements():
     for f in os.listdir(os.path.join(template_dir, 'additions')):
         filename = os.path.join(template_dir, 'additions', f)
         if os.path.isfile(filename):
+            print "repcopy", filename, os.path.join(output_dir, f)
             shutil.copyfile(filename, os.path.join(output_dir, f))
         else:
             for subf in os.listdir(filename):
                 # print "sub", subf
                 subfilename = os.path.join(template_dir, 'additions', f, subf)
-                shutil.copyfile(subfilename, os.path.join(output_dir, f, subf))
+                try:
+                    print "repcopy", subfilename, os.path.join(output_dir, f, subf)
+                    shutil.copyfile(subfilename, os.path.join(output_dir, f, subf))
+                except IOError as e:
+                    print "Copy Exception: ", subfilename, os.path.join(output_dir, f, subf), e.message
+                    continue
             # Change to merge files.
             # shutil.copytree(filename, os.path.join(output_dir, f))
 

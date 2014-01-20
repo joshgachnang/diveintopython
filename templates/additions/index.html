@@ -1,71 +1,43 @@
+{% extends "base.html" %}
+<!--Intermediate template to generate modifiable templates-->
+{% block title %}
+    Dive Into Python
 
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
-   <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+{% endblock %}
 
-      <title>Dive Into Python</title>
-      <link rel="stylesheet" href="css/diveintopython.css" type="text/css">
-      <link rev="made" href="mailto:josh@djazzee.com">
-      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
-      <meta name="description" content=" This book lives at .  If you're reading it somewhere else, you may not have the latest version.">
-      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://diveintopython.net/history.xml">
-   </head>
-   <body>
-      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-         <tr>
-            <td id="breadcrumb" colspan="6">&nbsp;</td>
-         </tr>
-         <tr>
-            <td colspan="3" id="logocontainer">
-               <h1 id="logo">Dive Into Python</h1>
-               <p id="tagline">Python from novice to pro</p>
-            </td>
-            <td colspan="3" align="right">
-               <form id="search" method="GET" action="http://www.google.com/custom">
-                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
-               </form>
-            </td>
-         </tr>
-      </table>
-      <div id="wrapper">
-         <div id="main">
-            <div class="section" lang="en">
-               <div class="titlepage">
-                  <div>
-                     <div>
-                        <h2 class="title"><a name="intro"></a></h2>
-                     </div>
-                  </div>
-                  <div></div>
-               </div>
-               <p><i class="citetitle">Dive Into <span class="application">Python</span></i> is a free <span class="application">Python</span> book for experienced programmers. It was originally hosted at DiveIntoPython.org, but the author has pulled down all copies. It is being mirrored here. You can <a href="toc/index.html">read the book</a> online, or <a href="#download" title="Download Dive Into Python">download it</a> in a variety of formats.  It is also available in <a title="Dive Into Python in your language">multiple languages</a>.
-               </p>
-            </div>
-            <div class="section" lang="en">
-               <div class="titlepage">
-                  <div>
-                     <div>
-                        <h2 class="title"><a name="read"></a>Read <a href="toc/index.html"><i class="citetitle">Dive Into <span class="application">Python</span></i></a></h2>
-                     </div>
-                  </div>
-                  <div></div>
-               </div>
-               <p>This book is still being written. You can <a href="appendix/history.html">read the revision history</a> to see what's new. <strong>Updated 20 May 2004</strong>. <a href="mailto:josh@djazzee.com">Email me</a> if you'd like to see something changed/updated, or suggestions for this site.</p>
-            </div>
-            <div class="section" lang="en">
-               <div class="titlepage">
-                  <div>
-                     <div>
-                        <h2 class="title"><a name="download"></a>Download <i class="citetitle">Dive Into <span class="application">Python</span></i></h2>
-                     </div>
-                  </div>
-                  <div></div>
-               </div>
-               <div class="itemizedlist">
-<!--                  <p>I haven't found good copies of the download files yet. If you have them, please <a href="mailto:josh@djazzee.com">email me</a> and I'll add them here.</p>-->
+{% block nav %}
+    
+    
+    
+{% endblock %}
+
+{% block breadcrumb %}
+    
+{% endblock %}
+
+{% block navigation %}
+    
+{% endblock %}
+
+{% block titlepage %}
+    <p><i class="citetitle">Dive Into <span class="application">Python</span></i> is a free <span class="application">Python</span> book for experienced programmers. It was originally hosted at DiveIntoPython.org, but the author has pulled down all copies. It is being mirrored here. You can <a href="../../page_templates/toc/index.html">read the book</a> online, or <a href="#download" title="Download Dive Into Python">download it</a> in a variety of formats.  It is also available in <a title="Dive Into Python in your language">multiple languages</a>.</p>
+    <p>This book is still being written. You can <a href="../../page_templates/appendix/history.html">read the revision history</a> to see what's new. <strong>Updated 20 May 2004</strong>. <a href="mailto:josh@djazzee.com">Email me</a> if you'd like to see something changed/updated, or suggestions for this site.</p>
+    <h2 class="title"><a name="read"></a>Read <a href="../../page_templates/toc/index.html"><i class="citetitle">Dive Into <span class="application">Python</span></i></a></h2>
+    <h2 class="title"><a name="download"></a>Download <i class="citetitle">Dive Into <span class="application">Python</span></i></h2>
+
+{% endblock %}
+
+{% block toc %}
+    
+{% endblock %}
+
+{% block abstract %}
+    
+{% endblock %}
+
+{% block section %}
+            <div class="row">
+               <div class="itemizedlist small-12 medium-6 columns">
                   <ul>
                      <li><a href="http://www.diveintopython.net/download/diveintopython-html-5.4.zip" title="Download as HTML (846 KB)"><span class="acronym">HTML</span></a></li>
                      <li><a href="http://www.diveintopython.net/download/diveintopython-pdf-5.4.zip" title="Download as PDF (764 KB)"><span class="acronym">PDF</span></a></li>
@@ -78,51 +50,52 @@
                   </ul>
                </div>
             </div>
-            <div class="section" lang="en">
-               <div class="titlepage">
-                  <div>
-                     <div>
-                        <h2 class="title"><a name="languages"></a><i class="citetitle">Dive Into <span class="application">Python</span></i> in your language
-                        </h2>
-                     </div>
-                  </div>
-                  <div></div>
-               </div>
-               <p><a href="appendix/fdl_translation.html">Translations are freely permitted</a> as long as they are released under the <span class="acronym">GNU</span> Free Documentation License.  <i class="citetitle">Dive Into <span class="application">Python</span></i> has already been fully or partially translated into several languages.  If you translate it into another language and would
-                  like to be listed here, just <a href="mailto:josh@djazzee.com">let me know</a>.
-               </p>
-               <div class="itemizedlist">
-<!--                  <p>I haven't found copies of the translations yet. If you have them, please <a href="mailto:josh@djazzee.com">email me</a> and I'll add them here.</p>-->
-                  <ul>
-                     <li><a href="http://it.diveintopython.net/">Italian</a></li>
-                     <li><a href="http://diveintopython.adrahon.org/">French</a></li>
-                     <li><a href="http://es.diveintopython.net/">Spanish</a></li>
-                     <li><a href="http://woodpecker.org.cn/diveintopython/">Chinese</a></li>
-                     <li><a href="http://kr.diveintopython.net/">Korean</a></li>
-                     <li><a href="http://ru.diveintopython.net/">Russian</a></li>
-                  </ul>
-               </div>
+            <div class="row">
+                <div class="section small-12 medium-6 columns" lang="en">
+                   <div class="titlepage">
+                      <div>
+                         <div>
+                            <h2 class="title"><a name="languages"></a><i class="citetitle">Dive Into <span class="application">Python</span></i> in your language
+                            </h2>
+                         </div>
+                      </div>
+                      <div></div>
+                   </div>
+                   <p><a href="../../page_templates/appendix/fdl_translation.html">Translations are freely permitted</a> as long as they are released under the <span class="acronym">GNU</span> Free Documentation License.  <i class="citetitle">Dive Into <span class="application">Python</span></i> has already been fully or partially translated into several languages.  If you translate it into another language and would
+                      like to be listed here, just <a href="mailto:josh@djazzee.com">let me know</a>.
+                   </p>
+                   <div class="itemizedlist">
+    <!--                  <p>I haven't found copies of the translations yet. If you have them, please <a href="mailto:josh@djazzee.com">email me</a> and I'll add them here.</p>-->
+                      <ul>
+                         <li><a href="http://it.diveintopython.net/">Italian</a></li>
+                         <li><a href="http://diveintopython.adrahon.org/">French</a></li>
+                         <li><a href="http://es.diveintopython.net/">Spanish</a></li>
+                         <li><a href="http://woodpecker.org.cn/diveintopython/">Chinese</a></li>
+                         <li><a href="http://kr.diveintopython.net/">Korean</a></li>
+                         <li><a href="http://ru.diveintopython.net/">Russian</a></li>
+                      </ul>
+                   </div>
+                </div>
             </div>
-            <div class="section" lang="en">
-               <div class="titlepage">
-                  <div>
-                     <div>
-                        <h2 class="title"><a name="republish"></a>Republish <i class="citetitle">Dive Into <span class="application">Python</span></i></h2>
-                     </div>
-                  </div>
-                  <div></div>
-               </div>
-               <p>Want to mirror this web site? Publish this book on your corporate intranet? Distribute it on <span class="acronym">CD-ROM</span>? Feel free. This book is published under the <span class="acronym">GNU</span> Free Documentation License, which gives you enormous freedoms to modify and redistribute it in all its forms. If you're familiar
-                  with the <span class="acronym">GNU</span> General Public License for software, you already understand these freedoms; the <span class="acronym">FDL</span> is the <span class="acronym">GPL</span> for books. You can <a href="appendix/fdl.html">read the license</a> for all the details.
-               </p>
-            </div><br><div class="Footer">
-               <p class="copyright">Copyright &copy; 2000, 2001, 2002, 2003, 2004 <a href="mailto:josh@djazee.com">Mark Pilgrim</a></p>
+            <div class="row">
+                <div class="section small-12 medium-6 columns" lang="en">
+                   <div class="titlepage">
+                      <div>
+                         <div>
+                            <h2 class="title"><a name="republish"></a>Republish <i class="citetitle">Dive Into <span class="application">Python</span></i></h2>
+                         </div>
+                      </div>
+                      <div></div>
+                   </div>
+                   <p>Want to mirror this web site? Publish this book on your corporate intranet? Distribute it on <span class="acronym">CD-ROM</span>? Feel free. This book is published under the <span class="acronym">GNU</span> Free Documentation License, which gives you enormous freedoms to modify and redistribute it in all its forms. If you're familiar
+                      with the <span class="acronym">GNU</span> General Public License for software, you already understand these freedoms; the <span class="acronym">FDL</span> is the <span class="acronym">GPL</span> for books. You can <a href="../../page_templates/appendix/fdl.html">read the license</a> for all the details.
+                   </p>
+                </div>
+                <br>
             </div>
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-         </div>
-      </div>
 
-      <div id="menu">
+    <div class="row">
+      <div id="menu small-12 medium-6 columns">
          <div class="appendix">
             <h2>Download <span class="application">Python</span></h2>
             <div class="itemizedlist">
@@ -198,5 +171,10 @@
             </div>
          </div>
       </div>
-   </body>
-</html>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    
+{% endblock %}
