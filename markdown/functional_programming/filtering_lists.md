@@ -19,7 +19,7 @@ Got all that? It's not as difficult as it sounds.
 
 ### Example 16.7. Introducing `filter`
 
-    >>> def odd(n):                 
+    >>> [def odd(n):](http://test.com)              
     ...     return n % 2
     ...     
     >>> li = [1, 2, 3, 5, 9, 10, 256, -3]

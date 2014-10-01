@@ -1,4 +1,8 @@
 Copyright Mark Pilgrim
 Updated by Josh Gachnang
 
-This is a clone of Mark Pilgrim's Dive Into Python. I am updating it Python 2.7 and fixing links/other errors.
+This is a clone of Mark Pilgrim's Dive Into Python. I am updating it to
+Python 2.7 and fixing links/other errors.
+
+The site is written in standard Markdown. The only change is the symbol `{{1}}`
+converts to a callout symbol with the number 1 in it.

@@ -20,10 +20,13 @@ Open your favorite Python IDE and follow along:
 
 ### Example 2.3. Accessing the `buildConnectionString` Function's `doc string`
 
-    >>> import odbchelper                              
+    >>> import odbchelper
+
     >>> params = {"server":"mpilgrim", "database":"master", "uid":"sa", "pwd":"secret"}
+
     >>> print odbchelper.buildConnectionString(params) 
     server=mpilgrim;uid=sa;database=master;pwd=secret
+
     >>> print odbchelper.buildConnectionString.__doc__ 
     Build a connection string from a dictionary
 
@@ -52,6 +55,7 @@ chapter.)
 
 ### Example 2.4. Import Search Path
 
+    #  Importing the `sys` module makes all of its functions and attributes available. 
     >>> import sys                 
     >>> sys.path                   
     ['', '/usr/local/lib/python2.2', '/usr/local/lib/python2.2/plat-linux2', 
@@ -63,7 +67,7 @@ chapter.)
 
 
 
-[![1](../images/callouts/1.png)](#odbchelper.objects.2.1) Importing the `sys` module makes all of its functions and attributes available. 
+[![1](../images/callouts/1.png)](#odbchelper.objects.2.1)
 
 [![2](../images/callouts/2.png)](#odbchelper.objects.2.2) `sys.path` is a list of directory names that constitute the current search path. (Yours will look different, depending on your operating system, what version of Python you're running, and where it was originally installed.) Python will look through these directories (in this order) for a `.py` file matching the module name you're trying to import. 
 

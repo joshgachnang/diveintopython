@@ -47,5 +47,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-gamifyd/local_settings.py
-gamifyd/production_settings.py
+website/

@@ -18,12 +18,14 @@ they go out of scope.
 
 ### Example 3.17. Defining the `myParams` Variable
 
+    {% file
     if __name__ == "__main__":
         myParams = {"server":"mpilgrim", \
                     "database":"master", \
                     "uid":"sa", \
                     "pwd":"secret" \
                     }
+    %}
 
 Notice the indentation. An `if` statement is a code block and needs to
 be indented just like a function.
@@ -54,13 +56,13 @@ raise an exception.
 
 ### Example 3.18. Referencing an Unbound Variable
 
-    >>> x
-    Traceback (innermost last):
-      File "<interactive input>", line 1, in ?
-    NameError: There is no variable named 'x'
-    >>> x = 1
-    >>> x
-    1
+    {% interpreter
+    x
+    }%
+    {% interpreter
+    x = 1
+    x
+    %}
 
 You will thank Python for this one day.
 
