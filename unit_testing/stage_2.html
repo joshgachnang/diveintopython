@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/unit_testing/stage_1.html">Test-First Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">roman.py, stage 2</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/unit_testing/stage_1.html" title="Prev: “Test-First Programming”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/unit_testing/stage_3.html" title="Next: “roman.py, stage 3”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/unit_testing/stage_1.html">Test-First Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">roman.py, stage 2</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/unit_testing/stage_1.html" title="Prev: “Test-First Programming”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/unit_testing/stage_3.html" title="Next: “roman.py, stage 3”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -63,7 +63,7 @@
 <div class="example"><a name="roman.stage2.example"></a><h3 class="title">Example&nbsp;14.3.&nbsp;<tt class="filename">roman2.py</tt></h3>
 <p>This file is available in <tt class="filename">py/roman/stage2/</tt> in the examples directory.
             </p>
-<p>If you have not already done so, you can <a href="http://www.diveintopython.net/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+<p>If you have not already done so, you can <a href="/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
             </p><pre class="programlisting">
 <span class="pystring">"""Convert to and from Roman numerals"""</span>
 
@@ -103,7 +103,7 @@ romanNumeralMap = ((<span class="pystring">'M'</span>,  1000), <a name="roman.st
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/stage_2.html#roman.stage2.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">romanNumeralMap</tt> is a tuple of tuples which defines three things:
                         <div class="orderedlist">
@@ -120,7 +120,7 @@ romanNumeralMap = ((<span class="pystring">'M'</span>,  1000), <a name="roman.st
 </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/stage_2.html#roman.stage2.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here's where your rich data structure pays off, because you don't need any special logic to handle the subtraction rule. 
                         To convert to Roman numerals, you simply iterate through <tt class="varname">romanNumeralMap</tt> looking for the largest integer value less than or equal to the input.  Once found, you add the Roman numeral representation
@@ -165,22 +165,22 @@ toRoman should fail with large input ... FAIL
 toRoman should fail with 0 input ... FAIL</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/stage_2.html#roman.stage2.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">toRoman</tt> does, in fact, always return uppercase, because <tt class="varname">romanNumeralMap</tt> defines the Roman numeral representations as uppercase.  So this test passes already.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/stage_2.html#roman.stage2.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Here's the big news: this version of the <tt class="function">toRoman</tt> function passes the <a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues">known values test</a>.  Remember, it's not comprehensive, but it does put the function through its paces with a variety of good inputs, including
+<td valign="top" align="left">Here's the big news: this version of the <tt class="function">toRoman</tt> function passes the <a href="/unit_testing/testing_for_success.html#roman.testtoromanknownvalues.example" title="Example&nbsp;13.2.&nbsp;testToRomanKnownValues">known values test</a>.  Remember, it's not comprehensive, but it does put the function through its paces with a variety of good inputs, including
                         inputs that produce every single-character Roman numeral, the largest possible input (<tt class="literal">3999</tt>), and the input that produces the longest possible Roman numeral (<tt class="literal">3888</tt>).  At this point, you can be reasonably confident that the function works for any good input value you could throw at it.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/stage_2.html#roman.stage2.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/stage_2.html#roman.stage2.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">However, the function does not &#8220;<span class="quote">work</span>&#8221; for bad values; it fails every single <a href="http://www.diveintopython.net/unit_testing/testing_for_failure.html#roman.tobadinput.example" title="Example&nbsp;13.3.&nbsp;Testing bad input to toRoman">bad input test</a>.  That makes sense, because you didn't include any checks for bad input.  Those test cases look for specific exceptions to
+<td valign="top" align="left">However, the function does not &#8220;<span class="quote">work</span>&#8221; for bad values; it fails every single <a href="/unit_testing/testing_for_failure.html#roman.tobadinput.example" title="Example&nbsp;13.3.&nbsp;Testing bad input to toRoman">bad input test</a>.  That makes sense, because you didn't include any checks for bad input.  Those test cases look for specific exceptions to
                         be raised (via <tt class="function">assertRaises</tt>), and you're never raising them.  You'll do that in the next stage.
                      </td>
 </tr>
@@ -284,10 +284,10 @@ FAILED (failures=10)</span></pre></div>
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/unit_testing/stage_1.html">&lt;&lt;&nbsp;Test-First Programming</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/unit_testing/stage_1.html#roman.stage1" title="14.1.&nbsp;roman.py, stage 1">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/unit_testing/stage_3.html" title="14.3.&nbsp;roman.py, stage 3">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/unit_testing/stage_4.html" title="14.4.&nbsp;roman.py, stage 4">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/unit_testing/stage_5.html" title="14.5.&nbsp;roman.py, stage 5">5</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/unit_testing/stage_1.html">&lt;&lt;&nbsp;Test-First Programming</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/unit_testing/stage_1.html#roman.stage1" title="14.1.&nbsp;roman.py, stage 1">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="/unit_testing/stage_3.html" title="14.3.&nbsp;roman.py, stage 3">3</a> <span class="divider">|</span> <a href="/unit_testing/stage_4.html" title="14.4.&nbsp;roman.py, stage 4">4</a> <span class="divider">|</span> <a href="/unit_testing/stage_5.html" title="14.5.&nbsp;roman.py, stage 5">5</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/unit_testing/stage_3.html">roman.py, stage 3&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/unit_testing/stage_3.html">roman.py, stage 3&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

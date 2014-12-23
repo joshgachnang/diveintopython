@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Case study: Parsing Phone Numbers</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/verbose.html" title="Prev: “Verbose Regular Expressions”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/regular_expressions/index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Case study: Parsing Phone Numbers</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/regular_expressions/verbose.html" title="Prev: “Verbose Regular Expressions”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/regular_expressions/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -92,21 +92,21 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Always read regular expressions from left to right.  This one matches the beginning of the string, and then <tt class="literal">(\d{3})</tt>.  What's <tt class="literal">\d{3}</tt>?  Well, the <tt class="literal">{3}</tt> means &#8220;<span class="quote">match exactly three numeric digits</span>&#8221;; it's a variation on the <a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax"><tt class="literal">{n,m} syntax</tt></a> you saw earlier.  <tt class="literal">\d</tt> means &#8220;<span class="quote">any numeric digit</span>&#8221; (<tt class="literal">0</tt> through <tt class="literal">9</tt>).  Putting it in parentheses means &#8220;<span class="quote">match exactly three numeric digits, <span class="emphasis"><em>and then remember them as a group that I can ask for later</em></span></span>&#8221;.  Then match a literal hyphen.  Then match another group of exactly three digits.  Then another literal hyphen.  Then another
+<td valign="top" align="left">Always read regular expressions from left to right.  This one matches the beginning of the string, and then <tt class="literal">(\d{3})</tt>.  What's <tt class="literal">\d{3}</tt>?  Well, the <tt class="literal">{3}</tt> means &#8220;<span class="quote">match exactly three numeric digits</span>&#8221;; it's a variation on the <a href="/regular_expressions/n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax"><tt class="literal">{n,m} syntax</tt></a> you saw earlier.  <tt class="literal">\d</tt> means &#8220;<span class="quote">any numeric digit</span>&#8221; (<tt class="literal">0</tt> through <tt class="literal">9</tt>).  Putting it in parentheses means &#8220;<span class="quote">match exactly three numeric digits, <span class="emphasis"><em>and then remember them as a group that I can ask for later</em></span></span>&#8221;.  Then match a literal hyphen.  Then match another group of exactly three digits.  Then another literal hyphen.  Then another
                         group of exactly four digits.  Then match the end of the string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">To get access to the groups that the regular expression parser remembered along the way, use the <tt class="function">groups()</tt> method on the object that the <tt class="function">search</tt> function returns.  It will return a tuple of however many groups were defined in the regular expression.  In this case, you
                         defined three groups, one with three digits, one with three digits, and one with four digits.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This regular expression is not the final answer, because it doesn't handle a phone number with an extension on the end.  For
                         that, you'll need to expand the regular expression.
@@ -126,7 +126,7 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This regular expression is almost identical to the previous one.  Just as before, you match the beginning of the string, then
                         a remembered group of three digits, then a hyphen, then a remembered group of three digits, then a hyphen, then a remembered
@@ -135,13 +135,13 @@
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="function">groups()</tt> method now returns a tuple of four elements, since the regular expression now defines four groups to remember.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Unfortunately, this regular expression is not the final answer either, because it assumes that the different parts of the
                         phone number are separated by hyphens.  What if they're separated by spaces, or commas, or dots?  You need a more general
@@ -149,7 +149,7 @@
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Oops!  Not only does this regular expression not do everything you want, it's actually a step backwards, because now you can't
                         parse phone numbers <span class="emphasis"><em>without</em></span> an extension.  That's not what you wanted at all; if the extension is there, you want to know what it is, but if it's not
@@ -173,32 +173,32 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Hang on to your hat.  You're matching the beginning of the string, then a group of three digits, then <tt class="literal">\D+</tt>.  What the heck is that?  Well, <tt class="literal">\D</tt> matches any character <span class="emphasis"><em>except</em></span> a numeric digit, and <tt class="literal">+</tt> means &#8220;<span class="quote">1 or more</span>&#8221;.  So <tt class="literal">\D+</tt> matches one or more characters that are not digits.  This is what you're using instead of a literal hyphen, to try to match
                         different separators.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Using <tt class="literal">\D+</tt> instead of <tt class="literal">-</tt> means you can now match phone numbers where the parts are separated by spaces instead of hyphens.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Of course, phone numbers separated by hyphens still work too.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Unfortunately, this is still not the final answer, because it assumes that there is a separator at all.  What if the phone
                         number is entered without any spaces or hyphens at all?
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Oops!  This still hasn't fixed the problem of requiring extensions.  Now you have two problems, but you can solve both of
                         them with the same technique.
@@ -222,32 +222,32 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The only change you've made since that last step is changing all the <tt class="literal">+</tt> to <tt class="literal">*</tt>.  Instead of <tt class="literal">\D+</tt> between the parts of the phone number, you now match on <tt class="literal">\D*</tt>.  Remember that <tt class="literal">+</tt> means &#8220;<span class="quote">1 or more</span>&#8221;?  Well, <tt class="literal">*</tt> means &#8220;<span class="quote">zero or more</span>&#8221;.  So now you should be able to parse phone numbers even when there is no separator character at all.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Lo and behold, it actually works.  Why?  You matched the beginning of the string, then a remembered group of three digits
                         (<tt class="literal">800</tt>), then zero non-numeric characters, then a remembered group of three digits (<tt class="literal">555</tt>), then zero non-numeric characters, then a remembered group of four digits (<tt class="literal">1212</tt>), then zero non-numeric characters, then a remembered group of an arbitrary number of digits (<tt class="literal">1234</tt>), then the end of the string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Other variations work now too: dots instead of hyphens, and both a space and an <tt class="literal">x</tt> before the extension.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Finally, you've solved the other long-standing problem: extensions are optional again.  If no extension is found, the <tt class="function">groups()</tt> method still returns a tuple of four elements, but the fourth element is just an empty string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.4.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.4.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">I hate to be the bearer of bad news, but you're not finished yet.  What's the problem here?  There's an extra character before
                         the area code, but the regular expression assumes that the area code is the first thing at the beginning of the string.  No
@@ -269,7 +269,7 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.5.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.5.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is the same as in the previous example, except now you're matching <tt class="literal">\D*</tt>, zero or more non-numeric characters, before the first remembered group (the area code).  Notice that you're not remembering
                         these non-numeric characters (they're not in parentheses).  If you find them, you'll just skip over them and then start remembering
@@ -277,14 +277,14 @@
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.5.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.5.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You can successfully parse the phone number, even with the leading left parenthesis before the area code.  (The right parenthesis
                         after the area code is already handled; it's treated as a non-numeric separator and matched by the <tt class="literal">\D*</tt> after the first remembered group.)
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.5.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.5.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Just a sanity check to make sure you haven't broken anything that used to work.  Since the leading characters are entirely
                         optional, this matches the beginning of the string, then zero non-numeric characters, then a remembered group of three digits
@@ -292,7 +292,7 @@
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.5.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.5.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is where regular expressions make me want to gouge my eyes out with a blunt object.  Why doesn't this phone number match?
                          Because there's a <tt class="literal">1</tt> before the area code, but you assumed that all the leading characters before the area code were non-numeric characters (<tt class="literal">\D*</tt>).  Aargh.
@@ -317,7 +317,7 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.6.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.6.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Note the lack of <tt class="literal">^</tt> in this regular expression.  You are not matching the beginning of the string anymore.  There's nothing that says you need
                         to match the entire input with your regular expression.  The regular expression engine will do the hard work of figuring out
@@ -325,19 +325,19 @@
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.6.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.6.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Now you can successfully parse a phone number that includes leading characters and a leading digit, plus any number of any
                         kind of separators around each part of the phone number.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.6.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.6.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Sanity check.  this still works.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.6.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.6.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">That still works too.</td>
 </tr>
@@ -370,14 +370,14 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.7.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.7.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Other than being spread out over multiple lines, this is exactly the same regular expression as the last step, so it's no
                         surprise that it parses the same inputs.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html#re.phone.7.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/phone_numbers.html#re.phone.7.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Final sanity check.  Yes, this still works.  You're done.</td>
 </tr>
@@ -387,19 +387,19 @@
 <div class="furtherreading">
 <h3>Further Reading on Regular Expressions</h3>
 <ul>
-<li><a href="http://www.diveintopython.net/regex/regex.html">Regular Expression HOWTO</a> teaches about regular expressions and how to use them in <span class="application">Python</span>.
+<li><a href="/regex/regex.html">Regular Expression HOWTO</a> teaches about regular expressions and how to use them in <span class="application">Python</span>.
                </li>
-<li><a href="http://www.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes the <a href="http://www.diveintopython.net/doc/current/lib/module-re.html"><tt class="filename">re</tt> module</a>.
+<li><a href="/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes the <a href="/doc/current/lib/module-re.html"><tt class="filename">re</tt> module</a>.
                </li>
 </ul>
 </div>
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/regular_expressions/verbose.html">&lt;&lt;&nbsp;Verbose Regular Expressions</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/regular_expressions/index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/regular_expressions/verbose.html">&lt;&lt;&nbsp;Verbose Regular Expressions</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/regular_expressions/index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="/regular_expressions/street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <a href="/regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">3</a> <span class="divider">|</span> <a href="/regular_expressions/n_m_syntax.html" title="7.4.&nbsp;Using the {n,m} Syntax">4</a> <span class="divider">|</span> <a href="/regular_expressions/verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="/regular_expressions/summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/regular_expressions/summary.html">Summary&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/regular_expressions/summary.html">Summary&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

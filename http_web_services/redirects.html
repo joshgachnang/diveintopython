@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Handling redirects</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/etags.html" title="Prev: “Handling Last-Modified and ETag”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/gzip_compression.html" title="Next: “Handling compressed data”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Handling redirects</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/http_web_services/etags.html" title="Prev: “Handling Last-Modified and ETag”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/http_web_services/gzip_compression.html" title="Next: “Handling compressed data”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -113,36 +113,36 @@ AttributeError: addinfourl instance has no attribute 'status'</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.1.0"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.1.0"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You'll be better able to see what's happening if you turn on debugging.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.1.1"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.1.1"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is a URL which I have set up to permanently redirect to my Atom feed at <tt class="literal">http://diveintomark.org/xml/atom.xml</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.1.2"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.1.2"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Sure enough, when you try to download the data at that address, the server sends back a <tt class="literal">301</tt> status code, telling you that the resource has moved permanently.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.1.3"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.1.3"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The server also sends back a <tt class="literal">Location:</tt> header that gives the new address of this data.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.1.4"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.1.4"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="filename">urllib2</tt> notices the redirect status code and automatically tries to retrieve the data at the new location specified in the <tt class="literal">Location:</tt> header.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.1.5"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.1.5"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The object you get back from the <tt class="varname">opener</tt> contains the new permanent address and all the headers returned from the second request (retrieved from the new permanent
                         address).  But the status code is missing, so you have no way of knowing programmatically whether this redirect was temporary
@@ -154,7 +154,7 @@ AttributeError: addinfourl instance has no attribute 'status'</span>
 </table>
 </div>
 </div>
-<p>This is suboptimal, but easy to fix.  <tt class="filename">urllib2</tt> doesn't behave exactly as you want it to when it encounters a <tt class="literal">301</tt> or <tt class="literal">302</tt>, so let's override its behavior.  How?  With a custom URL handler, <a href="http://www.diveintopython.net/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">just like you did to handle <tt class="literal">304</tt> codes</a>.
+<p>This is suboptimal, but easy to fix.  <tt class="filename">urllib2</tt> doesn't behave exactly as you want it to when it encounters a <tt class="literal">301</tt> or <tt class="literal">302</tt>, so let's override its behavior.  How?  With a custom URL handler, <a href="/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">just like you did to handle <tt class="literal">304</tt> codes</a>.
          </p>
 <div class="example"><a name="d0e28866"></a><h3 class="title">Example&nbsp;11.11.&nbsp;Defining the redirect handler</h3>
 <p>This class is defined in <tt class="filename">openanything.py</tt>.
@@ -174,25 +174,25 @@ class</span> SmartRedirectHandler(urllib2.HTTPRedirectHandler):     <a name="oa.
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Redirect behavior is defined in <tt class="filename">urllib2</tt> in a class called <tt class="classname">HTTPRedirectHandler</tt>.  You don't want to completely override the behavior, you just want to extend it a little, so you'll subclass <tt class="classname">HTTPRedirectHandler</tt> so you can call the ancestor class to do all the hard work.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">When it encounters a <tt class="literal">301</tt> status code from the server, <tt class="filename">urllib2</tt> will search through its handlers and call the <tt class="methodname">http_error_301</tt> method.   The first thing ours does is just call the <tt class="methodname">http_error_301</tt> method in the ancestor, which handles the grunt work of looking for the <tt class="literal">Location:</tt> header and following the redirect to the new address.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here's the key: before you return, you store the status code (<tt class="literal">301</tt>), so that the calling program can access it later.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Temporary redirects (status code <tt class="literal">302</tt>) work the same way: override the <tt class="literal">http_error_302</tt> method, call the ancestor, and save the status code before returning.
                      </td>
@@ -245,18 +245,18 @@ header: Content-Type: application/atom+xml
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">First, build a URL opener with the redirect handler you just defined.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You sent off a request, and you got a <tt class="literal">301</tt> status code in response.  At this point, the <tt class="methodname">http_error_301</tt> method gets called.  You call the ancestor method, which follows the redirect and sends a request at the new location (<tt class="literal">http://diveintomark.org/xml/atom.xml</tt>).
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is the payoff: now, not only do you have access to the new URL, but you have access to the redirect status code, so you
                         can tell that this was a permanent redirect.  The next time you request this data, you should request it from the new location
@@ -308,25 +308,25 @@ header: Content-Type: application/atom+xml</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is a sample URL I've set up that is configured to tell clients to <span class="emphasis"><em>temporarily</em></span> redirect to <tt class="literal">http://diveintomark.org/xml/atom.xml</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The server sends back a <tt class="literal">302</tt> status code, indicating a temporary redirect.  The temporary new location of the data is given in the <tt class="literal">Location:</tt> header.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="filename">urllib2</tt> calls your <tt class="methodname">http_error_302</tt> method, which calls the ancestor method of the same name in <tt class="classname">urllib2.HTTPRedirectHandler</tt>, which follows the redirect to the new location.  Then your <tt class="methodname">http_error_302</tt> method stores the status code (<tt class="literal">302</tt>) so the calling application can get it later.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/redirects.html#oa.redirect.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/redirects.html#oa.redirect.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">And here you are, having successfully followed the redirect to <tt class="literal">http://diveintomark.org/xml/atom.xml</tt>.  <tt class="varname">f.status</tt> tells you that this was a temporary redirect, which means that you should continue to request data from the original address
                         (<tt class="literal">http://diveintomark.org/redir/example302.xml</tt>).  Maybe it will redirect next time too, but maybe not.  Maybe it will redirect to a different address.  It's not for you
@@ -340,10 +340,10 @@ header: Content-Type: application/atom+xml</span>
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/etags.html">&lt;&lt;&nbsp;Handling Last-Modified and ETag</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/http_web_services/etags.html">&lt;&lt;&nbsp;Handling Last-Modified and ETag</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="/http_web_services/user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="/http_web_services/alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/gzip_compression.html">Handling compressed data&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/http_web_services/gzip_compression.html">Handling compressed data&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

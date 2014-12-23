@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/file_handling/index.html">Exceptions and File Handling</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting It All Together</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/file_handling/os_module.html" title="Prev: “Working with Directories”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/file_handling/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/file_handling/index.html">Exceptions and File Handling</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting It All Together</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/file_handling/os_module.html" title="Prev: “Working with Directories”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/file_handling/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -76,43 +76,43 @@ def</span> listDirectory(directory, fileExtList):                               
     <span class="pykeyword">return</span> [getFileInfoClass(f)(f) <span class="pykeyword">for</span> f <span class="pykeyword">in</span> fileList]                              <a name="fileinfo.alltogether.1.6"></a><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/all_together.html#fileinfo.alltogether.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/file_handling/all_together.html#fileinfo.alltogether.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">listDirectory</tt> is the main attraction of this entire module.  It takes a directory (like <tt class="filename">c:\music\_singles\</tt> in my case) and a list of interesting file extensions (like <tt class="literal">['.mp3']</tt>), and it returns a list of class instances that act like dictionaries that contain metadata about each interesting file in
                         that directory.  And it does it in just a few straightforward lines of code.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/all_together.html#fileinfo.alltogether.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/file_handling/all_together.html#fileinfo.alltogether.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">As you saw in the <a href="http://www.diveintopython.net/file_handling/os_module.html" title="6.5.&nbsp;Working with Directories">previous section</a>, this line of code gets a list of the full pathnames of all the files in <tt class="varname">directory</tt> that have an interesting file extension (as specified by <tt class="varname">fileExtList</tt>).
+<td valign="top" align="left">As you saw in the <a href="/file_handling/os_module.html" title="6.5.&nbsp;Working with Directories">previous section</a>, this line of code gets a list of the full pathnames of all the files in <tt class="varname">directory</tt> that have an interesting file extension (as specified by <tt class="varname">fileExtList</tt>).
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/all_together.html#fileinfo.alltogether.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/file_handling/all_together.html#fileinfo.alltogether.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Old-school <span class="application">Pascal</span> programmers may be familiar with them, but most people give me a blank stare when I tell them that <span class="application">Python</span> supports <span class="emphasis"><em>nested functions</em></span> -- literally, a function within a function.  The nested function <tt class="function">getFileInfoClass</tt> can be called only from the function in which it is defined, <tt class="function">listDirectory</tt>.  As with any other function, you don't need an interface declaration or anything fancy; just define the function and code
                         it.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/all_together.html#fileinfo.alltogether.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/file_handling/all_together.html#fileinfo.alltogether.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Now that you've seen the <a href="http://www.diveintopython.net/file_handling/os_module.html" title="6.5.&nbsp;Working with Directories"><tt class="filename">os</tt></a> module, this line should make more sense.  It gets the extension of the file (<tt class="literal">os.path.splitext(filename)[1]</tt>), forces it to uppercase (<tt class="literal">.upper()</tt>), slices off the dot (<tt class="literal">[1:]</tt>), and constructs a class name out of it with string formatting.  So <tt class="filename">c:\music\ap\mahadeva.mp3</tt> becomes <tt class="literal">.mp3</tt> becomes <tt class="literal">.MP3</tt> becomes <tt class="literal">MP3</tt> becomes <tt class="literal">MP3FileInfo</tt>.
+<td valign="top" align="left">Now that you've seen the <a href="/file_handling/os_module.html" title="6.5.&nbsp;Working with Directories"><tt class="filename">os</tt></a> module, this line should make more sense.  It gets the extension of the file (<tt class="literal">os.path.splitext(filename)[1]</tt>), forces it to uppercase (<tt class="literal">.upper()</tt>), slices off the dot (<tt class="literal">[1:]</tt>), and constructs a class name out of it with string formatting.  So <tt class="filename">c:\music\ap\mahadeva.mp3</tt> becomes <tt class="literal">.mp3</tt> becomes <tt class="literal">.MP3</tt> becomes <tt class="literal">MP3</tt> becomes <tt class="literal">MP3FileInfo</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/all_together.html#fileinfo.alltogether.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/file_handling/all_together.html#fileinfo.alltogether.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Having constructed the name of the handler class that would handle this file, you check to see if that handler class actually
                         exists in this module.  If it does, you return the class, otherwise you return the base class <tt class="classname">FileInfo</tt>.  This is a very important point: <span class="emphasis"><em>this function returns a class</em></span>.  Not an instance of a class, but the class itself.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/file_handling/all_together.html#fileinfo.alltogether.1.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/file_handling/all_together.html#fileinfo.alltogether.1.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">For each file in the &#8220;<span class="quote">interesting files</span>&#8221; list (<tt class="varname">fileList</tt>), you call <tt class="function">getFileInfoClass</tt> with the filename (<tt class="varname">f</tt>).  Calling <tt class="literal">getFileInfoClass(f)</tt> returns a class; you don't know exactly which class, but you don't care.  You then create an instance of this class (whatever
-                        it is) and pass the filename (<tt class="varname">f</tt> again), to the <tt class="function">__init__</tt> method.  As you saw <a href="http://www.diveintopython.net/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.setname" title="Example&nbsp;5.15.&nbsp;Setting an MP3FileInfo's name">earlier in this chapter</a>, the <tt class="function">__init__</tt> method of <tt class="classname">FileInfo</tt> sets <tt class="literal">self["name"]</tt>, which triggers <tt class="function">__setitem__</tt>, which is overridden in the descendant (<tt class="classname">MP3FileInfo</tt>) to parse the file appropriately to pull out the file's metadata.  You do all that for each interesting file and return a
+                        it is) and pass the filename (<tt class="varname">f</tt> again), to the <tt class="function">__init__</tt> method.  As you saw <a href="/object_oriented_framework/special_class_methods.html#fileinfo.specialmethods.setname" title="Example&nbsp;5.15.&nbsp;Setting an MP3FileInfo's name">earlier in this chapter</a>, the <tt class="function">__init__</tt> method of <tt class="classname">FileInfo</tt> sets <tt class="literal">self["name"]</tt>, which triggers <tt class="function">__setitem__</tt>, which is overridden in the descendant (<tt class="classname">MP3FileInfo</tt>) to parse the file appropriately to pull out the file's metadata.  You do all that for each interesting file and return a
                         list of the resulting instances.
                      </td>
 </tr>
@@ -127,10 +127,10 @@ def</span> listDirectory(directory, fileExtList):                               
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/file_handling/os_module.html">&lt;&lt;&nbsp;Working with Directories</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/file_handling/index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/file_handling/for_loops.html" title="6.3.&nbsp;Iterating with for Loops">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/file_handling/more_on_modules.html" title="6.4.&nbsp;Using sys.modules">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/file_handling/os_module.html" title="6.5.&nbsp;Working with Directories">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/file_handling/summary.html" title="6.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/file_handling/os_module.html">&lt;&lt;&nbsp;Working with Directories</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/file_handling/index.html#fileinfo.exception" title="6.1.&nbsp;Handling Exceptions">1</a> <span class="divider">|</span> <a href="/file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">2</a> <span class="divider">|</span> <a href="/file_handling/for_loops.html" title="6.3.&nbsp;Iterating with for Loops">3</a> <span class="divider">|</span> <a href="/file_handling/more_on_modules.html" title="6.4.&nbsp;Using sys.modules">4</a> <span class="divider">|</span> <a href="/file_handling/os_module.html" title="6.5.&nbsp;Working with Directories">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="/file_handling/summary.html" title="6.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/file_handling/summary.html">Summary&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/file_handling/summary.html">Summary&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

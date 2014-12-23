@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Setting the User-Agent</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/debugging.html" title="Prev: “Debugging HTTP web services”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/etags.html" title="Next: “Handling Last-Modified and ETag”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Setting the User-Agent</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/http_web_services/debugging.html" title="Prev: “Debugging HTTP web services”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/http_web_services/etags.html" title="Next: “Handling Last-Modified and ETag”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -84,20 +84,20 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/user_agent.html#oa.useragent.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/user_agent.html#oa.useragent.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">If you still have your <span class="application">Python</span> <span class="acronym">IDE</span> open from the previous section's example, you can skip this, but this turns on <a href="http://www.diveintopython.net/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">HTTP debugging</a> so you can see what you're actually sending over the wire, and what gets sent back.
+<td valign="top" align="left">If you still have your <span class="application">Python</span> <span class="acronym">IDE</span> open from the previous section's example, you can skip this, but this turns on <a href="/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">HTTP debugging</a> so you can see what you're actually sending over the wire, and what gets sent back.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/user_agent.html#oa.useragent.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/user_agent.html#oa.useragent.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Fetching an HTTP resource with <tt class="filename">urllib2</tt> is a three-step process, for good reasons that will become clear shortly.  The first step is to create a <tt class="classname">Request</tt> object, which takes the URL of the resource you'll eventually get around to retrieving.  Note that this step doesn't actually
                         retrieve anything yet.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/user_agent.html#oa.useragent.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/user_agent.html#oa.useragent.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The second step is to build a URL opener.  This can take any number of handlers, which control how responses are handled.
                          But you can also build an opener without any custom handlers, which is what you're doing here.  You'll see how to define
@@ -105,7 +105,7 @@
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/user_agent.html#oa.useragent.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/user_agent.html#oa.useragent.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The final step is to tell the opener to open the URL, using the <tt class="classname">Request</tt> object you created.  As you can see from all the debugging information that gets printed, this step actually retrieves the
                         resource and stores the returned data in <tt class="varname">feeddata</tt>.
@@ -140,13 +140,13 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/user_agent.html#oa.useragent.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/user_agent.html#oa.useragent.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You're continuing from the previous example; you've already created a <tt class="classname">Request</tt> object with the URL you want to access.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/user_agent.html#oa.useragent.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/user_agent.html#oa.useragent.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Using the <tt class="function">add_header</tt> method on the <tt class="classname">Request</tt> object, you can add arbitrary HTTP headers to the request.  The first argument is the header, the second is the value you're
                         providing for that header.  Convention dictates that a <tt class="literal">User-Agent</tt> should be in this specific format: an application name, followed by a slash, followed by a version number.  The rest is free-form,
@@ -155,13 +155,13 @@
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/user_agent.html#oa.useragent.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/user_agent.html#oa.useragent.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="varname">opener</tt> object you created before can be reused too, and it will retrieve the same feed again, but with your custom <tt class="literal">User-Agent</tt> header.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/user_agent.html#oa.useragent.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/user_agent.html#oa.useragent.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">And here's you sending your custom <tt class="literal">User-Agent</tt>, in place of the generic one that <span class="application">Python</span> sends by default.  If you look closely, you'll notice that you defined a <tt class="literal">User-Agent</tt> header, but you actually sent a <tt class="literal">User-agent</tt> header.  See the difference?  <tt class="filename">urllib2</tt> changed the case so that only the first letter was capitalized.  It doesn't really matter; HTTP specifies that header field
                         names are completely case-insensitive.
@@ -173,10 +173,10 @@
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/debugging.html">&lt;&lt;&nbsp;Debugging HTTP web services</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/http_web_services/debugging.html">&lt;&lt;&nbsp;Debugging HTTP web services</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <span class="thispage">5</span> <span class="divider">|</span> <a href="/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="/http_web_services/alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/etags.html">Handling Last-Modified and ETag&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/http_web_services/etags.html">Handling Last-Modified and ETag&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

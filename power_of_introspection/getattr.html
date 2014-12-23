@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/power_of_introspection/index.html">The Power Of Introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">Getting Object References With getattr</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html" title="Prev: “Using type, str, dir, and Other Built-In Functions”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/power_of_introspection/filtering_lists.html" title="Next: “Filtering Lists”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/power_of_introspection/index.html">The Power Of Introspection</a>&nbsp;&gt;&nbsp;<span class="thispage">Getting Object References With getattr</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/power_of_introspection/built_in_functions.html" title="Prev: “Using type, str, dir, and Other Built-In Functions”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/power_of_introspection/filtering_lists.html" title="Next: “Filtering Lists”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -57,12 +57,12 @@
 </div>
 <div class="toc">
 <ul>
-<li><span class="section"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#d0e9194">4.4.1. getattr with Modules</a></span></li>
-<li><span class="section"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#d0e9362">4.4.2. getattr As a Dispatcher</a></span></li>
+<li><span class="section"><a href="/power_of_introspection/getattr.html#d0e9194">4.4.1. getattr with Modules</a></span></li>
+<li><span class="section"><a href="/power_of_introspection/getattr.html#d0e9362">4.4.2. getattr As a Dispatcher</a></span></li>
 </ul>
 </div>
 <div class="abstract">
-<p>You already know that <a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object"><span class="application">Python</span> functions are objects</a>.  What you don't know is that you can get a reference to a function without knowing its name until run-time, by using the
+<p>You already know that <a href="/getting_to_know_python/everything_is_an_object.html" title="2.4.&nbsp;Everything Is an Object"><span class="application">Python</span> functions are objects</a>.  What you don't know is that you can get a reference to a function without knowing its name until run-time, by using the
                <tt class="function">getattr</tt> function.
             </p>
 </div>
@@ -82,34 +82,34 @@
 AttributeError: 'tuple' object has no attribute 'pop'</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This gets a reference to the <tt class="function">pop</tt> method of the list.  Note that this is not calling the <tt class="function">pop</tt> method; that would be <tt class="literal">li.pop()</tt>.  This is the method itself.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This also returns a reference to the <tt class="function">pop</tt> method, but this time, the method name is specified as a string argument to the <tt class="function">getattr</tt> function.  <tt class="function">getattr</tt> is an incredibly useful built-in function that returns any attribute of any object.  In this case, the object is a list,
                         and the attribute is the <tt class="function">pop</tt> method.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">In case it hasn't sunk in just how incredibly useful this is, try this: the return value of <tt class="function">getattr</tt> <span class="emphasis"><em>is</em></span> the method, which you can then call just as if you had said <tt class="literal">li.append("Moe")</tt> directly.  But you didn't call the function directly; you specified the function name as a string instead.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">getattr</tt> also works on dictionaries.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">In theory, <tt class="function">getattr</tt> would work on tuples, except that <a href="http://www.diveintopython.net/native_data_types/tuples.html#odbchelper.tuplemethods" title="Example&nbsp;3.16.&nbsp;Tuples Have No Methods">tuples have no methods</a>, so <tt class="function">getattr</tt> will raise an exception no matter what attribute name you give.
+<td valign="top" align="left">In theory, <tt class="function">getattr</tt> would work on tuples, except that <a href="/native_data_types/tuples.html#odbchelper.tuplemethods" title="Example&nbsp;3.16.&nbsp;Tuples Have No Methods">tuples have no methods</a>, so <tt class="function">getattr</tt> will raise an exception no matter what attribute name you give.
                      </td>
 </tr>
 </table>
@@ -145,33 +145,33 @@ AttributeError: 'tuple' object has no attribute 'pop'</span></pre><div class="ca
 <span class="computeroutput">True</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">This returns a reference to the <tt class="function">buildConnectionString</tt> function in the <tt class="filename">odbchelper</tt> module, which you studied in <a href="http://www.diveintopython.net/getting_to_know_python/index.html" title="Chapter&nbsp;2.&nbsp;Your First Python Program">Chapter&nbsp;2, <i>Your First Python Program</i></a>.  (The hex address you see is specific to my machine; your output will be different.)
+<td valign="top" align="left">This returns a reference to the <tt class="function">buildConnectionString</tt> function in the <tt class="filename">odbchelper</tt> module, which you studied in <a href="/getting_to_know_python/index.html" title="Chapter&nbsp;2.&nbsp;Your First Python Program">Chapter&nbsp;2, <i>Your First Python Program</i></a>.  (The hex address you see is specific to my machine; your output will be different.)
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Using <tt class="function">getattr</tt>, you can get the same reference to the same function.  In general, <tt class="literal"></tt><tt class="function">getattr</tt>(<i class="replaceable">object</i>, "<i class="replaceable">attribute</i>") is equivalent to <tt class="literal"><i class="replaceable">object</i>.<i class="replaceable">attribute</i></tt>.  If <i class="replaceable"><tt>object</tt></i> is a module, then <i class="replaceable"><tt>attribute</tt></i> can be anything defined in the module: a function, class, or global variable.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">And this is what you actually use in the <tt class="function">info</tt> function.  <tt class="varname">object</tt> is passed into the function as an argument; <tt class="varname">method</tt> is a string which is the name of a method or function.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">In this case, <tt class="varname">method</tt> is the name of a function, which you can prove by getting its <a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html#apihelper.type.intro" title="Example&nbsp;4.5.&nbsp;Introducing type"><tt class="function">type</tt></a>.
+<td valign="top" align="left">In this case, <tt class="varname">method</tt> is the name of a function, which you can prove by getting its <a href="/power_of_introspection/built_in_functions.html#apihelper.type.intro" title="Example&nbsp;4.5.&nbsp;Introducing type"><tt class="function">type</tt></a>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Since <tt class="varname">method</tt> is a function, it is <a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html#apihelper.builtin.callable" title="Example&nbsp;4.8.&nbsp;Introducing callable">callable</a>.
+<td valign="top" align="left">Since <tt class="varname">method</tt> is a function, it is <a href="/power_of_introspection/built_in_functions.html#apihelper.builtin.callable" title="Example&nbsp;4.8.&nbsp;Introducing callable">callable</a>.
                         </td>
 </tr>
 </table>
@@ -204,20 +204,20 @@ import</span> statsout
 <div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="function">output</tt> function takes one required argument, <tt class="varname">data</tt>, and one optional argument, <tt class="varname">format</tt>.  If <tt class="varname">format</tt> is not specified, it defaults to <tt class="literal">text</tt>, and you will end up calling the plain text output function.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You concatenate the <tt class="varname">format</tt> argument with "output_" to produce a function name, and then go get that function from the <tt class="filename">statsout</tt> module.  This allows you to easily extend the program later to support other output formats, without changing this dispatch
                         function.  Just add another function to <tt class="filename">statsout</tt> named, for instance, <tt class="function">output_pdf</tt>, and pass "pdf" as the <tt class="varname">format</tt> into the <tt class="function">output</tt> function.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Now you can simply call the output function in the same way as any other function.  The <tt class="varname">output_function</tt> variable is a reference to the appropriate function from the <tt class="filename">statsout</tt> module.
                      </td>
@@ -240,7 +240,7 @@ import</span> statsout
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/power_of_introspection/getattr.html#apihelper.getattr.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/power_of_introspection/getattr.html#apihelper.getattr.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This function call is guaranteed to work, because you added a third argument to the call to <tt class="function">getattr</tt>.  The third argument is a default value that is returned if the attribute or method specified by the second argument wasn't
                            found.
@@ -255,10 +255,10 @@ import</span> statsout
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html">&lt;&lt;&nbsp;Using type, str, dir, and Other Built-In Functions</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/power_of_introspection/index.html#apihelper.divein" title="4.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/all_together.html" title="4.8.&nbsp;Putting It All Together">8</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/power_of_introspection/summary.html" title="4.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/power_of_introspection/built_in_functions.html">&lt;&lt;&nbsp;Using type, str, dir, and Other Built-In Functions</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/power_of_introspection/index.html#apihelper.divein" title="4.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="/power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">2</a> <span class="divider">|</span> <a href="/power_of_introspection/built_in_functions.html" title="4.3.&nbsp;Using type, str, dir, and Other Built-In Functions">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="/power_of_introspection/filtering_lists.html" title="4.5.&nbsp;Filtering Lists">5</a> <span class="divider">|</span> <a href="/power_of_introspection/and_or.html" title="4.6.&nbsp;The Peculiar Nature of and and or">6</a> <span class="divider">|</span> <a href="/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">7</a> <span class="divider">|</span> <a href="/power_of_introspection/all_together.html" title="4.8.&nbsp;Putting It All Together">8</a> <span class="divider">|</span> <a href="/power_of_introspection/summary.html" title="4.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/power_of_introspection/filtering_lists.html">Filtering Lists&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/power_of_introspection/filtering_lists.html">Filtering Lists&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

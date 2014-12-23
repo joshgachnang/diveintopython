@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Standard input, output, and error</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/index.html" title="Prev: “Scripts and Streams”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/caching.html" title="Next: “Caching node lookups”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/scripts_and_streams/index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Standard input, output, and error</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/scripts_and_streams/index.html" title="Prev: “Scripts and Streams”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/scripts_and_streams/caching.html" title="Next: “Caching node lookups”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -80,19 +80,19 @@ Dive in</span>
 <span class="computeroutput">Dive inDive inDive in</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">As you saw in <a href="http://www.diveintopython.net/file_handling/for_loops.html#fileinfo.for.counter" title="Example&nbsp;6.9.&nbsp;Simple Counters">Example&nbsp;6.9, &#8220;Simple Counters&#8221;</a>, you can use <span class="application">Python</span>'s built-in <tt class="function">range</tt> function to build simple counter loops that repeat something a set number of times.
+<td valign="top" align="left">As you saw in <a href="/file_handling/for_loops.html#fileinfo.for.counter" title="Example&nbsp;6.9.&nbsp;Simple Counters">Example&nbsp;6.9, &#8220;Simple Counters&#8221;</a>, you can use <span class="application">Python</span>'s built-in <tt class="function">range</tt> function to build simple counter loops that repeat something a set number of times.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="literal">stdout</tt> is a file-like object; calling its <tt class="function">write</tt> function will print out whatever string you give it.  In fact, this is what the <tt class="function">print</tt> function really does; it adds a carriage return to the end of the string you're printing, and calls <tt class="function">sys.stdout.write</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">In the simplest case, <tt class="literal">stdout</tt> and <tt class="literal">stderr</tt> send their output to the same place: the <span class="application">Python</span> <span class="acronym">IDE</span> (if you're in one), or the terminal (if you're running <span class="application">Python</span> from the command line).  Like <tt class="literal">stdout</tt>, <tt class="literal">stderr</tt> does not add carriage returns for you; if you want them, add them yourself.
                      </td>
@@ -100,7 +100,7 @@ Dive in</span>
 </table>
 </div>
 </div>
-<p><tt class="literal">stdout</tt> and <tt class="literal">stderr</tt> are both file-like objects, like the ones you discussed in <a href="http://www.diveintopython.net/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">Section&nbsp;10.1, &#8220;Abstracting input sources&#8221;</a>, but they are both write-only.  They have no <tt class="function">read</tt> method, only <tt class="function">write</tt>.  Still, they are file-like objects, and you can assign any other file- or file-like object to them to redirect their output.
+<p><tt class="literal">stdout</tt> and <tt class="literal">stderr</tt> are both file-like objects, like the ones you discussed in <a href="/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">Section&nbsp;10.1, &#8220;Abstracting input sources&#8221;</a>, but they are both write-only.  They have no <tt class="function">read</tt> method, only <tt class="function">write</tt>.  Still, they are file-like objects, and you can assign any other file- or file-like object to them to redirect their output.
          </p>
 <div class="example"><a name="d0e25905"></a><h3 class="title">Example&nbsp;10.9.&nbsp;Redirecting output</h3><pre class="screen">
 <tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">python stdout.py</span>
@@ -108,7 +108,7 @@ Dive in</span>
 <tt class="prompt">[you@localhost kgp]$ </tt><span class="userinput">cat out.log</span>
 <span class="computeroutput">This message will be logged instead of displayed</span></pre><p>(On Windows, you can use <tt class="literal">type</tt> instead of <tt class="literal">cat</tt> to display the contents of a file.)
             </p>
-<p>If you have not already done so, you can <a href="http://www.diveintopython.net/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+<p>If you have not already done so, you can <a href="/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
             </p><pre class="programlisting">
 <span class="pycomment">#stdout.py</span>
 <span class="pykeyword">import</span> sys
@@ -123,41 +123,41 @@ fsock.close()                                            <a name="kgp.stdio.2.7"
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This will print to the <span class="acronym">IDE</span> &#8220;<span class="quote">Interactive Window</span>&#8221; (or the terminal, if running the script from the command line).
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Always save <tt class="literal">stdout</tt> before redirecting it, so you can set it back to normal later.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Open a file for writing.  If the file doesn't exist, it will be created.  If the file does exist, it will be overwritten.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Redirect all further output to the new file you just opened.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This will be &#8220;<span class="quote">printed</span>&#8221; to the log file only; it will not be visible in the <span class="acronym">IDE</span> window or on the screen.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Set <tt class="literal">stdout</tt> back to the way it was before you mucked with it.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.7"><img src="http://www.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.2.7"><img src="http://www.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Close the log file.</td>
 </tr>
@@ -172,7 +172,7 @@ fsock.close()                                            <a name="kgp.stdio.2.7"
 <span class="computeroutput">Traceback (most recent line last):
   File "stderr.py", line 5, in ?
     raise Exception, 'this error will be logged'
-Exception: this error will be logged</span></pre><p>If you have not already done so, you can <a href="http://www.diveintopython.net/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+Exception: this error will be logged</span></pre><p>If you have not already done so, you can <a href="/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
             </p><pre class="programlisting">
 <span class="pycomment">#stderr.py</span>
 <span class="pykeyword">import</span> sys
@@ -183,24 +183,24 @@ raise</span> Exception, <span class="pystring">'this error will be logged'</span
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Open the log file where you want to store debugging information.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Redirect standard error by assigning the file object of the newly-opened log file to <tt class="literal">stderr</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Raise an exception.  Note from the screen output that this does <span class="emphasis"><em>not</em></span> print anything on screen.  All the normal traceback information has been written to <tt class="filename">error.log</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Also note that you're not explicitly closing your log file, nor are you setting <tt class="literal">stderr</tt> back to its original value.  This is fine, since once the program crashes (because of the exception), <span class="application">Python</span> will clean up and close the file for us, and it doesn't make any difference that <tt class="literal">stderr</tt> is never restored, since, as I mentioned, the program crashes and <span class="application">Python</span> ends.  Restoring the original is more important for <tt class="literal">stdout</tt>, if you expect to go do other stuff within the same script afterwards.
                      </td>
@@ -220,7 +220,7 @@ raise</span> Exception, <span class="pystring">'this error will be logged'</span
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.6.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.6.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This shorthand syntax of the <tt class="function">print</tt> statement can be used to write to any open file, or file-like object.  In this case, you can redirect a single <tt class="function">print</tt> statement to <tt class="literal">stderr</tt> without affecting subsequent <tt class="function">print</tt> statements.
                      </td>
@@ -254,26 +254,26 @@ raise</span> Exception, <span class="pystring">'this error will be logged'</span
 <span class="computeroutput">10110001</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">As you saw in <a href="http://www.diveintopython.net/xml_processing/index.html#kgp.divein" title="9.1.&nbsp;Diving in">Section&nbsp;9.1, &#8220;Diving in&#8221;</a>, this will print a string of eight random bits, <tt class="constant">0</tt> or <tt class="constant">1</tt>.
+<td valign="top" align="left">As you saw in <a href="/xml_processing/index.html#kgp.divein" title="9.1.&nbsp;Diving in">Section&nbsp;9.1, &#8220;Diving in&#8221;</a>, this will print a string of eight random bits, <tt class="constant">0</tt> or <tt class="constant">1</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This simply prints out the entire contents of <tt class="filename">binary.xml</tt>.  (Windows users should use <tt class="literal">type</tt> instead of <tt class="literal">cat</tt>.)
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This prints the contents of <tt class="filename">binary.xml</tt>, but the &#8220;<span class="quote"><tt class="literal">|</tt></span>&#8221; character, called the &#8220;<span class="quote">pipe</span>&#8221; character, means that the contents will not be printed to the screen.  Instead, they will become the standard input of the
                         next command, which in this case calls your <span class="application">Python</span> script.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Instead of specifying a module (like <tt class="filename">binary.xml</tt>), you specify &#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;, which causes your script to load the grammar from standard input instead of from a specific file on disk.  (More on how
                         this happens in the next example.)  So the effect is the same as the first syntax, where you specified the grammar filename
@@ -301,9 +301,9 @@ def</span> openAnything(source):
 [... snip ...]</pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.5.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/stdin_stdout_stderr.html#kgp.stdio.5.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">This is the <tt class="function">openAnything</tt> function from <tt class="filename">toolbox.py</tt>, which you previously examined in <a href="http://www.diveintopython.net/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">Section&nbsp;10.1, &#8220;Abstracting input sources&#8221;</a>.  All you've done is add three lines of code at the beginning of the function to check if the source is &#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;; if so, you return <tt class="literal">sys.stdin</tt>.  Really, that's it!  Remember, <tt class="literal">stdin</tt> is a file-like object with a <tt class="function">read</tt> method, so the rest of the code (in <tt class="filename">kgp.py</tt>, where you call <tt class="function">openAnything</tt>) doesn't change a bit.
+<td valign="top" align="left">This is the <tt class="function">openAnything</tt> function from <tt class="filename">toolbox.py</tt>, which you previously examined in <a href="/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">Section&nbsp;10.1, &#8220;Abstracting input sources&#8221;</a>.  All you've done is add three lines of code at the beginning of the function to check if the source is &#8220;<span class="quote"><tt class="literal">-</tt></span>&#8221;; if so, you return <tt class="literal">sys.stdin</tt>.  Really, that's it!  Remember, <tt class="literal">stdin</tt> is a file-like object with a <tt class="function">read</tt> method, so the rest of the code (in <tt class="filename">kgp.py</tt>, where you call <tt class="function">openAnything</tt>) doesn't change a bit.
                      </td>
 </tr>
 </table>
@@ -312,10 +312,10 @@ def</span> openAnything(source):
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/scripts_and_streams/index.html">&lt;&lt;&nbsp;Scripts and Streams</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/scripts_and_streams/index.html">&lt;&lt;&nbsp;Scripts and Streams</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="/scripts_and_streams/caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="/scripts_and_streams/child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="/scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="/scripts_and_streams/command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="/scripts_and_streams/all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="/scripts_and_streams/summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/scripts_and_streams/caching.html">Caching node lookups&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/scripts_and_streams/caching.html">Caching node lookups&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

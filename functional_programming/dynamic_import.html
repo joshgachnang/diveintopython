@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/functional_programming/index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Dynamically importing modules</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/functional_programming/data_centric.html" title="Prev: “Data-centric programming”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/functional_programming/all_together.html" title="Next: “Putting it all together”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/functional_programming/index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Dynamically importing modules</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/functional_programming/data_centric.html" title="Prev: “Data-centric programming”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/functional_programming/all_together.html" title="Next: “Putting it all together”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -67,7 +67,7 @@ import</span> sys, os, re, unittest <a name="regression.import.1.1"></a><img src
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/dynamic_import.html#regression.import.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/dynamic_import.html#regression.import.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This imports four modules at once: <tt class="filename">sys</tt> (for system functions and access to the command line parameters), <tt class="filename">os</tt> (for operating system functions like directory listings), <tt class="filename">re</tt> (for regular expressions), and <tt class="filename">unittest</tt> (for unit testing).
                      </td>
@@ -88,13 +88,13 @@ import</span> sys, os, re, unittest <a name="regression.import.1.1"></a><img src
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/dynamic_import.html#regression.import.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/dynamic_import.html#regression.import.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The built-in <tt class="function">__import__</tt> function accomplishes the same goal as using the <tt class="literal">import</tt> statement, but it's an actual function, and it takes a string as an argument.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/dynamic_import.html#regression.import.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/dynamic_import.html#regression.import.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The variable <tt class="varname">sys</tt> is now the <tt class="filename">sys</tt> module, just as if you had said <tt class="literal">import sys</tt>.  The variable <tt class="varname">os</tt> is now the <tt class="filename">os</tt> module, and so forth.
                      </td>
@@ -124,27 +124,27 @@ import</span> sys, os, re, unittest <a name="regression.import.1.1"></a><img src
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/dynamic_import.html#regression.import.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/dynamic_import.html#regression.import.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">moduleNames</tt> is just a list of strings.  Nothing fancy, except that the strings happen to be names of modules that you could import, if
                         you wanted to.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/dynamic_import.html#regression.import.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/dynamic_import.html#regression.import.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Surprise, you wanted to import them, and you did, by mapping the <tt class="function">__import__</tt> function onto the list.  Remember, this takes each element of the list (<tt class="varname">moduleNames</tt>) and calls the function (<tt class="function">__import__</tt>) over and over, once with each element of the list, builds a list of the return values, and returns the result.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/dynamic_import.html#regression.import.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/dynamic_import.html#regression.import.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">So now from a list of strings, you've created a list of actual modules.  (Your paths may be different, depending on your operating
                         system, where you installed Python, the phase of the moon, etc.)
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/dynamic_import.html#regression.import.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/dynamic_import.html#regression.import.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">To drive home the point that these are real modules, let's look at some module attributes.  Remember, <tt class="varname">modules[0]</tt> <span class="emphasis"><em>is</em></span> the <tt class="filename">sys</tt> module, so <tt class="varname">modules[0].version</tt> <span class="emphasis"><em>is</em></span> <tt class="varname">sys.version</tt>.  All the other attributes and methods of these modules are also available.  There's nothing magic about the <tt class="literal">import</tt> statement, and there's nothing magic about modules.  Modules are objects.  Everything is an object.
                      </td>
@@ -156,10 +156,10 @@ import</span> sys, os, re, unittest <a name="regression.import.1.1"></a><img src
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/functional_programming/data_centric.html">&lt;&lt;&nbsp;Data-centric programming</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/functional_programming/index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/functional_programming/data_centric.html">&lt;&lt;&nbsp;Data-centric programming</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/functional_programming/index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/functional_programming/finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="/functional_programming/filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="/functional_programming/mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <a href="/functional_programming/data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="/functional_programming/all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="/functional_programming/summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/functional_programming/all_together.html">Putting it all together&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/functional_programming/all_together.html">Putting it all together&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

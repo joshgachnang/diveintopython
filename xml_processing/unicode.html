@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/xml_processing/index.html">XML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Unicode</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/xml_processing/parsing_xml.html" title="Prev: “Parsing XML”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/xml_processing/searching.html" title="Next: “Searching for elements”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/xml_processing/index.html">XML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Unicode</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/xml_processing/parsing_xml.html" title="Prev: “Parsing XML”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/xml_processing/searching.html" title="Next: “Searching for elements”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -72,7 +72,7 @@
             escape codes to switch modes; poof, you're in Russian koi8-r mode, so character 241 means this; poof, now you're in Mac Greek
             mode, so character 241 means something else.  And so on.)  These are the problems which unicode was designed to solve.
          </p>
-<p>To solve these problems, unicode represents each character as a 2-byte number, from 0 to 65535.<sup>[<a name="d0e23786" href="http://www.diveintopython.net/xml_processing/unicode.html#ftn.d0e23786">5</a>]</sup>  Each 2-byte number represents a unique character used in at least one of the world's languages.  (Characters that are used
+<p>To solve these problems, unicode represents each character as a 2-byte number, from 0 to 65535.<sup>[<a name="d0e23786" href="/xml_processing/unicode.html#ftn.d0e23786">5</a>]</sup>  Each 2-byte number represents a unique character used in at least one of the world's languages.  (Characters that are used
             in multiple languages have the same numeric code.)  There is exactly 1 number per character, and exactly 1 character per number.
              Unicode data is never ambiguous.
          </p>
@@ -96,13 +96,13 @@
 <span class="computeroutput">Dive in</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">To create a unicode string instead of a regular <span class="acronym">ASCII</span> string, add the letter &#8220;<span class="quote"><tt class="literal">u</tt></span>&#8221; before the string.  Note that this particular string doesn't have any non-<span class="acronym">ASCII</span> characters.  That's fine; unicode is a superset of <span class="acronym">ASCII</span> (a very large superset at that), so any regular <span class="acronym">ASCII</span> string can also be stored as unicode.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">When printing a string, <span class="application">Python</span> will attempt to convert it to your default encoding, which is usually <span class="acronym">ASCII</span>.  (More on this in a minute.)  Since this unicode string is made up of characters that are also <span class="acronym">ASCII</span> characters, printing it has the same result as printing a normal <span class="acronym">ASCII</span> string; the conversion is seamless, and if you didn't know that <tt class="varname">s</tt> was a unicode string, you'd never notice the difference.
                      </td>
@@ -121,19 +121,19 @@ UnicodeError: ASCII encoding error: ordinal not in range(128)</span>
 <span class="computeroutput">La Pe&ntilde;a</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The real advantage of unicode, of course, is its ability to store non-<span class="acronym">ASCII</span> characters, like the Spanish &#8220;<span class="quote"><tt class="literal">&ntilde;</tt></span>&#8221; (<tt class="literal">n</tt> with a tilde over it).  The unicode character code for the tilde-n is <tt class="literal">0xf1</tt> in hexadecimal (241 in decimal), which you can type like this: <tt class="literal">\xf1</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Remember I said that the <tt class="function">print</tt> function attempts to convert a unicode string to <span class="acronym">ASCII</span> so it can print it?  Well, that's not going to work here, because your unicode string contains non-<span class="acronym">ASCII</span> characters, so <span class="application">Python</span> raises a <tt class="errorname">UnicodeError</tt> error.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here's where the conversion-from-unicode-to-other-encoding-schemes comes in.  <tt class="varname">s</tt> is a unicode string, but <tt class="function">print</tt> can only print a regular string.  To solve this problem, you call the <tt class="function">encode</tt> method, available on every unicode string, to convert the unicode string to a regular string in the given encoding scheme,
                         which you pass as a parameter.  In this case, you're using <tt class="literal">latin-1</tt> (also known as <tt class="literal">iso-8859-1</tt>), which includes the tilde-n (whereas the default <span class="acronym">ASCII</span> encoding scheme did not, since it only includes characters numbered 0 through 127).
@@ -154,14 +154,14 @@ sys.setdefaultencoding(<span class="pystring">'iso-8859-1'</span>) <a name="kgp.
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="filename">sitecustomize.py</tt> is a special script; <span class="application">Python</span> will try to import it on startup, so any code in it will be run automatically.  As the comment mentions, it can go anywhere
                         (as long as <tt class="literal">import</tt> can find it), but it usually goes in the <tt class="filename">site-packages</tt> directory within your <span class="application">Python</span> <tt class="filename">lib</tt> directory.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">setdefaultencoding</tt> function sets, well, the default encoding.  This is the encoding scheme that <span class="application">Python</span> will try to use whenever it needs to auto-coerce a unicode string into a regular string.
                      </td>
@@ -178,14 +178,14 @@ sys.setdefaultencoding(<span class="pystring">'iso-8859-1'</span>) <a name="kgp.
 <span class="computeroutput">La Pe&ntilde;a</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This example assumes that you have made the changes listed in the previous example to your <tt class="filename">sitecustomize.py</tt> file, and restarted <span class="application">Python</span>.  If your default encoding still says <tt class="literal">'ascii'</tt>, you didn't set up your <tt class="filename">sitecustomize.py</tt> properly, or you didn't restart <span class="application">Python</span>.  The default encoding can only be changed during <span class="application">Python</span> startup; you can't change it later.  (Due to some wacky programming tricks that I won't get into right now, you can't even
                         call <tt class="function">sys.setdefaultencoding</tt> after <span class="application">Python</span> has started up.  Dig into <tt class="filename">site.py</tt> and search for &#8220;<span class="quote"><tt class="literal">setdefaultencoding</tt></span>&#8221; to find out how.)
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Now that the default encoding scheme includes all the characters you use in your string, <span class="application">Python</span> has no problem auto-coercing the string and printing it.
                      </td>
@@ -210,13 +210,13 @@ sys.setdefaultencoding(<span class="pystring">'iso-8859-1'</span>) <a name="kgp.
 &lt;/preface&gt;</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.5.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.5.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is a sample extract from a real Russian <span class="acronym">XML</span> document; it's part of a Russian translation of this very book.  Note the encoding, <tt class="literal">koi8-r</tt>, specified in the header.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.5.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.5.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">These are Cyrillic characters which, as far as I know, spell the Russian word for &#8220;<span class="quote">Preface</span>&#8221;.  If you open this file in a regular text editor, the characters will most likely like gibberish, because they're encoded
                         using the <tt class="literal">koi8-r</tt> encoding scheme, but they're being displayed in <tt class="literal">iso-8859-1</tt>.
@@ -242,33 +242,33 @@ UnicodeError: ASCII encoding error: ordinal not in range(128)</span>
 <span class="computeroutput">&#1055;&#1088;&#1077;&#1076;&#1080;&#1089;&#1083;&#1086;&#1074;&#1080;&#1077;</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.6.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">I'm assuming here that you saved the previous example as <tt class="filename">russiansample.xml</tt> in the current directory.  I am also, for the sake of completeness, assuming that you've changed your default encoding back
                         to <tt class="literal">'ascii'</tt> by removing your <tt class="filename">sitecustomize.py</tt> file, or at least commenting out the <tt class="function">setdefaultencoding</tt> line.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.6.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Note that the text data of the <tt class="sgmltag-element">title</tt> tag (now in the <tt class="varname">title</tt> variable, thanks to that long concatenation of <span class="application">Python</span> functions which I hastily skipped over and, annoyingly, won't explain until the next section) -- the text data inside the
                         <span class="acronym">XML</span> document's <tt class="sgmltag-element">title</tt> element is stored in unicode.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.6.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Printing the title is not possible, because this unicode string contains non-<span class="acronym">ASCII</span> characters, so <span class="application">Python</span> can't convert it to <span class="acronym">ASCII</span> because that doesn't make sense.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.6.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You can, however, explicitly convert it to <tt class="literal">koi8-r</tt>, in which case you get a (regular, not unicode) string of single-byte characters (<tt class="literal">f0</tt>, <tt class="literal">d2</tt>, <tt class="literal">c5</tt>, and so forth) that are the <tt class="literal">koi8-r</tt>-encoded versions of the characters in the original unicode string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/unicode.html#kgp.unicode.6.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/unicode.html#kgp.unicode.6.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Printing the <tt class="literal">koi8-r</tt>-encoded string will probably show gibberish on your screen, because your <span class="application">Python</span> <span class="acronym">IDE</span> is interpreting those characters as <tt class="literal">iso-8859-1</tt>, not <tt class="literal">koi8-r</tt>.  But at least they do print.  (And, if you look carefully, it's the same gibberish that you saw when you opened the original
                         <span class="acronym">XML</span> document in a non-unicode-aware text editor.  <span class="application">Python</span> converted it from <tt class="literal">koi8-r</tt> into unicode when it parsed the <span class="acronym">XML</span> document, and you've just converted it back.)
@@ -283,18 +283,18 @@ UnicodeError: ASCII encoding error: ordinal not in range(128)</span>
 <div class="furtherreading">
 <h3>Further reading</h3>
 <ul>
-<li><a href="http://www.diveintopython.net/">Unicode.org</a> is the home page of the unicode standard, including a brief <a href="http://www.diveintopython.net/standard/principles.html">technical introduction</a>.
+<li><a href="/">Unicode.org</a> is the home page of the unicode standard, including a brief <a href="/standard/principles.html">technical introduction</a>.
                </li>
-<li><a href="http://www.diveintopython.net/i18n/python_unicode_tutorial.html">Unicode Tutorial</a> has some more examples of how to use <span class="application">Python</span>'s unicode functions, including how to force <span class="application">Python</span> to coerce unicode into <span class="acronym">ASCII</span> even when it doesn't really want to.
+<li><a href="/i18n/python_unicode_tutorial.html">Unicode Tutorial</a> has some more examples of how to use <span class="application">Python</span>'s unicode functions, including how to force <span class="application">Python</span> to coerce unicode into <span class="acronym">ASCII</span> even when it doesn't really want to.
                </li>
-<li><a href="http://www.diveintopython.net/peps/pep-0263.html">PEP 263</a> goes into more detail about how and when to define a character encoding in your <tt class="filename">.py</tt> files.
+<li><a href="/peps/pep-0263.html">PEP 263</a> goes into more detail about how and when to define a character encoding in your <tt class="filename">.py</tt> files.
                </li>
 </ul>
 </div>
 <div class="footnotes">
 <h3 class="footnotetitle">Footnotes</h3>
 <div class="footnote">
-<p><sup>[<a name="ftn.d0e23786" href="http://www.diveintopython.net/xml_processing/unicode.html#d0e23786">5</a>] </sup>This, sadly, is <span class="emphasis"><em>still</em></span> an oversimplification.  Unicode now has been extended to handle ancient Chinese, Korean, and Japanese texts, which had so
+<p><sup>[<a name="ftn.d0e23786" href="/xml_processing/unicode.html#d0e23786">5</a>] </sup>This, sadly, is <span class="emphasis"><em>still</em></span> an oversimplification.  Unicode now has been extended to handle ancient Chinese, Korean, and Japanese texts, which had so
                   many different characters that the 2-byte unicode system could not represent them all.  But <span class="application">Python</span> doesn't currently support that out of the box, and I don't know if there is a project afoot to add it.  You've reached the
                   limits of my expertise, sorry.
                </p>
@@ -303,10 +303,10 @@ UnicodeError: ASCII encoding error: ordinal not in range(128)</span>
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/xml_processing/parsing_xml.html">&lt;&lt;&nbsp;Parsing XML</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/xml_processing/index.html#kgp.divein" title="9.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/packages.html" title="9.2.&nbsp;Packages">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/xml_processing/parsing_xml.html">&lt;&lt;&nbsp;Parsing XML</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/xml_processing/index.html#kgp.divein" title="9.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/xml_processing/packages.html" title="9.2.&nbsp;Packages">2</a> <span class="divider">|</span> <a href="/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="/xml_processing/searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="/xml_processing/attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="/xml_processing/summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/xml_processing/searching.html">Searching for elements&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/xml_processing/searching.html">Searching for elements&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

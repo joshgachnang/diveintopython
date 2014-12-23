@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/unit_testing/index.html">Unit Testing</a>&nbsp;&gt;&nbsp;<span class="thispage">Testing for success</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/unit_testing/romantest.html" title="Prev: “Introducing romantest.py”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/unit_testing/testing_for_failure.html" title="Next: “Testing for failure”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/unit_testing/index.html">Unit Testing</a>&nbsp;&gt;&nbsp;<span class="thispage">Testing for success</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/unit_testing/romantest.html" title="Prev: “Introducing romantest.py”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/unit_testing/testing_for_failure.html" title="Next: “Testing for failure”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -69,7 +69,7 @@
 <li>...run in isolation, separate from any other test cases (even if they test the same functions).  Each test case is an island.</li>
 </ul>
 </div>
-<p>Given that, let's build the first test case.  You have the following <a href="http://www.diveintopython.net/unit_testing/index.html#roman.requirements">requirement</a>:
+<p>Given that, let's build the first test case.  You have the following <a href="/unit_testing/index.html#roman.requirements">requirement</a>:
          </p>
 <div class="orderedlist">
 <ol type="1">
@@ -143,13 +143,13 @@ class</span> KnownValues(unittest.TestCase):                           <a name="
             self.assertEqual(numeral, result)                   <a name="roman.success.1.5"></a><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.0"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/testing_for_success.html#roman.success.1.0"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">To write a test case, first subclass the <tt class="classname">TestCase</tt> class of the <tt class="filename">unittest</tt> module.  This class provides many useful methods which you can use in your test case to test specific conditions.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.1"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/testing_for_success.html#roman.success.1.1"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is a list of integer/numeral pairs that I verified manually.  It includes the lowest ten numbers, the highest number,
                         every number that translates to a single-character Roman numeral, and a random sampling of other valid numbers.  The point
@@ -157,14 +157,14 @@ class</span> KnownValues(unittest.TestCase):                           <a name="
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.2"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/testing_for_success.html#roman.success.1.2"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Every individual test is its own method, which must take no parameters and return no value.  If the method exits normally
                         without raising an exception, the test is considered passed; if the method raises an exception, the test is considered failed.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.3"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/testing_for_success.html#roman.success.1.3"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here you call the actual <tt class="function">toRoman</tt> function.  (Well, the function hasn't be written yet, but once it is, this is the line that will call it.)  Notice that you
                         have now defined the <span class="acronym">API</span> for the <tt class="function">toRoman</tt> function: it must take an integer (the number to convert) and return a string (the Roman numeral representation).  If the
@@ -172,13 +172,13 @@ class</span> KnownValues(unittest.TestCase):                           <a name="
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.4"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/testing_for_success.html#roman.success.1.4"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Also notice that you are not trapping any exceptions when you call <tt class="function">toRoman</tt>.  This is intentional.  <tt class="function">toRoman</tt> shouldn't raise an exception when you call it with valid input, and these input values are all valid.  If <tt class="function">toRoman</tt> raises an exception, this test is considered failed.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/unit_testing/testing_for_success.html#roman.success.1.5"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/unit_testing/testing_for_success.html#roman.success.1.5"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Assuming the <tt class="function">toRoman</tt> function was defined correctly, called correctly, completed successfully, and returned a value, the last step is to check
                         whether it returned the <span class="emphasis"><em>right</em></span> value.  This is a common question, and the <tt class="classname">TestCase</tt> class provides a method, <tt class="function">assertEqual</tt>, to check whether two values are equal.  If the result returned from <tt class="function">toRoman</tt> (<tt class="varname">result</tt>) does not match the known value you were expecting (<tt class="varname">numeral</tt>), <tt class="function">assertEqual</tt> will raise an exception and the test will fail.  If the two values are equal, <tt class="function">assertEqual</tt> will do nothing.  If every value returned from <tt class="function">toRoman</tt> matches the known value you expect, <tt class="function">assertEqual</tt> never raises an exception, so <tt class="function">testToRomanKnownValues</tt> eventually exits normally, which means <tt class="function">toRoman</tt> has passed this test.
@@ -190,10 +190,10 @@ class</span> KnownValues(unittest.TestCase):                           <a name="
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/unit_testing/romantest.html">&lt;&lt;&nbsp;Introducing romantest.py</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/unit_testing/index.html#roman.intro" title="13.1.&nbsp;Introduction to Roman numerals">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/unit_testing/diving_in.html" title="13.2.&nbsp;Diving in">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/unit_testing/romantest.html" title="13.3.&nbsp;Introducing romantest.py">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/unit_testing/testing_for_failure.html" title="13.5.&nbsp;Testing for failure">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/unit_testing/testing_for_sanity.html" title="13.6.&nbsp;Testing for sanity">6</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/unit_testing/romantest.html">&lt;&lt;&nbsp;Introducing romantest.py</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/unit_testing/index.html#roman.intro" title="13.1.&nbsp;Introduction to Roman numerals">1</a> <span class="divider">|</span> <a href="/unit_testing/diving_in.html" title="13.2.&nbsp;Diving in">2</a> <span class="divider">|</span> <a href="/unit_testing/romantest.html" title="13.3.&nbsp;Introducing romantest.py">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="/unit_testing/testing_for_failure.html" title="13.5.&nbsp;Testing for failure">5</a> <span class="divider">|</span> <a href="/unit_testing/testing_for_sanity.html" title="13.6.&nbsp;Testing for sanity">6</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/unit_testing/testing_for_failure.html">Testing for failure&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/unit_testing/testing_for_failure.html">Testing for failure&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

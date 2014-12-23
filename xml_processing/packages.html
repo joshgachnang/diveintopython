@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/xml_processing/index.html">XML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Packages</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/xml_processing/index.html" title="Prev: “XML Processing”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/xml_processing/parsing_xml.html" title="Next: “Parsing XML”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/xml_processing/index.html">XML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Packages</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/xml_processing/index.html" title="Prev: “XML Processing”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/xml_processing/parsing_xml.html" title="Next: “Parsing XML”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -67,7 +67,7 @@
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">xmldoc = minidom.parse(<span class="pystring">'~/diveintopython/common/py/kgp/binary.xml'</span>)</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/packages.html#kgp.packages.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is a syntax you haven't seen before.  It looks almost like the <tt class="literal">from <i class="replaceable">module</i> import</tt> you know and love, but the <tt class="literal">"."</tt> gives it away as something above and beyond a simple import.  In fact, <tt class="filename">xml</tt> is what is known as a package, <tt class="filename">dom</tt> is a nested package within <tt class="filename">xml</tt>, and <tt class="filename">minidom</tt> is a module within <tt class="filename">xml.dom</tt>.
                      </td>
@@ -112,26 +112,26 @@
 <span class="computeroutput">&lt;module 'xml' from 'C:\Python21\lib\xml\__init__.pyc'&gt;</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/packages.html#kgp.packages.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Here you're importing a module (<tt class="filename">minidom</tt>) from a nested package (<tt class="filename">xml.dom</tt>).  The result is that <tt class="filename">minidom</tt> is imported into your <a href="http://www.diveintopython.net/html_processing/locals_and_globals.html" title="8.5.&nbsp;locals and globals">namespace</a>, and in order to reference classes within the <tt class="filename">minidom</tt> module (like <tt class="classname">Element</tt>), you need to preface them with the module name.
+<td valign="top" align="left">Here you're importing a module (<tt class="filename">minidom</tt>) from a nested package (<tt class="filename">xml.dom</tt>).  The result is that <tt class="filename">minidom</tt> is imported into your <a href="/html_processing/locals_and_globals.html" title="8.5.&nbsp;locals and globals">namespace</a>, and in order to reference classes within the <tt class="filename">minidom</tt> module (like <tt class="classname">Element</tt>), you need to preface them with the module name.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/packages.html#kgp.packages.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here you are importing a class (<tt class="classname">Element</tt>) from a module (<tt class="filename">minidom</tt>) from a nested package (<tt class="filename">xml.dom</tt>).  The result is that <tt class="classname">Element</tt> is imported directly into your namespace.  Note that this does not interfere with the previous import; the <tt class="classname">Element</tt> class can now be referenced in two ways (but it's all still the same class).
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/packages.html#kgp.packages.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here you are importing the <tt class="filename">dom</tt> package (a nested package of <tt class="filename">xml</tt>) as a module in and of itself.  Any level of a package can be treated as a module, as you'll see in a moment.  It can even
                         have its own attributes and methods, just the modules you've seen before.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/xml_processing/packages.html#kgp.packages.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/xml_processing/packages.html#kgp.packages.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Here you are importing the root level <tt class="filename">xml</tt> package as a module.
                      </td>
@@ -160,10 +160,10 @@
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/xml_processing/index.html">&lt;&lt;&nbsp;XML Processing</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/xml_processing/index.html#kgp.divein" title="9.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/unicode.html" title="9.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/xml_processing/index.html">&lt;&lt;&nbsp;XML Processing</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/xml_processing/index.html#kgp.divein" title="9.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <span class="thispage">2</span> <span class="divider">|</span> <a href="/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <a href="/xml_processing/unicode.html" title="9.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="/xml_processing/searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="/xml_processing/attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="/xml_processing/summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/xml_processing/parsing_xml.html">Parsing XML&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/xml_processing/parsing_xml.html">Parsing XML&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

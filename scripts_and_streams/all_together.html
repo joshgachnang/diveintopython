@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/command_line_arguments.html" title="Prev: “Handling command-line arguments”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/scripts_and_streams/index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/scripts_and_streams/command_line_arguments.html" title="Prev: “Handling command-line arguments”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/scripts_and_streams/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -59,7 +59,7 @@
 <div class="abstract">
 <p>You've covered a lot of ground.  Let's step back and see how all the pieces fit together.</p>
 </div>
-<p>To start with, this is a script that <a href="http://www.diveintopython.net/scripts_and_streams/command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">takes its arguments on the command line</a>, using the <tt class="filename">getopt</tt> module.
+<p>To start with, this is a script that <a href="/scripts_and_streams/command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">takes its arguments on the command line</a>, using the <tt class="filename">getopt</tt> module.
          </p>
 <div class="informalexample"><pre class="programlisting"><span class="pykeyword">
 def</span> main(argv):                         
@@ -74,14 +74,14 @@ def</span> main(argv):
          </p>
 <div class="informalexample"><pre class="programlisting">
     k = KantGenerator(grammar, source)</pre></div>
-<p>The <tt class="classname">KantGenerator</tt> instance automatically loads the grammar, which is an <span class="acronym">XML</span> file.  You use your custom <tt class="function">openAnything</tt> function to open the file (which <a href="http://www.diveintopython.net/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">could be stored in a local file or a remote web server</a>), then use the built-in <tt class="filename">minidom</tt> parsing functions to <a href="http://www.diveintopython.net/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">parse the <span class="acronym">XML</span> into a tree of <span class="application">Python</span> objects</a>.
+<p>The <tt class="classname">KantGenerator</tt> instance automatically loads the grammar, which is an <span class="acronym">XML</span> file.  You use your custom <tt class="function">openAnything</tt> function to open the file (which <a href="/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">could be stored in a local file or a remote web server</a>), then use the built-in <tt class="filename">minidom</tt> parsing functions to <a href="/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">parse the <span class="acronym">XML</span> into a tree of <span class="application">Python</span> objects</a>.
          </p>
 <div class="informalexample"><pre class="programlisting">
     <span class="pykeyword">def</span><span class="pyclass"> _load</span>(self, source):
         sock = toolbox.openAnything(source)
         xmldoc = minidom.parse(sock).documentElement
         sock.close()</pre></div>
-<p>Oh, and along the way, you take advantage of your knowledge of the structure of the <span class="acronym">XML</span> document to <a href="http://www.diveintopython.net/scripts_and_streams/caching.html" title="10.3.&nbsp;Caching node lookups">set up a little cache of references</a>, which are just elements in the <span class="acronym">XML</span> document.
+<p>Oh, and along the way, you take advantage of your knowledge of the structure of the <span class="acronym">XML</span> document to <a href="/scripts_and_streams/caching.html" title="10.3.&nbsp;Caching node lookups">set up a little cache of references</a>, which are just elements in the <span class="acronym">XML</span> document.
          </p>
 <div class="informalexample"><pre class="programlisting">
     <span class="pykeyword">def</span><span class="pyclass"> loadGrammar</span>(self, grammar):                         
@@ -98,13 +98,13 @@ def</span> main(argv):
         xrefs = xrefs.keys()
         standaloneXrefs = [e <span class="pykeyword">for</span> e <span class="pykeyword">in</span> self.refs.keys() <span class="pykeyword">if</span> e <span class="pykeyword">not</span> <span class="pykeyword">in</span> xrefs]
         <span class="pykeyword">return</span> <span class="pystring">'&lt;xref id="%s"/&gt;'</span> % random.choice(standaloneXrefs)</pre></div>
-<p>Now you rip through the source material.  The source material is also <span class="acronym">XML</span>, and you parse it one node at a time.  To keep the code separated and more maintainable, you use <a href="http://www.diveintopython.net/scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">separate handlers for each node type</a>.
+<p>Now you rip through the source material.  The source material is also <span class="acronym">XML</span>, and you parse it one node at a time.  To keep the code separated and more maintainable, you use <a href="/scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">separate handlers for each node type</a>.
          </p>
 <div class="informalexample"><pre class="programlisting">
     <span class="pykeyword">def</span><span class="pyclass"> parse_Element</span>(self, node): 
         handlerMethod = getattr(self, <span class="pystring">"do_%s"</span> % node.tagName)
         handlerMethod(node)</pre></div>
-<p>You bounce through the grammar, <a href="http://www.diveintopython.net/scripts_and_streams/child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">parsing all the children</a> of each <tt class="sgmltag-element">p</tt> element,
+<p>You bounce through the grammar, <a href="/scripts_and_streams/child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">parsing all the children</a> of each <tt class="sgmltag-element">p</tt> element,
          </p>
 <div class="informalexample"><pre class="programlisting">
     <span class="pykeyword">def</span><span class="pyclass"> do_p</span>(self, node):
@@ -137,10 +137,10 @@ def</span> main(argv):
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/scripts_and_streams/command_line_arguments.html">&lt;&lt;&nbsp;Handling command-line arguments</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/scripts_and_streams/command_line_arguments.html">&lt;&lt;&nbsp;Handling command-line arguments</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="/scripts_and_streams/stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="/scripts_and_streams/caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <a href="/scripts_and_streams/child_nodes.html" title="10.4.&nbsp;Finding direct children of a node">4</a> <span class="divider">|</span> <a href="/scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="/scripts_and_streams/command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="/scripts_and_streams/summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/scripts_and_streams/summary.html">Summary&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/scripts_and_streams/summary.html">Summary&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

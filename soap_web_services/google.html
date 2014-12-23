@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/soap_web_services/index.html">SOAP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Searching Google</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/soap_web_services/introspection.html" title="Prev: “Introspecting SOAP Web Services with WSDL”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html" title="Next: “Troubleshooting SOAP Web Services”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/soap_web_services/index.html">SOAP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Searching Google</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/soap_web_services/introspection.html" title="Prev: “Introspecting SOAP Web Services with WSDL”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/soap_web_services/troubleshooting.html" title="Next: “Troubleshooting SOAP Web Services”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -67,12 +67,12 @@
 <h3 class="title">Procedure&nbsp;12.4.&nbsp;Signing Up for Google Web Services</h3>
 <ol type="1">
 <li>
-<p>Go to <a href="http://www.diveintopython.net/apis/">http://www.google.com/apis/</a> and create a Google account.  This requires only an email address.  After you sign up you will receive your Google API license
+<p>Go to <a href="/apis/">http://www.google.com/apis/</a> and create a Google account.  This requires only an email address.  After you sign up you will receive your Google API license
                      key by email.  You will need this key to pass as a parameter whenever you call Google's search functions.
                   </p>
 </li>
 <li>
-<p>Also on <a href="http://www.diveintopython.net/apis/">http://www.google.com/apis/</a>, download the Google Web APIs developer kit.  This includes some sample code in several programming languages (but not <span class="application">Python</span>), and more importantly, it includes the <span class="acronym">WSDL</span> file.
+<p>Also on <a href="/apis/">http://www.google.com/apis/</a>, download the Google Web APIs developer kit.  This includes some sample code in several programming languages (but not <span class="application">Python</span>), and more importantly, it includes the <span class="acronym">WSDL</span> file.
                   </p>
 </li>
 <li>
@@ -104,20 +104,20 @@ oe              (u'http://www.w3.org/2001/XMLSchema', u'string')</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Getting started with Google web services is easy: just create a <tt class="classname">WSDL.Proxy</tt> object and point it at your local copy of Google's <span class="acronym">WSDL</span> file.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">According to the <span class="acronym">WSDL</span> file, Google offers three functions: <tt class="function">doGoogleSearch</tt>, <tt class="function">doGetCachedPage</tt>, and <tt class="function">doSpellingSuggestion</tt>.  These do exactly what they sound like: perform a Google search and return the results programmatically, get access to the
                         cached version of a page from the last time Google saw it, and offer spelling suggestions for commonly misspelled search words.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="function">doGoogleSearch</tt> function takes a number of parameters of various types.  Note that while the <span class="acronym">WSDL</span> file can tell you what the arguments are called and what datatype they are, it can't tell you what they mean or how to use
                         them.  It could theoretically tell you the acceptable range of values for each parameter, if only specific values were allowed,
@@ -169,19 +169,19 @@ oe              (u'http://www.w3.org/2001/XMLSchema', u'string')</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">After setting up the <tt class="classname">WSDL.Proxy</tt> object, you can call <tt class="function">server.doGoogleSearch</tt> with all ten parameters.  Remember to use your own Google API key that you received when you signed up for Google web services.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">There's a lot of information returned, but let's look at the actual search results first.  They're stored in <tt class="varname">results.resultElements</tt>, and you can access them just like a normal <span class="application">Python</span> list.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Each element in the <tt class="varname">resultElements</tt> is an object that has a <tt class="varname">URL</tt>, <tt class="varname">title</tt>, <tt class="varname">snippet</tt>, and other useful attributes.  At this point you can use normal <span class="application">Python</span> introspection techniques like <b class="userinput"><tt>dir(results.resultElements[0])</tt></b> to see the available attributes.  Or you can introspect through the <span class="acronym">WSDL</span> proxy object and look through the function's <tt class="varname">outparams</tt>.  Each technique will give you the same information.
                      </td>
@@ -208,21 +208,21 @@ oe              (u'http://www.w3.org/2001/XMLSchema', u'string')</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This search took 0.224919 seconds.  That does not include the time spent sending and receiving the actual <span class="acronym">SOAP</span> XML documents.  It's just the time that Google spent processing your request once it received it.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">In total, there were approximately 30 million results.  You can access them 10 at a time by changing the <tt class="varname">start</tt> parameter and calling <tt class="function">server.doGoogleSearch</tt> again.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/soap_web_services/google.html#soap.google.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/soap_web_services/google.html#soap.google.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">For some queries, Google also returns a list of related categories in the <a href="http://www.diveintopython.net/">Google Directory</a>.  You can append these URLs to <a href="http://www.diveintopython.net/">http://directory.google.com/</a> to construct the link to the directory category page.
+<td valign="top" align="left">For some queries, Google also returns a list of related categories in the <a href="/">Google Directory</a>.  You can append these URLs to <a href="/">http://directory.google.com/</a> to construct the link to the directory category page.
                      </td>
 </tr>
 </table>
@@ -231,10 +231,10 @@ oe              (u'http://www.w3.org/2001/XMLSchema', u'string')</span>
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/soap_web_services/introspection.html">&lt;&lt;&nbsp;Introspecting SOAP Web Services with WSDL</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/soap_web_services/index.html#soap.divein" title="12.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/soap_web_services/install.html" title="12.2.&nbsp;Installing the SOAP Libraries">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/soap_web_services/first_steps.html" title="12.3.&nbsp;First Steps with SOAP">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/soap_web_services/debugging.html" title="12.4.&nbsp;Debugging SOAP Web Services">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/soap_web_services/wsdl.html" title="12.5.&nbsp;Introducing WSDL">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/soap_web_services/introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/soap_web_services/troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">8</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/soap_web_services/summary.html" title="12.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/soap_web_services/introspection.html">&lt;&lt;&nbsp;Introspecting SOAP Web Services with WSDL</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/soap_web_services/index.html#soap.divein" title="12.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="/soap_web_services/install.html" title="12.2.&nbsp;Installing the SOAP Libraries">2</a> <span class="divider">|</span> <a href="/soap_web_services/first_steps.html" title="12.3.&nbsp;First Steps with SOAP">3</a> <span class="divider">|</span> <a href="/soap_web_services/debugging.html" title="12.4.&nbsp;Debugging SOAP Web Services">4</a> <span class="divider">|</span> <a href="/soap_web_services/wsdl.html" title="12.5.&nbsp;Introducing WSDL">5</a> <span class="divider">|</span> <a href="/soap_web_services/introspection.html" title="12.6.&nbsp;Introspecting SOAP Web Services with WSDL">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="/soap_web_services/troubleshooting.html" title="12.8.&nbsp;Troubleshooting SOAP Web Services">8</a> <span class="divider">|</span> <a href="/soap_web_services/summary.html" title="12.9.&nbsp;Summary">9</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/soap_web_services/troubleshooting.html">Troubleshooting SOAP Web Services&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/soap_web_services/troubleshooting.html">Troubleshooting SOAP Web Services&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>
