@@ -19,16 +19,19 @@ def dumpSoup(file, soup):
     fd.write(soup.renderContents())
 	fd.close()	
 
-# MAIN PROGRAM STARTS HERE
-parser = argparse.ArgumentParser()
-parser.add_argument("-e", "--extension", action="append", default=['.html'],
+def initParser():
+	p = argparse.ArgumentParser()
+	p.add_argument("-e", "--extension", action="append", default=['.html'],
                     help="limit processing only to specified extensions")
-parser.add_argument("-d", "--directory", default=".",
+	p.add_argument("-d", "--directory", default=".",
                     help="target data directory")
-parser.add_argument("-f", "--replacefixed", nargs=2, required=True,
+	p.add_argument("-f", "--replacefixed", nargs=2, required=True,
 					help="literal strings, first is replaced by second")
+	return(p.parse_args())
 
-args = parser.parse_args()
+
+# MAIN PROGRAM STARTS HERE
+args = initParser()
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
