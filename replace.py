@@ -3,14 +3,8 @@
 import os
 import sys
 import re
-#from bs4 import BeautifulStoneSoup, BeautifulSoup, Comment
+import argparse
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup, Comment
-
-
-reload(sys)
-sys.setdefaultencoding("utf-8")
-
-rootdir = '.'
 
 def getFiles(directory, fileExtList):                                        
 	fileList = []
@@ -25,7 +19,26 @@ def dumpSoup(file, soup):
     fd.write(soup.renderContents())
 	fd.close()	
 
-for fn in getFiles(rootdir, '.html'):
+# MAIN PROGRAM STARTS HERE
+parser = argparse.ArgumentParser()
+parser.add_argument("-e", "--extension", action="append", default=['.html'],
+                    help="limit processing only to specified extensions")
+parser.add_argument("-d", "--directory", default=".",
+                    help="target data directory")
+parser.add_argument("-f", "--replacefixed", nargs=2, required=True,
+					help="literal strings, first is replaced by second")
+
+args = parser.parse_args()
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+if args.replacefixed:
+	literalreplace  = args.replacefixed[0]
+	literalreplaceby = args.replacefixed[1]
+	print "%s will be replaced by %s" % (literalreplace, literalreplaceby)
+
+for fn in getFiles(args.directory, args.extension):
 	found = 0
 	try:
 		fd = open(fn, 'r')
@@ -36,12 +49,15 @@ for fn in getFiles(rootdir, '.html'):
 
 	for i in soup.findAll('a'):
 		if i.has_key('href'):
-			p = re.compile('http://www\.diveintopython\.net', re.IGNORECASE)
-			#if i['href']=='http://www.diveintopython.net':
-			m = p.match(i['href'])
-			if m:
+			#p = re.compile('http://www\.diveintopython\.net', re.IGNORECASE)
+			#m = p.match(i['href'])
+			if i['href']==literalreplace:
+				print "was: %s" % i['href']
+				i['href']=literalreplaceby
+				print "is: %s" % i['href']
+			#if m:
 				#print "was: %s" % i['href']
-				i['href']= (i['href'])[m.end():]
+				#i['href']= (i['href'])[m.end():]
 				#print "is: %s" % i['href']
 				found += 1	
 	if found : dumpSoup(fn, soup)
