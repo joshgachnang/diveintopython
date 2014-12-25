@@ -4,7 +4,7 @@ import os
 import sys
 import re
 import argparse
-from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup, Comment
+from BeautifulSoup import BeautifulSoup
 
 def getFiles(directory, fileExtList):                                        
 	fileList = []
@@ -25,8 +25,13 @@ def initParser():
                     help="limit processing only to specified extensions")
 	p.add_argument("-d", "--directory", default=".",
                     help="target data directory")
-	p.add_argument("-f", "--replacefixed", nargs=2, required=True,
+
+	grpexcl = p.add_mutually_exclusive_group(required=True)
+	grpexcl.add_argument("-f", "--replacefixed", nargs=2, required=False,
 					help="literal strings, first is replaced by second")
+	grpexcl.add_argument("-r", "--replaceregexp", nargs=2, required=False,
+					help="regexp strings, first replaced by second")
+
 	return(p.parse_args())
 
 
@@ -36,10 +41,12 @@ args = initParser()
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-if args.replacefixed:
-	literalreplace  = args.replacefixed[0]
-	literalreplaceby = args.replacefixed[1]
-	print "%s will be replaced by %s" % (literalreplace, literalreplaceby)
+if args.replaceregexp:
+	regptrn = args.replaceregexp[0]
+	reginto = args.replaceregexp[1]
+	p = re.compile(regptrn, re.IGNORECASE)
+
+
 
 for fn in getFiles(args.directory, args.extension):
 	found = 0
@@ -52,15 +59,24 @@ for fn in getFiles(args.directory, args.extension):
 
 	for i in soup.findAll('a'):
 		if i.has_key('href'):
-			#p = re.compile('http://www\.diveintopython\.net', re.IGNORECASE)
-			#m = p.match(i['href'])
-			if i['href']==literalreplace:
-				print "was: %s" % i['href']
-				i['href']=literalreplaceby
-				print "is: %s" % i['href']
-			#if m:
-				#print "was: %s" % i['href']
-				#i['href']= (i['href'])[m.end():]
-				#print "is: %s" % i['href']
-				found += 1	
+			if args.replacefixed:
+				literalreplace  = args.replacefixed[0]
+				literalreplaceby = args.replacefixed[1]
+				print "%s will be replaced by %s" \
+					% (literalreplace, literalreplaceby)
+
+				if i['href']==literalreplace:
+					print "was: %s" % i['href']
+					i['href']=literalreplaceby
+					print "is: %s" % i['href']
+					found +=1
+
+			if args.replaceregexp:
+                m = p.match(i['href'])
+				if m: 
+					print "was: %s" % i['href']
+					i['href']= reginto + (i['href'])[m.end():]
+					print "is: %s" % i['href']
+					found += 1	
+
 	if found : dumpSoup(fn, soup)
