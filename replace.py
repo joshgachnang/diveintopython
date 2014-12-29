@@ -25,11 +25,14 @@ def initParser():
                     help="limit processing only to specified extensions")
 	p.add_argument("-d", "--directory", default=".",
                     help="target data directory")
+	p.add_argument("--dry", action="store_true", help="dry run")
 
 	grpexcl = p.add_mutually_exclusive_group(required=True)
 	grpexcl.add_argument("-f", "--replacefixed", nargs=2, required=False,
+					metavar="pattern",
 					help="literal strings, first is replaced by second")
 	grpexcl.add_argument("-r", "--replaceregexp", nargs=2, required=False,
+					metavar="pattern",
 					help="regexp strings, first replaced by second")
 
 	return(p.parse_args())
@@ -46,8 +49,6 @@ if args.replaceregexp:
 	reginto = args.replaceregexp[1]
 	p = re.compile(regptrn, re.IGNORECASE)
 
-
-
 for fn in getFiles(args.directory, args.extension):
 	found = 0
 	try:
@@ -62,10 +63,9 @@ for fn in getFiles(args.directory, args.extension):
 			if args.replacefixed:
 				literalreplace  = args.replacefixed[0]
 				literalreplaceby = args.replacefixed[1]
-				print "%s will be replaced by %s" \
-					% (literalreplace, literalreplaceby)
 
 				if i['href']==literalreplace:
+					print "@ %s" % fn
 					print "was: %s" % i['href']
 					i['href']=literalreplaceby
 					print "is: %s" % i['href']
@@ -74,9 +74,10 @@ for fn in getFiles(args.directory, args.extension):
 			if args.replaceregexp:
                 m = p.match(i['href'])
 				if m: 
+					print "@ %s" % fn
 					print "was: %s" % i['href']
 					i['href']= reginto + (i['href'])[m.end():]
 					print "is: %s" % i['href']
 					found += 1	
 
-	if found : dumpSoup(fn, soup)
+	if found and not args.dry: dumpSoup(fn, soup)
