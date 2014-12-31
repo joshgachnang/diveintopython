@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">XML Processing</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/html_processing/summary.html" title="Prev: “Summary”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/xml_processing/packages.html" title="Next: “Packages”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<span class="thispage">XML Processing</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/html_processing/summary.html" title="Prev: “Summary”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/xml_processing/packages.html" title="Next: “Packages”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -58,13 +58,13 @@
 </div>
 <div class="toc">
 <ul>
-<li><span class="section"><a href="http://www.diveintopython.net/xml_processing/index.html#kgp.divein">9.1. Diving in</a></span></li>
-<li><span class="section"><a href="http://www.diveintopython.net/xml_processing/packages.html">9.2. Packages</a></span></li>
-<li><span class="section"><a href="http://www.diveintopython.net/xml_processing/parsing_xml.html">9.3. Parsing XML</a></span></li>
-<li><span class="section"><a href="http://www.diveintopython.net/xml_processing/unicode.html">9.4. Unicode</a></span></li>
-<li><span class="section"><a href="http://www.diveintopython.net/xml_processing/searching.html">9.5. Searching for elements</a></span></li>
-<li><span class="section"><a href="http://www.diveintopython.net/xml_processing/attributes.html">9.6. Accessing element attributes</a></span></li>
-<li><span class="section"><a href="http://www.diveintopython.net/xml_processing/summary.html">9.7. Segue</a></span></li>
+<li><span class="section"><a href="/xml_processing/index.html#kgp.divein">9.1. Diving in</a></span></li>
+<li><span class="section"><a href="/xml_processing/packages.html">9.2. Packages</a></span></li>
+<li><span class="section"><a href="/xml_processing/parsing_xml.html">9.3. Parsing XML</a></span></li>
+<li><span class="section"><a href="/xml_processing/unicode.html">9.4. Unicode</a></span></li>
+<li><span class="section"><a href="/xml_processing/searching.html">9.5. Searching for elements</a></span></li>
+<li><span class="section"><a href="/xml_processing/attributes.html">9.6. Accessing element attributes</a></span></li>
+<li><span class="section"><a href="/xml_processing/summary.html">9.7. Segue</a></span></li>
 </ul>
 </div>
 <div class="section" lang="en">
@@ -78,7 +78,7 @@
 <div></div>
 </div>
 <p>These next two chapters are about <span class="acronym">XML</span> processing in <span class="application">Python</span>.  It would be helpful if you already knew what an <span class="acronym">XML</span> document looks like, that it's made up of structured tags to form a hierarchy of elements, and so on.  If this doesn't make
-               sense to you, there are <a href="http://www.diveintopython.net/Top/Computers/Data_Formats/Markup_Languages/XML/Resources/FAQs,_Help,_and_Tutorials/">many <span class="acronym">XML</span> tutorials</a> that can explain the basics.
+               sense to you, there are <a href="/Top/Computers/Data_Formats/Markup_Languages/XML/Resources/FAQs,_Help,_and_Tutorials/">many <span class="acronym">XML</span> tutorials</a> that can explain the basics.
             </p>
 <p>If you're not particularly interested in XML, you should still read these chapters, which cover important topics like <span class="application">Python</span> packages, Unicode, command line arguments, and how to use <tt class="function">getattr</tt> for method dispatching.
             </p>
@@ -87,14 +87,14 @@
                science.
             </p>
 <div class="abstract">
-<p>There are two basic ways to work with <span class="acronym">XML</span>.  One is called <span class="acronym">SAX</span> (&#8220;<span class="quote">Simple <span class="acronym">API</span> for <span class="acronym">XML</span></span>&#8221;), and it works by reading the <span class="acronym">XML</span> a little bit at a time and calling a method for each element it finds.  (If you read <a href="http://www.diveintopython.net/html_processing/index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">Chapter&nbsp;8, <i>HTML Processing</i></a>, this should sound familiar, because that's how the <tt class="filename">sgmllib</tt> module works.)  The other is called <span class="acronym">DOM</span> (&#8220;<span class="quote">Document Object Model</span>&#8221;), and it works by reading in the entire <span class="acronym">XML</span> document at once and creating an internal representation of it using native <span class="application">Python</span> classes linked in a tree structure.  <span class="application">Python</span> has standard modules for both kinds of parsing, but this chapter will only deal with using the <span class="acronym">DOM</span>.
+<p>There are two basic ways to work with <span class="acronym">XML</span>.  One is called <span class="acronym">SAX</span> (&#8220;<span class="quote">Simple <span class="acronym">API</span> for <span class="acronym">XML</span></span>&#8221;), and it works by reading the <span class="acronym">XML</span> a little bit at a time and calling a method for each element it finds.  (If you read <a href="/html_processing/index.html" title="Chapter&nbsp;8.&nbsp;HTML Processing">Chapter&nbsp;8, <i>HTML Processing</i></a>, this should sound familiar, because that's how the <tt class="filename">sgmllib</tt> module works.)  The other is called <span class="acronym">DOM</span> (&#8220;<span class="quote">Document Object Model</span>&#8221;), and it works by reading in the entire <span class="acronym">XML</span> document at once and creating an internal representation of it using native <span class="application">Python</span> classes linked in a tree structure.  <span class="application">Python</span> has standard modules for both kinds of parsing, but this chapter will only deal with using the <span class="acronym">DOM</span>.
                </p>
 </div>
 <p>The following is a complete <span class="application">Python</span> program which generates pseudo-random output based on a context-free grammar defined in an <span class="acronym">XML</span> format.  Don't worry yet if you don't understand what that means; you'll examine both the program's input and its output
                in more depth throughout these next two chapters.
             </p>
 <div class="example"><a name="d0e22845"></a><h3 class="title">Example&nbsp;9.1.&nbsp;<tt class="filename">kgp.py</tt></h3>
-<p>If you have not already done so, you can <a href="http://www.diveintopython.net/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+<p>If you have not already done so, you can <a href="/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
                </p><pre class="programlisting">
 <span class="pystring">"""Kant Generator for Python
 
@@ -442,10 +442,10 @@ for the Ideal, because of our necessary ignorance of the conditions.
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/html_processing/summary.html">&lt;&lt;&nbsp;Summary</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/packages.html" title="9.2.&nbsp;Packages">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/unicode.html" title="9.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/xml_processing/summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/html_processing/summary.html">&lt;&lt;&nbsp;Summary</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<span class="thispage">1</span> <span class="divider">|</span> <a href="/xml_processing/packages.html" title="9.2.&nbsp;Packages">2</a> <span class="divider">|</span> <a href="/xml_processing/parsing_xml.html" title="9.3.&nbsp;Parsing XML">3</a> <span class="divider">|</span> <a href="/xml_processing/unicode.html" title="9.4.&nbsp;Unicode">4</a> <span class="divider">|</span> <a href="/xml_processing/searching.html" title="9.5.&nbsp;Searching for elements">5</a> <span class="divider">|</span> <a href="/xml_processing/attributes.html" title="9.6.&nbsp;Accessing element attributes">6</a> <span class="divider">|</span> <a href="/xml_processing/summary.html" title="9.7.&nbsp;Segue">7</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/xml_processing/packages.html">Packages&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/xml_processing/packages.html">Packages&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

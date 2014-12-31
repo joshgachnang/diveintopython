@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/html_processing/index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Extracting data from HTML documents</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/html_processing/introducing_sgmllib.html" title="Prev: “Introducing sgmllib.py”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/html_processing/basehtmlprocessor.html" title="Next: “Introducing BaseHTMLProcessor.py”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/html_processing/index.html">HTML Processing</a>&nbsp;&gt;&nbsp;<span class="thispage">Extracting data from HTML documents</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/html_processing/introducing_sgmllib.html" title="Prev: “Introducing sgmllib.py”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/html_processing/basehtmlprocessor.html" title="Next: “Introducing BaseHTMLProcessor.py”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -60,7 +60,7 @@
 <p>To extract data from <span class="acronym">HTML</span> documents, subclass the <tt class="classname">SGMLParser</tt> class and define methods for each tag or entity you want to capture.
             </p>
 </div>
-<p>The first step to extracting data from an <span class="acronym">HTML</span> document is getting some <span class="acronym">HTML</span>.  If you have some <span class="acronym">HTML</span> lying around on your hard drive, you can use <a href="http://www.diveintopython.net/file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">file functions</a> to read it, but the real fun begins when you get <span class="acronym">HTML</span> from live web pages.
+<p>The first step to extracting data from an <span class="acronym">HTML</span> document is getting some <span class="acronym">HTML</span>.  If you have some <span class="acronym">HTML</span> lying around on your hard drive, you can use <a href="/file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">file functions</a> to read it, but the real fun begins when you get <span class="acronym">HTML</span> from live web pages.
          </p>
 <div class="example"><a name="dialect.extract.urllib"></a><h3 class="title">Example&nbsp;8.5.&nbsp;Introducing <tt class="filename">urllib</tt></h3><pre class="screen">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> urllib</span>                                       <a name="dialect.extract.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
@@ -85,31 +85,31 @@
 [...snip...]</pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The <tt class="filename">urllib</tt> module is part of the standard <span class="application">Python</span> library.  It contains functions for getting information about and actually retrieving data from Internet-based <span class="acronym">URL</span>s (mainly web pages).
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">The simplest use of <tt class="filename">urllib</tt> is to retrieve the entire text of a web page using the <tt class="function">urlopen</tt> function.  Opening a <span class="acronym">URL</span> is similar to <a href="http://www.diveintopython.net/file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">opening a file</a>.  The return value of <tt class="function">urlopen</tt> is a file-like object, which has some of the same methods as a file object.
+<td valign="top" align="left">The simplest use of <tt class="filename">urllib</tt> is to retrieve the entire text of a web page using the <tt class="function">urlopen</tt> function.  Opening a <span class="acronym">URL</span> is similar to <a href="/file_handling/file_objects.html" title="6.2.&nbsp;Working with File Objects">opening a file</a>.  The return value of <tt class="function">urlopen</tt> is a file-like object, which has some of the same methods as a file object.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The simplest thing to do with the file-like object returned by <tt class="function">urlopen</tt> is <tt class="function">read</tt>, which reads the entire <span class="acronym">HTML</span> of the web page into a single string.  The object also supports <tt class="function">readlines</tt>, which reads the text line by line into a list.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">When you're done with the object, make sure to <tt class="function">close</tt> it, just like a normal file object.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You now have the complete <span class="acronym">HTML</span> of the home page of <tt class="systemitem">http://diveintopython.org/</tt> in a string, and you're ready to parse it.
                      </td>
@@ -118,7 +118,7 @@
 </div>
 </div>
 <div class="example"><a name="dialect.extract.links"></a><h3 class="title">Example&nbsp;8.6.&nbsp;Introducing <tt class="filename">urllister.py</tt></h3>
-<p>If you have not already done so, you can <a href="http://www.diveintopython.net/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
+<p>If you have not already done so, you can <a href="/download/diveintopython-examples-5.4.zip" title="Download example scripts">download this and other examples</a> used in this book.
             </p><pre class="programlisting"><span class="pykeyword">
 from</span> sgmllib <span class="pykeyword">import</span> SGMLParser
 
@@ -133,26 +133,26 @@ from</span> sgmllib <span class="pykeyword">import</span> SGMLParser
             self.urls.extend(href)</pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">reset</tt> is called by the <tt class="function">__init__</tt> method of <tt class="classname">SGMLParser</tt>, and it can also be called manually once an instance of the parser has been created.  So if you need to do any initialization,
                         do it in <tt class="function">reset</tt>, not in <tt class="function">__init__</tt>, so that it will be re-initialized properly when someone re-uses a parser instance.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">start_a</tt> is called by <tt class="classname">SGMLParser</tt> whenever it finds an <tt class="sgmltag-element">&lt;a&gt;</tt> tag.  The tag may contain an <tt class="literal">href</tt> attribute, and/or other attributes, like <tt class="literal">name</tt> or <tt class="literal">title</tt>.  The <tt class="varname">attrs</tt> parameter is a list of tuples, <tt class="literal">[(<i class="replaceable">attribute</i>, <i class="replaceable">value</i>), (<i class="replaceable">attribute</i>, <i class="replaceable">value</i>), ...]</tt>.  Or it may be just an <tt class="sgmltag-element">&lt;a&gt;</tt>, a valid (if useless) <span class="acronym">HTML</span> tag, in which case <tt class="varname">attrs</tt> would be an empty list.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">You can find out whether this <tt class="sgmltag-element">&lt;a&gt;</tt> tag has an <tt class="literal">href</tt> attribute with a simple <a href="http://www.diveintopython.net/native_data_types/declaring_variables.html#odbchelper.multiassign" title="3.4.2.&nbsp;Assigning Multiple Values at Once">multi-variable</a> <a href="http://www.diveintopython.net/native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehension</a>.
+<td valign="top" align="left">You can find out whether this <tt class="sgmltag-element">&lt;a&gt;</tt> tag has an <tt class="literal">href</tt> attribute with a simple <a href="/native_data_types/declaring_variables.html#odbchelper.multiassign" title="3.4.2.&nbsp;Assigning Multiple Values at Once">multi-variable</a> <a href="/native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehension</a>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">String comparisons like <tt class="literal">k=='href'</tt> are always case-sensitive, but that's safe in this case, because <tt class="classname">SGMLParser</tt> converts attribute names to lowercase while building <tt class="varname">attrs</tt>.
                      </td>
@@ -185,25 +185,25 @@ download/diveintopython-common-5.0.zip
 ... rest of output omitted for brevity ...</pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Call the <tt class="function">feed</tt> method, defined in <tt class="classname">SGMLParser</tt>, to get <span class="acronym">HTML</span> into the parser.<sup>[<a name="d0e20503" href="http://www.diveintopython.net/html_processing/extracting_data.html#ftn.d0e20503">1</a>]</sup>  It takes a string, which is what <tt class="function">usock.read()</tt> returns.
+<td valign="top" align="left">Call the <tt class="function">feed</tt> method, defined in <tt class="classname">SGMLParser</tt>, to get <span class="acronym">HTML</span> into the parser.<sup>[<a name="d0e20503" href="/html_processing/extracting_data.html#ftn.d0e20503">1</a>]</sup>  It takes a string, which is what <tt class="function">usock.read()</tt> returns.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Like files, you should <tt class="function">close</tt> your <span class="acronym">URL</span> objects as soon as you're done with them.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You should <tt class="function">close</tt> your parser object, too, but for a different reason.  You've read all the data and fed it to the parser, but the <tt class="function">feed</tt> method isn't guaranteed to have actually processed all the <span class="acronym">HTML</span> you give it; it may buffer it, waiting for more.  Be sure to call <tt class="function">close</tt> to flush the buffer and force everything to be fully parsed.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/html_processing/extracting_data.html#dialect.extract.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/html_processing/extracting_data.html#dialect.extract.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Once the parser is <tt class="function">close</tt>d, the parsing is complete, and <tt class="varname">parser.urls</tt> contains a list of all the linked <span class="acronym">URL</span>s in the <span class="acronym">HTML</span> document.  (Your output may look different, if the download links have been updated by the time you read this.)
                      </td>
@@ -214,7 +214,7 @@ download/diveintopython-common-5.0.zip
 <div class="footnotes">
 <h3 class="footnotetitle">Footnotes</h3>
 <div class="footnote">
-<p><sup>[<a name="ftn.d0e20503" href="http://www.diveintopython.net/html_processing/extracting_data.html#d0e20503">1</a>] </sup>The technical term for a parser like <tt class="classname">SGMLParser</tt> is a <span class="emphasis"><em>consumer</em></span>: it consumes <span class="acronym">HTML</span> and breaks it down.  Presumably, the name <tt class="function">feed</tt> was chosen to fit into the whole &#8220;<span class="quote">consumer</span>&#8221; motif.  Personally, it makes me think of an exhibit in the zoo where there's just a dark cage with no trees or plants or
+<p><sup>[<a name="ftn.d0e20503" href="/html_processing/extracting_data.html#d0e20503">1</a>] </sup>The technical term for a parser like <tt class="classname">SGMLParser</tt> is a <span class="emphasis"><em>consumer</em></span>: it consumes <span class="acronym">HTML</span> and breaks it down.  Presumably, the name <tt class="function">feed</tt> was chosen to fit into the whole &#8220;<span class="quote">consumer</span>&#8221; motif.  Personally, it makes me think of an exhibit in the zoo where there's just a dark cage with no trees or plants or
                   evidence of life of any kind, but if you stand perfectly still and look really closely you can make out two beady eyes staring
                   back at you from the far left corner, but you convince yourself that that's just your mind playing tricks on you, and the
                   only way you can tell that the whole thing isn't just an empty cage is a small innocuous sign on the railing that reads, &#8220;<span class="quote">Do not feed the parser.</span>&#8221;  But maybe that's just me.  In any event, it's an interesting mental image.
@@ -224,10 +224,10 @@ download/diveintopython-common-5.0.zip
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/html_processing/introducing_sgmllib.html">&lt;&lt;&nbsp;Introducing sgmllib.py</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/html_processing/index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/html_processing/introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/html_processing/basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/html_processing/locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/html_processing/dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/html_processing/quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/html_processing/dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/html_processing/all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/html_processing/summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/html_processing/introducing_sgmllib.html">&lt;&lt;&nbsp;Introducing sgmllib.py</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/html_processing/index.html#dialect.divein" title="8.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/html_processing/introducing_sgmllib.html" title="8.2.&nbsp;Introducing sgmllib.py">2</a> <span class="divider">|</span> <span class="thispage">3</span> <span class="divider">|</span> <a href="/html_processing/basehtmlprocessor.html" title="8.4.&nbsp;Introducing BaseHTMLProcessor.py">4</a> <span class="divider">|</span> <a href="/html_processing/locals_and_globals.html" title="8.5.&nbsp;locals and globals">5</a> <span class="divider">|</span> <a href="/html_processing/dictionary_based_string_formatting.html" title="8.6.&nbsp;Dictionary-based string formatting">6</a> <span class="divider">|</span> <a href="/html_processing/quoting_attribute_values.html" title="8.7.&nbsp;Quoting attribute values">7</a> <span class="divider">|</span> <a href="/html_processing/dialect.html" title="8.8.&nbsp;Introducing dialect.py">8</a> <span class="divider">|</span> <a href="/html_processing/all_together.html" title="8.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="/html_processing/summary.html" title="8.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/html_processing/basehtmlprocessor.html">Introducing BaseHTMLProcessor.py&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/html_processing/basehtmlprocessor.html">Introducing BaseHTMLProcessor.py&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

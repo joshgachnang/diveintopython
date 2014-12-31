@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Handling Last-Modified and ETag</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/user_agent.html" title="Prev: “Setting the User-Agent”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/redirects.html" title="Next: “Handling redirects”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Handling Last-Modified and ETag</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/http_web_services/user_agent.html" title="Prev: “Setting the User-Agent”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/http_web_services/redirects.html" title="Next: “Handling redirects”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -99,20 +99,20 @@ urllib2.HTTPError: HTTP Error 304: Not Modified</span>
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Remember all those HTTP headers you saw printed out when you turned on debugging?  This is how you can get access to them
-                        programmatically: <tt class="varname">firstdatastream.headers</tt> is <a href="http://www.diveintopython.net/object_oriented_framework/userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">an object that acts like a dictionary</a> and allows you to get any of the individual headers returned from the HTTP server.
+                        programmatically: <tt class="varname">firstdatastream.headers</tt> is <a href="/object_oriented_framework/userdict.html" title="5.5.&nbsp;Exploring UserDict: A Wrapper Class">an object that acts like a dictionary</a> and allows you to get any of the individual headers returned from the HTTP server.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">On the second request, you add the <tt class="literal">If-Modified-Since</tt> header with the last-modified date from the first request.  If the data hasn't changed, the server should return a <tt class="literal">304</tt> status code.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Sure enough, the data hasn't changed.  You can see from the traceback that <tt class="filename">urllib2</tt> throws a special exception, <tt class="classname">HTTPError</tt>, in response to the <tt class="literal">304</tt> status code.  This is a little unusual, and not entirely helpful.  After all, it's not an error; you specifically asked the
                         server not to send you any data if it hadn't changed, and the data didn't change, so the server told you it wasn't sending
@@ -137,20 +137,20 @@ class</span> DefaultErrorHandler(urllib2.HTTPDefaultErrorHandler):    <a name="o
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="filename">urllib2</tt> is designed around URL handlers.  Each handler is just a class that can define any number of methods.  When something happens
-                        -- like an HTTP error, or even a <tt class="literal">304</tt> code -- <tt class="filename">urllib2</tt> introspects into the list of defined handlers for a method that can handle it.  You used a similar introspection in <a href="http://www.diveintopython.net/xml_processing/index.html" title="Chapter&nbsp;9.&nbsp;XML Processing">Chapter&nbsp;9, <i>XML Processing</i></a> to define handlers for different node types, but <tt class="filename">urllib2</tt> is more flexible, and introspects over as many handlers as are defined for the current request.
+                        -- like an HTTP error, or even a <tt class="literal">304</tt> code -- <tt class="filename">urllib2</tt> introspects into the list of defined handlers for a method that can handle it.  You used a similar introspection in <a href="/xml_processing/index.html" title="Chapter&nbsp;9.&nbsp;XML Processing">Chapter&nbsp;9, <i>XML Processing</i></a> to define handlers for different node types, but <tt class="filename">urllib2</tt> is more flexible, and introspects over as many handlers as are defined for the current request.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="filename">urllib2</tt> searches through the defined handlers and calls the <tt class="methodname">http_error_default</tt> method when it encounters a <tt class="literal">304</tt> status code from the server. By defining a custom error handler, you can prevent <tt class="filename">urllib2</tt> from raising an exception.  Instead, you create the <tt class="classname">HTTPError</tt> object, but return it instead of raising it.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is the key part: before returning, you save the status code returned by the HTTP server.  This will allow you easy access
                         to it from the calling program.
@@ -173,26 +173,26 @@ class</span> DefaultErrorHandler(urllib2.HTTPDefaultErrorHandler):    <a name="o
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You're continuing the previous example, so the <tt class="classname">Request</tt> object is already set up, and you've already added the <tt class="literal">If-Modified-Since</tt> header.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This is the key: now that you've defined your custom URL handler, you need to tell <tt class="filename">urllib2</tt> to use it.  Remember how I said that <tt class="filename">urllib2</tt> broke up the process of accessing an HTTP resource into three steps, and for good reason?  This is why building the URL opener
                         is its own step, because you can build it with your own custom URL handlers that override <tt class="filename">urllib2</tt>'s default behavior.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Now you can quietly open the resource, and what you get back is an object that, along with the usual headers (use <tt class="varname">seconddatastream.headers.dict</tt> to acess them), also contains the HTTP status code.  In this case, as you expected, the status is <tt class="literal">304</tt>, meaning this data hasn't changed since the last time you asked for it.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Note that when the server sends back a <tt class="literal">304</tt> status code, it doesn't re-send the data.  That's the whole point: to save bandwidth by not re-downloading data that hasn't
                         changed.  So if you actually want that data, you'll need to cache it locally the first time you get it.
@@ -231,30 +231,30 @@ class</span> DefaultErrorHandler(urllib2.HTTPDefaultErrorHandler):    <a name="o
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Using the <tt class="varname">firstdatastream.headers</tt> pseudo-dictionary, you can get the <tt class="literal">ETag</tt> returned from the server.  (What happens if the server didn't send back an <tt class="literal">ETag</tt>?  Then this line would return <tt class="literal">None</tt>.)
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">OK, you got the data.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Now set up the second call by setting the <tt class="literal">If-None-Match</tt> header to the <tt class="literal">ETag</tt> you got from the first call.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The second call succeeds quietly (without throwing an exception), and once again you see that the server has sent back a <tt class="literal">304</tt> status code.  Based on the <tt class="literal">ETag</tt> you sent the second time, it knows that the data hasn't changed.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/etags.html#oa.etags.4.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/etags.html#oa.etags.4.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Regardless of whether the <tt class="literal">304</tt> is triggered by <tt class="literal">Last-Modified</tt> date checking or <tt class="literal">ETag</tt> hash matching, you'll never get the data along with the <tt class="literal">304</tt>.  That's the whole point.
                      </td>
@@ -274,10 +274,10 @@ class</span> DefaultErrorHandler(urllib2.HTTPDefaultErrorHandler):    <a name="o
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/user_agent.html">&lt;&lt;&nbsp;Setting the User-Agent</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/http_web_services/user_agent.html">&lt;&lt;&nbsp;Setting the User-Agent</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="/http_web_services/user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <span class="thispage">6</span> <span class="divider">|</span> <a href="/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="/http_web_services/alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/redirects.html">Handling redirects&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/http_web_services/redirects.html">Handling redirects&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

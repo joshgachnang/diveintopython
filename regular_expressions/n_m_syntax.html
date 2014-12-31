@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Using the {n,m} Syntax</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html" title="Prev: “Case Study: Roman Numerals”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/regular_expressions/verbose.html" title="Next: “Verbose Regular Expressions”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/regular_expressions/index.html">Regular Expressions</a>&nbsp;&gt;&nbsp;<span class="thispage">Using the {n,m} Syntax</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/regular_expressions/roman_numerals.html" title="Prev: “Case Study: Roman Numerals”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/regular_expressions/verbose.html" title="Next: “Verbose Regular Expressions”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -58,11 +58,11 @@
 </div>
 <div class="toc">
 <ul>
-<li><span class="section"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#d0e18326">7.4.1. Checking for Tens and Ones</a></span></li>
+<li><span class="section"><a href="/regular_expressions/n_m_syntax.html#d0e18326">7.4.1. Checking for Tens and Ones</a></span></li>
 </ul>
 </div>
 <div class="abstract">
-<p>In <a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">the previous section</a>, you were dealing with a pattern where the same character could be repeated up to three times.  There is another way to express
+<p>In <a href="/regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">the previous section</a>, you were dealing with a pattern where the same character could be repeated up to three times.  There is another way to express
                this in regular expressions, which some people find more readable.  First look at the method we already used in the previous
                example.
             </p>
@@ -83,25 +83,25 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, and then the first optional <tt class="literal">M</tt>, but not the second and third <tt class="literal">M</tt> (but that's okay because they're optional), and then the end of the string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, and then the first and second optional <tt class="literal">M</tt>, but not the third <tt class="literal">M</tt> (but that's okay because it's optional), and then the end of the string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, and then all three optional <tt class="literal">M</tt>, and then the end of the string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, and then all three optional <tt class="literal">M</tt>, but then does not match the the end of the string (because there is still one unmatched <tt class="literal">M</tt>), so the pattern does not match and returns <tt class="literal">None</tt>.
                      </td>
@@ -122,31 +122,31 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.2.0"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.2.0"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This pattern says: &#8220;<span class="quote">Match the start of the string, then anywhere from zero to three <tt class="literal">M</tt> characters, then the end of the string.</span>&#8221;  The 0 and 3 can be any numbers; if you want to match at least one but no more than three <tt class="literal">M</tt> characters, you could say <tt class="literal">M{1,3}</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.2.1"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.2.1"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then one <tt class="literal">M</tt> out of a possible three, then the end of the string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.2.2"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.2.2"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then two <tt class="literal">M</tt> out of a possible three, then the end of the string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.2.3"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.2.3"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then three <tt class="literal">M</tt> out of a possible three, then the end of the string.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.2.4"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.2.4"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then three <tt class="literal">M</tt> out of a possible three, but then <span class="emphasis"><em>does not match</em></span> the end of the string.  The regular expression allows for up to only three <tt class="literal">M</tt> characters before the end of the string, but you have four, so the pattern does not match and returns <tt class="literal">None</tt>.
                      </td>
@@ -192,31 +192,31 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.3.3"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.3.3"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then <tt class="literal">XL</tt>, then the end of the string.  Remember, the <tt class="literal">(A|B|C)</tt> syntax means &#8220;<span class="quote">match exactly one of A, B, or C</span>&#8221;.  You match <tt class="literal">XL</tt>, so you ignore the <tt class="literal">XC</tt> and <tt class="literal">L?X?X?X?</tt> choices, and then move on to the end of the string.  <tt class="literal">MCMXL</tt> is the Roman numeral representation of <tt class="literal">1940</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.3.4"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.3.4"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then <tt class="literal">L?X?X?X?</tt>.  Of the <tt class="literal">L?X?X?X?</tt>, it matches the <tt class="literal">L</tt> and skips all three optional <tt class="literal">X</tt> characters.  Then you move to the end of the string.  <tt class="literal">MCML</tt> is the Roman numeral representation of <tt class="literal">1950</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.3.5"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.3.5"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then the optional <tt class="literal">L</tt> and the first optional <tt class="literal">X</tt>, skips the second and third optional <tt class="literal">X</tt>, then the end of the string.  <tt class="literal">MCMLX</tt> is the Roman numeral representation of <tt class="literal">1960</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.3.7"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.3.7"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then the optional <tt class="literal">L</tt> and all three optional <tt class="literal">X</tt> characters, then the end of the string.  <tt class="literal">MCMLXXX</tt> is the Roman numeral representation of <tt class="literal">1980</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.3.8"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.3.8"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then the first optional <tt class="literal">M</tt>, then <tt class="literal">CM</tt>, then the optional <tt class="literal">L</tt> and all three optional <tt class="literal">X</tt> characters, then <span class="emphasis"><em>fails to match</em></span> the end of the string because there is still one more <tt class="literal">X</tt> unaccounted for.  So the entire pattern fails to match, and returns <tt class="literal">None</tt>.  <tt class="literal">MCMLXXXX</tt> is not a valid Roman numeral.
                         </td>
@@ -243,25 +243,25 @@
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then one of a possible four <tt class="literal">M</tt> characters, then <tt class="literal">D?C{0,3}</tt>.  Of that, it matches the optional <tt class="literal">D</tt> and zero of three possible <tt class="literal">C</tt> characters.  Moving on, it matches <tt class="literal">L?X{0,3}</tt> by matching the optional <tt class="literal">L</tt> and zero of three possible <tt class="literal">X</tt> characters.  Then it matches <tt class="literal">V?I{0,3}</tt> by matching the optional V and zero of three possible <tt class="literal">I</tt> characters, and finally the end of the string.  <tt class="literal">MDLV</tt> is the Roman numeral representation of <tt class="literal">1555</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then two of a possible four <tt class="literal">M</tt> characters, then the <tt class="literal">D?C{0,3}</tt> with a <tt class="literal">D</tt> and one of three possible <tt class="literal">C</tt> characters; then <tt class="literal">L?X{0,3}</tt> with an <tt class="literal">L</tt> and one of three possible <tt class="literal">X</tt> characters; then <tt class="literal">V?I{0,3}</tt> with a <tt class="literal">V</tt> and one of three possible <tt class="literal">I</tt> characters; then the end of the string.  <tt class="literal">MMDCLXVI</tt> is the Roman numeral representation of <tt class="literal">2666</tt>.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This matches the start of the string, then four out of four <tt class="literal">M</tt> characters, then <tt class="literal">D?C{0,3}</tt> with a <tt class="literal">D</tt> and three out of three <tt class="literal">C</tt> characters; then <tt class="literal">L?X{0,3}</tt> with an <tt class="literal">L</tt> and three out of three <tt class="literal">X</tt> characters; then <tt class="literal">V?I{0,3}</tt> with a <tt class="literal">V</tt> and three out of three <tt class="literal">I</tt> characters; then the end of the string.  <tt class="literal">MMMMDCCCLXXXVIII</tt> is the Roman numeral representation of <tt class="literal">3888</tt>, and it's the longest Roman numeral you can write without extended syntax.
                         </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/regular_expressions/n_m_syntax.html#re.nm.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/regular_expressions/n_m_syntax.html#re.nm.4.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Watch closely.  (I feel like a magician.  &#8220;<span class="quote">Watch closely, kids, I'm going to pull a rabbit out of my hat.</span>&#8221;)  This matches the start of the string, then zero out of four <tt class="literal">M</tt>, then matches <tt class="literal">D?C{0,3}</tt> by skipping the optional <tt class="literal">D</tt> and matching zero out of three <tt class="literal">C</tt>, then matches <tt class="literal">L?X{0,3}</tt> by skipping the optional <tt class="literal">L</tt> and matching zero out of three <tt class="literal">X</tt>, then matches <tt class="literal">V?I{0,3}</tt> by skipping the optional <tt class="literal">V</tt> and matching one out of three <tt class="literal">I</tt>.  Then the end of the string.  Whoa.
                         </td>
@@ -278,10 +278,10 @@
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/regular_expressions/roman_numerals.html">&lt;&lt;&nbsp;Case Study: Roman Numerals</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/regular_expressions/index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/regular_expressions/summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/regular_expressions/roman_numerals.html">&lt;&lt;&nbsp;Case Study: Roman Numerals</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/regular_expressions/index.html#re.intro" title="7.1.&nbsp;Diving In">1</a> <span class="divider">|</span> <a href="/regular_expressions/street_addresses.html" title="7.2.&nbsp;Case Study: Street Addresses">2</a> <span class="divider">|</span> <a href="/regular_expressions/roman_numerals.html" title="7.3.&nbsp;Case Study: Roman Numerals">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="/regular_expressions/verbose.html" title="7.5.&nbsp;Verbose Regular Expressions">5</a> <span class="divider">|</span> <a href="/regular_expressions/phone_numbers.html" title="7.6.&nbsp;Case study: Parsing Phone Numbers">6</a> <span class="divider">|</span> <a href="/regular_expressions/summary.html" title="7.7.&nbsp;Summary">7</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/regular_expressions/verbose.html">Verbose Regular Expressions&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/regular_expressions/verbose.html">Verbose Regular Expressions&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

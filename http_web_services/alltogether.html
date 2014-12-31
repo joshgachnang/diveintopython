@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/gzip_compression.html" title="Prev: “Handling compressed data”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/http_web_services/gzip_compression.html" title="Prev: “Handling compressed data”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/http_web_services/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -79,43 +79,43 @@ def</span> openAnything(source, etag=None, lastmodified=None, agent=USER_AGENT):
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="filename">urlparse</tt> is a handy utility module for, you guessed it, parsing URLs.  It's primary function, also called <tt class="function">urlparse</tt>, takes a URL and splits it into a tuple of (scheme, domain, path, params, query string parameters, and fragment identifier).
                          Of these, the only thing you care about is the scheme, to make sure that you're dealing with an HTTP URL (which <tt class="filename">urllib2</tt> can handle).
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You identify yourself to the HTTP server with the <tt class="literal">User-Agent</tt> passed in by the calling function.  If no <tt class="literal">User-Agent</tt> was specified, you use a default one defined earlier in the <tt class="filename">openanything.py</tt> module.  You never use the default one defined by <tt class="filename">urllib2</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">If an <tt class="literal">ETag</tt> hash was given, send it in the <tt class="literal">If-None-Match</tt> header.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">If a last-modified date was given, send it in the <tt class="literal">If-Modified-Since</tt> header.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Tell the server you would like compressed data if possible.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.1.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.1.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Build a URL opener that uses <span class="emphasis"><em>both</em></span> of the custom URL handlers: <tt class="classname">SmartRedirectHandler</tt> for handling <tt class="literal">301</tt> and <tt class="literal">302</tt> redirects, and <tt class="classname">DefaultErrorHandler</tt> for handling <tt class="literal">304</tt>, <tt class="literal">404</tt>, and other error conditions gracefully.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.1.7"><img src="http://www.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.1.7"><img src="http://www.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">That's it!  Open the URL and return a file-like object to the caller.</td>
 </tr>
@@ -149,41 +149,41 @@ def</span> fetch(source, etag=None, last_modified=None, agent=USER_AGENT):
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">First, you call the <tt class="function">openAnything</tt> function with a URL, <tt class="literal">ETag</tt> hash, <tt class="literal">Last-Modified</tt> date, and <tt class="literal">User-Agent</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Read the actual data returned from the server.  This may be compressed; if so, you'll decompress it later.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Save the <tt class="literal">ETag</tt> hash returned from the server, so the calling application can pass it back to you next time, and you can pass it on to <tt class="function">openAnything</tt>, which can stick it in the <tt class="literal">If-None-Match</tt> header and send it to the remote server.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.2.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Save the <tt class="literal">Last-Modified</tt> date too.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.2.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">If the server says that it sent compressed data, decompress it.</td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.2.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.2.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">If you got a URL back from the server, save it, and assume that the status code is <tt class="literal">200</tt> until you find out otherwise.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.2.7"><img src="http://www.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.2.7"><img src="http://www.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">If one of the custom URL handlers captured a status code, then save that too.</td>
 </tr>
@@ -216,33 +216,33 @@ def</span> fetch(source, etag=None, last_modified=None, agent=USER_AGENT):
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">The very first time you fetch a resource, you don't have an <tt class="literal">ETag</tt> hash or <tt class="literal">Last-Modified</tt> date, so you'll leave those out.  (They're <a href="http://www.diveintopython.net/power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">optional parameters</a>.)
+<td valign="top" align="left">The very first time you fetch a resource, you don't have an <tt class="literal">ETag</tt> hash or <tt class="literal">Last-Modified</tt> date, so you'll leave those out.  (They're <a href="/power_of_introspection/optional_arguments.html" title="4.2.&nbsp;Using Optional and Named Arguments">optional parameters</a>.)
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">What you get back is a dictionary of several useful headers, the HTTP status code, and the actual data returned from the server.
                          <tt class="filename">openanything</tt> handles the gzip compression internally; you don't care about that at this level.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">If you ever get a <tt class="literal">301</tt> status code, that's a permanent redirect, and you need to update your URL to the new address.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The second time you fetch the same resource, you have all sorts of information to pass back: a (possibly updated) URL, the
                         <tt class="literal">ETag</tt> from the last time, the <tt class="literal">Last-Modified</tt> date from the last time, and of course your <tt class="literal">User-Agent</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/alltogether.html#oa.alltogether.3.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/alltogether.html#oa.alltogether.3.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">What you get back is again a dictionary, but the data hasn't changed, so all you got was a <tt class="literal">304</tt> status code and no data.
                      </td>
@@ -253,10 +253,10 @@ def</span> fetch(source, etag=None, last_modified=None, agent=USER_AGENT):
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/gzip_compression.html">&lt;&lt;&nbsp;Handling compressed data</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/http_web_services/gzip_compression.html">&lt;&lt;&nbsp;Handling compressed data</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <a href="/http_web_services/debugging.html" title="11.4.&nbsp;Debugging HTTP web services">4</a> <span class="divider">|</span> <a href="/http_web_services/user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <span class="thispage">9</span> <span class="divider">|</span> <a href="/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/summary.html">Summary&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/http_web_services/summary.html">Summary&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Debugging HTTP web services</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/http_features.html" title="Prev: “Features of HTTP”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/http_web_services/user_agent.html" title="Next: “Setting the User-Agent”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/http_web_services/index.html">HTTP Web Services</a>&nbsp;&gt;&nbsp;<span class="thispage">Debugging HTTP web services</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/http_web_services/http_features.html" title="Prev: “Features of HTTP”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/http_web_services/user_agent.html" title="Next: “Setting the User-Agent”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -85,41 +85,41 @@
 <div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/debugging.html#oa.debug.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/debugging.html#oa.debug.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="filename">urllib</tt> relies on another standard <span class="application">Python</span> library, <tt class="filename">httplib</tt>.  Normally you don't need to <tt class="literal">import httplib</tt> directly (<tt class="filename">urllib</tt> does that automatically), but you will here so you can set the debugging flag on the <tt class="classname">HTTPConnection</tt> class that <tt class="filename">urllib</tt> uses internally to connect to the HTTP server.  This is an incredibly useful technique.  Some other <span class="application">Python</span> libraries have similar debug flags, but there's no particular standard for naming them or turning them on; you need to read
                      the documentation of each library to see if such a feature is available.
                   </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/debugging.html#oa.debug.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/debugging.html#oa.debug.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Now that the debugging flag is set, information on the the HTTP request and response is printed out in real time.  The first
                      thing it tells you is that you're connecting to the server <tt class="literal">diveintomark.org</tt> on port 80, which is the standard port for HTTP.
                   </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/debugging.html#oa.debug.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/debugging.html#oa.debug.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">When you request the Atom feed, <tt class="filename">urllib</tt> sends three lines to the server.  The first line specifies the HTTP verb you're using, and the path of the resource (minus
                      the domain name).  All the requests in this chapter will use <tt class="literal">GET</tt>, but in the next chapter on <span class="acronym">SOAP</span>, you'll see that it uses <tt class="literal">POST</tt> for everything.  The basic syntax is the same, regardless of the verb.
                   </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/debugging.html#oa.debug.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/debugging.html#oa.debug.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The second line is the <tt class="literal">Host</tt> header, which specifies the domain name of the service you're accessing.  This is important, because a single HTTP server
                      can host multiple separate domains.  My server currently hosts 12 domains; other servers can host hundreds or even thousands.
                   </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/debugging.html#oa.debug.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/debugging.html#oa.debug.1.5"><img src="http://www.diveintopython.net/images/callouts/5.png" alt="5" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The third line is the <tt class="literal">User-Agent</tt> header.  What you see here is the generic <tt class="literal">User-Agent</tt> that the <tt class="filename">urllib</tt> library adds by default.  In the next section, you'll see how to customize this to be more specific.
                   </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/debugging.html#oa.debug.1.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/debugging.html#oa.debug.1.6"><img src="http://www.diveintopython.net/images/callouts/6.png" alt="6" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The server replies with a status code and a bunch of headers (and possibly some data, which got stored in the <tt class="varname">feeddata</tt> variable).  The status code here is <tt class="literal">200</tt>, meaning &#8220;<span class="quote">everything's normal, here's the data you requested</span>&#8221;.  The server also tells you the date it responded to your request, some information about the server itself, and the content
                      type of the data it's giving you.  Depending on your application, this might be useful, or not.  It's certainly reassuring
@@ -127,14 +127,14 @@
                   </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/debugging.html#oa.debug.1.7"><img src="http://www.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/debugging.html#oa.debug.1.7"><img src="http://www.diveintopython.net/images/callouts/7.png" alt="7" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The server tells you when this Atom feed was last modified (in this case, about 13 minutes ago).  You can send this date back
                      to the server the next time you request the same feed, and the server can do last-modified checking.
                   </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/http_web_services/debugging.html#oa.debug.1.8"><img src="http://www.diveintopython.net/images/callouts/8.png" alt="8" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/http_web_services/debugging.html#oa.debug.1.8"><img src="http://www.diveintopython.net/images/callouts/8.png" alt="8" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The server also tells you that this Atom feed has an ETag hash of <tt class="literal">"e8284-68e0-4de30f80"</tt>.  The hash doesn't mean anything by itself; there's nothing you can do with it, except send it back to the server the next
                      time you request this same feed.  Then the server can use it to tell you if the data has changed or not.
@@ -145,10 +145,10 @@
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/http_features.html">&lt;&lt;&nbsp;Features of HTTP</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/http_web_services/http_features.html">&lt;&lt;&nbsp;Features of HTTP</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/http_web_services/index.html#oa.divein" title="11.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/http_web_services/review.html" title="11.2.&nbsp;How not to fetch data over HTTP">2</a> <span class="divider">|</span> <a href="/http_web_services/http_features.html" title="11.3.&nbsp;Features of HTTP">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="/http_web_services/user_agent.html" title="11.5.&nbsp;Setting the User-Agent">5</a> <span class="divider">|</span> <a href="/http_web_services/etags.html" title="11.6.&nbsp;Handling Last-Modified and ETag">6</a> <span class="divider">|</span> <a href="/http_web_services/redirects.html" title="11.7.&nbsp;Handling redirects">7</a> <span class="divider">|</span> <a href="/http_web_services/gzip_compression.html" title="11.8.&nbsp;Handling compressed data">8</a> <span class="divider">|</span> <a href="/http_web_services/alltogether.html" title="11.9.&nbsp;Putting it all together">9</a> <span class="divider">|</span> <a href="/http_web_services/summary.html" title="11.10.&nbsp;Summary">10</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/http_web_services/user_agent.html">Setting the User-Agent&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/http_web_services/user_agent.html">Setting the User-Agent&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

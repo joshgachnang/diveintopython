@@ -9,10 +9,10 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.52.2" />
 <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free" />
 <meta name="description" content="Python from novice to pro" />
-<link rel="home" href="http://www.diveintopython.net/" title="Dive Into Python" />
-<link rel="up" href="http://www.diveintopython.net/" title="Chapter&nbsp;3.&nbsp;Native Datatypes" />
-<link rel="previous" href="http://www.diveintopython.net/" title="3.6.&nbsp;Mapping Lists" />
-<link rel="next" href="http://www.diveintopython.net/" title="3.8.&nbsp;Summary" />
+<link rel="home" href="/" title="Dive Into Python" />
+<link rel="up" href="/" title="Chapter&nbsp;3.&nbsp;Native Datatypes" />
+<link rel="previous" href="/" title="3.6.&nbsp;Mapping Lists" />
+<link rel="next" href="/" title="3.8.&nbsp;Summary" />
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -30,12 +30,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/native_data_types/index.html">Native Datatypes</a>&nbsp;&gt;&nbsp;<span class="thispage">Joining Lists and Splitting Strings</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/native_data_types/mapping_lists.html" title="Prev: “Mapping Lists”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/native_data_types/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/native_data_types/index.html">Native Datatypes</a>&nbsp;&gt;&nbsp;<span class="thispage">Joining Lists and Splitting Strings</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/native_data_types/mapping_lists.html" title="Prev: “Mapping Lists”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/native_data_types/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -57,7 +57,7 @@
 </div>
 <div class="toc">
 <ul>
-<li><span class="section"><a href="http://www.diveintopython.net/native_data_types/joining_lists.html#d0e7982">3.7.1. Historical Note on String Methods</a></span></li>
+<li><span class="section"><a href="/native_data_types/joining_lists.html#d0e7982">3.7.1. Historical Note on String Methods</a></span></li>
 </ul>
 </div>
 <div class="abstract">
@@ -75,7 +75,7 @@
             need to be a semi-colon; it doesn't even need to be a single character.  It can be any string.
          </p><a name="tip.join"></a><table class="caution" border="0" summary="">
 <tr>
-<td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/caution.png" alt="Caution" title="" width="24" height="24" /></td>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="/images/caution.png" alt="Caution" title="" width="24" height="24" /></td>
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%"><tt class="function">join</tt> works only on lists of strings; it does not do any type coercion.  Joining a list that has one or more non-string elements
@@ -98,19 +98,19 @@
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s = <span class="pystring">";"</span>.join(li)</span>
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s</span>
 <span class="computeroutput">'server=mpilgrim;uid=sa;database=master;pwd=secret'</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.split(<span class="pystring">";"</span>)</span>    <a name="odbchelper.join.1.1"></a><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.split(<span class="pystring">";"</span>)</span>    <a name="odbchelper.join.1.1"></a><img src="/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
 <span class="computeroutput">['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']</span>
-<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.split(<span class="pystring">";"</span>, 1)</span> <a name="odbchelper.join.1.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">s.split(<span class="pystring">";"</span>, 1)</span> <a name="odbchelper.join.1.2"></a><img src="/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
 <span class="computeroutput">['server=mpilgrim', 'uid=sa;database=master;pwd=secret']</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/native_data_types/joining_lists.html#odbchelper.join.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/native_data_types/joining_lists.html#odbchelper.join.1.1"><img src="/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">split</tt> reverses <tt class="function">join</tt> by splitting a string into a multi-element list.  Note that the delimiter (&#8220;<span class="quote"><tt class="literal">;</tt></span>&#8221;) is stripped out completely; it does not appear in any of the elements of the returned list.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/native_data_types/joining_lists.html#odbchelper.join.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/native_data_types/joining_lists.html#odbchelper.join.1.2"><img src="/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="function">split</tt> takes an optional second argument, which is the number of times to split.  (&#8220;<span class="quote">"Oooooh, optional arguments...</span>&#8221;  You'll learn how to do this in your own functions in the next chapter.)
                      </td>
@@ -119,7 +119,7 @@
 </div>
 </div><a name="tip.split"></a><table class="tip" border="0" summary="">
 <tr>
-<td rowspan="2" align="center" valign="top" width="1%"><img src="http://www.diveintopython.net/images/tip.png" alt="Tip" title="" width="24" height="24" /></td>
+<td rowspan="2" align="center" valign="top" width="1%"><img src="/images/tip.png" alt="Tip" title="" width="24" height="24" /></td>
 </tr>
 <tr>
 <td colspan="2" align="left" valign="top" width="99%"><tt class="literal"><i class="replaceable">anystring</i>.</tt><tt class="function">split</tt>(<i class="replaceable">delimiter</i>, 1) is a useful technique when you want to search a string for a substring and then work with everything before the substring
@@ -130,13 +130,13 @@
 <div class="furtherreading">
 <h3>Further Reading on String Methods</h3>
 <ul>
-<li><a href="http://www.diveintopython.net/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> answers <a href="http://www.diveintopython.net/knowledge-base/index.phtml/fid/480">common questions about strings</a> and has a lot of <a href="http://www.diveintopython.net/knowledge-base/index.phtml/fid/539">example code using strings</a>.
+<li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Python</span> Knowledge Base</a> answers <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/480">common questions about strings</a> and has a lot of <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/539">example code using strings</a>.
                </li>
-<li><a href="http://www.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes <a href="http://www.diveintopython.net/doc/current/lib/string-methods.html">all the string methods</a>.
+<li><a href="https://docs.python.org/2/library/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> summarizes <a href="/doc/current/lib/string-methods.html">all the string methods</a>.
                </li>
-<li><a href="http://www.diveintopython.net/doc/current/lib/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents the <a href="http://www.diveintopython.net/doc/current/lib/module-string.html"><tt class="filename">string</tt> module</a>.
+<li><a href="https://docs.python.org/2/library/"><i class="citetitle"><span class="application">Python</span> Library Reference</i></a> documents the <a href="/doc/current/lib/module-string.html"><tt class="filename">string</tt> module</a>.
                </li>
-<li><a href="http://www.diveintopython.net/doc/FAQ.html"><i class="citetitle">The Whole <span class="application">Python</span> <span class="acronym">FAQ</span></i></a> explains <a href="http://www.diveintopython.net/cgi-bin/faqw.py?query=4.96&amp;querytype=simple&amp;casefold=yes&amp;req=search">why <tt class="function">join</tt> is a string method</a> instead of a list method.
+<li><a href="/doc/FAQ.html"><i class="citetitle">The Whole <span class="application">Python</span> <span class="acronym">FAQ</span></i></a> explains <a href="/cgi-bin/faqw.py?query=4.96&amp;querytype=simple&amp;casefold=yes&amp;req=search">why <tt class="function">join</tt> is a string method</a> instead of a list method.
                </li>
 </ul>
 </div>
@@ -159,10 +159,10 @@
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/native_data_types/mapping_lists.html">&lt;&lt;&nbsp;Mapping Lists</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/native_data_types/index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/native_data_types/lists.html" title="3.2.&nbsp;Introducing Lists">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/native_data_types/tuples.html" title="3.3.&nbsp;Introducing Tuples">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/native_data_types/declaring_variables.html" title="3.4.&nbsp;Declaring variables">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/native_data_types/formatting_strings.html" title="3.5.&nbsp;Formatting Strings">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/native_data_types/summary.html" title="3.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/native_data_types/mapping_lists.html">&lt;&lt;&nbsp;Mapping Lists</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/native_data_types/index.html#odbchelper.dict" title="3.1.&nbsp;Introducing Dictionaries">1</a> <span class="divider">|</span> <a href="/native_data_types/lists.html" title="3.2.&nbsp;Introducing Lists">2</a> <span class="divider">|</span> <a href="/native_data_types/tuples.html" title="3.3.&nbsp;Introducing Tuples">3</a> <span class="divider">|</span> <a href="/native_data_types/declaring_variables.html" title="3.4.&nbsp;Declaring variables">4</a> <span class="divider">|</span> <a href="/native_data_types/formatting_strings.html" title="3.5.&nbsp;Formatting Strings">5</a> <span class="divider">|</span> <a href="/native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="/native_data_types/summary.html" title="3.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/native_data_types/summary.html">Summary&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/native_data_types/summary.html">Summary&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

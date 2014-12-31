@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/functional_programming/index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/functional_programming/dynamic_import.html" title="Prev: “Dynamically importing modules”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/functional_programming/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/functional_programming/index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Putting it all together</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/functional_programming/dynamic_import.html" title="Prev: “Dynamically importing modules”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/functional_programming/summary.html" title="Next: “Summary”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -74,7 +74,7 @@ def</span> regressionTest():
 load = unittest.defaultTestLoader.loadTestsFromModule  
 <span class="pykeyword">return</span> unittest.TestSuite(map(load, modules))          
 </pre></div>
-<p>Let's look at it line by line, interactively.  Assume that the current directory is <tt class="filename">c:\diveintopython\py</tt>, which contains the examples that come with this book, including this chapter's script.  As you saw in <a href="http://www.diveintopython.net/functional_programming/finding_the_path.html" title="16.2.&nbsp;Finding the path">Section&nbsp;16.2, &#8220;Finding the path&#8221;</a>, the script directory will end up in the <tt class="varname">path</tt> variable, so let's start hard-code that and go from there.
+<p>Let's look at it line by line, interactively.  Assume that the current directory is <tt class="filename">c:\diveintopython\py</tt>, which contains the examples that come with this book, including this chapter's script.  As you saw in <a href="/functional_programming/finding_the_path.html" title="16.2.&nbsp;Finding the path">Section&nbsp;16.2, &#8220;Finding the path&#8221;</a>, the script directory will end up in the <tt class="varname">path</tt> variable, so let's start hard-code that and go from there.
          </p>
 <div class="example"><a name="d0e36556"></a><h3 class="title">Example&nbsp;16.17.&nbsp;Step 1: Get all the files</h3><pre class="screen">
 <tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pykeyword">import</span> sys, os, re, unittest</span>
@@ -91,7 +91,7 @@ load = unittest.defaultTestLoader.loadTestsFromModule
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">files</tt> is a list of all the files and directories in the script's directory.  (If you've been running some of the examples already,
                         you may also see some <tt class="filename">.pyc</tt> files in there as well.)
@@ -108,20 +108,20 @@ load = unittest.defaultTestLoader.loadTestsFromModule
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">This regular expression will match any string that ends with <tt class="literal">test.py</tt>.  Note that you need to escape the period, since a period in a regular expression usually means &#8220;<span class="quote">match any single character</span>&#8221;, but you actually want to match a literal period instead.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.2.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The compiled regular expression acts like a function, so you can use it to filter the large list of files and directories,
                         to find the ones that match the regular expression.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.2.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">And you're left with the list of unit testing scripts, because they were the only ones named <tt class="filename">SOMETHINGtest.py</tt>.
                      </td>
@@ -141,26 +141,26 @@ load = unittest.defaultTestLoader.loadTestsFromModule
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">As you saw in <a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">Section&nbsp;4.7, &#8220;Using lambda Functions&#8221;</a>, <tt class="literal">lambda</tt> is a quick-and-dirty way of creating an inline, one-line function.  This one takes a filename with an extension and returns
-                        just the filename part, using the standard library function <tt class="function">os.path.splitext</tt> that you saw in <a href="http://www.diveintopython.net/file_handling/os_module.html#splittingpathnames.example" title="Example&nbsp;6.17.&nbsp;Splitting Pathnames">Example&nbsp;6.17, &#8220;Splitting Pathnames&#8221;</a>.
+<td valign="top" align="left">As you saw in <a href="/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">Section&nbsp;4.7, &#8220;Using lambda Functions&#8221;</a>, <tt class="literal">lambda</tt> is a quick-and-dirty way of creating an inline, one-line function.  This one takes a filename with an extension and returns
+                        just the filename part, using the standard library function <tt class="function">os.path.splitext</tt> that you saw in <a href="/file_handling/os_module.html#splittingpathnames.example" title="Example&nbsp;6.17.&nbsp;Splitting Pathnames">Example&nbsp;6.17, &#8220;Splitting Pathnames&#8221;</a>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">filenameToModuleName</tt> is a function.  There's nothing magic about <tt class="literal">lambda</tt> functions as opposed to regular functions that you define with a <tt class="literal">def</tt> statement.  You can call the <tt class="varname">filenameToModuleName</tt> function like any other, and it does just what you wanted it to do: strips the file extension off of its argument.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.3.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Now you can apply this function to each file in the list of unit test files, using <tt class="function">map</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.3.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">And the result is just what you wanted: a list of modules, as strings.</td>
 </tr>
@@ -180,20 +180,20 @@ load = unittest.defaultTestLoader.loadTestsFromModule
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.4.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">As you saw in <a href="http://www.diveintopython.net/functional_programming/dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">Section&nbsp;16.6, &#8220;Dynamically importing modules&#8221;</a>, you can use a combination of <tt class="function">map</tt> and <tt class="function">__import__</tt> to map a list of module names (as strings) into actual modules (which you can call or access like any other module).
+<td valign="top" align="left">As you saw in <a href="/functional_programming/dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">Section&nbsp;16.6, &#8220;Dynamically importing modules&#8221;</a>, you can use a combination of <tt class="function">map</tt> and <tt class="function">__import__</tt> to map a list of module names (as strings) into actual modules (which you can call or access like any other module).
                         
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.4.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left"><tt class="varname">modules</tt> is now a list of modules, fully accessible like any other module.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.4.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">The last module in the list <span class="emphasis"><em>is</em></span> the <tt class="filename">romantest</tt> module, just as if you had said <tt class="literal">import romantest</tt>.
                      </td>
@@ -217,7 +217,7 @@ load = unittest.defaultTestLoader.loadTestsFromModule
 </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.5.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.5.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">These are real module objects.  Not only can you access them like any other module, instantiate classes and call functions,
                         you can also introspect into the module to figure out which classes and functions it has in the first place.  That's what
@@ -225,7 +225,7 @@ load = unittest.defaultTestLoader.loadTestsFromModule
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.5.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.5.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Finally, you wrap the list of <tt class="literal">TestSuite</tt> objects into one big test suite.  The <tt class="filename">unittest</tt> module has no problem traversing this tree of nested test suites within test suites; eventually it gets down to an individual
                         test method and executes it, verifies that it passes or fails, and moves on to the next one.
@@ -246,7 +246,7 @@ if</span> __name__ == <span class="pystring">"__main__"</span>:
 <div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/all_together.html#regression.alltogether.6.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/all_together.html#regression.alltogether.6.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Instead of letting the <tt class="filename">unittest</tt> module do all its magic for us, you've done most of it yourself.  You've created a function (<tt class="function">regressionTest</tt>) that imports the modules yourself, calls <tt class="literal">unittest.defaultTestLoader</tt> yourself, and wraps it all up in a test suite.  Now all you need to do is tell <tt class="filename">unittest</tt> that, instead of looking for tests and building a test suite in the usual way, it should just call the <tt class="function">regressionTest</tt> function, which returns a ready-to-use <tt class="literal">TestSuite</tt>.
                   </td>
@@ -256,10 +256,10 @@ if</span> __name__ == <span class="pystring">"__main__"</span>:
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/functional_programming/dynamic_import.html">&lt;&lt;&nbsp;Dynamically importing modules</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/functional_programming/index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/functional_programming/dynamic_import.html">&lt;&lt;&nbsp;Dynamically importing modules</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/functional_programming/index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/functional_programming/finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="/functional_programming/filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <a href="/functional_programming/mapping_lists.html" title="16.4.&nbsp;Mapping lists revisited">4</a> <span class="divider">|</span> <a href="/functional_programming/data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <a href="/functional_programming/dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <span class="thispage">7</span> <span class="divider">|</span> <a href="/functional_programming/summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/functional_programming/summary.html">Summary&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/functional_programming/summary.html">Summary&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/functional_programming/index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Mapping lists revisited</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/functional_programming/filtering_lists.html" title="Prev: “Filtering lists revisited”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/functional_programming/data_centric.html" title="Next: “Data-centric programming”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/functional_programming/index.html">Functional Programming</a>&nbsp;&gt;&nbsp;<span class="thispage">Mapping lists revisited</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/functional_programming/filtering_lists.html" title="Prev: “Filtering lists revisited”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/functional_programming/data_centric.html" title="Next: “Data-centric programming”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -57,7 +57,7 @@
 <div></div>
 </div>
 <div class="abstract">
-<p>You're already familiar with using <a href="http://www.diveintopython.net/native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehensions</a> to map one list into another.  There is another way to accomplish the same thing, using the built-in <tt class="function">map</tt> function.  It works much the same way as the <a href="http://www.diveintopython.net/functional_programming/filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited"><tt class="function">filter</tt></a> function.
+<p>You're already familiar with using <a href="/native_data_types/mapping_lists.html" title="3.6.&nbsp;Mapping Lists">list comprehensions</a> to map one list into another.  There is another way to accomplish the same thing, using the built-in <tt class="function">map</tt> function.  It works much the same way as the <a href="/functional_programming/filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited"><tt class="function">filter</tt></a> function.
             </p>
 </div>
 <div class="example"><a name="d0e36003"></a><h3 class="title">Example&nbsp;16.10.&nbsp;Introducing <tt class="function">map</tt></h3><pre class="screen">
@@ -77,20 +77,20 @@
 <span class="computeroutput">[2, 4, 6, 10, 18, 20, 512, -6]</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/mapping_lists.html#regression.map.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/mapping_lists.html#regression.map.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left"><tt class="function">map</tt> takes a function and a list<sup>[<a name="d0e36079" href="http://www.diveintopython.net/functional_programming/mapping_lists.html#ftn.d0e36079">8</a>]</sup> and returns a new list by calling the function with each element of the list in order.  In this case, the function simply
+<td valign="top" align="left"><tt class="function">map</tt> takes a function and a list<sup>[<a name="d0e36079" href="/functional_programming/mapping_lists.html#ftn.d0e36079">8</a>]</sup> and returns a new list by calling the function with each element of the list in order.  In this case, the function simply
                         multiplies each element by 2.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/mapping_lists.html#regression.map.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/mapping_lists.html#regression.map.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You could accomplish the same thing with a list comprehension.  List comprehensions were first introduced in <span class="application">Python</span> 2.0; <tt class="function">map</tt> has been around forever.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/mapping_lists.html#regression.map.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/mapping_lists.html#regression.map.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">You could, if you insist on thinking like a <span class="application">Visual Basic</span> programmer, use a <tt class="literal">for</tt> loop to accomplish the same thing.
                      </td>
@@ -105,7 +105,7 @@
 <span class="computeroutput">[10, 'aa', (2, 'b', 2, 'b')]</span></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/mapping_lists.html#regression.map.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/mapping_lists.html#regression.map.2.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">As a side note, I'd like to point out that <tt class="function">map</tt> works just as well with lists of mixed datatypes, as long as the function you're using correctly handles each type.  In this
                         case, the <tt class="function">double</tt> function simply multiplies the given argument by 2, and <span class="application">Python</span> Does The Right Thing depending on the datatype of the argument.  For integers, this means actually multiplying it by 2; for
@@ -122,13 +122,13 @@
     moduleNames = map(filenameToModuleName, files)          <a name="regression.map.3.2"></a><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/mapping_lists.html#regression.map.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/mapping_lists.html#regression.map.3.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">As you saw in <a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">Section&nbsp;4.7, &#8220;Using lambda Functions&#8221;</a>, <tt class="literal">lambda</tt> defines an inline function.  And as you saw in <a href="http://www.diveintopython.net/file_handling/os_module.html#splittingpathnames.example" title="Example&nbsp;6.17.&nbsp;Splitting Pathnames">Example&nbsp;6.17, &#8220;Splitting Pathnames&#8221;</a>, <tt class="function">os.path.splitext</tt> takes a filename and returns a tuple <tt class="literal">(<i class="replaceable">name</i>, <i class="replaceable">extension</i>)</tt>.  So <tt class="function">filenameToModuleName</tt> is a function which will take a filename and strip off the file extension, and return just the name.
+<td valign="top" align="left">As you saw in <a href="/power_of_introspection/lambda_functions.html" title="4.7.&nbsp;Using lambda Functions">Section&nbsp;4.7, &#8220;Using lambda Functions&#8221;</a>, <tt class="literal">lambda</tt> defines an inline function.  And as you saw in <a href="/file_handling/os_module.html#splittingpathnames.example" title="Example&nbsp;6.17.&nbsp;Splitting Pathnames">Example&nbsp;6.17, &#8220;Splitting Pathnames&#8221;</a>, <tt class="function">os.path.splitext</tt> takes a filename and returns a tuple <tt class="literal">(<i class="replaceable">name</i>, <i class="replaceable">extension</i>)</tt>.  So <tt class="function">filenameToModuleName</tt> is a function which will take a filename and strip off the file extension, and return just the name.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/functional_programming/mapping_lists.html#regression.map.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/functional_programming/mapping_lists.html#regression.map.3.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Calling <tt class="function">map</tt> takes each filename listed in <tt class="varname">files</tt>, passes it to the function <tt class="function">filenameToModuleName</tt>, and returns a list of the return values of each of those function calls.  In other words, you strip the file extension off
                         of each filename, and store the list of all those stripped filenames in <tt class="varname">moduleNames</tt>.
@@ -143,17 +143,17 @@
 <div class="footnotes">
 <h3 class="footnotetitle">Footnotes</h3>
 <div class="footnote">
-<p><sup>[<a name="ftn.d0e36079" href="http://www.diveintopython.net/functional_programming/mapping_lists.html#d0e36079">8</a>] </sup>Again, I should point out that <tt class="function">map</tt> can take a list, a tuple, or any object that acts like a sequence.  See previous footnote about <tt class="function">filter</tt>.
+<p><sup>[<a name="ftn.d0e36079" href="/functional_programming/mapping_lists.html#d0e36079">8</a>] </sup>Again, I should point out that <tt class="function">map</tt> can take a list, a tuple, or any object that acts like a sequence.  See previous footnote about <tt class="function">filter</tt>.
                </p>
 </div>
 </div>
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/functional_programming/filtering_lists.html">&lt;&lt;&nbsp;Filtering lists revisited</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/functional_programming/index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/functional_programming/summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/functional_programming/filtering_lists.html">&lt;&lt;&nbsp;Filtering lists revisited</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/functional_programming/index.html#regression.divein" title="16.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="/functional_programming/finding_the_path.html" title="16.2.&nbsp;Finding the path">2</a> <span class="divider">|</span> <a href="/functional_programming/filtering_lists.html" title="16.3.&nbsp;Filtering lists revisited">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="/functional_programming/data_centric.html" title="16.5.&nbsp;Data-centric programming">5</a> <span class="divider">|</span> <a href="/functional_programming/dynamic_import.html" title="16.6.&nbsp;Dynamically importing modules">6</a> <span class="divider">|</span> <a href="/functional_programming/all_together.html" title="16.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="/functional_programming/summary.html" title="16.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/functional_programming/data_centric.html">Data-centric programming&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/functional_programming/data_centric.html">Data-centric programming&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>

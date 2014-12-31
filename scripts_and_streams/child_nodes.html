@@ -31,12 +31,12 @@
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="http://www.diveintopython.net/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Finding direct children of a node</span></td>
-<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/caching.html" title="Prev: “Caching node lookups”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/handlers_by_node_type.html" title="Next: “Creating separate handlers by node type”">&gt;&gt;</a></td>
+<td id="breadcrumb" colspan="5" align="left" valign="top">You are here: <a href="/index.html">Home</a>&nbsp;&gt;&nbsp;<a href="/toc/index.html">Dive Into Python</a>&nbsp;&gt;&nbsp;<a href="/scripts_and_streams/index.html">Scripts and Streams</a>&nbsp;&gt;&nbsp;<span class="thispage">Finding direct children of a node</span></td>
+<td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="/scripts_and_streams/caching.html" title="Prev: “Caching node lookups”">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="/scripts_and_streams/handlers_by_node_type.html" title="Next: “Creating separate handlers by node type”">&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3" id="logocontainer">
-<h1 id="logo"><a href="http://www.diveintopython.net/index.html" accesskey="1">Dive Into Python</a></h1>
+<h1 id="logo"><a href="/index.html" accesskey="1">Dive Into Python</a></h1>
 <p id="tagline">Python from novice to pro</p>
 </td>
 <td colspan="3" align="right">
@@ -70,27 +70,27 @@
         <span class="pykeyword">return</span> chosen                              </pre><div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/child_nodes.html#kgp.child.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/child_nodes.html#kgp.child.1.1"><img src="http://www.diveintopython.net/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">As you saw in <a href="http://www.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.gettingchildnodes.example" title="Example&nbsp;9.9.&nbsp;Getting child nodes">Example&nbsp;9.9, &#8220;Getting child nodes&#8221;</a>, the <tt class="function">childNodes</tt> attribute returns a list of all the child nodes of an element.
+<td valign="top" align="left">As you saw in <a href="/xml_processing/parsing_xml.html#kgp.parse.gettingchildnodes.example" title="Example&nbsp;9.9.&nbsp;Getting child nodes">Example&nbsp;9.9, &#8220;Getting child nodes&#8221;</a>, the <tt class="function">childNodes</tt> attribute returns a list of all the child nodes of an element.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/child_nodes.html#kgp.child.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/child_nodes.html#kgp.child.1.2"><img src="http://www.diveintopython.net/images/callouts/2.png" alt="2" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">However, as you saw in <a href="http://www.diveintopython.net/xml_processing/parsing_xml.html#kgp.parse.childnodescanbetext.example" title="Example&nbsp;9.11.&nbsp;Child nodes can be text">Example&nbsp;9.11, &#8220;Child nodes can be text&#8221;</a>, the list returned by <tt class="function">childNodes</tt> contains all different types of nodes, including text nodes.  That's not what you're looking for here.  You only want the
+<td valign="top" align="left">However, as you saw in <a href="/xml_processing/parsing_xml.html#kgp.parse.childnodescanbetext.example" title="Example&nbsp;9.11.&nbsp;Child nodes can be text">Example&nbsp;9.11, &#8220;Child nodes can be text&#8221;</a>, the list returned by <tt class="function">childNodes</tt> contains all different types of nodes, including text nodes.  That's not what you're looking for here.  You only want the
                         children that are elements.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/child_nodes.html#kgp.child.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/child_nodes.html#kgp.child.1.3"><img src="http://www.diveintopython.net/images/callouts/3.png" alt="3" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">Each node has a <tt class="varname">nodeType</tt> attribute, which can be <tt class="literal">ELEMENT_NODE</tt>, <tt class="literal">TEXT_NODE</tt>, <tt class="literal">COMMENT_NODE</tt>, or any number of other values.  The complete list of possible values is in the <tt class="filename">__init__.py</tt> file in the <tt class="classname">xml.dom</tt> package.  (See <a href="http://www.diveintopython.net/xml_processing/packages.html" title="9.2.&nbsp;Packages">Section&nbsp;9.2, &#8220;Packages&#8221;</a> for more on packages.)  But you're just interested in nodes that are elements, so you can filter the list to only include
+<td valign="top" align="left">Each node has a <tt class="varname">nodeType</tt> attribute, which can be <tt class="literal">ELEMENT_NODE</tt>, <tt class="literal">TEXT_NODE</tt>, <tt class="literal">COMMENT_NODE</tt>, or any number of other values.  The complete list of possible values is in the <tt class="filename">__init__.py</tt> file in the <tt class="classname">xml.dom</tt> package.  (See <a href="/xml_processing/packages.html" title="9.2.&nbsp;Packages">Section&nbsp;9.2, &#8220;Packages&#8221;</a> for more on packages.)  But you're just interested in nodes that are elements, so you can filter the list to only include
                         those nodes whose <tt class="varname">nodeType</tt> is <tt class="literal">ELEMENT_NODE</tt>.
                      </td>
 </tr>
 <tr>
-<td width="12" valign="top" align="left"><a href="http://www.diveintopython.net/scripts_and_streams/child_nodes.html#kgp.child.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
+<td width="12" valign="top" align="left"><a href="/scripts_and_streams/child_nodes.html#kgp.child.1.4"><img src="http://www.diveintopython.net/images/callouts/4.png" alt="4" border="0" width="12" height="12" /></a>
 </td>
 <td valign="top" align="left">Once you have a list of actual elements, choosing a random one is easy.  <span class="application">Python</span> comes with a module called <tt class="filename">random</tt> which includes several useful functions.  The <tt class="function">random.choice</tt> function takes a list of any number of items and returns a random item.  For example, if the <tt class="sgmltag-element">ref</tt> elements contains several <tt class="sgmltag-element">p</tt> elements, then <tt class="varname">choices</tt> would be a list of <tt class="sgmltag-element">p</tt> elements, and <tt class="varname">chosen</tt> would end up being assigned exactly one of them, selected at random.
                      </td>
@@ -101,10 +101,10 @@
 </div>
 <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr>
-<td width="35%" align="left"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/scripts_and_streams/caching.html">&lt;&lt;&nbsp;Caching node lookups</a></td>
-<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="http://www.diveintopython.net/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="http://www.diveintopython.net/scripts_and_streams/summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
+<td width="35%" align="left"><br /><a class="NavigationArrow" href="/scripts_and_streams/caching.html">&lt;&lt;&nbsp;Caching node lookups</a></td>
+<td width="30%" align="center"><br />&nbsp;<span class="divider">|</span>&nbsp;<a href="/scripts_and_streams/index.html#kgp.openanything" title="10.1.&nbsp;Abstracting input sources">1</a> <span class="divider">|</span> <a href="/scripts_and_streams/stdin_stdout_stderr.html" title="10.2.&nbsp;Standard input, output, and error">2</a> <span class="divider">|</span> <a href="/scripts_and_streams/caching.html" title="10.3.&nbsp;Caching node lookups">3</a> <span class="divider">|</span> <span class="thispage">4</span> <span class="divider">|</span> <a href="/scripts_and_streams/handlers_by_node_type.html" title="10.5.&nbsp;Creating separate handlers by node type">5</a> <span class="divider">|</span> <a href="/scripts_and_streams/command_line_arguments.html" title="10.6.&nbsp;Handling command-line arguments">6</a> <span class="divider">|</span> <a href="/scripts_and_streams/all_together.html" title="10.7.&nbsp;Putting it all together">7</a> <span class="divider">|</span> <a href="/scripts_and_streams/summary.html" title="10.8.&nbsp;Summary">8</a>&nbsp;<span class="divider">|</span>&nbsp;
             </td>
-<td width="35%" align="right"><br /><a class="NavigationArrow" href="http://www.diveintopython.net/scripts_and_streams/handlers_by_node_type.html">Creating separate handlers by node type&nbsp;&gt;&gt;</a></td>
+<td width="35%" align="right"><br /><a class="NavigationArrow" href="/scripts_and_streams/handlers_by_node_type.html">Creating separate handlers by node type&nbsp;&gt;&gt;</a></td>
 </tr>
 <tr>
 <td colspan="3"><br /></td>
