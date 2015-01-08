@@ -1,0 +1,7 @@
+find . -name \*.html -exec sed -i 's#The Whole <span class="application">Python</span> <span class="acronym">FAQ</span>#<span class="application">Python</span> <span class="acronym">FAQ</span>#g' {} \;
+
+-f /doc/current/lib/string-methods.html https://docs.python.org/2/library/stdtypes.html#string-methods
+-f /doc/current/lib/module-string.html https://docs.python.org/2/library/string.html
+-f /doc/FAQ.html https://docs.python.org/2/faq/
+-f /cgi-bin/faqw.py?query=4.96&querytype=simple&casefold=yes&req=search https://docs.python.org/2/faq/design.html#why-is-join-a-string-method-instead-of-a-list-or-tuple-method
+
