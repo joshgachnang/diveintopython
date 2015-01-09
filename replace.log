@@ -1,3 +1,5 @@
+-f /doc/current/lib/module-sys.html https://docs.python.org/2/library/sys.html
+
 find . -name \*.html -exec sed -i 's#The Whole <span class="application">Python</span> <span class="acronym">FAQ</span>#<span class="application">Python</span> <span class="acronym">FAQ</span>#g' {} \;
 
 -f /doc/current/lib/string-methods.html https://docs.python.org/2/library/stdtypes.html#string-methods
