@@ -1,3 +1,5 @@
+-f /doc/current/lib/module-os.html https://docs.python.org/2/library/os.html#module-os
+-f /doc/current/lib/module-os.path.html https://docs.python.org/2/library/os.path.html
 -f /doc/current/tut/node6.html#SECTION006710000000000000000 https://docs.python.org/2/tutorial/controlflow.html#default-argument-values
 -f /doc/current/lib/module-sys.html https://docs.python.org/2/library/sys.html
 
