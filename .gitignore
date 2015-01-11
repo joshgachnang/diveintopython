@@ -1,5 +1,7 @@
+*.php
 *.swp
 *~
 *.pyc
 .kate-swp
 .idea/
+.commit*
