@@ -75,10 +75,10 @@ def</span> buildConnectionString(params):
          </p>
 <div class="example"><a name="odbchelper.indenting.if"></a><h3 class="title">Example&nbsp;2.6.&nbsp;<tt class="literal">if</tt> Statements
             </h3><pre class="programlisting"><span class="pykeyword">
-def</span> fib(n):                   <a name="odbchelper.indenting.2.1"></a><img src="/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
+def</span> fac(n):                   <a name="odbchelper.indenting.2.1"></a><img src="/images/callouts/1.png" alt="1" border="0" width="12" height="12" />
     <span class="pykeyword">print</span> <span class="pystring">'n ='</span>, n            <a name="odbchelper.indenting.2.2"></a><img src="/images/callouts/2.png" alt="2" border="0" width="12" height="12" />
     <span class="pykeyword">if</span> n &gt; 1:                 <a name="odbchelper.indenting.2.3"></a><img src="/images/callouts/3.png" alt="3" border="0" width="12" height="12" />
-        <span class="pykeyword">return</span> n * fib(n - 1)
+        <span class="pykeyword">return</span> n * fac(n - 1)
     <span class="pykeyword">else</span>:                     <a name="odbchelper.indenting.2.4"></a><img src="/images/callouts/4.png" alt="4" border="0" width="12" height="12" />
         <span class="pykeyword">print</span> <span class="pystring">'end of the line'</span>
         <span class="pykeyword">return</span> 1
@@ -87,7 +87,7 @@ def</span> fib(n):                   <a name="odbchelper.indenting.2.1"></a><img
 <tr>
 <td width="12" valign="top" align="left"><a href="/getting_to_know_python/indenting_code.html#odbchelper.indenting.2.1"><img src="/images/callouts/1.png" alt="1" border="0" width="12" height="12" /></a>
 </td>
-<td valign="top" align="left">This is a function named <tt class="function">fib</tt> that takes one argument, <tt class="varname">n</tt>.  All the code within the function is indented.
+<td valign="top" align="left">This is a function named <tt class="function">fac</tt> that takes one argument, <tt class="varname">n</tt>.  All the code within the function is indented.
                      </td>
 </tr>
 <tr>
@@ -95,7 +95,7 @@ def</span> fib(n):                   <a name="odbchelper.indenting.2.1"></a><img
 </td>
 <td valign="top" align="left">Printing to the screen is very easy in <span class="application">Python</span>, just use <tt class="function">print</tt>.  <tt class="function">print</tt> statements can take any data type, including strings, integers, and other native types like dictionaries and lists that you'll
                         learn about in the next chapter.  You can even mix and match to print several things on one line by using a comma-separated
-                        list of values.  Each value is printed on the same line, separated by spaces (the commas don't print).  So when <tt class="function">fib</tt> is called with <tt class="literal">5</tt>, this will print "n = 5".
+                        list of values.  Each value is printed on the same line, separated by spaces (the commas don't print).  So when <tt class="function">fac</tt> is called with <tt class="literal">5</tt>, this will print "n = 5".
                      </td>
 </tr>
 <tr>
